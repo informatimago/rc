@@ -1,0 +1,35 @@
+comment See doc at: http://www.columbia.edu/kermit/ckermit70.html
+
+set modem hayes
+set file type bin
+set file name lit
+set rec pack 1000
+set send pack 1000
+set window 5
+set prompt Kermit> 
+set hints off
+
+
+
+assign \%r 1
+echo {-----------------------------------------}
+while == \%r 1 {
+   echo {0) Abort.                                   }
+comment   echo {1)    isdn.informatimago.com (via ttyS0).}
+comment   echo {2) larissa.informatimago.com (via ttyS1).}
+   echo {1)    proteus.informatimago.com (via ttyS0).}
+   echo {2)     hubble.informatimago.com (via ttyS1).}
+   echo {9) Other.                                   }
+   echo {                                            }
+   ask \%h {Which host do you want to reach?         }
+   echo {-----------------------------------------}
+   if == \%h 0 exit 1 Aborted upon user request.
+   if == \%h 1 { set line /dev/ttyS0, set speed 115200, assign \%r 0 }
+   if == \%h 2 { set line /dev/ttyS1, set speed 115200, assign \%r 0 }
+   if == \%h 9 { assign \%r 0 }
+}
+if != \%h 9 { set carrier-watch off, connect }
+
+
+
+

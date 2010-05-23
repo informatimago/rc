@@ -1,0 +1,60 @@
+/set novice off
+
+#/nick pjb
+/server irc.freenode.net 
+/sleep 1
+
+
+#/join #mldonkey 
+#/join #MacOSX
+#/join #MOL
+#/join #gnu
+#/join #macdev
+#/join #math 
+#/join #paris-sansfil
+#/join #scsh
+
+/join #SS1-FltData
+/join #SpaceShipOne
+
+/join #ai
+/join #sicp
+/join #scheme
+/join #emacsfr
+/join #emacs
+/join #ucw
+/join #lisp-es
+/join #lisp
+
+# /window new
+# /sleep 1
+# /join #gnustep
+# /sleep 1
+# /join #lfs
+# /sleep 1
+# /join #gentoo
+
+# /window new
+# /window shrink 4
+# /window level crap,wall,wallop,note
+
+/notify bolet
+/notify afb
+
+# /join   #lamanga
+# /topic  #lamanga Discussions sur La Manga del Mar Menor.
+# /join   #maptree
+# /topic  #maptree Discussions sur le developpement de MapTree.
+#/server irc.freenode.net 
+#/server irc.undernet.org
+#/server irc.informatimago.com
+#/server         Paris.FR.EU.Undernet.Org
+#/server         Caen.FR.EU.Undernet.Org
+
+
+
+#/server irc.gnustep.org 
+#/join #gnustep
+
+#/server irc.openprojects.net
+#/join #opencyc
