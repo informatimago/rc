@@ -1,0 +1,24 @@
+# .bash_login
+#
+# bash login shell startup file.
+#
+# This file is not read by bash when .bash_profile exists!
+#
+
+
+# Get the aliases and functions
+
+# SuSE 7.x /etc/profile does this for us.
+#if [ -f ~/.bashrc ]; then
+#    echo from bash_login
+#	. ~/.bashrc
+#fi
+
+# I don't want the non-interactive shells to run .bashrc, 
+# which is for interactive shell initialization.
+#
+# For now, let them inherit the environment of the invoking shell.
+#
+export BASH_ENV=""
+
+#END#

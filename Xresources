@@ -1,0 +1,935 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!         Pascal Bourguignon s .Xresource file           !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+!! ! ------
+!! ! XEmacs
+!! ! ------
+!!
+!! XEmacs.geometry:                  81x32-68+4
+!! XEmacs.font:                      -*-courier-medium-r-normal-*-*-*-*-*-*-*-*-*
+!! XEmacs.bold.attributeFont:        -*-courier-bold-r-normal-*-*-*-*-*-*-*-*-*
+!! XEmacs.bold-italic.attributeFont: -*-courier-bold-i-normal-*-*-*-*-*-*-*-*-*
+!! XEmacs.italic.attributeFont:      -*-courier-medium-i-normal-*-*-*-*-*-*-*-*-*
+
+
+!! ! -------------
+!! ! emacs, xemacs
+!! ! -------------
+!!
+!! 
+emacs.geometry:                             81x71-68+0
+emacs.dialog*.background:                   LightBlue1
+emacs*pane.background:                      LightBlue1
+emacs*menu*background:                      LightBlue1
+emacs*menubar*background:                   LightBlue1
+emacs*verticalScrollBar.background:         LightBlue1
+emacs*verticalScrollBar.throughColor:       LightBlue3
+emacs*background:                           LightBlue1
+emacs*foreground:                           DarkSlateBlue
+emacs*pointerColor:                         Black
+emacs*cursorColor:                          Red
+emacs*bitmapIcon:                           off
+
+emacs.font:         6x12
+emacs.menu.font:    6x12
+!! emacs.font:      fixed
+!! emacs.font:      -*-courier-medium-r-normal-*-12-*-*-*-*-*-*-*
+
+!! BEGIN intlfonts setup
+!! By default, use 16 dots fonts
+!! Emacs.Font: fontset-16
+Emacs.Fontset-0: -etl-*-medium-r-normal-*-14-*-*-*-*-*-fontset-14
+Emacs.Fontset-1: -etl-*-medium-r-normal-*-16-*-*-*-*-*-fontset-16
+Emacs.Fontset-2: -etl-*-medium-r-normal-*-18-*-*-*-*-*-fontset-18
+Emacs.Fontset-3: -etl-*-medium-r-normal-*-24-*-*-*-*-*-fontset-24
+!! END intlfonts setup
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! pvs
+
+pvs*Background:                 #eeddaa
+pvs*Foreground:                 #226633
+pvs*pointerColor:               #000000
+pvs*cursorColor:                #0000ff
+pvs*bitmapIcon:                 off
+
+pvs*font:                       7x14
+pvs.geometry:                   84x32-64+4 
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!
+!! xterm (and friends)
+!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+xterm*eightBitInput:            false
+xterm*eightBitOutput:           true
+
+!! -----------------------------
+!! Main Options Menu:
+!! -----------------------------
+xterm*eightBitControl:          false
+xterm*backarrowKey:             false
+xterm*numLock:                  true
+xterm*altSendsEscape:           true
+xterm*metaSendsEscape:          true
+xterm*deleteIsDEL:              true
+xterm*oldFunctionKeys:          false
+xterm*hpFunctionKeys:           false
+xterm*scoFunctionKeys:          false
+xterm*sunFunctionKeys:          false
+
+
+!! -----------------------------
+!! VT Options Menu:
+!! -----------------------------
+xterm*scrollBar:                true
+xterm*scrollBarBorder:		    1
+xterm*jumpScroll:               true
+xterm*reverseVideo:             false
+xterm*autoWrap:                 true
+xterm*reverseWrap:              true
+xterm*appcursorDefault:         false
+xterm*appkeypadDefault:         false
+xterm*scrollKey:                true
+xterm*scrollTtyOutput:          false
+xterm*c132:         	        true
+xterm*selectToClipboard:        true
+xterm*visualBell:               false
+xterm*popOnBell:                false
+xterm*marginBell:               false
+xterm*cursorBlink:              true
+xterm*titeInhibit:              false
+xterm*activeIcon:               false
+
+!! -----------------------------
+!! VT Font Menu:
+!! -----------------------------
+xterm*Font:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+
+xterm*font1:   -*-lucidatypewriter-medium-r-normal-*-8-*-*-*-m-*-*-*
+xterm*font2:   -*-lucidatypewriter-medium-r-normal-*-10-*-*-*-m-*-*-*
+xterm*font3:   -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+xterm*font4:   -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
+xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
+xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
+xterm*font7:   -*-lucidatypewriter-medium-r-normal-*-24-*-*-*-m-*-*-*
+
+xterm*font1.Label: lycidatypewriter-8
+xterm*font2.Label: lycidatypewriter-10
+xterm*font3.Label: lycidatypewriter-12
+xterm*font4.Label: lycidatypewriter-14
+xterm*font5.Label: lycidatypewriter-16
+xterm*font6.Label: lycidatypewriter-18
+xterm*font7.Label: lycidatypewriter-24
+
+
+! xterm*font1.Label: courier-10
+! xterm*font2.Label: courier-12
+! xterm*font3.Label: courier-14
+! xterm*font4.Label: courier-18
+! xterm*font5.Label: courier-24
+! xterm*font6.Label: courier-34
+
+! xterm*font1:   -*-courier-medium-r-normal-*-10-*-*-*-*-*-*-*
+! xterm*font2:   -*-courier-medium-r-normal-*-12-*-*-*-*-*-*-*
+! xterm*font3:   -*-courier-medium-r-normal-*-14-*-*-*-*-*-*-*
+! xterm*font4:   -*-courier-medium-r-normal-*-18-*-*-*-*-*-*-*
+! xterm*font5:   -*-courier-medium-r-normal-*-24-*-*-*-*-*-*-*
+! xterm*font6:   -*-courier-medium-r-normal-*-34-*-*-*-*-*-*-*
+
+
+!! -----------------------------
+!! Xterm other options:
+!! -----------------------------
+
+xterm*saveLines:                1500
+xterm*highlightSelection:       true
+xterm*ptyInitialErase:          false
+xterm*background:               black
+xterm*foreground:               green
+xterm*SimpleMenu.background:	#333333
+xterm*SimpleMenu.foreground:	green
+
+
+
+xterm.VT100*colorMode:          on
+xterm.VT100*dynamicColors:      on
+xterm.VT100*underLine:          on
+xterm.VT100*colorBDMode:        off
+xterm.VT100*colorBD:            blue
+xterm.VT100*colorULMode:        off
+xterm.VT100*colorUL:            magenta
+
+
+xterm*vt100.translations: #override\n\
+	Mod2 <Key>Prior:      scroll-back(1,page) \n\
+	Mod2 <Key>Next:       scroll-forw(1,page) \n\
+	Mod2<KeyPress>Prior:  scroll-back(1,page) \n\
+	Mod2<KeyPress>Next:   scroll-forw(1,page)
+
+!xterm*vt100.translations: #override \
+!        <Key>Home:      string("ESC[1~") \n\
+!        <Key>Insert:    string("ESC[2~") \n\
+!        <Key>BackSpace: string("ESC[3~") \n\
+!        <Key>End:       string("ESC[4~")
+
+! xterm*vt100.translations: #override\n\
+! 	<Key>Prior:           scroll-back(1,page) \n\
+! 	<Key>Next:            scroll-forw(1,page) \n\
+! 	Mod2 <Key>Prior:      scroll-back(1,page) \n\
+! 	Mod2 <Key>Next:       scroll-forw(1,page) \n\
+! 	<KeyPress>Prior:      scroll-back(1,page) \n\
+! 	<KeyPress>Next:       scroll-forw(1,page) \n\
+! 	Mod2 <KeyPress>Prior: scroll-back(1,page) \n\
+! 	Mod2 <KeyPress>Next:  scroll-forw(1,page)
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! xconsole
+XConsole*Background: #ffdddd
+XConsole*Foreground: #440044
+XConsole*font:       fixed
+XConsole*geometry:   700x100+4+4
+! Always | Never | WhenNeeded
+XConsole*text.scrollVertical:   Always
+XConsole*text.scrollHorizontal: Always
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! GVim great Colors.
+Vim*background:	black
+Vim*foreground:	lightyellow
+Vim*font:		-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-15-*5
+Vim*geometry:	88x35
+Vim*menuBackground: black
+Vim*menuForeground: moccasin
+! set for BLACK_BG_XTERMS
+*VT100*colorBD: 	white
+*VT100*colorUL: 	yellow
+
+
+
+
+! ! Please email <gjb@cs.duke.edu> if you have a better
+! ! way of introducing a newline into a macro expansion
+! ! I get the NL by including an extra argument to the macro for which
+! ! I always use a literal newline as the argument
+! #define FontAndLabel(cFont,sz,NL,lbl) \
+! xterm*VT100*font/**/cFont/**/: sz/**/NL \
+! xterm*fontMenu*font/**/cFont/**/*Label: lbl (/**/sz/**/)NL 
+
+
+! #ifdef SMALL_SCREEN
+
+! !!!!!!!!!!!!!!!!!!!!!!!
+! !! Small Screen Fonts
+
+! *SimpleMenu*font: *helvetica*r*normal*10*
+! XDvi*font: *helvetica*r*normal*10*
+! FontAndLabel(1,5x7,
+! ,Micro)
+! FontAndLabel(2,5x8,
+! ,Tiny)
+! FontAndLabel(3,6x9,
+! ,Small)
+! FontAndLabel(4,7x13,
+! ,Medium)
+! FontAndLabel(5,9x15,
+! ,Large)
+! FontAndLabel(6,10x20,
+! ,Huge)
+! FontAndLabel(7,8x16,
+! ,Alternate Large)
+
+! #else
+
+! !!!!!!!!!!!!!!!!!!!!!!!
+! !! Big Screen Fonts
+
+! *SimpleMenu*font: *helvetica*r*normal*12*
+! XDvi*font: *helvetica*r*normal*12*
+! FontAndLabel(1,5x7,
+! ,Micro)
+! FontAndLabel(2,5x8,
+! ,Tiny)
+! FontAndLabel(3,6x10,
+! ,Small)
+! FontAndLabel(4,fixed,
+! ,Medium)
+! FontAndLabel(5,9x15,
+! ,Large)
+! FontAndLabel(6,10x20,
+! ,Very Large)
+! FontAndLabel(7,12x24,
+! ,Huge)
+
+! #endif
+
+
+
+
+!xosview formats: percent, bytes, or float
+xosview*labels: True
+xosview*meterLabelColor:  wheat
+xosview*usedlabels:       True
+xosview*usedLabelColor:   orange
+xosview*borderwidth:      0
+xosview*font:             7x13bold
+xosview*background:       navy
+xosview*foreground:       wheat
+xosview*enableStipple: False
+xosview*load: True
+xosview*loadWarnColor:    red
+xosview*loadProcColor:    orange
+xosview*loadIdleColor:    aquamarine
+xosview*loadPriority:     50
+xosview*loadAlarmThreshold: 2
+xosview*loadDecay: False
+xosview*loadUsedFormat: float
+xosview*cpu: True
+xosview*cpuUserColor:       seagreen
+xosview*cpuNiceColor:       yellow
+xosview*cpuSystemColor:     orange
+xosview*cpuInterruptColor : red
+xosview*cpuFreeColor:       aquamarine
+xosview*cpuPriority:        1
+xosview*cpuDecay:           True
+xosview*cpuUsedFormat: percent
+xosview*mem: True
+xosview*memUsedColor:     seagreen
+xosview*memSharedColor:   SkyBlue
+xosview*memBufferColor:   orange
+xosview*memCacheColor:    red
+xosview*memFreeColor:     aquamarine
+xosview*memTextColor:     blue
+xosview*memOtherColor:    orange
+xosview*memActiveColor: True
+xosview*memInactiveColor: lightblue
+xosview*memPriority:      10
+xosview*memDecay:         False
+!xosview*memUsedFormat: bytes
+xosview*swap: True
+xosview*swapUsedColor:    seagreen
+xosview*swapFreeColor:    aquamarine
+xosview*swapPriority:     10
+xosview*swapDecay:        False
+!xosview*swapUsedFormat: bytes
+xosview*page:           True
+xosview*pageBandwidth:  120
+xosview*pageInColor:    seagreen
+xosview*pageOutColor:   red
+xosview*pageIdleColor:  aquamarine
+xosview*pagePriority:   5
+xosview*pageDecay:      True
+xosview*pageUsedFormat: autoscale
+xosview*net:              True
+xosview*netBandwidth:     5000
+xosview*netInColor:       seagreen
+xosview*netOutColor:      red
+xosview*netBackground:    aquamarine
+xosview*netPriority:      2
+xosview*netDecay:         True
+xosview*netUsedFormat:    percent
+xosview*serial0: True
+xosview*serial1: True
+xosview*serial2: False
+xosview*serial3: False
+xosview*serial4: False
+xosview*serial5: False
+xosview*serial6: False
+xosview*serial7: False
+xosview*serial8: False
+xosview*serial9: False
+xosview*serialOnColor:    red
+xosview*serialOffColor:   aquamarine
+
+gv*background: #fff
+! #eeeebb
+
+lavaps*geometry:        68x68-0+168
+lavaps*shaped:          false
+lavaps*checkInterval:   1000
+
+
+! Generic athena widget font selection
+
+*Text.Font:		    	-*-lucidatypewriter-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+*Label.Font:			-*-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+*Command.Font:			-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*SimpleMenu.Font:		-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*SmeBSB.Font:			-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*MenuButton.Font:		-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*List.Font:		    	-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+
+
+!/*
+!                            COPYRIGHT
+!
+!  PCB, interactive printed circuit board design
+!  Copyright (C) 1994,1995,1996 Thomas Nau
+!
+!  This program is free software; you can redistribute it and/or modify
+!  it under the terms of the GNU General Public License as published by
+!  the Free Software Foundation; either version 2 of the License, or
+!  (at your option) any later version.
+!
+!  This program is distributed in the hope that it will be useful,
+!  but WITHOUT ANY WARRANTY; without even the implied warranty of
+!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!  GNU General Public License for more details.
+!
+!  You should have received a copy of the GNU General Public License
+!  along with this program; if not, write to the Free Software
+!  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+!
+!  Contact addresses for paper mail and Email:
+!  Thomas Nau, Schlehenweg 15, 88471 Baustetten, Germany
+!  Thomas.Nau@rz.uni-ulm.de
+!
+!  RCS: $Id: .Xresources,v 1.6 2006/11/24 04:51:40 pupjb Exp $
+!*/
+
+!---------------------------------------------------------------------------
+! resources as defined by pcb
+!
+pcb.absoluteGrid:           On
+pcb.alignmentDistance:      200
+pcb.allDirectionLines:      Off
+pcb.apertureCommand:        M4PATH='%p';export M4PATH;echo 'include(%f)' | m4
+pcb.aperturePath:           .:/usr/X11R6/lib/X11/pcb
+pcb.backupInterval:         60
+pcb.charactersPerLine:      78
+pcb.connectedColor:         green
+pcb.crosshairColor:         red
+pcb.crossColor:             yellow
+pcb.elementColor:           black
+pcb.elementSelectedColor:   cyan
+pcb.elementCommand:         M4PATH='%p';export M4PATH;echo 'include(%f)' | m4
+pcb.elementPath:            .:packages:circuits:/usr/X11R6/lib/X11/pcb:/usr/X11R6/lib/X11/pcb/circuits:/usr/X11R6/lib/X11/pcb/packages
+pcb.fileCommand:            cat '%f'
+pcb.filePath:               .
+pcb.fontCommand:            M4PATH='%p';export M4PATH;echo 'include(%f)' | m4
+pcb.fontFile:               default_font
+pcb.fontPath:               .:/usr/X11R6/lib/X11/pcb
+pcb.grid:                   10
+pcb.gridColor:              red
+pcb.warnColor:              hot pink
+pcb.invertedFrameWidth:     500
+pcb.invisibleObjectsColor:  gray80
+pcb.layerColor1:            RoyalBlue3
+pcb.layerColor2:            DodgerBlue4
+pcb.layerColor3:            burlywood4
+pcb.layerColor4:            brown4
+pcb.layerColor5:            PaleGreen4
+pcb.layerColor6:            OrangeRed3
+pcb.layerColor7:            turquoise4
+pcb.layerColor8:            forest green
+pcb.layerGroups:            1,2,3,s:4,5,6,c:7:8
+pcb.layerName1:             solder
+pcb.layerName2:             GND-sldr
+pcb.layerName3:             Vcc-sldr
+pcb.layerName4:             component
+pcb.layerName5:             GND-comp
+pcb.layerName6:             Vcc-comp
+pcb.layerName7:             unused
+pcb.layerName8:             unused
+pcb.layerSelectedColor1:    cyan
+pcb.layerSelectedColor2:    cyan
+pcb.layerSelectedColor3:    cyan
+pcb.layerSelectedColor4:    cyan
+pcb.layerSelectedColor5:    cyan
+pcb.layerSelectedColor6:    cyan
+pcb.layerSelectedColor7:    cyan
+pcb.layerSelectedColor8:    cyan
+pcb.libraryCommand:         /usr/X11R6/lib/X11/pcb/QueryLibrary.sh '%p' '%f' %a
+pcb.libraryContentsCommand: /usr/X11R6/lib/X11/pcb/ListLibraryContents.sh '%p' '%f'
+pcb.libraryFilename:        pcblib
+pcb.libraryPath:            .:/usr/X11R6/lib/X11/pcb
+pcb.lineThickness:          10
+pcb.media:                  a4
+pcb.offLimitColor:          gray80
+pcb.pinColor:               gray30
+pcb.pinSelectedColor:       cyan
+pcb.pinoutFont0:            -*-courier-bold-r-*-*-24-*-*-*-*-*-*-*
+pcb.pinoutFont1:            -*-courier-bold-r-*-*-12-*-*-*-*-*-*-*
+pcb.pinoutFont2:            -*-courier-bold-r-*-*-8-*-*-*-*-*-*-*
+pcb.pinoutFont3:            -*-courier-bold-r-*-*-4-*-*-*-*-*-*-*
+pcb.pinoutFont4:            -*-courier-bold-r-*-*-2-*-*-*-*-*-*-*
+pcb.pinoutNameLength:       8
+pcb.pinoutOffsetX:          100
+pcb.pinoutOffsetY:          100
+pcb.pinoutTextOffsetX:      50
+pcb.pinoutTextOffsetY:      0
+pcb.pinoutZoom:             2
+pcb.printFile:             %f.output
+pcb.raiseLogWindow:         On
+pcb.resetAfterElement:      On
+pcb.ringBellWhenFinished:   Off
+pcb.routeStyles:	    Signal,10,40,20:Power,25,60,35:Fat,40,60,35:Skinny,8,36,20
+pcb.saveCommand:            cat - > '%f'
+pcb.saveInTMP:              Off
+pcb.saveLastCommand:        Off
+pcb.size:                   6000x5000
+pcb.stipplePolygons:        Off
+pcb.textScale:              100
+pcb.useLogWindow:           On
+pcb.viaColor:               gray50
+pcb.viaSelectedColor:       cyan
+pcb.viaThickness:           60
+pcb.viaDrillingHole:        28
+pcb.volume:                 100
+pcb.zoom:                   3
+pcb.Bloat:		    7
+pcb.Shrink:		    5
+
+!---------------------------------------------------------------------------
+! resources that are common to all 'subwindows'
+!
+pcb*Command.highlightThickness:        2
+!pcb*Command.shapeStyle:                oval
+pcb*defaultButton.borderWidth:         2
+pcb*defaultButton.highlightThickness:  3
+!pcb*font:                              -*-courier-bold-r-*-*-14-*-*-*-*-*-*-*
+pcb*Label.borderWidth:                 0
+pcb*Label.justify:                     center
+!pcb*MenuButton.shapeStyle:             oval
+pcb*MenuButton.resizable:              on
+pcb*SimpleMenu*justify:                left
+pcb*Toggle.borderWidth:                1
+pcb*selector*List.verticalList:        On
+pcb*selector.height:                   240
+pcb*selector.width:                    180
+pcb*horizDistance:                     2
+pcb*defaultButton.accelerators:  #override \
+  <Key>Return:            set() notify() unset() \n
+pcb*cancelButton.accelerators:  #override \
+  <Key>Escape:            set() notify() unset() \n
+
+!---------------------------------------------------------------------------
+! toplevel shell resources
+!
+pcb.baseTranslations: #override \
+  <Message>WM_PROTOCOLS:   Quit() \n
+
+!---------------------------------------------------------------------------
+! resources used by control panel
+!
+pcb*controlMasterForm*font:             -*-courier-bold-r-*-*-12-*-*-*-*-*-*-*
+pcb*controlMasterForm*borderWidth:            0
+pcb*controlMasterForm*Label.width:            70
+pcb*controlMasterForm*MenuButton.resizable:   off
+pcb*controlMasterForm*MenuButton.shapeStyle:  rectangle
+pcb*controlMasterForm*MenuButton.width:       70
+pcb*controlMasterForm*MenuButton.borderWidth: 1  
+pcb*controlMasterForm*Toggle.width:           70
+pcb*controlMasterForm*Toggle.borderWidth:     1
+
+!---------------------------------------------------------------------------
+! resources used by the file select box
+!
+pcb*fileselectMasterForm*current.vertDistance: 20
+pcb*fileselectMasterForm*input.width:          366
+pcb*fileselectMasterForm*input*background:     gray90
+
+pcb*fileselectMasterForm.defaultButton.accelerators:  #override \
+  <Key>Return:   set() notify() unset() \n\
+  <Btn1Up>(2):   set() notify() unset() \n
+
+!---------------------------------------------------------------------------
+! resources used by the size select box
+!
+pcb*sizeMasterForm*Label.vertDistance:    10
+
+!---------------------------------------------------------------------------
+! resources used by the menus
+!
+pcb*header.foreground:    red
+
+!---------------------------------------------------------------------------
+! resources of the library window
+!
+pcb*library.iconic:		true
+pcb.library.geometry:         750x250
+pcb.library*type*foreground:  red
+pcb.library.baseTranslations: #override \
+  <Message>WM_PROTOCOLS:  Bell() \n
+
+pcb*libraryMasterForm*List.baseTranslations: #replace \
+  <Btn1Down>,<Btn1Up>:    Set() \n\
+  <Btn1Up>(2):            Set() Notify() Unset() \n
+
+
+!---------------------------------------------------------------------------
+! resources of the logging window
+!
+pcb*log.iconic:           true
+pcb.log.geometry:         600x200
+pcb.log.baseTranslations: #override \
+  <Message>WM_PROTOCOLS:   Bell() \n
+
+!---------------------------------------------------------------------------
+! resources of the print selection window
+!
+pcb*printMasterForm*Command.width:        100
+pcb*printMasterForm*comment.vertDistance: 20
+pcb*printMasterForm*input.width:          150
+pcb*printMasterForm*Panner.background:    gray90
+pcb*printMasterForm*Toggle.width:         150
+
+!---------------------------------------------------------------------------
+! resources of the layer-group edit window
+!
+pcb*layerGroupMasterForm*comment.width:             150
+pcb*layerGroupMasterForm*comment.justify:           left
+pcb*layerGroupMasterForm*groupNumber.horizDistance: 6
+pcb*layerGroupMasterForm*groupNumber.width:         20
+pcb*layerGroupMasterForm*layerGroup.width:          150
+pcb*layerGroupMasterForm*layerName.justify:         left
+pcb*layerGroupMasterForm*layerName.width:           150
+pcb*layerGroupMasterForm*Toggle.width:              20
+
+!---------------------------------------------------------------------------
+! resources of the pinout window
+!
+pcb*pinoutMasterForm*viewport.height:  240
+pcb*pinoutMasterForm*viewport.width:   320
+
+pcb*pinoutMasterForm.dismiss.accelerators: #override \
+  <Message>WM_PROTOCOLS:  set() notify() unset() \n
+
+pcb*pinoutMasterForm.viewport.horizontal.accelerators: #override \
+  !Mod1 Ctrl<Key>Left:    StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  !Mod1 Ctrl<Key>Right:   StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n
+
+pcb*pinoutMasterForm.viewport.vertical.accelerators: #override \
+  !Mod1 Ctrl<Key>Up:      StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  !Mod1 Ctrl<Key>Down:    StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n
+
+!---------------------------------------------------------------------------
+! resources used by the top menu buttons
+!
+pcb.masterForm.Command.baseTranslations: #override \
+  <Btn1Down>:  set() notify() \n\
+  <Btn1Up>:    unset() \n
+
+!---------------------------------------------------------------------------
+! resources used by statuslines and input field
+!
+pcb.masterForm*cursorPosition.justify:   center
+pcb.masterForm*cursorPosition.width:     200
+pcb.masterForm*inputField*borderWidth:   0
+pcb.masterForm*messageText.foreground:   red
+pcb.masterForm*messageText.justify:      left
+pcb.masterForm*statusLine.justify:       left
+
+!---------------------------------------------------------------------------
+! resources used by the mode-selection area
+!
+pcb.masterForm.Toggle.horizDistance:        6
+pcb.masterForm.Toggle.vertDistance:         5
+pcb.masterForm.lineIcon.vertDistance:       4
+pcb.masterForm.rectangleIcon.vertDistance:  4
+pcb.masterForm.viaIcon.vertDistance:        4
+pcb.masterForm.textIcon.vertDistance:       4
+pcb.masterForm.polygonIcon.vertDistance:    4
+pcb.masterForm.bufferIcon.vertDistance:     4
+pcb.masterForm.removeIcon.vertDistance:     4
+pcb.masterForm.rotateIcon.vertDistance:     4
+pcb.masterForm.insertPointIcon.vertDistance:4
+pcb.masterForm.thermalIcon.vertDistance:    4
+
+!---------------------------------------------------------------------------
+! resources used by the output area
+!
+pcb.masterForm*output*background:        gray95
+pcb.masterForm.viewport.height:          600
+pcb.masterForm.viewport.width:           900
+
+pcb.masterForm.viewport.horizontal.accelerators: #override \
+  !Mod1 Ctrl<Key>Left:    StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  None<Key>KP_4:	    StartScroll(Backward) \
+			    NotifyScroll(FullLength) \
+			    EndScroll() \n\
+  !Mod1 Ctrl<Key>Right:   StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  None<Key>KP_6:	    StartScroll(Forward) \
+			    NotifyScroll(FullLength) \
+			    EndScroll() \n
+
+pcb.masterForm.viewport.horizontal.baseTranslations: #override \
+  <Btn2Down>:               StartScroll(Continuos) MoveThumb() \n\
+  <Btn2Motion>:             MoveThumb() \n\
+  <Btn2Up>:                 NotifyThumb() \n
+
+pcb.masterForm.viewport.vertical.accelerators: #override \
+  !Mod1 Ctrl<Key>Up:      StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  None<Key>KP_8:	    StartScroll(Backward) \
+			    NotifyScroll(FullLength) \
+			    EndScroll() \n\
+  !Mod1 Ctrl<Key>Down:    StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
+  None<Key>KP_2:	    StartScroll(Forward) \
+			    NotifyScroll(FullLength) \
+			    EndScroll() \n
+
+pcb.masterForm.viewport.vertical.baseTranslations: #override \
+  <Btn2Down>:             StartScroll(Continuos) \
+                          MoveThumb() \n\
+  <Btn2Motion>:           MoveThumb() \n\
+  <Btn2Up>:               NotifyThumb() \n
+
+!---------------------------------------------------------------------------
+! translations of the output area
+!
+pcb.masterForm*output.baseTranslations:   #override \
+  <Key>Escape:          Mode(None) \n\
+  <Key>space:           Mode(Cycle) \n\
+  <Key>colon:           Command() \n\
+  !Shift<Key>BackSpace: Atomic(Save) \
+			Connection(Reset) \
+			Atomic(Restore) \
+                        Unselect(All) \
+			Atomic(Restore) \
+                        Connection(Find) \
+			Atomic(Restore) \
+                        Select(Connection) \
+			Atomic(Restore) \
+                        RemoveSelected() \
+			Atomic(Restore) \
+			Connection(Reset) \
+			Atomic(Restore) \
+			Unselect(All) \
+			Atomic(Block) \n\
+  !Shift<Key>Delete:	Atomic(Save) \
+			Connection(Reset) \
+			Atomic(Restore) \
+                        Unselect(All) \
+			Atomic(Restore) \
+                        Connection(Find) \
+			Atomic(Restore) \
+                        Select(Connection) \
+			Atomic(Restore) \
+                        RemoveSelected() \
+			Atomic(Restore) \
+			Connection(Reset) \
+			Atomic(Restore) \
+			Unselect(All) \
+			Atomic(Block) \n\
+  None<Key>BackSpace:   Mode(Save) \
+                        Mode(Remove) \
+                        Mode(Notify) \
+                        Mode(Restore) \n\
+  None<Key>Delete:	Mode(Save) \
+			Mode(Remove) \
+			Mode(Notify) \
+			Mode(Restore) \n\
+  None<Key>Insert:      Mode(InsertPoint) \n\
+  None<Key>Tab:         SwapSides() \n\
+  \
+  None<Key>1: SwitchDrawingLayer(1) \n\
+  None<Key>2: SwitchDrawingLayer(2) \n\
+  None<Key>3: SwitchDrawingLayer(3) \n\
+  None<Key>4: SwitchDrawingLayer(4) \n\
+  None<Key>5: SwitchDrawingLayer(5) \n\
+  None<Key>6: SwitchDrawingLayer(6) \n\
+  None<Key>7: SwitchDrawingLayer(7) \n\
+  None<Key>8: SwitchDrawingLayer(8) \n\
+  \
+  !Ctrl<Key>1: RouteStyle(1) \n\
+  !Ctrl<Key>2: RouteStyle(2) \n\
+  !Ctrl<Key>3: RouteStyle(3) \n\
+  !Ctrl<Key>4: RouteStyle(4) \n\
+  \
+  !Mod1<Key>a:	Select(All) \n\
+  !Shift Mod1<Key>a:	Unselect(All) \n\
+  None<Key>c:          Display(Center) \n\
+  !Mod1<Key>c:       PasteBuffer(Clear) \
+                       PasteBuffer(AddSelected) \
+                       Unselect(All) \n\
+  None<Key>d:          Display(PinOrPadName) \n\
+  !Shift<Key>d:        Display(Pinout) \n\
+  None<Key>e:          DeleteRats(AllRats) \n\
+  !Shift<Key>e:        DeleteRats(SelectedRats) \n\
+  None<Key>f:          Connection(Find) \n\
+  !Shift<Key>f:        Connection(Reset) \n\
+  None<Key>g:          SetValue(Grid, +5) \n\
+  !Shift<Key>g:        SetValue(Grid, -5) \n\
+  None<Key>h:          ToggleHideName(Object) \n\
+  !Shift<Key>h:        ToggleHideName(SelectedElements) \n\
+  !Ctrl<Key>h:         ChangeHole(ToggleObject) \n\
+  None<Key>l:          SetValue(LineSize, +5) \n\
+  !Shift<Key>l:        SetValue(LineSize, -5) \n\
+  None<Key>m:          MoveToCurrentLayer(Object) \n\
+  !Shift<Key>m:        MoveToCurrentLayer(SelectedObjects) \n\
+  !Ctrl<Key>m:         MarkCrosshair() \n\
+  None<Key>n:          ChangeName(Object) \n\
+  None<Key>o:          Atomic(Save) \
+		       DeleteRats(AllRats) \
+		       Atomic(Restore) \
+                       AddRats(AllRats) \
+		       Atomic(Block) \n\
+  !Shift<Key>o:        Atomic(Save) \
+		       DeleteRats(AllRats) \
+		       Atomic(Restore) \
+                       AddRats(SelectedRats) \
+		       Atomic(Block) \n\
+  !Ctrl<Key>o:         ChangeOctagon(Object) \n\
+  None<Key>p:          Polygon(PreviousPoint) \n\
+  !Shift<Key>p:        Polygon(Close) \n\
+  None<Key>q:          ChangeSquare(ToggleObject) \n\
+  None<Key>r:          Display(ClearAndRedraw) \n\
+  !Shift<Key>r:        Redo() \n\
+  !Ctrl<Key>r:         Report(Object) \n\
+  None<Key>s:          ChangeSize(Object, +5) \n\
+  !Shift<Key>s:        ChangeSize(Object, -5) \n\
+  !Mod1<Key>s:       ChangeDrillSize(Object, +5) \n\
+  !Mod1 Shift<Key>s: ChangeDrillSize(Object, -5) \n\
+  None<Key>u:          Undo() \n\
+  !Shift Ctrl<Key>u:   Undo(ClearList) \n\
+  None<Key>v:          SetValue(ViaSize, +5) \n\
+  !Shift<Key>v:        SetValue(ViaSize, -5) \n\
+  !Mod1<Key>v:       SetValue(ViaDrillingHole, +5) \n\
+  !Mod1 Shift<Key>v: SetValue(ViaDrillingHole, -5) \n\
+  None<Key>w:          AddRats(AllRats) \n\
+  !Shift<Key>w:        AddRats(SelectedRats) \n\
+  !Ctrl<Key>x:         PasteBuffer(Clear) \
+                       PasteBuffer(AddSelected) \
+                       Mode(PasteBuffer) \n\
+  !Shift Ctrl<Key>x:   PasteBuffer(Clear) \
+                       PasteBuffer(AddSelected) \
+                       RemoveSelected() \
+                       Mode(PasteBuffer) \n\
+  !Mod1<Key>x:       PasteBuffer(Clear) \
+                       PasteBuffer(AddSelected) \
+                       RemoveSelected() \n\
+  None<Key>z:          SetValue(Zoom, -1) \n\
+  !Shift<Key>z:        SetValue(Zoom, +1) \n\
+  !Mod1<Key>z:       Undo() \n\
+  None<Key>.:          Display(Toggle45Degree) \n\
+  None<Key>/:          Display(CycleClip) \n\
+  \
+  !Shift<Key>1: PasteBuffer(1) \n\
+  !Shift<Key>2: PasteBuffer(2) \n\
+  !Shift<Key>3: PasteBuffer(3) \n\
+  !Shift<Key>4: PasteBuffer(4) \n\
+  !Shift<Key>5: PasteBuffer(5) \n\
+  \
+  None<Key>Up:      MovePointer(0, -1) \n\
+  !Shift<Key>Up:    MovePointer(0, -10) \n\
+  None<Key>Down:    MovePointer(0, 1) \n\
+  !Shift<Key>Down:  MovePointer(0, 10) \n\
+  None<Key>Right:   MovePointer(1, 0) \n\
+  !Shift<Key>Right: MovePointer(10, 0) \n\
+  None<Key>Left:    MovePointer(-1, 0) \n\
+  !Shift<Key>Left:  MovePointer(-10, 0) \n\
+  \
+  None<Key>F1:   Mode(Via) \n\
+  None<Key>F2:   Mode(Line) \n\
+  None<Key>F3:   Mode(PasteBuffer) \n\
+  !Shift<Key>F3: PasteBuffer(Rotate, 1) \n\
+  None<Key>F4:   Mode(Rectangle) \n\
+  None<Key>F5:   Mode(Text) \n\
+  None<Key>F6:   Mode(Polygon) \n\
+  None<Key>F7:   Mode(Thermal) \n\
+  None<Key>F8:   Mode(Arc) \n\
+  None<Key>F9:	Mode(Rotate) \n\
+  \
+  None<Key>[:	Mode(Save) \
+		Mode(Move) \
+		Mode(Notify) \n\
+  None<Key>]:	Mode(Notify) \
+		Mode(Restore) \n\
+  \
+  None<Btn1Down>:        Mode(Notify) \n\
+  !Shift<Btn1Down>:      Mode(Notify) \n\
+  !Ctrl<Btn1Down>:       Mode(Save) \
+			 Mode(None) \
+		         Mode(Restore) \
+		         Mode(Notify) \n\
+  !Shift Ctrl<Btn1Down>: Mode(Save) \
+                         Mode(Remove) \
+                         Mode(Notify) \
+                         Mode(Restore) \n\
+  \
+  !Shift<Btn2Down>:	Atomic(Save) \
+			Mode(Save) \
+  			PasteBuffer(Clear) \
+			PasteBuffer(AddSelected) \
+                        RemoveSelected() \
+			Atomic(Restore) \
+			Mode(PasteBuffer) \n\
+  !Shift<Btn2Up>:       Mode(Notify) \
+			Atomic(Block) \
+			PasteBuffer(Clear) \
+			Mode(Restore) \n\
+  None<Btn2Down>:          Mode(Save) \
+                           Mode(Move) \
+                           Mode(Notify) \n\
+  None<Btn2Up>:            Mode(Notify) \
+                           Mode(Restore) \n\
+  !Mod1<Btn2Down>:       Mode(Save) \
+                           Mode(Copy) \
+                           Mode(Notify) \n\
+  !Mod1<Btn2Up>:         Mode(Notify) \
+                           Mode(Restore) \n\
+  !Shift Mod1<Btn2Down>: Mode(Save) \
+                           Mode(RubberbandMove) \
+                           Mode(Notify) \n\
+  !Shift Mod1<Btn2Up>:   Mode(Notify) \
+                           Mode(Restore) \n\
+  \
+  None<Btn3Down>:          Atomic(Save) \
+			   Select(ToggleObject) \n\
+  None<Btn3Down>,None<Btn3Motion>: Atomic(Close) \
+			   Undo() \
+			   Mode(Save) \
+			   Mode(None) \
+			   Atomic(Save) \
+			   Unselect(All) \
+			   Atomic(Restore) \
+			   Select(Block) \n\
+  None<Btn3Up>:		   Select(Block) \
+			   Atomic(Block) \
+			   Mode(None) \
+			   Mode(Restore) \n\
+  !Shift <Btn3Down>:	   Mode(Save) \
+                           Mode(None) \
+                           Unselect(Block) \n\
+  !Shift <Btn3Up>:	   Unselect(Block) \
+                           Mode(Restore) \n\
+  !Mod1<Btn3Down>:	Mode(Save) \
+			Mode(None) \
+			Select(Block) \n\
+  !Mod1<Btn3Up>:	Select(Block) \
+			Mode(Restore) \n
+
