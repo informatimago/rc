@@ -1,3 +1,4 @@
+# -*- mode:shell-script;coding:iso-8859-1 -*-
 # .bash_env
 # Non interactive shells:
 ########################################################################
@@ -5,59 +6,126 @@
 
 export USERNAME="$USER"
 
-if [ -L /usr/X11R6 ] ; then
-    export PATH=/bin:/usr/bin:/sbin:/usr/sbin
-    export MANPATH=/usr/share/man:/usr/man
-else
-    export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/X11R6/bin
-    export MANPATH=/usr/X11R6/man:/usr/share/man:/usr/man
-fi
-
-########################################################################
-# fink environment on MacOSX
-########################################################################
-
-if [ -r /sw/bin/init.sh ] ; then
-   . /sw/bin/init.sh
-fi
-
-if [ -d /Developer/Tools ] ; then
-    export PATH="/Developer/Tools:$PATH"
-fi
+# My compilation environment:
+export COMMON="$HOME/src/public/common"
+export MAKEDIR="$COMMON/makedir"
+export TARGET=$(uname)
 
 
-########################################################################
-# local environment
-########################################################################
 
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export MANPATH="/usr/local/share/man:/usr/local/man:$MANPATH"
+bindirs=( \
+    /bin /usr/bin /sbin /usr/sbin /usr/X11R6/bin /usr/X11/bin /usr/games \
+    /usr/local/bin /usr/local/sbin \
+    /opt/local/bin /opt/local/sbin \
+    /opt/*/bin \
+    /Developer/Tools \
+    /opt/gnome/bin /opt/kde2/bin \
+    /usr/local/apps/netscape \
+    /usr/local/apps/Acrobat4/bin \
+    /usr/local/apps/WordPerfect/wpbin \
+    /Library/PostgreSQL8/bin \
+    /Developer/Tools \
+    $HOME/bin \
+) 
 
-if [ -z "$LD_LIBRARY_PATH" ] ; then
-    export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib
-else
-    export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:$LD_LIBRARY_PATH
-fi
+mandirs=( \
+    /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  \
+    /usr/local/bin /usr/local/share/man \
+    /opt/local/man /opt/local/share/man \
+    /usr/local/languages/fpc/man \
+    /usr/local/languages/clisp/share/man \
+)
 
-if [ -d /usr/lib/Real ] ; then
-    export LD_LIBRARY_PATH=/usr/lib/Real:$LD_LIBRARY_PATH
-fi
+lddirs=( \
+    /lib /usr/lib /usr/X11R6/lib /usr/X11/lib \
+    /usr/local/lib \
+    /opt/local/lib \
+    /opt/gnome/lib /opt/kde/lib \
+    /usr/lib/Real \
+    /usr/local/apps/rvplayer5.0 \
+)
 
 
-# if [ -r ~/.environment ] ; then
-#     # User specific environment
-#     oldmask=`umask`
-#     umask 077
-#     sed -e 's/^\("\(\\.\|[^"]\)*"\|\\.\|[^"]\)*#.*//' \
-#         -e 's/^\([^ ][^ ]*\)  *\(.*[^ ]\) *$/export \1=\2/' \
-#         -e 's/^\([^ ][^ ]*\) *$/unset \1/' \
-#         -e '/^ *$/d' \
-#         < ~/.environment \
-#         > /tmp/$USER.$$.environment.sh
-# #/local/bin/environment --sh < ~/.environment > /tmp/$USER.$$.environment.sh
-#     .     /tmp/$USER.$$.environment.sh && rm -f /tmp/$USER.$$.environment.sh
-#     umask $oldmask
-# fi
+srcfiles=( \
+    /sw/bin/init.sh \
+)
+
+
+editors=( \
+    $HOME/bin/ec \
+    /opt/emacs-23.1/bin/emacsclient \
+    /opt/emacs-22.1/bin/emacsclient \
+    /opt/emacs-21.3/bin/emacsclient \
+    /usr/local/emacs-multitty/bin/emacsclient \
+    /usr/local/bin/emacsclient \
+    /sw/bin/emacsclient \
+    /usr/bin/emacsclient \
+    /bin/emacsclient \
+    /bin/ed \
+    /usr/bin/vi \
+)
+
+
+for e in ${editors[@]} ; do
+    if [ -x "$e" ] ; then
+        export EDITOR="$e"
+        export VISUAL="$e"
+        break
+    fi
+done
+
+
+function appendIfPresent(){
+    # appendIfPresent VARIABLE dir...
+    # Appends to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # Automatically exports the variable too.
+    local var=$1 ; shift
+    for dir ; do
+        if [ -d "${dir}" ] ; then
+            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
+        fi
+    done
+    eval "export ${var}"
+}
+
+
+function reverse(){
+    args=("$@")
+    i=${#args[@]}
+    while [ $i -ge 0 ] ; do
+        echo "${args[$i]}"
+        i=$(( $i - 1 ))
+    done
+}
+
+
+function prependIfPresent(){
+    # prependIfPresent VARIABLE dir...
+    # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # Automatically exports the variable too.
+    local var=$1 ; shift
+    reverse "$@" | while read dir ; do
+        if [ -d "${dir}" ] ; then
+            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
+        fi
+    done
+    eval "export ${var}"
+}
+
+
+
+appendIfPresent PATH            ${bindirs[@]}
+appendIfPresent MANPATH         ${mandirs[@]}
+appendIfPresent LD_LIBRARY_PATH ${lddirs[@]}
+
+
+for f in "${srcfile[@]}" ; do
+    if [ -r "$f" ] ; then
+        source "$f"
+    fi
+done
+
+
 
 
 #
@@ -91,100 +159,69 @@ export NORMAL="[0m"
 export GOTO_HOME=""
 export CLEAR_HOME=""
 
-#
-# My compilation environment:
-#
-export COMMON="$HOME/src/public/common"
-export MAKEDIR="$COMMON/makedir"
-export TARGET=$(uname)
 
-if [ -x $HOME/bin/ec ] ; then
-    export EDITOR=$HOME/bin/ec
-    export VISUAL=$EDITOR
-elif [ -x /usr/local/emacs-multitty/bin/emacsclient ] ; then
-    export EDITOR=/usr/local/emacs-multitty/bin/emacsclient
-    export EDITOR=/usr/local/bin/emacsclient
-    export VISUAL=$EDITOR
-elif [ -x /usr/local/bin/emacsclient ] ; then
-    export EDITOR=/usr/local/bin/emacsclient
-    export VISUAL=$EDITOR
-elif [ -x /sw/bin/emacsclient ] ; then
-    export EDITOR=/sw/bin/emacsclient
-    export VISUAL=$EDITOR
-elif [ -x /usr/bin/emacsclient ] ; then
-    export EDITOR=/usr/bin/emacsclient
-    export VISUAL=$EDITOR
-else
-    export EDITOR=/bin/ed
-    export VISUAL=/usr/bin/vi
-fi
+
 
 export CVSROOT=
 export CVS_RSH=ssh
 export CVSEDITOR=$EDITOR
-#export GCC_BIN=/local/gcc-2.8.1/bin
-#export GCC_LIB=/local/gcc-2.8.1/lib/gcc-lib/i586-pc-linux-gnulibc2/2.8.1/lib
-#PATH              "$GCC_BIN":"$PATH"
-#LD_LIBRARY_PATH   "$GCC_LIB":"$LD_LIBRARY_PATH"
-if [ -d /usr/local/apps/rvplayer5.0/ ] ; then
-export LD_LIBRARY_PATH=/usr/local/apps/rvplayer5.0:"$LD_LIBRARY_PATH"
-fi
+
 if [ -d /usr/share/kaffe/ ] ; then
-export KAFFEHOME=/usr/share/kaffe
-export classpath_kaffe=$KAFFEHOME/Klasses.jar
-export classpath_kaffe="$JAVA_HOME"/lib/java.io.zip:"$classpath_kaffe"
-export classpath_kaffe="$classpath_kaffe":/usr/local/share/kaffe/pizza.jar
-export classpath_kaffe="$classpath_kaffe":"$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
-export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/classes.zip
-export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/i18n.jar
-export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/rt.jar
+    export KAFFEHOME=/usr/share/kaffe
+    export classpath_kaffe=$KAFFEHOME/Klasses.jar
+    export classpath_kaffe="$JAVA_HOME"/lib/java.io.zip:"$classpath_kaffe"
+    export classpath_kaffe="$classpath_kaffe":/usr/local/share/kaffe/pizza.jar
+    export classpath_kaffe="$classpath_kaffe":"$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
+    export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/classes.zip
+    export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/i18n.jar
+    export classpath_kaffe="$classpath_kaffe":"$JAVA_HOME"/lib/rt.jar
 fi
 if [ -d /usr/local/languages/java/ ] ; then
-export JAVA_BASE=/usr/local/languages/java
-export JAVA_HOME="$JAVA_BASE"/jdk1.1.6/
-export classpath_jdk="$JAVA_HOME"/lib/classes.zip
-export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/swing-1.0.3/swingall.jar
-export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/jaccess-1.0/jaccess.jar
-export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
-export CLASSPATH="$classpath_jdk"
-if [ -d /usr/local/JavaApps/ ] ; then
-export PATH=/usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
-fi
+    export JAVA_BASE=/usr/local/languages/java
+    export JAVA_HOME="$JAVA_BASE"/jdk1.1.6/
+    export classpath_jdk="$JAVA_HOME"/lib/classes.zip
+    export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/swing-1.0.3/swingall.jar
+    export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/jaccess-1.0/jaccess.jar
+    export classpath_jdk="$classpath_jdk":"$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
+    export CLASSPATH="$classpath_jdk"
+    if [ -d /usr/local/JavaApps/ ] ; then
+        export PATH=/usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
+    fi
 fi
 
 #
 # The PATH:
 #
 if [ -d /opt/gnome/bin/ ] ; then
-export PATH="$PATH":/opt/gnome/bin
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/gnome/lib
+    export PATH="$PATH":/opt/gnome/bin
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/gnome/lib
 fi
 if [ -d /opt/kde2/bin/ ] ; then
-export PATH="$PATH":/opt/kde2/bin
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/kde2/bin
+    export PATH="$PATH":/opt/kde2/bin
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/kde2/bin
 fi
 if [ -d /opt/kde/bin/ ] ; then
-export PATH="$PATH":/opt/kde/bin
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/kde/bin
+    export PATH="$PATH":/opt/kde/bin
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/opt/kde/bin
 fi
 if [ -d /usr/games/ ] ; then
-export PATH="$PATH":/usr/games
+    export PATH="$PATH":/usr/games
 fi
 if [ -d /usr/local/apps/netscape/ ] ; then
-export PATH=/usr/local/apps/netscape:"$PATH"
+    export PATH=/usr/local/apps/netscape:"$PATH"
 fi
 if [ -d /usr/local/apps/Acrobat4/bin/ ] ; then
-export PATH=/usr/local/apps/Acrobat4/bin:"$PATH"
+    export PATH=/usr/local/apps/Acrobat4/bin:"$PATH"
 fi
 if [ -d /usr/local/apps/WordPerfect/wpbin/ ] ; then
-export PATH=/usr/local/apps/WordPerfect/wpbin:"$PATH"
+    export PATH=/usr/local/apps/WordPerfect/wpbin:"$PATH"
 fi
 
 if [ -d /usr/local/languages/fpc/man ] ; then
-export MANPATH="/usr/local/languages/fpc/man:$MANPATH"
+    export MANPATH="/usr/local/languages/fpc/man:$MANPATH"
 fi
 if [ -d /usr/local/languages/clisp/share/man/ ] ; then
-export MANPATH="/usr/local/languages/clisp/share/man:$MANPATH"
+    export MANPATH="/usr/local/languages/clisp/share/man:$MANPATH"
 fi
 
 if [ $UID -eq 0 ] ; then
@@ -292,21 +329,11 @@ function gnustep {
     [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
 }
 
-#if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+# if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
 #    gnustep
-#fi
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+# fi
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
 
 
-# for f in /opt/*/bin ; do
-#     PATH="${f}:${PATH}"
-# done
-# export PATH
-
-########################################################################
-# Local Variables:
-# mode: shell-script
-# End:
-
-#### .bash_env                        --                     --          ####
+#### THE END ####
 
