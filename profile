@@ -1,3 +1,5 @@
+# -*- mode:shell-script;coding:iso-8859-1 -*-
+#
 # .profile is read for all login shells
 
 # sh login shell startup file.
@@ -8,26 +10,29 @@
 
 # This file is not used by bash when .bash_profile or .bash_login exist.
 
-test -z "$PROFILEREAD" && [ -r /etc/profile ] && . /etc/profile
+# test -z "$PROFILEREAD" && [ -r /etc/profile ] && . /etc/profile
 
 
-if test -f ~/.bashrc; then
-    echo from profile
-	. ~/.bashrc
+if test -f "$HOME/.bashrc" ; then
+    echo "Sourcing $HOME/.bashrc from $HOME/.profile"
+	source "$HOME/.bashrc"
 fi
 
 
-if [ -n $DISPLAY ] ; then
-    /usr/X11R6/bin/xhost +local: \
-        +thalassa.informatimago.com \
-        +naiad.informatimago.com \
-        +larissa.informatimago.com
-#
-#        +galatea.informatimago.com \
-#        +despina.informatimago.com \
-#        +nereide.informatimago.com \
-#
-fi
+# if [ -n "$DISPLAY" ] ; then
+#     /usr/X11R6/bin/xhost \
+#         +local: \
+#         +thalassa.informatimago.com \
+#         +naiad.informatimago.com \
+#         +larissa.informatimago.com
+# #
+# #        +galatea.informatimago.com \
+# #        +despina.informatimago.com \
+# #        +nereide.informatimago.com \
+# #
+# fi
+
+
 
 #
 # some people don't like fortune.  If you have humor, please enable it by
@@ -40,4 +45,5 @@ fi
 #    echo
 #fi
 
-#### .profile                         --                     --          ####
+#### THE END ####
+

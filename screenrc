@@ -10,7 +10,7 @@
 # See below
 
 # no annoying audible bell, please
-vbell off
+vbell on
 
 # detach on hangup
 autodetach on
