@@ -35,6 +35,7 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+(print *package*)
 (cl:in-package "COMMON-LISP-USER")
 
 ;;----------------------------------------------------------------------
@@ -42,11 +43,21 @@
 ;; -----------------------------------
 
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")
-      '(("" "/usr/lib/sbcl/src/")))
+      '(("" "/local/src/sbcl/sbcl/src/")))
 ;; We put this before the COMMON-LISP part because when there's error
 ;; in .common.lisp, we want to get a reference to the SBCL source where
 ;; the error is detected.
 
+(setf (logical-pathname-translations "SYS") nil
+      (logical-pathname-translations "SYS")
+      '((#P"SYS:**;*.*" #P"/Users/pjb/src/sbcl/sbcl-1.0.15/**/*.*")
+        (#P"SYS:**;*"   #P"/Users/pjb/src/sbcl/sbcl-1.0.15/**/*")))
+
+(defvar *LOGHOSTS-DIRECTORY*
+  (merge-pathnames (make-pathname :directory '(:relative "LOGHOSTS-SBCL")
+                                  :case :common)
+                   (user-homedir-pathname) nil)
+  "The directory where logical host descriptions are stored.")
 
 
 (defun logical-pathname-namestring (logical-pathname)
@@ -71,9 +82,6 @@
               "*"
               (pathname-version logical-pathname))))
 
-(defun post-process-logical-pathname-translations (host)
-  (declare (ignore host))
-  (values))
 
 (defun X-post-process-logical-pathname-translations (host)
   (flet ((pstring (x)
@@ -95,18 +103,20 @@
                                           :defaults  #P""))))
                  (logical-pathname-translations host))
                 (lambda (a b) (> (length (pstring (first a)))
-                            (length (pstring (first b)))))))))
+                                 (length (pstring (first b)))))))))
 
 
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 
-(declaim ;; (sb-ext:muffle-conditions (or style-warning sb-ext:compiler-note))
+(declaim (sb-ext:muffle-conditions (or style-warning compiler-note))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
 (SETQ *LOAD-VERBOSE* nil)
 (LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :NAME ".common" :TYPE "lisp") (user-homedir-pathname)))
+       (MAKE-PATHNAME :NAME "COMMON" :TYPE "LISP" :CASE :COMMON)
+       (user-homedir-pathname)
+       NIL))
 
 
 (in-package "COM.INFORMATIMAGO.PJB")
@@ -116,7 +126,6 @@
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
 
-(setq SB-EXT:*INLINE-EXPANSION-LIMIT* 50)
 
 (SETF *PRINT-READABLY* NIL
       *PRINT-LEVEL*    NIL
@@ -182,5 +191,19 @@
 #+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
 (pushnew 'swank:ed-in-emacs sb-ext:*ed-functions*)
 
+
+(when nil
+  (dolist (host-path (directory (merge-pathnames
+                                 (make-pathname :name :wild
+                                                      :type "HOST"
+                                                      :case :common)
+                                 common-lisp-user::*LOGHOSTS-DIRECTORY* nil)))
+    (let ((host (pathname-name host-path)))
+      (let ((ht (reverse (with-open-file (in host-path) (read in)))))
+        (with-open-file (out host-path :direction :output :if-exists :supersede)
+          (format out ";; -*- mode:lisp -*- ~%")
+          (print ht out))))))
+
 (format t "~~/.sbclrc loaded~%")
 ;;;; .sbclrc                          --                     --          ;;;;
+

@@ -1,10 +1,11 @@
+# -*- mode: shell-script;coding:iso-8859-1 -*-
 # .bashrc
-# -*- Mode: shell-script -*-
 # The individual per-interactive-shell startup file
-#echo .bashrc
+
 
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
+
 
 if [ $UID -eq 0 ] ; then
     umask 022 # rwxr-xr-x
@@ -20,28 +21,46 @@ export BASH_ENV=$HOME/.bash_env
 source $HOME/opt/env.sh
 
 
+
+
 if [ -n "$DISPLAY" ] ; then
     export XAUTHORITY=$HOME/.Xauthority
-    function xauth { if [ "$1" == "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
+    function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
 fi
 
-case "$DISPLAY" in
-:[0-1].[0-9])
-    xrdb -merge ~/.Xresources
-    xmodmap ~/.xmodmap
+
+
+# On Darwin, we don't want to mess with X11 so much.
+# This is probably a hint we shouldn't do that here anyways.
+if [ $(uname) = Darwin ] ; then
+    case "$DISPLAY" in
+    :[0-1].[0-9])
+        xrdb -merge ~/.Xresources
+        ;;
+    *)
+        true
+        ;;
+    esac
+else
+    case "$DISPLAY" in
+    :[0-1].[0-9])
+        xrdb -merge ~/.Xresources
+        xmodmap ~/.xmodmap
     #xset s 300
-    xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
-    ;;
-*)
-    true
-    ;;
-esac
+        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+        ;;
+    *)
+        true
+        ;;
+    esac
+fi
+
+
 
 # Read first /etc/inputrc if the variable is not defined, and after 
 # the /etc/inputrc include the ~/.inputrc
 [ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
-
-stty erase  2>/dev/null
+stty erase  >/dev/null 2>&1
 
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
@@ -78,7 +97,6 @@ alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
 alias df='df -ah'
 alias du='du -h'
-alias ßh=ssh
 alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
@@ -90,16 +108,25 @@ alias ds='darcs push'
 alias dl='darcs pull'
 
 
+export CVSEDITOR=emacsclient
+
+
 # system specific aliases:
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
-if [ $(uname) == Darwin ] ; then
+if [ $(uname) = Darwin ] ; then
     ou=$(umask);umask 077
     env|sed -n -e '/UTF-8/d' -e'/=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p'>/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
     alias ls='LC_COLLATE="C" /bin/ls -aBCF'
     alias lsv='LC_COLLATE="C" /bin/ls -CF'
-    export CVSEDITOR=emacsclient
+
+    alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
+    alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
+    alias mysqlping='/opt/local/bin/mysqladmin5 -u root -p ping'
+    alias mysql='/opt/local/bin/mysql5'
+    alias mysqlshow='/opt/local/bin/mysqlshow5'
+
 else
     alias ls='LC_COLLATE="C" /bin/ls -aBCFN'
     alias lsv='LC_COLLATE="C" /bin/ls -BCFN'
