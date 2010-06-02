@@ -69,8 +69,8 @@ keycode  30 = u               U             Greek_upsilon   Greek_UPSILON
 keycode  31 = i               I             Greek_iota      Greek_IOTA
 keycode  32 = o               O             Greek_omicron   Greek_OMICRON
 keycode  33 = p               P             Greek_pi        Greek_PI
-keycode  34 = bracketleft     braceleft     guillemotleft   
-keycode  35 = bracketright    braceright    guillemotright  
+keycode  34 = bracketleft     braceleft     guillemotleft   0x1002200
+keycode  35 = bracketright    braceright    guillemotright  0x1002203
 keycode  51 = backslash       bar           integral        partialderivative
 
 
