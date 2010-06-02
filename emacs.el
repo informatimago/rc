@@ -5795,3 +5795,6 @@ or as \"emacs at <hostname>\"."
 (milliways-activate) (.EMACS "milliways activated!")
 (.EMACS "DONE")
 ;;;; THE END ;;;;
+;; (setf inhibit-splash-screen t)
+;; (switch-to-buffer (get-buffer-create "emtpy"))
+;; (delete-other-windows)

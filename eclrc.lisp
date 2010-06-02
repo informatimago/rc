@@ -1,45 +1,68 @@
-;; -*- mode: lisp -*-
-;;****************************************************************************
-;;FILE:               .eclrc
-;;LANGUAGE:           Common-Lisp
-;;SYSTEM:             ECL
-;;USER-INTERFACE:     None
-;;DESCRIPTION
-;;    
-;;    The CLISP init file.
-;;    
-;;AUTHORS
-;;    <PJB> Pascal Bourguignon
-;;MODIFICATIONS
-;;    2005-09-02 <PJB> Created.
-;;BUGS
-;;LEGAL
-;;    GPL
-;;    
-;;    Copyright Pascal Bourguignon 2005 - 2005
-;;    mailto:pjb@informatimago.com
-;;    
-;;    This program is free software; you can redistribute it and/or
-;;    modify it under the terms of the GNU General Public License
-;;    as published by the Free Software Foundation; either version
-;;    2 of the License, or (at your option) any later version.
-;;    
-;;    This program is distributed in the hope that it will be
-;;    useful, but WITHOUT ANY WARRANTY; without even the implied
-;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-;;    PURPOSE.  See the GNU General Public License for more details.
-;;    
-;;    You should have received a copy of the GNU General Public
-;;    License along with this program; if not, write to the Free
-;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
-;;    Boston, MA 02111-1307 USA
-;;****************************************************************************
+;;;; -*- mode: lisp -*-
+;;;;****************************************************************************
+;;;;FILE:               rc/eclrc.lisp
+;;;;LANGUAGE:           Common-Lisp
+;;;;SYSTEM:             ECL
+;;;;USER-INTERFACE:     None
+;;;;DESCRIPTION
+;;;;    
+;;;;    The ECL init file.
+;;;;    
+;;;;AUTHORS
+;;;;    <PJB> Pascal Bourguignon
+;;;;MODIFICATIONS
+;;;;    2005-09-02 <PJB> Created.
+;;;;BUGS
+;;;;LEGAL
+;;;;    GPL
+;;;;    
+;;;;    Copyright Pascal Bourguignon 2005 - 2010
+;;;;    mailto:pjb@informatimago.com
+;;;;    
+;;;;    This program is free software; you can redistribute it and/or
+;;;;    modify it under the terms of the GNU General Public License
+;;;;    as published by the Free Software Foundation; either version
+;;;;    2 of the License, or (at your option) any later version.
+;;;;    
+;;;;    This program is distributed in the hope that it will be
+;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
+;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+;;;;    PURPOSE.  See the GNU General Public License for more details.
+;;;;    
+;;;;    You should have received a copy of the GNU General Public
+;;;;    License along with this program; if not, write to the Free
+;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
+;;;;    Boston, MA 02111-1307 USA
+;;;;****************************************************************************
 
 (IN-PACKAGE "COMMON-LISP-USER")
 
 ;;----------------------------------------------------------------------
-;; Setting environment -- clisp part --
+;; Setting environment -- ecl part --
 ;; ------------------------------------
+
+
+#+#.(cl:if (cl:find-symbol "*TRANSLATE-PATHNAME-HOOK*" "SI") '(:and) '(:or))
+(setf SI:*TRANSLATE-PATHNAME-HOOK*
+    (lambda (src from to)
+       (when (and (typep src 'logical-pathname)
+                  (or (not (pathname-directory src))
+                      (every (lambda (item) (string= (string-upcase item) item))
+                             (rest (pathname-directory src))))
+                  (or (not (pathname-name src))
+                      (string= (string-upcase (pathname-name src)) (pathname-name src)))
+                  (or (not (pathname-type src))
+                      (string= (string-upcase (pathname-type src)) (pathname-type src))))
+         (setf src (make-pathname :defaults src
+                                  :directory (when (pathname-directory src)
+                                                 (cons (first (pathname-directory src))
+                                                       (mapcar (function string-downcase)
+                                                             (rest (pathname-directory src)))))
+                                  :name (when (pathname-name src) (string-downcase (pathname-name src)))
+                                  :type (when (pathname-type src) (string-downcase (pathname-type src)))))
+         (print (list src from to)))
+      (values src from to)))
+
 
 (DEFUN POST-PROCESS-LOGICAL-PATHNAME-TRANSLATIONS (HOST)
   (FLET ((PSTRING (X) (IF (PATHNAMEP X) (NAMESTRING X) (STRING X))))
@@ -54,10 +77,11 @@
                             (LENGTH (PSTRING (FIRST B)))))))))
 
 (defvar oldload (function cl:load))
-#+#.(cl:when (cl:string=
+#+#.(cl:if (cl:string=
               (cl:LISP-IMPLEMENTATION-VERSION)  "0.9"
               :end1 (cl:min (cl:length (cl:LISP-IMPLEMENTATION-VERSION)) 3))
-      :ecl)
+      :ecl
+      '(:or))
 (let ((oldload (function cl:load)))
   (fmakunbound 'cl:load)
   (defun cl:load (filespec &key (verbose *load-verbose*)
