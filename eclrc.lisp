@@ -148,7 +148,8 @@
 (DEFUN QUIT () (SYSTEM:QUIT))
 (EXPORT 'QUIT)
 
-(PUSH (FUNCTION EXT:CD)
+
+(PUSH (function si:chdir)
       COM.INFORMATIMAGO.COMMON-LISP.BROWSER:*CHANGE-DIRECTORY-HOOK*)
 
 
@@ -157,28 +158,10 @@
 ;;----------------------------------------------------------------------
 
 (IN-PACKAGE "COMMON-LISP-USER")
+;; ecl doesn't import packages in COMMON-LISP-USER, there's no package
+;; to unuse to remove cruft.
+;; Therefore we must shadow the old symbols:
+(shadow 'quit)
+
+
 (USE-PACKAGE "COM.INFORMATIMAGO.PJB")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
