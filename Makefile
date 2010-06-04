@@ -44,10 +44,10 @@ symlinks: save
 	ln -sf rc/bash_profile                $$HOME/.bash_profile
 	ln -sf rc/bashrc                      $$HOME/.bashrc
 	ln -sf rc/bashrc_emacs                $$HOME/.bashrc_emacs
-	ln -sf rc/.clash.lisp                 $$HOME/.clash.lisp
-	ln -sf rc/.clinit.cl                  $$HOME/.clinit.cl
-	ln -sf rc/.clisprc.lisp               $$HOME/.clisprc.lisp
-	ln -sf rc/.cmucl-init.lisp            $$HOME/.cmucl-init.lisp
+	ln -sf rc/clash.lisp                  $$HOME/.clash.lisp
+	ln -sf rc/clinit.cl                   $$HOME/.clinit.cl
+	ln -sf rc/clisprc.lisp                $$HOME/.clisprc.lisp
+	ln -sf rc/cmucl-init.lisp             $$HOME/.cmucl-init.lisp
 	ln -sf rc/cvspass                     $$HOME/.cvspass
 	ln -sf rc/cvsrc                       $$HOME/.cvsrc
 	ln -sf rc/eclrc.lisp                  $$HOME/.eclrc
