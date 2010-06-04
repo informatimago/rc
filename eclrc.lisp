@@ -101,12 +101,14 @@
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 
-(SETF *LOAD-VERBOSE* NIL)
-(LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
-                      :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
-       NIL))
+(require :cmp)
+(let ((C::*SUPPRESS-COMPILER-NOTES* t)
+      (*LOAD-VERBOSE* nil))
+  (LOAD (MERGE-PATHNAMES
+         (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
+                        :CASE :COMMON)
+         (USER-HOMEDIR-PATHNAME)
+         NIL)))
 
 (IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
