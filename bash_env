@@ -18,6 +18,7 @@ bindirs=( \
     /usr/local/bin /usr/local/sbin \
     /opt/local/bin /opt/local/sbin \
     /opt/*/bin \
+    /opt/local/lib/postgresql84/bin \
     /Developer/Tools \
     /opt/gnome/bin /opt/kde2/bin \
     /usr/local/apps/netscape \
