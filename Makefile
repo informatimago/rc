@@ -33,7 +33,6 @@ save:
 	- [ -r $$HOME/.swank.lisp         -a ! -L $$HOME/.swank.lisp         ] && mv -iv $$HOME/.swank.lisp          $$HOME/old-dotfiles/
 	- [ -r $$HOME/.wgetrc             -a ! -L $$HOME/.wgetrc             ] && mv -iv $$HOME/.wgetrc              $$HOME/old-dotfiles/
 	- [ -r $$HOME/.xmodmap            -a ! -L $$HOME/.xmodmap            ] && mv -iv $$HOME/.xmodmap             $$HOME/old-dotfiles/
-	- [ -r $$HOME/clisprc.lisp        -a ! -L $$HOME/clisprc.lisp        ] && mv -iv $$HOME/clisprc.lisp         $$HOME/old-dotfiles/
 	- [ -r $$HOME/openmcl-init.lisp   -a ! -L $$HOME/openmcl-init.lisp   ] && mv -iv $$HOME/openmcl-init.lisp    $$HOME/old-dotfiles/
 
 symlinks: save
@@ -67,7 +66,6 @@ symlinks: save
 	ln -sf rc/swank.lisp                  $$HOME/.swank.lisp
 	ln -sf rc/wgetrc                      $$HOME/.wgetrc
 	ln -sf rc/xmodmap-daskeyboard-3       $$HOME/.xmodmap
-	ln -sf rc/clisprc.lisp                $$HOME/clisprc.lisp
 	ln -sf rc/openmcl-init.lisp           $$HOME/openmcl-init.lisp
 
 showlinks:
