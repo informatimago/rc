@@ -197,7 +197,6 @@
 (defautoload scheme () "LOADERS:PSEUDO")
 (export '(defautoload scheme))
 
-(invoke-debugger t)
 ;;----------------------------------------------------------------------
 #-sbcl (handler-case (LOAD (#+allegro lp
                             #-allegro identity

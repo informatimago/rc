@@ -164,23 +164,23 @@ keycode 102 = Right   Right     rightarrow      includes
 keycode  77 = Num_Lock        
 keycode 112 = KP_Multiply     XF86_ClearGrab
 keycode  63 = KP_Divide       XF86_Ungrab
-keycode  82 = KP_Subtract     
+keycode  82 = KP_Subtract     KP_Subtract 0x1002500 0x1002550
 
 ! Third line:
-keycode  79 = KP_Home         KP_7
-keycode  80 = KP_Up           KP_8
-keycode  81 = KP_Prior        KP_9
+keycode  79 = KP_Home         KP_7    0x100250C  0x1002554
+keycode  80 = KP_Up           KP_8    0x100252C  0x1002566
+keycode  81 = KP_Prior        KP_9    0x1002510  0x1002557
 
 ! Fourth line:
-keycode  83 = KP_Left         KP_4
-keycode  84 = KP_Begin        KP_5
-keycode  85 = KP_Right        KP_6
-keycode  86 = KP_Add          
+keycode  83 = KP_Left         KP_4    0x100251C  0x1002560
+keycode  84 = KP_Begin        KP_5    0x100253C  0x100256C
+keycode  85 = KP_Right        KP_6    0x1002524  0x1002563
+keycode  86 = KP_Add          KP_Add  0x1002502  0x1002551
 
 ! Fifth line:
-keycode  87 = KP_End          KP_1
-keycode  88 = KP_Down         KP_2
-keycode  89 = KP_Next         KP_3
+keycode  87 = KP_End          KP_1    0x1002514  0x100255A
+keycode  88 = KP_Down         KP_2    0x1002534  0x1002569
+keycode  89 = KP_Next         KP_3    0x1002518  0x100255D
 
 ! Sixth line:
 keycode  90 = KP_Insert       KP_0
