@@ -255,4 +255,4 @@ function reload  { /etc/init.d/$1 reload;  }
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 #
-#### .bashrc                          --                     --          ####
+#### THE END ####

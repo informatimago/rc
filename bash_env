@@ -76,19 +76,16 @@ for e in ${editors[@]} ; do
 done
 
 
-function appendIfPresent(){
-    # appendIfPresent VARIABLE dir...
-    # Appends to the VARIABLE each directory, if it exists as a directory [ -d dir ].
-    # Automatically exports the variable too.
-    local var=$1 ; shift
-    for dir ; do
-        if [ -d "${dir}" ] ; then
-            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
+function member(){
+    local item="$1" ; shift
+    for arg ; do 
+        if [ "$item" = "$arg" ] ; then
+            echo T
+            return 0
         fi
     done
-    eval "export ${var}"
+    echo NIL
 }
-
 
 function reverse(){
     args=("$@")
@@ -100,13 +97,29 @@ function reverse(){
 }
 
 
+function appendIfPresent(){
+    # appendIfPresent VARIABLE dir...
+    # Appends to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # Automatically exports the variable too.
+    local var=$1 ; shift
+    ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
+    for dir ; do
+        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
+        fi
+    done
+    eval "export ${var}"
+}
+
+
 function prependIfPresent(){
     # prependIfPresent VARIABLE dir...
     # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
     # Automatically exports the variable too.
     local var=$1 ; shift
+    ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     reverse "$@" | while read dir ; do
-        if [ -d "${dir}" ] ; then
+        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
     done
