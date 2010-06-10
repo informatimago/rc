@@ -18,7 +18,7 @@ export BASH_ENV=$HOME/.bash_env
 [ -f $BASH_ENV ] && . $BASH_ENV
 ### PATH and other environment variables are set in .bash_env
 
-source $HOME/opt/env.sh
+# source $HOME/opt/env.sh
 
 
 
@@ -26,33 +26,17 @@ source $HOME/opt/env.sh
 if [ -n "$DISPLAY" ] ; then
     export XAUTHORITY=$HOME/.Xauthority
     function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
-fi
 
+    xrdb -merge ~/.Xresources
 
-
-# On Darwin, we don't want to mess with X11 so much.
-# This is probably a hint we shouldn't do that here anyways.
-if [ $(uname) = Darwin ] ; then
-    case "$DISPLAY" in
-    :[0-1].[0-9])
-        xrdb -merge ~/.Xresources
-        ;;
-    *)
-        true
-        ;;
-    esac
-else
-    case "$DISPLAY" in
-    :[0-1].[0-9])
+    # On Darwin, we don't want to mess with X11 so much.
+    # This is probably a hint we shouldn't do that here anyways.
+    if [ $(uname) != Darwin ] ; then
         xrdb -merge ~/.Xresources
         xmodmap ~/.xmodmap
-    #xset s 300
+        # xset s 300
         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
-        ;;
-    *)
-        true
-        ;;
-    esac
+    fi
 fi
 
 
@@ -271,4 +255,4 @@ function reload  { /etc/init.d/$1 reload;  }
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 #
-#### .bashrc                          --                     --          ####
+#### THE END ####

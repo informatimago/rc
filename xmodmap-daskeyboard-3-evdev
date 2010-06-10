@@ -28,9 +28,9 @@ keycode  76 = F10             XF86_Switch_VT_10 F23
 keycode  95 = F11             XF86_Switch_VT_11 F24
 keycode  96 = F12             XF86_Switch_VT_12 F25
 
-keycode 111 = Pause           Break
+keycode 107 = Pause           Break
 keycode  78 = Caps_Lock       
-keycode 110 = Print           Sys_Req
+keycode 127 = Print           Sys_Req
 
 
 !------------------------------------------------------------
@@ -120,39 +120,39 @@ keycode  62 = Shift_R
 !------------------------------------------------------------
 
 keycode  37 = Multi_key       
-keycode 115 = Alt_L
+keycode 133 = Alt_L
 keycode  64 = Meta_L
 
 keycode  65 = space         space       digitspace          digitspace
 
-keycode 113 = Meta_R
-keycode 116 = Mode_switch
-keycode 117 = Hyper_R
-keycode 109 = Control_R
+keycode 108 = Meta_R
+keycode 134 = Mode_switch
+keycode 135 = Hyper_R
+keycode 105 = Control_R
 
 
 !------------------------------------------------------------
 ! Home
 !------------------------------------------------------------
 
-keycode 106 = Insert    Insert  elementof       notelementof
-keycode 107 = Delete    Delete  emptyset        stricteq
+keycode 118 = Insert    Insert  elementof       notelementof
+keycode 119 = Delete    Delete  emptyset        stricteq
 
-keycode  97 = Home      Home    implies         ifonlyif       
-keycode 103 = End       End     therefore       because
+keycode 110 = Home      Home    implies         ifonlyif       
+keycode 115 = End       End     therefore       because
 
-keycode  99 = Prior     Prior   identical       notidentical
-keycode 105 = Next      Next    approxeq        notapproxeq
+keycode 112 = Prior     Prior   identical       notidentical
+keycode 117 = Next      Next    approxeq        notapproxeq
 
 
 !------------------------------------------------------------
 ! Arrows
 !------------------------------------------------------------
 
-keycode  98 = Up      Up        uparrow         intersection       
-keycode 100 = Left    Left      leftarrow       includedin
-keycode 104 = Down    Down      downarrow       union
-keycode 102 = Right   Right     rightarrow      includes
+keycode 111 = Up      Up        uparrow         intersection       
+keycode 113 = Left    Left      leftarrow       includedin
+keycode 116 = Down    Down      downarrow       union
+keycode 114 = Right   Right     rightarrow      includes
 
 
 !------------------------------------------------------------
@@ -162,7 +162,7 @@ keycode 102 = Right   Right     rightarrow      includes
 ! Second line:
 !keycode  77 = Num_Lock        Pointer_EnableKeys
 keycode  77 = Num_Lock        
-keycode 112 = KP_Multiply     XF86_ClearGrab
+keycode 106 = KP_Multiply     XF86_ClearGrab
 keycode  63 = KP_Divide       XF86_Ungrab
 keycode  82 = KP_Subtract     KP_Subtract 0x1002500 0x1002550
 
@@ -185,7 +185,7 @@ keycode  89 = KP_Next         KP_3    0x1002518  0x100255D
 ! Sixth line:
 keycode  90 = KP_Insert       KP_0
 keycode  91 = KP_Delete       KP_Decimal
-keycode 108 = KP_Enter 
+keycode 104 = KP_Enter 
 
 
 !------------------------------------------------------------
