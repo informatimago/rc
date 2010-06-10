@@ -60,7 +60,8 @@
                                                              (rest (pathname-directory src)))))
                                   :name (when (pathname-name src) (string-downcase (pathname-name src)))
                                   :type (when (pathname-type src) (string-downcase (pathname-type src)))))
-         (print (list src from to)))
+         ;; (print (list 'SI:*TRANSLATE-PATHNAME-HOOK* src from to))
+         )
       (values src from to)))
 
 
