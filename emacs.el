@@ -756,6 +756,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
     (princ x)
     (terpri)))
 
+(message "old load-path = %S" (with-output-to-string (dump-load-path)))
+
 (let ((new-paths '())
       (base-load-path (copy-list load-path)))
   (flet ((add-if-good (site-lisp)
@@ -813,6 +815,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             new-paths
                             (set-difference load-path base-load-path :test (function equal))))))
 
+(message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
@@ -2412,6 +2415,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
             (push item result))
      finally (return (nreverse result))))
 
+(defun ensure-list (x) (if (listp x) x (list x)))
 (defun comint-output-filter (process string)
   (let ((oprocbuf (process-buffer process)))
     ;; First check for killed buffer or no input.
@@ -4655,6 +4659,23 @@ See the documentation for vm-mode for more information."
 
 ;; (local-set-key (kbd "e") (function gnus-summary-mark-as-expirable))
 
+(setf *pjb-gnus-trash-mailbox* "nnimap+voyager.informatimago.com:INBOX.Trash")
+(setf *pjb-gnus-junk-mailbox*  "nnimap+voyager.informatimago.com:INBOX.Junk")
+
+ 	
+	
+
+(define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
+(define-key gnus-article-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
+
+(define-key gnus-summary-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk)
+(define-key gnus-article-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk)
+
+;; (define-key gnus-group-mode-map   (kbd "v j d")
+;;   (lambda ()
+;;     (interactive)
+;;     (gnus-group-jump-to-group "nndraft:drafts")))
+
 
 (defun pjb-gnus-message-setup-meat ()
 ;;   (save-excursion
@@ -4664,21 +4685,7 @@ See the documentation for vm-mode for more information."
 ;;       (insert "informatimago.com")))
   )
 
-(defun pjb-gnus-mark-unread (&optional n)
-  (interactive "p")
-  (cond
-    ((null n)  (gnus-summary-tick-article))
-    ((zerop n))
-    ((=  1 n)   (gnus-summary-tick-article))
-    ((= -1 n)   (gnus-summary-tick-article))
-    ((minusp n)
-     (gnus-summary-tick-article)
-     (previous-line)          ; (gnus-summary-previous-unread-article)
-     (pjb-gnus-mark-unread (1+ n)))
-    (t
-     (gnus-summary-tick-article)
-     (next-line)                  ; (gnus-summary-next-unread-article)
-     (pjb-gnus-mark-unread (1- n)))))
+
 
 ;;;----------------------------------------------------------------------------
 ;;; pjb
@@ -5668,6 +5675,12 @@ Attribution: ?"
                  (otherwise "")))))))
 
 ;;;----------------------------------------------------------------------------
+(when (require 'psql-mode nil t)
+  (modify-syntax-entry ?/   "<14>" psql-mode-syntax-table)
+  (modify-syntax-entry ?*   "<23>" psql-mode-syntax-table)
+  
+  (modify-syntax-entry ?-   "<12"  psql-mode-syntax-table)
+  (modify-syntax-entry ?\n  ">"    psql-mode-syntax-table))
 
 ;; A little patch:
 (require 'canlock)
