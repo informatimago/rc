@@ -91,15 +91,6 @@
   (DEFVAR *LOGICAL-HOSTS* '()))
 (EXPORT '(*directories* *LOGICAL-HOSTS*))
 
-#+allegro
-(defun lp (designator)
-  (if (stringp designator)
-      (let ((colon (position #\: designator)))
-        (format nil "~:@(~A~)~(~A~)"
-                (subseq designator 0 colon)
-                (subseq designator colon)))
-      designator))
-
 (defun make-translations (host logical-dir physical-dir &optional file-type)
   (mapcar
    (lambda (item)
@@ -198,31 +189,51 @@
 (export '(defautoload scheme))
 
 ;;----------------------------------------------------------------------
-#-sbcl (handler-case (LOAD (#+allegro lp
-                            #-allegro identity
-                            "PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"))
-         #+clisp(SYSTEM::SIMPLE-FILE-ERROR (err)
-                  (format *error-output* "Got error ~A ; trying again.~%" err)
-                  (handler-case (load (slot-value err 'system::$pathname))
-                    (SYSTEM::SIMPLE-FILE-ERROR (err)
-                      (format *error-output* "Translations are: ~S~%"
-                              (logical-pathname-translations "PACKAGES"))
-                      (format *error-output*
-                        "Got error ~A ; trying translating the logical ~
-                         pathname: ~S --> ~S~%" err
-                         (slot-value err 'system::$pathname)
-                         (translate-logical-pathname
-                          (slot-value err 'system::$pathname)))
-                      (handler-case (load (translate-logical-pathname
-                                           (slot-value err 'system::$pathname)))
-                    (SYSTEM::SIMPLE-FILE-ERROR (err)
-                      (format *error-output*
-                        "Got error ~A ; trying unix path.~%" err)
-                      (load (get-directory
-                             :share-lisp
-                             "packages/net/sourceforge/cclan/asdf/asdf.lisp") )))))))
 
-#+sbcl(require :asdf)
+#+allegro
+(defun lp (designator)
+  (if (stringp designator)
+      (let ((colon (position #\: designator)))
+        (format nil "~:@(~A~)~(~A~)"
+                (subseq designator 0 colon)
+                (subseq designator colon)))
+      designator))
+
+
+
+#+(or ecl sbcl)
+(require :asdf)
+
+#-(or ecl sbcl)
+(dolist (file (list #P"PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"
+                    #P"PACKAGES:ASDF;ASDF.LISP"
+                    #P"SHARE-LISP:ASDF;ASDF.LISP"
+                    (get-directory :share-lisp "packages/net/sourceforge/cclan/asdf/asdf.lisp")
+                    (get-directory :share-lisp "asdf/asdf.lisp"))
+         :failure)
+  (handler-case
+      (progn (LOAD #+allegro (lp file) #-allegro file)
+             (return :success))
+    #-clisp
+    (FILE-ERROR (err)
+      (format *error-output* "Got error ~A ; trying again.~%" err)
+      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
+              err file (translate-logical-pathname file))
+      (handler-case (load (translate-logical-pathname file))
+        (FILE-ERROR (err)
+          (format *error-output* "Got error ~A~%" err))))
+    
+    #+clisp
+    (SYSTEM::SIMPLE-FILE-ERROR (err)
+      (format *error-output* "Got error ~A ; trying again.~%" err)
+      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%   ~S --> ~S~%"
+              err
+              (slot-value err 'system::$pathname)
+              (translate-logical-pathname (slot-value err 'system::$pathname))))))
+
+
 
 (defparameter *asdf-interval-between-rescan* (* 7 24 60 60)
   "Force rescan at leastr once this amount of seconds.")
@@ -236,8 +247,7 @@
 
 (defparameter *original-asdf-registry* ASDF:*CENTRAL-REGISTRY*)
 
-(defun asdf-rescan-packages
-    (&optional (directories (list "PACKAGES:" *asdf-install-location*)))
+(defun asdf-rescan-packages (&optional (directories (list #P"PACKAGES:" *asdf-install-location*)))
   (format *trace-output* "~&;; Scanning ASDF packages...~%")
   (prog1
       (SORT 
@@ -297,9 +307,6 @@
 
 #-sbcl (update-asdf-registry)
 
-#+sbcl(require :asdf-install)
-#+sbcl(defvar ASDF-INSTALL::*CONNECT-TIMEOUT* 0)      ; needed by sb-posix
-#+sbcl(defvar ASDF-INSTALL::*READ-HEADER-TIMEOUT* 10) ; needed by sb-posix
 
 ;;--------------------
 ;; (asdf-load system)
@@ -334,21 +341,31 @@
 ;;                       (invoke-restart (find-restart 'continue))
 ;;                       (error err)))))
 ;;             (asdf:oos 'asdf:load-op system))))
-;; #-sbcl
-(defun asdf-load (system)
-        (asdf:operate 'asdf:load-op system))
+
+(defun asdf-load (&rest systems)
+  (dolist (system systems systems)
+    (asdf:operate 'asdf:load-op system)))
 
 ;;--------------------
 ;; (asdf-load-source system)
 ;;--------------------
-;; Probably the same should be done with asdf-load-source...
-(defun asdf-load-source (system) (asdf:operate 'asdf:load-source-op system))
+
+(defun asdf-load-source (&rest systems)
+  (dolist (system systems systems)
+    (asdf:operate 'asdf:load-source-op system)))
 
 
 ;;--------------------
 ;; (asdf-install system)
 ;;--------------------
+
+#+sbcl (require :asdf-install)
+#+sbcl (defvar ASDF-INSTALL::*CONNECT-TIMEOUT* 0)      ; needed by sb-posix
+#+sbcl (defvar ASDF-INSTALL::*READ-HEADER-TIMEOUT* 10) ; needed by sb-posix
+
 #-sbcl (asdf-load :asdf-install)
+#-sbcl (setf asdf-install:*preferred-location* 0)
+
 ;; (setf asdf-install:*locations* (butlast asdf-install:*locations*))
 (setf asdf-install:*locations*
       (list
@@ -356,10 +373,14 @@
         (merge-pathnames "./site/"         *asdf-install-location* nil)
         (merge-pathnames "./site-systems/" *asdf-install-location* nil)
         "System-wide install")))
-#-sbcl (setf asdf-install:*preferred-location* 0)
 
-(defun asdf-install     (system) (asdf-install:install              system))
+(defun asdf-install (&rest systems)
+  (dolist (system systems systems)
+    (asdf-install:install system)))
 
+;; (invoke-debugger 't)
+;; (setf f (with-open-file (in "/tmp/f") (read in)))
+;; (eval f)
 
 ;;--------------------
 ;; (asdf-delete-system system)
@@ -389,22 +410,23 @@
 (push #P"/data/lisp/gentoo/systems/"      asdf:*central-registry*)
 (push #P"/usr/share/common-lisp/systems/" asdf:*central-registry*) 
 
-;; asdf-binary-locations is already loaded in sbcl...
-#-sbcl(asdf-load :asdf-binary-locations)
-#-sbcl(setf asdf:*centralize-lisp-binaries*     t
-            asdf:*include-per-user-information* nil
-            asdf:*default-toplevel-directory*
-            (merge-pathnames
-             (make-pathname :directory '(:relative ".fasls"))
-             (user-homedir-pathname))
-            asdf:*source-to-target-mappings* '()
-            #- (and)
-            '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
-              (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
-            #-(and)
-            '((#P"/usr/share/common-lisp/sources/" nil)
-              #+sbcl (#P"/usr/lib/sbcl/"   NIL)
-              #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
+;; asdf-binary-locations is already loaded in sbcl.
+;; asdf-binary-locations is mutually exclusive with asdf2.
+#- (or sbcl asdf2) (asdf-load :asdf-binary-locations)
+#- (or sbcl asdf2) (setf asdf:*centralize-lisp-binaries*     t
+                         asdf:*include-per-user-information* nil
+                         asdf:*default-toplevel-directory*
+                         (merge-pathnames
+                          (make-pathname :directory '(:relative ".fasls"))
+                          (user-homedir-pathname))
+                         asdf:*source-to-target-mappings* '()
+                         #- (and)
+                         '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
+                           (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
+                         #-(and)
+                         '((#P"/usr/share/common-lisp/sources/" nil)
+                           #+sbcl (#P"/usr/lib/sbcl/"   NIL)
+                           #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
 
 
 ;; (in-package "ASDF")
@@ -467,7 +489,7 @@
       NIL)
   (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.PACKAGE"))
 
-(push (function package:PACKAGE-SYSTEM-DEFINITION)
+(push 'PACKAGE:PACKAGE-SYSTEM-DEFINITION
       ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
 
 
