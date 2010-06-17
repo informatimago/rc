@@ -22,22 +22,23 @@ export BASH_ENV=$HOME/.bash_env
 
 
 
-
-if [ -n "$DISPLAY" ] ; then
-    export XAUTHORITY=$HOME/.Xauthority
-    function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
-
-    xrdb -merge ~/.Xresources
-
-    # On Darwin, we don't want to mess with X11 so much.
-    # This is probably a hint we shouldn't do that here anyways.
-    if [ $(uname) != Darwin ] ; then
-        xrdb -merge ~/.Xresources
-        xmodmap ~/.xmodmap
-        # xset s 300
-        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
-    fi
-fi
+# Moved to rc/xsession. Perhaps there's an even better place for this?
+#
+# if [ -n "$DISPLAY" ] ; then
+#     export XAUTHORITY=$HOME/.Xauthority
+#     function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
+# 
+#     xrdb -merge ~/.Xresources
+# 
+#     # On Darwin, we don't want to mess with X11 so much.
+#     # This is probably a hint we shouldn't do that here anyways.
+#     if [ $(uname) != Darwin ] ; then
+#         xrdb -merge ~/.Xresources
+#         xmodmap ~/.xmodmap
+#         # xset s 300
+#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+#     fi
+# fi
 
 
 
