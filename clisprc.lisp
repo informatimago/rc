@@ -95,7 +95,6 @@
   (push :X86 *features*))
 
 
-
 ;; The following custom variables already existed in 2.33.83:
 (setf ;; ANSI
  CUSTOM:*ANSI*                             T
@@ -191,24 +190,34 @@
 ;; (unless (string= "dumb" (ext:getenv "TERM"))
 ;; )
 
+
+;; When launched with slime, the standard streams are replaced
+;; by swank streams, and macros such as CUSTOM:*PATHNAME-ENCODING*
+;; cannot work on them anymore.
+
+(defmacro ignoring-each-error (&body body)
+  `(progn
+     ,@(mapcar (lambda (expression)`(ignore-errors ,expression ))
+               body)))
+
 #-(and unix macos)
-(setf CUSTOM:*PATHNAME-ENCODING*     (ext:make-encoding :charset CHARSET:ISO-8859-1
-                                                        :line-terminator :UNIX)
-      CUSTOM:*DEFAULT-FILE-ENCODING* (ext:make-encoding :charset CHARSET:utf-8
-                                                        :line-terminator :UNIX)
-      CUSTOM:*TERMINAL-ENCODING*     (ext:make-encoding :charset CHARSET:utf-8
-                                                        :line-terminator :UNIX)
-      CUSTOM:*MISC-ENCODING*         (ext:make-encoding :charset CHARSET:utf-8
-                                                        :line-terminator :UNIX)
-      #+FFI CUSTOM:*FOREIGN-ENCODING* #+FFI (ext:make-encoding :charset CHARSET:ISO-8859-1
-                                                               :line-terminator :UNIX))
+(ignoring-each-error
+ (setf CUSTOM:*PATHNAME-ENCODING*     (ext:make-encoding :charset CHARSET:ISO-8859-1
+                                                         :line-terminator :UNIX))
+ (setf CUSTOM:*DEFAULT-FILE-ENCODING* (ext:make-encoding :charset CHARSET:utf-8
+                                                         :line-terminator :UNIX))
+ (setf CUSTOM:*TERMINAL-ENCODING*     (ext:make-encoding :charset CHARSET:utf-8
+                                                         :line-terminator :UNIX))
+ (setf CUSTOM:*MISC-ENCODING*         (ext:make-encoding :charset CHARSET:utf-8
+                                                         :line-terminator :UNIX))
+ #+FFI (setf CUSTOM:*FOREIGN-ENCODING* (ext:make-encoding :charset CHARSET:ISO-8859-1
+                                                          :line-terminator :UNIX)))
 #+(and unix macos)
 (setf CUSTOM:*DEFAULT-FILE-ENCODING*  charset:utf-8
       #+FFI CUSTOM:*FOREIGN-ENCODING* #+FFI charset:iso-8859-15
       CUSTOM:*MISC-ENCODING*          charset:utf-8 ; best same as terminal
       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
       CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
-
 
 #+#.(cl-user:rt-version<= "2.38" (cl-user:clisp-version))
 (setf
@@ -245,7 +254,6 @@
  )
 
 
-     
 ;;----------------------------------------------------------------------
 ;; Setting environment -- clisp part --
 ;; ------------------------------------
@@ -305,8 +313,7 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-
-(SETF *LOAD-VERBOSE* NIL)
+(SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES
        (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
                       :CASE :COMMON)
