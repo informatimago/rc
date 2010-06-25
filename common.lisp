@@ -1,6 +1,6 @@
 ;;;; -*- coding:utf-8; mode: lisp -*-
 ;;;;****************************************************************************
-;;;;FILE:               .common.lisp
+;;;;FILE:               common.lisp
 ;;;;LANGUAGE:           Common-Lisp
 ;;;;SYSTEM:             None
 ;;;;USER-INTERFACE:     None
@@ -405,28 +405,36 @@
       asdf-install::*read-header-timeout*  10)
 
 
+#-(or clc-os-debian) 
 (push (second (first asdf-install:*locations*))  ASDF:*CENTRAL-REGISTRY*)
-
+#-(or clc-os-debian) 
 (push #P"/data/lisp/gentoo/systems/"      asdf:*central-registry*)
+
+
 (push #P"/usr/share/common-lisp/systems/" asdf:*central-registry*) 
+
+
 
 ;; asdf-binary-locations is already loaded in sbcl.
 ;; asdf-binary-locations is mutually exclusive with asdf2.
-#- (or sbcl asdf2) (asdf-load :asdf-binary-locations)
-#- (or sbcl asdf2) (setf asdf:*centralize-lisp-binaries*     t
-                         asdf:*include-per-user-information* nil
-                         asdf:*default-toplevel-directory*
-                         (merge-pathnames
-                          (make-pathname :directory '(:relative ".fasls"))
-                          (user-homedir-pathname))
-                         asdf:*source-to-target-mappings* '()
-                         #- (and)
-                         '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
-                           (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
-                         #-(and)
-                         '((#P"/usr/share/common-lisp/sources/" nil)
-                           #+sbcl (#P"/usr/lib/sbcl/"   NIL)
-                           #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
+#-(or sbcl asdf2 clc-os-debian)
+(asdf-load :asdf-binary-locations)
+#-(or sbcl asdf2 clc-os-debian)
+(setf asdf:*centralize-lisp-binaries*     t
+      asdf:*include-per-user-information* nil
+      asdf:*default-toplevel-directory*
+      (merge-pathnames
+       (make-pathname :directory '(:relative ".fasls"))
+       (user-homedir-pathname))
+      asdf:*source-to-target-mappings* '()
+      #- (and)
+      '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
+        (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
+      #-(and)
+      '((#P"/usr/share/common-lisp/sources/" nil)
+        #+sbcl (#P"/usr/lib/sbcl/"   NIL)
+        #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
+
 
 
 ;; (in-package "ASDF")
@@ -557,5 +565,4 @@
 ;;                        (component-system component) operation component source)))))
 ;; (in-package :cl-user)
 
-
-;;;; .common.lisp                     --                     --          ;;;;
+;;;; THE END ;;;;

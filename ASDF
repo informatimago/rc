@@ -1,0 +1,108 @@
+;;;; -*- mode:lisp; coding:utf-8 -*-
+;;;; Forms extracted from ~/rc/common.lisp to load ASDF
+;;;; for swank-asdf who calls (require :asdf).
+;;;;
+
+(CL:IN-PACKAGE "COMMON-LISP-USER")
+(CL:DEFPACKAGE "COM.INFORMATIMAGO.PJB"
+  (:NICKNAMES "PJB")
+  (:USE "COMMON-LISP"))
+(CL:IN-PACKAGE "COM.INFORMATIMAGO.PJB")
+
+(progn 
+  (defvar *directories*  '())
+  (defun get-directory (key &optional (subpath ""))
+    (unless *directories*
+      (with-open-file (dirs (make-pathname :name "DIRECTORIES" :type "TXT"
+                                           :version nil :case :common
+                                           :defaults (user-homedir-pathname)))
+        (loop
+           :for k = (read dirs nil dirs)
+           :until (eq k dirs)
+           :do (push (string-trim " " (read-line dirs)) *directories*)
+           :do (push (intern (substitute #\- #\_ (string k))
+                             "KEYWORD") *directories*))))
+    (unless (getf *directories* key)
+      (error "~S: No directory keyed ~S" 'get-directory key))
+    (merge-pathnames subpath (getf *directories* key) nil)))
+
+
+(EVAL-WHEN (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
+  (DEFVAR *LOGICAL-HOSTS* '()))
+(EXPORT '(*directories* *LOGICAL-HOSTS*))
+
+(defun make-translations (host logical-dir physical-dir &optional file-type)
+  (mapcar
+   (lambda (item)
+     (destructuring-bind (logical-tail physical-tail) item
+       (list (apply (function make-pathname)
+                    :host host
+                    :directory `(:absolute ,@logical-dir :wild-inferiors)
+                    logical-tail)
+             (format nil "~A**/~A" physical-dir physical-tail))))
+   
+   #+clisp
+   (if file-type
+       `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
+       '(((:name :wild :type :wild :version nil)   "*.*")
+         ((:name :wild :type nil   :version nil)   "*")))
+   #+sbcl
+   (if file-type
+       `(((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
+       '(((:name :wild :type :wild :version :wild) "*.*")))
+   #+allegro
+   (if file-type
+       `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
+       '(((:name :wild :type nil   :version nil)   "*")
+         ((:name :wild :type :wild :version nil) "*.*")))
+   #-(OR CLISP sbcl)
+   (if file-type
+       `(((:name :wild :type ,file-type :version nil)   ,(format nil "*.~(~A~)" file-type))
+         ((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
+       '(((:name :wild :type nil   :version nil)   "*")
+         ((:name :wild :type :wild :version nil)   "*.*")
+         ((:name :wild :type :wild :version :wild) "*.*")))))
+
+
+(DEFUN DEF-LP-TRANS (HOST PATH &OPTIONAL (SUBPATH ""))
+  (PUSHNEW HOST *LOGICAL-HOSTS* :TEST (FUNCTION STRING-EQUAL))
+  ;; If the HOST is already defined we don't change it (eg. HOME):
+  (UNLESS (HANDLER-CASE (LOGICAL-PATHNAME-TRANSLATIONS HOST) (ERROR () NIL))
+    (and (ignore-errors (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST) NIL) t)
+         (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST)
+               (make-translations
+                host '() (format nil "~A~:[~;~:*~A~]"
+                                 path (if (string= "" subpath) nil subpath)))))))
+
+(DEFPARAMETER *SHARE-LISP*             (get-directory :share-lisp))
+(DEF-LP-TRANS "PACKAGES"   *SHARE-LISP* "packages/")
+
+
+#-(or ecl sbcl)
+(dolist (file (list #P"PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"
+                    #P"PACKAGES:ASDF;ASDF.LISP"
+                    #P"SHARE-LISP:ASDF;ASDF.LISP"
+                    (get-directory :share-lisp "packages/net/sourceforge/cclan/asdf/asdf.lisp")
+                    (get-directory :share-lisp "asdf/asdf.lisp"))
+         :failure)
+  (handler-case
+      (progn (LOAD #+allegro (lp file) #-allegro file)
+             (return :success))
+    #-clisp
+    (FILE-ERROR (err)
+      (format *error-output* "Got error ~A ; trying again.~%" err)
+      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
+              err file (translate-logical-pathname file))
+      (handler-case (load (translate-logical-pathname file))
+        (FILE-ERROR (err)
+          (format *error-output* "Got error ~A~%" err))))
+    
+    #+clisp
+    (SYSTEM::SIMPLE-FILE-ERROR (err)
+      (format *error-output* "Got error ~A ; trying again.~%" err)
+      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%   ~S --> ~S~%"
+              err
+              (slot-value err 'system::$pathname)
+              (translate-logical-pathname (slot-value err 'system::$pathname))))))

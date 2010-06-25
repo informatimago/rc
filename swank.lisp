@@ -11,6 +11,6 @@
 ;; When there's a NAT: (setf swank:*use-dedicated-output-stream* nil)
 ;; (or with clisp).
 
-(setf swank:*use-dedicated-output-stream*  nil)
-(setf swank::*sldb-initial-frames*         40)
+#+clisp (setf swank:*use-dedicated-output-stream*  nil)
+#+clisp (setf swank::*sldb-initial-frames*         40)
 ;;;; .swank.lisp                      --                     --          ;;;;
