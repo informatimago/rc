@@ -42,26 +42,40 @@
 ;; ------------------------------------
 
 
+(when (string= (namestring (make-pathname :name "ABC" :case :common
+                                          :defaults (make-pathname :type "ABC" :case :common
+                                                                   :defaults nil)))
+               "abc.ABC")
+  (defvar *old-make-pathname* (function cl:make-pathname))
+  (unwind-protect
+       (progn
+         (SI:PACKAGE-LOCK (find-package "COMMON-LISP") nil)
+         (defun cl:make-pathname (&rest args &key host device directory name type version defaults case)
+           (if (and (eq case :common) defaults) 
+               (apply *old-make-pathname* :defaults  (string-upcase (namestring defaults)) args)
+               (apply *old-make-pathname* args))))
+    (SI:PACKAGE-LOCK (find-package "COMMON-LISP") t)))
+
+
 #+#.(cl:if (cl:find-symbol "*TRANSLATE-PATHNAME-HOOK*" "SI") '(:and) '(:or))
 (setf SI:*TRANSLATE-PATHNAME-HOOK*
-    (lambda (src from to)
-       (when (and (typep src 'logical-pathname)
-                  (or (not (pathname-directory src))
-                      (every (lambda (item) (string= (string-upcase item) item))
-                             (rest (pathname-directory src))))
-                  (or (not (pathname-name src))
-                      (string= (string-upcase (pathname-name src)) (pathname-name src)))
-                  (or (not (pathname-type src))
-                      (string= (string-upcase (pathname-type src)) (pathname-type src))))
-         (setf src (make-pathname :defaults src
-                                  :directory (when (pathname-directory src)
-                                                 (cons (first (pathname-directory src))
-                                                       (mapcar (function string-downcase)
-                                                             (rest (pathname-directory src)))))
-                                  :name (when (pathname-name src) (string-downcase (pathname-name src)))
-                                  :type (when (pathname-type src) (string-downcase (pathname-type src)))))
-         ;; (print (list 'SI:*TRANSLATE-PATHNAME-HOOK* src from to))
-         )
+      (lambda (src from to)
+        (when (and (typep src 'logical-pathname)
+                   (or (not (pathname-directory src))
+                       (every (lambda (item) (string= (string-upcase item) item))
+                              (rest (pathname-directory src))))
+                   (or (not (pathname-name src))
+                       (string= (string-upcase (pathname-name src)) (pathname-name src)))
+                   (or (not (pathname-type src))
+                       (string= (string-upcase (pathname-type src)) (pathname-type src))))
+          (setf src (make-pathname :defaults src
+                                   :directory (when (pathname-directory src)
+                                                (cons (first (pathname-directory src))
+                                                      (mapcar (function string-downcase)
+                                                              (rest (pathname-directory src)))))
+                                   :name (when (pathname-name src) (string-downcase (pathname-name src)))
+                                   :type (when (pathname-type src) (string-downcase (pathname-type src)))))
+          #-(and) (print (list 'SI:*TRANSLATE-PATHNAME-HOOK* src from to)))
       (values src from to)))
 
 
@@ -154,7 +168,7 @@
 
 (PUSH (function si:chdir)
       COM.INFORMATIMAGO.COMMON-LISP.BROWSER:*CHANGE-DIRECTORY-HOOK*)
-
+(cd (si:getcwd))
 
 ;;----------------------------------------------------------------------
 ;;(format *trace-output* "~&.clisprc.lisp loaded~%")

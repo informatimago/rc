@@ -404,10 +404,12 @@ X-Disabled: X-No-Archive: no
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
  '(sh-indent-for-case-label 0)
+ '(show-paren-mode t)
+ '(show-paren-ring-bell-on-mismatch t)
  '(slime-compilation-finished-hook (quote (slime-maybe-show-xrefs-for-notes)))
+ '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
- '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
  '(tab-stop 4 t)
@@ -5856,6 +5858,16 @@ or as \"emacs at <hostname>\"."
    (gnus))
   (t
    (when (fboundp 'set-palette) (set-palette pal-green))))
+
+
+(defun current-minor-modes (&optional buffer)
+  "The list of the minor modes currently active in the buffer (or current buffer)."
+  (let ((result '()))
+    (with-current-buffer (or buffer (current-buffer))
+      (dolist (mode minor-mode-list result)
+        (when (and (boundp mode) (symbol-value mode))
+          (push mode result))))))
+
 
 
 ;;;----------------------------------------------------------------------------
