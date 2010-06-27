@@ -93,7 +93,7 @@ xterm*sunFunctionKeys:          false
 !! -----------------------------
 !! VT Options Menu:
 !! -----------------------------
-xterm*scrollBar:                true
+xterm*scrollBar:                false
 xterm*scrollBarBorder:		    1
 xterm*jumpScroll:               true
 xterm*reverseVideo:             false

@@ -2,7 +2,7 @@
 # .bash_env
 # Non interactive shells:
 ########################################################################
-#echo .bash_env
+# echo .bash_env
 
 export USERNAME="$USER"
 
@@ -14,13 +14,12 @@ export TARGET=$(uname)
 
 
 bindirs=( \
-    /bin /usr/bin /sbin /usr/sbin /usr/X11R6/bin /usr/X11/bin /usr/games \
-    /usr/local/bin /usr/local/sbin \
-    /opt/local/bin /opt/local/sbin \
     /opt/*/bin \
     /opt/local/lib/postgresql84/bin \
+    /opt/*/bin     /opt/*/sbin \
+    /usr/local/bin /usr/local/sbin \
+    /bin /usr/bin /sbin /usr/sbin /usr/X11R6/bin /usr/X11/bin /usr/games \
     /Developer/Tools \
-    /opt/gnome/bin /opt/kde2/bin \
     /usr/local/apps/netscape \
     /usr/local/apps/Acrobat4/bin \
     /usr/local/apps/WordPerfect/wpbin \
@@ -118,7 +117,7 @@ function prependIfPresent(){
     # Automatically exports the variable too.
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
-    reverse "$@" | while read dir ; do
+    for dir in $(reverse "$@" ) ; do
         if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
@@ -128,9 +127,9 @@ function prependIfPresent(){
 
 
 
-appendIfPresent PATH            ${bindirs[@]}
-appendIfPresent MANPATH         ${mandirs[@]}
-appendIfPresent LD_LIBRARY_PATH ${lddirs[@]}
+prependIfPresent PATH            ${bindirs[@]}
+prependIfPresent MANPATH         ${mandirs[@]}
+prependIfPresent LD_LIBRARY_PATH ${lddirs[@]}
 
 
 for f in "${srcfile[@]}" ; do
