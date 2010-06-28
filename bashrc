@@ -13,13 +13,345 @@ else
     umask 022 # rwxr-xr-x And we'll set the access rights of the directories...
 fi
 
+
+
+function member(){
+    local item="$1" ; shift
+    for arg ; do 
+        if [ "$item" = "$arg" ] ; then
+            echo T
+            return 0
+        fi
+    done
+    echo NIL
+    return 1
+}
+
+function reverse(){
+    args=("$@")
+    i=${#args[@]}
+    while [ $i -ge 0 ] ; do
+        echo "${args[$i]}"
+        i=$(( $i - 1 ))
+    done
+}
+
+
+function appendIfPresent(){
+    # appendIfPresent VARIABLE dir...
+    # Appends to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    local var=$1 ; shift
+    ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
+    for dir ; do
+        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
+        fi
+    done
+}
+
+
+function prependIfPresent(){
+    # prependIfPresent VARIABLE dir...
+    # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    local var=$1 ; shift
+    ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
+    for dir in $(reverse "$@" ) ; do
+        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+            eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
+        fi
+    done
+}
+
+
+
+
 # User specific environment and startup programs
 export BASH_ENV=$HOME/.bash_env
-[ -f $BASH_ENV ] && . $BASH_ENV
-### PATH and other environment variables are set in .bash_env
+########################################################################
+### Generation of bash_env
 
-# source $HOME/opt/env.sh
+be=$HOME/.bash_env.$$
 
+function be_comment(){
+    printf "# %s\n" "$@" >> "$be"
+}
+
+function quote_shell_argument(){
+    echo "$1" | sed -e 's,\([^-+=:/_,.~^A-Za-z0-9]\),\\\1,g'
+}
+
+function be_variable(){
+    local name="$1"
+    local value="$2"
+    printf "%s=%s\nexport %s\n" "$name" "$(quote_shell_argument "$value")" "$name" >> "$be"
+}
+
+function be_unset(){
+    local name="$1"
+    printf "unset %s\n" "$name" >> "$be"
+}
+
+function be_terminate(){
+    mv "$be" "$BASH_ENV"
+}
+
+
+function be_generate(){
+    local bindirs
+    local mandirs
+    local lddirs
+    local editors
+    local list
+
+    bindirs=( 
+        /opt/*/bin 
+        /opt/local/lib/postgresql84/bin 
+        /opt/*/bin     /opt/*/sbin 
+        /usr/local/bin /usr/local/sbin 
+        /usr/local/cint
+        /bin /usr/bin /sbin /usr/sbin /usr/X11R6/bin /usr/X11/bin /usr/games 
+        /Developer/Tools 
+        /usr/local/apps/netscape 
+        /usr/local/apps/Acrobat4/bin 
+        /usr/local/apps/WordPerfect/wpbin 
+        /Library/PostgreSQL8/bin 
+        /Developer/Tools 
+        $HOME/bin 
+    )
+
+    mandirs=( 
+        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
+        /usr/local/bin /usr/local/share/man 
+        /opt/local/man /opt/local/share/man 
+        /usr/local/languages/fpc/man 
+        /usr/local/languages/clisp/share/man 
+        /usr/local/cint/doc
+    )
+
+    lddirs=( 
+        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
+        /usr/local/lib 
+        /opt/local/lib 
+        /opt/*/lib 
+        /usr/lib/Real 
+        /usr/local/apps/rvplayer5.0 
+    )
+
+    editors=( 
+        $HOME/bin/ec 
+        /opt/emacs-23.1/bin/emacsclient 
+        /opt/emacs-22.1/bin/emacsclient 
+        /opt/emacs-21.3/bin/emacsclient 
+        /usr/local/emacs-multitty/bin/emacsclient 
+        /usr/local/bin/emacsclient 
+        /sw/bin/emacsclient 
+        /usr/bin/emacsclient 
+        /bin/emacsclient 
+        /bin/ed 
+        /usr/bin/vi 
+    )
+    
+    be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
+    be_comment '.bash_env'
+    be_comment 'Non interactive shells'
+    be_comment '########################################################################'
+    be_comment ''
+    be_comment 'Unfortunately, we must be careful not launching subshells  from'
+    be_comment '.bash_env,  since it is loaded by subshells; that gives infinite'
+    be_comment 'recursions).  '
+    be_comment ''
+    be_comment 'So we will have only constant variable definitions here, and this'
+    be_comment 'file will be generated from ~/.bashrc from time to time...'
+    be_comment ''
+
+    be_variable USERNAME "$USER"
+
+    be_comment 'My compilation environment:'
+    be_variable COMMON "$HOME/src/public/common"
+    be_variable MAKEDIR "$COMMON/makedir"
+    be_variable TARGET $(uname)
+
+
+    for e in "${editors[@]}" ; do
+        if [ -x "$e" ] ; then
+            be_variable EDITOR    "$e"
+            be_variable VISUAL    "$e"
+            be_variable CVSEDITOR "$e"
+            break
+        fi
+    done
+
+    list="$PATH"
+    prependIfPresent list  ${bindirs[@]}
+    be_variable PATH "$list"
+
+    list="$MANPATH"
+    prependIfPresent list  ${mandirs[@]}
+    be_variable MANPATH "$list"
+
+    list="$LD_LIBRARY_PATH"
+    prependIfPresent list ${lddirs[@]}
+    be_variable LD_LIBRARY_PATH "$list"
+
+
+    be_comment 'ANSI terminal codes:'
+    be_variable CYAN_BACK          "[46m"
+    be_variable MAGENTA_BACK       "[45m"
+    be_variable BLUE_BACK          "[44m"
+    be_variable YELLOW_BACK        "[43m"
+    be_variable GREEN_BACK         "[42m"
+    be_variable RED_BACK           "[41m"
+    be_variable BLACK_BACK         "[40m"
+    be_variable WHITE_BACK         "[47m"
+    be_variable WHITE              "[37m"
+    be_variable CYAN               "[36m"
+    be_variable MAGENTA            "[35m"
+    be_variable BLUE               "[34m"
+    be_variable YELLOW             "[33m"
+    be_variable GREEN              "[32m"
+    be_variable RED                "[31m"
+    be_variable BLACK              "[30m"
+    be_variable NO_INVERT          "[27m"
+    be_variable NO_BLINK           "[25m"
+    be_variable NO_UNDERLINE       "[24m"
+    be_variable NO_BOLD            "[22m"
+    be_variable INVERT             "[7m"
+    be_variable BLINK              "[5m"
+    be_variable UNDERLINE          "[4m"
+    be_variable BOLD               "[1m"
+    be_variable NORMAL             "[0m"
+    be_variable GOTO_HOME          ""
+    be_variable CLEAR_HOME         ""
+
+    be_variable CVSROOT            '' 
+    be_variable CVS_RSH            ssh 
+
+
+    if [ -d /usr/share/kaffe/ ] ; then
+        be_variable KAFFEHOME /usr/share/kaffe
+        list=''
+        appendIfPresent list \
+            "$JAVA_HOME"/lib/java.io.zip \
+            $KAFFEHOME/Klasses.jar \
+            /usr/local/share/kaffe/pizza.jar \
+            "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip \
+            "$JAVA_HOME"/lib/classes.zip \
+            "$JAVA_HOME"/lib/i18n.jar \
+            "$JAVA_HOME"/lib/rt.jar
+        be_variable classpath_kaffe "$list"
+        be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+    fi
+
+    if [ -d /usr/local/languages/java/ ] ; then
+        be_variable JAVA_BASE /usr/local/languages/java
+        be_variable JAVA_HOME "$JAVA_BASE"/jdk1.1.6/
+        list=''
+        appendIfPresent list \
+            "$JAVA_HOME"/lib/classes.zip \
+            "$JAVA_BASE"/swing-1.0.3/swingall.jar \
+            "$JAVA_BASE"/jaccess-1.0/jaccess.jar \
+            "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
+        be_variable classpath_jdk "$list"
+        be_variable CLASSPATH "$classpath_jdk"
+        if [ -d /usr/local/JavaApps/ ] ; then
+            be_variable PATH /usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
+        else
+            be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+        fi
+    fi
+
+    be_comment 'Generic environment:'
+    be_variable TZ                      Europe/Madrid
+    be_variable LC_MONETARY             es_ES.UTF-8
+    be_variable LC_MESSAGES             en_US.UTF-8
+    be_variable LC_NUMERIC              en_US.UTF-8
+    be_variable LC_TIME                 en_US.UTF-8
+    be_unset LC_MONETARY 
+    be_unset LC_MESSAGES
+    be_unset LC_NUMERIC 
+    be_unset LC_TIME
+    be_variable LC_COLLATE              C # fr_FR
+    be_variable LC_CTYPE                C # fr_FR.UTF-8
+    be_unset LC_ALL
+    be_unset LANG
+    be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
+    be_variable MAILHOST                mail.informatimago.com
+    be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+    be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+    be_variable ESHELL                  /bin/bash
+    be_variable NNTPSERVER              news.individual.net
+    be_variable IRCNICK                 pjb
+    be_variable IRCNAME                 'Pascal J. Bourguignon'
+    be_variable IRCSERVER               irc.informatimago.com
+    be_variable BROWSER                 /usr/bin/lynx
+    be_variable LYNX_CFG                "$HOME"/.lynx.cfg
+
+
+    be_comment 'Application environments:'
+
+    be_variable WRITE_ASF          1 # aviplay record:
+    be_variable MOZILLA_HOME       /usr/local/apps/netscape
+    be_variable WGET_UA            "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513"
+    be_variable wgetua             "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513"
+    be_variable MINICOM            '-M'
+    be_variable CDR_DEVICE         0,0,0
+    be_variable CDR_SPEED          4
+    be_variable CDR_FIFOSIZE       16M
+    be_variable ENSCRIPT           ' -TA4 -fCourier10 -FCourier-Bold12 -B -h --header="" --margins=:::12 '
+    be_variable GENSCRIPT          "$ENSCRIPT"
+    be_variable NENSCRIPT          "$ENSCRIPT"
+    be_variable HTML_TIDY          $HOME/public_html/tidy.config
+    be_variable ETAGS              
+    be_variable CTAGS              
+
+    # be_variable ORACLE_BASE       /home/oracle/app/oracle
+    # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
+    # be_variable ORACLE_SID        orcl
+    # be_variable NLS_LANG          fr_FR.WE8ISO8859P1
+    # be_variable NLS_DATE_FORMAT   'SYYYY-MM-DD HH24:MI:SS'
+    # be_variable LD_LIBRARY_PATH   "$ORACLE_HOME"/lib:"$ORACLE_HOME"/jdbc/lib:"$LD_LIBRARY_PATH"
+    # be_variable PGDATABASE        quotedb
+
+    be_comment 'antialiasing in QT applications'
+    be_variable QT_XFT             1
+    be_variable SHOOPSH            /usr/local/share/shoop/shoop.sh
+    be_variable SHOOPMOD           /usr/local/share/shoop/modules
+    be_variable SHOOPPATH          $SHOOPMOD
+
+    if [ -d /usr/local/cint/ ] ; then
+        be_variable CINTSYSDIR     /usr/local/cint
+    fi
+
+
+    # # GNUstep environment
+    # 
+    # if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+    #     for gsr in / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+    #         if [ -d $gsr/System/Makefiles ] ; then
+    #            gsr=$gsr/System
+    #            break
+    #         fi
+    #         [ -d $gsr/Makefiles ] && break
+    #     done
+    #     [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+    # fi
+    # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+
+    be_terminate
+}
+########################################################################
+if [ -f $BASH_ENV ] ; then
+    if [ $HOME/.bashrc -nt $BASH_ENV ] ; then
+        be_generate
+    fi
+else
+    be_generate
+fi
+source $BASH_ENV
+
+
+
+wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
 
 
 # Moved to rc/xsession. Perhaps there's an even better place for this?

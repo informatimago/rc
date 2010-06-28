@@ -6,7 +6,6 @@ SAVEDIR=old-rc-files
 
 FILES= \
 	.Xresources \
-	.bash_env \
 	.bash_login \
 	.bash_logout \
 	.bash_profile \
@@ -46,7 +45,6 @@ save:
 
 symlinks: save
 	ln -sf $(SRCDIR)/Xresources                  $$HOME/.Xresources
-	ln -sf $(SRCDIR)/bash_env                    $$HOME/.bash_env
 	ln -sf $(SRCDIR)/bash_login                  $$HOME/.bash_login
 	ln -sf $(SRCDIR)/bash_logout                 $$HOME/.bash_logout
 	ln -sf $(SRCDIR)/bash_profile                $$HOME/.bash_profile

@@ -130,6 +130,7 @@
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(fringe ((t (:background "yellow"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -211,7 +212,7 @@
  '(comment-force-also-empty-lines t)
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
- '(default-major-mode (quote text-mode) t)
+ '(default-major-mode (quote text-mode))
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
@@ -390,8 +391,8 @@ X-Disabled: X-No-Archive: no
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil t)
- '(rmail-pop-password-required nil t)
+ '(rmail-pop-password nil)
+ '(rmail-pop-password-required nil)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -795,8 +796,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                          '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
                          ))
                 ((23)
-                 (list "~/opt/share/emacs/site-lisp/slime/contribs/"
-                       "~/opt/share/emacs/site-lisp/slime/"))
+                 '())
                 (otherwise
                  (.EMACS "WARNING: No load-paths for emacs version %d" emacs-major-version)
                  '()))
@@ -820,6 +820,10 @@ NOTE:   ~/directories.txt is cached in *directories*.
     (setf load-path (append base-load-path
                             new-paths
                             (set-difference load-path base-load-path :test (function equal))))))
+
+(setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
+                       "~/opt/share/emacs/site-lisp/slime/"
+                       load-path))
 
 (message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
