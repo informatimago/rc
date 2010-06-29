@@ -130,7 +130,6 @@
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
- '(fringe ((t (:background "yellow"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -1285,7 +1284,8 @@ SIDE must be the symbol `left' or `right'."
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "Loading my personal files -- My own stuff.")
-(load "pjb-loader.el")
+(unless (load "pjb-loader.el" t)
+  (.EMACS "WARNING WARNING WARNING: Could not find and load 'My own stuff'!"))
 
 
 ;;;----------------------------------------------------------------------------
@@ -1536,64 +1536,71 @@ SIDE must be the symbol `left' or `right'."
            ;; (name (format "emacs: %s@%s" (user-real-login-name) host-name))
            (name "EMACS")
            ;; ---------------------
-           )
+           (fringe-background nil))
+      
       (setf default-cursor-type cursor-type)
       (cond ;; host-name
-       ((member* host-name '("simias") 
-                 :test (function string-equal*))
-        (setq palette            pal-anevia))
-       
-       ((member* host-name '("thalassa" "despina") 
-                 :test (function string-equal*))
-        (setq palette            pal-thalassa
-              width              81
-              height             70))
+        ((member* host-name '("mdi-development-1") 
+                  :test (function string-equal*))
+         (setf fringe-background "yellow"))
 
-       ((member* host-name '("larissa") :test (function string-equal*))
-        (setq palette            pal-larissa
-              Width              81
-              height             70))
+        ((member* host-name '("simias")  
+                  :test (function string-equal*))
+         (setq palette            pal-anevia))
+        
+        ((member* host-name '("thalassa" "despina") 
+                  :test (function string-equal*))
+         (setq palette            pal-thalassa
+               width              81
+               height             70))
 
-       ((member* host-name '("galatea") :test (function string-equal*))
-        (setq palette            pal-naiad
-              width              81
-              height             54
-              font   (let ((fixed (make-font-pattern :foundry "Misc"
-                                                     :family "Fixed"
-                                                     :weight "Medium"
-                                                     :slant "R"
-                                                     :width "SemiCondensed"
-                                                     :style ""
-                                                     :pixel-size "13"
-                                                     :point-size "120"
-                                                     :resolution-x "75"
-                                                     :resolution-y "75"
-                                                     :spacing "C"
-                                                     :average-width "60"
-                                                     :registry "ISO8859"
-                                                     :encoding "1")))
-                       (if (font-exists-p fixed) fixed font))))
+        ((member* host-name '("larissa") 
+                  :test (function string-equal*))
+         (setq palette            pal-larissa
+               Width              81
+               height             70))
 
-       ((member* host-name '("naiad") :test (function string-equal*))
-        (setq palette            pal-naiad
-              width              81
-              height             54))
+        ((member* host-name '("galatea") 
+                  :test (function string-equal*))
+         (setq palette            pal-naiad
+               width              81
+               height             54
+               font   (let ((fixed (make-font-pattern :foundry "Misc"
+                                                      :family "Fixed"
+                                                      :weight "Medium"
+                                                      :slant "R"
+                                                      :width "SemiCondensed"
+                                                      :style ""
+                                                      :pixel-size "13"
+                                                      :point-size "120"
+                                                      :resolution-x "75"
+                                                      :resolution-y "75"
+                                                      :spacing "C"
+                                                      :average-width "60"
+                                                      :registry "ISO8859"
+                                                      :encoding "1")))
+                        (if (font-exists-p fixed) fixed font))))
 
-       ((member* host-name '("lassell") :test (function string-equal*))
-        (setq palette            pal-lassel
-              width              81
-              height             54))
+        ((member* host-name '("naiad") :test (function string-equal*))
+         (setq palette            pal-naiad
+               width              81
+               height             54))
 
-       ((member* host-name '("triton" "proteus") :test (function string-equal*))
-        (setq palette            pal-galatea
-              width              86
-              height             52))
-       ((member* host-name '("mini") :test (function string-equal*))
-        (setq palette            pal-white
-              width              86
-              height             52))
+        ((member* host-name '("lassell") :test (function string-equal*))
+         (setq palette            pal-lassel
+               width              81
+               height             54))
 
-       ) ;;cond host-name
+        ((member* host-name '("triton" "proteus") :test (function string-equal*))
+         (setq palette            pal-galatea
+               width              86
+               height             52))
+        ((member* host-name '("mini") :test (function string-equal*))
+         (setq palette            pal-white
+               width              86
+               height             52))
+
+        ) ;;cond host-name
 
       (if (getenv "EMACS_WM")
           (progn
@@ -1665,7 +1672,10 @@ SIDE must be the symbol `left' or `right'."
         (setq frame-initial-frame nil))
 
       (set-face-background 'region (palette-region palette))
-      (when (facep 'fringe) (set-face-background 'fringe (palette-background palette)))
+      (when (facep 'fringe)
+        (if fringe-background
+            (set-face-background 'fringe fringe-background)            
+            (set-face-background 'fringe (palette-background palette))))
       (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
@@ -2781,6 +2791,25 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
     (local-set-key (kbd "<f6>") (cmd ":n"))
     (local-set-key (kbd "<f7>") (cmd ":o"))
     (local-set-key (kbd "<f8>") (cmd ":c"))))
+
+(defun ecl-debug-keys ()
+  "Binds locally some keys to send clisp debugger commands to the inferior-lisp
+<f5> step into
+<f6> next
+<f7> step over
+<f8> continue
+"
+  (interactive)
+  (macrolet ((cmd (string)
+               `(lambda ()
+                   (interactive)
+                   (comint-send-string (inferior-lisp-proc)
+                                       ,(format "%s\n" string)))))
+    
+    (local-set-key (kbd "<f5>") (cmd ""))
+    (local-set-key (kbd "<f6>") (cmd ""))
+    (local-set-key (kbd "<f7>") (cmd ":skip"))
+    (local-set-key (kbd "<f8>") (cmd ":exit"))))
 
 (defun sbcl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -5851,7 +5880,6 @@ or as \"emacs at <hostname>\"."
 ;; (setf (getenv "EMACS_USE") "pgm")
 
 
-(sfn t)
 (cond
   ((string= (getenv "EMACS_USE") "erc")
    (when (fboundp 'set-palette) (set-palette pal-dark-blue))
@@ -5863,6 +5891,7 @@ or as \"emacs at <hostname>\"."
   (t
    (when (fboundp 'set-palette) (set-palette pal-green))))
 
+(sfn t)
 
 (defun current-minor-modes (&optional buffer)
   "The list of the minor modes currently active in the buffer (or current buffer)."
