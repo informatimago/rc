@@ -47,6 +47,7 @@
   (:USE "COMMON-LISP"))
 ;; EXPORT at the end.
 
+;; (format *trace-output* "~%;;;; rc/common.lisp~%") ; debugging ecl
 
 ;; Clean the packages imported into COMMON-LISP-USER:
 (MAPC (LAMBDA (package) (UNUSE-PACKAGE package "COMMON-LISP-USER"))
