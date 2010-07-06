@@ -41,6 +41,16 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
+(defvar *hostname*
+  (or (and (boundp 'system-name) system-name)
+      (and (fboundp 'system-name) (system-name))
+      (ignore-errors
+        (shell-command-to-string
+         "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )")
+        "localhost")))
+
+
+
 (defun .EMACS (fctl &rest args)
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
@@ -103,7 +113,7 @@
 ;; xterm-mouse-mode ;; To use the mouse inside xterm!
 
 
-
+(require 'rst)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -211,7 +221,7 @@
  '(comment-force-also-empty-lines t)
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
- '(default-major-mode (quote text-mode))
+ '(default-major-mode (quote text-mode) t)
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
@@ -390,8 +400,8 @@ X-Disabled: X-No-Archive: no
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil)
- '(rmail-pop-password-required nil)
+ '(rmail-pop-password nil t)
+ '(rmail-pop-password-required nil t)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -399,7 +409,7 @@ X-Disabled: X-No-Archive: no
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -820,11 +830,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             new-paths
                             (set-difference load-path base-load-path :test (function equal))))))
 
-(setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-                       "~/opt/share/emacs/site-lisp/slime/"
-                       load-path))
+(unless (string= "mdi-development-1" *hostname*)
+ (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
+                        "~/opt/share/emacs/site-lisp/slime/"
+                        load-path)))
 
-(message "new load-path = %S" (with-output-to-string (dump-load-path)))
+;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
@@ -1422,7 +1433,19 @@ SIDE must be the symbol `left' or `right'."
 ;;      *default-font*))
 ;;   (when (fboundp 'single-frame) (single-frame)))
 
+;;;----------------------------------------------------------------------------
 
+(defmacro string-case (string-expression &body clauses)
+  (let ((value (gensym)))
+    `(let ((,value ,string-expression))
+       (cond
+         ,@(mapcar (lambda (clause)
+                     (destructuring-bind (constants &rest body) clause
+                       (if (member* constant '(t otherwise) :test (function string-equal*))
+                           `(t ,@body)
+                           `((member* ,value ',(ensure-list constants))
+                             ,@body))))
+                   clauses)))))
 
 ;;;----------------------------------------------------------------------------
 (when (and (not *pjb-pvs-is-running*) (member window-system '(x mac)))
@@ -1503,7 +1526,7 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-anevia        "white"        "#081040"       "green"   "cadetblue4"    "yellow")
   (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
-  (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
+  (Defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
   
   (set-palette  pal-default)
 
@@ -1511,7 +1534,11 @@ SIDE must be the symbol `left' or `right'."
   ;; ----------------------------------------
   (.EMACS "set-default-frame-alist")
 
-  (defun set-default-frame-alist (&optional font)
+
+  
+
+
+(defun set-default-frame-alist (&optional font)
     "Sets default-frame-alist depending on the current environment (host, display, etc)."
     (interactive)
     (let* (
@@ -1531,37 +1558,32 @@ SIDE must be the symbol `left' or `right'."
            (horizontal-scroll-bars 'nil)
            (vertical-scroll-bars   'nil) ; or left or right
            (palette              pal-default)
-           (host-name            (subseq system-name 0
-                                         (position (character ".") system-name)))
+           (hname                (subseq *hostname* 0 (position (character ".") *hostname*)))
            ;; (name (format "emacs: %s@%s" (user-real-login-name) host-name))
            (name "EMACS")
            ;; ---------------------
            (fringe-background nil))
+
       
-      (setf default-cursor-type cursor-type)
-      (cond ;; host-name
-        ((member* host-name '("mdi-development-1") 
-                  :test (function string-equal*))
+            (setf default-cursor-type cursor-type)
+      (string-case (hname :test (function string-equal*))
+        (("mdi-development-1")
          (setf fringe-background "yellow"))
 
-        ((member* host-name '("simias")  
-                  :test (function string-equal*))
+        (("simias")
          (setq palette            pal-anevia))
         
-        ((member* host-name '("thalassa" "despina") 
-                  :test (function string-equal*))
+        (("thalassa" "despina")
          (setq palette            pal-thalassa
                width              81
                height             70))
 
-        ((member* host-name '("larissa") 
-                  :test (function string-equal*))
+        (("larissa") 
          (setq palette            pal-larissa
                Width              81
                height             70))
 
-        ((member* host-name '("galatea") 
-                  :test (function string-equal*))
+        (("galatea") 
          (setq palette            pal-naiad
                width              81
                height             54
@@ -1581,26 +1603,24 @@ SIDE must be the symbol `left' or `right'."
                                                       :encoding "1")))
                         (if (font-exists-p fixed) fixed font))))
 
-        ((member* host-name '("naiad") :test (function string-equal*))
+        (("naiad")
          (setq palette            pal-naiad
                width              81
                height             54))
 
-        ((member* host-name '("lassell") :test (function string-equal*))
+        (("lassell")
          (setq palette            pal-lassel
                width              81
                height             54))
 
-        ((member* host-name '("triton" "proteus") :test (function string-equal*))
+        (("triton" "proteus")
          (setq palette            pal-galatea
                width              86
                height             52))
-        ((member* host-name '("mini") :test (function string-equal*))
+        (("mini")
          (setq palette            pal-white
                width              86
-               height             52))
-
-        ) ;;cond host-name
+               height             52)))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -1674,7 +1694,7 @@ SIDE must be the symbol `left' or `right'."
       (set-face-background 'region (palette-region palette))
       (when (facep 'fringe)
         (if fringe-background
-            (set-face-background 'fringe fringe-background)            
+            (set-face-background 'fringe fringe-background)
             (set-face-background 'fringe (palette-background palette))))
       (set-palette palette)
       (set-frame-name name)
@@ -2239,27 +2259,29 @@ of `inferior-lisp-program').  Runs the hooks from
 ;; (inferior-lisp-package)
 ;; (local-variable-p 'package)
 
-(defun inferior-lisp-buffer (&optional process)
-  (if (boundp 'inferior-lisp-buffer)
-      inferior-lisp-buffer
-      (process-buffer (or process (inferior-lisp-proc)))))
-
-(defun inferior-lisp-package (&optional process)
-  (symbol-value-in-buffer 'package (inferior-lisp-buffer process)))
-
-;; (defun lisp-eval-region (start end &optional and-go)
-;;   "Send the current region to the inferior Lisp process.
-;; Prefix argument means switch to the Lisp buffer afterwards."
-;;   (interactive "r\nP")
-;;   (comint-send-region (inferior-lisp-proc) start end)
-;;   (comint-send-string (inferior-lisp-proc) "\n")
-;;   (if and-go (switch-to-lisp t)))
-
-(defadvice lisp-eval-region (before ler-in-package activate) 
-  (when (and (boundp 'package) (not (eq package (inferior-lisp-package))))
-    (comint-send-string (inferior-lisp-proc)
-                        (upcase (format "(CL:IN-PACKAGE #:%s)\n" package)))
-    (setf (symbol-value-in-buffer 'package (inferior-lisp-buffer)) package)))
+;; Interfers with slime:
+;;
+;; (defun inferior-lisp-buffer (&optional process)
+;;   (if (boundp 'inferior-lisp-buffer)
+;;       inferior-lisp-buffer
+;;       (process-buffer (or process (inferior-lisp-proc)))))
+;; 
+;; (defun inferior-lisp-package (&optional process)
+;;   (symbol-value-in-buffer 'package (inferior-lisp-buffer process)))
+;; 
+;; ;; (defun lisp-eval-region (start end &optional and-go)
+;; ;;   "Send the current region to the inferior Lisp process.
+;; ;; Prefix argument means switch to the Lisp buffer afterwards."
+;; ;;   (interactive "r\nP")
+;; ;;   (comint-send-region (inferior-lisp-proc) start end)
+;; ;;   (comint-send-string (inferior-lisp-proc) "\n")
+;; ;;   (if and-go (switch-to-lisp t)))
+;; 
+;; (defadvice lisp-eval-region (before ler-in-package activate) 
+;;   (when (and (boundp 'package) (not (eq package (inferior-lisp-package))))
+;;     (comint-send-string (inferior-lisp-proc)
+;;                         (upcase (format "(CL:IN-PACKAGE #:%s)\n" package)))
+;;     (setf (symbol-value-in-buffer 'package (inferior-lisp-buffer)) package)))
 
 
 (defun lisp-eval-last-sexp (&optional and-go)
@@ -2886,7 +2908,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (require 'slime)
 (slime-setup '(slime-fancy))
 (setf slime-net-coding-system 'utf-8-unix)
-
+(setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
 ;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
 ;;            (getenv "EMACS_INFERIOR_LISP")))
@@ -5821,6 +5843,8 @@ Attribution: ?"
       grep-host-defaults-alist nil)
 (setf grep-find-command "find $HOME/firms/medicalis/src/amd/subprojects/incident-tracker/sources/siam \\( \\( -name release -o -name .git \\) -prune \\) -o -type f  \\( -name \\*.php -o -name \\*.inc -o -name \\*.txt \\) -print0 | xargs -0  grep -niH -e "
       grep-host-defaults-alist nil)
+(setf grep-find-command "find . \\( \\( -name release -o -name .git \\) -prune \\) -o -type f  -print0 | xargs -0  grep -niH -e "
+      grep-host-defaults-alist nil)
 
 
 (defun next-day (date)
@@ -5853,13 +5877,6 @@ RETURN: (YYYY MM DD DOW)  next day."
 (defvar *from-regexp*
   "^From [^ ]*@[^ ]*  \\(Mon\\|Tue\\|Wed\\|Thu\\|Fri\\|Sat\\|Sun\\) \\(Jan\\|Feb\\|Mar\\|Apr\\|May\\|Jun\\|Jul\\|Aug\\|Sep\\|Oct\\|Nov\\|Dec\\) [ 0-3][0-9] [ 0-2][0-9]:[0-5][0-9]:[0-5][0-9] [0-9][0-9][0-9][0-9]$")
 
-
-
-(defvar *hostname*
-  (ignore-errors
-    (shell-command-to-string
-     "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )")
-    "localhost"))
 
 (defun sfn (&optional hostnamep)
   "Set the name of all frames as \"EMACS\" with a prefix,
@@ -5907,7 +5924,13 @@ or as \"emacs at <hostname>\"."
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
 (.EMACS "DONE")
-;;;; THE END ;;;;
+
 ;; (setf inhibit-splash-screen t)
 ;; (switch-to-buffer (get-buffer-create "emtpy"))
 ;; (delete-other-windows)
+
+
+;; Local Variables:
+;; eval: (cl-indent 'string-case 1)
+;; End
+;;;; THE END ;;;;

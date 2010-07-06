@@ -387,7 +387,7 @@
 ;; (asdf-delete-system system)
 ;;--------------------
 (defun asdf-delete-system (system)
-  (remhash (string-downcase system) asdf::*defined-systems*)
+ (remhash (string-downcase system) asdf::*defined-systems*)
   (values))
 
 (export '(asdf-load asdf-load-source asdf-install asdf-delete-system))
