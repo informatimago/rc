@@ -104,12 +104,13 @@ function be_generate(){
     local list
 
     bindirs=( 
-        /opt/*/bin 
+        /opt/*/bin      /opt/*/sbin 
+        /usr/local/bin  /usr/local/sbin
+        /usr/X11R6/bin  /usr/X11/bin /usr/games 
+        /usr/bin        /usr/sbin
+        /bin            /sbin
         /opt/local/lib/postgresql84/bin 
-        /opt/*/bin     /opt/*/sbin 
-        /usr/local/bin /usr/local/sbin 
         /usr/local/cint
-        /bin /usr/bin /sbin /usr/sbin /usr/X11R6/bin /usr/X11/bin /usr/games 
         /Developer/Tools 
         /usr/local/apps/netscape 
         /usr/local/apps/Acrobat4/bin 

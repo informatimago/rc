@@ -17,4 +17,4 @@ esac
 # Get the aliases and functions
 [ -f ~/.bashrc ] && . ~/.bashrc
 
-#### .bash_profile                    --                     --          ####
+#### THE END ####
