@@ -1526,7 +1526,7 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-anevia        "white"        "#081040"       "green"   "cadetblue4"    "yellow")
   (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
-  (Defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
+  (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
   
   (set-palette  pal-default)
 
