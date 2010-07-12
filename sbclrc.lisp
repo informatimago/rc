@@ -50,8 +50,8 @@
 
 (setf (logical-pathname-translations "SYS") nil
       (logical-pathname-translations "SYS")
-      '((#P"SYS:**;*.*" #P"/Users/pjb/src/sbcl/sbcl-1.0.15/**/*.*")
-        (#P"SYS:**;*"   #P"/Users/pjb/src/sbcl/sbcl-1.0.15/**/*")))
+      '((#P"SYS:**;*.*" #P"/Users/pjb/src/sbcl/sbcl-1.0.39/**/*.*")
+        (#P"SYS:**;*"   #P"/Users/pjb/src/sbcl/sbcl-1.0.39/**/*")))
 
 (defvar *LOGHOSTS-DIRECTORY*
   (merge-pathnames (make-pathname :directory '(:relative "LOGHOSTS-SBCL")
@@ -109,17 +109,17 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-
 (declaim (sb-ext:muffle-conditions (or style-warning compiler-note))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
-(SETQ *LOAD-VERBOSE* nil)
+(SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :NAME "COMMON" :TYPE "LISP" :CASE :COMMON)
-       (user-homedir-pathname)
+       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
+                      :CASE :COMMON)
+       (USER-HOMEDIR-PATHNAME)
        NIL))
 
-
-(in-package "COM.INFORMATIMAGO.PJB")
+(IN-PACKAGE "COM.INFORMATIMAGO.PJB")
+;; additional export at the end.
 (export '(EDIT QUIT))
 
 ;;----------------------------------------------------------------------
