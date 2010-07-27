@@ -381,11 +381,11 @@ X-Disabled: X-No-Archive: no
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pr-faces-p t)
- '(printer-name "normal_gray" t)
+ '(printer-name "normal_gray")
  '(prolog-program-name "/usr/bin/pl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4) t)
+ '(ps-paper-type (quote a4))
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -393,6 +393,7 @@ X-Disabled: X-No-Archive: no
  '(ps-show-n-of-n nil)
  '(read-mail-command (quote vm))
  '(read-quoted-char-radix 10)
+ '(require-final-newline (quote visit-save))
  '(rmail-confirm-expunge nil)
  '(rmail-display-summary t)
  '(rmail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
@@ -830,7 +831,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             new-paths
                             (set-difference load-path base-load-path :test (function equal))))))
 
-(unless (string= "mdi-development-1" *hostname*)
+(unless (fboundp 'mdi)
  (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
                         "~/opt/share/emacs/site-lisp/slime/"
                         load-path)))
@@ -1085,7 +1086,11 @@ SIDE must be the symbol `left' or `right'."
   (local-set-key (kbd "<home>")        'beginning-of-buffer)
   (local-set-key (kbd "<end>")         'end-of-buffer)
   (local-set-key (kbd "<prior>")       'scroll-down)
-  (local-set-key (kbd "<next>")        'scroll-up))
+  (local-set-key (kbd "<next>")        'scroll-up)
+  (global-set-key (kbd "<home>")        'beginning-of-buffer)
+  (global-set-key (kbd "<end>")         'end-of-buffer)
+  (global-set-key (kbd "<prior>")       'scroll-down)
+  (global-set-key (kbd "<next>")        'scroll-up))
 
 (defun swap-brackets-parens ()
   (interactive)
@@ -1435,15 +1440,16 @@ SIDE must be the symbol `left' or `right'."
 
 ;;;----------------------------------------------------------------------------
 
-(defmacro string-case (string-expression &body clauses)
+(defmacro* string-case (string-expression &body clauses)
   (let ((value (gensym)))
     `(let ((,value ,string-expression))
        (cond
          ,@(mapcar (lambda (clause)
                      (destructuring-bind (constants &rest body) clause
-                       (if (member* constant '(t otherwise) :test (function string-equal*))
+                       (if (member* constants '(t otherwise) :test (function eql))
                            `(t ,@body)
-                           `((member* ,value ',(ensure-list constants))
+                           `((member* ,value ',(ensure-list constants)
+                                      :test (function string-equal*))
                              ,@body))))
                    clauses)))))
 
@@ -1565,62 +1571,60 @@ SIDE must be the symbol `left' or `right'."
            (fringe-background nil))
 
       
-            (setf default-cursor-type cursor-type)
-      (string-case (hname :test (function string-equal*))
-        (("mdi-development-1")
-         (setf fringe-background "yellow"))
+      (setf default-cursor-type cursor-type)
+      (unless (fboundp 'mdi)
+        (string-case (hname :test (function string-equal*))
+          (("simias")
+           (setq palette            pal-anevia))
+          
+          (("thalassa" "despina")
+           (setq palette            pal-thalassa
+                 width              81
+                 height             70))
 
-        (("simias")
-         (setq palette            pal-anevia))
-        
-        (("thalassa" "despina")
-         (setq palette            pal-thalassa
-               width              81
-               height             70))
+          (("larissa") 
+           (setq palette            pal-larissa
+                 Width              81
+                 height             70))
 
-        (("larissa") 
-         (setq palette            pal-larissa
-               Width              81
-               height             70))
+          (("galatea") 
+           (setq palette            pal-naiad
+                 width              81
+                 height             54
+                 font   (let ((fixed (make-font-pattern :foundry "Misc"
+                                                        :family "Fixed"
+                                                        :weight "Medium"
+                                                        :slant "R"
+                                                        :width "SemiCondensed"
+                                                        :style ""
+                                                        :pixel-size "13"
+                                                        :point-size "120"
+                                                        :resolution-x "75"
+                                                        :resolution-y "75"
+                                                        :spacing "C"
+                                                        :average-width "60"
+                                                        :registry "ISO8859"
+                                                        :encoding "1")))
+                          (if (font-exists-p fixed) fixed font))))
 
-        (("galatea") 
-         (setq palette            pal-naiad
-               width              81
-               height             54
-               font   (let ((fixed (make-font-pattern :foundry "Misc"
-                                                      :family "Fixed"
-                                                      :weight "Medium"
-                                                      :slant "R"
-                                                      :width "SemiCondensed"
-                                                      :style ""
-                                                      :pixel-size "13"
-                                                      :point-size "120"
-                                                      :resolution-x "75"
-                                                      :resolution-y "75"
-                                                      :spacing "C"
-                                                      :average-width "60"
-                                                      :registry "ISO8859"
-                                                      :encoding "1")))
-                        (if (font-exists-p fixed) fixed font))))
+          (("naiad")
+           (setq palette            pal-naiad
+                 width              81
+                 height             54))
 
-        (("naiad")
-         (setq palette            pal-naiad
-               width              81
-               height             54))
+          (("lassell")
+           (setq palette            pal-lassel
+                 width              81
+                 height             54))
 
-        (("lassell")
-         (setq palette            pal-lassel
-               width              81
-               height             54))
-
-        (("triton" "proteus")
-         (setq palette            pal-galatea
-               width              86
-               height             52))
-        (("mini")
-         (setq palette            pal-white
-               width              86
-               height             52)))
+          (("triton" "proteus")
+           (setq palette            pal-galatea
+                 width              86
+                 height             52))
+          (("mini")
+           (setq palette            pal-white
+                 width              86
+                 height             52))))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -1692,10 +1696,11 @@ SIDE must be the symbol `left' or `right'."
         (setq frame-initial-frame nil))
 
       (set-face-background 'region (palette-region palette))
-      (when (facep 'fringe)
-        (if fringe-background
-            (set-face-background 'fringe fringe-background)
-            (set-face-background 'fringe (palette-background palette))))
+      (unless (fboundp 'mdi)
+       (when (facep 'fringe)
+         (if fringe-background
+             (set-face-background 'fringe fringe-background)
+             (set-face-background 'fringe (palette-background palette)))))
       (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
@@ -1767,7 +1772,7 @@ SIDE must be the symbol `left' or `right'."
     (ansi-color-apply-on-region (point-min) (point-max))
     (set-buffer-modified-p modified)))
 
-(defun pjb-shell-mode-hook ()
+(defun pjb-shell-mode-meat ()
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
   (when (fboundp 'ansi-color-for-comint-mode-on)
@@ -1781,56 +1786,8 @@ SIDE must be the symbol `left' or `right'."
   ;;    (process-send-string (get-buffer-process (current-buffer))
   ;;                      "alias less=cat ; alias more=cat ; ")))
   )
-(add-hook 'shell-mode-hook (function pjb-shell-mode-hook))
+(add-hook 'shell-mode-hook (function pjb-shell-mode-meat))
 
-(defun pjb-comint-filter-meat/erase-screen (string)
-  (let ((pos (search "c" string :from-end t)))
-    (if pos
-        (progn
-          (erase-buffer)
-          (subseq string (+ 2 pos)))
-        string)))
-(defun ecma-048-cuu ()
-  (backward-line 1))
-(defun ecma-048-cuf (offset)
-  (let ((new-column (+ (point) offset)))
-    (if (< (save-excursion (end-of-line) (point))  new-column)
-        (progn (end-of-line)
-               ;; (insert (make-string (- new-column (point)) 32))
-               )
-        (forward-char offset))))
-(defun ecma-048-crlf ()
-  (insert (make-string (forward-line 1) 10)))
-(defun pjb-comint-filter-meat/position (string)
-  (let ((commands '(("\nA"            beginning-of-line)
-                    ("\\(\\[0-9\\]+\\)C"  ecma-048-cuf 1)
-                    ("\\(\\[0-9;\\]*\\)H" ignore)))
-        (start 0))
-    (while (let ((cmd (find-if (lambda (cmd) (eql start (string-match (first cmd) string start))) commands)))
-             (when cmd
-               (setf start (match-end 0))
-               (apply (second cmd) (mapcar (lambda (i) (parse-integer (match-string i string))) (cddr cmd)))
-               t)))
-    (if (zerop start)
-        string
-        (subseq string start))))
-(defun pjb-comint-filter-meat/color (string)
-  "Remove color ansi codes."
-  (with-temp-buffer
-    (insert string)
-    (goto-char 0)
-    (let ((changed nil))
-      (while (re-search-forward "[\\[0-9;\\]*m" (point-max) t)
-        (setf changed t)
-        (delete-region (match-beginning 0) (match-end 0)))
-      (if changed
-          (buffer-substring-no-properties (point-min) (point-max))
-          string))))
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/position)
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/erase-screen)
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/color)
-;; comint-preoutput-filter-functions
-(setf comint-preoutput-filter-functions nil)
 
 ;; (setf (getenv "ESHELL") (concatenate 'string  (USER-HOMEDIR-PATHNAME)
 ;;                          "bin/clash"))
@@ -1947,124 +1904,135 @@ capitalized form."
 ;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
 ;;        (sort l (function string<=))))
 
-(.EMACS " define-lisp-implementation")
-(defvar slime-lisp-implementations    nil)
-(defvar *default-lisp-implementation* nil)
-(defvar lisp-implementation nil
-  "Buffer local variable indicating what lisp-implementation is used here.")
+(unless (fboundp 'mdi)
+  
+  (.EMACS " define-lisp-implementation")
+  (defvar slime-lisp-implementations    nil)
+  (defvar *default-lisp-implementation* nil)
+  (defvar lisp-implementation nil
+    "Buffer local variable indicating what lisp-implementation is used here.")
 
-(defstruct lisp-implementation
-  name command prompt coding
-  (function-documentation-command
-   "(let ((fn '%s))
+  (defstruct lisp-implementation
+    name command prompt coding
+    (function-documentation-command
+     "(let ((fn '%s))
      (format t \"Documentation for ~a:~&~a\"
 	     fn (documentation fn 'function))
      (values))\n")
-  (variable-documentation-command
-   "(let ((v '%s))
+    (variable-documentation-command
+     "(let ((v '%s))
      (format t \"Documentation for ~a:~&~a\"
 	     v (documentation v 'variable))
      (values))\n")
-  (argument-list-command
-   "(let ((fn '%s))
+    (argument-list-command
+     "(let ((fn '%s))
      (format t \"Arglist for ~a: ~a\" fn (arglist fn))
      (values))\n")
-  (describe-symbol-command "(describe '%s)\n"))
+    (describe-symbol-command "(describe '%s)\n"))
 
 
-(defmacro define-lisp-implementation (name command prompt coding &rest rest)
-  `(let* ((command (let ((command ,command))
-                     (if (stringp command) (list command) command)))
-          (li (make-lisp-implementation
-               :name     ',name
-               :command  (apply (function concat)
-                                (cdr (loop for word in command
-                                        collect " " collect word)))
-               :prompt   ,prompt
-               :coding  ',coding
-               ,@rest))
-          (sli (assoc ',name slime-lisp-implementations)))
-     (setf (get ',name :lisp-implementation) li)
-     (if (null sli)
-         (push (list ',name command
-                     :coding-system  (intern (format "%s-unix" ',coding)))
-               slime-lisp-implementations)
-         (setf (cdr sli)
-               (list command
-                     :coding-system (intern (format "%s-unix" ',coding)))))
-     ',name))
+  (defmacro define-lisp-implementation (name command prompt coding &rest rest)
+    `(let* ((command (let ((command ,command))
+                       (if (stringp command) (list command) command)))
+            (li (make-lisp-implementation
+                 :name     ',name
+                 :command  (apply (function concat)
+                                  (cdr (loop for word in command
+                                          collect " " collect word)))
+                 :prompt   ,prompt
+                 :coding  ',coding
+                 ,@rest))
+            (sli (assoc ',name slime-lisp-implementations)))
+       (setf (get ',name :lisp-implementation) li)
+       (if (null sli)
+           (push (list ',name command
+                       :coding-system  (intern (format "%s-unix" ',coding)))
+                 slime-lisp-implementations)
+           (setf (cdr sli)
+                 (list command
+                       :coding-system (intern (format "%s-unix" ',coding)))))
+       ',name))
 
 
 
-(define-lisp-implementation scheme
-    "mzscheme"
-  "^> "
-  iso-8859-15)
-(define-lisp-implementation mzscheme
-    "mzscheme"
-  "^> "
-  iso-8859-15)
-(define-lisp-implementation mit-scheme
-    "/usr/local/languages/mit-scheme/bin/scheme"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation umb-scheme
-    "/usr/bin/scheme"
-  "^==> "
-  iso-8859-15)
-(define-lisp-implementation allegro-express
-    "/local/languages/acl80_express/alisp"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation allegro
-    "/local/languages/acl80/alisp"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation sbcl
-    (list (first-existing-file '("/opt/local/bin/sbcl"
-                                 "/usr/local/bin/sbcl"
-                                 "/usr/bin/sbcl"))
-          "--noinform")
-  "^\[[0-9]*\]> "
-  iso-8859-1)
-(define-lisp-implementation cmucl
-    (first-existing-file '("/usr/local/bin/lisp"
-                           "/usr/bin/lisp"))
-  "^\* "
-  iso-8859-1)
-(define-lisp-implementation openmcl
-    "/usr/local/bin/openmcl"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation clisp
-    (list* (cond
-             ((eq system-type 'cygwin)    "/usr/bin/clisp")
-             (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
-                                        "/opt/local/bin/clisp"
-                                        "/usr/local/bin/clisp"
-                                        "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
-                                        "/usr/bin/clisp"))))
-           "-ansi""-q""-K""full""-m""32M""-I"
-           (cond
-             ((eq system-type 'darwin)
-              (list "-Efile"     "ISO-8859-15"
-                    "-Epathname" "UTF-8"
-                    "-Eterminal" "UTF-8"
-                    "-Emisc"     "UTF-8" ; better be same as terminal
-                    "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-             (t
-              (list "-Efile"     "ISO-8859-15"
-                    "-Epathname" "ISO-8859-1"
-                    "-Eterminal" "UTF-8"
-                    "-Emisc"     "UTF-8" ; better be same as terminal
-                    "-Eforeign"  "ISO-8859-1")
-              (list "-E"         "UTF-8"
-                    "-Epathname" "ISO-8859-1"
-                    "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
-  "^\[[0-9]*\]> "
-  utf-8
-  :argument-list-command
-  "(let ((fn '%s))
+  (define-lisp-implementation scheme
+      "mzscheme"
+    "^> "
+    iso-8859-15)
+
+  (define-lisp-implementation mzscheme
+      "mzscheme"
+    "^> "
+    iso-8859-15)
+
+  (define-lisp-implementation mit-scheme
+      "/usr/local/languages/mit-scheme/bin/scheme"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation umb-scheme
+      "/usr/bin/scheme"
+    "^==> "
+    iso-8859-15)
+
+  (define-lisp-implementation allegro-express
+      "/local/languages/acl80_express/alisp"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation allegro
+      "/local/languages/acl80/alisp"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation sbcl
+      (list (first-existing-file '("/opt/local/bin/sbcl"
+                                   "/usr/local/bin/sbcl"
+                                   "/usr/bin/sbcl"))
+            "--noinform")
+    "^\[[0-9]*\]> "
+    iso-8859-1)
+
+  (define-lisp-implementation cmucl
+      (first-existing-file '("/usr/local/bin/lisp"
+                             "/usr/bin/lisp"))
+    "^\* "
+    iso-8859-1)
+
+  (define-lisp-implementation openmcl
+      "/usr/local/bin/openmcl"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation clisp
+      (list* (cond
+               ((eq system-type 'cygwin)    "/usr/bin/clisp")
+               (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
+                                          "/opt/local/bin/clisp"
+                                          "/usr/local/bin/clisp"
+                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
+                                          "/usr/bin/clisp"))))
+             "-ansi""-q""-K""full""-m""32M""-I"
+             (cond
+               ((eq system-type 'darwin)
+                (list "-Efile"     "ISO-8859-15"
+                      "-Epathname" "UTF-8"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+               (t
+                (list "-Efile"     "ISO-8859-15"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")
+                (list "-E"         "UTF-8"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+    "^\[[0-9]*\]> "
+    utf-8
+    :argument-list-command
+    "(let ((fn '%s))
      (cond
        ((not (fboundp fn))      (format t \"~A is not a function\" fn))
        ((special-operator-p fn) (format t \"~A is a special operator\" fn))
@@ -2073,169 +2041,174 @@ capitalized form."
      (values))\n")
 
 
-(defun set-inferior-lisp-implementation (impl)
-  (interactive "SImplementation: ")
-  (let ((impl (get impl :lisp-implementation)))
-    (if impl
-        (progn
-          (message ".EMACS: inferior-lisp implementation: %s"
-                   (lisp-implementation-name impl))
-          (setf *default-lisp-implementation* impl
-                inferior-lisp-program (lisp-implementation-command impl)
-                inferior-lisp-prompt  (lisp-implementation-prompt impl)
-                lisp-function-doc-command
-                (lisp-implementation-function-documentation-command impl)
-                lisp-var-doc-command
-                (lisp-implementation-variable-documentation-command impl)
-                lisp-arglist-command
-                (lisp-implementation-argument-list-command impl)
-                lisp-describe-sym-command
-                (lisp-implementation-describe-symbol-command impl)
-                default-process-coding-system
-                (let ((coding (lisp-implementation-coding impl)))
-                  (cons coding coding))))
-        (error "%S not a lisp implementation." impl)))
-  impl)
+
+  (defun set-inferior-lisp-implementation (impl)
+    (interactive "SImplementation: ")
+    (let ((impl (get impl :lisp-implementation)))
+      (if impl
+          (progn
+            (message ".EMACS: inferior-lisp implementation: %s"
+                     (lisp-implementation-name impl))
+            (setf *default-lisp-implementation* impl
+                  inferior-lisp-program (lisp-implementation-command impl)
+                  inferior-lisp-prompt  (lisp-implementation-prompt impl)
+                  lisp-function-doc-command
+                  (lisp-implementation-function-documentation-command impl)
+                  lisp-var-doc-command
+                  (lisp-implementation-variable-documentation-command impl)
+                  lisp-arglist-command
+                  (lisp-implementation-argument-list-command impl)
+                  lisp-describe-sym-command
+                  (lisp-implementation-describe-symbol-command impl)
+                  default-process-coding-system
+                  (let ((coding (lisp-implementation-coding impl)))
+                    (cons coding coding))))
+          (error "%S not a lisp implementation." impl)))
+    impl)
+
+
+  (defun set-inferior-lisp-buffer (buffer-name)
+    (interactive "bInferior Lisp Buffer: ")
+    (make-local-variable 'inferior-lisp-buffer)
+    (make-local-variable 'lisp-function-doc-command)
+    (make-local-variable 'lisp-var-doc-command)
+    (make-local-variable 'lisp-arglist-command)
+    (make-local-variable 'lisp-describe-sym-command)
+    (make-local-variable 'lisp-implementation)
+    (setf
+     inferior-lisp-buffer buffer-name
+     lisp-implementation  (or (buffer-local-value
+                               'lisp-implementation
+                               (get-buffer inferior-lisp-buffer))
+                              (lisp-implementation-name
+                               *default-lisp-implementation*)))
+    (let ((limpl (get lisp-implementation :lisp-implementation)))
+      (when limpl
+        (setf
+         lisp-function-doc-command
+         (lisp-implementation-function-documentation-command limpl)
+         lisp-var-doc-command
+         (lisp-implementation-variable-documentation-command limpl)
+         lisp-arglist-command
+         (lisp-implementation-argument-list-command limpl)
+         lisp-describe-sym-command
+         (lisp-implementation-describe-symbol-command limpl)))))
 
 
 
-;; (prog1 nil
-;;   (set-inferior-lisp-implementation 'clisp)
-;;   (print `(clisp --> ,(symbol-plist 'clisp)))
-;;   (print `(inferior-lisp-program --> ,inferior-lisp-program))
-;;   (print `(inferior-lisp-prompt --> ,inferior-lisp-prompt)))
+  ;; (prog1 nil
+  ;;   (set-inferior-lisp-implementation 'clisp)
+  ;;   (print `(clisp --> ,(symbol-plist 'clisp)))
+  ;;   (print `(inferior-lisp-program --> ,inferior-lisp-program))
+  ;;   (print `(inferior-lisp-prompt --> ,inferior-lisp-prompt)))
 
 
-;; system-type          darwin   gnu/linux  cygwin
-;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin"
+  ;; system-type          darwin   gnu/linux  cygwin
+  ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin"
 
-;; Used both by ilisp and slime:
-(case system-type
-  ((darwin)     (set-inferior-lisp-implementation 'clisp)) ; openmcl))
-  ((gnu/linux)  (set-inferior-lisp-implementation 'clisp)) ; sbcl))
-  ((cygwin)     (set-inferior-lisp-implementation 'clisp))
-  (otherwise    (warn "unexpected system-type for inferior-lisp-program")
-                (set-inferior-lisp-implementation 'clisp)))
-
-
-(defun set-inferior-lisp-buffer (buffer-name)
-  (interactive "bInferior Lisp Buffer: ")
-  (make-local-variable 'inferior-lisp-buffer)
-  (make-local-variable 'lisp-function-doc-command)
-  (make-local-variable 'lisp-var-doc-command)
-  (make-local-variable 'lisp-arglist-command)
-  (make-local-variable 'lisp-describe-sym-command)
-  (make-local-variable 'lisp-implementation)
-  (setf
-   inferior-lisp-buffer buffer-name
-   lisp-implementation  (or (buffer-local-value
-                             'lisp-implementation
-                             (get-buffer inferior-lisp-buffer))
-                            (lisp-implementation-name
-                             *default-lisp-implementation*)))
-  (let ((limpl (get lisp-implementation :lisp-implementation)))
-    (when limpl
-      (setf
-       lisp-function-doc-command
-       (lisp-implementation-function-documentation-command limpl)
-       lisp-var-doc-command
-       (lisp-implementation-variable-documentation-command limpl)
-       lisp-arglist-command
-       (lisp-implementation-argument-list-command limpl)
-       lisp-describe-sym-command
-       (lisp-implementation-describe-symbol-command limpl)))))
+  ;; Used both by ilisp and slime:
+  (case system-type
+    ((darwin)     (set-inferior-lisp-implementation 'clisp)) ; openmcl))
+    ((gnu/linux)  (set-inferior-lisp-implementation 'clisp)) ; sbcl))
+    ((cygwin)     (set-inferior-lisp-implementation 'clisp))
+    (otherwise    (warn "unexpected system-type for inferior-lisp-program")
+                  (set-inferior-lisp-implementation 'clisp)))
 
 
 
-(defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
-(defun %lisp-buffer-name-match-p (buffer-name &optional number)
-  (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
-(defun %lisp-buffer-name-number (buffer-name)
-  (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
-    (parse-integer (match-string 1 buffer-name))))
-(defun inferior-lisp-buffers-list ()
-  "RETURN: a list of the inferior-lisp buffers."
-  (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
-             (mapcar (function buffer-name) (buffer-list))))
-(defun %lisp-buffer-next-number ()
-  (loop
-     with i = 0
-     with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-                                  (inferior-lisp-buffers-list))
-                          (function <=))
-     while numbers
-     do (if (= i (car numbers))
-            (progn (incf i) (pop numbers))
-            (return i))
-     finally (return i)))
 
-(defvar *lisp-command-history* '())
 
-(defun inferior-lisp-other-window (cmd)
-  "Run an inferior Lisp process, input and output via buffer `*inferior-lisp*'.
+
+
+  (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
+  (defun %lisp-buffer-name-match-p (buffer-name &optional number)
+    (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
+  (defun %lisp-buffer-name-number (buffer-name)
+    (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
+      (parse-integer (match-string 1 buffer-name))))
+  (defun inferior-lisp-buffers-list ()
+    "RETURN: a list of the inferior-lisp buffers."
+    (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
+               (mapcar (function buffer-name) (buffer-list))))
+  (defun %lisp-buffer-next-number ()
+    (loop
+       with i = 0
+       with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+                                    (inferior-lisp-buffers-list))
+                            (function <=))
+       while numbers
+       do (if (= i (car numbers))
+              (progn (incf i) (pop numbers))
+              (return i))
+       finally (return i)))
+
+  (defvar *lisp-command-history* '())
+
+  (defun inferior-lisp-other-window (cmd)
+    "Run an inferior Lisp process, input and output via buffer `*inferior-lisp*'.
 If there is a process already running in `*inferior-lisp*', just switch
 to that buffer.
 With argument, allows you to edit the command line (default is value
 of `inferior-lisp-program').  Runs the hooks from
 `inferior-lisp-mode-hook' (after the `comint-mode-hook' is run).
 \(Type \\[describe-mode] in the process buffer for a list of commands.)"
-  (interactive (list (if current-prefix-arg
-			 (read-string "Run lisp: " inferior-lisp-program)
-		       inferior-lisp-program)))
-  (if (not (comint-check-proc "*inferior-lisp*"))
-      (let ((cmdlist (split-string cmd)))
-	(set-buffer (apply (function make-comint)
-			   "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
-	(inferior-lisp-mode)))
-  (setq inferior-lisp-buffer "*inferior-lisp*")
-  (pop-to-buffer "*inferior-lisp*" t))
+    (interactive (list (if current-prefix-arg
+                           (read-string "Run lisp: " inferior-lisp-program)
+                           inferior-lisp-program)))
+    (if (not (comint-check-proc "*inferior-lisp*"))
+        (let ((cmdlist (split-string cmd)))
+          (set-buffer (apply (function make-comint)
+                             "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
+          (inferior-lisp-mode)))
+    (setq inferior-lisp-buffer "*inferior-lisp*")
+    (pop-to-buffer "*inferior-lisp*" t))
 
 
-(defun nlisp (&optional ask-command)
-  "Create a new inferior-lisp buffer."
-  (interactive "P")
-  (let* ((impl-or-cmd
-          (if ask-command
-              (read-from-minibuffer
+  (defun nlisp (&optional ask-command)
+    "Create a new inferior-lisp buffer."
+    (interactive "P")
+    (let* ((impl-or-cmd
+            (if ask-command
+                (read-from-minibuffer
                  "Lisp implementation or command: "
                  (format "%s" (lisp-implementation-name
                                *default-lisp-implementation*))
                  nil nil '*lisp-command-history*)
-              (format "%s" (lisp-implementation-name
-                            *default-lisp-implementation*))))
-         (impl  (unless (position (character " ") impl-or-cmd
-                                  :test (function char=))
-                  (intern-soft impl-or-cmd)))
-         (limpl (and impl (get impl :lisp-implementation)))
-         (cmd   (if limpl (lisp-implementation-command limpl) impl-or-cmd)))
-    (inferior-lisp-other-window cmd)
-    (make-local-variable 'lisp-implementation)
-    (setf lisp-implementation
-          (or impl (lisp-implementation-name *default-lisp-implementation*)))
-    (rename-buffer
-     (setf inferior-lisp-buffer
-           (%lisp-buffer-name
-            (%lisp-buffer-next-number)
-            (cond
-              (impl)
-              ((string= cmd (lisp-implementation-command
-                             *default-lisp-implementation*))
-               (lisp-implementation-name *default-lisp-implementation*))
-              ('custom)))))))
+                (format "%s" (lisp-implementation-name
+                              *default-lisp-implementation*))))
+           (impl  (unless (position (character " ") impl-or-cmd
+                                    :test (function char=))
+                    (intern-soft impl-or-cmd)))
+           (limpl (and impl (get impl :lisp-implementation)))
+           (cmd   (if limpl (lisp-implementation-command limpl) impl-or-cmd)))
+      (inferior-lisp-other-window cmd)
+      (make-local-variable 'lisp-implementation)
+      (setf lisp-implementation
+            (or impl (lisp-implementation-name *default-lisp-implementation*)))
+      (rename-buffer
+       (setf inferior-lisp-buffer
+             (%lisp-buffer-name
+              (%lisp-buffer-next-number)
+              (cond
+                (impl)
+                ((string= cmd (lisp-implementation-command
+                               *default-lisp-implementation*))
+                 (lisp-implementation-name *default-lisp-implementation*))
+                ('custom)))))))
 
 
-(defun lisp (&optional ask-command)
-  "Create a new inferior-lisp when none exist,
+  (defun lisp (&optional ask-command)
+    "Create a new inferior-lisp when none exist,
    or switch to the last created one."
-  (interactive "P")
-  (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
-           (get-buffer inferior-lisp-buffer))
-      (switch-to-buffer inferior-lisp-buffer)
-      (let ((lisp-buffers (inferior-lisp-buffers-list)))
-        (if lisp-buffers
-            (switch-to-buffer
-             (setf inferior-lisp-buffer (first lisp-buffers)))
-            (nlisp ask-command)))))
+    (interactive "P")
+    (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
+             (get-buffer inferior-lisp-buffer))
+        (switch-to-buffer inferior-lisp-buffer)
+        (let ((lisp-buffers (inferior-lisp-buffers-list)))
+          (if lisp-buffers
+              (switch-to-buffer
+               (setf inferior-lisp-buffer (first lisp-buffers)))
+              (nlisp ask-command))))))
 
 
 (defvar package 'common-lisp-user)
@@ -5838,6 +5811,14 @@ Attribution: ?"
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
                            ("\\.mm$" . objc-mode)))
 
+(setf auto-mode-alist
+      (set-difference auto-mode-alist '(("\\.m$" . matlab-mode)
+                                        ("\\.m\\'" . matlab-mode)
+                                        ("\\.ml[iyl]?$" . caml-mode)
+                                        ("\\.m[mes]\\'" . nroff-mode)
+                                        ("\\.m[4c]\\'" . m4-mode))
+                      :test (function equalp)))
+
 
 (setf grep-find-command "find $HOME/src/manager2/trunk \\( -name release -prune \\) -o -type f  \\(  -name \\*.h -o -name \\*.c -name \\*.hh -o -name \\*.hxx -o -name \\*.cc  -o -name \\*.cxx -o -name \\*.lisp -o -name \\*.rb -o -name \\*.logs \\) -print0 | xargs -0 -e grep -niH -e "
       grep-host-defaults-alist nil)
@@ -5908,7 +5889,6 @@ or as \"emacs at <hostname>\"."
   (t
    (when (fboundp 'set-palette) (set-palette pal-green))))
 
-(sfn t)
 
 (defun current-minor-modes (&optional buffer)
   "The list of the minor modes currently active in the buffer (or current buffer)."
@@ -5923,6 +5903,7 @@ or as \"emacs at <hostname>\"."
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
+(sfn t)
 (.EMACS "DONE")
 
 ;; (setf inhibit-splash-screen t)
@@ -5932,5 +5913,5 @@ or as \"emacs at <hostname>\"."
 
 ;; Local Variables:
 ;; eval: (cl-indent 'string-case 1)
-;; End
+;; End:
 ;;;; THE END ;;;;
