@@ -279,6 +279,7 @@ function be_generate(){
     be_variable MAILHOST                mail.informatimago.com
     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
     be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+    be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
     be_variable NNTPSERVER              news.individual.net
     be_variable IRCNICK                 pjb
