@@ -524,13 +524,12 @@ WELCOME TO EMACS!
 ")))
 (setf fancy-splash-text nil)
 
-
 (case system-type
   ((darwin)
-   (setq browse-url-netscape-program "/sw/bin/mozilla"
+   (setf browse-url-netscape-program "/sw/bin/mozilla"
          browse-url-firefox-program  "/opt/local/bin/firefox"))
   ((gnu/linux)
-   (setq browse-url-netscape-program "/usr/local/apps/netscape-7.02/netscape"
+   (setf browse-url-netscape-program "/usr/local/apps/netscape-7.02/netscape"
          browse-url-firefox-program  "/usr/bin/firefox")))
 
 
@@ -633,6 +632,15 @@ WELCOME TO EMACS!
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 2 path)
     path))
+
+
+(defun prefixp (prefix string)
+  "
+PREFIX:  A sequence.
+STRING:  A sequence.
+RETURN:  Whether PREFIX is a prefix of the STRING.
+"
+  (string= prefix (subseq string 0 (min (length string) (length prefix)))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -830,7 +838,9 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             new-paths
                             (set-difference load-path base-load-path :test (function equal))))))
 
-(unless (string= "mdi-development-1" *hostname*)
+
+
+(unless (prefixp "mdi-development-" *hostname*)
  (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
                         "~/opt/share/emacs/site-lisp/slime/"
                         load-path)))
@@ -1526,7 +1536,7 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-anevia        "white"        "#081040"       "green"   "cadetblue4"    "yellow")
   (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
-  (Defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
+  (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
   
   (set-palette  pal-default)
 
@@ -1567,7 +1577,7 @@ SIDE must be the symbol `left' or `right'."
       
             (setf default-cursor-type cursor-type)
       (string-case (hname :test (function string-equal*))
-        (("mdi-development-1")
+        (("mdi-development-1" "mdi-development-2")
          (setf fringe-background "yellow"))
 
         (("simias")
@@ -2036,31 +2046,32 @@ capitalized form."
     "/usr/local/bin/openmcl"
   "^\[[0-9]*\]> "
   iso-8859-15)
+
+
 (define-lisp-implementation clisp
-    (list* (cond
-             ((eq system-type 'cygwin)    "/usr/bin/clisp")
-             (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
-                                        "/opt/local/bin/clisp"
-                                        "/usr/local/bin/clisp"
-                                        "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
-                                        "/usr/bin/clisp"))))
-           "-ansi""-q""-K""full""-m""32M""-I"
-           (cond
-             ((eq system-type 'darwin)
-              (list "-Efile"     "ISO-8859-15"
-                    "-Epathname" "UTF-8"
-                    "-Eterminal" "UTF-8"
-                    "-Emisc"     "UTF-8" ; better be same as terminal
-                    "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-             (t
-              (list "-Efile"     "ISO-8859-15"
-                    "-Epathname" "ISO-8859-1"
-                    "-Eterminal" "UTF-8"
-                    "-Emisc"     "UTF-8" ; better be same as terminal
-                    "-Eforeign"  "ISO-8859-1")
-              (list "-E"         "UTF-8"
-                    "-Epathname" "ISO-8859-1"
-                    "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+    (list*
+     (cond
+       ((eq system-type 'cygwin)  "/usr/bin/clisp")
+       (t  (first-existing-file '("/opt/local/bin/clisp"
+                                  "/usr/local/bin/clisp"
+                                  "/usr/bin/clisp"))))
+     "-ansi""-q""-K""full""-m""32M""-I"
+     (cond
+       ((eq system-type 'darwin)
+        (list "-Efile"     "ISO-8859-15"
+              "-Epathname" "UTF-8"
+              "-Eterminal" "UTF-8"
+              "-Emisc"     "UTF-8" ; better be same as terminal
+              "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+       (t
+        (list "-Efile"     "ISO-8859-15"
+              "-Epathname" "ISO-8859-1"
+              "-Eterminal" "UTF-8"
+              "-Emisc"     "UTF-8" ; better be same as terminal
+              "-Eforeign"  "ISO-8859-1")
+        (list "-E"         "UTF-8"
+              "-Epathname" "ISO-8859-1"
+              "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
   "^\[[0-9]*\]> "
   utf-8
   :argument-list-command
@@ -3751,7 +3762,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
           (case window-system
             ((x)
              (browse-url (concat common-lisp-hyperspec-root
-                                 "Body/" (car entry))) )
+                                 "Body/" (car entry))))
             ((mac ns nil)
              (let ((browse-url-browser-function 'browse-url-generic)
                    (browse-url-generic-program "/usr/bin/open"))
@@ -3775,6 +3786,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
                    symbol-name)))
       :test (function equal))))
   
+
   (defun gcl-hyperspec (symbol-name)
     (interactive
      (list (let ((completion-ignore-case t)
@@ -4084,7 +4096,6 @@ URL in a new window."
 
 (setf common-lisp-hyperspec-browser (function browse-url-firefox2)
       browse-url-browser-function   (function browse-url-firefox2))
-
 
 
 
