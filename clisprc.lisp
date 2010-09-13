@@ -37,7 +37,21 @@
 
 
 ;; (|CL|:|SETF| |CUSTOM|:|*LOAD-ECHO*| |CL|:|T|)
-(IN-PACKAGE "COMMON-LISP-USER")
+(cl:in-package "COMMON-LISP-USER")
+
+;;;---------------------------------------------------------------------------
+;;;
+
+(defpackage "COM.INFORMATIMAGO.CLISP.VERSION"
+  (:nicknames "VERSION")
+  (:use "COMMON-LISP")
+  (:export
+   "CLISP-VERSION"
+   "VERSION="    "VERSION<"    "VERSION<="
+   "RT-VERSION=" "RT-VERSION<" "RT-VERSION<="
+   ))
+(in-package "COM.INFORMATIMAGO.CLISP.VERSION")
+
 
 (defun clisp-version (&optional (version-string (LISP-IMPLEMENTATION-VERSION)))
   (loop
@@ -74,9 +88,11 @@
 (defun rt-version<  (a b) (if (version<  a b) '(and) '(or)))
 (defun rt-version<= (a b) (if (version<= a b) '(and) '(or)))
 
-(export '(clisp-version
-          version=    version<    version<=
-          rt-version= rt-version< rt-version<=))
+
+;;;---------------------------------------------------------------------------
+;;;
+
+(cl:in-package "COMMON-LISP-USER")
 
 
 (let ((counter 0))
@@ -219,7 +235,7 @@
       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
       CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
 
-#+#.(cl-user:rt-version<= "2.38" (cl-user:clisp-version))
+#+#.(version:rt-version<= "2.38" (version:clisp-version))
 (setf
  ;; ANSI
  CUSTOM:*LOOP-ANSI*                                 T
@@ -273,7 +289,7 @@
 
 
 
-#+#.(cl-user:rt-version= "2.33.83" (cl-user:clisp-version))
+#+#.(version:rt-version= "2.33.83" (version:clisp-version))
 (EXT:WITHOUT-PACKAGE-LOCK ("COMMON-LISP")
   (let ((oldload (function cl:load)))
     (fmakunbound 'cl:load)
@@ -300,11 +316,11 @@
     (compile 'cl:load)))
 
 ;; What's the relationship between SYSCALLS and POSIX?
-#+#.(cl:if (cl-user:version= "2.33.83" (cl-user:clisp-version))
+#+#.(cl:if (version:version= "2.33.83" (version:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (intern "HOSTENT-ADDR-TYPE" "POSIX"))
-#+#.(cl:if (cl-user:version= "2.33.83" (cl-user:clisp-version))
+#+#.(cl:if (version:version= "2.33.83" (version:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (defun POSIX::HOSTENT-ADDR-TYPE (&rest args)

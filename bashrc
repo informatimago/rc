@@ -489,6 +489,7 @@ function stop    { /etc/init.d/$1 stop;    }
 function restart { /etc/init.d/$1 restart; }
 function reload  { /etc/init.d/$1 reload;  }
 
+#  export CFLAGS=-I/opt/local/include ; export LDFLAGS=-L/opt/local/lib
 
 #END#
 
