@@ -164,7 +164,8 @@
  '(rst-level-4-face ((t (:background "grey20"))) t)
  '(rst-level-5-face ((t (:background "grey20"))) t)
  '(rst-level-6-face ((t (:background "grey20"))) t)
- '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil))))
+ '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red")))))
 
 
 (.EMACS "custom variables")
@@ -221,7 +222,7 @@
  '(comment-force-also-empty-lines t)
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
- '(default-major-mode (quote text-mode) t)
+ '(default-major-mode (quote text-mode))
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
@@ -381,11 +382,11 @@ X-Disabled: X-No-Archive: no
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pr-faces-p t)
- '(printer-name "normal_gray")
- '(prolog-program-name "/usr/bin/pl")
+ '(printer-name "normal_gray" t)
+ '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4))
+ '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -401,8 +402,8 @@ X-Disabled: X-No-Archive: no
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil t)
- '(rmail-pop-password-required nil t)
+ '(rmail-pop-password nil)
+ '(rmail-pop-password-required nil)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -778,62 +779,65 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (let ((new-paths '())
       (base-load-path (copy-list load-path)))
   (flet ((add-if-good (site-lisp)
-                      (when (file-exists-p site-lisp)
-                        (pushnew site-lisp new-paths)
-                        (mapc (lambda (file)
-                                (let ((file (concat site-lisp "/" file)))
-                                  (when (file-exists-p file)
-                                    (.EMACS "%s FOUND" file)
-                                    (let ((default-directory site-lisp))
-                                      (load file *pjb-load-noerror* *pjb-load-silent*)))))
-                              '("site-start.el" "site-gentoo.el" "subdirs.el"))
-                        t)))
+           (when (file-exists-p site-lisp)
+             (pushnew site-lisp new-paths)
+             (mapc (lambda (file)
+                     (let ((file (concat site-lisp "/" file)))
+                       (when (file-exists-p file)
+                         (.EMACS "%s FOUND" file)
+                         (let ((default-directory site-lisp))
+                           (load file *pjb-load-noerror* *pjb-load-silent*)))))
+                   '("site-start.el" "site-gentoo.el" "subdirs.el"))
+             t)))
     (dolist (directories
-             ;; When several directories are listed in a sublist, only
-             ;; the first found directory will be added.
-             (append
-              (case emacs-major-version
-                ((20 21 22)
-                 (append '("/opt/lisp/emacs"
-                           "/opt/local/share/emacs/site-lisp"
-                           "/usr/local/share/emacs/site-lisp")
-                         '("/opt/clisp-2.48/share/emacs/site-lisp"
-                           "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                           "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                           "/opt/clisp-2.47/share/emacs/site-lisp"
-                           "/opt/clisp-2.46/share/emacs/site-lisp"
-                           "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                         '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                         ))
-                ((23)
-                 '())
-                (otherwise
-                 (.EMACS "WARNING: No load-paths for emacs version %d" emacs-major-version)
-                 '()))
-              (list
-               ;; -----------------
-               ;; PJB emacs sources
-               ;; -----------------
-               ;; Since we may have several emacs version running
-               ;; on the same system, for now we will avoid
-               ;; compiling pjb sources, and we will load them
-               ;; directly from ~/src/public/emacs/.  Later we
-               ;; will see how we can install elc in version
-               ;; specific directories, but keeping references to
-               ;; the same source directory.
-               (concat (getenv "HOME") "/src/public/emacs/")
-               ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
-               )))
+              ;; When several directories are listed in a sublist, only
+              ;; the first found directory will be added.
+              (append
+               (case emacs-major-version
+                 ((20 21 22)
+                  (append '("/opt/lisp/emacs"
+                            "/opt/local/share/emacs/site-lisp"
+                            "/usr/local/share/emacs/site-lisp")
+                          '("/opt/clisp-2.48/share/emacs/site-lisp"
+                            "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                            "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                            "/opt/clisp-2.47/share/emacs/site-lisp"
+                            "/opt/clisp-2.46/share/emacs/site-lisp"
+                            "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                          '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                          ))
+                 ((23)
+                  '())
+                 (otherwise
+
+                  (.EMACS "WARNING: No load-paths for emacs version %d"
+                          emacs-major-version)
+                  '()))
+               (list
+                ;; -----------------
+                ;; PJB emacs sources
+                ;; -----------------
+                ;; Since we may have several emacs version running
+                ;; on the same system, for now we will avoid
+                ;; compiling pjb sources, and we will load them
+                ;; directly from ~/src/public/emacs/.  Later we
+                ;; will see how we can install elc in version
+                ;; specific directories, but keeping references to
+                ;; the same source directory.
+                (expand-file-name  "~/src/public/emacs/")
+                ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
+                )))
       (if (listp directories)
           (find-if (function add-if-good) directories)
-        (add-if-good directories)))
-    (setf load-path (append base-load-path
-                            new-paths
-                            (set-difference load-path base-load-path :test (function equal))))))
+          (add-if-good directories)))
+    (setf load-path (append new-paths
+                            (set-difference load-path base-load-path :test (function equal))
+                            base-load-path))))
+
 
 (unless (fboundp 'mdi)
- (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-                        "~/opt/share/emacs/site-lisp/slime/"
+  (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs/")
+                         (expand-file-name "~/opt/share/emacs/site-lisp/slime/")
                         load-path)))
 
 ;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
@@ -951,7 +955,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
      (set-selection-coding-system             'utf-8-unix)
      (set-terminal-coding-system              'utf-8-unix)
 
-     
+
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
            default-terminal-coding-system     'utf-8-unix
@@ -1573,7 +1577,7 @@ SIDE must be the symbol `left' or `right'."
       
       (setf default-cursor-type cursor-type)
       (unless (fboundp 'mdi)
-        (string-case (hname :test (function string-equal*))
+        (string-case hname
           (("simias")
            (setq palette            pal-anevia))
           
@@ -1834,9 +1838,24 @@ capitalized form."
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
-      org-agenda-files  (append
-                         '("~/notes.txt")
-                         (file-expand-wildcards "~/firms/*/notes.txt"))
+      org-agenda-files  '("~/notes.txt"
+                           ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+                           ;; "~/firms/wizards/notes.txt"
+                           ;; "~/firms/willcom/notes.txt"
+                           ;; "~/firms/secur.net/notes.txt"
+                           ;; "~/firms/ravenpack/notes.txt"
+                           ;; "~/firms/osii/notes.txt"
+                           "~/firms/medicalis/notes.txt"
+                           ;; "~/firms/mappy/notes.txt"
+                           ;; "~/firms/joellegymtonic/notes.txt"
+                           ;; "~/firms/jem/notes.txt"
+                           ;; "~/firms/intergruas/notes.txt"
+                           ;; "~/firms/hf/notes.txt"
+                           ;; "~/firms/hbedv/notes.txt"
+                           ;; "~/firms/hamster-s-fabric-inc/notes.txt"
+                           ;; "~/firms/camille/notes.txt"
+                           ;; "~/firms/afaa/notes.txt"
+                           )
       org-todo-keywords '((sequence "TODO" "|" "DONE(d)")
                           (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
                           (sequence "|" "CANCELED(c)"))
@@ -2264,6 +2283,13 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (lisp-eval-region (save-excursion (backward-sexp) (point)) (point) and-go))
 
 
+(appendf interpreter-mode-alist '(("sbcl" . lisp-mode)
+                                  ("abcl" . lisp-mode)
+                                  ("gcl" . lisp-mode)
+                                  ("ecl" . lisp-mode)
+                                  ("cmucl" . lisp-mode)
+                                  ("alisp" . lisp-mode)))
+
 (appendf auto-mode-alist '(("\\.lisp$" . lisp-mode)
                            ("\\.fas$"  . lisp-mode)
                            ("\\.lsp$"  . lisp-mode)
@@ -2282,6 +2308,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
 
 (appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
                            ("\\.j$"      . java-mode)))
+
+(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 
 (defun show-inferior-lisp-buffer ()
@@ -2879,9 +2907,17 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
-(slime-setup '(slime-fancy))
+(slime-setup '(slime-fancy slime-indentation))
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
+
+(defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+(defun slime-repl-bol ()
+  (interactive)
+  (if (eql 'home last-input-event)
+      (beginning-of-buffer) 
+      (funcall *slime-repl-bol*)))
+
 
 ;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
 ;;            (getenv "EMACS_INFERIOR_LISP")))
@@ -4922,6 +4958,7 @@ See the documentation for vm-mode for more information."
 (cond
   (*pjb-pvs-is-running*)
   ((member "(gnus)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 7 60))
    (setf *activity-tag* "GNUS")
    (push '(name . "GNUS") default-frame-alist)
    (set-background-color "#ccccfefeebb7")
@@ -4930,6 +4967,7 @@ See the documentation for vm-mode for more information."
      )
    (setf *frame-server-job-ticket* "~/frame-gnus"))
   ((member "(irc)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 11 60))
    (setf *activity-tag* "ERC")
    (push '(name . "ERC") default-frame-alist)
    (setf *frame-server-job-ticket* "~/frame-erc")
@@ -4938,6 +4976,7 @@ See the documentation for vm-mode for more information."
      ))
   (t
    (setf *activity-tag* "EMACS")
+   (setf uptimes-auto-save-interval (* 13 60))
    (push '(name . "PGM") default-frame-alist)
 
    (server-start)
