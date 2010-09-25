@@ -2025,7 +2025,7 @@ capitalized form."
 
   (define-lisp-implementation clisp
       (list* (cond
-               ((eq system-type 'cygwin)    "/usr/bin/clisp")
+               ((eq system-type 'cygwin)  "/usr/bin/clisp")
                (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
                                           "/opt/local/bin/clisp"
                                           "/usr/local/bin/clisp"
