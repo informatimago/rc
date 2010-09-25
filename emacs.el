@@ -167,7 +167,7 @@
  '(rst-level-5-face ((t (:background "grey20"))) t)
  '(rst-level-6-face ((t (:background "grey20"))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red"))))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red")))))
 
 
 (.EMACS "custom variables")

@@ -43,7 +43,7 @@
 ;;;
 
 (defpackage "COM.INFORMATIMAGO.CLISP.VERSION"
-  (:nicknames "VERSION")
+  (:nicknames "VERS")
   (:use "COMMON-LISP")
   (:export
    "CLISP-VERSION"
@@ -235,7 +235,7 @@
       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
       CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
 
-#+#.(version:rt-version<= "2.38" (version:clisp-version))
+#+#.(vers:rt-version<= "2.38" (vers:clisp-version))
 (setf
  ;; ANSI
  CUSTOM:*LOOP-ANSI*                                 T
@@ -289,7 +289,7 @@
 
 
 
-#+#.(version:rt-version= "2.33.83" (version:clisp-version))
+#+#.(vers:rt-version= "2.33.83" (vers:clisp-version))
 (EXT:WITHOUT-PACKAGE-LOCK ("COMMON-LISP")
   (let ((oldload (function cl:load)))
     (fmakunbound 'cl:load)
@@ -316,11 +316,11 @@
     (compile 'cl:load)))
 
 ;; What's the relationship between SYSCALLS and POSIX?
-#+#.(cl:if (version:version= "2.33.83" (version:clisp-version))
+#+#.(cl:if (vers:version= "2.33.83" (vers:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (intern "HOSTENT-ADDR-TYPE" "POSIX"))
-#+#.(cl:if (version:version= "2.33.83" (version:clisp-version))
+#+#.(cl:if (vers:version= "2.33.83" (vers:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (defun POSIX::HOSTENT-ADDR-TYPE (&rest args)
