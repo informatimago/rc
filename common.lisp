@@ -598,7 +598,10 @@
 
 
 
+(when (probe-file #P"/home/pjb/lisp/libcl/.asdf/alexandria.asd")
+  (pushnew #P"/home/pjb/lisp/libcl/.asdf/" asdf:*central-registry* :test #'equal))
 
+;; (load #P"/home/pjb/lisp/libcl/compile-libcl.lisp")
 
 ;; (in-package :asdf)
 ;; (defparameter *output-file-debug* nil)
