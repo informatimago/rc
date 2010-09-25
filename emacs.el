@@ -66,6 +66,7 @@
 ;;;----------------------------------------------------------------------------
 (.EMACS "REQUIRE CL...")
 (require 'cl)
+(defvar shell-file-name "/bin/bash")
 (require 'parse-time)
 (require 'tramp nil t)
 
@@ -79,10 +80,10 @@
 
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
-   (setf mac-command-modifier 'meta
-         mac-option-modifier  'alt
-         one-buffer-one-frame nil)
-   (cua-mode 0))
+  (setf mac-command-modifier 'meta
+        mac-option-modifier  'alt
+        one-buffer-one-frame nil)
+  (cua-mode 0))
 
 (when (boundp 'x-toolkit-scroll-bars)
   (setf x-toolkit-scroll-bars nil))
@@ -121,10 +122,10 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -140,6 +141,7 @@
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -165,7 +167,7 @@
  '(rst-level-5-face ((t (:background "grey20"))) t)
  '(rst-level-6-face ((t (:background "grey20"))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red")))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red"))))))
 
 
 (.EMACS "custom variables")
@@ -517,22 +519,21 @@ X-Disabled: X-No-Archive: no
         (:face (variable-pitch :weight bold) "
 WELCOME TO EMACS!
 "
-               ;; :face variable-pitch "Text"
-               ;; :face (variable-pitch :weight bold :slant oblique) "Text"
-               ;; :face variable-pitch function
-               )
+         ;; :face variable-pitch "Text"
+         ;; :face (variable-pitch :weight bold :slant oblique) "Text"
+         ;; :face variable-pitch function
+         )
         (:face (variable-pitch :weight bold) "
 -%- WELCOME TO EMACS -%-
 ")))
 (setf fancy-splash-text nil)
 
-
 (case system-type
   ((darwin)
-   (setq browse-url-netscape-program "/sw/bin/mozilla"
+   (setf browse-url-netscape-program "/sw/bin/mozilla"
          browse-url-firefox-program  "/opt/local/bin/firefox"))
   ((gnu/linux)
-   (setq browse-url-netscape-program "/usr/local/apps/netscape-7.02/netscape"
+   (setf browse-url-netscape-program "/usr/local/apps/netscape-7.02/netscape"
          browse-url-firefox-program  "/usr/bin/firefox")))
 
 
@@ -592,6 +593,13 @@ WELCOME TO EMACS!
                      (string  x)))
 (defun string-downcase (x) (downcase (string* x)))
 (defun string-upcase   (x) (upcase   (string* x)))
+
+(unless (fboundp 'string<=)
+  (defun string>  (a b) (string< b a))
+  (defun string<= (a b) (not (string> a b)))
+  (defun string>= (a b) (not (string< a b)))
+  (defun string/= (a b) (not (string= a b))))
+
 (defun character (x) (etypecase x
                        (integer x)
                        (string (aref x 0))
@@ -601,23 +609,23 @@ WELCOME TO EMACS!
   (string= (string-upcase
             (if (and (= 0 start1) (or (null end1) (= end1 (length str1))))
                 str1
-              (subseq str1 start1 (or end1 (length str1)))))
+                (subseq str1 start1 (or end1 (length str1)))))
            (string-upcase
             (if (and (= 0 start2) (or (null end2) (= end2 (length str2))))
                 str2
-              (subseq str2 start2 (or end2 (length str2)))))))
+                (subseq str2 start2 (or end2 (length str2)))))))
 
 
 (defun user-homedir-pathname ()
   (if user-init-file
       (dirname user-init-file)
-    (dirname (first (file-expand-wildcards "~/.emacs")))))
+      (dirname (first (file-expand-wildcards "~/.emacs")))))
 (defun namestring (path) path)
 (defun pathname-name (path)
   (let ((path (basename path)))
     (if (string-match "^\\(.*\\)\\.[^.]*$" path)
         (match-string 1 path)
-      path)))
+        path)))
 ;; (mapcar (lambda (x) (list (dirname x) (basename x) (pathname-name x)))
 ;;         '("abc" "abc.def" "abc.def.ghi"
 ;;           "/abc" "/abc.def" "/abc.def.ghi"
@@ -630,11 +638,20 @@ WELCOME TO EMACS!
 (defun dirname (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
-    "./"))
+      "./"))
 (defun basename (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 2 path)
-    path))
+      path))
+
+
+(defun prefixp (prefix string)
+  "
+PREFIX:  A sequence.
+STRING:  A sequence.
+RETURN:  Whether PREFIX is a prefix of the STRING.
+"
+  (string= prefix (subseq string 0 (min (length string) (length prefix)))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -645,9 +662,9 @@ WELCOME TO EMACS!
   "N is a decimal numbers whose digits are taken as octal digits
 and converted as such."
   (loop
-   for d across (format "%d" n)
-   for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-   finally (return r)))
+     for d across (format "%d" n)
+     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
+     finally (return r)))
 
 (defun chmod (file mode)
   (interactive "fFile path: \nXMode: ")
@@ -691,20 +708,20 @@ FILE-AND-OPTION: either an atom evaluated to a path,
 "
   (if (atom file-and-options)
       `(with-file (,file-and-options) ,@body)
-    ;; destructuring-bind is broken, we cannot give anything else than nil
-    ;; as default values:
-    (destructuring-bind (path &key (save nil savep) (kill nil killp)
-                              (literal nil literalp))
-        file-and-options
-      (unless savep (setf save t))
-      (unless killp (setf kill t))
-      `(unwind-protect
-           (progn
-             (,(if literal 'find-file-literally 'find-file) ,path)
-             (prog1 (save-excursion ,@body)
-               ,(when save `(save-buffer 1))))
-         ,(when kill
-            `(kill-buffer (current-buffer)))))))
+      ;; destructuring-bind is broken, we cannot give anything else than nil
+      ;; as default values:
+      (destructuring-bind (path &key (save nil savep) (kill nil killp)
+                                (literal nil literalp))
+          file-and-options
+        (unless savep (setf save t))
+        (unless killp (setf kill t))
+        `(unwind-protect
+              (progn
+                (,(if literal 'find-file-literally 'find-file) ,path)
+                (prog1 (save-excursion ,@body)
+                  ,(when save `(save-buffer 1))))
+           ,(when kill
+                  `(kill-buffer (current-buffer)))))))
 
 
 (defvar *directories* '() "A cache for the ~/directories.txt dictionary.")
@@ -721,12 +738,12 @@ and stores it in `*directories*'.
             (find-file directories-file)
             (prog1
                 (loop
-                 for (k v)
-                 on (split-string (buffer-substring-no-properties
-                                   (point-min) (point-max)))
-                 by (function cddr)
-                 nconc (list (intern (format ":%s" (substitute ?- ?_ (downcase k))))
-                             v))
+                   for (k v)
+                   on (split-string (buffer-substring-no-properties
+                                     (point-min) (point-max)))
+                   by (function cddr)
+                   nconc (list (intern (format ":%s" (substitute ?- ?_ (downcase k))))
+                               v))
               (kill-buffer (current-buffer)))))))
 
 
@@ -742,12 +759,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (let ((dir (getf *directories* key)))
     (if (or (null subpath) (string= "" subpath))
         dir
-      (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-             (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-             (xor (a b) (or (and a (not b)) (and (not a) b))))
-        (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-            (concat dir subpath)
-          (concat dir "/" subpath))))))
+        (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
+               (firstchar (str) (and (< 0 (length str)) (aref str 0)))
+               (xor (a b) (or (and a (not b)) (and (not a) b))))
+          (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
+              (concat dir subpath)
+              (concat dir "/" subpath))))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -838,7 +855,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (unless (fboundp 'mdi)
   (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs/")
                          (expand-file-name "~/opt/share/emacs/site-lisp/slime/")
-                        load-path)))
+                         load-path)))
+
 
 ;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
@@ -1034,15 +1052,15 @@ SIDE must be the symbol `left' or `right'."
              (vtype (nth 2 wsb))
              (cols  (nth 1 wsb)))
         (cond
-         ((not (memq side '(left right nil)))
-          (error "`left' or `right' expected instead of %S" side))
-         ((and (eq vtype side) cols))
-         ((eq (frame-parameter nil 'vertical-scroll-bars) side)
-          ;; nil means it's a non-toolkit scroll bar, and its width in
-          ;; columns is 14 pixels rounded up.
-          (ceiling (or (frame-parameter nil 'scroll-bar-width) 14)
-                   (frame-char-width)))
-         (0))))))
+          ((not (memq side '(left right nil)))
+           (error "`left' or `right' expected instead of %S" side))
+          ((and (eq vtype side) cols))
+          ((eq (frame-parameter nil 'vertical-scroll-bars) side)
+           ;; nil means it's a non-toolkit scroll bar, and its width in
+           ;; columns is 14 pixels rounded up.
+           (ceiling (or (frame-parameter nil 'scroll-bar-width) 14)
+                    (frame-char-width)))
+          (0))))))
 
 
 
@@ -1203,7 +1221,7 @@ SIDE must be the symbol `left' or `right'."
   ;; (delete-selection-mode t)
   (if (fboundp 'delete-region-and-yank)
       (global-set-key (kbd "C-y")  'delete-region-and-yank) 
-    (global-set-key (kbd "C-y")  'yank))
+      (global-set-key (kbd "C-y")  'yank))
 
   ;; A strange configuration with a narrow frame...
   (when (< (frame-parameter (selected-frame) 'width) 42)
@@ -1248,7 +1266,7 @@ SIDE must be the symbol `left' or `right'."
         (goto-char (match-beginning 0))
         (recenter 0)
         (forward-line 1))
-    (message ".EMACS: Last page")))
+      (message ".EMACS: Last page")))
 
 (defun scroll-page-down ()
   (interactive)
@@ -1257,7 +1275,7 @@ SIDE must be the symbol `left' or `right'."
         (goto-char (match-beginning 0))
         (recenter 0)
         (forward-line 1))
-    (message ".EMACS: First page")))
+      (message ".EMACS: First page")))
 
 (defvar scroll-page-mode nil)
 (make-local-variable 'scroll-page-mode)
@@ -1269,10 +1287,10 @@ SIDE must be the symbol `left' or `right'."
         (local-set-key (kbd "<next>")  'scroll-up)
         (local-set-key (kbd "<prior>") 'scroll-down)
         (setf scroll-page-mode nil))
-    (progn
-      (local-set-key (kbd "<next>")  'scroll-page-up)
-      (local-set-key (kbd "<prior>") 'scroll-page-down)
-      (setf scroll-page-mode t))))
+      (progn
+        (local-set-key (kbd "<next>")  'scroll-page-up)
+        (local-set-key (kbd "<prior>") 'scroll-page-down)
+        (setf scroll-page-mode t))))
 
 
 
@@ -1480,11 +1498,11 @@ SIDE must be the symbol `left' or `right'."
     (typecase palette
       (string (set-palette (intern palette)))
       (symbol (if (boundp palette)
-                (let ((palval (symbol-value palette)))
-                  (if (and (palette-p palval) (eq palette (palette-name palval)))
-                    (set-palette palval)
-                    (error "%S is not a palette name." palette)))
-                (error "%S is not a palette name." palette)))
+                  (let ((palval (symbol-value palette)))
+                    (if (and (palette-p palval) (eq palette (palette-name palval)))
+                        (set-palette palval)
+                        (error "%S is not a palette name." palette)))
+                  (error "%S is not a palette name." palette)))
       (palette
        (setf *current-palette* (palette-name palette))
        ;;        (set-default-frame-parameter 'foreground-color (palette-foreground palette))
@@ -1500,7 +1518,7 @@ SIDE must be the symbol `left' or `right'."
          (set-mouse-color     (palette-mouse palette))))
       (otherwise (error "%S is not a palette" palette))))
 
-(defmacro defpalette (name foreground background cursor region mouse)
+  (defmacro defpalette (name foreground background cursor region mouse)
     `(progn
        (defparameter ,name (make-palette :name ',name
                                          :foreground ,foreground
@@ -1548,7 +1566,7 @@ SIDE must be the symbol `left' or `right'."
   
 
 
-(defun set-default-frame-alist (&optional font)
+  (defun set-default-frame-alist (&optional font)
     "Sets default-frame-alist depending on the current environment (host, display, etc)."
     (interactive)
     (let* (
@@ -1557,7 +1575,7 @@ SIDE must be the symbol `left' or `right'."
                             (colon   (and display (string-match ":" display))))
                        (if (or (not display) (zerop colon))
                            system-name
-                         (substring display 0 colon))))
+                           (substring display 0 colon))))
            ;; --- default values ---
            ;; (font                 (or font (frame-font)))
            (width                (frame-width))
@@ -1574,61 +1592,62 @@ SIDE must be the symbol `left' or `right'."
            ;; ---------------------
            (fringe-background nil))
 
-      
       (setf default-cursor-type cursor-type)
-      (unless (fboundp 'mdi)
-        (string-case hname
-          (("simias")
-           (setq palette            pal-anevia))
-          
-          (("thalassa" "despina")
-           (setq palette            pal-thalassa
-                 width              81
-                 height             70))
+      (string-case (hname :test (function string-equal*))
+        (("mdi-development-1" "mdi-development-2")
+         (setf fringe-background "yellow"))
 
-          (("larissa") 
-           (setq palette            pal-larissa
-                 Width              81
-                 height             70))
+        (("simias")
+         (setq palette            pal-anevia))
+        
+        (("thalassa" "despina")
+         (setq palette            pal-thalassa
+               width              81
+               height             70))
 
-          (("galatea") 
-           (setq palette            pal-naiad
-                 width              81
-                 height             54
-                 font   (let ((fixed (make-font-pattern :foundry "Misc"
-                                                        :family "Fixed"
-                                                        :weight "Medium"
-                                                        :slant "R"
-                                                        :width "SemiCondensed"
-                                                        :style ""
-                                                        :pixel-size "13"
-                                                        :point-size "120"
-                                                        :resolution-x "75"
-                                                        :resolution-y "75"
-                                                        :spacing "C"
-                                                        :average-width "60"
-                                                        :registry "ISO8859"
-                                                        :encoding "1")))
-                          (if (font-exists-p fixed) fixed font))))
+        (("larissa") 
+         (setq palette            pal-larissa
+               Width              81
+               height             70))
 
-          (("naiad")
-           (setq palette            pal-naiad
-                 width              81
-                 height             54))
+        (("galatea") 
+         (setq palette            pal-naiad
+               width              81
+               height             54
+               font   (let ((fixed (make-font-pattern :foundry "Misc"
+                                                      :family "Fixed"
+                                                      :weight "Medium"
+                                                      :slant "R"
+                                                      :width "SemiCondensed"
+                                                      :style ""
+                                                      :pixel-size "13"
+                                                      :point-size "120"
+                                                      :resolution-x "75"
+                                                      :resolution-y "75"
+                                                      :spacing "C"
+                                                      :average-width "60"
+                                                      :registry "ISO8859"
+                                                      :encoding "1")))
+                        (if (font-exists-p fixed) fixed font))))
 
-          (("lassell")
-           (setq palette            pal-lassel
-                 width              81
-                 height             54))
+        (("naiad")
+         (setq palette            pal-naiad
+               width              81
+               height             54))
 
-          (("triton" "proteus")
-           (setq palette            pal-galatea
-                 width              86
-                 height             52))
-          (("mini")
-           (setq palette            pal-white
-                 width              86
-                 height             52))))
+        (("lassell")
+         (setq palette            pal-lassel
+               width              81
+               height             54))
+
+        (("triton" "proteus")
+         (setq palette            pal-galatea
+               width              86
+               height             52))
+        (("mini")
+         (setq palette            pal-white
+               width              86
+               height             52)))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -1681,10 +1700,10 @@ SIDE must be the symbol `left' or `right'."
               (menu-bar-lines       . 0) ;; window-system 'mac
               (font                 . ,font)
               ,@(unless (getenv "RATPOISON")
-                      `((width                . ,width)
-                        (height               . ,height)
-                        (top                  . ,top)
-                        (left                 . ,left)))
+                        `((width                . ,width)
+                          (height               . ,height)
+                          (top                  . ,top)
+                          (left                 . ,left)))
               (cursor-type          . ,cursor-type)
               (cursor-color         . ,(palette-cursor palette))
               (foreground-color     . ,(palette-foreground palette))
@@ -1701,10 +1720,10 @@ SIDE must be the symbol `left' or `right'."
 
       (set-face-background 'region (palette-region palette))
       (unless (fboundp 'mdi)
-       (when (facep 'fringe)
-         (if fringe-background
-             (set-face-background 'fringe fringe-background)
-             (set-face-background 'fringe (palette-background palette)))))
+        (when (facep 'fringe)
+          (if fringe-background
+              (set-face-background 'fringe fringe-background)
+              (set-face-background 'fringe (palette-background palette)))))
       (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
@@ -1839,23 +1858,23 @@ capitalized form."
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
       org-agenda-files  '("~/notes.txt"
-                           ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
-                           ;; "~/firms/wizards/notes.txt"
-                           ;; "~/firms/willcom/notes.txt"
-                           ;; "~/firms/secur.net/notes.txt"
-                           ;; "~/firms/ravenpack/notes.txt"
-                           ;; "~/firms/osii/notes.txt"
-                           "~/firms/medicalis/notes.txt"
-                           ;; "~/firms/mappy/notes.txt"
-                           ;; "~/firms/joellegymtonic/notes.txt"
-                           ;; "~/firms/jem/notes.txt"
-                           ;; "~/firms/intergruas/notes.txt"
-                           ;; "~/firms/hf/notes.txt"
-                           ;; "~/firms/hbedv/notes.txt"
-                           ;; "~/firms/hamster-s-fabric-inc/notes.txt"
-                           ;; "~/firms/camille/notes.txt"
-                           ;; "~/firms/afaa/notes.txt"
-                           )
+                          ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+                          ;; "~/firms/wizards/notes.txt"
+                          ;; "~/firms/willcom/notes.txt"
+                          ;; "~/firms/secur.net/notes.txt"
+                          ;; "~/firms/ravenpack/notes.txt"
+                          ;; "~/firms/osii/notes.txt"
+                          "~/firms/medicalis/notes.txt"
+                          ;; "~/firms/mappy/notes.txt"
+                          ;; "~/firms/joellegymtonic/notes.txt"
+                          ;; "~/firms/jem/notes.txt"
+                          ;; "~/firms/intergruas/notes.txt"
+                          ;; "~/firms/hf/notes.txt"
+                          ;; "~/firms/hbedv/notes.txt"
+                          ;; "~/firms/hamster-s-fabric-inc/notes.txt"
+                          ;; "~/firms/camille/notes.txt"
+                          ;; "~/firms/afaa/notes.txt"
+                          )
       org-todo-keywords '((sequence "TODO" "|" "DONE(d)")
                           (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
                           (sequence "|" "CANCELED(c)"))
@@ -1871,57 +1890,15 @@ capitalized form."
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
 
-;; slime-net-valid-coding-systems
-;; (map nil (lambda (n)
-;;            (format t "(~A-unix~VA~:[nil~;t  ~]  ~4:*:~A-unix)~%"
-;;                    n (- 32 (length n)) ""
-;;                    (ignore-errors (/= 1 (length (ext:convert-string-to-bytes
-;;                                   "A" (ext:make-encoding :charset n)))))))
-;;      (let ((l '()));;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
+(cond
+  ((string= "mdi-development-1" *hostname*)
+   (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
+                          "~/opt/share/emacs/site-lisp/slime/"
+                          load-path)))
+  (t
+   (push (get-directory :share-lisp  "packages/net/common-lisp/slime/slime/")
+         load-path)))
 
-;; swank-clisp.lisp find-encoding
-;; (map nil (lambda (n) (format t "(:~A-unix~VA\"~A\")~%" n (- 32 (length n)) "" n))
-;;      (let ((l '()))
-;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
-
-
-;; This is about the easiest profiling I've seen in any language. In  
-;; fact, I think it's the only time I been able to make significant  
-;; improvements based on the report.  
-;; 
-;;     
-;;     M-x slime-toggle-profile-fdefinition
-;; 
-;; on all the functions you want to  
-;; profile, 
-;;     
-;;     M-x slime-profile-reset
-;; 
-;; to clear any existing data, and  
-;; 
-;;     
-;;     M-x slime-profile-report
-;; 
-;; to see the report after running.  
-
-
-;; slime-net-valid-coding-systems
-;; (map nil (lambda (n)
-;;            (format t "(~A-unix~VA~:[nil~;t  ~]  ~4:*:~A-unix)~%"
-;;                    n (- 32 (length n)) ""
-;;                    (ignore-errors (/= 1 (length (ext:convert-string-to-bytes
-;;                                   "A" (ext:make-encoding :charset n)))))))
-;;      (let ((l '()))
-;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
-
-;; swank-clisp.lisp find-encoding
-;; (map nil (lambda (n) (format t "(:~A-unix~VA\"~A\")~%" n (- 32 (length n)) "" n))
-;;      (let ((l '()))
-;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
 
 (unless (fboundp 'mdi)
   
@@ -1971,7 +1948,6 @@ capitalized form."
                  (list command
                        :coding-system (intern (format "%s-unix" ',coding)))))
        ',name))
-
 
 
   (define-lisp-implementation scheme
@@ -2058,6 +2034,7 @@ capitalized form."
        ((macro-function fn)     (format t \"~A is a macro\" fn))
        (t  (format t \"Arglist for ~a: ~a\" fn (ext:arglist fn))))
      (values))\n")
+
 
 
 
@@ -2504,11 +2481,11 @@ Prefix argument means switch to the Lisp buffer afterwards."
             ;; Luckily we don't have to use it any more, we use
             ;; window-point-insertion-type instead.
             (loop
-                 for item in string
-                 do (cond
-                      ((stringp item) (insert item))
-                      ((consp   item) (insert-image (first item) (second item)))
-                      (t (error "Unexpected kind of insert %S" item))))
+               for item in string
+               do (cond
+                    ((stringp item) (insert item))
+                    ((consp   item) (insert-image (first item) (second item)))
+                    (t (error "Unexpected kind of insert %S" item))))
 
             
             ;; Advance process-mark
@@ -2567,17 +2544,17 @@ Prefix argument means switch to the Lisp buffer afterwards."
 (defun pjb-comint-preoutput-insert-image (string)
   (let ((case-fold-search t))
     (loop
-         with result = '()
-         while (and (plusp (length string))
-                    (string-match "\\(.*\\)(EMACS:INSERT-IMAGE[ \t\n]+#P\"\\(\\([^\\\"]\\|\\.\\)*\\)\")\\(.*\\)"
-                                  string))
-         do (let ((before (match-string 1 string))
-                  (path   (match-string 2 string))
-                  (after  (match-string 4 string)))
-              (push before result)
-              (push (list (create-image path) " ") result)
-              (setf string after))
-         finally (push string result) (return (nreverse result)))))
+       with result = '()
+       while (and (plusp (length string))
+                  (string-match "\\(.*\\)(EMACS:INSERT-IMAGE[ \t\n]+#P\"\\(\\([^\\\"]\\|\\.\\)*\\)\")\\(.*\\)"
+                                string))
+       do (let ((before (match-string 1 string))
+                (path   (match-string 2 string))
+                (after  (match-string 4 string)))
+            (push before result)
+            (push (list (create-image path) " ") result)
+            (setf string after))
+       finally (push string result) (return (nreverse result)))))
 
 ;;;; THE END ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2807,9 +2784,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd ":s"))
     (local-set-key (kbd "<f6>") (cmd ":n"))
     (local-set-key (kbd "<f7>") (cmd ":o"))
@@ -2825,9 +2802,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     
     (local-set-key (kbd "<f5>") (cmd ""))
     (local-set-key (kbd "<f6>") (cmd ""))
@@ -2844,9 +2821,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd "step"))
     (local-set-key (kbd "<f6>") (cmd "next"))
     (local-set-key (kbd "<f7>") (cmd "over"))
@@ -2861,9 +2838,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd ":scont 1"))
     ;; (local-set-key (kbd "<f6>") (cmd ))
     (local-set-key (kbd "<f7>") (cmd ":sover"))
@@ -2872,21 +2849,21 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 
 (loop for x in '(setf common-lisp-mode-hook      nil
-   inferior-lisp-load-hook    nil
-   inferior-lisp-mode-hook    nil
-   lisp-interaction-mode-hook nil
-   lisp-mode-hook             nil
-   comint-mode-hook           nil
-   comint-exec-hook           nil
-   ilisp-mode-hook            nil
-   scheme-mode-hook           nil)
+                 inferior-lisp-load-hook    nil
+                 inferior-lisp-mode-hook    nil
+                 lisp-interaction-mode-hook nil
+                 lisp-mode-hook             nil
+                 comint-mode-hook           nil
+                 comint-exec-hook           nil
+                 ilisp-mode-hook            nil
+                 scheme-mode-hook           nil)
    for i from 0
-     when (oddp i)
-     collect x)
+   when (oddp i)
+   collect x)
 
 (message (format  "hooks=%S" 
-(mapcar (lambda (h)  (if (boundp h) (list h (symbol-value h)) (list h 'unbound)))
-        '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook comint-exec-hook ilisp-mode-hook scheme-mode-hook))))
+                  (mapcar (lambda (h)  (if (boundp h) (list h (symbol-value h)) (list h 'unbound)))
+                          '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook comint-exec-hook ilisp-mode-hook scheme-mode-hook))))
 
 
 (setf common-lisp-mode-hook      nil
@@ -2910,6 +2887,46 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (slime-setup '(slime-fancy slime-indentation))
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
+
+
+;; slime-net-valid-coding-systems
+;; (map nil (lambda (n)
+;;            (format t "(~A-unix~VA~:[nil~;t  ~]  ~4:*:~A-unix)~%"
+;;                    n (- 32 (length n)) ""
+;;                    (ignore-errors (/= 1 (length (ext:convert-string-to-bytes
+;;                                   "A" (ext:make-encoding :charset n)))))))
+;;      (let ((l '()))
+;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
+;;        (sort l (function string<=))))
+
+
+;; swank-clisp.lisp find-encoding
+;; (map nil (lambda (n) (format t "(:~A-unix~VA\"~A\")~%" n (- 32 (length n)) "" n))
+;;      (let ((l '()))
+;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
+;;        (sort l (function string<=))))
+
+
+
+;; This is about the easiest profiling I've seen in any language. In  
+;; fact, I think it's the only time I been able to make significant  
+;; improvements based on the report.  
+;; 
+;;     
+;;     M-x slime-toggle-profile-fdefinition
+;; 
+;; on all the functions you want to  
+;; profile, 
+;;     
+;;     M-x slime-profile-reset
+;; 
+;; to clear any existing data, and  
+;; 
+;;     
+;;     M-x slime-profile-report
+;; 
+;; to see the report after running.  
+
 
 (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
 (defun slime-repl-bol ()
@@ -3579,11 +3596,11 @@ DO:     Evaluates body with var bound to dir-path, then dir-path's parent,
 RETURN: The evaluation of the result form.
 "
   `(do ((,var ,dir-path
-             (if (string-match "^\\(.*/\\)[^/]+/$" ,var)
-                 (match-string 1 ,var)
-                 "")))
-      ((string-equal "" ,var) ,result)
-    ,@body))
+              (if (string-match "^\\(.*/\\)[^/]+/$" ,var)
+                  (match-string 1 ,var)
+                  "")))
+       ((string-equal "" ,var) ,result)
+     ,@body))
 
 
 (defun* read* (stream &optional (eof-error-p t) eof-value ignored)
@@ -3607,11 +3624,11 @@ in the current directory, or in a parent."
             (goto-char (point-min))
             (let ((killp (/= count (length (buffer-list)))))
               (unwind-protect
-                  (loop
-                     for clause = (read* (current-buffer) nil (current-buffer))
-                     until (eql clause (current-buffer))
-                     do (message "(%%batch-cl-indent '%S)" clause)
-                     do (%batch-cl-indent clause))
+                   (loop
+                      for clause = (read* (current-buffer) nil (current-buffer))
+                      until (eql clause (current-buffer))
+                      do (message "(%%batch-cl-indent '%S)" clause)
+                      do (%batch-cl-indent clause))
                 (when killp (kill-buffer (current-buffer)))))))))))
 
 ;; (defmacro batch-cl-indent (&rest indent-symbols-list)
@@ -3760,7 +3777,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
           (case window-system
             ((x)
              (browse-url (concat common-lisp-hyperspec-root
-                                 "Body/" (car entry))) )
+                                 "Body/" (car entry))))
             ((mac ns nil)
              (let ((browse-url-browser-function 'browse-url-generic)
                    (browse-url-generic-program "/usr/bin/open"))
@@ -3784,6 +3801,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
                    symbol-name)))
       :test (function equal))))
   
+
   (defun gcl-hyperspec (symbol-name)
     (interactive
      (list (let ((completion-ignore-case t)
@@ -4036,10 +4054,10 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (require 'emms-player-simple)
   (require 'emms-source-file)
   (require 'emms-source-playlist)
-   ;;   ;; save playlist and load at emacs start
-   ;; (require 'emms-history)
-   ;; (emms-history-load)
-   ;; (setq emms-repeat-playlist 1)
+  ;;   ;; save playlist and load at emacs start
+  ;; (require 'emms-history)
+  ;; (emms-history-load)
+  ;; (setq emms-repeat-playlist 1)
   (emms-standard)
   (emms-default-players)
   (defalias 'np 'emms-show))
@@ -4093,7 +4111,6 @@ URL in a new window."
 
 (setf common-lisp-hyperspec-browser (function browse-url-firefox2)
       browse-url-browser-function   (function browse-url-firefox2))
-
 
 
 
@@ -4741,7 +4758,7 @@ See the documentation for vm-mode for more information."
         ;; stop here.
         (if (or (not full-startup) preserve-auto-save-file)
             (throw 'done t))
-      
+        
         (if full-startup
             (message totals-blurb))
 
@@ -4783,8 +4800,8 @@ See the documentation for vm-mode for more information."
 (setf *pjb-gnus-trash-mailbox* "nnimap+voyager.informatimago.com:INBOX.Trash")
 (setf *pjb-gnus-junk-mailbox*  "nnimap+voyager.informatimago.com:INBOX.Junk")
 
- 	
-	
+
+
 
 (define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
 (define-key gnus-article-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
@@ -4799,11 +4816,11 @@ See the documentation for vm-mode for more information."
 
 
 (defun pjb-gnus-message-setup-meat ()
-;;   (save-excursion
-;;     (beginning-of-buffer)
-;;     (while (re-search-forward "anevia.com" (point-max) t)
-;;       (delete-region (match-beginning 0) (match-end 0))
-;;       (insert "informatimago.com")))
+  ;;   (save-excursion
+  ;;     (beginning-of-buffer)
+  ;;     (while (re-search-forward "anevia.com" (point-max) t)
+  ;;       (delete-region (match-beginning 0) (match-end 0))
+  ;;       (insert "informatimago.com")))
   )
 
 
@@ -4894,7 +4911,7 @@ See the documentation for vm-mode for more information."
 
 ;;(erc-select :server "localhost" :nick "pjb")
 ;;(erc-send-command  (format "PRIVMSG &bitlbee :identify %s" "popo"))
- 
+
 ;; (setf erc-hide-list '())
 ;; (setf erc-hide-list  (quote ("JOIN" "NICK" "PART" "QUIT" "MODE")))
 
@@ -5134,7 +5151,7 @@ See the documentation for vm-mode for more information."
     (mapcar
      (function NAMESTRING)
      (mapcar (lambda (path)  (MAKE-PATHNAME :NAME nil :TYPE nil :VERSION nil
-                                       :DEFAULTS path))
+                                            :DEFAULTS path))
              (remove-if-not (function NULL)
                             (DIRECTORY (CONCATENATE 'STRING base-path "**/dir"))
                             :key (function PATHNAME-TYPE))))))
@@ -5216,7 +5233,7 @@ See the documentation for vm-mode for more information."
   (unless (intersection
            '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
              "--execute" "-insert" "--insert") command-line-args
-           :test (function string=))
+             :test (function string=))
     (afaire)))
 
 
@@ -5245,17 +5262,17 @@ See the documentation for vm-mode for more information."
   (setf search-string
         (shell-command-to-string
          (format "echo %s|iconv -f ISO8859-1 -t UTF-8"
-           (shell-quote-argument search-string))))
+                 (shell-quote-argument search-string))))
   (browse-url
    (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_sitesearch=&safe=images"
-     (apply (function concatenate) 'string
-            (mapcar (lambda (ch)
-                      (if (or (and (<= ?0 ch) (<= ch ?9))
-                              (and (<= ?A ch) (<= ch ?Z))
-                              (and (<= ?a ch) (<= ch ?z)))
-                          (format "%c" ch)
-                          (format "%%%02x" ch)))
-                    (string-to-sequence search-string 'list)))))) ;;google-search
+           (apply (function concatenate) 'string
+                  (mapcar (lambda (ch)
+                            (if (or (and (<= ?0 ch) (<= ch ?9))
+                                    (and (<= ?A ch) (<= ch ?Z))
+                                    (and (<= ?a ch) (<= ch ?z)))
+                                (format "%c" ch)
+                                (format "%%%02x" ch)))
+                          (string-to-sequence search-string 'list)))))) ;;google-search
 
 
 (defun google-search-region (start end)
@@ -5264,7 +5281,7 @@ See the documentation for vm-mode for more information."
   (google-search (buffer-substring-no-properties start end)))
 
 
-  
+
 (defun acronym ()
   (interactive)
   (browse-url 
@@ -5355,8 +5372,8 @@ See the documentation for vm-mode for more information."
 (ignore-errors
   (require 'newcomment)
   (defun comment-region-internal (beg end cs ce
-                                &optional ccs cce block lines indent)
-  "Comment region BEG..END.
+                                  &optional ccs cce block lines indent)
+    "Comment region BEG..END.
 CS and CE are the comment start resp end string.
 CCS and CCE are the comment continuation strings for the start resp end
 of lines (default to CS and CE).
@@ -5366,32 +5383,32 @@ LINES indicates that an extra lines will be used at the beginning and end
 of the region for CE and CS.
 INDENT indicates to put CS and CCS at the current indentation of the region
 rather than at left margin."
-  ;;(assert (< beg end))
-  (let ((no-empty nil ; PJB: always no-empty.
-          ;;  (not (or (eq comment-empty-lines t)
-          ;;           (and comment-empty-lines (zerop (length ce)))))
-          ))
-    ;; Sanitize CE and CCE.
-    (if (and (stringp ce) (string= "" ce)) (setq ce nil))
-    (if (and (stringp cce) (string= "" cce)) (setq cce nil))
-    ;; If CE is empty, multiline cannot be used.
-    (unless ce (setq ccs nil cce nil))
-    ;; Should we mark empty lines as well ?
-    (if (or ccs block lines) (setq no-empty nil))
-    ;; Make sure we have end-markers for BLOCK mode.
-    (when block (unless ce (setq ce (comment-string-reverse cs))))
-    ;; If BLOCK is not requested, we don't need CCE.
-    (unless block (setq cce nil))
-    ;; Continuation defaults to the same as CS and CE.
-    (unless ccs (setq ccs cs cce ce))
+    ;;(assert (< beg end))
+    (let ((no-empty nil ; PJB: always no-empty.
+            ;;  (not (or (eq comment-empty-lines t)
+            ;;           (and comment-empty-lines (zerop (length ce)))))
+            ))
+      ;; Sanitize CE and CCE.
+      (if (and (stringp ce) (string= "" ce)) (setq ce nil))
+      (if (and (stringp cce) (string= "" cce)) (setq cce nil))
+      ;; If CE is empty, multiline cannot be used.
+      (unless ce (setq ccs nil cce nil))
+      ;; Should we mark empty lines as well ?
+      (if (or ccs block lines) (setq no-empty nil))
+      ;; Make sure we have end-markers for BLOCK mode.
+      (when block (unless ce (setq ce (comment-string-reverse cs))))
+      ;; If BLOCK is not requested, we don't need CCE.
+      (unless block (setq cce nil))
+      ;; Continuation defaults to the same as CS and CE.
+      (unless ccs (setq ccs cs cce ce))
 
-    (save-excursion
-      (goto-char end)
-      ;; If the end is not at the end of a line and the comment-end
-      ;; is implicit (i.e. a newline), explicitly insert a newline.
-      (unless (or ce (eolp)) (insert "\n") (indent-according-to-mode))
-      (comment-with-narrowing
-          beg end
+      (save-excursion
+        (goto-char end)
+        ;; If the end is not at the end of a line and the comment-end
+        ;; is implicit (i.e. a newline), explicitly insert a newline.
+        (unless (or ce (eolp)) (insert "\n") (indent-according-to-mode))
+        (comment-with-narrowing
+            beg end
           (let ((min-indent (point-max))
                 (max-indent 0))
             (goto-char (point-min))
