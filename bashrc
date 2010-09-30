@@ -284,7 +284,7 @@ function be_generate(){
     be_variable NNTPSERVER              news.individual.net
     be_variable IRCNICK                 pjb
     be_variable IRCNAME                 'Pascal J. Bourguignon'
-    be_variable IRCSERVER               irc.informatimago.com
+    be_variable IRCSERVER               irc.freenode.org
     be_variable BROWSER                 /usr/bin/lynx
     be_variable LYNX_CFG                "$HOME"/.lynx.cfg
 
@@ -419,7 +419,7 @@ alias du='du -h'
 alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
+alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
 
 alias dw='darcs whatsnew -sl'
 alias dr='darcs record -am'
@@ -437,9 +437,13 @@ if [ $(uname) = Darwin ] ; then
     env|sed -n -e '/UTF-8/d' -e'/=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p'>/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
-    alias ls='LC_COLLATE="C" /bin/ls -aBCF'
-    alias lsv='LC_COLLATE="C" /bin/ls -CF'
-
+    if [ -x /opt/local/bin/gls ] ; then
+	alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
+	alias lsv='LC_COLLATE="C" /opt/local/bin/gls -BCFN'
+    else
+	alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
+	alias lsv='LC_COLLATE="C" /bin/ls -CF'
+    fi
     alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
     alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
     alias mysqlping='/opt/local/bin/mysqladmin5 -u root -p ping'
