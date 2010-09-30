@@ -74,9 +74,11 @@
   (defvar *directories*  '())
   (defun get-directory (key &optional (subpath ""))
     (unless *directories*
-      (with-open-file (dirs (make-pathname :name "DIRECTORIES" :type "TXT"
-                                           :version nil :case :common
-                                           :defaults (user-homedir-pathname)))
+      (with-open-file (dirs (merge-pathnames
+                             (make-pathname :name "DIRECTORIES" :type "TXT"
+                                            :version nil :case :common)
+                             (user-homedir-pathname)
+                             nil))
         (loop
            :for k = (read dirs nil dirs)
            :until (eq k dirs)
@@ -101,7 +103,6 @@
                     :directory `(:absolute ,@logical-dir :wild-inferiors)
                     logical-tail)
              (format nil "~A**/~A" physical-dir physical-tail))))
-   
    #+clisp
    (if file-type
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
@@ -116,8 +117,8 @@
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type nil   :version nil)   "*")
          ((:name :wild :type :wild :version nil) "*.*")))
-   #-(OR CLISP sbcl)
-   (if file-type
+   #-(OR clisp sbcl allegro) 
+   (if file-type 
        `(((:name :wild :type ,file-type :version nil)   ,(format nil "*.~(~A~)" file-type))
          ((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type nil   :version nil)   "*")
@@ -257,15 +258,15 @@
          (LAMBDA (P) (MAKE-PATHNAME :NAME NIL :TYPE NIL :VERSION NIL :DEFAULTS P))
          (mapcan (lambda (dir)
                    (DIRECTORY
-                    (merge-pathnames
-                     (make-pathname :directory (if (pathname-directory dir)
-                                                   '(:relative :wild-inferiors)
-                                                   '(:absolute :wild-inferiors))
-                                    :name :wild
-                                    :type "ASD"
-                                    :case :common
-                                    :defaults dir)
-                     dir)))
+                        (merge-pathnames
+                         (make-pathname :directory (if (pathname-directory dir)
+                                                       '(:relative :wild-inferiors)
+                                                       '(:absolute :wild-inferiors))
+                                        :name :wild
+                                        :type "ASD"
+                                        :case :common
+                                        :defaults dir)
+                         dir)))
                  directories))
         :test (function equal))
        (LAMBDA (A B) (if (= (length a) (length b))
@@ -416,25 +417,67 @@
 
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; ASDF-BINARY-LOCATIONS
+;;;
+
+(defun hostname ()
+  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+    (unwind-protect
+         (progn
+           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                   outpath)
+           (with-open-file (hostname outpath)
+             (read-line hostname)))
+      (delete-file outpath))))
+
+
 ;; asdf-binary-locations is already loaded in sbcl.
 ;; asdf-binary-locations is mutually exclusive with asdf2.
-#-(or sbcl asdf2 clc-os-debian)
-(asdf-load :asdf-binary-locations)
-#-(or sbcl asdf2 clc-os-debian)
+;; (or sbcl asdf2 clc-os-debian)
+
+(let ((sym (find-symbol "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY" "ASDF")))
+  (when (and sym (fboundp sym))
+    (push :HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY *features*)))
+
+#+HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY
+(asdf:enable-asdf-binary-locations-compatibility
+ :centralize-lisp-binaries     t
+ :default-toplevel-directory   (merge-pathnames (format nil ".cache/common-lisp/~A/" (hostname))
+                                              (user-homedir-pathname) nil)
+ :include-per-user-information nil
+ ;; :map-all-source-files ???
+ :source-to-target-mappings    nil)
+
+#-HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY
+(progn
+  ;; (push-asdf-repository #P"LIBCL:ASDF-BINARY-LOCATIONS;")
+  (handler-case
+      (progn (asdf-load :asdf-binary-locations)
+             (pushnew :asdf-binary-locations *features*))
+    (error (err)
+      (warn "ASDF-BINARY-LOCATIONS is not available."))))
+
+#+(and (not HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY)
+       asdf-binary-locations)
 (setf asdf:*centralize-lisp-binaries*     t
       asdf:*include-per-user-information* nil
       asdf:*default-toplevel-directory*
-      (merge-pathnames
-       (make-pathname :directory '(:relative ".fasls"))
-       (user-homedir-pathname))
-      asdf:*source-to-target-mappings* '()
-      #- (and)
-      '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
-        (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
-      #-(and)
-      '((#P"/usr/share/common-lisp/sources/" nil)
-        #+sbcl (#P"/usr/lib/sbcl/"   NIL)
-        #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
+      (merge-pathnames (format nil ".cache/common-lisp/~A/" (hostname))
+                       (user-homedir-pathname) nil)
+      asdf:*source-to-target-mappings* '())
+
+;; (setf asdf:*source-to-target-mappings*
+;;       #- (and)
+;;       '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
+;;         (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
+;;       #-(and)
+;;       '((#P"/usr/share/common-lisp/sources/" nil)
+;;         #+sbcl (#P"/usr/lib/sbcl/"   NIL)
+;;         #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
+
 
 
 
