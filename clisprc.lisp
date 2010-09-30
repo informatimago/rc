@@ -43,7 +43,7 @@
 ;;;
 
 (defpackage "COM.INFORMATIMAGO.CLISP.VERSION"
-  (:nicknames "VERS")
+  (:nicknames "CICV")
   (:use "COMMON-LISP")
   (:export
    "CLISP-VERSION"
@@ -228,14 +228,16 @@
                                                          :line-terminator :UNIX))
  #+FFI (setf CUSTOM:*FOREIGN-ENCODING* (ext:make-encoding :charset CHARSET:ISO-8859-1
                                                           :line-terminator :UNIX)))
-#+(and unix macos)
-(setf CUSTOM:*DEFAULT-FILE-ENCODING*  charset:utf-8
-      #+FFI CUSTOM:*FOREIGN-ENCODING* #+FFI charset:iso-8859-15
-      CUSTOM:*MISC-ENCODING*          charset:utf-8 ; best same as terminal
-      CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
-      CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
 
-#+#.(vers:rt-version<= "2.38" (vers:clisp-version))
+;; Breaks stdin/stdout...
+;; #+(and unix macos)
+;; (setf ;; CUSTOM:*DEFAULT-FILE-ENCODING*  charset:utf-8 
+;;       #+FFI CUSTOM:*FOREIGN-ENCODING* #+FFI charset:iso-8859-15
+;;       CUSTOM:*MISC-ENCODING*          charset:utf-8 ; best same as terminal
+;;       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
+;;       CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
+
+#+#.(cicv:rt-version<= "2.38" (cicv:clisp-version))
 (setf
  ;; ANSI
  CUSTOM:*LOOP-ANSI*                                 T
@@ -289,7 +291,7 @@
 
 
 
-#+#.(vers:rt-version= "2.33.83" (vers:clisp-version))
+#+#.(cicv:rt-version= "2.33.83" (cicv:clisp-version))
 (EXT:WITHOUT-PACKAGE-LOCK ("COMMON-LISP")
   (let ((oldload (function cl:load)))
     (fmakunbound 'cl:load)
@@ -316,11 +318,11 @@
     (compile 'cl:load)))
 
 ;; What's the relationship between SYSCALLS and POSIX?
-#+#.(cl:if (vers:version= "2.33.83" (vers:clisp-version))
+#+#.(cl:if (cicv:version= "2.33.83" (cicv:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (intern "HOSTENT-ADDR-TYPE" "POSIX"))
-#+#.(cl:if (vers:version= "2.33.83" (vers:clisp-version))
+#+#.(cl:if (cicv:version= "2.33.83" (cicv:clisp-version))
            :syscall '(or))
 (EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
   (defun POSIX::HOSTENT-ADDR-TYPE (&rest args)
