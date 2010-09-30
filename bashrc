@@ -14,6 +14,23 @@ else
 fi
 
 
+# Read first /etc/inputrc if the variable is not defined, and after 
+# the /etc/inputrc include the ~/.inputrc
+[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
+stty erase  >/dev/null 2>&1
+
+unset LS_COLORS
+if [ $UID -eq 0 ] ; then
+    export PS1='[\u@\h $DISPLAY \W]# '
+elif type -path period-cookie >/dev/null 2>&1 ; then
+    export PS1='`period-cookie`[\u@\h $DISPLAY \W]\$ '
+else
+    export PS1='[\u@\h $DISPLAY \W]$ '
+fi
+
+
+
+
 
 function member(){
     local item="$1" ; shift
@@ -351,6 +368,11 @@ else
 fi
 source $BASH_ENV
 
+case "$(hostname)" in
+mdi-development-*)
+    source /usr/local/env.sh
+    ;; 
+esac
 
 
 wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
@@ -374,21 +396,6 @@ wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) G
 #     fi
 # fi
 
-
-
-# Read first /etc/inputrc if the variable is not defined, and after 
-# the /etc/inputrc include the ~/.inputrc
-[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
-stty erase  >/dev/null 2>&1
-
-unset LS_COLORS
-if [ $UID -eq 0 ] ; then
-    export PS1='[\u@\h $DISPLAY \W]# '
-elif type -path period-cookie >/dev/null 2>&1 ; then
-    export PS1='`period-cookie`[\u@\h $DISPLAY \W]\$ '
-else
-    export PS1='[\u@\h $DISPLAY \W]$ '
-fi
 
 
 function ds () {
@@ -426,6 +433,8 @@ alias dr='darcs record -am'
 alias ds='darcs push'
 alias dl='darcs pull'
 
+
+alias mplayer='mplayer -nojoystick'
 
 export CVSEDITOR=emacsclient
 

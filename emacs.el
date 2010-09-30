@@ -80,10 +80,10 @@
 
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
-   (setf mac-command-modifier 'meta
-         mac-option-modifier  'alt
-         one-buffer-one-frame nil)
-   (cua-mode 0))
+  (setf mac-command-modifier 'meta
+        mac-option-modifier  'alt
+        one-buffer-one-frame nil)
+  (cua-mode 0))
 
 (when (boundp 'x-toolkit-scroll-bars)
   (setf x-toolkit-scroll-bars nil))
@@ -122,20 +122,367 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet")))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-marker-1-face ((t (:background "AntiqueWhite"))))
+ '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
+ '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
+ '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
+ '(erc-fool-face ((t (:foreground "#ffffee"))))
+ '(erc-input-face ((t (:foreground "yellow3"))))
+ '(erc-notice-face ((t (:foreground "LightSalmon4"))))
+ '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
+ '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
+ '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
+ '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
+ '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
+ '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
+ '(font-lock-comment-face ((nil (:foreground "red"))))
+ '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
+ '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
+ '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
+ '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
+ '(gnus-cite-2 ((((class color) (background light)) (:foreground "yellow1"))))
+ '(gnus-cite-3 ((((class color) (background light)) (:foreground "lightblue2"))))
+ '(gnus-cite-4 ((((class color) (background light)) (:foreground "yellow2"))))
+ '(gnus-cite-5 ((((class color) (background light)) (:foreground "lightblue3"))))
+ '(gnus-cite-6 ((((class color) (background light)) (:foreground "yellow3"))))
+ '(gnus-cite-7 ((((class color) (background light)) (:foreground "lightblue4"))))
+ '(gnus-cite-8 ((((class color) (background light)) (:foreground "yellow4"))))
+ '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
+ '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
+ '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
+ '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
+ '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
+ '(mmm-default-submode-face ((t (:foreground "cyan"))))
+ '(mode-line ((((class color) (min-colors 88)) (:background "cadetblue1" :foreground "black" :box (:line-width -1 :style released-button)))))
+ '(rst-level-1-face ((t (:background "grey20"))) t)
+ '(rst-level-2-face ((t (:background "grey20"))) t)
+ '(rst-level-3-face ((t (:background "grey20"))) t)
+ '(rst-level-4-face ((t (:background "grey20"))) t)
+ '(rst-level-5-face ((t (:background "grey20"))) t)
+ '(rst-level-6-face ((t (:background "grey20"))) t)
+ '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red")))))
 
 
 (.EMACS "custom variables")
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+ '(ad-redefinition-action (quote accept))
+ '(all-christian-calendar-holidays t t)
+ '(all-hebrew-calendar-holidays nil t)
+ '(auto-compression-mode t nil (jka-compr))
+ '(auto-image-file-mode t)
+ '(auto-save-interval 2500)
+ '(auto-save-timeout 60)
+ '(backup-by-copying-when-linked t)
+ '(backup-by-copying-when-mismatch t)
+ '(backup-by-copying-when-privileged-mismatch 1000)
+ '(bcc-user-mail-address "pjb@informatimago.com" t)
+ '(blink-matching-paren t)
+ '(boxquote-bottom-corner "+")
+ '(boxquote-top-and-tail "----------------------------------------------------------------------------")
+ '(boxquote-top-corner "+")
+ '(c-argdecl-indent 4 t)
+ '(c-auto-newline nil t)
+ '(c-backslash-column 72)
+ '(c-basic-offset 4)
+ '(c-brace-imaginary-offset 0 t)
+ '(c-brace-offset 0 t)
+ '(c-cleanup-list (quote (brace-else-brace brace-elseif-brace brace-catch-brace list-close-comma scope-operator)))
+ '(c-comment-continuation-stars "" t)
+ '(c-comment-only-line-offset (quote (0 . 0)))
+ '(c-continued-brace-offset 0 t)
+ '(c-continued-statement-offset 4 t)
+ '(c-default-style "gnu")
+ '(c-echo-syntactic-information-p t)
+ '(c-hanging-braces-alist (quote ((defun-open before after) (defun-close before) (class-open before after) (inline-open before after) (inline-close before) (block-open) (block-close . c-snug-do-while) (substatement-open after) (statement-case-open after) (extern-lang-open after) (extern-lang-close before after) (brace-list-open after) (brace-list-close before after) (brace-list-intro before after) (brace-entry-open before after) (inexpr-class-open after) (inexpr-class-close before))))
+ '(c-hanging-comment-ender-p nil t)
+ '(c-hanging-comment-starter-p nil t)
+ '(c-indent-level 4 t)
+ '(c-label-minimum-indentation 2)
+ '(c-label-offset -4 t)
+ '(c-macro-shrink-window-flag t)
+ '(c-offsets-alist (quote ((topmost-intro . 0) (inclass . c-basic-offset) (cpp-macro . [0]) (objc-method-intro . [0]) (defun-block-intro . c-basic-offset) (statement-block-intro . c-basic-offset) (access-label . -4) (defun-open . 0) (topmost-intro . 0) (member-init-cont . 0) (statement-cont . 0) (inclass . 4) (cpp-macro . -1000) (objc-method-intro . 0))))
+ '(c-tab-always-indent t)
+ '(calendar-christian-all-holidays-flag t)
+ '(calendar-date-display-form (quote ((if dayname (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day dayname) (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day "")))))
+ '(calendar-hebrew-all-holidays-flag nil)
+ '(calendar-mark-holidays-flag t)
+ '(calendar-view-holidays-initially-flag t)
+ '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
+ '(case-fold-search t)
+ '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
+ '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
+ '(chess-sound-directory "/usr/share/sounds/chess" t)
+ '(comint-process-echoes nil)
+ '(comment-empty-lines t)
+ '(comment-force-also-empty-lines t)
+ '(current-language-environment "UTF-8")
+ '(default-input-method nil)
+ '(default-major-mode (quote text-mode))
+ '(delete-old-versions t)
+ '(delete-selection-mode nil)
+ '(dired-kept-versions 4)
+ '(display-time-24hr-format t)
+ '(display-time-day-and-date t)
+ '(display-time-mode t)
+ '(ecb-auto-activate nil)
+ '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
+ '(ecb-options-version "2.32")
+ '(ecb-source-path (quote ("/home/pjb/src/")))
+ '(emms-info-mp3info-coding-system (quote utf-8))
+ '(emms-player-started-hook (quote (emms-show)))
+ '(emms-show-format "NP %s")
+ '(emms-source-file-default-directory "/d5/music/")
+ '(emms-source-playlist-formats (quote (native pls m3u)))
+ '(enable-recursive-minibuffers t)
+ '(erc-auto-query (quote window))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-away-timestamp-format "<%H:%M:%S>")
+ '(erc-default-coding-system (quote (utf-8 . undecided)) t)
+ '(erc-echo-notices-in-current-buffer t)
+ '(erc-echo-timestamps nil)
+ '(erc-email-userid t)
+ '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
+ '(erc-fill-column 90)
+ '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-prefix "\"\"")
+ '(erc-fill-static-center 0)
+ '(erc-fill-variable-maximum-indentation 0)
+ '(erc-hide-list (quote nil))
+ '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
+ '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
+ '(erc-interpret-mirc-color t)
+ '(erc-minibuffer-ignored t)
+ '(erc-minibuffer-notice t)
+ '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-nick (quote ("pjb")))
+ '(erc-notice-prefix "   *** ")
+ '(erc-pals (quote ("bolet.*" "dmiles")))
+ '(erc-port 6667)
+ '(erc-prompt (lambda nil (buffer-name (current-buffer))))
+ '(erc-prompt-for-password t)
+ '(erc-quit-reason-various-alist nil)
+ '(erc-server "irc.freenode.org")
+ '(erc-server-coding-system (quote (utf-8 . undecided)))
+ '(erc-timestamp-format nil)
+ '(erc-timestamp-intangible nil)
+ '(erc-user-full-name "Pascal J. Bourguignon")
+ '(eval-expression-debug-on-error t)
+ '(eval-expression-print-length nil)
+ '(eval-expression-print-level nil)
+ '(file-precious-flag t)
+ '(focus-follows-mouse nil)
+ '(font-lock-extra-types (quote ("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "CARD8" "CARD16" "CARD32" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN")) t)
+ '(font-lock-maximum-decoration t)
+ '(global-font-lock-mode t nil (font-lock))
+ '(gnus-article-loose-mime t)
+ '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
+ '(gnus-cacheable-groups "*")
+ '(gnus-carpal nil)
+ '(gnus-default-charset (quote iso-8859-15))
+ '(gnus-default-posting-charset (quote utf-8) t)
+ '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
+]*\\(no\\|fr\\)\\.[^,]*\\)*$" iso-8859-15 (iso-8859-15)) ("^\\(fido7\\|relcom\\)\\.[^,]*\\(,[ 	
+]*\\(fido7\\|relcom\\)\\.[^,]*\\)*$" koi8-r (koi8-r)) (message-this-is-mail nil nil) (message-this-is-news iso-8859-15 (iso-8859-15)))))
+ '(gnus-ignored-headers (quote ("^Path:" "^Expires:" "^Date-Received:" "^References:" "^Xref:" "^Lines:" "^Relay-Version:" "^Approved:" "^Sender:" "^Received:" "^X-UIDL:" "^MIME-Version:" "^Return-Path:" "^In-Reply-To:" "^Content-Type:" "^Content-Transfer-Encoding:" "^X-WebTV-Signature:" "^X-MimeOLE:" "^X-MSMail-Priority:" "^X-Priority:" "^X-Loop:" "^X-Authentication-Warning:" "^X-MIME-Autoconverted:" "^X-Face:" "^X-Attribution:" "^X-Originating-IP:" "^Delivered-To:" "^NNTP-[-A-Za-z]+:" "^Distribution:" "^X-no-archive:" "^X-Trace:" "^X-Complaints-To:" "^X-NNTP-Posting-Host:" "^X-Orig.*:" "^Abuse-Reports-To:" "^Cache-Post-Path:" "^X-Article-Creation-Date:" "^X-Poster:" "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:" "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:" "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:" "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:" "^Autoforwarded:" "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:" "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:" "^Content-length:" "^X-precedence:" "^X-Authenticated-User:" "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:" "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:" "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:" "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:" "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:" "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:" "^X-Received-Date:" "^X-Hashcash:" "^Face:" "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:")))
+ '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
+ '(gnus-nntp-server nil)
+ '(gnus-play-startup-jingle nil)
+ '(gnus-secondary-select-methods (quote ((nnml "") (nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
+ '(gnus-secondary-servers (quote ("news.gmane.org")))
+ '(gnus-select-method (quote (nntp "news.individual.net")))
+ '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
+ '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
+ '(gnus-treat-display-x-face (quote head))
+ '(gnus-use-nocem nil)
+ '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
+ '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
+ '(grep-command "grep -niH -e ")
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
+ '(indent-tabs-mode nil)
+ '(inferior-lisp-filter-regexp "\\`\\s*\\'")
+ '(inihibit-default-init t)
+ '(initial-major-mode (quote emacs-lisp-mode))
+ '(ispell-choices-win-default-height 4)
+ '(ispell-highlight-p t)
+ '(ispell-local-dictionary "francais")
+ '(ispell-local-dictionary-alist (quote (("francais" "[A-Za-zÀ-ÖØ-öø-ÿ]" "[^A-Za-zÀ-ÖØ-öø-ÿ]" "[-']" t nil "~latin9" iso-8859-15))) t)
+ '(ispell-message-dictionary-alist (quote (("\"^Newsgroups:[ \\t]*fr\\\\.\"" . "\"francais\"") ("\"^To:[^\\n,]+\\\\.fr[ \\t\\n,>]\"" . "\"francais\"") ("\"^Newsgroups:[ \\t]*(es|mx|ar)\\\\.\"" . "\"castillano\"") ("\"^To:[^\\n,]+\\\\.(es|mx|ar)[ \\t\\n,>]\"" . "\"castillano\"") ("\"^Newsgroups:[ \\t]*uk\\\\.\"" . "\"english\"") ("\"^To:[^\\n,]+\\\\.uk[ \\t\\n,>]\"" . "\"english\"") ("\".*\"" . "\"american\""))))
+ '(ispell-query-replace-choices nil)
+ '(kept-new-versions 9)
+ '(kept-old-versions 0)
+ '(kill-whole-line t)
+ '(line-number-mode t)
+ '(lpr-page-header-switches (quote ("-F" "-t")))
+ '(mail-archive-file-name nil)
+ '(mail-bury-selects-summary t)
+ '(mail-default-headers "Organization: InformatiMago.
+X-PGP-Key-ID:      0xEF5E9966
+X-PGP-fingerprint: 00 F5 7B DB CA 51 8A AD 04 5B 6C DE 32 60 16 8E EF 5E 99 66
+X-PGP-Public-Key:  http://www.informatimago.com/pgpkey.asc
+X-URL:             http://www.informatimago.com/index
+X-Face: \":yO)Vk=vFU3)FL&2#7gT_G=KUuNv*BEOo+Shubl.V4Whu&;A.>.+&yEVB5I5vrpZIJ{yOW
+ >CgV%jD]GHL6rp:.OCM~_YO&aY34]|`{yNq79\\x=g:7XSboBUj]1ULpA;v>-bS3veufw-rB!N0kZW!
+ @A4i?z|
+X-Accept-Language:         fr, es, en
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+")
+ '(mail-default-reply-to "<pjb@informatimago.com>")
+ '(mail-host-address "informatimago.com")
+ '(mail-interactive t)
+ '(mail-mode-hook (quote (mail-abbrevs-setup (lambda nil (set-buffer-file-coding-system (quote utf-8) t t) (set-input-method default-input-method) (local-set-key "	" (quote expand-mail-aliases))))))
+ '(mail-self-blind t)
+ '(mail-setup-hook (quote ((lambda nil (local-set-key "	" (quote expand-mail-aliases))))))
+ '(mail-signature t)
+ '(mail-yank-ignored-headers "^via:\\|^mail-from:\\|^origin:\\|^status:\\|^remailed\\|^received:\\|^message-id:\\|^summary-line:\\|^to:\\|^subject:\\|^in-reply-to:\\|^reply-to:\\|^return-path:\\|^mailing-list:\\|^precedence:\\|^x-\\|^content-\\|^cc:\\|^list-\\|^resent\\|^organization:\\|^sender:\\|^user-agent:\\|^mime-version:\\|^delivered-to:\\|^references:")
+ '(mail-yank-prefix "> ")
+ '(mark-even-if-inactive t)
+ '(mark-holidays-in-calendar t t)
+ '(matlab-comment-line-s "// " t)
+ '(matlab-comment-on-line-s "// " t)
+ '(matlab-comment-region-s "// " t)
+ '(max-specpdl-size 2048)
+ '(message-default-charset (quote iso-8859-15))
+ '(message-default-headers "Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAAD///+l2Z/dAAAA
+      oElEQVR4nK3OsRHCMAwF0O8YQufUNIQRGIAja9CxSA55AxZgFO4coMgYrEDDQZWPIlNAjwq9
+      033pbOBPtbXuB6PKNBn5gZkhGa86Z4x2wE67O+06WxGD/HCOGR0deY3f9Ijwwt7rNGNf6Oac
+      l/GuZTF1wFGKiYYHKSFAkjIo1b6sCYS1sVmFhhhahKQssRjRT90ITWUk6vvK3RsPGs+M1RuR
+      mV+hO/VvFAAAAABJRU5ErkJggg==
+X-Accept-Language:         fr, es, en
+X-Disabled: X-No-Archive: no
+")
+ '(message-directory "~/mail/")
+ '(message-log-max 5000)
+ '(message-required-news-headers (quote (From Newsgroups Subject Date Message-ID (optional . Organization) (optional . User-Agent) (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm")))))
+ '(message-user-organization "Informatimago")
+ '(mew-conf-path "~/.new")
+ '(mew-mail-path "~/mail")
+ '(mew-pop-auth (quote pass))
+ '(mew-pop-header-only nil)
+ '(mew-pop-server "pop.informatimago.com")
+ '(mew-pop-size 0)
+ '(mew-smtp-server "smtp.informatimago.com")
+ '(mew-use-biff t)
+ '(mew-use-biff-bell t)
+ '(mew-use-full-window t)
+ '(mew-use-other-frame-for-draft t)
+ '(mew-use-text/html t)
+ '(mm-coding-system-priorities (quote (ascii iso-latin-1 iso-latin-9 utf-8)))
+ '(mspools-update t)
+ '(next-screen-context-lines 0)
+ '(nntp-authinfo-file "~/.authinfo")
+ '(org-agenda-files (quote ("~/notes.txt" "~/firms/wizards/notes.txt" "~/firms/willcom/notes.txt" "~/firms/secur.net/notes.txt" "~/firms/ravenpack/notes.txt" "~/firms/osii/notes.txt" "~/firms/medicalis/notes.txt" "~/firms/mappy/notes.txt" "~/firms/joellegymtonic/notes.txt" "~/firms/jem/notes.txt" "~/firms/intergruas/notes.txt" "~/firms/hf/notes.txt" "~/firms/hbedv/notes.txt" "~/firms/hamster-s-fabric-inc/notes.txt" "~/firms/camille/notes.txt" "~/firms/afaa/notes.txt")))
+ '(ph-server "localhost" t)
+ '(pjb-test-var 2 t)
+ '(pop-up-frames nil)
+ '(pr-faces-p t)
+ '(printer-name "normal_gray" t)
+ '(prolog-program-name "/usr/bin/swipl")
+ '(ps-header-lines 0)
+ '(ps-left-header nil)
+ '(ps-paper-type (quote a4) t)
+ '(ps-print-header nil)
+ '(ps-print-header-frame nil)
+ '(ps-printer-name "normal_gray")
+ '(ps-right-header nil)
+ '(ps-show-n-of-n nil)
+ '(read-mail-command (quote vm))
+ '(read-quoted-char-radix 10)
+ '(require-final-newline (quote visit-save))
+ '(rmail-confirm-expunge nil)
+ '(rmail-display-summary t)
+ '(rmail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
+ '(rmail-enable-mime nil)
+ '(rmail-enable-multibyte t t)
+ '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
+ '(rmail-output-file-alist nil t)
+ '(rmail-pop-password nil)
+ '(rmail-pop-password-required nil)
+ '(rmail-preserve-inbox nil)
+ '(rmail-redisplay-summary t)
+ '(rmail-remote-password nil)
+ '(rmail-remote-password-required nil)
+ '(rmail-secondary-file-directory "~/mail")
+ '(rmail-summary-line-decoder (quote identity))
+ '(rmail-summary-window-size 12)
+ '(safe-local-variable-values (quote ((Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(sh-indent-after-case 0)
+ '(sh-indent-after-switch 0)
+ '(sh-indent-for-case-alt (quote +))
+ '(sh-indent-for-case-label 0)
+ '(show-paren-mode t)
+ '(show-paren-ring-bell-on-mismatch t)
+ '(slime-compilation-finished-hook (quote (slime-maybe-show-xrefs-for-notes)))
+ '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
+ '(slime-space-information-p nil)
+ '(slime-startup-animation nil)
+ '(spam-autodetect-recheck-messages t)
+ '(stack-trace-on-error nil)
+ '(tab-stop 4 t)
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
+ '(tab-width 4)
+ '(tags-table-list (quote nil) t)
+ '(tnt-use-timestamps t)
+ '(tnt-username-alist (quote (("matimago") ("ogamita"))))
+ '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
+ '(truncate-partial-width-windows nil)
+ '(url-be-asynchronous t)
+ '(url-honor-refresh-requests nil)
+ '(user-full-name "Pascal J. Bourguignon")
+ '(user-mail-address "pjb@informatimago.com")
+ '(vc-annotate-background "snow1")
+ '(vc-annotate-color-map (quote ((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010"))))
+ '(vc-annotate-very-old-color "#000000")
+ '(vc-make-backup-files t)
+ '(version-control t)
+ '(view-calendar-holidays-initially t t)
+ '(vm-auto-displayed-mime-content-types (quote ("text/enriched" "text/plain" "message" "message/rfc822" "message/disposition-notification" "multipart")))
+ '(vm-auto-folder-alist (quote (("^\\(From:\\|To:\\|Cc:\\)" ("svn-.*anevia.com" . "~/mail/anevia-svn.mbox") ("staff@anevia.com" . "~/mail/anevia-staff.mbox") ("cpptest@anevia.com" . "~/mail/cpptest.mbox") ("\\(bese.*common-lisp\\)" . "~/mail/ucw.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox") ("cert-advisory@cert.org" . "~/mail/cert.mbox") ("gentoo" . "~/mail/gentoo.mbox")) ("^Subject:" ("\\[libanevia\\|manager2\\|aipc\\]" . "~/mail/anevia-manager2.mbox") ("cs daily" . "~/mail/cs-papers.mbox") ("CRYPTO.*GRAM" . "~/mail/crypto-gram.mbox") ("ipnsig" . "~/mail/ipnsig.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox")))))
+ '(vm-auto-folder-case-fold-search t)
+ '(vm-display-xfaces t)
+ '(vm-folder-directory "~/mail/")
+ '(vm-highlighted-header-face (quote font-lock-comment-face))
+ '(vm-honor-mime-content-disposition nil)
+ '(vm-included-text-prefix "> ")
+ '(vm-infer-mime-types t)
+ '(vm-mail-mode-hook nil)
+ '(vm-mime-8bit-composition-charset "utf-8")
+ '(vm-mime-8bit-text-transfer-encoding (quote 8bit))
+ '(vm-mime-alternative-select-method (quote (favorite-internal "text/enriched" "text/plain")))
+ '(vm-mime-attachment-auto-suffix-alist (quote (("image/tiff" . ".tif") ("image/jpeg" . ".jpg") ("image/gif" . ".gif") ("image/png" . ".png") ("text/html" . ".html") ("audio/basic" . ".au") ("video/mpeg" . ".mpg") ("video/quicktime" . ".mov") ("application/postscript" . ".ps") ("application/pdf" . ".pdf") ("application/vnd.ms-excel" . ".xls") ("application/mac-binhex40" . ".hqx") ("application/pdf" . ".pdf") ("application/zip" . ".zip"))))
+ '(vm-mime-default-face-charsets (quote ("us-ascii" "iso-8859-1" "iso-8859-15" "win-1250" "ANSI_X3.4-1968")))
+ '(vm-mime-external-content-types-alist (quote (("application/pdf" "acroread") ("image/gif" "xview") ("image/jpg" "xview") ("image/tiff" "xview") ("image/jpeg" "xview"))))
+ '(vm-mime-use-w3-for-text/html t)
+ '(vm-mutable-frames nil)
+ '(vm-preview-lines nil)
+ '(vm-reply-subject-prefix "Re: ")
+ '(vm-spool-files (quote (("~/INBOX" "/var/spool/mail/pjb" "~/INBOX-local.crash"))))
+ '(vm-summary-highlight-face (quote font-lock-comment-face))
+ '(vm-url-browser (quote pjb-browse-url))
+ '(vm-use-lucid-highlighting t)
+ '(w3-default-homepage "http://www.google.com")
+ '(w3-delay-image-loads t)
+ '(w3-display-frames t)
+ '(w3-do-incremental-display t)
+ '(w3-honor-stylesheets nil)
+ '(w3-horizontal-rule-char 45)
+ '(w3-source-file-hook nil)
+ '(w3-use-terminal-characters nil)
+ '(w3-use-terminal-characters-on-tty nil)
+ '(w3-user-colors-take-precedence t)
+ '(w3-user-fonts-take-precedence t)
+ '(w3m-coding-system (quote utf-8))
+ '(w3m-default-display-inline-images t)
+ '(warning-suppress-types (quote ((undo discard-info))))
+ '(x-select-enable-clipboard t))
 
 
 ;; '(vm-spool-files '(("~/INBOX"
@@ -172,10 +519,10 @@
         (:face (variable-pitch :weight bold) "
 WELCOME TO EMACS!
 "
-               ;; :face variable-pitch "Text"
-               ;; :face (variable-pitch :weight bold :slant oblique) "Text"
-               ;; :face variable-pitch function
-               )
+         ;; :face variable-pitch "Text"
+         ;; :face (variable-pitch :weight bold :slant oblique) "Text"
+         ;; :face variable-pitch function
+         )
         (:face (variable-pitch :weight bold) "
 -%- WELCOME TO EMACS -%-
 ")))
@@ -262,23 +609,23 @@ WELCOME TO EMACS!
   (string= (string-upcase
             (if (and (= 0 start1) (or (null end1) (= end1 (length str1))))
                 str1
-              (subseq str1 start1 (or end1 (length str1)))))
+                (subseq str1 start1 (or end1 (length str1)))))
            (string-upcase
             (if (and (= 0 start2) (or (null end2) (= end2 (length str2))))
                 str2
-              (subseq str2 start2 (or end2 (length str2)))))))
+                (subseq str2 start2 (or end2 (length str2)))))))
 
 
 (defun user-homedir-pathname ()
   (if user-init-file
       (dirname user-init-file)
-    (dirname (first (file-expand-wildcards "~/.emacs")))))
+      (dirname (first (file-expand-wildcards "~/.emacs")))))
 (defun namestring (path) path)
 (defun pathname-name (path)
   (let ((path (basename path)))
     (if (string-match "^\\(.*\\)\\.[^.]*$" path)
         (match-string 1 path)
-      path)))
+        path)))
 ;; (mapcar (lambda (x) (list (dirname x) (basename x) (pathname-name x)))
 ;;         '("abc" "abc.def" "abc.def.ghi"
 ;;           "/abc" "/abc.def" "/abc.def.ghi"
@@ -291,11 +638,11 @@ WELCOME TO EMACS!
 (defun dirname (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
-    "./"))
+      "./"))
 (defun basename (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 2 path)
-    path))
+      path))
 
 
 (defun prefixp (prefix string)
@@ -315,9 +662,9 @@ RETURN:  Whether PREFIX is a prefix of the STRING.
   "N is a decimal numbers whose digits are taken as octal digits
 and converted as such."
   (loop
-   for d across (format "%d" n)
-   for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-   finally (return r)))
+     for d across (format "%d" n)
+     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
+     finally (return r)))
 
 (defun chmod (file mode)
   (interactive "fFile path: \nXMode: ")
@@ -361,20 +708,20 @@ FILE-AND-OPTION: either an atom evaluated to a path,
 "
   (if (atom file-and-options)
       `(with-file (,file-and-options) ,@body)
-    ;; destructuring-bind is broken, we cannot give anything else than nil
-    ;; as default values:
-    (destructuring-bind (path &key (save nil savep) (kill nil killp)
-                              (literal nil literalp))
-        file-and-options
-      (unless savep (setf save t))
-      (unless killp (setf kill t))
-      `(unwind-protect
-           (progn
-             (,(if literal 'find-file-literally 'find-file) ,path)
-             (prog1 (save-excursion ,@body)
-               ,(when save `(save-buffer 1))))
-         ,(when kill
-            `(kill-buffer (current-buffer)))))))
+      ;; destructuring-bind is broken, we cannot give anything else than nil
+      ;; as default values:
+      (destructuring-bind (path &key (save nil savep) (kill nil killp)
+                                (literal nil literalp))
+          file-and-options
+        (unless savep (setf save t))
+        (unless killp (setf kill t))
+        `(unwind-protect
+              (progn
+                (,(if literal 'find-file-literally 'find-file) ,path)
+                (prog1 (save-excursion ,@body)
+                  ,(when save `(save-buffer 1))))
+           ,(when kill
+                  `(kill-buffer (current-buffer)))))))
 
 
 (defvar *directories* '() "A cache for the ~/directories.txt dictionary.")
@@ -391,12 +738,12 @@ and stores it in `*directories*'.
             (find-file directories-file)
             (prog1
                 (loop
-                 for (k v)
-                 on (split-string (buffer-substring-no-properties
-                                   (point-min) (point-max)))
-                 by (function cddr)
-                 nconc (list (intern (format ":%s" (substitute ?- ?_ (downcase k))))
-                             v))
+                   for (k v)
+                   on (split-string (buffer-substring-no-properties
+                                     (point-min) (point-max)))
+                   by (function cddr)
+                   nconc (list (intern (format ":%s" (substitute ?- ?_ (downcase k))))
+                               v))
               (kill-buffer (current-buffer)))))))
 
 
@@ -412,12 +759,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (let ((dir (getf *directories* key)))
     (if (or (null subpath) (string= "" subpath))
         dir
-      (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-             (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-             (xor (a b) (or (and a (not b)) (and (not a) b))))
-        (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-            (concat dir subpath)
-          (concat dir "/" subpath))))))
+        (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
+               (firstchar (str) (and (< 0 (length str)) (aref str 0)))
+               (xor (a b) (or (and a (not b)) (and (not a) b))))
+          (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
+              (concat dir subpath)
+              (concat dir "/" subpath))))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -449,64 +796,66 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (let ((new-paths '())
       (base-load-path (copy-list load-path)))
   (flet ((add-if-good (site-lisp)
-                      (when (file-exists-p site-lisp)
-                        (pushnew site-lisp new-paths)
-                        (mapc (lambda (file)
-                                (let ((file (concat site-lisp "/" file)))
-                                  (when (file-exists-p file)
-                                    (.EMACS "%s FOUND" file)
-                                    (let ((default-directory site-lisp))
-                                      (load file *pjb-load-noerror* *pjb-load-silent*)))))
-                              '("site-start.el" "site-gentoo.el" "subdirs.el"))
-                        t)))
+           (when (file-exists-p site-lisp)
+             (pushnew site-lisp new-paths)
+             (mapc (lambda (file)
+                     (let ((file (concat site-lisp "/" file)))
+                       (when (file-exists-p file)
+                         (.EMACS "%s FOUND" file)
+                         (let ((default-directory site-lisp))
+                           (load file *pjb-load-noerror* *pjb-load-silent*)))))
+                   '("site-start.el" "site-gentoo.el" "subdirs.el"))
+             t)))
     (dolist (directories
-             ;; When several directories are listed in a sublist, only
-             ;; the first found directory will be added.
-             (append
-              (case emacs-major-version
-                ((20 21 22)
-                 (append '("/opt/lisp/emacs"
-                           "/opt/local/share/emacs/site-lisp"
-                           "/usr/local/share/emacs/site-lisp")
-                         '("/opt/clisp-2.48/share/emacs/site-lisp"
-                           "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                           "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                           "/opt/clisp-2.47/share/emacs/site-lisp"
-                           "/opt/clisp-2.46/share/emacs/site-lisp"
-                           "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                         '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                         ))
-                ((23)
-                 '())
-                (otherwise
-                 (.EMACS "WARNING: No load-paths for emacs version %d" emacs-major-version)
-                 '()))
-              (list
-               ;; -----------------
-               ;; PJB emacs sources
-               ;; -----------------
-               ;; Since we may have several emacs version running
-               ;; on the same system, for now we will avoid
-               ;; compiling pjb sources, and we will load them
-               ;; directly from ~/src/public/emacs/.  Later we
-               ;; will see how we can install elc in version
-               ;; specific directories, but keeping references to
-               ;; the same source directory.
-               (concat (getenv "HOME") "/src/public/emacs/")
-               ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
-               )))
+              ;; When several directories are listed in a sublist, only
+              ;; the first found directory will be added.
+              (append
+               (case emacs-major-version
+                 ((20 21 22)
+                  (append '("/opt/lisp/emacs"
+                            "/opt/local/share/emacs/site-lisp"
+                            "/usr/local/share/emacs/site-lisp")
+                          '("/opt/clisp-2.48/share/emacs/site-lisp"
+                            "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                            "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                            "/opt/clisp-2.47/share/emacs/site-lisp"
+                            "/opt/clisp-2.46/share/emacs/site-lisp"
+                            "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                          '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                          ))
+                 ((23)
+                  '())
+                 (otherwise
+
+                  (.EMACS "WARNING: No load-paths for emacs version %d"
+                          emacs-major-version)
+                  '()))
+               (list
+                ;; -----------------
+                ;; PJB emacs sources
+                ;; -----------------
+                ;; Since we may have several emacs version running
+                ;; on the same system, for now we will avoid
+                ;; compiling pjb sources, and we will load them
+                ;; directly from ~/src/public/emacs/.  Later we
+                ;; will see how we can install elc in version
+                ;; specific directories, but keeping references to
+                ;; the same source directory.
+                (expand-file-name  "~/src/public/emacs/")
+                ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
+                )))
       (if (listp directories)
           (find-if (function add-if-good) directories)
-        (add-if-good directories)))
-    (setf load-path (append base-load-path
-                            new-paths
-                            (set-difference load-path base-load-path :test (function equal))))))
+          (add-if-good directories)))
+    (setf load-path (append new-paths
+                            (set-difference load-path base-load-path :test (function equal))
+                            base-load-path))))
 
 
-(unless (prefixp "mdi-development-" *hostname*)
- (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-                        "~/opt/share/emacs/site-lisp/slime/"
-                        load-path)))
+(unless (fboundp 'mdi)
+  (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs/")
+                         (expand-file-name "~/opt/share/emacs/site-lisp/slime/")
+                         load-path)))
 
 
 ;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
@@ -624,7 +973,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
      (set-selection-coding-system             'utf-8-unix)
      (set-terminal-coding-system              'utf-8-unix)
 
-     
+
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
            default-terminal-coding-system     'utf-8-unix
@@ -703,15 +1052,15 @@ SIDE must be the symbol `left' or `right'."
              (vtype (nth 2 wsb))
              (cols  (nth 1 wsb)))
         (cond
-         ((not (memq side '(left right nil)))
-          (error "`left' or `right' expected instead of %S" side))
-         ((and (eq vtype side) cols))
-         ((eq (frame-parameter nil 'vertical-scroll-bars) side)
-          ;; nil means it's a non-toolkit scroll bar, and its width in
-          ;; columns is 14 pixels rounded up.
-          (ceiling (or (frame-parameter nil 'scroll-bar-width) 14)
-                   (frame-char-width)))
-         (0))))))
+          ((not (memq side '(left right nil)))
+           (error "`left' or `right' expected instead of %S" side))
+          ((and (eq vtype side) cols))
+          ((eq (frame-parameter nil 'vertical-scroll-bars) side)
+           ;; nil means it's a non-toolkit scroll bar, and its width in
+           ;; columns is 14 pixels rounded up.
+           (ceiling (or (frame-parameter nil 'scroll-bar-width) 14)
+                    (frame-char-width)))
+          (0))))))
 
 
 
@@ -759,7 +1108,11 @@ SIDE must be the symbol `left' or `right'."
   (local-set-key (kbd "<home>")        'beginning-of-buffer)
   (local-set-key (kbd "<end>")         'end-of-buffer)
   (local-set-key (kbd "<prior>")       'scroll-down)
-  (local-set-key (kbd "<next>")        'scroll-up))
+  (local-set-key (kbd "<next>")        'scroll-up)
+  (global-set-key (kbd "<home>")        'beginning-of-buffer)
+  (global-set-key (kbd "<end>")         'end-of-buffer)
+  (global-set-key (kbd "<prior>")       'scroll-down)
+  (global-set-key (kbd "<next>")        'scroll-up))
 
 (defun swap-brackets-parens ()
   (interactive)
@@ -868,7 +1221,7 @@ SIDE must be the symbol `left' or `right'."
   ;; (delete-selection-mode t)
   (if (fboundp 'delete-region-and-yank)
       (global-set-key (kbd "C-y")  'delete-region-and-yank) 
-    (global-set-key (kbd "C-y")  'yank))
+      (global-set-key (kbd "C-y")  'yank))
 
   ;; A strange configuration with a narrow frame...
   (when (< (frame-parameter (selected-frame) 'width) 42)
@@ -913,7 +1266,7 @@ SIDE must be the symbol `left' or `right'."
         (goto-char (match-beginning 0))
         (recenter 0)
         (forward-line 1))
-    (message ".EMACS: Last page")))
+      (message ".EMACS: Last page")))
 
 (defun scroll-page-down ()
   (interactive)
@@ -922,7 +1275,7 @@ SIDE must be the symbol `left' or `right'."
         (goto-char (match-beginning 0))
         (recenter 0)
         (forward-line 1))
-    (message ".EMACS: First page")))
+      (message ".EMACS: First page")))
 
 (defvar scroll-page-mode nil)
 (make-local-variable 'scroll-page-mode)
@@ -934,10 +1287,10 @@ SIDE must be the symbol `left' or `right'."
         (local-set-key (kbd "<next>")  'scroll-up)
         (local-set-key (kbd "<prior>") 'scroll-down)
         (setf scroll-page-mode nil))
-    (progn
-      (local-set-key (kbd "<next>")  'scroll-page-up)
-      (local-set-key (kbd "<prior>") 'scroll-page-down)
-      (setf scroll-page-mode t))))
+      (progn
+        (local-set-key (kbd "<next>")  'scroll-page-up)
+        (local-set-key (kbd "<prior>") 'scroll-page-down)
+        (setf scroll-page-mode t))))
 
 
 
@@ -1109,15 +1462,16 @@ SIDE must be the symbol `left' or `right'."
 
 ;;;----------------------------------------------------------------------------
 
-(defmacro string-case (string-expression &body clauses)
+(defmacro* string-case (string-expression &body clauses)
   (let ((value (gensym)))
     `(let ((,value ,string-expression))
        (cond
          ,@(mapcar (lambda (clause)
                      (destructuring-bind (constants &rest body) clause
-                       (if (member* constant '(t otherwise) :test (function string-equal*))
+                       (if (member* constants '(t otherwise) :test (function eql))
                            `(t ,@body)
-                           `((member* ,value ',(ensure-list constants))
+                           `((member* ,value ',(ensure-list constants)
+                                      :test (function string-equal*))
                              ,@body))))
                    clauses)))))
 
@@ -1144,11 +1498,11 @@ SIDE must be the symbol `left' or `right'."
     (typecase palette
       (string (set-palette (intern palette)))
       (symbol (if (boundp palette)
-                (let ((palval (symbol-value palette)))
-                  (if (and (palette-p palval) (eq palette (palette-name palval)))
-                    (set-palette palval)
-                    (error "%S is not a palette name." palette)))
-                (error "%S is not a palette name." palette)))
+                  (let ((palval (symbol-value palette)))
+                    (if (and (palette-p palval) (eq palette (palette-name palval)))
+                        (set-palette palval)
+                        (error "%S is not a palette name." palette)))
+                  (error "%S is not a palette name." palette)))
       (palette
        (setf *current-palette* (palette-name palette))
        ;;        (set-default-frame-parameter 'foreground-color (palette-foreground palette))
@@ -1164,7 +1518,7 @@ SIDE must be the symbol `left' or `right'."
          (set-mouse-color     (palette-mouse palette))))
       (otherwise (error "%S is not a palette" palette))))
 
-(defmacro defpalette (name foreground background cursor region mouse)
+  (defmacro defpalette (name foreground background cursor region mouse)
     `(progn
        (defparameter ,name (make-palette :name ',name
                                          :foreground ,foreground
@@ -1212,7 +1566,7 @@ SIDE must be the symbol `left' or `right'."
   
 
 
-(defun set-default-frame-alist (&optional font)
+  (defun set-default-frame-alist (&optional font)
     "Sets default-frame-alist depending on the current environment (host, display, etc)."
     (interactive)
     (let* (
@@ -1221,7 +1575,7 @@ SIDE must be the symbol `left' or `right'."
                             (colon   (and display (string-match ":" display))))
                        (if (or (not display) (zerop colon))
                            system-name
-                         (substring display 0 colon))))
+                           (substring display 0 colon))))
            ;; --- default values ---
            ;; (font                 (or font (frame-font)))
            (width                (frame-width))
@@ -1238,8 +1592,7 @@ SIDE must be the symbol `left' or `right'."
            ;; ---------------------
            (fringe-background nil))
 
-      
-            (setf default-cursor-type cursor-type)
+      (setf default-cursor-type cursor-type)
       (string-case (hname :test (function string-equal*))
         (("mdi-development-1" "mdi-development-2")
          (setf fringe-background "yellow"))
@@ -1347,10 +1700,10 @@ SIDE must be the symbol `left' or `right'."
               (menu-bar-lines       . 0) ;; window-system 'mac
               (font                 . ,font)
               ,@(unless (getenv "RATPOISON")
-                      `((width                . ,width)
-                        (height               . ,height)
-                        (top                  . ,top)
-                        (left                 . ,left)))
+                        `((width                . ,width)
+                          (height               . ,height)
+                          (top                  . ,top)
+                          (left                 . ,left)))
               (cursor-type          . ,cursor-type)
               (cursor-color         . ,(palette-cursor palette))
               (foreground-color     . ,(palette-foreground palette))
@@ -1366,10 +1719,11 @@ SIDE must be the symbol `left' or `right'."
         (setq frame-initial-frame nil))
 
       (set-face-background 'region (palette-region palette))
-      (when (facep 'fringe)
-        (if fringe-background
-            (set-face-background 'fringe fringe-background)
-            (set-face-background 'fringe (palette-background palette))))
+      (unless (fboundp 'mdi)
+        (when (facep 'fringe)
+          (if fringe-background
+              (set-face-background 'fringe fringe-background)
+              (set-face-background 'fringe (palette-background palette)))))
       (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
@@ -1441,7 +1795,7 @@ SIDE must be the symbol `left' or `right'."
     (ansi-color-apply-on-region (point-min) (point-max))
     (set-buffer-modified-p modified)))
 
-(defun pjb-shell-mode-hook ()
+(defun pjb-shell-mode-meat ()
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
   (when (fboundp 'ansi-color-for-comint-mode-on)
@@ -1455,56 +1809,8 @@ SIDE must be the symbol `left' or `right'."
   ;;    (process-send-string (get-buffer-process (current-buffer))
   ;;                      "alias less=cat ; alias more=cat ; ")))
   )
-(add-hook 'shell-mode-hook (function pjb-shell-mode-hook))
+(add-hook 'shell-mode-hook (function pjb-shell-mode-meat))
 
-(defun pjb-comint-filter-meat/erase-screen (string)
-  (let ((pos (search "c" string :from-end t)))
-    (if pos
-        (progn
-          (erase-buffer)
-          (subseq string (+ 2 pos)))
-        string)))
-(defun ecma-048-cuu ()
-  (backward-line 1))
-(defun ecma-048-cuf (offset)
-  (let ((new-column (+ (point) offset)))
-    (if (< (save-excursion (end-of-line) (point))  new-column)
-        (progn (end-of-line)
-               ;; (insert (make-string (- new-column (point)) 32))
-               )
-        (forward-char offset))))
-(defun ecma-048-crlf ()
-  (insert (make-string (forward-line 1) 10)))
-(defun pjb-comint-filter-meat/position (string)
-  (let ((commands '(("\nA"            beginning-of-line)
-                    ("\\(\\[0-9\\]+\\)C"  ecma-048-cuf 1)
-                    ("\\(\\[0-9;\\]*\\)H" ignore)))
-        (start 0))
-    (while (let ((cmd (find-if (lambda (cmd) (eql start (string-match (first cmd) string start))) commands)))
-             (when cmd
-               (setf start (match-end 0))
-               (apply (second cmd) (mapcar (lambda (i) (parse-integer (match-string i string))) (cddr cmd)))
-               t)))
-    (if (zerop start)
-        string
-        (subseq string start))))
-(defun pjb-comint-filter-meat/color (string)
-  "Remove color ansi codes."
-  (with-temp-buffer
-    (insert string)
-    (goto-char 0)
-    (let ((changed nil))
-      (while (re-search-forward "[\\[0-9;\\]*m" (point-max) t)
-        (setf changed t)
-        (delete-region (match-beginning 0) (match-end 0)))
-      (if changed
-          (buffer-substring-no-properties (point-min) (point-max))
-          string))))
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/position)
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/erase-screen)
-(add-hook 'comint-preoutput-filter-functions 'pjb-comint-filter-meat/color)
-;; comint-preoutput-filter-functions
-(setf comint-preoutput-filter-functions nil)
 
 ;; (setf (getenv "ESHELL") (concatenate 'string  (USER-HOMEDIR-PATHNAME)
 ;;                          "bin/clash"))
@@ -1551,9 +1857,24 @@ capitalized form."
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
-      org-agenda-files  (append
-                         '("~/notes.txt")
-                         (file-expand-wildcards "~/firms/*/notes.txt"))
+      org-agenda-files  '("~/notes.txt"
+                          ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+                          ;; "~/firms/wizards/notes.txt"
+                          ;; "~/firms/willcom/notes.txt"
+                          ;; "~/firms/secur.net/notes.txt"
+                          ;; "~/firms/ravenpack/notes.txt"
+                          ;; "~/firms/osii/notes.txt"
+                          "~/firms/medicalis/notes.txt"
+                          ;; "~/firms/mappy/notes.txt"
+                          ;; "~/firms/joellegymtonic/notes.txt"
+                          ;; "~/firms/jem/notes.txt"
+                          ;; "~/firms/intergruas/notes.txt"
+                          ;; "~/firms/hf/notes.txt"
+                          ;; "~/firms/hbedv/notes.txt"
+                          ;; "~/firms/hamster-s-fabric-inc/notes.txt"
+                          ;; "~/firms/camille/notes.txt"
+                          ;; "~/firms/afaa/notes.txt"
+                          )
       org-todo-keywords '((sequence "TODO" "|" "DONE(d)")
                           (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
                           (sequence "|" "CANCELED(c)"))
@@ -1572,132 +1893,141 @@ capitalized form."
 (cond
   ((string= "mdi-development-1" *hostname*)
    (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-			  "~/opt/share/emacs/site-lisp/slime/"
-			  load-path)))
+                          "~/opt/share/emacs/site-lisp/slime/"
+                          load-path)))
   (t
    (push (get-directory :share-lisp  "packages/net/common-lisp/slime/slime/")
-	 load-path)))
+         load-path)))
 
 
-(.EMACS " define-lisp-implementation")
-(defvar slime-lisp-implementations    nil)
-(defvar *default-lisp-implementation* nil)
-(defvar lisp-implementation nil
-  "Buffer local variable indicating what lisp-implementation is used here.")
+(unless (fboundp 'mdi)
+  
+  (.EMACS " define-lisp-implementation")
+  (defvar slime-lisp-implementations    nil)
+  (defvar *default-lisp-implementation* nil)
+  (defvar lisp-implementation nil
+    "Buffer local variable indicating what lisp-implementation is used here.")
 
-(defstruct lisp-implementation
-  name command prompt coding
-  (function-documentation-command
-   "(let ((fn '%s))
+  (defstruct lisp-implementation
+    name command prompt coding
+    (function-documentation-command
+     "(let ((fn '%s))
      (format t \"Documentation for ~a:~&~a\"
 	     fn (documentation fn 'function))
      (values))\n")
-  (variable-documentation-command
-   "(let ((v '%s))
+    (variable-documentation-command
+     "(let ((v '%s))
      (format t \"Documentation for ~a:~&~a\"
 	     v (documentation v 'variable))
      (values))\n")
-  (argument-list-command
-   "(let ((fn '%s))
+    (argument-list-command
+     "(let ((fn '%s))
      (format t \"Arglist for ~a: ~a\" fn (arglist fn))
      (values))\n")
-  (describe-symbol-command "(describe '%s)\n"))
+    (describe-symbol-command "(describe '%s)\n"))
 
 
-(defmacro define-lisp-implementation (name command prompt coding &rest rest)
-  `(let* ((command (let ((command ,command))
-                     (if (stringp command) (list command) command)))
-          (li (make-lisp-implementation
-               :name     ',name
-               :command  (apply (function concat)
-                                (cdr (loop for word in command
-                                        collect " " collect word)))
-               :prompt   ,prompt
-               :coding  ',coding
-               ,@rest))
-          (sli (assoc ',name slime-lisp-implementations)))
-     (setf (get ',name :lisp-implementation) li)
-     (if (null sli)
-         (push (list ',name command
-                     :coding-system  (intern (format "%s-unix" ',coding)))
-               slime-lisp-implementations)
-         (setf (cdr sli)
-               (list command
-                     :coding-system (intern (format "%s-unix" ',coding)))))
-     ',name))
+  (defmacro define-lisp-implementation (name command prompt coding &rest rest)
+    `(let* ((command (let ((command ,command))
+                       (if (stringp command) (list command) command)))
+            (li (make-lisp-implementation
+                 :name     ',name
+                 :command  (apply (function concat)
+                                  (cdr (loop for word in command
+                                          collect " " collect word)))
+                 :prompt   ,prompt
+                 :coding  ',coding
+                 ,@rest))
+            (sli (assoc ',name slime-lisp-implementations)))
+       (setf (get ',name :lisp-implementation) li)
+       (if (null sli)
+           (push (list ',name command
+                       :coding-system  (intern (format "%s-unix" ',coding)))
+                 slime-lisp-implementations)
+           (setf (cdr sli)
+                 (list command
+                       :coding-system (intern (format "%s-unix" ',coding)))))
+       ',name))
 
 
+  (define-lisp-implementation scheme
+      "mzscheme"
+    "^> "
+    iso-8859-15)
 
-(define-lisp-implementation scheme
-    "mzscheme"
-  "^> "
-  iso-8859-15)
-(define-lisp-implementation mzscheme
-    "mzscheme"
-  "^> "
-  iso-8859-15)
-(define-lisp-implementation mit-scheme
-    "/usr/local/languages/mit-scheme/bin/scheme"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation umb-scheme
-    "/usr/bin/scheme"
-  "^==> "
-  iso-8859-15)
-(define-lisp-implementation allegro-express
-    "/local/languages/acl80_express/alisp"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation allegro
-    "/local/languages/acl80/alisp"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
-(define-lisp-implementation sbcl
-    (list (first-existing-file '("/opt/local/bin/sbcl"
-                                 "/usr/local/bin/sbcl"
-                                 "/usr/bin/sbcl"))
-          "--noinform")
-  "^\[[0-9]*\]> "
-  iso-8859-1)
-(define-lisp-implementation cmucl
-    (first-existing-file '("/usr/local/bin/lisp"
-                           "/usr/bin/lisp"))
-  "^\* "
-  iso-8859-1)
-(define-lisp-implementation openmcl
-    "/usr/local/bin/openmcl"
-  "^\[[0-9]*\]> "
-  iso-8859-15)
+  (define-lisp-implementation mzscheme
+      "mzscheme"
+    "^> "
+    iso-8859-15)
 
+  (define-lisp-implementation mit-scheme
+      "/usr/local/languages/mit-scheme/bin/scheme"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
 
-(define-lisp-implementation clisp
-    (list*
-     (cond
-       ((eq system-type 'cygwin)  "/usr/bin/clisp")
-       (t  (first-existing-file '("/opt/local/bin/clisp"
-                                  "/usr/local/bin/clisp"
-                                  "/usr/bin/clisp"))))
-     "-ansi""-q""-K""full""-m""32M""-I"
-     (cond
-       ((eq system-type 'darwin)
-        (list "-Efile"     "ISO-8859-15"
-              "-Epathname" "UTF-8"
-              "-Eterminal" "UTF-8"
-              "-Emisc"     "UTF-8" ; better be same as terminal
-              "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-       (t
-        (list "-Efile"     "ISO-8859-15"
-              "-Epathname" "ISO-8859-1"
-              "-Eterminal" "UTF-8"
-              "-Emisc"     "UTF-8" ; better be same as terminal
-              "-Eforeign"  "ISO-8859-1")
-        (list "-E"         "UTF-8"
-              "-Epathname" "ISO-8859-1"
-              "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
-  "^\[[0-9]*\]> "
-  utf-8
-  :argument-list-command
-  "(let ((fn '%s))
+  (define-lisp-implementation umb-scheme
+      "/usr/bin/scheme"
+    "^==> "
+    iso-8859-15)
+
+  (define-lisp-implementation allegro-express
+      "/local/languages/acl80_express/alisp"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation allegro
+      "/local/languages/acl80/alisp"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation sbcl
+      (list (first-existing-file '("/opt/local/bin/sbcl"
+                                   "/usr/local/bin/sbcl"
+                                   "/usr/bin/sbcl"))
+            "--noinform")
+    "^\[[0-9]*\]> "
+    iso-8859-1)
+
+  (define-lisp-implementation cmucl
+      (first-existing-file '("/usr/local/bin/lisp"
+                             "/usr/bin/lisp"))
+    "^\* "
+    iso-8859-1)
+
+  (define-lisp-implementation openmcl
+      "/usr/local/bin/openmcl"
+    "^\[[0-9]*\]> "
+    iso-8859-15)
+
+  (define-lisp-implementation clisp
+      (list* (cond
+               ((eq system-type 'cygwin)  "/usr/bin/clisp")
+               (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
+                                          "/opt/local/bin/clisp"
+                                          "/usr/local/bin/clisp"
+                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
+                                          "/usr/bin/clisp"))))
+             "-ansi""-q""-K""full""-m""32M""-I"
+             (cond
+               ((eq system-type 'darwin)
+                (list "-Efile"     "ISO-8859-15"
+                      "-Epathname" "UTF-8"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+               (t
+                (list "-Efile"     "ISO-8859-15"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")
+                (list "-E"         "UTF-8"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+    "^\[[0-9]*\]> "
+    utf-8
+    :argument-list-command
+    "(let ((fn '%s))
      (cond
        ((not (fboundp fn))      (format t \"~A is not a function\" fn))
        ((special-operator-p fn) (format t \"~A is a special operator\" fn))
@@ -1706,169 +2036,175 @@ capitalized form."
      (values))\n")
 
 
-(defun set-inferior-lisp-implementation (impl)
-  (interactive "SImplementation: ")
-  (let ((impl (get impl :lisp-implementation)))
-    (if impl
-        (progn
-          (message ".EMACS: inferior-lisp implementation: %s"
-                   (lisp-implementation-name impl))
-          (setf *default-lisp-implementation* impl
-                inferior-lisp-program (lisp-implementation-command impl)
-                inferior-lisp-prompt  (lisp-implementation-prompt impl)
-                lisp-function-doc-command
-                (lisp-implementation-function-documentation-command impl)
-                lisp-var-doc-command
-                (lisp-implementation-variable-documentation-command impl)
-                lisp-arglist-command
-                (lisp-implementation-argument-list-command impl)
-                lisp-describe-sym-command
-                (lisp-implementation-describe-symbol-command impl)
-                default-process-coding-system
-                (let ((coding (lisp-implementation-coding impl)))
-                  (cons coding coding))))
-        (error "%S not a lisp implementation." impl)))
-  impl)
+
+
+  (defun set-inferior-lisp-implementation (impl)
+    (interactive "SImplementation: ")
+    (let ((impl (get impl :lisp-implementation)))
+      (if impl
+          (progn
+            (message ".EMACS: inferior-lisp implementation: %s"
+                     (lisp-implementation-name impl))
+            (setf *default-lisp-implementation* impl
+                  inferior-lisp-program (lisp-implementation-command impl)
+                  inferior-lisp-prompt  (lisp-implementation-prompt impl)
+                  lisp-function-doc-command
+                  (lisp-implementation-function-documentation-command impl)
+                  lisp-var-doc-command
+                  (lisp-implementation-variable-documentation-command impl)
+                  lisp-arglist-command
+                  (lisp-implementation-argument-list-command impl)
+                  lisp-describe-sym-command
+                  (lisp-implementation-describe-symbol-command impl)
+                  default-process-coding-system
+                  (let ((coding (lisp-implementation-coding impl)))
+                    (cons coding coding))))
+          (error "%S not a lisp implementation." impl)))
+    impl)
+
+
+  (defun set-inferior-lisp-buffer (buffer-name)
+    (interactive "bInferior Lisp Buffer: ")
+    (make-local-variable 'inferior-lisp-buffer)
+    (make-local-variable 'lisp-function-doc-command)
+    (make-local-variable 'lisp-var-doc-command)
+    (make-local-variable 'lisp-arglist-command)
+    (make-local-variable 'lisp-describe-sym-command)
+    (make-local-variable 'lisp-implementation)
+    (setf
+     inferior-lisp-buffer buffer-name
+     lisp-implementation  (or (buffer-local-value
+                               'lisp-implementation
+                               (get-buffer inferior-lisp-buffer))
+                              (lisp-implementation-name
+                               *default-lisp-implementation*)))
+    (let ((limpl (get lisp-implementation :lisp-implementation)))
+      (when limpl
+        (setf
+         lisp-function-doc-command
+         (lisp-implementation-function-documentation-command limpl)
+         lisp-var-doc-command
+         (lisp-implementation-variable-documentation-command limpl)
+         lisp-arglist-command
+         (lisp-implementation-argument-list-command limpl)
+         lisp-describe-sym-command
+         (lisp-implementation-describe-symbol-command limpl)))))
 
 
 
-;; (prog1 nil
-;;   (set-inferior-lisp-implementation 'clisp)
-;;   (print `(clisp --> ,(symbol-plist 'clisp)))
-;;   (print `(inferior-lisp-program --> ,inferior-lisp-program))
-;;   (print `(inferior-lisp-prompt --> ,inferior-lisp-prompt)))
+  ;; (prog1 nil
+  ;;   (set-inferior-lisp-implementation 'clisp)
+  ;;   (print `(clisp --> ,(symbol-plist 'clisp)))
+  ;;   (print `(inferior-lisp-program --> ,inferior-lisp-program))
+  ;;   (print `(inferior-lisp-prompt --> ,inferior-lisp-prompt)))
 
 
-;; system-type          darwin   gnu/linux  cygwin
-;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin"
+  ;; system-type          darwin   gnu/linux  cygwin
+  ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin"
 
-;; Used both by ilisp and slime:
-(case system-type
-  ((darwin)     (set-inferior-lisp-implementation 'clisp)) ; openmcl))
-  ((gnu/linux)  (set-inferior-lisp-implementation 'clisp)) ; sbcl))
-  ((cygwin)     (set-inferior-lisp-implementation 'clisp))
-  (otherwise    (warn "unexpected system-type for inferior-lisp-program")
-                (set-inferior-lisp-implementation 'clisp)))
-
-
-(defun set-inferior-lisp-buffer (buffer-name)
-  (interactive "bInferior Lisp Buffer: ")
-  (make-local-variable 'inferior-lisp-buffer)
-  (make-local-variable 'lisp-function-doc-command)
-  (make-local-variable 'lisp-var-doc-command)
-  (make-local-variable 'lisp-arglist-command)
-  (make-local-variable 'lisp-describe-sym-command)
-  (make-local-variable 'lisp-implementation)
-  (setf
-   inferior-lisp-buffer buffer-name
-   lisp-implementation  (or (buffer-local-value
-                             'lisp-implementation
-                             (get-buffer inferior-lisp-buffer))
-                            (lisp-implementation-name
-                             *default-lisp-implementation*)))
-  (let ((limpl (get lisp-implementation :lisp-implementation)))
-    (when limpl
-      (setf
-       lisp-function-doc-command
-       (lisp-implementation-function-documentation-command limpl)
-       lisp-var-doc-command
-       (lisp-implementation-variable-documentation-command limpl)
-       lisp-arglist-command
-       (lisp-implementation-argument-list-command limpl)
-       lisp-describe-sym-command
-       (lisp-implementation-describe-symbol-command limpl)))))
+  ;; Used both by ilisp and slime:
+  (case system-type
+    ((darwin)     (set-inferior-lisp-implementation 'clisp)) ; openmcl))
+    ((gnu/linux)  (set-inferior-lisp-implementation 'clisp)) ; sbcl))
+    ((cygwin)     (set-inferior-lisp-implementation 'clisp))
+    (otherwise    (warn "unexpected system-type for inferior-lisp-program")
+                  (set-inferior-lisp-implementation 'clisp)))
 
 
 
-(defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
-(defun %lisp-buffer-name-match-p (buffer-name &optional number)
-  (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
-(defun %lisp-buffer-name-number (buffer-name)
-  (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
-    (parse-integer (match-string 1 buffer-name))))
-(defun inferior-lisp-buffers-list ()
-  "RETURN: a list of the inferior-lisp buffers."
-  (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
-             (mapcar (function buffer-name) (buffer-list))))
-(defun %lisp-buffer-next-number ()
-  (loop
-     with i = 0
-     with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-                                  (inferior-lisp-buffers-list))
-                          (function <=))
-     while numbers
-     do (if (= i (car numbers))
-            (progn (incf i) (pop numbers))
-            (return i))
-     finally (return i)))
 
-(defvar *lisp-command-history* '())
 
-(defun inferior-lisp-other-window (cmd)
-  "Run an inferior Lisp process, input and output via buffer `*inferior-lisp*'.
+
+
+  (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
+  (defun %lisp-buffer-name-match-p (buffer-name &optional number)
+    (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
+  (defun %lisp-buffer-name-number (buffer-name)
+    (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
+      (parse-integer (match-string 1 buffer-name))))
+  (defun inferior-lisp-buffers-list ()
+    "RETURN: a list of the inferior-lisp buffers."
+    (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
+               (mapcar (function buffer-name) (buffer-list))))
+  (defun %lisp-buffer-next-number ()
+    (loop
+       with i = 0
+       with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+                                    (inferior-lisp-buffers-list))
+                            (function <=))
+       while numbers
+       do (if (= i (car numbers))
+              (progn (incf i) (pop numbers))
+              (return i))
+       finally (return i)))
+
+  (defvar *lisp-command-history* '())
+
+  (defun inferior-lisp-other-window (cmd)
+    "Run an inferior Lisp process, input and output via buffer `*inferior-lisp*'.
 If there is a process already running in `*inferior-lisp*', just switch
 to that buffer.
 With argument, allows you to edit the command line (default is value
 of `inferior-lisp-program').  Runs the hooks from
 `inferior-lisp-mode-hook' (after the `comint-mode-hook' is run).
 \(Type \\[describe-mode] in the process buffer for a list of commands.)"
-  (interactive (list (if current-prefix-arg
-			 (read-string "Run lisp: " inferior-lisp-program)
-		       inferior-lisp-program)))
-  (if (not (comint-check-proc "*inferior-lisp*"))
-      (let ((cmdlist (split-string cmd)))
-	(set-buffer (apply (function make-comint)
-			   "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
-	(inferior-lisp-mode)))
-  (setq inferior-lisp-buffer "*inferior-lisp*")
-  (pop-to-buffer "*inferior-lisp*" t))
+    (interactive (list (if current-prefix-arg
+                           (read-string "Run lisp: " inferior-lisp-program)
+                           inferior-lisp-program)))
+    (if (not (comint-check-proc "*inferior-lisp*"))
+        (let ((cmdlist (split-string cmd)))
+          (set-buffer (apply (function make-comint)
+                             "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
+          (inferior-lisp-mode)))
+    (setq inferior-lisp-buffer "*inferior-lisp*")
+    (pop-to-buffer "*inferior-lisp*" t))
 
 
-(defun nlisp (&optional ask-command)
-  "Create a new inferior-lisp buffer."
-  (interactive "P")
-  (let* ((impl-or-cmd
-          (if ask-command
-              (read-from-minibuffer
+  (defun nlisp (&optional ask-command)
+    "Create a new inferior-lisp buffer."
+    (interactive "P")
+    (let* ((impl-or-cmd
+            (if ask-command
+                (read-from-minibuffer
                  "Lisp implementation or command: "
                  (format "%s" (lisp-implementation-name
                                *default-lisp-implementation*))
                  nil nil '*lisp-command-history*)
-              (format "%s" (lisp-implementation-name
-                            *default-lisp-implementation*))))
-         (impl  (unless (position (character " ") impl-or-cmd
-                                  :test (function char=))
-                  (intern-soft impl-or-cmd)))
-         (limpl (and impl (get impl :lisp-implementation)))
-         (cmd   (if limpl (lisp-implementation-command limpl) impl-or-cmd)))
-    (inferior-lisp-other-window cmd)
-    (make-local-variable 'lisp-implementation)
-    (setf lisp-implementation
-          (or impl (lisp-implementation-name *default-lisp-implementation*)))
-    (rename-buffer
-     (setf inferior-lisp-buffer
-           (%lisp-buffer-name
-            (%lisp-buffer-next-number)
-            (cond
-              (impl)
-              ((string= cmd (lisp-implementation-command
-                             *default-lisp-implementation*))
-               (lisp-implementation-name *default-lisp-implementation*))
-              ('custom)))))))
+                (format "%s" (lisp-implementation-name
+                              *default-lisp-implementation*))))
+           (impl  (unless (position (character " ") impl-or-cmd
+                                    :test (function char=))
+                    (intern-soft impl-or-cmd)))
+           (limpl (and impl (get impl :lisp-implementation)))
+           (cmd   (if limpl (lisp-implementation-command limpl) impl-or-cmd)))
+      (inferior-lisp-other-window cmd)
+      (make-local-variable 'lisp-implementation)
+      (setf lisp-implementation
+            (or impl (lisp-implementation-name *default-lisp-implementation*)))
+      (rename-buffer
+       (setf inferior-lisp-buffer
+             (%lisp-buffer-name
+              (%lisp-buffer-next-number)
+              (cond
+                (impl)
+                ((string= cmd (lisp-implementation-command
+                               *default-lisp-implementation*))
+                 (lisp-implementation-name *default-lisp-implementation*))
+                ('custom)))))))
 
 
-(defun lisp (&optional ask-command)
-  "Create a new inferior-lisp when none exist,
+  (defun lisp (&optional ask-command)
+    "Create a new inferior-lisp when none exist,
    or switch to the last created one."
-  (interactive "P")
-  (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
-           (get-buffer inferior-lisp-buffer))
-      (switch-to-buffer inferior-lisp-buffer)
-      (let ((lisp-buffers (inferior-lisp-buffers-list)))
-        (if lisp-buffers
-            (switch-to-buffer
-             (setf inferior-lisp-buffer (first lisp-buffers)))
-            (nlisp ask-command)))))
+    (interactive "P")
+    (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
+             (get-buffer inferior-lisp-buffer))
+        (switch-to-buffer inferior-lisp-buffer)
+        (let ((lisp-buffers (inferior-lisp-buffers-list)))
+          (if lisp-buffers
+              (switch-to-buffer
+               (setf inferior-lisp-buffer (first lisp-buffers)))
+              (nlisp ask-command))))))
 
 
 (defvar package 'common-lisp-user)
@@ -1924,6 +2260,13 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (lisp-eval-region (save-excursion (backward-sexp) (point)) (point) and-go))
 
 
+(appendf interpreter-mode-alist '(("sbcl" . lisp-mode)
+                                  ("abcl" . lisp-mode)
+                                  ("gcl" . lisp-mode)
+                                  ("ecl" . lisp-mode)
+                                  ("cmucl" . lisp-mode)
+                                  ("alisp" . lisp-mode)))
+
 (appendf auto-mode-alist '(("\\.lisp$" . lisp-mode)
                            ("\\.fas$"  . lisp-mode)
                            ("\\.lsp$"  . lisp-mode)
@@ -1942,6 +2285,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
 
 (appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
                            ("\\.j$"      . java-mode)))
+
+(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 
 (defun show-inferior-lisp-buffer ()
@@ -2136,11 +2481,11 @@ Prefix argument means switch to the Lisp buffer afterwards."
             ;; Luckily we don't have to use it any more, we use
             ;; window-point-insertion-type instead.
             (loop
-                 for item in string
-                 do (cond
-                      ((stringp item) (insert item))
-                      ((consp   item) (insert-image (first item) (second item)))
-                      (t (error "Unexpected kind of insert %S" item))))
+               for item in string
+               do (cond
+                    ((stringp item) (insert item))
+                    ((consp   item) (insert-image (first item) (second item)))
+                    (t (error "Unexpected kind of insert %S" item))))
 
             
             ;; Advance process-mark
@@ -2199,17 +2544,17 @@ Prefix argument means switch to the Lisp buffer afterwards."
 (defun pjb-comint-preoutput-insert-image (string)
   (let ((case-fold-search t))
     (loop
-         with result = '()
-         while (and (plusp (length string))
-                    (string-match "\\(.*\\)(EMACS:INSERT-IMAGE[ \t\n]+#P\"\\(\\([^\\\"]\\|\\.\\)*\\)\")\\(.*\\)"
-                                  string))
-         do (let ((before (match-string 1 string))
-                  (path   (match-string 2 string))
-                  (after  (match-string 4 string)))
-              (push before result)
-              (push (list (create-image path) " ") result)
-              (setf string after))
-         finally (push string result) (return (nreverse result)))))
+       with result = '()
+       while (and (plusp (length string))
+                  (string-match "\\(.*\\)(EMACS:INSERT-IMAGE[ \t\n]+#P\"\\(\\([^\\\"]\\|\\.\\)*\\)\")\\(.*\\)"
+                                string))
+       do (let ((before (match-string 1 string))
+                (path   (match-string 2 string))
+                (after  (match-string 4 string)))
+            (push before result)
+            (push (list (create-image path) " ") result)
+            (setf string after))
+       finally (push string result) (return (nreverse result)))))
 
 ;;;; THE END ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2439,9 +2784,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd ":s"))
     (local-set-key (kbd "<f6>") (cmd ":n"))
     (local-set-key (kbd "<f7>") (cmd ":o"))
@@ -2457,9 +2802,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     
     (local-set-key (kbd "<f5>") (cmd ""))
     (local-set-key (kbd "<f6>") (cmd ""))
@@ -2476,9 +2821,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd "step"))
     (local-set-key (kbd "<f6>") (cmd "next"))
     (local-set-key (kbd "<f7>") (cmd "over"))
@@ -2493,9 +2838,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (interactive)
   (macrolet ((cmd (string)
                `(lambda ()
-                   (interactive)
-                   (comint-send-string (inferior-lisp-proc)
-                                       ,(format "%s\n" string)))))
+                  (interactive)
+                  (comint-send-string (inferior-lisp-proc)
+                                      ,(format "%s\n" string)))))
     (local-set-key (kbd "<f5>") (cmd ":scont 1"))
     ;; (local-set-key (kbd "<f6>") (cmd ))
     (local-set-key (kbd "<f7>") (cmd ":sover"))
@@ -2504,21 +2849,21 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 
 (loop for x in '(setf common-lisp-mode-hook      nil
-   inferior-lisp-load-hook    nil
-   inferior-lisp-mode-hook    nil
-   lisp-interaction-mode-hook nil
-   lisp-mode-hook             nil
-   comint-mode-hook           nil
-   comint-exec-hook           nil
-   ilisp-mode-hook            nil
-   scheme-mode-hook           nil)
+                 inferior-lisp-load-hook    nil
+                 inferior-lisp-mode-hook    nil
+                 lisp-interaction-mode-hook nil
+                 lisp-mode-hook             nil
+                 comint-mode-hook           nil
+                 comint-exec-hook           nil
+                 ilisp-mode-hook            nil
+                 scheme-mode-hook           nil)
    for i from 0
-     when (oddp i)
-     collect x)
+   when (oddp i)
+   collect x)
 
 (message (format  "hooks=%S" 
-(mapcar (lambda (h)  (if (boundp h) (list h (symbol-value h)) (list h 'unbound)))
-        '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook comint-exec-hook ilisp-mode-hook scheme-mode-hook))))
+                  (mapcar (lambda (h)  (if (boundp h) (list h (symbol-value h)) (list h 'unbound)))
+                          '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook comint-exec-hook ilisp-mode-hook scheme-mode-hook))))
 
 
 (setf common-lisp-mode-hook      nil
@@ -2538,18 +2883,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'common-lisp-mode-hook (function pjb-lisp-meat))
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
-
-  
-    
-(when (require 'slime nil t)
-  (cond
-   ((string<= slime-protocol-version "2007-01-14")
-    (slime-setup)) ; Old slime
-   (t
-    (slime-setup '(slime-fancy))
-    (setf slime-net-coding-system 'utf-8-unix)
-    (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol)))))
-
+(require 'slime)
+(slime-setup '(slime-fancy slime-indentation))
+(setf slime-net-coding-system 'utf-8-unix)
+(setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
 
 ;; slime-net-valid-coding-systems
@@ -2591,8 +2928,12 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;; to see the report after running.  
 
 
-
-
+(defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+(defun slime-repl-bol ()
+  (interactive)
+  (if (eql 'home last-input-event)
+      (beginning-of-buffer) 
+      (funcall *slime-repl-bol*)))
 
 
 ;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
@@ -3255,11 +3596,11 @@ DO:     Evaluates body with var bound to dir-path, then dir-path's parent,
 RETURN: The evaluation of the result form.
 "
   `(do ((,var ,dir-path
-             (if (string-match "^\\(.*/\\)[^/]+/$" ,var)
-                 (match-string 1 ,var)
-                 "")))
-      ((string-equal "" ,var) ,result)
-    ,@body))
+              (if (string-match "^\\(.*/\\)[^/]+/$" ,var)
+                  (match-string 1 ,var)
+                  "")))
+       ((string-equal "" ,var) ,result)
+     ,@body))
 
 
 (defun* read* (stream &optional (eof-error-p t) eof-value ignored)
@@ -3283,11 +3624,11 @@ in the current directory, or in a parent."
             (goto-char (point-min))
             (let ((killp (/= count (length (buffer-list)))))
               (unwind-protect
-                  (loop
-                     for clause = (read* (current-buffer) nil (current-buffer))
-                     until (eql clause (current-buffer))
-                     do (message "(%%batch-cl-indent '%S)" clause)
-                     do (%batch-cl-indent clause))
+                   (loop
+                      for clause = (read* (current-buffer) nil (current-buffer))
+                      until (eql clause (current-buffer))
+                      do (message "(%%batch-cl-indent '%S)" clause)
+                      do (%batch-cl-indent clause))
                 (when killp (kill-buffer (current-buffer)))))))))))
 
 ;; (defmacro batch-cl-indent (&rest indent-symbols-list)
@@ -3713,10 +4054,10 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (require 'emms-player-simple)
   (require 'emms-source-file)
   (require 'emms-source-playlist)
-   ;;   ;; save playlist and load at emacs start
-   ;; (require 'emms-history)
-   ;; (emms-history-load)
-   ;; (setq emms-repeat-playlist 1)
+  ;;   ;; save playlist and load at emacs start
+  ;; (require 'emms-history)
+  ;; (emms-history-load)
+  ;; (setq emms-repeat-playlist 1)
   (emms-standard)
   (emms-default-players)
   (defalias 'np 'emms-show))
@@ -4417,7 +4758,7 @@ See the documentation for vm-mode for more information."
         ;; stop here.
         (if (or (not full-startup) preserve-auto-save-file)
             (throw 'done t))
-      
+        
         (if full-startup
             (message totals-blurb))
 
@@ -4459,8 +4800,8 @@ See the documentation for vm-mode for more information."
 (setf *pjb-gnus-trash-mailbox* "nnimap+voyager.informatimago.com:INBOX.Trash")
 (setf *pjb-gnus-junk-mailbox*  "nnimap+voyager.informatimago.com:INBOX.Junk")
 
- 	
-	
+
+
 
 (define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
 (define-key gnus-article-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
@@ -4475,11 +4816,11 @@ See the documentation for vm-mode for more information."
 
 
 (defun pjb-gnus-message-setup-meat ()
-;;   (save-excursion
-;;     (beginning-of-buffer)
-;;     (while (re-search-forward "anevia.com" (point-max) t)
-;;       (delete-region (match-beginning 0) (match-end 0))
-;;       (insert "informatimago.com")))
+  ;;   (save-excursion
+  ;;     (beginning-of-buffer)
+  ;;     (while (re-search-forward "anevia.com" (point-max) t)
+  ;;       (delete-region (match-beginning 0) (match-end 0))
+  ;;       (insert "informatimago.com")))
   )
 
 
@@ -4570,7 +4911,7 @@ See the documentation for vm-mode for more information."
 
 ;;(erc-select :server "localhost" :nick "pjb")
 ;;(erc-send-command  (format "PRIVMSG &bitlbee :identify %s" "popo"))
- 
+
 ;; (setf erc-hide-list '())
 ;; (setf erc-hide-list  (quote ("JOIN" "NICK" "PART" "QUIT" "MODE")))
 
@@ -4634,6 +4975,7 @@ See the documentation for vm-mode for more information."
 (cond
   (*pjb-pvs-is-running*)
   ((member "(gnus)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 7 60))
    (setf *activity-tag* "GNUS")
    (push '(name . "GNUS") default-frame-alist)
    (set-background-color "#ccccfefeebb7")
@@ -4642,6 +4984,7 @@ See the documentation for vm-mode for more information."
      )
    (setf *frame-server-job-ticket* "~/frame-gnus"))
   ((member "(irc)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 11 60))
    (setf *activity-tag* "ERC")
    (push '(name . "ERC") default-frame-alist)
    (setf *frame-server-job-ticket* "~/frame-erc")
@@ -4650,6 +4993,7 @@ See the documentation for vm-mode for more information."
      ))
   (t
    (setf *activity-tag* "EMACS")
+   (setf uptimes-auto-save-interval (* 13 60))
    (push '(name . "PGM") default-frame-alist)
 
    (server-start)
@@ -4807,7 +5151,7 @@ See the documentation for vm-mode for more information."
     (mapcar
      (function NAMESTRING)
      (mapcar (lambda (path)  (MAKE-PATHNAME :NAME nil :TYPE nil :VERSION nil
-                                       :DEFAULTS path))
+                                            :DEFAULTS path))
              (remove-if-not (function NULL)
                             (DIRECTORY (CONCATENATE 'STRING base-path "**/dir"))
                             :key (function PATHNAME-TYPE))))))
@@ -4889,7 +5233,7 @@ See the documentation for vm-mode for more information."
   (unless (intersection
            '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
              "--execute" "-insert" "--insert") command-line-args
-           :test (function string=))
+             :test (function string=))
     (afaire)))
 
 
@@ -4918,17 +5262,17 @@ See the documentation for vm-mode for more information."
   (setf search-string
         (shell-command-to-string
          (format "echo %s|iconv -f ISO8859-1 -t UTF-8"
-           (shell-quote-argument search-string))))
+                 (shell-quote-argument search-string))))
   (browse-url
    (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_sitesearch=&safe=images"
-     (apply (function concatenate) 'string
-            (mapcar (lambda (ch)
-                      (if (or (and (<= ?0 ch) (<= ch ?9))
-                              (and (<= ?A ch) (<= ch ?Z))
-                              (and (<= ?a ch) (<= ch ?z)))
-                          (format "%c" ch)
-                          (format "%%%02x" ch)))
-                    (string-to-sequence search-string 'list)))))) ;;google-search
+           (apply (function concatenate) 'string
+                  (mapcar (lambda (ch)
+                            (if (or (and (<= ?0 ch) (<= ch ?9))
+                                    (and (<= ?A ch) (<= ch ?Z))
+                                    (and (<= ?a ch) (<= ch ?z)))
+                                (format "%c" ch)
+                                (format "%%%02x" ch)))
+                          (string-to-sequence search-string 'list)))))) ;;google-search
 
 
 (defun google-search-region (start end)
@@ -4937,7 +5281,7 @@ See the documentation for vm-mode for more information."
   (google-search (buffer-substring-no-properties start end)))
 
 
-  
+
 (defun acronym ()
   (interactive)
   (browse-url 
@@ -5028,8 +5372,8 @@ See the documentation for vm-mode for more information."
 (ignore-errors
   (require 'newcomment)
   (defun comment-region-internal (beg end cs ce
-                                &optional ccs cce block lines indent)
-  "Comment region BEG..END.
+                                  &optional ccs cce block lines indent)
+    "Comment region BEG..END.
 CS and CE are the comment start resp end string.
 CCS and CCE are the comment continuation strings for the start resp end
 of lines (default to CS and CE).
@@ -5039,32 +5383,32 @@ LINES indicates that an extra lines will be used at the beginning and end
 of the region for CE and CS.
 INDENT indicates to put CS and CCS at the current indentation of the region
 rather than at left margin."
-  ;;(assert (< beg end))
-  (let ((no-empty nil ; PJB: always no-empty.
-          ;;  (not (or (eq comment-empty-lines t)
-          ;;           (and comment-empty-lines (zerop (length ce)))))
-          ))
-    ;; Sanitize CE and CCE.
-    (if (and (stringp ce) (string= "" ce)) (setq ce nil))
-    (if (and (stringp cce) (string= "" cce)) (setq cce nil))
-    ;; If CE is empty, multiline cannot be used.
-    (unless ce (setq ccs nil cce nil))
-    ;; Should we mark empty lines as well ?
-    (if (or ccs block lines) (setq no-empty nil))
-    ;; Make sure we have end-markers for BLOCK mode.
-    (when block (unless ce (setq ce (comment-string-reverse cs))))
-    ;; If BLOCK is not requested, we don't need CCE.
-    (unless block (setq cce nil))
-    ;; Continuation defaults to the same as CS and CE.
-    (unless ccs (setq ccs cs cce ce))
+    ;;(assert (< beg end))
+    (let ((no-empty nil ; PJB: always no-empty.
+            ;;  (not (or (eq comment-empty-lines t)
+            ;;           (and comment-empty-lines (zerop (length ce)))))
+            ))
+      ;; Sanitize CE and CCE.
+      (if (and (stringp ce) (string= "" ce)) (setq ce nil))
+      (if (and (stringp cce) (string= "" cce)) (setq cce nil))
+      ;; If CE is empty, multiline cannot be used.
+      (unless ce (setq ccs nil cce nil))
+      ;; Should we mark empty lines as well ?
+      (if (or ccs block lines) (setq no-empty nil))
+      ;; Make sure we have end-markers for BLOCK mode.
+      (when block (unless ce (setq ce (comment-string-reverse cs))))
+      ;; If BLOCK is not requested, we don't need CCE.
+      (unless block (setq cce nil))
+      ;; Continuation defaults to the same as CS and CE.
+      (unless ccs (setq ccs cs cce ce))
 
-    (save-excursion
-      (goto-char end)
-      ;; If the end is not at the end of a line and the comment-end
-      ;; is implicit (i.e. a newline), explicitly insert a newline.
-      (unless (or ce (eolp)) (insert "\n") (indent-according-to-mode))
-      (comment-with-narrowing
-          beg end
+      (save-excursion
+        (goto-char end)
+        ;; If the end is not at the end of a line and the comment-end
+        ;; is implicit (i.e. a newline), explicitly insert a newline.
+        (unless (or ce (eolp)) (insert "\n") (indent-according-to-mode))
+        (comment-with-narrowing
+            beg end
           (let ((min-indent (point-max))
                 (max-indent 0))
             (goto-char (point-min))
@@ -5523,6 +5867,14 @@ Attribution: ?"
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
                            ("\\.mm$" . objc-mode)))
 
+(setf auto-mode-alist
+      (set-difference auto-mode-alist '(("\\.m$" . matlab-mode)
+                                        ("\\.m\\'" . matlab-mode)
+                                        ("\\.ml[iyl]?$" . caml-mode)
+                                        ("\\.m[mes]\\'" . nroff-mode)
+                                        ("\\.m[4c]\\'" . m4-mode))
+                      :test (function equalp)))
+
 
 (setf grep-find-command "find $HOME/src/manager2/trunk \\( -name release -prune \\) -o -type f  \\(  -name \\*.h -o -name \\*.c -name \\*.hh -o -name \\*.hxx -o -name \\*.cc  -o -name \\*.cxx -o -name \\*.lisp -o -name \\*.rb -o -name \\*.logs \\) -print0 | xargs -0 -e grep -niH -e "
       grep-host-defaults-alist nil)
@@ -5593,7 +5945,6 @@ or as \"emacs at <hostname>\"."
   (t
    (when (fboundp 'set-palette) (set-palette pal-green))))
 
-(sfn t)
 
 (defun current-minor-modes (&optional buffer)
   "The list of the minor modes currently active in the buffer (or current buffer)."
@@ -5608,6 +5959,7 @@ or as \"emacs at <hostname>\"."
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
+(sfn t)
 (.EMACS "DONE")
 
 ;; (setf inhibit-splash-screen t)
@@ -5617,5 +5969,5 @@ or as \"emacs at <hostname>\"."
 
 ;; Local Variables:
 ;; eval: (cl-indent 'string-case 1)
-;; End
+;; End:
 ;;;; THE END ;;;;
