@@ -1409,6 +1409,7 @@ SIDE must be the symbol `left' or `right'."
 
 (defparameter *pjb-font-list*
   '(
+    "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
     "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
@@ -1419,7 +1420,7 @@ SIDE must be the symbol `left' or `right'."
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
     ))
 
-(defvar *pjb-current-font-index* 0)
+(defvar *pjb-current-font-index* -1)
 
 (defun sign (number)
   (cond ((< number 0) -1)
@@ -1428,19 +1429,20 @@ SIDE must be the symbol `left' or `right'."
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
-  (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
-                                      (length *pjb-font-list*)))
-  (loop
+  (let ((increment (if (zerop increment) 1 increment)))
+    (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
+                                        (length *pjb-font-list*)))
+    (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
           (return
-            (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
-                   (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
+           (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
+                  (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
-                                            (length *pjb-font-list*)))))
+                                            (length *pjb-font-list*))))))
 
-(forward-font 3)
+(forward-font 1)
 
 ;; (when (eq window-system 'x)
 ;;   (set-frame-font 
