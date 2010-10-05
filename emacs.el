@@ -2884,7 +2884,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
-(slime-setup '(slime-fancy slime-indentation))
+(handler-case (slime-setup '(slime-fancy slime-indentation))
+  (error () (slime-setup '(:autodoc :typeout-frame :highlight-edits))))
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
