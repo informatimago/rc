@@ -461,6 +461,10 @@ else
 fi
 
 
+if [ -x /usr/games/bin/fgfs ] ; then
+    alias fs='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --callsign=pjb --multiplay=out,20,mpserver10.flightgear.org,5000' 
+fi
+
 # ----------------------------------------
 # gnustep specific environment:
 # ----------------------------------------
@@ -601,3 +605,5 @@ function reload  { /etc/init.d/$1 reload;  }
 #       not reset.
 #
 #### THE END ####
+
+
