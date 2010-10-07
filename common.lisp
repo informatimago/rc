@@ -567,7 +567,7 @@
 (POST-PROCESS-LOGICAL-HOST-TRANSLATIONS)
 
 (PUSH :COM.INFORMATIMAGO.PJB *FEATURES*)
-
+#-(and)
 (let ((path
        (merge-pathnames
         (make-pathname
