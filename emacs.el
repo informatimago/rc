@@ -575,6 +575,7 @@ WELCOME TO EMACS!
 ;;;----------------------------------------------------------------------------
 ;;; cl-like functions
 ;;;----------------------------------------------------------------------------
+;;; TODO: we should just load pjb-cl!
 
 (define-modify-macro appendf (&rest args) append "Append onto list")
 
@@ -616,6 +617,22 @@ WELCOME TO EMACS!
                 (subseq str2 start2 (or end2 (length str2)))))))
 
 
+(defun string-right-trim (character-bag string-designator)
+  "Common-Lisp: returns a substring of string, with all characters in \
+character-bag stripped off the end.
+
+"
+  (unless (sequencep character-bag)
+    (signal 'type-error  "Expected a sequence for `character-bag'."))
+  (let* ((string (string* string-designator))
+         (margin (format "[%s]*" (regexp-quote
+                                  (if (stringp character-bag)
+                                      character-bag
+                                      (map 'string 'identity character-bag)))))
+         (trimer (format "\\`\\(\\(.\\|\n\\)*?\\)%s\\'" margin)))
+    (replace-regexp-in-string  trimer "\\1" string)))
+
+
 (defun user-homedir-pathname ()
   (if user-init-file
       (dirname user-init-file)
@@ -635,6 +652,11 @@ WELCOME TO EMACS!
 ;;           "/eee/ddd/abc" "/eee/ddd/abc.def" "/eee/ddd/abc.def.ghi"))
 
 
+
+
+
+;;; Some other utility.
+
 (defun dirname (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
@@ -652,6 +674,30 @@ STRING:  A sequence.
 RETURN:  Whether PREFIX is a prefix of the STRING.
 "
   (string= prefix (subseq string 0 (min (length string) (length prefix)))))
+
+
+(defun first-char (string)
+  "Returns the first character of string, or nil if it's empty."
+  (when (plusp (length string))
+    (aref string 0)))
+
+(defun last-char (string)
+  "Returns the last character of string, or nil if it's empty."
+  (when (plusp (length string))
+    (aref string (1- (length string)))))
+
+(defun butlast-char (string)
+  "Returns the string without its last character."
+  (if (plusp (length string))
+      (subseq string 0 (1- (length string)))
+      string))
+
+(defun butfirst-char (string)
+  "Returns the string without its last character."
+  (if (plusp (length string))
+      (subseq string 1)
+      string))
+
 
 
 ;;;----------------------------------------------------------------------------
@@ -801,9 +847,11 @@ NOTE:   ~/directories.txt is cached in *directories*.
              (mapc (lambda (file)
                      (let ((file (concat site-lisp "/" file)))
                        (when (file-exists-p file)
-                         (.EMACS "%s FOUND" file)
                          (let ((default-directory site-lisp))
-                           (load file *pjb-load-noerror* *pjb-load-silent*)))))
+                           (.EMACS "%s FOUND" file)
+                           (.EMACS "load file = %s " (load file))
+                           (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
+                           ))))
                    '("site-start.el" "site-gentoo.el" "subdirs.el"))
              t)))
     (dolist (directories
@@ -841,9 +889,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
                 ;; will see how we can install elc in version
                 ;; specific directories, but keeping references to
                 ;; the same source directory.
-                (expand-file-name  "~/src/public/emacs/")
-                ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
-                )))
+                (expand-file-name  "~/src/public/emacs")
+                
+                ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                )
+               (unless (fboundp 'mdi)
+                 (list (expand-file-name "~/opt/share/emacs/site-lisp")))))
       (if (listp directories)
           (find-if (function add-if-good) directories)
           (add-if-good directories)))
@@ -852,10 +903,18 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             base-load-path))))
 
 
-(unless (fboundp 'mdi)
-  (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs/")
-                         (expand-file-name "~/opt/share/emacs/site-lisp/slime/")
-                         load-path)))
+(defun clean-load-path ()
+  (setf load-path
+        (remove-duplicates
+         (mapcar (lambda (path) (string-right-trim "/" path)) load-path)
+         :test (function string=))))
+
+
+;; (unless (fboundp 'mdi)
+;;   (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs")
+;;                          (expand-file-name "~/opt/share/emacs/site-lisp/slime")
+;;                          (expand-file-name "~/opt/share/emacs/site-lisp")
+;;                          load-path)))
 
 
 ;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
