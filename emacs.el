@@ -863,6 +863,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
+;;;----------------------------------------------------------------------------
+;;; CEDET / EIEIO
+;;;----------------------------------------------------------------------------
+
+(load "paredit")
+
 
 ;;;----------------------------------------------------------------------------
 ;;; CEDET / EIEIO
@@ -2355,6 +2361,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
         lines
         (nth 3 style))))))
 
+
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "running pjb-lisp-meat on %S" (buffer-name))
@@ -2369,8 +2376,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
   ;; (setf comment-region-function 'pjb-lisp-comment-region)
   (local-set-key (kbd "<A-up>")      (function backward-up-list))
   (local-set-key (kbd "<A-down>")    (function down-list))
-  (when (load "paredit" t t)
-    (paredit-mode +1))
+  (paredit-mode +1)  
   (local-set-key (kbd "<s-A-left>")  (function paredit-backward-barf-sexp))
   (local-set-key (kbd "<s-A-right>") (function paredit-backward-slurp-sexp))
   (local-set-key (kbd "<A-right>")   (function paredit-forward-slurp-sexp))
