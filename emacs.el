@@ -831,99 +831,135 @@ NOTE:   ~/directories.txt is cached in *directories*.
 ;; files, then it is loaded too.
 ;;
 
+
 (defun dump-load-path ()
+  "Insert the paths in load-path one per line."
   (interactive)
   (dolist (x load-path)
     (princ x)
     (terpri)))
 
-(message "old load-path = %S" (with-output-to-string (dump-load-path)))
-
-(let ((new-paths '())
-      (base-load-path (copy-list load-path)))
-  (flet ((add-if-good (site-lisp)
-           (when (file-exists-p site-lisp)
-             (pushnew site-lisp new-paths)
-             (mapc (lambda (file)
-                     (let ((file (concat site-lisp "/" file)))
-                       (when (file-exists-p file)
-                         (let ((default-directory site-lisp))
-                           (.EMACS "%s FOUND" file)
-                           (.EMACS "load file = %s " (load file))
-                           (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
-                           ))))
-                   '("site-start.el" "site-gentoo.el" "subdirs.el"))
-             t)))
-    (dolist (directories
-              ;; When several directories are listed in a sublist, only
-              ;; the first found directory will be added.
-              (append
-               (case emacs-major-version
-                 ((20 21 22)
-                  (append '("/opt/lisp/emacs"
-                            "/opt/local/share/emacs/site-lisp"
-                            "/usr/local/share/emacs/site-lisp")
-                          '("/opt/clisp-2.48/share/emacs/site-lisp"
-                            "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                            "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                            "/opt/clisp-2.47/share/emacs/site-lisp"
-                            "/opt/clisp-2.46/share/emacs/site-lisp"
-                            "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                          '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                          ))
-                 ((23)
-                  '())
-                 (otherwise
-
-                  (.EMACS "WARNING: No load-paths for emacs version %d"
-                          emacs-major-version)
-                  '()))
-               (list
-                ;; -----------------
-                ;; PJB emacs sources
-                ;; -----------------
-                ;; Since we may have several emacs version running
-                ;; on the same system, for now we will avoid
-                ;; compiling pjb sources, and we will load them
-                ;; directly from ~/src/public/emacs/.  Later we
-                ;; will see how we can install elc in version
-                ;; specific directories, but keeping references to
-                ;; the same source directory.
-                (expand-file-name  "~/src/public/emacs")
-                
-                ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
-                )
-               (unless (fboundp 'mdi)
-                 (list (expand-file-name "~/opt/share/emacs/site-lisp")))))
-      (if (listp directories)
-          (find-if (function add-if-good) directories)
-          (add-if-good directories)))
-    (setf load-path (append new-paths
-                            (set-difference load-path base-load-path :test (function equal))
-                            base-load-path))))
-
 
 (defun clean-load-path ()
+  "Remove slashes at the end of the path in load-path."
   (setf load-path
         (remove-duplicates
          (mapcar (lambda (path) (string-right-trim "/" path)) load-path)
          :test (function string=))))
 
 
-;; (unless (fboundp 'mdi)
-;;   (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs")
-;;                          (expand-file-name "~/opt/share/emacs/site-lisp/slime")
-;;                          (expand-file-name "~/opt/share/emacs/site-lisp")
-;;                          load-path)))
+(defun load-pathname (file &optional nosuffix must-suffix)
+  "Return the pathname of the file that would be loaded by (load file)."
+  (let* ((file (substitute-in-file-name file))
+         (size (length file)))
+    (unless (zerop size)
+      (when (and must-suffix
+                 (or (and (< 3 size) (string= ".el" (substring file (- size 3))))
+                     (and (< 4 size) (string= ".elc" (substring file (- size 4))))
+                     (file-name-directory file)))
+        (setf must-suffix nil))
+      (if (fboundp 'locate-file-internal)
+        (locate-file-internal file
+                              load-path
+                              (cond (nosuffix    '())
+                                    (must-suffix (get-load-suffixes))
+                                    (t           (append (get-load-suffixes)
+                                                         load-file-rep-suffixes)))
+                              nil)
+        (error "Missing locate-file-internal in version %s" emacs-version)
+        ;; (let ((suffixes (append (get-load-suffixes) "")))
+        ;;   (dolist (dir load-path)
+        ;;     (dolist (suffix suffixes)
+        ;;       (format "%s/%s%s" dir file suffix))))
+        ))))
 
 
-;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
+
+(defun setup-load-path ()
+  "Set up my load-path."
+ (let ((new-paths '())
+       (base-load-path (copy-list load-path)))
+   (flet ((add-if-good
+           (site-lisp)
+           (let ((site-lisp (expand-file-name site-lisp)))
+             (when (file-exists-p site-lisp)
+               (pushnew site-lisp new-paths)
+               (mapc (lambda (file)
+                       (let ((file (concat site-lisp "/" file)))
+                         (when (file-exists-p file)
+                           (let ((default-directory site-lisp))
+                             (.EMACS "%s FOUND" file)
+                             (.EMACS "load file = %s " (load file))
+                             (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
+                             ))))
+                     '("site-start.el" "site-gentoo.el" "subdirs.el"))
+               t))))
+     (dolist (directories (append
+                           ;; When several directories are listed in a sublist, only
+                           ;; the first found directory will be added.
+                           (case emacs-major-version
+                             ((20 21 22)
+                              (append '("/opt/lisp/emacs"
+                                        "/opt/local/share/emacs/site-lisp"
+                                        "/usr/local/share/emacs/site-lisp")
+                                      '("/opt/clisp-2.48/share/emacs/site-lisp"
+                                        "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                                        "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                                        "/opt/clisp-2.47/share/emacs/site-lisp"
+                                        "/opt/clisp-2.46/share/emacs/site-lisp"
+                                        "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                                      '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                                      ))
+                             ((23)
+                              '())
+                             (otherwise
+                              (.EMACS "WARNING: No load-paths for emacs version %d"
+                                      emacs-major-version)
+                              '()))
+                           (list
+                            ;; -----------------
+                            ;; PJB emacs sources
+                            ;; -----------------
+                            ;; Since we may have several emacs version running
+                            ;; on the same system, for now we will avoid
+                            ;; compiling pjb sources, and we will load them
+                            ;; directly from ~/src/public/emacs/.  Later we
+                            ;; will see how we can install elc in version
+                            ;; specific directories, but keeping references to
+                            ;; the same source directory.
+                            ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                            '("~/src/public/emacs"))
+                           ;; (unless (fboundp 'mdi)
+                           ;;   '("~/opt/share/emacs/site-lisp"))
+                           ;; (when (string= "mdi-development-1" *hostname*)
+                           ;;   '(("~/opt/share/emacs/site-lisp/slime/contribs/")))
+                           ;; (when (string= "mdi-development-1" *hostname*)
+                           ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
+                           (unless (string= "mdi-development-1" *hostname*)
+                             (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/")))))
+       (if (listp directories)
+         (find-if (function add-if-good) directories)
+         (add-if-good directories)))
+     
+     (setf load-path (append new-paths
+                             (set-difference load-path base-load-path :test (function equal))
+                             base-load-path)))))
+
+
+
+(message "old load-path = %S" (with-output-to-string (dump-load-path)))
+(setup-load-path)
+(message "new load-path = %S" (with-output-to-string (dump-load-path)))
+
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
+
+
+
 ;;;----------------------------------------------------------------------------
-;;; CEDET / EIEIO
+;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
 
 (load "paredit")
@@ -1955,16 +1991,6 @@ capitalized form."
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
 
-(cond
-  ((string= "mdi-development-1" *hostname*)
-   (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-                          "~/opt/share/emacs/site-lisp/slime/"
-                          load-path)))
-  (t
-   (push (get-directory :share-lisp  "packages/net/common-lisp/slime/slime/")
-         load-path)))
-
-
 (unless (fboundp 'mdi)
   
   (.EMACS " define-lisp-implementation")
@@ -2423,7 +2449,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
 
 (defun pjb-lisp-meat ()
   (interactive)
-  (.EMACS "running pjb-lisp-meat on %S" (buffer-name))
+  (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (unless (eq 'emacs-lisp-mode major-mode)
     (local-set-key [f8] (function  show-inferior-lisp-buffer)))
   (local-set-key (kbd "RET") 'newline-and-indent)
@@ -2435,7 +2461,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
   ;; (setf comment-region-function 'pjb-lisp-comment-region)
   (local-set-key (kbd "<A-up>")      (function backward-up-list))
   (local-set-key (kbd "<A-down>")    (function down-list))
-  (paredit-mode +1)  
+  (paredit-mode +1)
   (local-set-key (kbd "<s-A-left>")  (function paredit-backward-barf-sexp))
   (local-set-key (kbd "<s-A-right>") (function paredit-backward-slurp-sexp))
   (local-set-key (kbd "<A-right>")   (function paredit-forward-slurp-sexp))
@@ -2949,7 +2975,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
-(slime-setup '(slime-fancy slime-indentation))
+(slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation))
+
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
@@ -6031,8 +6058,4 @@ or as \"emacs at <hostname>\"."
 ;; (switch-to-buffer (get-buffer-create "emtpy"))
 ;; (delete-other-windows)
 
-
-;; Local Variables:
-;; eval: (cl-indent 'string-case 1)
-;; End:
 ;;;; THE END ;;;;
