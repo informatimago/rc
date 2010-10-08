@@ -936,7 +936,9 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            ;; (when (string= "mdi-development-1" *hostname*)
                            ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
                            (unless (string= "mdi-development-1" *hostname*)
-                             (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/")))))
+                             (list
+                              (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                              (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
        (if (listp directories)
          (find-if (function add-if-good) directories)
          (add-if-good directories)))
