@@ -947,8 +947,6 @@ NOTE:   ~/directories.txt is cached in *directories*.
                              (set-difference load-path base-load-path :test (function equal))
                              base-load-path)))))
 
-
-
 (message "old load-path = %S" (with-output-to-string (dump-load-path)))
 (setup-load-path)
 (message "new load-path = %S" (with-output-to-string (dump-load-path)))
@@ -956,9 +954,6 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
-
-
-
 
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
@@ -6047,6 +6042,34 @@ or as \"emacs at <hostname>\"."
       (dolist (mode minor-mode-list result)
         (when (and (boundp mode) (symbol-value mode))
           (push mode result))))))
+
+
+
+;;;----------------------------------------------------------------------------
+;;; Google Maps
+;;;----------------------------------------------------------------------------
+
+(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-maps/google-maps.el"))
+  (push (get-directory :share-lisp  "packages/org/naquadah/google-maps/") load-path)
+  (require 'google-maps))
+;; (google-maps-static-show :center "Valencia"
+;;                          :maptype 'hybrid)
+;; (google-maps-static-show
+;;  :center "Cimetière du Montparnasse"
+;;  :maptype 'hybrid
+;;  ;; :zoom 5
+;;  :markers '((("Place Saint-Michel, Paris") . (:label ?M :color "blue"))
+;;             (("Jardin du Luxembourg, Paris" "Parc Montsouris, Paris") . (:label ?P :color "green")))
+;;  :visible '("44 rue de l'Ouest, Paris" "Montrouge")
+;;  :paths '((("Tour Eiffel, Paris" "Arc de triomphe, Paris" "Panthéon, Paris")
+;;            . (:weight 3 :color "black" :fillcolor "yellow"))))
+
+
+(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/google-weather.el"))
+  (push (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/") load-path)
+  (require 'google-weather)
+  (require 'org-google-weather))
+
 
 
 
