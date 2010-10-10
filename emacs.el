@@ -6072,6 +6072,20 @@ or as \"emacs at <hostname>\"."
 
 
 
+;;;----------------------------------------------------------------------------
+
+(defun screen-dump (&optional screen-dump-file)
+  (interactive)
+  (cond
+    (screen-dump-file
+     (shell-command (format "xwd | xwdtopnm | pnmtopng > %S"
+                            (expand-file-name screen-dump-file))))
+    (current-prefix-arg
+     (screen-dump (read-from-minibuffer "Screen dump file: " "~/screen-dump.png")))
+    (t
+     (screen-dump "~/screen-dump.png"))))
+
+(global-set-key (kbd "<print>") 'screen-dump)
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
