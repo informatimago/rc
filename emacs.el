@@ -1961,6 +1961,7 @@ capitalized form."
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
       org-agenda-files  '("~/notes.txt"
+                          "~/notes-kuiper.txt"
                           ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
                           ;; "~/firms/wizards/notes.txt"
                           ;; "~/firms/willcom/notes.txt"
