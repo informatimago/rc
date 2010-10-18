@@ -224,13 +224,15 @@
  '(comment-force-also-empty-lines t)
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
- '(default-major-mode (quote text-mode))
+ '(default-major-mode (quote text-mode) t)
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
  '(display-time-mode t)
+ '(erc-server-reconnect-attempts 100)
+ '(erc-server-reconnect-timeout 60)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -404,8 +406,8 @@ X-Disabled: X-No-Archive: no
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil)
- '(rmail-pop-password-required nil)
+ '(rmail-pop-password nil t)
+ '(rmail-pop-password-required nil t)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -484,6 +486,7 @@ X-Disabled: X-No-Archive: no
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t))
 
+(setf warning-suppress-types (quote ((undo discard-info))))
 
 ;; '(vm-spool-files '(("~/INBOX"
 ;;                     "/var/spool/mail/pjb"
@@ -1511,11 +1514,33 @@ SIDE must be the symbol `left' or `right'."
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
+
+    "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--13-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--15-150-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
+    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-fontset-startup"
+
+    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
+
+    
+    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
+    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
+    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
     ))
+
+
 
 (defvar *pjb-current-font-index* 0)
 
@@ -1538,7 +1563,11 @@ SIDE must be the symbol `left' or `right'."
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
                                             (length *pjb-font-list*)))))
 
-(forward-font 3)
+(global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
+(global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
+
+(forward-font 10)
+
 
 ;; (when (eq window-system 'x)
 ;;   (set-frame-font 
@@ -6070,6 +6099,20 @@ or as \"emacs at <hostname>\"."
   (require 'google-weather)
   (require 'org-google-weather))
 
+
+;;;----------------------------------------------------------------------------
+
+(defun unwrap-google-url (&optional start end)
+  (interactive "r")
+  (let ((start (or start (min (or (mark)  (point-min)))))
+        (end   (or end   (max (or (point) (point-max))))))
+    (goto-char start)
+    (when (search-forward "%3A%2F%2F" end t)
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert "://")
+      (while (search-forward "%2F" end t)
+        (delete-region (match-beginning 0) (match-end 0))
+        (insert "/")))))
 
 
 ;;;----------------------------------------------------------------------------
