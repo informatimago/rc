@@ -1,0 +1,56 @@
+# -*- mode:conf; comment-start:"# " -*-
+
+startup_message off
+
+set gravity c
+set wingravity c
+
+# set border 4
+# 
+# set barpadding 4 4
+# set fgcolor black
+# set bgcolor yellow
+# 
+# set fwcolor red
+# set bwcolor black
+
+set font "courier"
+set border 0
+set barpadding 0 0
+set fgcolor black
+set bgcolor yellow
+set resizeunit 8
+set inputwidth 600
+msgwait 60
+
+alias emacs     exec emacs
+alias erc       exec erc
+alias web       exec firefox
+alias xterm     exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
+alias objing    exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
+alias size      echo $(screen-size)
+
+bind  c         xterm
+bind  M-x       colon
+bind  M-colon   colon
+bind  o         focus
+
+rudeness 15 
+# rudeness 12  = to prevent firefox to raise indiscriminately.
+# 1    Transient windows may raise.
+# 2    Normal windows may raise.
+# 4    New transient windows end up in the foreground.
+# 8    New normal windows end up in the foreground.
+
+
+exec xrdb -merge ~/.Xresources
+exec xmodmap .xmodmap
+exec xsetroot -solid black
+#exec xsetroot -solid "#312"
+# exec rpws init 3 -k
+
+unmanage xv
+version
+banish
+
+

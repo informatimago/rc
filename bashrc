@@ -322,6 +322,7 @@ function be_generate(){
     be_variable HTML_TIDY          $HOME/public_html/tidy.config
     be_variable ETAGS              
     be_variable CTAGS              
+    be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
 
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
