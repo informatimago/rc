@@ -2887,7 +2887,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (require 'slime)
 (handler-case (slime-setup '(slime-fancy slime-indentation))
-  (error () (slime-setup '(:autodoc :typeout-frame :highlight-edits))))
+  (error () (slime-setup :autodoc t :typeout-frame t :highlight-edits t)))
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
