@@ -73,7 +73,7 @@ symlinks: save
 	ln -sf $(SRCDIR)/screenrc-daemon                  $$HOME/.screenrc-daemon
 	ln -sf $(SRCDIR)/swank.lisp                       $$HOME/.swank.lisp
 	ln -sf $(SRCDIR)/wgetrc                           $$HOME/.wgetrc
-	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-gentoo-2   $$HOME/.xmodmap
+	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-evdev      $$HOME/.xmodmap
 	ln -sf $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
 	ln -sf $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
 

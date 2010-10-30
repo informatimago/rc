@@ -471,6 +471,7 @@ if [ -x /usr/games/bin/fgfs ] ; then
 
     alias f14='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=AC112P  --aircraft=f-14b'
     alias f16='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=BK1P    --aircraft=f16'
+    alias f18='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=BK1P    --aircraft=f18'
 
 fi
 

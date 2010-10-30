@@ -19,7 +19,7 @@ autodetach on
 startup_message off
 
 # emulate .logout message
-pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ende d."
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:endeÂ d."
 
 # advertise hardstatus support to $TERMCAP
 # termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
@@ -119,6 +119,7 @@ bind 'K' kill
 bind 'I' login on
 bind 'O' login off
 bind '}' history
+bind 'o' focus
 
 # Yet another hack:
 # Prepend/append register [/] to the paste if ^a^] is pressed.
@@ -140,14 +141,12 @@ bind ^] paste [.]
 # screen -t irc 1 emacs -nw --debug-init -f erc 
 
 # screen -t root 0
-# screen -t j1   1 
-# screen -t j2   2 
-# screen -t j3   3 
-# screen -t j4   4 
-# screen -t kle  5 
-# screen -t tha  6
-# screen -t lar  7
-# screen -t kuy  8
+# screen -t loc  1 
+# screen -t kui  2 
+# screen -t hub  3 
+# screen -t gal  4 
+# screen -t tri  5 
+# screen -t voy  6
 
 # caption always "%3n %t%? @%u%?%? [%h]%?"
 # hardstatus alwaysignore
@@ -163,10 +162,11 @@ hardstatus alwayslastline
 #escape ^^^^
 
 # Green:
-hardstatus string "%{.gW}%-w%{.rW}%n %t%{-}%+w %=%{..b}%H%{..r}%l%{..b}%m-%d %c"
+hardstatus string "%{.gw}%-w%{.rw}%n %t%{-}%+w %=%{..b}%H%{..r}%l%{..b}%m-%d %c"
 escape ^z^z
 
 # Yellow:
 #hardstatus string "%{.yB}%-w%{.rB}%n %t%{-}%+w %=%{..b}%H%{..r}%l%{..b}%m-%d %c"
 #escape ^_^_
+
 
