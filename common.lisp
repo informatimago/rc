@@ -357,6 +357,13 @@
     (asdf:operate 'asdf:load-source-op system)))
 
 
+;; (asdf:SYSTEM-SOURCE-DIRECTORY  :cl-org-mode)  --> directory where the asd file lies.
+;; (asdf:SYSTEM-SOURCE-file  :cl-org-mode)       --> asd file.
+;; (asdf:module-components  (asdf:find-system :cl-org-mode)) --> modules
+;;
+;; (mapcar (alexandria:curry 'asdf:component-depends-on 'asdf:load-op)
+;;         (asdf:module-components  (asdf:find-system :cl-org-mode)))
+
 ;;--------------------
 ;; (asdf-install system)
 ;;--------------------

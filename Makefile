@@ -34,6 +34,7 @@ FILES= \
 	.swank.lisp \
 	.wgetrc \
 	.xmodmap \
+	.ratpoisonrc \
 	openmcl-init.lisp
 
 help:
@@ -72,8 +73,9 @@ symlinks: save
 	ln -sf $(SRCDIR)/screenrc-daemon                  $$HOME/.screenrc-daemon
 	ln -sf $(SRCDIR)/swank.lisp                       $$HOME/.swank.lisp
 	ln -sf $(SRCDIR)/wgetrc                           $$HOME/.wgetrc
-	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-current    $$HOME/.xmodmap
+	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-gentoo-2   $$HOME/.xmodmap
 	ln -sf $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
+	ln -sf $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
 
 showlinks:
 	cd     $$HOME ; ls -la |awk "/-> $(SRCDIR)/{printf "ln -sf %-30s $$    $$HOME/%s\n",$$11,$$9;}"
