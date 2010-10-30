@@ -34,6 +34,7 @@ bind  c         xterm
 bind  M-x       colon
 bind  M-colon   colon
 bind  o         focus
+bind  t         meta C-t
 
 rudeness 15 
 # rudeness 12  = to prevent firefox to raise indiscriminately.

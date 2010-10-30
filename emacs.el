@@ -484,7 +484,8 @@ X-Disabled: X-No-Archive: no
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
  '(warning-suppress-types (quote ((undo discard-info))))
- '(x-select-enable-clipboard t))
+ '(x-select-enable-clipboard t)
+ '(x-select-enable-primary t))
 
 (setf warning-suppress-types (quote ((undo discard-info))))
 
@@ -1567,6 +1568,19 @@ SIDE must be the symbol `left' or `right'."
 (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
 
 (forward-font 10)
+
+
+   ;; *** Which font backends to use can be specified by the X resource
+   ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
+   ;; 
+   ;; Emacs.FontBackend: x,xft
+   ;; 
+   ;; If this resource is not set, Emacs tries to use all font backends
+   ;; available on your graphic device.
+   ;; 
+   ;; *** New frame parameter `font-backend' specifies a list of
+   ;; font-backends supported by the frame's graphic device.  On X, they are
+   ;; currently `x' and `xft'.
 
 
 ;; (when (eq window-system 'x)
@@ -5163,6 +5177,9 @@ See the documentation for vm-mode for more information."
   (mapc (lambda (hook) (add-hook hook (function pjb-c-todo-hook)))
         '(c-mode-hook c++-mode-hook objc-mode-hook )))
 
+(appendf auto-mode-alist  '(("\\.mc\\'" . c++-mode)))
+
+
 
 ;; (push  '(c . pjb-lineup-C-comments)              c-offsets-alist)
 ;; (push  '(comment-intro . pjb-lineup-C-comments)  c-offsets-alist)
@@ -6039,7 +6056,9 @@ RETURN: (YYYY MM DD DOW)  next day."
 or as \"emacs at <hostname>\"."
   (interactive "P")
   (let ((c   (selected-frame))
-        (use (or (getenv "EMACS_USE") "emacs")))
+        (use (if (zerop (user-uid))
+                 "root"
+                 (or (getenv "EMACS_USE") "emacs"))))
     (unwind-protect
          (dolist (f (frame-list))
            (select-frame f)
@@ -6106,14 +6125,25 @@ or as \"emacs at <hostname>\"."
 (defun unwrap-google-url (&optional start end)
   (interactive "r")
   (let ((start (or start (min (or (mark)  (point-min)))))
-        (end   (or end   (max (or (point) (point-max))))))
-    (goto-char start)
-    (when (search-forward "%3A%2F%2F" end t)
-      (delete-region (match-beginning 0) (match-end 0))
-      (insert "://")
-      (while (search-forward "%2F" end t)
-        (delete-region (match-beginning 0) (match-end 0))
-        (insert "/")))))
+        (end   (let ((m (make-marker)))
+                 (set-marker m (or end   (max (or (point) (point-max)))))
+                 m)))
+    (unwind-protect
+         (progn
+           (goto-char start)
+           (when (search-forward "http://www.google.com/url?url=")
+             (delete-region start (match-end 0)))
+           (goto-char start)
+           (when (search-forward "&")
+             (delete-region (match-beginning 0) end))
+           (goto-char start)
+           (when (search-forward "%3A%2F%2F" end t)
+             (delete-region (match-beginning 0) (match-end 0))
+             (insert "://")
+             (while (search-forward "%2F" end t)
+               (delete-region (match-beginning 0) (match-end 0))
+               (insert "/"))))
+      (set-marker end nil))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -6131,6 +6161,65 @@ or as \"emacs at <hostname>\"."
 
 (global-set-key (kbd "<print>") 'screen-dump)
 
+
+;;;----------------------------------------------------------------------------
+
+(defun gradient (start end start-color end-color)
+  (destructuring-bind (red green blue) start-color
+    (destructuring-bind (ered egreen eblue) end-color
+      (let* ((count     (coerce (- end    start) 'float))
+             (ired   (/ (- ered   red)   count))
+             (igreen (/ (- egreen green) count))
+             (iblue  (/ (- eblue  blue)  count)))
+        (while (< 0 count)
+          (add-text-properties start (incf start)
+                               `(face (:foreground ,(format "#%02x%02x%02x"
+                                                            red green blue))))
+          (incf red   ired)
+          (incf green igreen)
+          (incf blue  iblue)
+          (decf       count))))))
+
+
+(defun rgb (name)
+  (let ((entry (assoc name color-name-rgb-alist)))
+    (if entry
+        (mapcar (lambda (x) (/ x 256.0)) (rest entry))
+        '(0 0 0))))
+
+(defun rainbow (start end)
+  (interactive "r")
+  (let ((range (truncate (- end start) 5)))
+    (loop
+       for (from to) on (list (rgb "red")
+                              (rgb "orange")
+                              (rgb "yellow")
+                              (rgb "green")
+                              (rgb "blue")
+                              (rgb "violet"))
+       while to
+       for start from start           by range
+       for next  from (+ start range) by range
+       do (gradient start (if to next end) from to))))
+
+(defun rainbow-buffer ()
+  (interactive)
+  (if buffer-read-only
+      (unwind-protect
+           (progn
+             (toggle-read-only -1)
+             (font-lock-mode -1)
+             (rainbow (point-min) (point-max)))
+
+        (toggle-read-only +1))
+      (progn
+        (font-lock-mode -1)
+        (rainbow (point-min) (point-max)))))
+
+;;;----------------------------------------------------------------------------
+(setf auto-mode-alist  (sort* auto-mode-alist
+                              (function string<)
+                              :key (function car)))
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
