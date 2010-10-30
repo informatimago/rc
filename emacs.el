@@ -661,6 +661,21 @@ character-bag stripped off the end.
 
 ;;; Some other utility.
 
+(defmacro* string-case (string-expression &body clauses)
+  "Like case, but for strings, compared with string-equal*"
+  (let ((value (gensym)))
+    `(let ((,value ,string-expression))
+       (cond
+         ,@(mapcar (lambda (clause)
+                     (destructuring-bind (constants &rest body) clause
+                       (if (member* constants '(t otherwise) :test (function eql))
+                           `(t ,@body)
+                           `((member* ,value ',(ensure-list constants)
+                                      :test (function string-equal*))
+                             ,@body))))
+                   clauses)))))
+
+
 (defun dirname (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
@@ -1511,6 +1526,7 @@ SIDE must be the symbol `left' or `right'."
 
 (defparameter *pjb-font-list*
   '(
+    "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
     "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
@@ -1541,8 +1557,6 @@ SIDE must be the symbol `left' or `right'."
     "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
     ))
 
-
-
 (defvar *pjb-current-font-index* 0)
 
 (defun sign (number)
@@ -1552,22 +1566,23 @@ SIDE must be the symbol `left' or `right'."
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
-  (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
-                                      (length *pjb-font-list*)))
-  (loop
+  (let ((increment (if (zerop increment) 1 increment)))
+    (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
+                                        (length *pjb-font-list*)))
+    (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
           (return
-            (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
-                   (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
+           (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
+                  (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
-                                            (length *pjb-font-list*)))))
+                                            (length *pjb-font-list*))))))
+
 
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
 (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
 
-(forward-font 10)
 
 
    ;; *** Which font backends to use can be specified by the X resource
@@ -1603,18 +1618,6 @@ SIDE must be the symbol `left' or `right'."
 
 ;;;----------------------------------------------------------------------------
 
-(defmacro* string-case (string-expression &body clauses)
-  (let ((value (gensym)))
-    `(let ((,value ,string-expression))
-       (cond
-         ,@(mapcar (lambda (clause)
-                     (destructuring-bind (constants &rest body) clause
-                       (if (member* constants '(t otherwise) :test (function eql))
-                           `(t ,@body)
-                           `((member* ,value ',(ensure-list constants)
-                                      :test (function string-equal*))
-                             ,@body))))
-                   clauses)))))
 
 ;;;----------------------------------------------------------------------------
 (when (and (not *pjb-pvs-is-running*) (member window-system '(x mac)))
@@ -1704,9 +1707,6 @@ SIDE must be the symbol `left' or `right'."
   (.EMACS "set-default-frame-alist")
 
 
-  
-
-
   (defun set-default-frame-alist (&optional font)
     "Sets default-frame-alist depending on the current environment (host, display, etc)."
     (interactive)
@@ -1734,24 +1734,22 @@ SIDE must be the symbol `left' or `right'."
            (fringe-background nil))
 
       (setf default-cursor-type cursor-type)
-      (string-case (hname :test (function string-equal*))
-        (("mdi-development-1" "mdi-development-2")
-         (setf fringe-background "yellow"))
+      (string-case hname
 
-        (("simias")
-         (setq palette            pal-anevia))
-        
-        (("thalassa" "despina")
+        (("thalassa" "despina" "kuiper")
+         (forward-font 10)
          (setq palette            pal-thalassa
                width              81
                height             70))
 
-        (("larissa") 
-         (setq palette            pal-larissa
-               Width              81
-               height             70))
+        (("triton" "proteus")
+         (font-forward 1)
+         (setq palette            pal-galatea
+               width              86
+               height             52))
 
-        (("galatea") 
+        (("galatea")
+         (forward-font 1)
          (setq palette            pal-naiad
                width              81
                height             54
@@ -1770,6 +1768,11 @@ SIDE must be the symbol `left' or `right'."
                                                       :registry "ISO8859"
                                                       :encoding "1")))
                         (if (font-exists-p fixed) fixed font))))
+        
+        (("larissa") 
+         (setq palette            pal-larissa
+               Width              81
+               height             70))
 
         (("naiad")
          (setq palette            pal-naiad
@@ -1781,14 +1784,16 @@ SIDE must be the symbol `left' or `right'."
                width              81
                height             54))
 
-        (("triton" "proteus")
-         (setq palette            pal-galatea
-               width              86
-               height             52))
         (("mini")
          (setq palette            pal-white
                width              86
-               height             52)))
+               height             52))
+
+        (("mdi-development-1" "mdi-development-2")
+         (setf fringe-background "yellow"))
+
+        (("simias")
+         (setq palette            pal-anevia)))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -3016,7 +3021,13 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
-(slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation))
+(or (ignore-errors
+      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation)))
+    (ignore-errors
+      (slime-setup '(slime-fancy slime-indentation)))
+    (ignore-errors
+      (slime-setup :autodoc t :typeout-frame t :highlight-edits t))
+    (error "Cannot setup slime :-("))
 
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
