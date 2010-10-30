@@ -322,6 +322,7 @@ function be_generate(){
     be_variable HTML_TIDY          $HOME/public_html/tidy.config
     be_variable ETAGS              
     be_variable CTAGS              
+    be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
 
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
@@ -465,6 +466,14 @@ else
 fi
 
 
+if [ -x /usr/games/bin/fgfs ] ; then
+    alias fs='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000' 
+
+    alias f14='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=AC112P  --aircraft=f-14b'
+    alias f16='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=BK1P    --aircraft=f16'
+
+fi
+
 # ----------------------------------------
 # gnustep specific environment:
 # ----------------------------------------
@@ -605,3 +614,5 @@ function reload  { /etc/init.d/$1 reload;  }
 #       not reset.
 #
 #### THE END ####
+
+

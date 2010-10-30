@@ -224,13 +224,15 @@
  '(comment-force-also-empty-lines t)
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
- '(default-major-mode (quote text-mode))
+ '(default-major-mode (quote text-mode) t)
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
  '(display-time-mode t)
+ '(erc-server-reconnect-attempts 100)
+ '(erc-server-reconnect-timeout 60)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -404,8 +406,8 @@ X-Disabled: X-No-Archive: no
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil)
- '(rmail-pop-password-required nil)
+ '(rmail-pop-password nil t)
+ '(rmail-pop-password-required nil t)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -484,6 +486,7 @@ X-Disabled: X-No-Archive: no
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t))
 
+(setf warning-suppress-types (quote ((undo discard-info))))
 
 ;; '(vm-spool-files '(("~/INBOX"
 ;;                     "/var/spool/mail/pjb"
@@ -575,6 +578,7 @@ WELCOME TO EMACS!
 ;;;----------------------------------------------------------------------------
 ;;; cl-like functions
 ;;;----------------------------------------------------------------------------
+;;; TODO: we should just load pjb-cl!
 
 (define-modify-macro appendf (&rest args) append "Append onto list")
 
@@ -616,6 +620,22 @@ WELCOME TO EMACS!
                 (subseq str2 start2 (or end2 (length str2)))))))
 
 
+(defun string-right-trim (character-bag string-designator)
+  "Common-Lisp: returns a substring of string, with all characters in \
+character-bag stripped off the end.
+
+"
+  (unless (sequencep character-bag)
+    (signal 'type-error  "Expected a sequence for `character-bag'."))
+  (let* ((string (string* string-designator))
+         (margin (format "[%s]*" (regexp-quote
+                                  (if (stringp character-bag)
+                                      character-bag
+                                      (map 'string 'identity character-bag)))))
+         (trimer (format "\\`\\(\\(.\\|\n\\)*?\\)%s\\'" margin)))
+    (replace-regexp-in-string  trimer "\\1" string)))
+
+
 (defun user-homedir-pathname ()
   (if user-init-file
       (dirname user-init-file)
@@ -635,6 +655,26 @@ WELCOME TO EMACS!
 ;;           "/eee/ddd/abc" "/eee/ddd/abc.def" "/eee/ddd/abc.def.ghi"))
 
 
+
+
+
+;;; Some other utility.
+
+(defmacro* string-case (string-expression &body clauses)
+  "Like case, but for strings, compared with string-equal*"
+  (let ((value (gensym)))
+    `(let ((,value ,string-expression))
+       (cond
+         ,@(mapcar (lambda (clause)
+                     (destructuring-bind (constants &rest body) clause
+                       (if (member* constants '(t otherwise) :test (function eql))
+                           `(t ,@body)
+                           `((member* ,value ',(ensure-list constants)
+                                      :test (function string-equal*))
+                             ,@body))))
+                   clauses)))))
+
+
 (defun dirname (path)
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
@@ -652,6 +692,30 @@ STRING:  A sequence.
 RETURN:  Whether PREFIX is a prefix of the STRING.
 "
   (string= prefix (subseq string 0 (min (length string) (length prefix)))))
+
+
+(defun first-char (string)
+  "Returns the first character of string, or nil if it's empty."
+  (when (plusp (length string))
+    (aref string 0)))
+
+(defun last-char (string)
+  "Returns the last character of string, or nil if it's empty."
+  (when (plusp (length string))
+    (aref string (1- (length string)))))
+
+(defun butlast-char (string)
+  "Returns the string without its last character."
+  (if (plusp (length string))
+      (subseq string 0 (1- (length string)))
+      string))
+
+(defun butfirst-char (string)
+  "Returns the string without its last character."
+  (if (plusp (length string))
+      (subseq string 1)
+      string))
+
 
 
 ;;;----------------------------------------------------------------------------
@@ -785,83 +849,135 @@ NOTE:   ~/directories.txt is cached in *directories*.
 ;; files, then it is loaded too.
 ;;
 
+
 (defun dump-load-path ()
+  "Insert the paths in load-path one per line."
   (interactive)
   (dolist (x load-path)
     (princ x)
     (terpri)))
 
+
+(defun clean-load-path ()
+  "Remove slashes at the end of the path in load-path."
+  (setf load-path
+        (remove-duplicates
+         (mapcar (lambda (path) (string-right-trim "/" path)) load-path)
+         :test (function string=))))
+
+
+(defun load-pathname (file &optional nosuffix must-suffix)
+  "Return the pathname of the file that would be loaded by (load file)."
+  (let* ((file (substitute-in-file-name file))
+         (size (length file)))
+    (unless (zerop size)
+      (when (and must-suffix
+                 (or (and (< 3 size) (string= ".el" (substring file (- size 3))))
+                     (and (< 4 size) (string= ".elc" (substring file (- size 4))))
+                     (file-name-directory file)))
+        (setf must-suffix nil))
+      (if (fboundp 'locate-file-internal)
+        (locate-file-internal file
+                              load-path
+                              (cond (nosuffix    '())
+                                    (must-suffix (get-load-suffixes))
+                                    (t           (append (get-load-suffixes)
+                                                         load-file-rep-suffixes)))
+                              nil)
+        (error "Missing locate-file-internal in version %s" emacs-version)
+        ;; (let ((suffixes (append (get-load-suffixes) "")))
+        ;;   (dolist (dir load-path)
+        ;;     (dolist (suffix suffixes)
+        ;;       (format "%s/%s%s" dir file suffix))))
+        ))))
+
+
+
+(defun setup-load-path ()
+  "Set up my load-path."
+ (let ((new-paths '())
+       (base-load-path (copy-list load-path)))
+   (flet ((add-if-good
+           (site-lisp)
+           (let ((site-lisp (expand-file-name site-lisp)))
+             (when (file-exists-p site-lisp)
+               (pushnew site-lisp new-paths)
+               (mapc (lambda (file)
+                       (let ((file (concat site-lisp "/" file)))
+                         (when (file-exists-p file)
+                           (let ((default-directory site-lisp))
+                             (.EMACS "%s FOUND" file)
+                             (.EMACS "load file = %s " (load file))
+                             (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
+                             ))))
+                     '("site-start.el" "site-gentoo.el" "subdirs.el"))
+               t))))
+     (dolist (directories (append
+                           ;; When several directories are listed in a sublist, only
+                           ;; the first found directory will be added.
+                           (case emacs-major-version
+                             ((20 21 22)
+                              (append '("/opt/lisp/emacs"
+                                        "/opt/local/share/emacs/site-lisp"
+                                        "/usr/local/share/emacs/site-lisp")
+                                      '("/opt/clisp-2.48/share/emacs/site-lisp"
+                                        "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                                        "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                                        "/opt/clisp-2.47/share/emacs/site-lisp"
+                                        "/opt/clisp-2.46/share/emacs/site-lisp"
+                                        "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                                      '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                                      ))
+                             ((23)
+                              '())
+                             (otherwise
+                              (.EMACS "WARNING: No load-paths for emacs version %d"
+                                      emacs-major-version)
+                              '()))
+                           (list
+                            ;; -----------------
+                            ;; PJB emacs sources
+                            ;; -----------------
+                            ;; Since we may have several emacs version running
+                            ;; on the same system, for now we will avoid
+                            ;; compiling pjb sources, and we will load them
+                            ;; directly from ~/src/public/emacs/.  Later we
+                            ;; will see how we can install elc in version
+                            ;; specific directories, but keeping references to
+                            ;; the same source directory.
+                            ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                            '("~/src/public/emacs"))
+                           ;; (unless (fboundp 'mdi)
+                           ;;   '("~/opt/share/emacs/site-lisp"))
+                           ;; (when (string= "mdi-development-1" *hostname*)
+                           ;;   '(("~/opt/share/emacs/site-lisp/slime/contribs/")))
+                           ;; (when (string= "mdi-development-1" *hostname*)
+                           ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
+                           (unless (string= "mdi-development-1" *hostname*)
+                             (list
+                              (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                              (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
+       (if (listp directories)
+         (find-if (function add-if-good) directories)
+         (add-if-good directories)))
+     
+     (setf load-path (append new-paths
+                             (set-difference load-path base-load-path :test (function equal))
+                             base-load-path)))))
+
 (message "old load-path = %S" (with-output-to-string (dump-load-path)))
+(setup-load-path)
+(message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
-(let ((new-paths '())
-      (base-load-path (copy-list load-path)))
-  (flet ((add-if-good (site-lisp)
-           (when (file-exists-p site-lisp)
-             (pushnew site-lisp new-paths)
-             (mapc (lambda (file)
-                     (let ((file (concat site-lisp "/" file)))
-                       (when (file-exists-p file)
-                         (.EMACS "%s FOUND" file)
-                         (let ((default-directory site-lisp))
-                           (load file *pjb-load-noerror* *pjb-load-silent*)))))
-                   '("site-start.el" "site-gentoo.el" "subdirs.el"))
-             t)))
-    (dolist (directories
-              ;; When several directories are listed in a sublist, only
-              ;; the first found directory will be added.
-              (append
-               (case emacs-major-version
-                 ((20 21 22)
-                  (append '("/opt/lisp/emacs"
-                            "/opt/local/share/emacs/site-lisp"
-                            "/usr/local/share/emacs/site-lisp")
-                          '("/opt/clisp-2.48/share/emacs/site-lisp"
-                            "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                            "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                            "/opt/clisp-2.47/share/emacs/site-lisp"
-                            "/opt/clisp-2.46/share/emacs/site-lisp"
-                            "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                          '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                          ))
-                 ((23)
-                  '())
-                 (otherwise
-
-                  (.EMACS "WARNING: No load-paths for emacs version %d"
-                          emacs-major-version)
-                  '()))
-               (list
-                ;; -----------------
-                ;; PJB emacs sources
-                ;; -----------------
-                ;; Since we may have several emacs version running
-                ;; on the same system, for now we will avoid
-                ;; compiling pjb sources, and we will load them
-                ;; directly from ~/src/public/emacs/.  Later we
-                ;; will see how we can install elc in version
-                ;; specific directories, but keeping references to
-                ;; the same source directory.
-                (expand-file-name  "~/src/public/emacs/")
-                ;; (get-directory :share-lisp "packages/com/informatimago/emacs/")
-                )))
-      (if (listp directories)
-          (find-if (function add-if-good) directories)
-          (add-if-good directories)))
-    (setf load-path (append new-paths
-                            (set-difference load-path base-load-path :test (function equal))
-                            base-load-path))))
-
-
-(unless (fboundp 'mdi)
-  (setf load-path (list* (expand-file-name "~/opt/share/emacs/site-lisp/slime/contribs/")
-                         (expand-file-name "~/opt/share/emacs/site-lisp/slime/")
-                         load-path)))
-
-
-;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
+
+;;;----------------------------------------------------------------------------
+;;; PAREDIT: essential!
+;;;----------------------------------------------------------------------------
+
+(load "paredit")
 
 
 ;;;----------------------------------------------------------------------------
@@ -1414,13 +1530,33 @@ SIDE must be the symbol `left' or `right'."
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
+
+    "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--13-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--15-150-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
+    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-fontset-startup"
+
+    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
+
+    
+    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
+    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
+    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
     ))
 
-(defvar *pjb-current-font-index* -1)
+(defvar *pjb-current-font-index* 0)
 
 (defun sign (number)
   (cond ((< number 0) -1)
@@ -1442,7 +1578,11 @@ SIDE must be the symbol `left' or `right'."
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
                                             (length *pjb-font-list*))))))
 
-(forward-font 1)
+
+(global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
+(global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
+
+
 
 ;; (when (eq window-system 'x)
 ;;   (set-frame-font 
@@ -1464,18 +1604,6 @@ SIDE must be the symbol `left' or `right'."
 
 ;;;----------------------------------------------------------------------------
 
-(defmacro* string-case (string-expression &body clauses)
-  (let ((value (gensym)))
-    `(let ((,value ,string-expression))
-       (cond
-         ,@(mapcar (lambda (clause)
-                     (destructuring-bind (constants &rest body) clause
-                       (if (member* constants '(t otherwise) :test (function eql))
-                           `(t ,@body)
-                           `((member* ,value ',(ensure-list constants)
-                                      :test (function string-equal*))
-                             ,@body))))
-                   clauses)))))
 
 ;;;----------------------------------------------------------------------------
 (when (and (not *pjb-pvs-is-running*) (member window-system '(x mac)))
@@ -1565,9 +1693,6 @@ SIDE must be the symbol `left' or `right'."
   (.EMACS "set-default-frame-alist")
 
 
-  
-
-
   (defun set-default-frame-alist (&optional font)
     "Sets default-frame-alist depending on the current environment (host, display, etc)."
     (interactive)
@@ -1595,24 +1720,22 @@ SIDE must be the symbol `left' or `right'."
            (fringe-background nil))
 
       (setf default-cursor-type cursor-type)
-      (string-case (hname :test (function string-equal*))
-        (("mdi-development-1" "mdi-development-2")
-         (setf fringe-background "yellow"))
+      (string-case hname
 
-        (("simias")
-         (setq palette            pal-anevia))
-        
-        (("thalassa" "despina")
+        (("thalassa" "despina" "kuiper")
+         (forward-font 10)
          (setq palette            pal-thalassa
                width              81
                height             70))
 
-        (("larissa") 
-         (setq palette            pal-larissa
-               Width              81
-               height             70))
+        (("triton" "proteus")
+         (font-forward 1)
+         (setq palette            pal-galatea
+               width              86
+               height             52))
 
-        (("galatea") 
+        (("galatea")
+         (forward-font 1)
          (setq palette            pal-naiad
                width              81
                height             54
@@ -1631,6 +1754,11 @@ SIDE must be the symbol `left' or `right'."
                                                       :registry "ISO8859"
                                                       :encoding "1")))
                         (if (font-exists-p fixed) fixed font))))
+        
+        (("larissa") 
+         (setq palette            pal-larissa
+               Width              81
+               height             70))
 
         (("naiad")
          (setq palette            pal-naiad
@@ -1642,14 +1770,16 @@ SIDE must be the symbol `left' or `right'."
                width              81
                height             54))
 
-        (("triton" "proteus")
-         (setq palette            pal-galatea
-               width              86
-               height             52))
         (("mini")
          (setq palette            pal-white
                width              86
-               height             52)))
+               height             52))
+
+        (("mdi-development-1" "mdi-development-2")
+         (setf fringe-background "yellow"))
+
+        (("simias")
+         (setq palette            pal-anevia)))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -1860,6 +1990,7 @@ capitalized form."
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
       org-agenda-files  '("~/notes.txt"
+                          "~/notes-kuiper.txt"
                           ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
                           ;; "~/firms/wizards/notes.txt"
                           ;; "~/firms/willcom/notes.txt"
@@ -1891,16 +2022,6 @@ capitalized form."
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
-
-(cond
-  ((string= "mdi-development-1" *hostname*)
-   (setf load-path (list* "~/opt/share/emacs/site-lisp/slime/contribs/"
-                          "~/opt/share/emacs/site-lisp/slime/"
-                          load-path)))
-  (t
-   (push (get-directory :share-lisp  "packages/net/common-lisp/slime/slime/")
-         load-path)))
-
 
 (unless (fboundp 'mdi)
   
@@ -2357,9 +2478,10 @@ Prefix argument means switch to the Lisp buffer afterwards."
         lines
         (nth 3 style))))))
 
+
 (defun pjb-lisp-meat ()
   (interactive)
-  (.EMACS "running pjb-lisp-meat on %S" (buffer-name))
+  (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (unless (eq 'emacs-lisp-mode major-mode)
     (local-set-key [f8] (function  show-inferior-lisp-buffer)))
   (local-set-key (kbd "RET") 'newline-and-indent)
@@ -2371,8 +2493,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
   ;; (setf comment-region-function 'pjb-lisp-comment-region)
   (local-set-key (kbd "<A-up>")      (function backward-up-list))
   (local-set-key (kbd "<A-down>")    (function down-list))
-  (when (load "paredit" t t)
-    (paredit-mode +1))
+  (paredit-mode +1)
   (local-set-key (kbd "<s-A-left>")  (function paredit-backward-barf-sexp))
   (local-set-key (kbd "<s-A-right>") (function paredit-backward-slurp-sexp))
   (local-set-key (kbd "<A-right>")   (function paredit-forward-slurp-sexp))
@@ -2886,8 +3007,14 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
-(handler-case (slime-setup '(slime-fancy slime-indentation))
-  (error () (slime-setup :autodoc t :typeout-frame t :highlight-edits t)))
+(or (ignore-errors
+      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation)))
+    (ignore-errors
+      (slime-setup '(slime-fancy slime-indentation)))
+    (ignore-errors
+      (slime-setup :autodoc t :typeout-frame t :highlight-edits t))
+    (error "Cannot setup slime :-("))
+
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 
@@ -5960,6 +6087,62 @@ or as \"emacs at <hostname>\"."
 
 
 ;;;----------------------------------------------------------------------------
+;;; Google Maps
+;;;----------------------------------------------------------------------------
+
+(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-maps/google-maps.el"))
+  (push (get-directory :share-lisp  "packages/org/naquadah/google-maps/") load-path)
+  (require 'google-maps))
+;; (google-maps-static-show :center "Valencia"
+;;                          :maptype 'hybrid)
+;; (google-maps-static-show
+;;  :center "Cimetière du Montparnasse"
+;;  :maptype 'hybrid
+;;  ;; :zoom 5
+;;  :markers '((("Place Saint-Michel, Paris") . (:label ?M :color "blue"))
+;;             (("Jardin du Luxembourg, Paris" "Parc Montsouris, Paris") . (:label ?P :color "green")))
+;;  :visible '("44 rue de l'Ouest, Paris" "Montrouge")
+;;  :paths '((("Tour Eiffel, Paris" "Arc de triomphe, Paris" "Panthéon, Paris")
+;;            . (:weight 3 :color "black" :fillcolor "yellow"))))
+
+
+(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/google-weather.el"))
+  (push (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/") load-path)
+  (require 'google-weather)
+  (require 'org-google-weather))
+
+
+;;;----------------------------------------------------------------------------
+
+(defun unwrap-google-url (&optional start end)
+  (interactive "r")
+  (let ((start (or start (min (or (mark)  (point-min)))))
+        (end   (or end   (max (or (point) (point-max))))))
+    (goto-char start)
+    (when (search-forward "%3A%2F%2F" end t)
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert "://")
+      (while (search-forward "%2F" end t)
+        (delete-region (match-beginning 0) (match-end 0))
+        (insert "/")))))
+
+
+;;;----------------------------------------------------------------------------
+
+(defun screen-dump (&optional screen-dump-file)
+  (interactive)
+  (cond
+    (screen-dump-file
+     (shell-command (format "xwd | xwdtopnm | pnmtopng > %S"
+                            (expand-file-name screen-dump-file))))
+    (current-prefix-arg
+     (screen-dump (read-from-minibuffer "Screen dump file: " "~/screen-dump.png")))
+    (t
+     (screen-dump "~/screen-dump.png"))))
+
+(global-set-key (kbd "<print>") 'screen-dump)
+
+;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
 (sfn t)
@@ -5969,8 +6152,4 @@ or as \"emacs at <hostname>\"."
 ;; (switch-to-buffer (get-buffer-create "emtpy"))
 ;; (delete-other-windows)
 
-
-;; Local Variables:
-;; eval: (cl-indent 'string-case 1)
-;; End:
 ;;;; THE END ;;;;
