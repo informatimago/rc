@@ -2524,6 +2524,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
   ;;   (local-set-key "\"" 'skeleton-pair-insert-maybe)
   (when (fboundp 'column-marker-1) (column-marker-1 80))
   (add-hook 'comint-preoutput-filter-functions (function pjb-comint-preoutput-insert-image))
+  (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" (0 font-lock-builtin-face))))
   (.EMACS "pjb-lisp-meat on %S done" (buffer-name))
   (values))
 
