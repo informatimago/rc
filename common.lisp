@@ -112,12 +112,12 @@
    (if file-type
        `(((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type :wild :version :wild) "*.*")))
-   #+allegro
+   #+(or allegro ccl)
    (if file-type
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
-       '(((:name :wild :type nil   :version nil)   "*")
+       '(((:name :wild :type nil   :version nil) "*")
          ((:name :wild :type :wild :version nil) "*.*")))
-   #-(OR clisp sbcl allegro) 
+   #-(OR clisp sbcl allegro ccl) 
    (if file-type 
        `(((:name :wild :type ,file-type :version nil)   ,(format nil "*.~(~A~)" file-type))
          ((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
@@ -192,15 +192,29 @@
 
 ;;----------------------------------------------------------------------
 
-#+allegro
-(defun lp (designator)
-  (if (stringp designator)
-      (let ((colon (position #\: designator)))
-        (format nil "~:@(~A~)~(~A~)"
-                (subseq designator 0 colon)
-                (subseq designator colon)))
-      designator))
+(defun prepare-logical-pathname (designator)
+  #+(or allegro ccl) (typecase designator
+                       (string  (let ((colon (position #\: designator)))
+                                  (format nil "~:@(~A~)~(~A~)"
+                                          (subseq designator 0 colon)
+                                          (subseq designator colon))))
+                       (logical-pathname (prepare-logical-pathname (namestring designator)))
+                       (t designator))
+  #-(or allegro ccl) designator)
 
+(defun prepare-default-pathname (designator &key (case :local))
+  (if (eq case :local)
+      designator
+      (progn
+        #+(or allegro ccl)
+        (typecase designator
+          (string (prepare-default-pathname (pathname designator) :case case))
+          (logical-pathname designator)
+          (pathname        ; this must be a physical pathname
+           (string-upcase (namestring designator)))
+          (t designator))
+        #-(or allegro ccl)
+        designator)))
 
 
 #+(or ecl sbcl)
@@ -214,12 +228,13 @@
                     (get-directory :share-lisp "asdf/asdf.lisp"))
          :failure)
   (handler-case
-      (progn (LOAD #+allegro (lp file) #-allegro file)
+      (progn (LOAD (prepare-logical-pathname file))
              (return :success))
     #-clisp
     (FILE-ERROR (err)
       (format *error-output* "Got error ~A ; trying again.~%" err)
-      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+      (format *error-output* "Translations are: ~S~%"
+              (logical-pathname-translations "PACKAGES"))
       (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
               err file (translate-logical-pathname file))
       (handler-case (load (translate-logical-pathname file))
@@ -241,10 +256,8 @@
   "Force rescan at leastr once this amount of seconds.")
 
 (defparameter *asdf-registry-file*
-  (make-pathname :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :case :common
-                 :defaults (#+allegro (lambda (x) (string-upcase (namestring x)))
-                            #-allegro identity
-                            (user-homedir-pathname)))
+  (make-pathname :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :case #1=:common
+                 :defaults (prepare-default-pathname (user-homedir-pathname) :case #1#))
   "Cache file.")
 
 (defparameter *original-asdf-registry* ASDF:*CENTRAL-REGISTRY*)
@@ -538,10 +551,8 @@
     (BLOCK :DONE
       (DOLIST (FILE
                 (LIST
-                 (#+allegro lp #-allegro identity
-                            "PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE")
-                 (#+allegro lp #-allegro identity
-                            "PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE.LISP")
+                 (prepare-logical-pathname #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE")
+                 (prepare-logical-pathname #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE.LISP")
                  (MP *PJB-COMM* ("common-lisp") "package")
                  (MP *PJB-COMM* ("common-lisp") "package" "lisp")))
         (HANDLER-CASE (PROGN (LOAD FILE) (RETURN-FROM :DONE T)) (ERROR ())))
