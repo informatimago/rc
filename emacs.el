@@ -3023,11 +3023,14 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (require 'slime)
 (or (ignore-errors
-      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation)))
+      (progn (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation))
+             t))
     (ignore-errors
-      (slime-setup '(slime-fancy slime-indentation)))
+      (progn (slime-setup '(slime-fancy slime-indentation))
+             t))
     (ignore-errors
-      (slime-setup :autodoc t :typeout-frame t :highlight-edits t))
+      (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
+             t))
     (error "Cannot setup slime :-("))
 
 (setf slime-net-coding-system 'utf-8-unix)
