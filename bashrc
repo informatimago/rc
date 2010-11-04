@@ -31,7 +31,6 @@ fi
 
 
 
-
 function member(){
     local item="$1" ; shift
     for arg ; do 
@@ -54,8 +53,19 @@ function reverse(){
 }
 
 
-function appendIfPresent(){
-    # appendIfPresent VARIABLE dir...
+function appendToListVariable(){
+    # appendToList VAARIABLE element...
+    # Appends to the array VARIABLE each element.
+    # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
+    local var=$1 ; shift
+    for element ; do
+        eval "$var[\${#$var[@]}]=\"\$element\""
+    done
+}
+
+
+function appendNewToStringVariableDirectoryIfExists(){
+    # appendNewToStringVariableDirectoryIfExists VARIABLE dir...
     # Appends to the VARIABLE each directory, if it exists as a directory [ -d dir ].
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
@@ -67,8 +77,8 @@ function appendIfPresent(){
 }
 
 
-function prependIfPresent(){
-    # prependIfPresent VARIABLE dir...
+function prependNewToStringVariableDirectoryIfExists(){
+    # prependNewToStringVariableDirectoryIfExists VARIABLE dir...
     # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
@@ -135,6 +145,7 @@ function be_generate(){
         /Library/PostgreSQL8/bin 
         /Developer/Tools 
         $HOME/bin 
+        $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
 
     mandirs=( 
@@ -200,15 +211,15 @@ function be_generate(){
     done
 
     list="$PATH"
-    prependIfPresent list  ${bindirs[@]}
+    prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list"
 
     list="$MANPATH"
-    prependIfPresent list  ${mandirs[@]}
+    prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
     be_variable MANPATH "$list"
 
     list="$LD_LIBRARY_PATH"
-    prependIfPresent list ${lddirs[@]}
+    prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
     be_variable LD_LIBRARY_PATH "$list"
 
 
@@ -248,7 +259,7 @@ function be_generate(){
     if [ -d /usr/share/kaffe/ ] ; then
         be_variable KAFFEHOME /usr/share/kaffe
         list=''
-        appendIfPresent list \
+        appendNewToStringVariableDirectoryIfExists list \
             "$JAVA_HOME"/lib/java.io.zip \
             $KAFFEHOME/Klasses.jar \
             /usr/local/share/kaffe/pizza.jar \
@@ -264,7 +275,7 @@ function be_generate(){
         be_variable JAVA_BASE /usr/local/languages/java
         be_variable JAVA_HOME "$JAVA_BASE"/jdk1.1.6/
         list=''
-        appendIfPresent list \
+        appendNewToStringVariableDirectoryIfExists list \
             "$JAVA_HOME"/lib/classes.zip \
             "$JAVA_BASE"/swing-1.0.3/swingall.jar \
             "$JAVA_BASE"/jaccess-1.0/jaccess.jar \
@@ -467,12 +478,20 @@ fi
 
 
 if [ -x /usr/games/bin/fgfs ] ; then
-    alias fs='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000' 
-
-    alias f14='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=AC112P  --aircraft=f-14b'
-    alias f16='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=BK1P    --aircraft=f16'
-    alias f18='/usr/games/bin/fgfs  --control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d --multiplay=out,20,mpserver10.flightgear.org,5000  --callsign=BK1P    --aircraft=f18'
-
+    fgfs_default_options=(--control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d)
+    function netfs(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
+    function f14(){ netfs  --callsign=AC112P  --aircraft=f-14b "$@" ; }
+    function f16(){ netfs  --callsign=BK1P    --aircraft=f16   "$@" ; }
+    function f18(){ netfs  --callsign=BK1P    --aircraft=f18   "$@" ; }
+    function nimitz(){
+        local cs=CVN68
+        /usr/games/bin/fgfs ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,20,,5002  \
+            --callsign=$cs \
+            --aircraft=nimitz \
+            --ai-scenario=nimitz_demo \
+            --prop:/sim/mp-carriers/nimitz-callsign=$cs \
+            "$@"
+    }
 fi
 
 # ----------------------------------------
