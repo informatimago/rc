@@ -29,12 +29,18 @@ alias web       exec firefox
 alias xterm     exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
 alias objing    exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
 alias size      echo $(screen-size)
+alias galatea   exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
 
-bind  c         xterm
-bind  M-x       colon
-bind  M-colon   colon
-bind  o         focus
-bind  t         meta C-t
+escape C-t
+bind t         meta 
+bind C-t       other
+bind Pause     other
+
+bind M-x       colon
+bind M-colon   colon
+bind o         focus
+bind c         xterm
+
 
 rudeness 15 
 # rudeness 12  = to prevent firefox to raise indiscriminately.
