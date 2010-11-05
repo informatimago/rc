@@ -1,7 +1,6 @@
 # -*- mode: shell-script;coding:iso-8859-1 -*-
 # .bashrc
-# The individual per-interactive-shell startup file
-
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
@@ -479,10 +478,14 @@ fi
 
 if [ -x /usr/games/bin/fgfs ] ; then
     fgfs_default_options=(--control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d)
-    function netfs(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
-    function f14(){ netfs  --callsign=AC112P  --aircraft=f-14b "$@" ; }
-    function f16(){ netfs  --callsign=BK1P    --aircraft=f16   "$@" ; }
-    function f18(){ netfs  --callsign=BK1P    --aircraft=f18   "$@" ; }
+    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
+    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" ; }
+    function f14(){   netfs1  --callsign=AC112P  --aircraft=f-14b "$@" ; }
+    function f16(){   netfs1  --callsign=BK1P    --aircraft=f16   "$@" ; }
+    function f18(){   netfs1  --callsign=BK1P    --aircraft=f18   "$@" ; }
+    function f14-2(){ netfs2  --callsign=AC112Q  --aircraft=f-14b "$@" ; }
+    function f16-2(){ netfs2  --callsign=BK1Q    --aircraft=f16   "$@" ; }
+    function f18-2(){ netfs2  --callsign=BK1Q    --aircraft=f18   "$@" ; }
     function nimitz(){
         local cs=CVN68
         /usr/games/bin/fgfs ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,20,,5002  \
@@ -501,7 +504,14 @@ fi
 # alias dread="defaults read "
 # alias dwrite="defaults write "
 
-_gopen () {
+function wmdock (){
+    wmweather -s LELC -metric -kPa &
+    wmglobe &
+    wmspaceweather &
+    wmsun -lat 42 -lon 0 &
+}
+
+function _gopen (){
     local cur app
     COMPREPLY=()
     cur=${COMP_WORDS[COMP_CWORD]}
@@ -517,7 +527,7 @@ complete -f -X '!*.@(app)' openapp
 # gentoo
 # ----------------------------------------
 
-ew () {
+function ew () {
     local key="$1"
     key="${key/\/}"
     esearch -c -F "$key" | sed -e "s/$key//"
@@ -526,15 +536,88 @@ ew () {
 # ----------------------------------------
 # Linux rc
 # ----------------------------------------
-function status  { /etc/init.d/$1 status;  }
-function start   { /etc/init.d/$1 start;   }
-function stop    { /etc/init.d/$1 stop;    }
-function restart { /etc/init.d/$1 restart; }
-function reload  { /etc/init.d/$1 reload;  }
+function status  (){ /etc/init.d/$1 status;  }
+function start   (){ /etc/init.d/$1 start;   }
+function stop    (){ /etc/init.d/$1 stop;    }
+function restart (){ /etc/init.d/$1 restart; }
+function reload  (){ /etc/init.d/$1 reload;  }
 
 #  export CFLAGS=-I/opt/local/include ; export LDFLAGS=-L/opt/local/lib
 
-#END#
+
+
+# ----------------------------------------
+# one liners with a certain utility
+# ----------------------------------------
+function get-directory   (){ awk '/^ *'"$1"'  */{print $2}' ~/directories.txt ; }
+
+function timestamp       (){ date +%Y%m%dT%H%M%S ; }
+function ip-address      (){ ifconfig|awk '/inet /{if($2!="127.0.0.1"){print $2;exit;}}' ; }
+
+function sort-host       (){ tr '.' '@' | sort -t@ -n +0 -1 +1 -2 +2 -3 +3 -4 | tr '@' '.' ; }
+    # We have to replace dots by something else since they are taken for
+    # decimal points by sort -n.
+
+function usb-devices     (){ awk 'BEGIN{line="======================================";line=line line;}
+/^T/{printf "\n%s\n",line;print $0;next;}
+/^[IC]/{printf "\n";print $0;next;}
+{print $0;}
+END{printf "\n%s\n",line;}
+' < /proc/bus/usb/devices 
+}
+
+
+function mmencode        (){ base64 "$@" ; }
+function msum            (){ md5sum "$1" ; sumseg 9728000 "$1" ; }
+
+function rm-symlinks     (){ ls -l |grep -e '->'|awk '{print $9}'|xargs rm ; }
+
+function all-disk-stat   (){ dstat -d -D total,$(cd /dev ; echo hd? sd? |tr ' ' ',') "$@" ; }
+function sysexits        (){ grep '#define' /usr/include/sysexits.h|sed -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/' ; }
+
+function screen-size     (){ xwininfo -root|egrep 'Width|Height' ; }
+function xauth-add       (){ xauth add $(echo "${DISPLAY:-DISPLAY-UNSET}" | sed 's/.*\(:.*\)/\1/') . $(mcookie) ; }
+function xset-on         (){ ( export DISPLAY=:0.0 ; xset s 7200 0 ; xset dpms force on ; xset dpms 7200 8000 9000 ) ; }
+
+function yls             (){ /bin/ls -1 | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
+
+function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
+function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
+
+function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
+function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
+function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
+function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; EMACS_USE=pgm  $EMACS & disown ; sleep 7 ; EMACS_USE=gnus $EMACS & disown ; sleep 7 ; EMACS_USE=erc  $EMACS & disown }
+
+
+
+function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
+function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
+function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+
+function svn-status      (){ svn status | grep -v -e '^? ' ; }
+function svn-obsolete    (){ for f in "$@" ; do mv "$f" "$f"-obsolete && svn update "$f" ; diff "$f" "$f"-obsolete  ; done ; }
+function svn-keep        (){ for f ; do mv "${f}" "${f}-keep" && svn update "${f}" && mv "${f}" "${f}-old" && mv "${f}-keep" "${f}" ; done ; }
+
+
+function swiki           (){ cd /srv/local/ComSwiki ; ./squeak -headless squeak.image & echo http://local
+host:8888 ; }
+
+function asx             (){ tr -d '\012' < "$1" | sed -e 's/.*[Rr][Ee][Ff]  *[Hh][Rr][Ee][Ff] *= *"\([^"]*\)".*/\1/' ; printf '\n' ; }
+function aspx            (){ tr -d '\015\012' < "$1" | tr '<>' '\012\012' | sed -n -e 's/.*href="\(.*\.mov\)".*/\1/p' | head -1 ; }
+
+
+function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t iso-8859-1  < "${f}~" > $"$f" || cat "${f}~" > $"$f" ; }
+
+
+# ----------------------------------------
+# old one liners
+# ----------------------------------------
+function remote-nntp     (){ sudo ssh -L 119:news.free.fr:119 pjb@free.informatimago.com ; }
+function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medium-r-normal-*-*-140-75-*-*-*-iso8859-1' -T atc -e bash -c "while true ; do /usr/games/bin/atc -g ${1:-Atlantis} ; sleep 5 ; done" ; }
+function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
+
+
 
 
 #    WHEN starting
@@ -632,7 +715,8 @@ function reload  { /etc/init.d/$1 reload;  }
 #       id.  If the -p  option  is  supplied  at  invocation,  the
 #       startup behavior is the same, but the effective user id is
 #       not reset.
-#
+
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
 
 

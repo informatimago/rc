@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 # .bash_login
 #
 # bash login shell startup file.
@@ -20,5 +21,11 @@
 # For now, let them inherit the environment of the invoking shell.
 #
 export BASH_ENV=""
+
+printf "\n"
+cookie
+printf "\n"
+insulte
+printf "\n"
 
 #END#
