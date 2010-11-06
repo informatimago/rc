@@ -523,6 +523,12 @@ complete -F _gopen -o dirnames gopen
 complete -f -X '!*.@(app)' openapp
 
 
+function completion_radio(){
+    # echo '' ; radio --bash-completions "$COMP_CWORD" "${COMP_WORDS[@]}"
+    COMPREPLY=( $(radio --bash-completions "$COMP_CWORD" "${COMP_WORDS[@]}") )
+}
+complete -F completion_radio  radio 
+
 # ----------------------------------------
 # gentoo
 # ----------------------------------------
