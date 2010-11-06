@@ -549,8 +549,17 @@ function reload  (){ /etc/init.d/$1 reload;  }
 # Some commands in $HOME/bin/* have a bash auto-completion feature.
 # ----------------------------------------
 
+quote(){
+    for arg ; do
+        local slash=${arg//\\/\\\\}
+        local quote=\'${slash//\'/\'\\\'\'}\' # no "${...}" here! It would break the \'
+        printf "%s " ${quote}
+    done
+    printf "\n"
+}
+
 for script in radio fpm newpassword religion ; do
-    eval $($script  --bash-completion-function) 
+    eval $( $script --bash-completion-function )
 done
 
 
@@ -595,7 +604,7 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; EMACS_USE=pgm  $EMACS & disown ; sleep 7 ; EMACS_USE=gnus $EMACS & disown ; sleep 7 ; EMACS_USE=erc  $EMACS & disown }
+function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; EMACS_USE=pgm  $EMACS & disown ; sleep 7 ; EMACS_USE=gnus $EMACS & disown ; sleep 7 ; EMACS_USE=erc  $EMACS & disown ; }
 
 
 
@@ -726,5 +735,3 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
-
-
