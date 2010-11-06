@@ -523,12 +523,6 @@ complete -F _gopen -o dirnames gopen
 complete -f -X '!*.@(app)' openapp
 
 
-function completion_radio(){
-    # echo '' ; radio --bash-completions "$COMP_CWORD" "${COMP_WORDS[@]}"
-    COMPREPLY=( $(radio --bash-completions "$COMP_CWORD" "${COMP_WORDS[@]}") )
-}
-complete -F completion_radio  radio 
-
 # ----------------------------------------
 # gentoo
 # ----------------------------------------
@@ -550,6 +544,14 @@ function reload  (){ /etc/init.d/$1 reload;  }
 
 #  export CFLAGS=-I/opt/local/include ; export LDFLAGS=-L/opt/local/lib
 
+
+# ----------------------------------------
+# Some commands in $HOME/bin/* have a bash auto-completion feature.
+# ----------------------------------------
+
+for script in radio fpm newpassword religion ; do
+    eval $($script  --bash-completion-function) 
+done
 
 
 # ----------------------------------------
