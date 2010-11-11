@@ -167,7 +167,7 @@
 
 
 (PUSH (function si:chdir)
-      COM.INFORMATIMAGO.COMMON-LISP.BROWSER:*CHANGE-DIRECTORY-HOOK*)
+      COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER:*CHANGE-DIRECTORY-HOOK*)
 (cd (si:getcwd))
 
 ;;----------------------------------------------------------------------

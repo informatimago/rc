@@ -122,10 +122,10 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -140,8 +140,8 @@
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
- '(font-lock-string-face ((t (:foreground "Orchid"))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
+ '(font-lock-string-face ((t (:foreground "Orchid"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -231,13 +231,13 @@
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
  '(display-time-mode t)
- '(erc-server-reconnect-attempts 100)
- '(erc-server-reconnect-timeout 60)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
  '(ecb-source-path (quote ("/home/pjb/src/")))
- '(emms-info-mp3info-coding-system (quote utf-8))
+ '(emms-info-functions (quote (emms-info-id3v2 emms-info-ogginfo emms-info-mp3info)))
+ '(emms-info-mp3info-coding-system (quote iso-8859-1))
+ '(emms-lyrics-display-on-minibuffer t)
  '(emms-player-started-hook (quote (emms-show)))
  '(emms-show-format "NP %s")
  '(emms-source-file-default-directory "/d5/music/")
@@ -272,6 +272,8 @@
  '(erc-quit-reason-various-alist nil)
  '(erc-server "irc.freenode.org")
  '(erc-server-coding-system (quote (utf-8 . undecided)))
+ '(erc-server-reconnect-attempts 100)
+ '(erc-server-reconnect-timeout 60)
  '(erc-timestamp-format nil)
  '(erc-timestamp-intangible nil)
  '(erc-user-full-name "Pascal J. Bourguignon")
@@ -386,11 +388,11 @@ X-Disabled: X-No-Archive: no
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pr-faces-p t)
- '(printer-name "normal_gray" t)
+ '(printer-name "normal_gray")
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4) t)
+ '(ps-paper-type (quote a4))
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -431,7 +433,7 @@ X-Disabled: X-No-Archive: no
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
  '(tab-width 4)
- '(tags-table-list (quote nil) t)
+ '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -483,7 +485,7 @@ X-Disabled: X-No-Archive: no
  '(w3-user-fonts-take-precedence t)
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
- '(warning-suppress-types (quote ((undo discard-info))))
+ '(warning-suppress-types (quote ((undo discard-info))) t)
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
@@ -947,7 +949,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
                             ;; specific directories, but keeping references to
                             ;; the same source directory.
                             ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
-                            '("~/src/public/emacs"))
+                            '("~/src/public/emacs")
+                            '("~/emacs"))
                            ;; (unless (fboundp 'mdi)
                            ;;   '("~/opt/share/emacs/site-lisp"))
                            ;; (when (string= "mdi-development-1" *hostname*)
@@ -1274,7 +1277,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[21~"  (lambda()(interactive)(beep)))  ; <f10>
   (global-set-key "[23~"  (lambda()(interactive)(beep)))  ; <f11>
   (global-set-key "[24~"  (lambda()(interactive)(beep)))  ; <f12>
-  )
+  nil)
 
 
 (defun pjb-global-key-bindings ()
@@ -2493,6 +2496,15 @@ Prefix argument means switch to the Lisp buffer afterwards."
         (nth 3 style))))))
 
 
+(defun paredit-beginning-of-toplevel-form ()
+  (interactive)
+  (ignore-errors (paredit-backward-up 1000)))
+
+(defun paredit-end-of-toplevel-form ()
+  (interactive)
+  (ignore-errors (paredit-forward-up 1000)))
+
+
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
@@ -2505,17 +2517,19 @@ Prefix argument means switch to the Lisp buffer afterwards."
         comint-process-echoes nil)
   (setf comment-style 'indent)
   ;; (setf comment-region-function 'pjb-lisp-comment-region)
-  (local-set-key (kbd "<A-up>")      (function backward-up-list))
-  (local-set-key (kbd "<A-down>")    (function down-list))
+  (local-set-key (kbd "<A-up>")      'backward-up-list)
+  (local-set-key (kbd "<A-down>")    'down-list)
   (paredit-mode +1)
-  (local-set-key (kbd "<s-A-left>")  (function paredit-backward-barf-sexp))
-  (local-set-key (kbd "<s-A-right>") (function paredit-backward-slurp-sexp))
-  (local-set-key (kbd "<A-right>")   (function paredit-forward-slurp-sexp))
-  (local-set-key (kbd "<A-left>")    (function paredit-forward-barf-sexp))
-  (local-set-key (kbd "A-s")         (function paredit-backward-barf-sexp))
-  (local-set-key (kbd "A-d")         (function paredit-backward-slurp-sexp))
-  (local-set-key (kbd "A-f")         (function paredit-forward-slurp-sexp))
-  (local-set-key (kbd "A-g")         (function paredit-forward-barf-sexp))
+  (local-set-key (kbd "<s-A-left>")  'paredit-backward-barf-sexp)
+  (local-set-key (kbd "<s-A-right>") 'paredit-backward-slurp-sexp)
+  (local-set-key (kbd "<A-right>")   'paredit-forward-slurp-sexp)
+  (local-set-key (kbd "<A-left>")    'paredit-forward-barf-sexp)
+  (local-set-key (kbd "A-s")         'paredit-backward-barf-sexp)
+  (local-set-key (kbd "A-d")         'paredit-backward-slurp-sexp)
+  (local-set-key (kbd "A-f")         'paredit-forward-slurp-sexp)
+  (local-set-key (kbd "A-g")         'paredit-forward-barf-sexp)
+  (local-set-key (kbd "C-M-U")       'paredit-beginning-of-toplevel-form)
+  (local-set-key (kbd "C-M-N")       'paredit-end-of-toplevel-form)
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
@@ -2527,6 +2541,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" (0 font-lock-builtin-face))))
   (.EMACS "pjb-lisp-meat on %S done" (buffer-name))
   (values))
+
+
 
 
 
@@ -3022,6 +3038,26 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
 
 (require 'slime)
+
+(defun slime-eval-print (string)
+  "Eval STRING in Lisp; insert any output and the result at point."
+  (message "current-prefix-arg = %S" current-prefix-arg)
+  (let ((commentp (and (listp current-prefix-arg)
+                       (integerp (first current-prefix-arg))
+                       (< 4 (first current-prefix-arg)))))
+    (slime-eval-async `(swank:eval-and-grab-output ,string)
+      `(lambda (result)
+        (destructuring-bind (output value) result
+          (push-mark)
+          (if ,commentp
+              (progn
+                (insert output)
+                (let ((lines (split-string value "\n")))
+                  (insert "\n;; --> " (pop lines) "\n")
+                  (dolist (line lines)
+                    (insert ";;     " line "\n"))))
+              (insert output value)))))))
+
 (or (ignore-errors
       (progn (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation))
              t))
@@ -4202,13 +4238,52 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (require 'emms-player-simple)
   (require 'emms-source-file)
   (require 'emms-source-playlist)
-  ;;   ;; save playlist and load at emacs start
-  ;; (require 'emms-history)
-  ;; (emms-history-load)
+  ;; save playlist and load at emacs start
+  (require 'emms-history)
+  (emms-history-load)
+  (require 'emms-volume)
+  (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
+  (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
+  (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
   ;; (setq emms-repeat-playlist 1)
-  (emms-standard)
+  ;; (emms-standard)
+
+  (when (require 'emms-info-id3v2 nil t)
+    (add-to-list 'emms-info-functions 'emms-info-id3v2))
+
+  (emms-all)
   (emms-default-players)
+  (setq emms-playlist-default-major-mode 'emms-playlist-mode)
+
+
+  (defvar emms-browser-mode-hook '()
+    "Hook for meat called after emms-browser-mode is activated.")
+  
+  (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
+    "Add an emms-browser-mode-hook feature."
+    (interactive)
+    (run-mode-hooks 'emms-browser-mode-hook)
+    (when (null delay-mode-hooks)
+      (run-mode-hooks 'after-change-major-mode-hook)))
+
+  (defun pjb-emms-save-file-path ()
+    (interactive)
+    (let* ((bdata (emms-browser-bdata-at-point))
+           (data  (cdr (assoc 'data    bdata)))
+           (track (cdr (assoc '*track* data)))
+           (name  (cdr (assoc 'name    track))))
+      (kill-new name nil nil)
+      (message "%s" name)))
+  
+  (defun pjb-emms-browser-mode-meat ()
+    (interactive)
+    (local-set-key (kbd "u") 'pjb-emms-save-file-path)
+    (local-set-key (kbd "U") 'pjb-emms-save-file-path))
+
+  (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
+  
   (defalias 'np 'emms-show))
+
 
 
 
@@ -5396,6 +5471,13 @@ See the documentation for vm-mode for more information."
   (save-buffer)
   (bury-buffer))
 
+
+;;;----------------------------------------------------------------------------
+
+(defun informatimago ()
+  "Browse http://www.informatimago.com"
+  (interactive)
+  (browse-url "http://www.informatimago.com/toc.html"))
 
 
 ;;;----------------------------------------------------------------------------

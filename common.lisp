@@ -193,27 +193,27 @@
 ;;----------------------------------------------------------------------
 
 (defun prepare-logical-pathname (designator)
-  #+(or allegro ccl) (typecase designator
+  #+(or abcl allegro ccl) (typecase designator
                        (string  (let ((colon (position #\: designator)))
                                   (format nil "~:@(~A~)~(~A~)"
                                           (subseq designator 0 colon)
                                           (subseq designator colon))))
                        (logical-pathname (prepare-logical-pathname (namestring designator)))
                        (t designator))
-  #-(or allegro ccl) designator)
+  #-(or abcl allegro ccl) designator)
 
 (defun prepare-default-pathname (designator &key (case :local))
   (if (eq case :local)
       designator
       (progn
-        #+(or allegro ccl)
+        #+(or abcl allegro ccl)
         (typecase designator
           (string (prepare-default-pathname (pathname designator) :case case))
           (logical-pathname designator)
           (pathname        ; this must be a physical pathname
            (string-upcase (namestring designator)))
           (t designator))
-        #-(or allegro ccl)
+        #-(or abcl allegro ccl)
         designator)))
 
 
@@ -559,20 +559,28 @@
       NIL)
   (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.PACKAGE"))
 
-(push 'PACKAGE:PACKAGE-SYSTEM-DEFINITION
-      ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
+;; (push 'COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:PACKAGE-SYSTEM-DEFINITION
+;;       ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
 
 
 
-(IMPORT '(COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:DEFINE-PACKAGE
-          COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-ALL-SYMBOLS
-          COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-EXTERNAL-SYMBOLS))
+;; (IMPORT '(COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:DEFINE-PACKAGE
+;;           COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-ALL-SYMBOLS
+;;           COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-EXTERNAL-SYMBOLS))
 
+(setf asdf:*central-registry*
+      (append (remove-duplicates
+               (mapcar (lambda (path)
+                         (make-pathname :name nil :type nil :version nil :defaults path))
+                       (directory #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;**;*.ASD"))
+               :test (function equalp))
+              asdf:*central-registry*))
 
 (asdf-load :COM.INFORMATIMAGO.COMMON-LISP)
-;; (PACKAGE:LOAD-PACKAGE          "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE")
-(USE-PACKAGE                   "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE")
-(EXPORT (list-external-symbols "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE"))
+;; (COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LOAD-PACKAGE  "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE")
+(USE-PACKAGE "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
+(EXPORT     (COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-EXTERNAL-SYMBOLS
+             "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
 
 (POST-PROCESS-LOGICAL-HOST-TRANSLATIONS)

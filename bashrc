@@ -143,6 +143,11 @@ function be_generate(){
         /usr/local/apps/WordPerfect/wpbin 
         /Library/PostgreSQL8/bin 
         /Developer/Tools 
+        /data/languages/ecl/bin
+        /data/languages/clisp/bin
+        /data/languages/cmucl/bin
+        /data/languages/abcl/bin
+        /data/languages/acl82express
         $HOME/bin 
         $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
@@ -566,7 +571,7 @@ done
 # ----------------------------------------
 # one liners with a certain utility
 # ----------------------------------------
-function get-directory   (){ awk '/^ *'"$1"'  */{print $2}' ~/directories.txt ; }
+function get-directory   (){ awk '{if($1=="'"$1"'"){print $2}}' ~/directories.txt ; }
 
 function timestamp       (){ date +%Y%m%dT%H%M%S ; }
 function ip-address      (){ ifconfig|awk '/inet /{if($2!="127.0.0.1"){print $2;exit;}}' ; }
@@ -597,6 +602,9 @@ function xauth-add       (){ xauth add $(echo "${DISPLAY:-DISPLAY-UNSET}" | sed 
 function xset-on         (){ ( export DISPLAY=:0.0 ; xset s 7200 0 ; xset dpms force on ; xset dpms 7200 8000 9000 ) ; }
 
 function yls             (){ /bin/ls -1 | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
+# function wls(){  COLUMNS=$(stty -a|sed -n  -e '/columns;/s/.* \([0-9]*\) columns;.*/\1/p' -e '/; columns/s/.*columns \([0-9]\+\);.*/\1/p') ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${COLUMNS:-80}  columnify ; }
+function wls(){  c=$COLUMNS ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${c:-80}  columnify ; }
+function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else find "$@" -type f -print ; fi | sort ; }
 
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
@@ -617,8 +625,7 @@ function svn-obsolete    (){ for f in "$@" ; do mv "$f" "$f"-obsolete && svn upd
 function svn-keep        (){ for f ; do mv "${f}" "${f}-keep" && svn update "${f}" && mv "${f}" "${f}-old" && mv "${f}-keep" "${f}" ; done ; }
 
 
-function swiki           (){ cd /srv/local/ComSwiki ; ./squeak -headless squeak.image & echo http://local
-host:8888 ; }
+function swiki           (){ cd /srv/local/ComSwiki ; ./squeak -headless squeak.image & echo http://localhost:8888 ; }
 
 function asx             (){ tr -d '\012' < "$1" | sed -e 's/.*[Rr][Ee][Ff]  *[Hh][Rr][Ee][Ff] *= *"\([^"]*\)".*/\1/' ; printf '\n' ; }
 function aspx            (){ tr -d '\015\012' < "$1" | tr '<>' '\012\012' | sed -n -e 's/.*href="\(.*\.mov\)".*/\1/p' | head -1 ; }

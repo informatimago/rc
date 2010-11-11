@@ -420,7 +420,7 @@
 (EXPORT 'QUIT)
 
 (PUSH (FUNCTION EXT:CD)
-      COM.INFORMATIMAGO.COMMON-LISP.BROWSER:*CHANGE-DIRECTORY-HOOK*)
+      COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER:*CHANGE-DIRECTORY-HOOK*)
 (CD (EXT:CD))     
 
 
@@ -714,29 +714,29 @@ RETURN: A list of string, the parsed arguments.
 
 (define-user-commands (date) "Interactive commands"
   "Prints the date."
-  (com.informatimago.common-lisp.interactive:date))
+  (com.informatimago.common-lisp.interactive.interactive:date))
 
 (define-user-commands (uptime) "Interactive commands"
   "Prints the uptime."
-  (com.informatimago.common-lisp.interactive:uptime))
+  (com.informatimago.common-lisp.interactive.interactive:uptime))
 
 (define-user-commands (pwd) "Interactive commands"
   "Print the working directory."
-  (format t "~&~A~%" (com.informatimago.common-lisp.interactive:pwd)))
+  (format t "~&~A~%" (com.informatimago.common-lisp.interactive.interactive:pwd)))
 
 (define-user-commands (cd) "Interactive commands"
   "Change working directory."
-  (apply (function com.informatimago.common-lisp.interactive:cd)
+  (apply (function com.informatimago.common-lisp.interactive.interactive:cd)
          (read-arguments *query-io*)))
 
 (define-user-commands (ls) "Interactive commands"
   "List files."
-  (apply (function com.informatimago.common-lisp.interactive:ls)
+  (apply (function com.informatimago.common-lisp.interactive.interactive:ls)
          (read-arguments *query-io*)))
 
 (define-user-commands (cat less more) "Interactive commands"
   "Catenate files."
-  (apply (function com.informatimago.common-lisp.interactive:cat)
+  (apply (function com.informatimago.common-lisp.interactive.interactive:cat)
          (read-arguments *query-io*)))
 
 

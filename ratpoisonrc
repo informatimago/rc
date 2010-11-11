@@ -32,9 +32,12 @@ alias size      echo $(screen-size)
 alias galatea   exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
 
 escape C-t
-bind t         meta 
+bind t         meta C-t
 bind C-t       other
 bind Pause     other
+
+# bind t         meta C-t
+# bind C-t       meta C-t
 
 bind M-x       colon
 bind M-colon   colon
@@ -59,5 +62,3 @@ exec xsetroot -solid black
 unmanage xv
 version
 banish
-
-
