@@ -42,14 +42,12 @@
 ;;;;****************************************************************************
 
 (IN-PACKAGE "COMMON-LISP-USER")
-(DEFPACKAGE "COM.INFORMATIMAGO.PJB"
-  (:NICKNAMES "PJB")
-  (:USE "COMMON-LISP"))
-;; EXPORT at the end.
 
-;; (format *trace-output* "~%;;;; rc/common.lisp~%") ; debugging ecl
+;;;----------------------------------------------------------------------
+;;;
+;;; Clean the packages imported into COMMON-LISP-USER:
+;;;
 
-;; Clean the packages imported into COMMON-LISP-USER:
 (MAPC (LAMBDA (package) (UNUSE-PACKAGE package "COMMON-LISP-USER"))
       (set-difference
        (COPY-SEQ (PACKAGE-USE-LIST "COMMON-LISP-USER"))
@@ -57,6 +55,14 @@
                     (FIND-PACKAGE "COMMON-LISP")
                     (FIND-PACKAGE "IMAGE-BASED-COMMON-LISP")))))
 
+;;;----------------------------------------------------------------------
+;;;
+;;; COM.INFORMATIMAGO.PJB
+;;;
+
+(DEFPACKAGE "COM.INFORMATIMAGO.PJB"
+  (:NICKNAMES "PJB")
+  (:USE "COMMON-LISP"))
 (IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 
 (setf *print-circle* t
@@ -66,13 +72,22 @@
 
 (declaim (OPTIMIZE (SAFETY 3) (SPACE 0) (SPEED 0) (DEBUG 3)))
 
-;; ----------------------------------------------------------------------
-;; -- logical hosts -- the Common-Lisp way to PATH --
-;; --------------------------------------------------
+
+;;;----------------------------------------------------------------------
+;;;
+;;; Logical hosts -- the Common-Lisp way to PATH 
+;;;
 
 (progn 
   (defvar *directories*  '())
   (defun get-directory (key &optional (subpath ""))
+    "
+Caches the ~/directories.txt file that contains a map of
+directory keys to pathnames, into *DIRECTORIES*.
+
+Then builds and returns a pathname made by merging the directory
+selected by KEY, and the given SUBPATH.
+"
     (unless *directories*
       (with-open-file (dirs (merge-pathnames
                              (make-pathname :name "DIRECTORIES" :type "TXT"
@@ -91,10 +106,29 @@
 
 
 (EVAL-WHEN (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
-  (DEFVAR *LOGICAL-HOSTS* '()))
-(EXPORT '(*directories* *LOGICAL-HOSTS*))
+  (DEFVAR *LOGICAL-HOSTS* '()
+    "A list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (or DEF-LP-TRANS).
+COMMON-LISP doesn't provide any introspection function for logical hosts."))
+
+(defun list-logical-hosts ()
+  "Return a list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (or DEF-LP-TRANS)."
+  (copy-list *logical-hosts*))
+
+(EXPORT '(*directories* list-logical-hosts))
+
 
 (defun make-translations (host logical-dir physical-dir &optional file-type)
+  "
+Returns logical pathname translations for the given HOST, mapping the
+logical directory LOGICAL-DIR and all the files with the given
+FILE-TYPE, in its subdirectories, to the physical directory
+PHYSICAL-DIR.
+
+If no FILE-TYPE is given, or if it's NIL, then a wildcard is used for
+the file type, and the logical pathnames are translated with and
+without this wildcard, in an orden that's implementation dependant.
+The inclusion  of a version wildcard is also implementation dependant.
+"
   (mapcar
    (lambda (item)
      (destructuring-bind (logical-tail physical-tail) item
@@ -125,8 +159,18 @@
          ((:name :wild :type :wild :version nil)   "*.*")
          ((:name :wild :type :wild :version :wild) "*.*")))))
 
+ 
+(DEFUN DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (HOST PATH &OPTIONAL (SUBPATH ""))
+  "
+Defines a new logical pathname (or overrides an existing one)
+for the given HOST, unless the logical HOST already exists.
 
-(DEFUN DEF-LP-TRANS (HOST PATH &OPTIONAL (SUBPATH ""))
+PATH and SUBPATH must be physical pathnames and subpaths.  The logical
+pathname translation maps logical pathnames directly from the root of
+the HOST, to the given path and subpath concatenated.
+
+The HOST is added to the list of logical hosts defined.
+"
   (PUSHNEW HOST *LOGICAL-HOSTS* :TEST (FUNCTION STRING-EQUAL))
   ;; If the HOST is already defined we don't change it (eg. HOME):
   (UNLESS (HANDLER-CASE (LOGICAL-PATHNAME-TRANSLATIONS HOST) (ERROR () NIL))
@@ -136,43 +180,32 @@
                 host '() (format nil "~A~:[~;~:*~A~]"
                                  path (if (string= "" subpath) nil subpath)))))))
 
-(DEFMACRO MP (PATHNAME &OPTIONAL
-              (DIRECTORY NIL DIRECTORY-P)
-              (NAME      NIL NAME-P)
-              (TYPE      NIL TYPE-P)
-              (VERSION   NIL VERSION-P))
-  `(MERGE-PATHNAMES
-    (MAKE-PATHNAME,@(WHEN DIRECTORY-P `(:DIRECTORY '(:RELATIVE ,@DIRECTORY)))
-                  ,@(WHEN NAME-P      `(:NAME      ,NAME))
-                  ,@(WHEN TYPE-P      `(:TYPE      ,TYPE))
-                  ,@(WHEN VERSION-P   `(:VERSION   ,VERSION))
-                  :DEFAULTS ,PATHNAME)
-    ,PATHNAME
-    nil))
+;;;------------------------------------------------------------------------
 
 (DEFPARAMETER *asdf-install-location*  (get-directory :asdf-install))
 (DEFPARAMETER *SHARE-LISP*             (get-directory :share-lisp))
 (DEFPARAMETER *PJB-COMM*               (get-directory :lisp-sources))
 (DEFPARAMETER *PJB-LISP*               (get-directory :pjb-lisp))
 
-(DEF-LP-TRANS "SHARE-LISP" *SHARE-LISP*)
-(DEF-LP-TRANS "PJB-COMM"   *PJB-COMM*)
-(DEF-LP-TRANS "PJB-LISP"   *PJB-LISP*)
-(DEF-LP-TRANS "CMU-AI"     *SHARE-LISP* "ai/")
-(DEF-LP-TRANS "CL-PDF"     *SHARE-LISP* "cl-pdf/")
-(DEF-LP-TRANS "UFFI"       *SHARE-LISP* "uffi/")
-(DEF-LP-TRANS "PACKAGES"   *SHARE-LISP* "packages/")
-(DEF-LP-TRANS "CLOCC"      *SHARE-LISP* "packages/net/sourceforge/clocc/clocc/")
-(DEF-LP-TRANS "CCLAN"      *SHARE-LISP* "packages/net/sourceforge/cclan/")
-(DEF-LP-TRANS "DEFSYSTEM"  *SHARE-LISP*
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "SHARE-LISP" *SHARE-LISP*)
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PJB-COMM"   *PJB-COMM*)
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PJB-LISP"   *PJB-LISP*)
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CMU-AI"     *SHARE-LISP* "ai/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CL-PDF"     *SHARE-LISP* "cl-pdf/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "UFFI"       *SHARE-LISP* "uffi/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PACKAGES"   *SHARE-LISP* "packages/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CLOCC"      *SHARE-LISP* "packages/net/sourceforge/clocc/clocc/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CCLAN"      *SHARE-LISP* "packages/net/sourceforge/cclan/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "DEFSYSTEM"  *SHARE-LISP*
   ;; We must go thru a translation for defsystem-3.x isn't a valid logical name!
   "packages/net/sourceforge/clocc/clocc/src/defsystem-3.x/")
 
 
-(DEF-LP-TRANS "HOME"     (USER-HOMEDIR-PATHNAME)   "")
-(DEF-LP-TRANS "LOADERS"  *PJB-COMM*        "cl-loaders/")
-;;(DEF-LP-TRANS "NORVIG"   *PJB-LISP*        "norvig/")
-(DEF-LP-TRANS "NORVIG"   #P"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "HOME"     (USER-HOMEDIR-PATHNAME)   "")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "LOADERS"  *PJB-COMM*        "cl-loaders/")
+;;(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   *PJB-LISP*        "norvig/")
+(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   #P"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
+
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun POST-PROCESS-LOGICAL-HOST-TRANSLATIONS ()
@@ -183,38 +216,11 @@
 
 (POST-PROCESS-LOGICAL-HOST-TRANSLATIONS)
 
-(defmacro defautoload (name arguments loader)
-  `(defun ,name ,arguments
-     (load ,loader)
-     (eval '(,name ,@arguments))))
-(defautoload scheme () "LOADERS:PSEUDO")
-(export '(defautoload scheme))
 
-;;----------------------------------------------------------------------
-
-(defun prepare-logical-pathname (designator)
-  #+(or abcl allegro ccl) (typecase designator
-                       (string  (let ((colon (position #\: designator)))
-                                  (format nil "~:@(~A~)~(~A~)"
-                                          (subseq designator 0 colon)
-                                          (subseq designator colon))))
-                       (logical-pathname (prepare-logical-pathname (namestring designator)))
-                       (t designator))
-  #-(or abcl allegro ccl) designator)
-
-(defun prepare-default-pathname (designator &key (case :local))
-  (if (eq case :local)
-      designator
-      (progn
-        #+(or abcl allegro ccl)
-        (typecase designator
-          (string (prepare-default-pathname (pathname designator) :case case))
-          (logical-pathname designator)
-          (pathname        ; this must be a physical pathname
-           (string-upcase (namestring designator)))
-          (t designator))
-        #-(or abcl allegro ccl)
-        designator)))
+;;;------------------------------------------------------------------------
+;;;
+;;; ADSF
+;;;
 
 
 #+(or ecl sbcl)
@@ -228,7 +234,7 @@
                     (get-directory :share-lisp "asdf/asdf.lisp"))
          :failure)
   (handler-case
-      (progn (LOAD (prepare-logical-pathname file))
+      (progn (LOAD file)
              (return :success))
     #-clisp
     (FILE-ERROR (err)
@@ -256,8 +262,8 @@
   "Force rescan at leastr once this amount of seconds.")
 
 (defparameter *asdf-registry-file*
-  (make-pathname :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :case #1=:common
-                 :defaults (prepare-default-pathname (user-homedir-pathname) :case #1#))
+  (make-pathname :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :case :common
+                 :defaults (user-homedir-pathname))
   "Cache file.")
 
 (defparameter *original-asdf-registry* ASDF:*CENTRAL-REGISTRY*)
@@ -499,6 +505,14 @@
 ;;         #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
 
 
+;; (in-package :asdf)
+;; (defparameter *output-file-debug* nil)
+;; (defmethod output-files :before ((operation compile-op) (component source-file)) 
+;;   (let ((source (component-pathname component)))
+;;     (print (setf *output-file-debug*
+;;                  (list 'output-files-for-system-and-operation 
+;;                        (component-system component) operation component source)))))
+;; (in-package :cl-user)
 
 
 ;; (in-package "ASDF")
@@ -539,6 +553,43 @@
 ;; (in-package "COM.INFORMATIMAGO.PJB")
 
 
+;;;----------------------------------------------------------------------
+;;;
+;;; QuickLisp
+;;;
+
+(let ((quicklisp (merge-pathnames (make-pathname :directory '(:relative "QUICKLISP")
+                                                 :name "SETUP"
+                                                 :type "LISP"
+                                                 :case :common
+                                                 :defaults (user-homedir-pathname))
+                                  (user-homedir-pathname)
+                                  nil)))
+  (when (probe-file quicklisp)
+    (load quicklisp)))
+
+
+;;;----------------------------------------------------------------------
+;;;
+;;; Alexandria
+;;;
+
+(let* ((alexandria (merge-pathnames (make-pathname :directory '(:relative "LISP" "LIBCL" ".ASDF")
+                                                   :case :common
+                                                   :defaults (user-homedir-pathname))
+                                    (user-homedir-pathname)
+                                    nil))
+       (asd-file   (merge-pathnames (make-pathname :name  "ALEXANDRIA"
+                                                   :type "ASD"
+                                                   :case :common
+                                                   :defaults alexandria)
+                                    alexandria
+                                    nil)))
+  (when (probe-file asd-file)
+    (pushnew alexandria asdf:*central-registry* :test #'equal)))
+
+;; (load #P"/home/pjb/lisp/libcl/compile-libcl.lisp")
+
 
 ;;----------------------------------------------------------------------
 ;; (WHEN *LOAD-VERBOSE*
@@ -546,96 +597,139 @@
 ;;   (FORMAT T "~& (LOAD \"DEFSYSTEM:DEFSYSTEM.LISP\") ~%"))
 
 
-
-(UNLESS
-    (BLOCK :DONE
-      (DOLIST (FILE
-                (LIST
-                 (prepare-logical-pathname #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE")
-                 (prepare-logical-pathname #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;PACKAGE.LISP")
-                 (MP *PJB-COMM* ("common-lisp") "package")
-                 (MP *PJB-COMM* ("common-lisp") "package" "lisp")))
-        (HANDLER-CASE (PROGN (LOAD FILE) (RETURN-FROM :DONE T)) (ERROR ())))
-      NIL)
-  (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.PACKAGE"))
-
-;; (push 'COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:PACKAGE-SYSTEM-DEFINITION
+;;;
+;;; This is not necessary anymore, because we use the standard ASDF mechanism to load :com.informatimago.common-lisp.
+;;;
+;;
+;; (UNLESS
+;;     (BLOCK :load-package.lisp
+;;       (macrolet ((MP (PATHNAME &OPTIONAL
+;;                          (DIRECTORY NIL DIRECTORY-P)
+;;                          (NAME      NIL NAME-P)
+;;                          (TYPE      NIL TYPE-P)
+;;                          (VERSION   NIL VERSION-P))
+;;              `(MERGE-PATHNAMES
+;;                (MAKE-PATHNAME,@(WHEN DIRECTORY-P `(:DIRECTORY '(:RELATIVE ,@DIRECTORY)))
+;;                              ,@(WHEN NAME-P      `(:NAME      ,NAME))
+;;                              ,@(WHEN TYPE-P      `(:TYPE      ,TYPE))
+;;                              ,@(WHEN VERSION-P   `(:VERSION   ,VERSION))
+;;                              :DEFAULTS ,PATHNAME)
+;;                ,PATHNAME
+;;                nil)))
+;;         (DOLIST (FILE
+;;                   (LIST
+;                     #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;CESARUM;PACKAGE"
+;;                    #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;CESARUM;PACKAGE.LISP"
+;;                    (mp *PJB-COMM* ("common-lisp" "cesarum") "package")
+;;                    (mp *PJB-COMM* ("common-lisp" "cesarum") "package" "lisp")
+;;                    (merge-pathnames #P"COMMON-LISP;CESARUM;PACKAGE"      *PJB-COMM* nil)
+;;                    (merge-pathnames #P"COMMON-LISP;CESARUM;PACKAGE.LISP" *PJB-COMM* nil)
+;;                    (merge-pathnames #P"common-lisp/cesarum/package"      *PJB-COMM* nil)
+;;                    (merge-pathnames #P"common-lisp/cesarum/package.lisp" *PJB-COMM* nil)))
+;;           (HANDLER-CASE (PROGN (LOAD FILE) (RETURN-FROM :DONE T)) (ERROR ()))))
+;;       NIL)
+;;   (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE"))
+;;
+;;;
+;;; We don't use PACKAGE-SYSTEM-DEFINITION anymore.
+;;;
+;; (push 'COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:PACKAGE-SYSTEM-DEFINITION
 ;;       ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
 
 
+;; (IMPORT '(COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:DEFINE-PACKAGE
+;;           COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-ALL-SYMBOLS
+;;           COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-EXTERNAL-SYMBOLS))
 
-;; (IMPORT '(COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:DEFINE-PACKAGE
-;;           COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-ALL-SYMBOLS
-;;           COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-EXTERNAL-SYMBOLS))
+
+;;;----------------------------------------------------------------------
+;;;
+;;; com.informatimago libraries
+;;;
 
 (setf asdf:*central-registry*
       (append (remove-duplicates
                (mapcar (lambda (path)
                          (make-pathname :name nil :type nil :version nil :defaults path))
-                       (directory #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;**;*.ASD"))
+                       (directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
                :test (function equalp))
               asdf:*central-registry*))
 
-(asdf-load :COM.INFORMATIMAGO.COMMON-LISP)
-;; (COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LOAD-PACKAGE  "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE")
+
+               (asdf-load  :com.informatimago.common-lisp)
+#-(or ccl ecl) (asdf-load  :com.informatimago.clext)
+               (asdf-load  :com.informatimago.clmisc)
+#+sbcl         (asdf-load  :com.informatimago.sbcl)
+#+clisp        (asdf-load  :com.informatimago.clisp)
+#+clisp        (asdf-load  :com.informatimago.susv3)
+
+
+
 (USE-PACKAGE "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
-(EXPORT     (COM.INFORMATIMAGO.COMMON-LISP.PACKAGE:LIST-EXTERNAL-SYMBOLS
+(EXPORT     (COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-EXTERNAL-SYMBOLS
              "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
-
-(POST-PROCESS-LOGICAL-HOST-TRANSLATIONS)
-
 (PUSH :COM.INFORMATIMAGO.PJB *FEATURES*)
-#-(and)
-(let ((path
-       (merge-pathnames
-        (make-pathname
-         :directory '(:relative "DRIBBLES")
-         :name (FLET ((implementation-id ()
-                        (flet ((first-word (text)
-                                 (let ((pos (position (character " ") text)))
-                                   (remove (character ".")
-                                           (if pos (subseq text 0 pos) text)))))
-                          (format
-                           nil
-                           "~A-~A-~A"
-                           (cond 
-                            ((string-equal
-                              "International Allegro CL Enterprise Edition"
-                              (lisp-implementation-type))
-                             "ACL")
-                            (t (first-word (lisp-implementation-type))))
-                           (first-word (lisp-implementation-version))
-                           (first-word (machine-type))))))
-                 (multiple-value-bind (se mi ho da mo ye)
-                     (decode-universal-time (get-universal-time))
-                   (format nil "~4,'0D~2,'0D~2,'0DT~2,'0D~2,'0D~2,'0D-~A"
-                           ye mo da ho mi se (implementation-id))))
-         :type "DRIBBLE"
-         :version nil
-         :defaults (user-homedir-pathname))
-         (user-homedir-pathname) nil)))
-  (ensure-directories-exist path)
-  (dribble path))
 
-(defvar *inp* (make-synonym-stream '*standard-input*))
-(defvar *out* (make-synonym-stream '*standard-output*))
+
+;;;----------------------------------------------------------------------
+
+(defmacro defautoload (name arguments loader)
+  "Defines a function that will laud the LOADER file, before calling itself again."
+  `(defun ,name ,arguments
+     (load ,loader)
+     (eval '(,name ,@arguments))))
+(export '(defautoload))
+
+
+(defautoload scheme () "LOADERS:PSEUDO")
+(export '(scheme))
+
+;;;----------------------------------------------------------------------
+
+
+(defun start-dribble ()
+  "We dribble to a timestamped file in a specific #P\"HOME:DRIBBLE;\" directory."
+  (let ((path
+         (merge-pathnames
+          (make-pathname
+           :directory '(:relative "DRIBBLES")
+           :name (FLET ((implementation-id ()
+                          (flet ((first-word (text)
+                                   (let ((pos (position (character " ") text)))
+                                     (remove (character ".")
+                                             (if pos (subseq text 0 pos) text)))))
+                            (format
+                             nil
+                             "~A-~A-~A"
+                             (cond 
+                               ((string-equal
+                                 "International Allegro CL Enterprise Edition"
+                                 (lisp-implementation-type))
+                                "ACL")
+                               (t (first-word (lisp-implementation-type))))
+                             (first-word (lisp-implementation-version))
+                             (first-word (machine-type))))))
+                   (multiple-value-bind (se mi ho da mo ye)
+                       (decode-universal-time (get-universal-time))
+                     (format nil "~4,'0D~2,'0D~2,'0DT~2,'0D~2,'0D~2,'0D-~A"
+                             ye mo da ho mi se (implementation-id))))
+           :type "DRIBBLE"
+           :version nil
+           :defaults (user-homedir-pathname))
+          (user-homedir-pathname) nil)))
+    (ensure-directories-exist path)
+    (dribble path)))
+
+;; (start-dribble)
+
+;;;----------------------------------------------------------------------
+
+(defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
+(defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 (export '(*inp* *out*))
 
+;;;----------------------------------------------------------------------
 
-
-(when (probe-file #P"/home/pjb/lisp/libcl/.asdf/alexandria.asd")
-  (pushnew #P"/home/pjb/lisp/libcl/.asdf/" asdf:*central-registry* :test #'equal))
-
-;; (load #P"/home/pjb/lisp/libcl/compile-libcl.lisp")
-
-;; (in-package :asdf)
-;; (defparameter *output-file-debug* nil)
-;; (defmethod output-files :before ((operation compile-op) (component source-file)) 
-;;   (let ((source (component-pathname component)))
-;;     (print (setf *output-file-debug*
-;;                  (list 'output-files-for-system-and-operation 
-;;                        (component-system component) operation component source)))))
-;; (in-package :cl-user)
 
 ;;;; THE END ;;;;
