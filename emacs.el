@@ -383,16 +383,16 @@ X-Disabled: X-No-Archive: no
  '(mspools-update t)
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
- '(org-agenda-files (quote ("~/notes.txt" "~/firms/wizards/notes.txt" "~/firms/willcom/notes.txt" "~/firms/secur.net/notes.txt" "~/firms/ravenpack/notes.txt" "~/firms/osii/notes.txt" "~/firms/medicalis/notes.txt" "~/firms/mappy/notes.txt" "~/firms/joellegymtonic/notes.txt" "~/firms/jem/notes.txt" "~/firms/intergruas/notes.txt" "~/firms/hf/notes.txt" "~/firms/hbedv/notes.txt" "~/firms/hamster-s-fabric-inc/notes.txt" "~/firms/camille/notes.txt" "~/firms/afaa/notes.txt")))
+ '(org-agenda-files (quote ("~/notes.txt" "~/firms/medicalis/notes.txt")))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pr-faces-p t)
- '(printer-name "normal_gray")
+ '(printer-name "normal_gray" t)
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4))
+ '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -485,7 +485,7 @@ X-Disabled: X-No-Archive: no
  '(w3-user-fonts-take-precedence t)
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
- '(warning-suppress-types (quote ((undo discard-info))) t)
+ '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
@@ -2007,14 +2007,14 @@ capitalized form."
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-log-done      t
       org-agenda-files  '("~/notes.txt"
-                          "~/notes-kuiper.txt"
+                          ;; "~/notes-kuiper.txt"
                           ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
                           ;; "~/firms/wizards/notes.txt"
                           ;; "~/firms/willcom/notes.txt"
                           ;; "~/firms/secur.net/notes.txt"
                           ;; "~/firms/ravenpack/notes.txt"
                           ;; "~/firms/osii/notes.txt"
-                          "~/firms/medicalis/notes.txt"
+                          ;; "~/firms/medicalis/notes.txt"
                           ;; "~/firms/mappy/notes.txt"
                           ;; "~/firms/joellegymtonic/notes.txt"
                           ;; "~/firms/jem/notes.txt"
