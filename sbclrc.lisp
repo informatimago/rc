@@ -36,22 +36,82 @@
 ;;;;****************************************************************************
 
 (print *package*)
-(cl:in-package "COMMON-LISP-USER")
+(in-package "COMMON-LISP-USER")
 
+;;;---------------------------------------------------------------------------
+;;;
+
+(defpackage "COM.INFORMATIMAGO.SBCL.VERSION"
+  (:nicknames "VERSION")
+  (:use "COMMON-LISP")
+  (:export
+   "SBCL-VERSION"
+   "VERSION="    "VERSION<"    "VERSION<="
+   "RT-VERSION=" "RT-VERSION<" "RT-VERSION<="
+   ))
+(in-package "COM.INFORMATIMAGO.SBCL.VERSION")
+
+
+(defun sbcl-version (&optional (version-string (LISP-IMPLEMENTATION-VERSION)))
+  (loop
+     :with r = '()
+     :with start = 0
+     :do (multiple-value-bind (n p)
+             (parse-integer version-string :start start :junk-allowed t)
+           (if n
+               (progn
+                 (push n r)
+                 (if (or (<= (length version-string) p)
+                         (char= #\space (aref version-string p)))
+                     (return-from sbcl-version (nreverse r))
+                     (setf start (1+ p))))
+               (return-from sbcl-version (nreverse r))))))
+
+(defun version= (a b)
+  (equal (if (stringp a) (sbcl-version a) a)
+         (if (stringp b) (sbcl-version b) b)))
+
+(defun version< (a b)
+  (setf a (if (stringp a) (sbcl-version a) a)
+        b (if (stringp b) (sbcl-version b) b))
+  (cond
+    ((null a)            (not (null b)))
+    ((null b)            nil)
+    ((< (car a) (car b)) t)
+    ((= (car a) (car b)) (version< (cdr a) (cdr b)))
+    (t                   nil)))
+
+(defun version<= (a b)
+  (setf a (if (stringp a) (sbcl-version a) a)
+        b (if (stringp b) (sbcl-version b) b))
+  (or (version= a b) (version< a b)))
+
+(defun rt-version=  (a b) (if (version=  a b) '(and) '(or)))
+(defun rt-version<  (a b) (if (version<  a b) '(and) '(or)))
+(defun rt-version<= (a b) (if (version<= a b) '(and) '(or)))
+
+
+
+
+(in-package "COMMON-LISP-USER")
 ;;----------------------------------------------------------------------
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
 
+#-(and)
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")
       '(("" "/local/src/sbcl/sbcl/src/")))
 ;; We put this before the COMMON-LISP part because when there's error
 ;; in .common.lisp, we want to get a reference to the SBCL source where
 ;; the error is detected.
 
+#+#.(version:rt-version= (version:sbcl-version) '(1 0 39))
 (setf (logical-pathname-translations "SYS") nil
       (logical-pathname-translations "SYS")
       '((#P"SYS:**;*.*" #P"/Users/pjb/src/sbcl/sbcl-1.0.39/**/*.*")
         (#P"SYS:**;*"   #P"/Users/pjb/src/sbcl/sbcl-1.0.39/**/*")))
+
+
 
 (defvar *LOGHOSTS-DIRECTORY*
   (merge-pathnames (make-pathname :directory '(:relative "LOGHOSTS-SBCL")
