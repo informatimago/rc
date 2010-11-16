@@ -143,11 +143,13 @@ function be_generate(){
         /usr/local/apps/WordPerfect/wpbin 
         /Library/PostgreSQL8/bin 
         /Developer/Tools 
-        /data/languages/ecl/bin
-        /data/languages/clisp/bin
-        /data/languages/cmucl/bin
         /data/languages/abcl/bin
         /data/languages/acl82express
+        /data/languages/ccl/bin
+        /data/languages/clisp/bin
+        /data/languages/cmucl/bin
+        /data/languages/ecl/bin
+        # /data/languages/sbcl/bin
         $HOME/bin 
         $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
@@ -200,9 +202,9 @@ function be_generate(){
     be_variable USERNAME "$USER"
 
     be_comment 'My compilation environment:'
-    be_variable COMMON "$HOME/src/public/common"
+    be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
-    be_variable TARGET $(uname)
+    be_variable TARGET   $(uname)
 
 
     for e in "${editors[@]}" ; do
@@ -439,7 +441,7 @@ alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
 alias df='df -ah'
 alias du='du -h'
-alias sbcl='sbcl --noinform'
+# alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
 alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
@@ -483,8 +485,12 @@ fi
 
 if [ -x /usr/games/bin/fgfs ] ; then
     fgfs_default_options=(--control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d)
-    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
-    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" ; }
+    fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-Airspace:/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery-Photo:/backup/other/fgfs/Scenery)
+    fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery)
+
+    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
+    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" ; }
+
     function f14(){   netfs1  --callsign=AC112P  --aircraft=f-14b "$@" ; }
     function f16(){   netfs1  --callsign=BK1P    --aircraft=f16   "$@" ; }
     function f18(){   netfs1  --callsign=BK1P    --aircraft=f18   "$@" ; }
@@ -612,7 +618,7 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; EMACS_USE=pgm  $EMACS & disown ; sleep 7 ; EMACS_USE=gnus $EMACS & disown ; sleep 7 ; EMACS_USE=erc  $EMACS & disown ; }
+function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 7 ; done ; }
 
 
 
