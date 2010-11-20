@@ -41,36 +41,305 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
-(IN-PACKAGE "COMMON-LISP-USER")
+(in-package "COMMON-LISP-USER")
 
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; Clean the packages imported into COMMON-LISP-USER:
 ;;;
 
-(MAPC (LAMBDA (package) (UNUSE-PACKAGE package "COMMON-LISP-USER"))
+(mapc (lambda (package) (unuse-package package "COMMON-LISP-USER"))
       (set-difference
-       (COPY-SEQ (PACKAGE-USE-LIST "COMMON-LISP-USER"))
+       (copy-seq (package-use-list "COMMON-LISP-USER"))
        (delete nil (list ;; A list of all the "CL" packages possible:
-                    (FIND-PACKAGE "COMMON-LISP")
-                    (FIND-PACKAGE "IMAGE-BASED-COMMON-LISP")))))
+                    (find-package "COMMON-LISP")
+                    (find-package "IMAGE-BASED-COMMON-LISP")))))
 
-;;;----------------------------------------------------------------------
-;;;
-;;; COM.INFORMATIMAGO.PJB
-;;;
-
-(DEFPACKAGE "COM.INFORMATIMAGO.PJB"
-  (:NICKNAMES "PJB")
-  (:USE "COMMON-LISP"))
-(IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
       *print-lines*  nil)
 
-(declaim (OPTIMIZE (SAFETY 3) (SPACE 0) (SPEED 0) (DEBUG 3)))
+(declaim (optimize (safety 3) (space 0) (speed 0) (debug 3)))
+
+
+
+;;;----------------------------------------------------------------------
+;;;
+;;; COM.INFORMATIMAGO.PJB
+;;;
+
+(defpackage "COM.INFORMATIMAGO.PJB"
+  (:nicknames "PJB")
+  (:use "COMMON-LISP")
+  (:export "HOSTNAME"
+           "LIST-DIRECTORIES"   "GET-DIRECTORY"
+           "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
+           "ASDF-LOAD" "ASDF-LOAD-SOURCE" "ASDF-INSTALL" "ASDF-DELETE-SYSTEM"
+           "FIND-ASDF-SUBDIRECTORIES"  "UPDATE-ASDF-REGISTRY"
+           "START-DRIBBLE"
+           "DEFAUTOLOAD"
+           "*INP*" "*OUT*"
+           "SCHEME"))
+
+(in-package "COM.INFORMATIMAGO.PJB")
+
+(defun make-pathname* (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
+                       (name nil namep) (type nil typep) (version nil versionp)
+                       (defaults nil defaultsp) (case :local casep))
+  (declare (ignorable casep))
+  #+ (or abcl ccl allegro)
+  (labels ((localize (object)
+             (typecase object
+               (list   (mapcar (function localize) object))
+               (string (string-downcase object))
+               (t      object)))
+           (parameter (indicator key value)
+             (when indicator
+               (list key (if (eql case :common)
+                             (localize value)
+                             value)))))
+    (apply (function make-pathname)
+           (append (parameter hostp      :host      host)
+                   (parameter devicep    :device    device)
+                   (parameter directoryp :directory directory)
+                   (parameter namep      :name      name)
+                   (parameter typep      :type      type)
+                   (parameter versionp   :version   version)
+                   (parameter defaultsp  :defaults  defaults)
+                   (list :case :local))))
+  #-(or abcl ccl allegro)
+  (apply (function make-pathname)
+         (append
+          (when hostp      (list :host      host))
+          (when devicep    (list :device    device))
+          (when directoryp (list :directory directory))
+          (when namep      (list :name      name))
+          (when typep      (list :type      type))
+          (when versionp   (list :version   version))
+          (when defaultsp  (list :defaults  defaults))
+          (when casep      (list :case      case)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; ASDF-BINARY-LOCATIONS
+;;;
+
+
+
+;; Some implementations don't have ASDF loaded at this point.  For
+;; them, we create a temporary ASDF package exporting the symbols we
+;; need to write to the ~/quicklisp/adsf-config/init.lisp file.
+;;
+;; Some other implementations have ASDF loaded, but don't define these
+;; symbols.  For them, we add these symbols temporarily, so that we
+;; can write them to the  ~/quicklisp/adsf-config/init.lisp file.
+
+(defvar *asdf* (find-package "ASDF"))
+(defvar *asdf-added-symbols* '())
+(defvar *asdf-symbol-names* '("RUN-SHELL-COMMAND"
+                              "OOS" "LOAD-OP"
+                              "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY"
+                              "*CENTRAL-REGISTRY*"
+                              "*CENTRALIZE-LISP-BINARIES*"
+                              "*INCLUDE-PER-USER-INFORMATION*" 
+                              "*DEFAULT-TOPLEVEL-DIRECTORY*"
+                              "*SOURCE-TO-TARGET-MAPPINGS*"))
+(if *asdf*
+    (dolist (name *asdf-symbol-names*)
+      (unless (find-symbol name *asdf*)
+        (let ((sym  (intern  name *asdf*)))
+          (export sym *asdf*)
+          (push sym *asdf-added-symbols*))))
+    (defpackage "ASDF"
+      (:export . #.*asdf-symbol-names*)))
+
+
+(let ((ql-asdf-init-file (merge-pathnames
+                          (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
+                                          :name "INIT" :type "LISP" :version :newest :case :common 
+                                          :defaults (user-homedir-pathname))
+                          (user-homedir-pathname)
+                          nil)))
+  ;; (print ql-asdf-init-file) (terpri) (finish-output)
+  (when (or (not (ignore-errors (probe-file ql-asdf-init-file)))
+            (<= (file-write-date ql-asdf-init-file)
+                (file-write-date *load-pathname*)))
+    (ensure-directories-exist ql-asdf-init-file)
+    (with-open-file (src ql-asdf-init-file
+                         :direction :output
+                         :if-exists :supersede 
+                         :if-does-not-exist :create)
+      (with-standard-io-syntax
+        (let ((*print-readably* t))
+          (dolist (form '(
+                          (unless (find-package "COM.INFORMATIMAGO.PJB")
+                            (defpackage "COM.INFORMATIMAGO.PJB"
+                              (:use "COMMON-LISP")))
+                          (in-package "COM.INFORMATIMAGO.PJB")
+                          
+                          (defvar *init-verbose* t)
+                          
+                          (defun hostname ()
+                            (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+                              (unwind-protect
+                                   (progn
+                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                                             outpath)
+                                     (with-open-file (hostname outpath)
+                                       (read-line hostname)))
+                                (delete-file outpath))))
+
+
+                          ;; asdf-binary-locations is already loaded in sbcl.
+                          ;; asdf-binary-locations is mutually exclusive with asdf2.
+                          ;; (or sbcl asdf2 clc-os-debian)
+
+                          #2=(let ((sym (find-symbol "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY" "ASDF")))
+                               (if (and sym (fboundp sym))
+                                   (progn
+                                     (when *init-verbose*
+                                       (format t "~&Pushing :has-asdf-enable-asdf-binary-locations-compatibility to *features*~%"))
+                                     (push :has-asdf-enable-asdf-binary-locations-compatibility *features*))
+                                   (when *init-verbose*
+                                     (format t "~&There's no asdf:enable-asdf-binary-locations-compatibility ~%"))))
+
+                          (sharp - :has-asdf-enable-asdf-binary-locations-compatibility)
+                          (progn
+                            (handler-case (progn (when *init-verbose*
+                                                   (format t "~&Asdf loading asdf-binary-locations ~%"))
+                                                 (asdf:oos 'asdf:load-op :asdf-binary-locations)
+                                                 (when *init-verbose*
+                                                   (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
+                                                 (pushnew :asdf-binary-locations *features*))
+                              (error ()
+                                (when *init-verbose*
+                                  (format t "~&Pushing /data/lisp/asdf-install/site/asdf-binary-locations/ to asdf:*central-registry* ~%"))
+                                (push #P"/data/lisp/asdf-install/site/asdf-binary-locations/"
+                                      asdf:*central-registry*)
+                                (progn (when *init-verbose*
+                                         (format t "~&Asdf loading asdf-binary-locations ~%"))
+                                       (asdf:oos 'asdf:load-op :asdf-binary-locations)
+                                       (when *init-verbose*
+                                         (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
+                                       (pushnew :asdf-binary-locations *features*)))))
+                          
+                          #2#
+
+                          (sharp + :has-asdf-enable-asdf-binary-locations-compatibility)
+                          (progn
+                            (when *init-verbose*
+                              (format t "~&Using asdf:enable-asdf-binary-locations-compatibility ~%"))
+                            (asdf:enable-asdf-binary-locations-compatibility
+                             :centralize-lisp-binaries     t
+                             :default-toplevel-directory   (truename
+                                                            (merge-pathnames
+                                                             (format nil ".cache/common-lisp/~A/" (hostname))
+                                                             (user-homedir-pathname) nil))
+                             :include-per-user-information nil
+                             ;; :map-all-source-files ???
+                             :source-to-target-mappings    nil))
+                          
+                          (sharp + (:and (:not :has-asdf-enable-asdf-binary-locations-compatibility)
+                                    :asdf-binary-locations))
+                          (progn
+                            (when *init-verbose*
+                              (format t "~&Using asdf-binary-locations ~%"))
+                            (setf asdf:*centralize-lisp-binaries*     t
+                                  asdf:*include-per-user-information* nil
+                                  asdf:*default-toplevel-directory*
+                                  (truename (merge-pathnames
+                                             (format nil ".cache/common-lisp/~A/" (hostname))
+                                             (user-homedir-pathname) nil))
+                                  asdf:*source-to-target-mappings* '()))
+
+                          (sharp - (:or :has-asdf-enable-asdf-binary-locations-compatibility :asdf-binary-locations))
+                          (error "ASDF-BINARY-LOCATIONS is not available.")))
+            
+            (if (and (listp form) (eql 'sharp (first form)))
+                (format src "~2%#~A~S " (second form) (third form))
+                (pprint form src))))))))
+
+
+(if *asdf*
+    (dolist (sym *asdf-added-symbols*)
+      (unintern sym *asdf*))
+    (delete-package "ASDF"))
+
+;;;----------------------------------------------------------------------
+;;;
+;;; QuickLisp
+;;;
+
+(let ((quicklisp (merge-pathnames
+                  (make-pathname* :directory '(:relative "QUICKLISP")
+                                  :name "SETUP"
+                                  :type "LISP"
+                                  :version :newest
+                                  :case :common
+                                  :defaults (user-homedir-pathname))
+                  (user-homedir-pathname)
+                  nil)))
+  (if (probe-file quicklisp)
+      (load quicklisp)
+      (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
+
+
+(format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
+
+;;;----------------------------------------------------------------------
+;;;
+;;; Alexandria
+;;;
+
+(ql:quickload :alexandria :verbose nil)
+
+;; (handler-case
+;;     (ql:quickload :alexandria :verbose t)
+;;   (error (err)
+;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
+;;     (print (compute-restarts))
+;;     (invoke-restart (find-restart 'skip))))
+
+
+
+
+;;;----------------------------------------------------------------------
+;;;
+;;; Directories.
+;;;
+
+(defvar *directories*  '())
+
+(defun list-directories ()
+  "Returns the list of named directories."
+  (copy-seq *directories*))
+
+(defun get-directory (key &optional (subpath ""))
+  "
+Caches the ~/directories.txt file that contains a map of
+directory keys to pathnames, into *DIRECTORIES*.
+
+Then builds and returns a pathname made by merging the directory
+selected by KEY, and the given SUBPATH.
+"
+  (unless *directories*
+    (with-open-file (dirs (merge-pathnames
+                           (make-pathname* :name "DIRECTORIES" :type "TXT"
+                                          :version nil :case :common)
+                           (user-homedir-pathname)
+                           nil))
+      (loop
+         :for k = (read dirs nil dirs)
+         :until (eq k dirs)
+         :do (push (string-trim " " (read-line dirs)) *directories*)
+         :do (push (intern (substitute #\- #\_ (string k))
+                           "KEYWORD") *directories*))))
+  (unless (getf *directories* key)
+    (error "~S: No directory keyed ~S" 'get-directory key))
+  (merge-pathnames subpath (getf *directories* key) nil))
 
 
 ;;;----------------------------------------------------------------------
@@ -78,44 +347,15 @@
 ;;; Logical hosts -- the Common-Lisp way to PATH 
 ;;;
 
-(progn 
-  (defvar *directories*  '())
-  (defun get-directory (key &optional (subpath ""))
-    "
-Caches the ~/directories.txt file that contains a map of
-directory keys to pathnames, into *DIRECTORIES*.
 
-Then builds and returns a pathname made by merging the directory
-selected by KEY, and the given SUBPATH.
-"
-    (unless *directories*
-      (with-open-file (dirs (merge-pathnames
-                             (make-pathname :name "DIRECTORIES" :type "TXT"
-                                            :version nil :case :common)
-                             (user-homedir-pathname)
-                             nil))
-        (loop
-           :for k = (read dirs nil dirs)
-           :until (eq k dirs)
-           :do (push (string-trim " " (read-line dirs)) *directories*)
-           :do (push (intern (substitute #\- #\_ (string k))
-                             "KEYWORD") *directories*))))
-    (unless (getf *directories* key)
-      (error "~S: No directory keyed ~S" 'get-directory key))
-    (merge-pathnames subpath (getf *directories* key) nil)))
-
-
-(EVAL-WHEN (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
-  (DEFVAR *LOGICAL-HOSTS* '()
-    "A list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (or DEF-LP-TRANS).
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defvar *logical-hosts* '()
+    "A list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS.
 COMMON-LISP doesn't provide any introspection function for logical hosts."))
 
 (defun list-logical-hosts ()
-  "Return a list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (or DEF-LP-TRANS)."
+  "Return a list of logical hosts defined by DEFINE-LOGICAL-PATHNAME-TRANSLATIONS."
   (copy-list *logical-hosts*))
-
-(EXPORT '(*directories* list-logical-hosts))
-
 
 (defun make-translations (host logical-dir physical-dir &optional file-type)
   "
@@ -132,7 +372,7 @@ The inclusion  of a version wildcard is also implementation dependant.
   (mapcar
    (lambda (item)
      (destructuring-bind (logical-tail physical-tail) item
-       (list (apply (function make-pathname)
+       (list (apply (function make-pathname*)
                     :host host
                     :directory `(:absolute ,@logical-dir :wild-inferiors)
                     logical-tail)
@@ -151,7 +391,7 @@ The inclusion  of a version wildcard is also implementation dependant.
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type nil   :version nil) "*")
          ((:name :wild :type :wild :version nil) "*.*")))
-   #-(OR clisp sbcl allegro ccl) 
+   #-(or clisp sbcl allegro ccl) 
    (if file-type 
        `(((:name :wild :type ,file-type :version nil)   ,(format nil "*.~(~A~)" file-type))
          ((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
@@ -160,7 +400,7 @@ The inclusion  of a version wildcard is also implementation dependant.
          ((:name :wild :type :wild :version :wild) "*.*")))))
 
  
-(DEFUN DEFINE-LOGICAL-PATHNAME-TRANSLATIONS (HOST PATH &OPTIONAL (SUBPATH ""))
+(defun define-logical-pathname-translations (host path &optional (subpath ""))
   "
 Defines a new logical pathname (or overrides an existing one)
 for the given HOST, unless the logical HOST already exists.
@@ -171,50 +411,54 @@ the HOST, to the given path and subpath concatenated.
 
 The HOST is added to the list of logical hosts defined.
 "
-  (PUSHNEW HOST *LOGICAL-HOSTS* :TEST (FUNCTION STRING-EQUAL))
+  (pushnew host *logical-hosts* :test (function string-equal))
   ;; If the HOST is already defined we don't change it (eg. HOME):
-  (UNLESS (HANDLER-CASE (LOGICAL-PATHNAME-TRANSLATIONS HOST) (ERROR () NIL))
-    (and (ignore-errors (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST) NIL) t)
-         (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST)
+  (unless (handler-case (logical-pathname-translations host) (error () nil))
+    (and (ignore-errors (setf (logical-pathname-translations host) nil) t)
+         (setf (logical-pathname-translations host)
                (make-translations
                 host '() (format nil "~A~:[~;~:*~A~]"
                                  path (if (string= "" subpath) nil subpath)))))))
 
 ;;;------------------------------------------------------------------------
 
-(DEFPARAMETER *asdf-install-location*  (get-directory :asdf-install))
-(DEFPARAMETER *SHARE-LISP*             (get-directory :share-lisp))
-(DEFPARAMETER *PJB-COMM*               (get-directory :lisp-sources))
-(DEFPARAMETER *PJB-LISP*               (get-directory :pjb-lisp))
+(defparameter *asdf-install-location*  (get-directory :asdf-install))
+(defparameter *share-lisp*             (get-directory :share-lisp))
+(defparameter *pjb-comm*               (get-directory :lisp-sources))
+(defparameter *pjb-lisp*               (get-directory :pjb-lisp))
 
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "SHARE-LISP" *SHARE-LISP*)
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PJB-COMM"   *PJB-COMM*)
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PJB-LISP"   *PJB-LISP*)
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CMU-AI"     *SHARE-LISP* "ai/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CL-PDF"     *SHARE-LISP* "cl-pdf/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "UFFI"       *SHARE-LISP* "uffi/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "PACKAGES"   *SHARE-LISP* "packages/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CLOCC"      *SHARE-LISP* "packages/net/sourceforge/clocc/clocc/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "CCLAN"      *SHARE-LISP* "packages/net/sourceforge/cclan/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "DEFSYSTEM"  *SHARE-LISP*
+(define-logical-pathname-translations "SHARE-LISP" *share-lisp*)
+(define-logical-pathname-translations "PJB-COMM"   *pjb-comm*)
+(define-logical-pathname-translations "PJB-LISP"   *pjb-lisp*)
+(define-logical-pathname-translations "CMU-AI"     *share-lisp* "ai/")
+(define-logical-pathname-translations "CL-PDF"     *share-lisp* "cl-pdf/")
+(define-logical-pathname-translations "UFFI"       *share-lisp* "uffi/")
+(define-logical-pathname-translations "PACKAGES"   *share-lisp* "packages/")
+(define-logical-pathname-translations "CLOCC"      *share-lisp* "packages/net/sourceforge/clocc/clocc/")
+(define-logical-pathname-translations "CCLAN"      *share-lisp* "packages/net/sourceforge/cclan/")
+(define-logical-pathname-translations "DEFSYSTEM"  *share-lisp*
   ;; We must go thru a translation for defsystem-3.x isn't a valid logical name!
   "packages/net/sourceforge/clocc/clocc/src/defsystem-3.x/")
 
 
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "HOME"     (USER-HOMEDIR-PATHNAME)   "")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "LOADERS"  *PJB-COMM*        "cl-loaders/")
+(define-logical-pathname-translations "HOME"     (user-homedir-pathname)   "")
+(define-logical-pathname-translations "LOADERS"  *pjb-comm*        "cl-loaders/")
 ;;(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   *PJB-LISP*        "norvig/")
-(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   #P"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
+(define-logical-pathname-translations "NORVIG"   #p"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
 
+
+;;;------------------------------------------------------------------------
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (defun POST-PROCESS-LOGICAL-HOST-TRANSLATIONS ()
-    (WHEN (FBOUNDP 'COMMON-LISP-USER::POST-PROCESS-LOGICAL-PATHNAME-TRANSLATIONS)
-      (MAP NIL
-           (FUNCTION COMMON-LISP-USER::POST-PROCESS-LOGICAL-PATHNAME-TRANSLATIONS)
-           *LOGICAL-HOSTS*)))) 
+  (defun post-process-logical-host-translations ()
+    (when (fboundp 'common-lisp-user::post-process-logical-pathname-translations)
+      (map nil
+           (function common-lisp-user::post-process-logical-pathname-translations)
+           *logical-hosts*)))) 
 
-(POST-PROCESS-LOGICAL-HOST-TRANSLATIONS)
+(post-process-logical-host-translations)
+
+
 
 
 ;;;------------------------------------------------------------------------
@@ -223,38 +467,74 @@ The HOST is added to the list of logical hosts defined.
 ;;;
 
 
-#+(or ecl sbcl)
-(require :asdf)
+;; Let's try quicklisp
+;;
+;; #+(or ecl sbcl)
+;; (require :asdf)
+;; 
+;; #-(or ecl sbcl)
+;; (dolist (file (list #P"PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"
+;;                     #P"PACKAGES:ASDF;ASDF.LISP"
+;;                     #P"SHARE-LISP:ASDF;ASDF.LISP"
+;;                     (get-directory :share-lisp "packages/net/sourceforge/cclan/asdf/asdf.lisp")
+;;                     (get-directory :share-lisp "asdf/asdf.lisp"))
+;;          :failure)
+;;   (handler-case
+;;       (progn (LOAD file)
+;;              (return :success))
+;;     #-clisp
+;;     (FILE-ERROR (err)
+;;       (format *error-output* "Got error ~A ; trying again.~%" err)
+;;       (format *error-output* "Translations are: ~S~%"
+;;               (logical-pathname-translations "PACKAGES"))
+;;       (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
+;;               err file (translate-logical-pathname file))
+;;       (handler-case (load (translate-logical-pathname file))
+;;         (FILE-ERROR (err)
+;;           (format *error-output* "Got error ~A~%" err))))
+;;     
+;;     #+clisp
+;;     (SYSTEM::SIMPLE-FILE-ERROR (err)
+;;       (format *error-output* "Got error ~A ; trying again.~%" err)
+;;       (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
+;;       (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%   ~S --> ~S~%"
+;;               err
+;;               (slot-value err 'system::$pathname)
+;;               (translate-logical-pathname (slot-value err 'system::$pathname))))))
 
-#-(or ecl sbcl)
-(dolist (file (list #P"PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"
-                    #P"PACKAGES:ASDF;ASDF.LISP"
-                    #P"SHARE-LISP:ASDF;ASDF.LISP"
-                    (get-directory :share-lisp "packages/net/sourceforge/cclan/asdf/asdf.lisp")
-                    (get-directory :share-lisp "asdf/asdf.lisp"))
-         :failure)
-  (handler-case
-      (progn (LOAD file)
-             (return :success))
-    #-clisp
-    (FILE-ERROR (err)
-      (format *error-output* "Got error ~A ; trying again.~%" err)
-      (format *error-output* "Translations are: ~S~%"
-              (logical-pathname-translations "PACKAGES"))
-      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
-              err file (translate-logical-pathname file))
-      (handler-case (load (translate-logical-pathname file))
-        (FILE-ERROR (err)
-          (format *error-output* "Got error ~A~%" err))))
-    
-    #+clisp
-    (SYSTEM::SIMPLE-FILE-ERROR (err)
-      (format *error-output* "Got error ~A ; trying again.~%" err)
-      (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
-      (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%   ~S --> ~S~%"
-              err
-              (slot-value err 'system::$pathname)
-              (translate-logical-pathname (slot-value err 'system::$pathname))))))
+
+
+(defun asdf-load (&rest systems)
+  "Load the ASDF systems.  See also (QL:QUICKLOAD system) to install them."
+  (dolist (system systems systems)
+    #+quicklisp (ql:quickload system)
+    #-quicklisp (asdf:operate 'asdf:load-op system)))
+
+
+(defun asdf-load-source (&rest systems)
+  "Load the sources of the ASDF systems.  See also (QL:QUICKLOAD system) to install them."
+  (dolist (system systems systems)
+    (asdf:operate 'asdf:load-source-op system)))
+
+(defun asdf-install (&rest systems)
+  "Download and install a system.  Now, uses quicklisp."
+  (dolist (system systems systems)
+    #+quicklisp (ql:quickload system)
+    #-quicklisp (error "Please install and use quicklisp!")))
+
+(defun asdf-delete-system (system)
+  "Clear the system from ASDF, to force reloading them on next ASDF-LOAD."
+  (remhash (string-downcase system) asdf::*defined-systems*)
+  (values))
+
+;; (asdf:SYSTEM-SOURCE-DIRECTORY  :cl-org-mode)  --> directory where the asd file lies.
+;; (asdf:SYSTEM-SOURCE-file  :cl-org-mode)       --> asd file.
+;; (asdf:module-components  (asdf:find-system :cl-org-mode)) --> modules
+;;
+;; (mapcar (alexandria:curry 'asdf:component-depends-on 'asdf:load-op)
+;;         (asdf:module-components  (asdf:find-system :cl-org-mode)))
+
+
 
 
 
@@ -262,76 +542,77 @@ The HOST is added to the list of logical hosts defined.
   "Force rescan at leastr once this amount of seconds.")
 
 (defparameter *asdf-registry-file*
-  (make-pathname :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :case :common
-                 :defaults (user-homedir-pathname))
+  (merge-pathnames (user-homedir-pathname)
+                   (make-pathname* :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :version :newest :case :common
+                                   :defaults (user-homedir-pathname))
+                   nil)
   "Cache file.")
 
-(defparameter *original-asdf-registry* ASDF:*CENTRAL-REGISTRY*)
+(defparameter *original-asdf-registry* asdf:*central-registry*)
 
-(defun asdf-rescan-packages (&optional (directories (list #P"PACKAGES:" *asdf-install-location*)))
+(defun find-asdf-subdirectories (&optional (directories (list #p"PACKAGES:" *asdf-install-location*)))
+  "Return a list of all the subdirectories of DIRECTORIES that contain .asd files.
+It is sorted in ascending namestring length."
   (format *trace-output* "~&;; Scanning ASDF packages...~%")
   (prog1
-      (SORT 
-       (DELETE-DUPLICATES 
-        (MAPCAR
-         (LAMBDA (P) (MAKE-PATHNAME :NAME NIL :TYPE NIL :VERSION NIL :DEFAULTS P))
+      (sort 
+       (delete-duplicates 
+        (mapcar
+         (lambda (p) (make-pathname* :name nil :type nil :version nil :defaults p))
          (mapcan (lambda (dir)
-                   (DIRECTORY
-                        (merge-pathnames
-                         (make-pathname :directory (if (pathname-directory dir)
-                                                       '(:relative :wild-inferiors)
-                                                       '(:absolute :wild-inferiors))
-                                        :name :wild
-                                        :type "ASD"
-                                        :case :common
-                                        :defaults dir)
-                         dir)))
+                   (directory (merge-pathnames
+                               (make-pathname* :directory (if (pathname-directory dir)
+                                                             '(:relative :wild-inferiors)
+                                                             '(:absolute :wild-inferiors))
+                                              :name :wild
+                                              :type "ASD"
+                                              :version :newest
+                                              :case :common
+                                              :defaults dir)
+                               dir nil)))
                  directories))
         :test (function equal))
-       (LAMBDA (A B) (if (= (length a) (length b))
+       (lambda (a b) (if (= (length a) (length b))
                     (string< a b)
                     (< (length a) (length b))))
        :key (function namestring))
     (format *trace-output* "~&;; Done.~%")))
 
 
-(defun update-asdf-registry (&key (force-scan nil)
-                             (directories nil directoriesp))
+(defun update-asdf-registry (&key (force-scan nil) (directories nil directoriesp))
+  "Update asdf:*central-registry* with the subdirectories of DIRECTORIES containing ASD files,
+either scanned, or from the cache."
   (length
-   (setf ASDF:*CENTRAL-REGISTRY*
-         (nconc
-          (if (and (not force-scan)
-                   (probe-file *ASDF-REGISTRY-FILE*)
-                   (let ((fdate (file-write-date *ASDF-REGISTRY-FILE*)))
-                     (and fdate (< (get-universal-time)
-                                  (+ fdate *asdf-interval-between-rescan*)))))
-              (with-open-file (in *ASDF-REGISTRY-FILE*)
-                (format *trace-output* "~&;; Reading ASDF packages from ~A...~%"
-                        *asdf-registry-file*)
-                (let ((*read-eval* nil))
-                  (read in nil nil)))
-              (let ((scan (apply (function asdf-rescan-packages)
-                                 (when directoriesp
-                                   (list directories)))))
-                (unless force-scan
-                  (format *trace-output* "~&;; Writing ASDF packages to ~A...~%"
-                          *asdf-registry-file*)
-                  (with-open-file (out *ASDF-REGISTRY-FILE*
-                                       :direction :output
-                                       :if-does-not-exist :create
-                                       :if-exists :supersede)
-                    (print scan out)))
-                scan))
-          ;;(list CCLAN-GET::*CCLAN-ASDF-REGISTRY*)
-          *original-asdf-registry*))))
-(EXPORT 'UPDATE-ASDF-REGISTRY)
-
-#-sbcl (update-asdf-registry)
+   (setf asdf:*central-registry*
+         (nconc (if (and (not force-scan)
+                         (probe-file *asdf-registry-file*)
+                         (let ((fdate (file-write-date *asdf-registry-file*)))
+                           (and fdate (< (get-universal-time)
+                                         (+ fdate *asdf-interval-between-rescan*)))))
+                    ;; Get it from the cache.
+                    (with-open-file (in *asdf-registry-file*)
+                      (format *trace-output* "~&;; Reading ASDF packages from ~A...~%"
+                              *asdf-registry-file*)
+                      (let ((*read-eval* nil))
+                        (read in nil nil)))
+                    ;; Scan it anew.
+                    (let ((scan (apply (function find-asdf-subdirectories)
+                                       (when directoriesp
+                                         (list directories)))))
+                      (unless force-scan ; we save only when not :force-scan t
+                        (format *trace-output* "~&;; Writing ASDF packages to ~A...~%"
+                                *asdf-registry-file*)
+                        (with-open-file (out *asdf-registry-file*
+                                             :direction :output
+                                             :if-does-not-exist :create
+                                             :if-exists :supersede)
+                          (print scan out)))
+                      scan))
+                *original-asdf-registry*))))
 
 
-;;--------------------
-;; (asdf-load system)
-;;--------------------
+(update-asdf-registry)
+
 
 ;; Once upon a time, there was a bug in sbcl. Not needed with >=sbcl-1.0.18
 ;; #+sbcl(require :sb-posix)
@@ -363,146 +644,54 @@ The HOST is added to the list of logical hosts defined.
 ;;                       (error err)))))
 ;;             (asdf:oos 'asdf:load-op system))))
 
-(defun asdf-load (&rest systems)
-  (dolist (system systems systems)
-    (asdf:operate 'asdf:load-op system)))
 
-;;--------------------
-;; (asdf-load-source system)
-;;--------------------
-
-(defun asdf-load-source (&rest systems)
-  (dolist (system systems systems)
-    (asdf:operate 'asdf:load-source-op system)))
-
-
-;; (asdf:SYSTEM-SOURCE-DIRECTORY  :cl-org-mode)  --> directory where the asd file lies.
-;; (asdf:SYSTEM-SOURCE-file  :cl-org-mode)       --> asd file.
-;; (asdf:module-components  (asdf:find-system :cl-org-mode)) --> modules
+;; Let's try quicklisp
 ;;
-;; (mapcar (alexandria:curry 'asdf:component-depends-on 'asdf:load-op)
-;;         (asdf:module-components  (asdf:find-system :cl-org-mode)))
+;; #+sbcl (require :asdf-install)
+;; #+sbcl (defvar ASDF-INSTALL::*CONNECT-TIMEOUT* 0)      ; needed by sb-posix
+;; #+sbcl (defvar ASDF-INSTALL::*READ-HEADER-TIMEOUT* 10) ; needed by sb-posix
+;; 
+;; #-sbcl (asdf-load :asdf-install)
+;; #-sbcl (setf asdf-install:*preferred-location* 0)
+;; 
+;; ;; (setf asdf-install:*locations* (butlast asdf-install:*locations*))
+;; (setf asdf-install:*locations*
+;;       (list
+;;        (list
+;;         (merge-pathnames "./site/"         *asdf-install-location* nil)
+;;         (merge-pathnames "./site-systems/" *asdf-install-location* nil)
+;;         "System-wide install")))
+;; 
+;; (defun asdf-install (&rest systems)
+;;   (dolist (system systems systems)
+;;     (asdf-install:install system)))
 
-;;--------------------
-;; (asdf-install system)
-;;--------------------
-
-#+sbcl (require :asdf-install)
-#+sbcl (defvar ASDF-INSTALL::*CONNECT-TIMEOUT* 0)      ; needed by sb-posix
-#+sbcl (defvar ASDF-INSTALL::*READ-HEADER-TIMEOUT* 10) ; needed by sb-posix
-
-#-sbcl (asdf-load :asdf-install)
-#-sbcl (setf asdf-install:*preferred-location* 0)
-
-;; (setf asdf-install:*locations* (butlast asdf-install:*locations*))
-(setf asdf-install:*locations*
-      (list
-       (list
-        (merge-pathnames "./site/"         *asdf-install-location* nil)
-        (merge-pathnames "./site-systems/" *asdf-install-location* nil)
-        "System-wide install")))
-
-(defun asdf-install (&rest systems)
-  (dolist (system systems systems)
-    (asdf-install:install system)))
-
-;; (invoke-debugger 't)
-;; (setf f (with-open-file (in "/tmp/f") (read in)))
-;; (eval f)
-
-;;--------------------
-;; (asdf-delete-system system)
-;;--------------------
-(defun asdf-delete-system (system)
- (remhash (string-downcase system) asdf::*defined-systems*)
-  (values))
-
-(export '(asdf-load asdf-load-source asdf-install asdf-delete-system))
-
-
-(setf  asdf-install:*proxy*        asdf-install:*proxy*
-       #+sbcl asdf-install:*sbcl-home* #+sbcl asdf-install:*sbcl-home*
-       asdf-install:*cclan-mirror* "http://ftp.linux.org.uk/pub/lisp/cclan/"
-       ASDF-INSTALL:*CCLAN-MIRROR* "http://thingamy.com/cclan/"
-       ASDF-INSTALL:*CCLAN-MIRROR* "ftp://ftp.ntnu.no/pub/lisp/cclan/"
-       ASDF-INSTALL:*CCLAN-MIRROR* "http://www-jcsu.jesus.cam.ac.uk/ftp/pub/cclan/"
-       asdf-install:*locations*    (list (first asdf-install:*locations*)))
-
-
-(setf asdf-install::*connect-timeout*      10
-      asdf-install::*read-header-timeout*  10)
-
-
-#-(or clc-os-debian) 
-(push (second (first asdf-install:*locations*))  ASDF:*CENTRAL-REGISTRY*)
-#-(or clc-os-debian) 
-(push #P"/data/lisp/gentoo/systems/"      asdf:*central-registry*)
-
-
-(push #P"/usr/share/common-lisp/systems/" asdf:*central-registry*) 
+;; (setf  asdf-install:*proxy*        asdf-install:*proxy*
+;;        #+sbcl asdf-install:*sbcl-home* #+sbcl asdf-install:*sbcl-home*
+;;        asdf-install:*cclan-mirror* "http://ftp.linux.org.uk/pub/lisp/cclan/"
+;;        ASDF-INSTALL:*CCLAN-MIRROR* "http://thingamy.com/cclan/"
+;;        ASDF-INSTALL:*CCLAN-MIRROR* "ftp://ftp.ntnu.no/pub/lisp/cclan/"
+;;        ASDF-INSTALL:*CCLAN-MIRROR* "http://www-jcsu.jesus.cam.ac.uk/ftp/pub/cclan/"
+;;        asdf-install:*locations*    (list (first asdf-install:*locations*)))
+;; 
+;; 
+;; (setf asdf-install::*connect-timeout*      10
+;;       asdf-install::*read-header-timeout*  10)
 
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; ASDF-BINARY-LOCATIONS
-;;;
-
-(defun hostname ()
-  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
-    (unwind-protect
-         (progn
-           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                   outpath)
-           (with-open-file (hostname outpath)
-             (read-line hostname)))
-      (delete-file outpath))))
+;; Let's try quicklisp
+;;
+;; #-(or clc-os-debian) 
+;; (push (second (first asdf-install:*locations*))  ASDF:*CENTRAL-REGISTRY*)
+;; #-(or clc-os-debian) 
+;; (push #P"/data/lisp/gentoo/systems/"      asdf:*central-registry*)
+;; 
+;; 
+;; (push #P"/usr/share/common-lisp/systems/" asdf:*central-registry*) 
 
 
-;; asdf-binary-locations is already loaded in sbcl.
-;; asdf-binary-locations is mutually exclusive with asdf2.
-;; (or sbcl asdf2 clc-os-debian)
 
-(let ((sym (find-symbol "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY" "ASDF")))
-  (when (and sym (fboundp sym))
-    (push :HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY *features*)))
-
-#+HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY
-(asdf:enable-asdf-binary-locations-compatibility
- :centralize-lisp-binaries     t
- :default-toplevel-directory   (merge-pathnames (format nil ".cache/common-lisp/~A/" (hostname))
-                                              (user-homedir-pathname) nil)
- :include-per-user-information nil
- ;; :map-all-source-files ???
- :source-to-target-mappings    nil)
-
-#-HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY
-(progn
-  ;; (push-asdf-repository #P"LIBCL:ASDF-BINARY-LOCATIONS;")
-  (handler-case
-      (progn (asdf-load :asdf-binary-locations)
-             (pushnew :asdf-binary-locations *features*))
-    (error (err)
-      (warn "ASDF-BINARY-LOCATIONS is not available."))))
-
-#+(and (not HAS-ASDF-ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY)
-       asdf-binary-locations)
-(setf asdf:*centralize-lisp-binaries*     t
-      asdf:*include-per-user-information* nil
-      asdf:*default-toplevel-directory*
-      (merge-pathnames (format nil ".cache/common-lisp/~A/" (hostname))
-                       (user-homedir-pathname) nil)
-      asdf:*source-to-target-mappings* '())
-
-;; (setf asdf:*source-to-target-mappings*
-;;       #- (and)
-;;       '((#P"/usr/lib/sbcl/"  #P "/home/pjb/.fasls/lib/sbcl/")
-;;         (#P"/usr/lib64/sbcl/"  #P "/home/pjb/.fasls/lib64/sbcl/"))
-;;       #-(and)
-;;       '((#P"/usr/share/common-lisp/sources/" nil)
-;;         #+sbcl (#P"/usr/lib/sbcl/"   NIL)
-;;         #+sbcl (#P"/usr/lib64/sbcl/" NIL)))
 
 
 ;; (in-package :asdf)
@@ -534,7 +723,7 @@ The HOST is added to the list of logical hosts defined.
 ;;                       (COMPILE-FILE-PATHNAME (ASDF:COMPONENT-PATHNAME C)))
 ;;                     (PATH
 ;;                      (MERGE-PATHNAMES
-;;                       (MAKE-PATHNAME :DIRECTORY
+;;                       (MAKE-PATHNAME* :DIRECTORY
 ;;                                      (LIST :RELATIVE
 ;;                                            (FORMAT NIL
 ;;                                              "OBJ-~:@(~A~)"
@@ -553,44 +742,6 @@ The HOST is added to the list of logical hosts defined.
 ;; (in-package "COM.INFORMATIMAGO.PJB")
 
 
-;;;----------------------------------------------------------------------
-;;;
-;;; QuickLisp
-;;;
-
-(let ((quicklisp (merge-pathnames (make-pathname :directory '(:relative "QUICKLISP")
-                                                 :name "SETUP"
-                                                 :type "LISP"
-                                                 :case :common
-                                                 :defaults (user-homedir-pathname))
-                                  (user-homedir-pathname)
-                                  nil)))
-  (when (probe-file quicklisp)
-    (load quicklisp)))
-
-
-;;;----------------------------------------------------------------------
-;;;
-;;; Alexandria
-;;;
-
-(let* ((alexandria (merge-pathnames (make-pathname :directory '(:relative "LISP" "LIBCL" ".ASDF")
-                                                   :case :common
-                                                   :defaults (user-homedir-pathname))
-                                    (user-homedir-pathname)
-                                    nil))
-       (asd-file   (merge-pathnames (make-pathname :name  "ALEXANDRIA"
-                                                   :type "ASD"
-                                                   :case :common
-                                                   :defaults alexandria)
-                                    alexandria
-                                    nil)))
-  (when (probe-file asd-file)
-    (pushnew alexandria asdf:*central-registry* :test #'equal)))
-
-;; (load #P"/home/pjb/lisp/libcl/compile-libcl.lisp")
-
-
 ;;----------------------------------------------------------------------
 ;; (WHEN *LOAD-VERBOSE*
 ;;   (FORMAT T "~& (LOAD \"LOADER:CCLAN.LISP\") ~%")
@@ -598,9 +749,10 @@ The HOST is added to the list of logical hosts defined.
 
 
 ;;;
-;;; This is not necessary anymore, because we use the standard ASDF mechanism to load :com.informatimago.common-lisp.
+;;; This is not necessary anymore, because we use the standard ASDF
+;;; mechanism to load :com.informatimago.common-lisp. 
 ;;;
-;;
+
 ;; (UNLESS
 ;;     (BLOCK :load-package.lisp
 ;;       (macrolet ((MP (PATHNAME &OPTIONAL
@@ -609,7 +761,7 @@ The HOST is added to the list of logical hosts defined.
 ;;                          (TYPE      NIL TYPE-P)
 ;;                          (VERSION   NIL VERSION-P))
 ;;              `(MERGE-PATHNAMES
-;;                (MAKE-PATHNAME,@(WHEN DIRECTORY-P `(:DIRECTORY '(:RELATIVE ,@DIRECTORY)))
+;;                (MAKE-PATHNAME*,@(WHEN DIRECTORY-P `(:DIRECTORY '(:RELATIVE ,@DIRECTORY)))
 ;;                              ,@(WHEN NAME-P      `(:NAME      ,NAME))
 ;;                              ,@(WHEN TYPE-P      `(:TYPE      ,TYPE))
 ;;                              ,@(WHEN VERSION-P   `(:VERSION   ,VERSION))
@@ -629,17 +781,16 @@ The HOST is added to the list of logical hosts defined.
 ;;           (HANDLER-CASE (PROGN (LOAD FILE) (RETURN-FROM :DONE T)) (ERROR ()))))
 ;;       NIL)
 ;;   (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE"))
-;;
+
 ;;;
 ;;; We don't use PACKAGE-SYSTEM-DEFINITION anymore.
 ;;;
+
 ;; (push 'COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:PACKAGE-SYSTEM-DEFINITION
 ;;       ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
 
 
-;; (IMPORT '(COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:DEFINE-PACKAGE
-;;           COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-ALL-SYMBOLS
-;;           COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-EXTERNAL-SYMBOLS))
+
 
 
 ;;;----------------------------------------------------------------------
@@ -647,11 +798,12 @@ The HOST is added to the list of logical hosts defined.
 ;;; com.informatimago libraries
 ;;;
 
+;; Should be included by (UPDATE-ASDF-REGISTRY)
 (setf asdf:*central-registry*
       (append (remove-duplicates
                (mapcar (lambda (path)
-                         (make-pathname :name nil :type nil :version nil :defaults path))
-                       (directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+                         (make-pathname* :name nil :type nil :version nil :defaults path))
+                       (directory #p"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
                :test (function equalp))
               asdf:*central-registry*))
 
@@ -665,12 +817,17 @@ The HOST is added to the list of logical hosts defined.
 
 
 
-(USE-PACKAGE "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
-(EXPORT     (COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:LIST-EXTERNAL-SYMBOLS
-             "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
+;;;----------------------------------------------------------------------
 
-(PUSH :COM.INFORMATIMAGO.PJB *FEATURES*)
-
+(defun hostname ()
+  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+    (unwind-protect
+         (progn
+           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                   outpath)
+           (with-open-file (hostname outpath)
+             (read-line hostname)))
+      (delete-file outpath))))
 
 ;;;----------------------------------------------------------------------
 
@@ -679,11 +836,8 @@ The HOST is added to the list of logical hosts defined.
   `(defun ,name ,arguments
      (load ,loader)
      (eval '(,name ,@arguments))))
-(export '(defautoload))
-
 
 (defautoload scheme () "LOADERS:PSEUDO")
-(export '(scheme))
 
 ;;;----------------------------------------------------------------------
 
@@ -692,9 +846,9 @@ The HOST is added to the list of logical hosts defined.
   "We dribble to a timestamped file in a specific #P\"HOME:DRIBBLE;\" directory."
   (let ((path
          (merge-pathnames
-          (make-pathname
+          (make-pathname*
            :directory '(:relative "DRIBBLES")
-           :name (FLET ((implementation-id ()
+           :name (flet ((implementation-id ()
                           (flet ((first-word (text)
                                    (let ((pos (position (character " ") text)))
                                      (remove (character ".")
@@ -727,9 +881,14 @@ The HOST is added to the list of logical hosts defined.
 
 (defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
-(export '(*inp* *out*))
 
 ;;;----------------------------------------------------------------------
 
+(use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
+(export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
+              "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
+
+
+(push :com.informatimago.pjb *features*)
 
 ;;;; THE END ;;;;

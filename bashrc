@@ -488,8 +488,8 @@ if [ -x /usr/games/bin/fgfs ] ; then
     fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-Airspace:/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery-Photo:/backup/other/fgfs/Scenery)
     fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery)
 
-    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" ; }
-    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" ; }
+    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
+    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" > /tmp/netfs2.$$.out 2>&1  ; }
 
     function f14(){   netfs1  --callsign=AC112P  --aircraft=f-14b "$@" ; }
     function f16(){   netfs1  --callsign=BK1P    --aircraft=f16   "$@" ; }
@@ -504,7 +504,7 @@ if [ -x /usr/games/bin/fgfs ] ; then
             --aircraft=nimitz \
             --ai-scenario=nimitz_demo \
             --prop:/sim/mp-carriers/nimitz-callsign=$cs \
-            "$@"
+            "$@"  > /tmp/nimitz.$$.out 2>&1
     }
 fi
 
@@ -639,6 +639,8 @@ function aspx            (){ tr -d '\015\012' < "$1" | tr '<>' '\012\012' | sed 
 
 function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t iso-8859-1  < "${f}~" > $"$f" || cat "${f}~" > $"$f" ; }
 
+
+function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
 # ----------------------------------------
 # old one liners
