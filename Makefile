@@ -36,6 +36,7 @@ FILES= \
 	.xmodmap \
 	.ratpoisonrc \
 	ccl-init.lisp \
+	abcl-init.lisp \
 	openmcl-init.lisp
 
 help:
@@ -76,6 +77,7 @@ symlinks: save
 	ln -sf $(SRCDIR)/wgetrc                           $$HOME/.wgetrc
 	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-evdev      $$HOME/.xmodmap
 	ln -sf $(SRCDIR)/ccl-init.lisp                    $$HOME/ccl-init.lisp
+	ln -sf $(SRCDIR)/abcl-init.lisp                   $$HOME/abcl-init.lisp
 	ln -sf $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
 	ln -sf $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
 
