@@ -53,7 +53,7 @@
 (in-package "COM.INFORMATIMAGO.CLISP.VERSION")
 
 
-(defun clisp-version (&optional (version-string (LISP-IMPLEMENTATION-VERSION)))
+(defun clisp-version (&optional (version-string (lisp-implementation-version)))
   (loop
      :with r = '()
      :with start = 0
@@ -107,97 +107,97 @@
 
 #+(and macos unix)
 (unless (some (lambda (processor) (member processor *features*))
-              '(:POWERPC :PPC :X86 :X86-64 :I686 :PC386 :IAPX386 :SPARC :PENTIUM3))
-  (push :X86 *features*))
+              '(:powerpc :ppc :x86 :x86-64 :i686 :pc386 :iapx386 :sparc :pentium3))
+  (push :x86 *features*))
 
 
 ;; The following custom variables already existed in 2.33.83:
 (setf ;; ANSI
- CUSTOM:*ANSI*                             T
- CUSTOM:*COERCE-FIXNUM-CHAR-ANSI*          T
- CUSTOM:*FLOATING-POINT-CONTAGION-ANSI*    T
- CUSTOM:*MERGE-PATHNAMES-ANSI*             T
- CUSTOM:*PARSE-NAMESTRING-ANSI*            T
- CUSTOM:*PARSE-NAMESTRING-DOT-FILE*       :NAME
- CUSTOM:*PRINT-PATHNAMES-ANSI*             T
- CUSTOM:*SEQUENCE-COUNT-ANSI*              T
+ custom:*ansi*                             t
+ custom:*coerce-fixnum-char-ansi*          t
+ custom:*floating-point-contagion-ansi*    t
+ custom:*merge-pathnames-ansi*             t
+ custom:*parse-namestring-ansi*            t
+ custom:*parse-namestring-dot-file*       :name
+ custom:*print-pathnames-ansi*             t
+ custom:*sequence-count-ansi*              t
       
- CUSTOM:*DEFAULT-FLOAT-FORMAT*            'SINGLE-FLOAT
- CUSTOM:*WARN-ON-FLOATING-POINT-CONTAGION* NIL
- CUSTOM:*SUPPRESS-CHECK-REDEFINITION*      NIL
- CUSTOM:*DEFTYPE-DEPTH-LIMIT*              NIL
- CUSTOM:*PACKAGE-TASKS-TREAT-SPECIALLY*    NIL
+ custom:*default-float-format*            'single-float
+ custom:*warn-on-floating-point-contagion* nil
+ custom:*suppress-check-redefinition*      nil
+ custom:*deftype-depth-limit*              nil
+ custom:*package-tasks-treat-specially*    nil
 
- CUSTOM:*PPRINT-FIRST-NEWLINE*             T
- CUSTOM:*PRINT-CLOSURE*                    NIL
- CUSTOM:*PRINT-INDENT-LISTS*               1
- CUSTOM:*PRINT-PRETTY-FILL*                NIL
- CUSTOM:*PRINT-RPARS*                      NIL
- CUSTOM:*PROMPT-START*                     "C/"
- CUSTOM:*PROMPT-BODY*                      (function prompt-body)
+ custom:*pprint-first-newline*             t
+ custom:*print-closure*                    nil
+ custom:*print-indent-lists*               1
+ custom:*print-pretty-fill*                nil
+ custom:*print-rpars*                      nil
+ custom:*prompt-start*                     "C/"
+ custom:*prompt-body*                      (function prompt-body)
  ;; CUSTOM:*PROMPT-STEP*         ;; this is a function
  ;; CUSTOM:*PROMPT-BREAK*        ;; this is a function
- CUSTOM:*PROMPT-FINISH*                    "> "
+ custom:*prompt-finish*                    "> "
 
  ;; CUSTOM:*SYSTEM-PACKAGE-LIST* ;; let the system set it
 
- CUSTOM:*LOAD-COMPILING*        NIL
- CUSTOM:*LOAD-ECHO*             CUSTOM:*LOAD-ECHO*
- CUSTOM:*LOAD-LOGICAL-PATHNAME-TRANSLATIONS-DATABASE*
- (list (merge-pathnames #P "LOGHOSTS/" (user-homedir-pathname) nil))
- CUSTOM:*LOAD-PATHS*          '(#P"")
- CUSTOM:*LOAD-OBSOLETE-ACTION*  NIL
- CUSTOM:*COMPILE-WARNINGS*      T
+ custom:*load-compiling*        nil
+ custom:*load-echo*             custom:*load-echo*
+ custom:*load-logical-pathname-translations-database*
+ (list (merge-pathnames #p "LOGHOSTS/" (user-homedir-pathname) nil))
+ custom:*load-paths*          '(#p"")
+ custom:*load-obsolete-action*  nil
+ custom:*compile-warnings*      t
 
- CUSTOM:*SOURCE-FILE-TYPES*   '("lisp" "lsp" "cl")
- CUSTOM:*COMPILED-FILE-TYPES* '("fas")
+ custom:*source-file-types*   '("lisp" "lsp" "cl")
+ custom:*compiled-file-types* '("fas")
  ;; CUSTOM:*LIB-DIRECTORY*       #P"/usr/local/languages/clisp/lib/clisp/"
   
- CUSTOM:*APPLYHOOK*             NIL
- CUSTOM:*EVALHOOK*              NIL
- CUSTOM:*TRACE-INDENT*          T
- CUSTOM:*APROPOS-DO-MORE*       NIL
- CUSTOM:*APROPOS-MATCHER*       NIL
+ custom:*applyhook*             nil
+ custom:*evalhook*              nil
+ custom:*trace-indent*          t
+ custom:*apropos-do-more*       nil
+ custom:*apropos-matcher*       nil
 
- CUSTOM:*ERROR-HANDLER*         NIL
- CUSTOM:*BREAK-ON-WARNINGS*     NIL
+ custom:*error-handler*         nil
+ custom:*break-on-warnings*     nil
 
- CUSTOM:*INSPECT-BROWSER*       NIL
- CUSTOM:*INSPECT-FRONTEND*     :TTY
- CUSTOM:*INSPECT-LENGTH*        100000
- CUSTOM:*INSPECT-PRINT-LENGTH*  100000
- CUSTOM:*INSPECT-PRINT-LEVEL*   5
- CUSTOM:*INSPECT-PRINT-LINES*   5
+ custom:*inspect-browser*       nil
+ custom:*inspect-frontend*     :tty
+ custom:*inspect-length*        100000
+ custom:*inspect-print-length*  100000
+ custom:*inspect-print-level*   5
+ custom:*inspect-print-lines*   5
 
  ;; HTTP
- CUSTOM:*BROWSER*           :emacs-w3m
- CUSTOM:*BROWSERS*
+ custom:*browser*           :emacs-w3m
+ custom:*browsers*
  '((:firefox             "firefox" "~A")
-   (:NETSCAPE            "netscape" "~A")
-   (:NETSCAPE-REMOTE     "netscape" "-remote" "openURL(~A,new-window)")
-   (:MOZILLA             "/usr/local/apps/mozilla-1.7/mozilla"      "~A")
-   (:MOZILLA-REMOTE      "usr/local/apps/mozilla-1.7/mozilla" "-remote" "openURL(~A,new-window)")
-   (:KONQUEROR           "kfmclient" "openURL" "~A")
-   (:LYNX                "lynx" "~A")
-   (:LYNX-XTERM          "xterm" "-e" "lynx" "~A")
-   (:LINKS               "links" "~A")
-   (:LINKS-XTERM         "xterm" "-e" "links" "~A")
-   (:W3M                 "w3m"       "~A")
-   (:W3M-XTERM           "xterm" "-e" "w3m" "~A")
-   (:MMM                 "mmm" "-external" "~A")
-   (:MOSAIC              "xmosaic" "~A")
-   (:EMACS-W3            "emacsclient" "-n" "-e" "(w3-fetch \"~A\")")
-   (:EMACS-W3M           "emacsclient" "-n" "-e" "(w3m-browse-url \"~A\")"))
+   (:netscape            "netscape" "~A")
+   (:netscape-remote     "netscape" "-remote" "openURL(~A,new-window)")
+   (:mozilla             "/usr/local/apps/mozilla-1.7/mozilla"      "~A")
+   (:mozilla-remote      "usr/local/apps/mozilla-1.7/mozilla" "-remote" "openURL(~A,new-window)")
+   (:konqueror           "kfmclient" "openURL" "~A")
+   (:lynx                "lynx" "~A")
+   (:lynx-xterm          "xterm" "-e" "lynx" "~A")
+   (:links               "links" "~A")
+   (:links-xterm         "xterm" "-e" "links" "~A")
+   (:w3m                 "w3m"       "~A")
+   (:w3m-xterm           "xterm" "-e" "w3m" "~A")
+   (:mmm                 "mmm" "-external" "~A")
+   (:mosaic              "xmosaic" "~A")
+   (:emacs-w3            "emacsclient" "-n" "-e" "(w3-fetch \"~A\")")
+   (:emacs-w3m           "emacsclient" "-n" "-e" "(w3m-browse-url \"~A\")"))
  ;; for emacs-client browser, see SET-EMACS-SERVER-PID below.
- CUSTOM:*CLHS-ROOT-DEFAULT*
+ custom:*clhs-root-default*
  "http://localhost/local/lisp/HyperSpec/"
- CUSTOM:*WITH-HTML-OUTPUT-DOCTYPE*
+ custom:*with-html-output-doctype*
  '("html" "PUBLIC"
    "\"-//W3C//DTD XHTML 1.0 Strict//EN\""
    "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
  
- CUSTOM:*USER-MAIL-ADDRESS*    "pjb@informatimago.com"
- CUSTOM:*EDITOR*               "emacsclient"
+ custom:*user-mail-address*    "pjb@informatimago.com"
+ custom:*editor*               "emacsclient"
 
  ;; CUSTOM:*CURRENT-LANGUAGE*     'I18N:ENGLISH
  )
@@ -218,16 +218,16 @@
 
 #-(and unix macos)
 (ignoring-each-error
- (setf CUSTOM:*PATHNAME-ENCODING*     (ext:make-encoding :charset CHARSET:ISO-8859-1
-                                                         :line-terminator :UNIX))
- (setf CUSTOM:*DEFAULT-FILE-ENCODING* (ext:make-encoding :charset CHARSET:utf-8
-                                                         :line-terminator :UNIX))
- (setf CUSTOM:*TERMINAL-ENCODING*     (ext:make-encoding :charset CHARSET:utf-8
-                                                         :line-terminator :UNIX))
- (setf CUSTOM:*MISC-ENCODING*         (ext:make-encoding :charset CHARSET:utf-8
-                                                         :line-terminator :UNIX))
- #+FFI (setf CUSTOM:*FOREIGN-ENCODING* (ext:make-encoding :charset CHARSET:ISO-8859-1
-                                                          :line-terminator :UNIX)))
+ (setf custom:*pathname-encoding*     (ext:make-encoding :charset charset:iso-8859-1
+                                                         :line-terminator :unix))
+ (setf custom:*default-file-encoding* (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ (setf custom:*terminal-encoding*     (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ (setf custom:*misc-encoding*         (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ #+ffi (setf custom:*foreign-encoding* (ext:make-encoding :charset charset:iso-8859-1
+                                                          :line-terminator :unix)))
 
 ;; Breaks stdin/stdout...
 ;; #+(and unix macos)
@@ -240,32 +240,32 @@
 #+#.(cicv:rt-version<= "2.38" (cicv:clisp-version))
 (setf
  ;; ANSI
- CUSTOM:*LOOP-ANSI*                                 T
- CUSTOM:*PHASE-ANSI*                                T
- CUSTOM:*PRINT-EMPTY-ARRAYS-ANSI*                   T
- CUSTOM:*PRINT-SPACE-CHAR-ANSI*                     T
- CUSTOM:*PRINT-UNREADABLE-ANSI*                     T
- CUSTOM:*FLOATING-POINT-RATIONAL-CONTAGION-ANSI*    T
- CUSTOM:*WARN-ON-FLOATING-POINT-RATIONAL-CONTAGION* NIL
+ custom:*loop-ansi*                                 t
+ custom:*phase-ansi*                                t
+ custom:*print-empty-arrays-ansi*                   t
+ custom:*print-space-char-ansi*                     t
+ custom:*print-unreadable-ansi*                     t
+ custom:*floating-point-rational-contagion-ansi*    t
+ custom:*warn-on-floating-point-rational-contagion* nil
 
- CUSTOM:*DEFUN-ACCEPT-SPECIALIZED-LAMBDA-LIST*           NIL
- CUSTOM:*EQ-HASHFUNCTION*                           'EXT:FASTHASH-EQ
- CUSTOM:*EQL-HASHFUNCTION*                          'EXT:FASTHASH-EQL
- CUSTOM:*EQUAL-HASHFUNCTION*                        'EXT:FASTHASH-EQUAL
- CUSTOM:*FILL-INDENT-SEXP*                          (function 1+)
+ custom:*defun-accept-specialized-lambda-list*           nil
+ custom:*eq-hashfunction*                           'ext:fasthash-eq
+ custom:*eql-hashfunction*                          'ext:fasthash-eql
+ custom:*equal-hashfunction*                        'ext:fasthash-equal
+ custom:*fill-indent-sexp*                          (function 1+)
       
- CUSTOM:*INIT-HOOKS*                                NIL
- CUSTOM:*FINI-HOOKS*                                NIL
- CUSTOM:*WARN-ON-HASHTABLE-NEEDING-REHASH-AFTER-GC* NIL
+ custom:*init-hooks*                                nil
+ custom:*fini-hooks*                                nil
+ custom:*warn-on-hashtable-needing-rehash-after-gc* nil
 
  ;; HTTP
- CUSTOM:*HTTP-PROXY*                               NIL
- CUSTOM:*IMPNOTES-ROOT-DEFAULT* "http://clisp.cons.org/impnotes/"
+ custom:*http-proxy*                               nil
+ custom:*impnotes-root-default* "http://clisp.cons.org/impnotes/"
       
       
- CUSTOM:*PRINT-SYMBOL-PACKAGE-PREFIX-SHORTEST*      NIL
- CUSTOM:*REPORT-ERROR-PRINT-BACKTRACE*              NIL
- CUSTOM:*USER-COMMANDS*                             NIL
+ custom:*print-symbol-package-prefix-shortest*      nil
+ custom:*report-error-print-backtrace*              nil
+ custom:*user-commands*                             nil
       
  ;; CUSTOM:*STRICT-MOP*                             T
  ;; CUSTOM:*FORWARD-REFERENCED-CLASS-MISDESIGN*     NIL
@@ -276,23 +276,23 @@
 ;; Setting environment -- clisp part --
 ;; ------------------------------------
 
-(DEFUN X-POST-PROCESS-LOGICAL-PATHNAME-TRANSLATIONS (HOST)
-  (FLET ((PSTRING (X) (IF (PATHNAMEP X) (NAMESTRING X) (STRING X))))
-    (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST)
-          (SORT
-           (REMOVE-IF
-            (LAMBDA (P) (LET ((P (PSTRING P)))
-                     (AND (< 5 (LENGTH P))
-                          (STRING= "*.*.*" P :START2 (- (LENGTH P) 5)))))
-            (LOGICAL-PATHNAME-TRANSLATIONS HOST)
-            :KEY (FUNCTION FIRST))
-                (LAMBDA (A B) (> (LENGTH (PSTRING (FIRST A)))
-                                 (LENGTH (PSTRING (FIRST B)))))))))
+(defun x-post-process-logical-pathname-translations (host)
+  (flet ((pstring (x) (if (pathnamep x) (namestring x) (string x))))
+    (setf (logical-pathname-translations host)
+          (sort
+           (remove-if
+            (lambda (p) (let ((p (pstring p)))
+                     (and (< 5 (length p))
+                          (string= "*.*.*" p :start2 (- (length p) 5)))))
+            (logical-pathname-translations host)
+            :key (function first))
+                (lambda (a b) (> (length (pstring (first a)))
+                                 (length (pstring (first b)))))))))
 
 
 
 #+#.(cicv:rt-version= "2.33.83" (cicv:clisp-version))
-(EXT:WITHOUT-PACKAGE-LOCK ("COMMON-LISP")
+(ext:without-package-lock ("COMMON-LISP")
   (let ((oldload (function cl:load)))
     (fmakunbound 'cl:load)
     (defun cl:load (filespec &key (verbose *load-verbose*)
@@ -301,10 +301,10 @@
                     (external-format :default))
       ;; (format *trace-output* "~&Will LOAD ~S;~%" filespec)
       ;; (finish-output *trace-output*)
-      (HANDLER-CASE (FUNCALL OLDLOAD FILESPEC :VERBOSE VERBOSE
-                             :PRINT PRINT :IF-DOES-NOT-EXIST IF-DOES-NOT-EXIST
-                             :EXTERNAL-FORMAT EXTERNAL-FORMAT)
-        (SYSTEM::SIMPLE-PARSE-ERROR
+      (handler-case (funcall oldload filespec :verbose verbose
+                             :print print :if-does-not-exist if-does-not-exist
+                             :external-format external-format)
+        (system::simple-parse-error
             ()
           ;; (format *trace-output* "~&LOAD got parse error on ~S;~%" filespec)
           ;; (finish-output *trace-output*)
@@ -320,25 +320,25 @@
 ;; What's the relationship between SYSCALLS and POSIX?
 #+#.(cl:if (cicv:version= "2.33.83" (cicv:clisp-version))
            :syscall '(or))
-(EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
+(ext:without-package-lock  ("POSIX")
   (intern "HOSTENT-ADDR-TYPE" "POSIX"))
 #+#.(cl:if (cicv:version= "2.33.83" (cicv:clisp-version))
            :syscall '(or))
-(EXT:WITHOUT-PACKAGE-LOCK  ("POSIX")
-  (defun POSIX::HOSTENT-ADDR-TYPE (&rest args)
-    (apply (function POSIX::HOSTENT-ADDRTYPE) args)))
+(ext:without-package-lock  ("POSIX")
+  (defun posix::hostent-addr-type (&rest args)
+    (apply (function posix::hostent-addrtype) args)))
 
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-(SETF *LOAD-VERBOSE* t)
-(LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
-                      :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
-       NIL))
+(setf *load-verbose* t)
+(load (merge-pathnames
+       (make-pathname :directory '(:relative "RC") :name "COMMON" :type "LISP"
+                      :case :common)
+       (user-homedir-pathname)
+       nil))
 
-(IN-PACKAGE "COM.INFORMATIMAGO.PJB")
+(in-package "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
 
 ;; ---------------------------------------------------------------------
@@ -376,13 +376,13 @@
 ;; Setting environment -- CLISP specific --
 ;; ----------------------------------------
 
-(SETF *print-length*  nil)
+(setf *print-length*  nil)
 
-(SETF *EDITOR* 
-      (LAMBDA (ARG &KEY (WAIT T))
-        (IF (OR (FUNCTIONP ARG) (SYMBOLP ARG))
-            (ED ARG)
-            (EXT:SHELL (FORMAT NIL "emacsclient ~:[-n~;~] ~A" WAIT ARG)))))
+(setf *editor* 
+      (lambda (arg &key (wait t))
+        (if (or (functionp arg) (symbolp arg))
+            (ed arg)
+            (ext:shell (format nil "emacsclient ~:[-n~;~] ~A" wait arg)))))
 
 
 
@@ -392,8 +392,8 @@
 ;;----------------------------------------------------------------------
 ;; Awfull trick for com.informatimago.clisp.script:is-running:
 
-(DEFUN EXECUTABLE-READER (A B C) (SYS::UNIX-EXECUTABLE-READER A B C))
-(SET-DISPATCH-MACRO-CHARACTER #\# #\! (FUNCTION EXECUTABLE-READER))
+(defun executable-reader (a b c) (sys::unix-executable-reader a b c))
+(set-dispatch-macro-character #\# #\! (function executable-reader))
 
 
 ;; (EXT:WITHOUT-PACKAGE-LOCK ("EXT")
@@ -416,20 +416,20 @@
 ;;       ) ;;ext:make-encoding
 ;;     ))
 
-(DEFUN QUIT () (EXT:QUIT))
-(EXPORT 'QUIT)
+(defun quit () (ext:quit))
+(export 'quit)
 
-(PUSH (FUNCTION EXT:CD)
-      COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER:*CHANGE-DIRECTORY-HOOK*)
-(CD (EXT:CD))     
+(push (function ext:cd)
+      com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
+(cd (ext:cd))     
 
 
-(DEFUN SH (COMMAND)
-  (LET ((ARGS (DELETE "" (SPLIT-STRING COMMAND " "))))
-    (WITH-OPEN-STREAM (IN (EXT:RUN-PROGRAM (FIRST ARGS)
-                            :ARGUMENTS (CDR ARGS) :OUTPUT :STREAM))
-      (LOOP FOR LINE = (READ-LINE IN NIL NIL)
-         WHILE LINE DO (PRINC LINE) (TERPRI))))) ;;SH
+(defun sh (command)
+  (let ((args (delete "" (split-string command " "))))
+    (with-open-stream (in (ext:run-program (first args)
+                            :arguments (cdr args) :output :stream))
+      (loop for line = (read-line in nil nil)
+         while line do (princ line) (terpri))))) ;;SH
 
 
 ;; (SET-MACRO-CHARACTER #\] (GET-MACRO-CHARACTER #\)))
@@ -483,19 +483,19 @@
 (define-encoding-macro with-pathname-encoding custom:*pathname-encoding*)
 (define-encoding-macro with-terminal-encoding custom:*terminal-encoding*)
 (define-encoding-macro with-misc-encoding     custom:*misc-encoding*)
-#+FFI (define-encoding-macro with-foreign-encoding  custom:*foreign-encoding*)
+#+ffi (define-encoding-macro with-foreign-encoding  custom:*foreign-encoding*)
 
-(DEFUN LSENCOD ()
-  (FORMAT T "~%~{~32A ~A~%~}~%"
-          (LIST
-           'CUSTOM:*DEFAULT-FILE-ENCODING* CUSTOM:*DEFAULT-FILE-ENCODING*
-           #+FFI 'CUSTOM:*FOREIGN-ENCODING* #+FFI CUSTOM:*FOREIGN-ENCODING*
-           'CUSTOM:*MISC-ENCODING*         CUSTOM:*MISC-ENCODING*
-           'CUSTOM:*PATHNAME-ENCODING*     CUSTOM:*PATHNAME-ENCODING*
-           'CUSTOM:*TERMINAL-ENCODING*     CUSTOM:*TERMINAL-ENCODING*
-           'SYSTEM::*HTTP-ENCODING*        SYSTEM::*HTTP-ENCODING*))
-  (VALUES))
-(EXPORT 'LSENCOD)
+(defun lsencod ()
+  (format t "~%~{~32A ~A~%~}~%"
+          (list
+           'custom:*default-file-encoding* custom:*default-file-encoding*
+           #+ffi 'custom:*foreign-encoding* #+ffi custom:*foreign-encoding*
+           'custom:*misc-encoding*         custom:*misc-encoding*
+           'custom:*pathname-encoding*     custom:*pathname-encoding*
+           'custom:*terminal-encoding*     custom:*terminal-encoding*
+           'system::*http-encoding*        system::*http-encoding*))
+  (values))
+(export 'lsencod)
 
 
 (defmacro eval-string-in-unlocked-package (package string)
@@ -525,30 +525,30 @@
 
 (defun print-print-vars ()
   (dolist (var '(
-                 *PRINT-ARRAY*
-                 *PRINT-BASE*
-                 *PRINT-CASE*
-                 *PRINT-CIRCLE*
-                 *PRINT-ESCAPE*
-                 *PRINT-GENSYM*
-                 *PRINT-LENGTH*
-                 *PRINT-LEVEL*
-                 *PRINT-LINES*
-                 *PRINT-MISER-WIDTH*
-                 *PRINT-PPRINT-DISPATCH*
-                 *PRINT-PRETTY*
-                 *PRINT-RADIX*
-                 *PRINT-READABLY*
-                 *PRINT-RIGHT-MARGIN*
-                 CUSTOM:*PRINT-CLOSURE*
-                 CUSTOM:*PRINT-EMPTY-ARRAYS-ANSI*
-                 CUSTOM:*PRINT-INDENT-LISTS*
-                 CUSTOM:*PRINT-PATHNAMES-ANSI*
-                 CUSTOM:*PRINT-PRETTY-FILL*
-                 CUSTOM:*PRINT-RPARS*
-                 CUSTOM:*PRINT-SPACE-CHAR-ANSI*
-                 CUSTOM:*PRINT-SYMBOL-PACKAGE-PREFIX-SHORTEST*
-                 CUSTOM:*PRINT-UNREADABLE-ANSI*) (values))
+                 *print-array*
+                 *print-base*
+                 *print-case*
+                 *print-circle*
+                 *print-escape*
+                 *print-gensym*
+                 *print-length*
+                 *print-level*
+                 *print-lines*
+                 *print-miser-width*
+                 *print-pprint-dispatch*
+                 *print-pretty*
+                 *print-radix*
+                 *print-readably*
+                 *print-right-margin*
+                 custom:*print-closure*
+                 custom:*print-empty-arrays-ansi*
+                 custom:*print-indent-lists*
+                 custom:*print-pathnames-ansi*
+                 custom:*print-pretty-fill*
+                 custom:*print-rpars*
+                 custom:*print-space-char-ansi*
+                 custom:*print-symbol-package-prefix-shortest*
+                 custom:*print-unreadable-ansi*) (values))
     (format t "~44A ~S~%" var (symbol-value var))))
 (export 'print-print-vars)
 
@@ -712,42 +712,42 @@ RETURN: A list of string, the parsed arguments.
 
 ;; a b c def "def" 'def' \'def "de'f\"g'hi\ " "   a b c   " 'de"f\'g"hi\ ' '   a b c   ' 
 
-(define-user-commands (date) "Interactive commands"
-  "Prints the date."
+(define-user-commands (date) "interactive commands"
+  "prints the date."
   (com.informatimago.common-lisp.interactive.interactive:date))
 
-(define-user-commands (uptime) "Interactive commands"
-  "Prints the uptime."
+(define-user-commands (uptime) "interactive commands"
+  "prints the uptime."
   (com.informatimago.common-lisp.interactive.interactive:uptime))
 
-(define-user-commands (pwd) "Interactive commands"
-  "Print the working directory."
-  (format t "~&~A~%" (com.informatimago.common-lisp.interactive.interactive:pwd)))
+(define-user-commands (pwd) "interactive commands"
+  "print the working directory."
+  (format t "~&~a~%" (com.informatimago.common-lisp.interactive.interactive:pwd)))
 
-(define-user-commands (cd) "Interactive commands"
-  "Change working directory."
+(define-user-commands (cd) "interactive commands"
+  "change working directory."
   (apply (function com.informatimago.common-lisp.interactive.interactive:cd)
          (read-arguments *query-io*)))
 
-(define-user-commands (ls) "Interactive commands"
-  "List files."
+(define-user-commands (ls) "interactive commands"
+  "list files."
   (apply (function com.informatimago.common-lisp.interactive.interactive:ls)
          (read-arguments *query-io*)))
 
-(define-user-commands (cat less more) "Interactive commands"
-  "Catenate files."
+(define-user-commands (cat less more) "interactive commands"
+  "catenate files."
   (apply (function com.informatimago.common-lisp.interactive.interactive:cat)
          (read-arguments *query-io*)))
 
 
-(define-user-commands (panic :pa) "User-defined commands"
-  "Hit the panic button!"
-   (format t "don't panic, ~D~%" (random 42)))
+(define-user-commands (panic :pa) "user-defined commands"
+  "hit the panic button!"
+   (format t "don't panic, ~d~%" (random 42)))
 
-(define-user-commands (swear :sw) "User-defined commands"
+(define-user-commands (swear :sw) "user-defined commands"
   "curse"
   (let ((curses  #("ouch" "yuk" "bletch")))
-    (format t "~A!~%" (aref curses (random (length curses))))))
+    (format t "~a!~%" (aref curses (random (length curses))))))
 
 
 ;; (SYSTEM::DESCRIBE-FRAME *standard-output* system::*debug-frame*)
@@ -766,7 +766,7 @@ RETURN: A list of string, the parsed arguments.
 #+emacs (emacs-pid)
 (defun set-emacs-server-pid (pid)
   (setf CUSTOM:*BROWSERS* (cons (list :emacs-w3m-socket
-                                      "emacsclient" "-n" "-s" (format nil "server-~D" pid)
+                                      "emacsclient" "-n" "-s" (format nil "server-~d" pid)
                                       "-e" "(w3m-browse-url \"~a\")")
                                 (delete :emacs-w3m-socket CUSTOM:*BROWSERS*  :key (function car)))
         CUSTOM:*BROWSER* :emacs-w3m-socket))
@@ -775,8 +775,8 @@ RETURN: A list of string, the parsed arguments.
    
 
 (pushnew :testing-script *features*)
-(IN-PACKAGE "COMMON-LISP-USER")
-(USE-PACKAGE "COM.INFORMATIMAGO.PJB")
+(in-package "COMMON-LISP-USER")
+(use-package "COM.INFORMATIMAGO.PJB")
 ;; (print ".clisprc.lisp done")
 
 ;;;; THE END ;;;;

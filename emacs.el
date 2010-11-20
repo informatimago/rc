@@ -5529,7 +5529,7 @@ See the documentation for vm-mode for more information."
 
 (defun grep-hyperspec (&optional string)
   (interactive "sString: ")
-  (grep (format "find '%s' -type f -print|while read f ; do /opt/local/bin/lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
+  (grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
 
 (defun grep-includes (&optional string)
   (interactive "sString: ")
@@ -6326,5 +6326,7 @@ or as \"emacs at <hostname>\"."
 ;; (setf inhibit-splash-screen t)
 ;; (switch-to-buffer (get-buffer-create "emtpy"))
 ;; (delete-other-windows)
+
+;; To assign windows to specific roles: C-h v split-window-preferred-function
 
 ;;;; THE END ;;;;
