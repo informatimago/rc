@@ -41,30 +41,26 @@
 ;; -- Setting environment -- CMUCL part --
 ;; ---------------------------------------
 
-(SETF EXTENSIONS:*GC-VERBOSE*  NIL)
+(setf extensions:*gc-verbose*  nil)
 
-(SETF (EXTENSIONS:SEARCH-LIST "TARGET:")
-      '("/local/src/cmucl/cmucl-18d/src/"))
-;;; ;; We put this before the COMMON-LISP part because when there's error
-;;; ;; in .common.lisp, we want to get a reference to the CMUCL source where
-;;; ;; the error is detected.
+;; We put this before the COMMON-LISP part because when there's error
+;; in rc/common.lisp, we want to get a reference to the CMUCL source where
+;; the error is detected.
 
-(SETF (EXTENSIONS:SEARCH-LIST "LIBRARY:") 
-      '("/local/languages/cmucl/lib/cmucl/lib/"))
-;;(EXT:SEARCH-LIST "MODULES:")
+(setf (extensions:search-list "library:")  '("/data/languages/cmucl/lib/")
+      (extensions:search-list "target:")   '("/data/languages/cmucl/src/"))
 
 
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 
-(SETQ *LOAD-VERBOSE* NIL)
-(LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
-                      :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
-       NIL))
-
+(setq *load-verbose* nil)
+(load (merge-pathnames
+       (make-pathname :directory '(:relative "RC") :name "COMMON" :type "LISP"
+                      :case :common)
+       (user-homedir-pathname)
+       nil))
 
 
 
@@ -72,12 +68,11 @@
 ;; -- Setting environment -- CMUCL part --
 ;; ---------------------------------------
 
-(IN-PACKAGE "COM.INFORMATIMAGO.PJB")
-(SETf *PRINT-LENGTH*                      NIL
-      DEBUG:*DEBUG-PRINT-LENGTH*          nil
-      EXTENSIONS::*TRACE-PRINT-LENGTH*    nil
-      EXTENSIONS:*DESCRIBE-PRINT-LENGTH*  nil
-      EXTENSIONS:*ERROR-PRINT-LENGTH*     nil)
+(in-package "COM.INFORMATIMAGO.PJB")
+(setf *print-length*                      nil
+      debug:*debug-print-length*          nil
+      extensions:*describe-print-length*  nil
+      extensions:*error-print-length*     nil)
 
 
 
@@ -101,28 +96,23 @@
 ;;           (load "home:hemlock-init"
 ;;                 :if-does-not-exist nil)))));;maybe-load-hemlock-init
 
-(PACKAGE:LOAD-PACKAGE :COM.INFORMATIMAGO.COMMON-LISP.ED)
-(SETF *EDITOR* (FUNCTION COM.INFORMATIMAGO.COMMON-LISP.ED:ED))
+
+(asdf-load :com.informatimago.common-lisp.ed)
+(setf *editor* (function com.informatimago.common-lisp.ed.ed:ed))
 
 
-(DEFUN QUIT () (EXTENSIONS:QUIT))
-(EXPORT 'QUIT)
+(defun quit () (extensions:quit))
+(export 'quit)
 
 
-(DEFUN SEARCH-LIST-PATHNAME (SL)
-  (MAKE-PATHNAME
-   :DIRECTORY (CONS :ABSOLUTE (CL::SEARCH-LIST-EXPANSIONS
-                               (CL::FIND-SEARCH-LIST (STRING SL))))))
-(EXPORT 'SEARCH-LIST-PATHNAME)
+;; (defun search-list-pathname (sl)
+;;   (make-pathname
+;;    :directory (cons :absolute (cl::search-list-expansions
+;;                                (cl::find-search-list (string sl))))))
+;; (export 'search-list-pathname)
 
-;; ----------------------------------------------------------------------
-;; We should not be needing CLOS, it should all be in COMMON-LISP!
-(PACKAGE::ADD-NICKNAME  "PCL" "CLOS")
-(IN-PACKAGE "COMMON-LISP")
-(SHADOWING-IMPORT
- '(CLOS:FIND-CLASS CLOS:CLASS-NAME CLOS:BUILT-IN-CLASS CLOS:CLASS-OF))
-(IN-PACKAGE "COMMON-LISP-USER")
-(USE-PACKAGE "COM.INFORMATIMAGO.PJB")
+(in-package "COMMON-LISP-USER")
+(use-package "COM.INFORMATIMAGO.PJB")
 
 
 ;;;; .cmucl-init.lisp                 --                     --          ;;;;

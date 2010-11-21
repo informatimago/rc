@@ -1,4 +1,4 @@
-;;;; -*- coding:utf-8; mode: lisp -*-
+;;;; -*- mode:lisp; coding:utf-8; -*-
 ;;;;****************************************************************************
 ;;;;FILE:               common.lisp
 ;;;;LANGUAGE:           Common-Lisp
@@ -122,11 +122,10 @@
           (when casep      (list :case      case)))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;----------------------------------------------------------------------
 ;;;
 ;;; ASDF-BINARY-LOCATIONS
 ;;;
-
 
 
 ;; Some implementations don't have ASDF loaded at this point.  For
@@ -180,7 +179,7 @@
                               (:use "COMMON-LISP")))
                           (in-package "COM.INFORMATIMAGO.PJB")
                           
-                          (defvar *init-verbose* t)
+                          (defparameter *init-verbose* nil)
                           
                           (defun hostname ()
                             (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
@@ -202,7 +201,7 @@
                                    (progn
                                      (when *init-verbose*
                                        (format t "~&Pushing :has-asdf-enable-asdf-binary-locations-compatibility to *features*~%"))
-                                     (push :has-asdf-enable-asdf-binary-locations-compatibility *features*))
+                                     (pushnew :has-asdf-enable-asdf-binary-locations-compatibility *features*))
                                    (when *init-verbose*
                                      (format t "~&There's no asdf:enable-asdf-binary-locations-compatibility ~%"))))
 
@@ -268,6 +267,7 @@
       (unintern sym *asdf*))
     (delete-package "ASDF"))
 
+
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; QuickLisp
@@ -287,23 +287,7 @@
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
 
 
-(format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
-
-;;;----------------------------------------------------------------------
-;;;
-;;; Alexandria
-;;;
-
-(ql:quickload :alexandria :verbose nil)
-
-;; (handler-case
-;;     (ql:quickload :alexandria :verbose t)
-;;   (error (err)
-;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
-;;     (print (compute-restarts))
-;;     (invoke-restart (find-restart 'skip))))
-
-
+;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 
 
 ;;;----------------------------------------------------------------------
@@ -467,43 +451,6 @@ The HOST is added to the list of logical hosts defined.
 ;;;
 
 
-;; Let's try quicklisp
-;;
-;; #+(or ecl sbcl)
-;; (require :asdf)
-;; 
-;; #-(or ecl sbcl)
-;; (dolist (file (list #P"PACKAGES:NET;SOURCEFORGE;CCLAN;ASDF;ASDF.LISP"
-;;                     #P"PACKAGES:ASDF;ASDF.LISP"
-;;                     #P"SHARE-LISP:ASDF;ASDF.LISP"
-;;                     (get-directory :share-lisp "packages/net/sourceforge/cclan/asdf/asdf.lisp")
-;;                     (get-directory :share-lisp "asdf/asdf.lisp"))
-;;          :failure)
-;;   (handler-case
-;;       (progn (LOAD file)
-;;              (return :success))
-;;     #-clisp
-;;     (FILE-ERROR (err)
-;;       (format *error-output* "Got error ~A ; trying again.~%" err)
-;;       (format *error-output* "Translations are: ~S~%"
-;;               (logical-pathname-translations "PACKAGES"))
-;;       (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%  ~S --> ~S~%"
-;;               err file (translate-logical-pathname file))
-;;       (handler-case (load (translate-logical-pathname file))
-;;         (FILE-ERROR (err)
-;;           (format *error-output* "Got error ~A~%" err))))
-;;     
-;;     #+clisp
-;;     (SYSTEM::SIMPLE-FILE-ERROR (err)
-;;       (format *error-output* "Got error ~A ; trying again.~%" err)
-;;       (format *error-output* "Translations are: ~S~%" (logical-pathname-translations "PACKAGES"))
-;;       (format *error-output* "Got error ~A ; trying translating the logical pathname: ~%   ~S --> ~S~%"
-;;               err
-;;               (slot-value err 'system::$pathname)
-;;               (translate-logical-pathname (slot-value err 'system::$pathname))))))
-
-
-
 (defun asdf-load (&rest systems)
   "Load the ASDF systems.  See also (QL:QUICKLOAD system) to install them."
   (dolist (system systems systems)
@@ -527,15 +474,9 @@ The HOST is added to the list of logical hosts defined.
   (remhash (string-downcase system) asdf::*defined-systems*)
   (values))
 
-;; (asdf:SYSTEM-SOURCE-DIRECTORY  :cl-org-mode)  --> directory where the asd file lies.
-;; (asdf:SYSTEM-SOURCE-file  :cl-org-mode)       --> asd file.
-;; (asdf:module-components  (asdf:find-system :cl-org-mode)) --> modules
-;;
-;; (mapcar (alexandria:curry 'asdf:component-depends-on 'asdf:load-op)
-;;         (asdf:module-components  (asdf:find-system :cl-org-mode)))
 
-
-
+;;;------------------------------------------------------------------------
+;;;
 
 
 (defparameter *asdf-interval-between-rescan* (* 7 24 60 60)
@@ -614,211 +555,12 @@ either scanned, or from the cache."
 (update-asdf-registry)
 
 
-;; Once upon a time, there was a bug in sbcl. Not needed with >=sbcl-1.0.18
-;; #+sbcl(require :sb-posix)
-;; #+sbcl(defun asdf-load (system)
-;;         ;; Let's try to happily round about sbcl's bugs...
-;;         (let ((ASDF:*COMPILE-FILE-WARNINGS-BEHAVIOUR* :warn))
-;;           (handler-bind
-;;               ((SB-POSIX::FILE-ENOENT
-;;                 (lambda (err)
-;;                   (if (and (= 2 (slot-value err 'sb-posix::errno))
-;;                            (string= (pathname-name (slot-value err 'sb-posix::pathname))
-;;                                     "constants")
-;;                            (or (member "sb-posix"
-;;                                        (pathname-directory (slot-value err 'sb-posix::pathname))
-;;                                        :test (function string=))
-;;                                (member "sb-bsd-sockets"
-;;                                        (pathname-directory (slot-value err 'sb-posix::pathname))
-;;                                        :test (function string=))))
-;;                       (invoke-restart (find-restart 'asdf:accept))
-;;                       (error err))))
-;;                (sb-int:simple-file-error
-;;                 (lambda (err)
-;;                   (if (and (string= (simple-condition-format-control err)
-;;                                     "can't create directory ~A")
-;;                            (let ((s (first (simple-condition-format-arguments err))))
-;;                              (and (< 5 (length s))
-;;                                   (string= "/usr/" s :end2 5))))
-;;                       (invoke-restart (find-restart 'continue))
-;;                       (error err)))))
-;;             (asdf:oos 'asdf:load-op system))))
-
-
-;; Let's try quicklisp
-;;
-;; #+sbcl (require :asdf-install)
-;; #+sbcl (defvar ASDF-INSTALL::*CONNECT-TIMEOUT* 0)      ; needed by sb-posix
-;; #+sbcl (defvar ASDF-INSTALL::*READ-HEADER-TIMEOUT* 10) ; needed by sb-posix
-;; 
-;; #-sbcl (asdf-load :asdf-install)
-;; #-sbcl (setf asdf-install:*preferred-location* 0)
-;; 
-;; ;; (setf asdf-install:*locations* (butlast asdf-install:*locations*))
-;; (setf asdf-install:*locations*
-;;       (list
-;;        (list
-;;         (merge-pathnames "./site/"         *asdf-install-location* nil)
-;;         (merge-pathnames "./site-systems/" *asdf-install-location* nil)
-;;         "System-wide install")))
-;; 
-;; (defun asdf-install (&rest systems)
-;;   (dolist (system systems systems)
-;;     (asdf-install:install system)))
-
-;; (setf  asdf-install:*proxy*        asdf-install:*proxy*
-;;        #+sbcl asdf-install:*sbcl-home* #+sbcl asdf-install:*sbcl-home*
-;;        asdf-install:*cclan-mirror* "http://ftp.linux.org.uk/pub/lisp/cclan/"
-;;        ASDF-INSTALL:*CCLAN-MIRROR* "http://thingamy.com/cclan/"
-;;        ASDF-INSTALL:*CCLAN-MIRROR* "ftp://ftp.ntnu.no/pub/lisp/cclan/"
-;;        ASDF-INSTALL:*CCLAN-MIRROR* "http://www-jcsu.jesus.cam.ac.uk/ftp/pub/cclan/"
-;;        asdf-install:*locations*    (list (first asdf-install:*locations*)))
-;; 
-;; 
-;; (setf asdf-install::*connect-timeout*      10
-;;       asdf-install::*read-header-timeout*  10)
-
-
-
-;; Let's try quicklisp
-;;
-;; #-(or clc-os-debian) 
-;; (push (second (first asdf-install:*locations*))  ASDF:*CENTRAL-REGISTRY*)
-;; #-(or clc-os-debian) 
-;; (push #P"/data/lisp/gentoo/systems/"      asdf:*central-registry*)
-;; 
-;; 
-;; (push #P"/usr/share/common-lisp/systems/" asdf:*central-registry*) 
-
-
-
-
-
-;; (in-package :asdf)
-;; (defparameter *output-file-debug* nil)
-;; (defmethod output-files :before ((operation compile-op) (component source-file)) 
-;;   (let ((source (component-pathname component)))
-;;     (print (setf *output-file-debug*
-;;                  (list 'output-files-for-system-and-operation 
-;;                        (component-system component) operation component source)))))
-;; (in-package :cl-user)
-
-
-;; (in-package "ASDF")
-;; (handler-bind ((warning (function muffle-warning)))
-;;   ;; TODO: we should keep the error message in a string
-;;   ;;       and check it's only the warnings.
-;;   (FLET ((F-OUTPUT-FILES (C)
-;;            (FLET ((IMPLEMENTATION-ID ()
-;;                     (FLET ((FIRST-WORD (TEXT)
-;;                              (LET ((POS (POSITION (CHARACTER " ") TEXT)))
-;;                                (REMOVE (CHARACTER ".")
-;;                                        (IF POS (SUBSEQ TEXT 0 POS) TEXT)))))
-;;                       (FORMAT NIL
-;;                         "~A-~A-~A"
-;;                         (FIRST-WORD (LISP-IMPLEMENTATION-TYPE))
-;;                         (FIRST-WORD (LISP-IMPLEMENTATION-VERSION))
-;;                         (FIRST-WORD (MACHINE-TYPE))))))
-;;              (LET* ((OBJECT
-;;                       (COMPILE-FILE-PATHNAME (ASDF:COMPONENT-PATHNAME C)))
-;;                     (PATH
-;;                      (MERGE-PATHNAMES
-;;                       (MAKE-PATHNAME* :DIRECTORY
-;;                                      (LIST :RELATIVE
-;;                                            (FORMAT NIL
-;;                                              "OBJ-~:@(~A~)"
-;;                                              (IMPLEMENTATION-ID)))
-;;                                      :NAME
-;;                                      (PATHNAME-NAME OBJECT)
-;;                                      :TYPE
-;;                                      (PATHNAME-TYPE OBJECT))
-;;                       OBJECT)))
-;;                (ENSURE-DIRECTORIES-EXIST PATH)
-;;                (LIST PATH)))))
-;;     (DEFMETHOD OUTPUT-FILES ((OPERATION COMPILE-OP) (C CL-SOURCE-FILE))
-;;       (F-OUTPUT-FILES C))
-;;     (DEFMETHOD OUTPUT-FILES ((OPERATION LOAD-OP)    (C CL-SOURCE-FILE))
-;;       (F-OUTPUT-FILES C))))
-;; (in-package "COM.INFORMATIMAGO.PJB")
-
-
-;;----------------------------------------------------------------------
-;; (WHEN *LOAD-VERBOSE*
-;;   (FORMAT T "~& (LOAD \"LOADER:CCLAN.LISP\") ~%")
-;;   (FORMAT T "~& (LOAD \"DEFSYSTEM:DEFSYSTEM.LISP\") ~%"))
-
-
-;;;
-;;; This is not necessary anymore, because we use the standard ASDF
-;;; mechanism to load :com.informatimago.common-lisp. 
-;;;
-
-;; (UNLESS
-;;     (BLOCK :load-package.lisp
-;;       (macrolet ((MP (PATHNAME &OPTIONAL
-;;                          (DIRECTORY NIL DIRECTORY-P)
-;;                          (NAME      NIL NAME-P)
-;;                          (TYPE      NIL TYPE-P)
-;;                          (VERSION   NIL VERSION-P))
-;;              `(MERGE-PATHNAMES
-;;                (MAKE-PATHNAME*,@(WHEN DIRECTORY-P `(:DIRECTORY '(:RELATIVE ,@DIRECTORY)))
-;;                              ,@(WHEN NAME-P      `(:NAME      ,NAME))
-;;                              ,@(WHEN TYPE-P      `(:TYPE      ,TYPE))
-;;                              ,@(WHEN VERSION-P   `(:VERSION   ,VERSION))
-;;                              :DEFAULTS ,PATHNAME)
-;;                ,PATHNAME
-;;                nil)))
-;;         (DOLIST (FILE
-;;                   (LIST
-;                     #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;CESARUM;PACKAGE"
-;;                    #P"PACKAGES:COM;INFORMATIMAGO;COMMON-LISP;CESARUM;PACKAGE.LISP"
-;;                    (mp *PJB-COMM* ("common-lisp" "cesarum") "package")
-;;                    (mp *PJB-COMM* ("common-lisp" "cesarum") "package" "lisp")
-;;                    (merge-pathnames #P"COMMON-LISP;CESARUM;PACKAGE"      *PJB-COMM* nil)
-;;                    (merge-pathnames #P"COMMON-LISP;CESARUM;PACKAGE.LISP" *PJB-COMM* nil)
-;;                    (merge-pathnames #P"common-lisp/cesarum/package"      *PJB-COMM* nil)
-;;                    (merge-pathnames #P"common-lisp/cesarum/package.lisp" *PJB-COMM* nil)))
-;;           (HANDLER-CASE (PROGN (LOAD FILE) (RETURN-FROM :DONE T)) (ERROR ()))))
-;;       NIL)
-;;   (ERROR "Cannot find COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE"))
-
-;;;
-;;; We don't use PACKAGE-SYSTEM-DEFINITION anymore.
-;;;
-
-;; (push 'COM.INFORMATIMAGO.COMMON-LISP.CESARUM.PACKAGE:PACKAGE-SYSTEM-DEFINITION
-;;       ASDF:*SYSTEM-DEFINITION-SEARCH-FUNCTIONS*)
-
-
-
-
-
-;;;----------------------------------------------------------------------
-;;;
-;;; com.informatimago libraries
-;;;
-
-;; Should be included by (UPDATE-ASDF-REGISTRY)
-(setf asdf:*central-registry*
-      (append (remove-duplicates
-               (mapcar (lambda (path)
-                         (make-pathname* :name nil :type nil :version nil :defaults path))
-                       (directory #p"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
-               :test (function equalp))
-              asdf:*central-registry*))
-
-
-               (asdf-load  :com.informatimago.common-lisp)
-#-(or ccl ecl) (asdf-load  :com.informatimago.clext)
-               (asdf-load  :com.informatimago.clmisc)
-#+sbcl         (asdf-load  :com.informatimago.sbcl)
-#+clisp        (asdf-load  :com.informatimago.clisp)
-#+clisp        (asdf-load  :com.informatimago.susv3)
 
 
 
 ;;;----------------------------------------------------------------------
 
+(fmakunbound 'hostname)
 (defun hostname ()
   (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
     (unwind-protect
@@ -883,12 +625,60 @@ either scanned, or from the cache."
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
 ;;;----------------------------------------------------------------------
+;;;
+;;; Alexandria
+;;;
 
+(ql:quickload :alexandria :verbose nil)
+
+;; (handler-case
+;;     (ql:quickload :alexandria :verbose t)
+;;   (error (err)
+;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
+;;     (print (compute-restarts))
+;;     (invoke-restart (find-restart 'skip))))
+
+
+;;;----------------------------------------------------------------------
+;;;
+;;; com.informatimago libraries
+;;;
+
+;; Should be included by (UPDATE-ASDF-REGISTRY)
+(setf asdf:*central-registry*
+      (append (remove-duplicates
+               (mapcar (lambda (path)
+                         (make-pathname* :name nil :type nil :version nil :defaults path))
+                       (directory #p"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+               :test (function equalp))
+              asdf:*central-registry*))
+
+
+#-abcl (asdf-load  :com.informatimago.common-lisp)
+#-abcl (asdf-load  :com.informatimago.clmisc)
+
+#-(or abcl ccl cmu ecl)
+(asdf-load  :com.informatimago.clext)
+
+#+sbcl
+(asdf-load  :com.informatimago.sbcl)
+
+#-(and)
+(asdf-load  :com.informatimago.clisp)
+
+#-(and)
+(asdf-load  :com.informatimago.susv3)
+
+
+;;;----------------------------------------------------------------------
+#-abcl
 (use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
+#-abcl
 (export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
               "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
 
 (push :com.informatimago.pjb *features*)
 
+;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 ;;;; THE END ;;;;
