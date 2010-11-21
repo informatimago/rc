@@ -2110,30 +2110,39 @@ capitalized form."
     "^==> "
     iso-8859-15)
 
-  (define-lisp-implementation allegro-express
-      "/local/languages/acl80_express/alisp"
+
+  (define-lisp-implementation abcl
+      "/data/languages/abcl/abcl"
+    "^.*([0-9]+): "
+    iso-8859-15)
+  
+  (define-lisp-implementation allegro
+      "/data/languages/acl82express/alisp"
     "^\[[0-9]*\]> "
     iso-8859-15)
 
-  (define-lisp-implementation allegro
-      "/local/languages/acl80/alisp"
-    "^\[[0-9]*\]> "
-    iso-8859-15)
+  (define-lisp-implementation cmucl
+      (first-existing-file '("/data/languages/ccl/bin/ccl"
+                             "/usr/local/bin/lisp"
+                             "/usr/bin/lisp"))
+    "^\* "
+    utf-8)
 
   (define-lisp-implementation sbcl
-      (list (first-existing-file '("/opt/local/bin/sbcl"
+      (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
+                                   "/opt/local/bin/sbcl"
                                    "/usr/local/bin/sbcl"
                                    "/usr/bin/sbcl"))
             "--noinform")
     "^\[[0-9]*\]> "
-    iso-8859-1)
+    utf-8)
 
-  (define-lisp-implementation cmucl
-      (first-existing-file '("/usr/local/bin/lisp"
-                             "/usr/bin/lisp"))
-    "^\* "
-    iso-8859-1)
-
+  (define-lisp-implementation ccl
+      (first-existing-file '("/data/languages/ccl/bin/ccl"
+                             "/usr/bin/ccl"))
+    "^? "
+    utf-8)
+  
   (define-lisp-implementation openmcl
       "/usr/local/bin/openmcl"
     "^\[[0-9]*\]> "
@@ -2142,7 +2151,7 @@ capitalized form."
   (define-lisp-implementation clisp
       (list* (cond
                ((eq system-type 'cygwin)  "/usr/bin/clisp")
-               (t  (first-existing-file '("/opt/clisp-2.46/bin/clisp"
+               (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
                                           "/opt/local/bin/clisp"
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
@@ -2176,9 +2185,8 @@ capitalized form."
      (values))\n")
 
 
-
-
   (defun set-inferior-lisp-implementation (impl)
+    "Set the default lisp implementation used by inferior-lisp and slime."
     (interactive "SImplementation: ")
     (let ((impl (get impl :lisp-implementation)))
       (if impl
@@ -2201,6 +2209,8 @@ capitalized form."
                     (cons coding coding))))
           (error "%S not a lisp implementation." impl)))
     impl)
+
+  (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
 
   (defun set-inferior-lisp-buffer (buffer-name)

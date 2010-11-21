@@ -143,7 +143,7 @@ function be_generate(){
         /usr/local/apps/WordPerfect/wpbin 
         /Library/PostgreSQL8/bin 
         /Developer/Tools 
-        /data/languages/abcl/bin
+        /data/languages/abcl
         /data/languages/acl82express
         /data/languages/ccl/bin
         /data/languages/clisp/bin
