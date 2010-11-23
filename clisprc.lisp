@@ -35,9 +35,11 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+(dolist (module '("linux" "threads" "regexp"))
+  (ignore-errors (require module)))
 
 ;; (|CL|:|SETF| |CUSTOM|:|*LOAD-ECHO*| |CL|:|T|)
-(cl:in-package "COMMON-LISP-USER")
+(in-package "COMMON-LISP-USER")
 
 ;;;---------------------------------------------------------------------------
 ;;;
@@ -145,13 +147,14 @@
  custom:*load-echo*             custom:*load-echo*
  custom:*load-logical-pathname-translations-database*
  (list (merge-pathnames #p "LOGHOSTS/" (user-homedir-pathname) nil))
- custom:*load-paths*          '(#p"")
+ custom:*load-paths*           '(#p"")
  custom:*load-obsolete-action*  nil
  custom:*compile-warnings*      t
+ ;; custom:*lib-directory*        used by require to load dynmods
+ ;; custom:*user-lib-directory*   used by require to load dynmods -- user customization.
 
  custom:*source-file-types*   '("lisp" "lsp" "cl")
  custom:*compiled-file-types* '("fas")
- ;; CUSTOM:*LIB-DIRECTORY*       #P"/usr/local/languages/clisp/lib/clisp/"
   
  custom:*applyhook*             nil
  custom:*evalhook*              nil
@@ -168,7 +171,7 @@
  custom:*inspect-print-length*  100000
  custom:*inspect-print-level*   5
  custom:*inspect-print-lines*   5
-
+ 
  ;; HTTP
  custom:*browser*           :emacs-w3m
  custom:*browsers*
@@ -376,13 +379,11 @@
 ;; Setting environment -- CLISP specific --
 ;; ----------------------------------------
 
-(setf *print-length*  nil)
-
-(setf *editor* 
-      (lambda (arg &key (wait t))
-        (if (or (functionp arg) (symbolp arg))
-            (ed arg)
-            (ext:shell (format nil "emacsclient ~:[-n~;~] ~A" wait arg)))))
+;; (setf *editor* 
+;;       (lambda (arg &key (wait t))
+;;         (if (or (functionp arg) (symbolp arg))
+;;             (ed arg)
+;;             (ext:shell (format nil "emacsclient ~:[-n~;~] ~A" wait arg)))))
 
 
 
@@ -419,9 +420,9 @@
 (defun quit () (ext:quit))
 (export 'quit)
 
-(push (function ext:cd)
-      com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
-(cd (ext:cd))     
+;; (push (function ext:cd)
+;;       com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
+;; (cd (ext:cd))     
 
 
 (defun sh (command)
@@ -429,7 +430,7 @@
     (with-open-stream (in (ext:run-program (first args)
                             :arguments (cdr args) :output :stream))
       (loop for line = (read-line in nil nil)
-         while line do (princ line) (terpri))))) ;;SH
+         while line do (princ line) (terpri)))))
 
 
 ;; (SET-MACRO-CHARACTER #\] (GET-MACRO-CHARACTER #\)))
@@ -511,10 +512,6 @@
 ;; for a *debugger-hook*:
 ;; SYSTEM::*READ-LINE-NUMBER*
 
-;;----------------------------------------------------------------------
-;;(format *trace-output* "~&.clisprc.lisp loaded~%")
-;;----------------------------------------------------------------------
-
 (defun ps ()
   (with-open-stream (in (ext:run-program "ps" :arguments '("axf") 
                                          :output :stream)) 
@@ -552,6 +549,9 @@
     (format t "~44A ~S~%" var (symbol-value var))))
 (export 'print-print-vars)
 
+(setf *print-length*  nil
+      *print-level*   nil
+      *print-right-margin* 1000)
 
 
 
@@ -777,6 +777,6 @@ RETURN: A list of string, the parsed arguments.
 (pushnew :testing-script *features*)
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
-;; (print ".clisprc.lisp done")
 
+;; (print ".clisprc.lisp done")
 ;;;; THE END ;;;;
