@@ -80,9 +80,13 @@
 
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
-  (setf mac-command-modifier 'meta
-        mac-option-modifier  'alt
-        one-buffer-one-frame nil)
+  (when 'thru-vnc
+    (setf mac-command-modifier 'alt
+          mac-option-modifier  'meta
+          one-buffer-one-frame nil)
+    (setf mac-command-modifier 'meta
+          mac-option-modifier  'alt
+          one-buffer-one-frame nil))
   (cua-mode 0))
 
 (when (boundp 'x-toolkit-scroll-bars)
@@ -308,7 +312,7 @@
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
- '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))))
  '(indent-tabs-mode nil)
  '(inferior-lisp-filter-regexp "\\`\\s*\\'")
  '(inihibit-default-init t)
@@ -339,7 +343,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 ")
- '(mail-default-reply-to "<pjb@informatimago.com>")
+ '(mail-default-reply-to "pjb@informatimago.com")
+ '(mail-from-style (quote angle))
  '(mail-host-address "informatimago.com")
  '(mail-interactive t)
  '(mail-mode-hook (quote (mail-abbrevs-setup (lambda nil (set-buffer-file-coding-system (quote utf-8) t t) (set-input-method default-input-method) (local-set-key "	" (quote expand-mail-aliases))))))
@@ -364,6 +369,7 @@ X-Accept-Language:         fr, es, en
 X-Disabled: X-No-Archive: no
 ")
  '(message-directory "~/mail/")
+ '(message-from-style (quote angles))
  '(message-log-max 5000)
  '(message-required-news-headers (quote (From Newsgroups Subject Date Message-ID (optional . Organization) (optional . User-Agent) (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm")))))
  '(message-user-organization "Informatimago")
@@ -2156,7 +2162,7 @@ capitalized form."
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q""-K""full""-m""32M""-I"
+             "-ansi""-q""-m""32M""-I"; "-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "ISO-8859-15"
@@ -2188,30 +2194,28 @@ capitalized form."
   (defun set-inferior-lisp-implementation (impl)
     "Set the default lisp implementation used by inferior-lisp and slime."
     (interactive "SImplementation: ")
-    (let ((impl (get impl :lisp-implementation)))
-      (if impl
+    (let ((limpl (get impl :lisp-implementation)))
+      (if limpl
           (progn
             (message ".EMACS: inferior-lisp implementation: %s"
-                     (lisp-implementation-name impl))
-            (setf *default-lisp-implementation* impl
-                  inferior-lisp-program (lisp-implementation-command impl)
-                  inferior-lisp-prompt  (lisp-implementation-prompt impl)
-                  lisp-function-doc-command
-                  (lisp-implementation-function-documentation-command impl)
-                  lisp-var-doc-command
-                  (lisp-implementation-variable-documentation-command impl)
-                  lisp-arglist-command
-                  (lisp-implementation-argument-list-command impl)
-                  lisp-describe-sym-command
-                  (lisp-implementation-describe-symbol-command impl)
-                  default-process-coding-system
-                  (let ((coding (lisp-implementation-coding impl)))
-                    (cons coding coding))))
+                     (lisp-implementation-name limpl))
+            (let ((coding (lisp-implementation-coding limpl)))
+              (setf *default-lisp-implementation* limpl
+                    inferior-lisp-program         (lisp-implementation-command limpl)
+                    inferior-lisp-prompt          (lisp-implementation-prompt limpl)
+                    lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
+                    lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
+                    lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
+                    lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
+                    default-process-coding-system (cons coding coding)
+                    slime-net-coding-system       coding
+                    slime-default-lisp            impl)))
           (error "%S not a lisp implementation." impl)))
     impl)
 
-  (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
+  
+  (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
   (defun set-inferior-lisp-buffer (buffer-name)
     (interactive "bInferior Lisp Buffer: ")
@@ -2221,36 +2225,17 @@ capitalized form."
     (make-local-variable 'lisp-arglist-command)
     (make-local-variable 'lisp-describe-sym-command)
     (make-local-variable 'lisp-implementation)
-    (setf
-     inferior-lisp-buffer buffer-name
-     lisp-implementation  (or (buffer-local-value
-                               'lisp-implementation
-                               (get-buffer inferior-lisp-buffer))
-                              (lisp-implementation-name
-                               *default-lisp-implementation*)))
+    (setf inferior-lisp-buffer buffer-name
+          lisp-implementation  (or (buffer-local-value 'lisp-implementation
+                                                       (get-buffer inferior-lisp-buffer))
+                                   (lisp-implementation-name *default-lisp-implementation*)))
     (let ((limpl (get lisp-implementation :lisp-implementation)))
       (when limpl
-        (setf
-         lisp-function-doc-command
-         (lisp-implementation-function-documentation-command limpl)
-         lisp-var-doc-command
-         (lisp-implementation-variable-documentation-command limpl)
-         lisp-arglist-command
-         (lisp-implementation-argument-list-command limpl)
-         lisp-describe-sym-command
-         (lisp-implementation-describe-symbol-command limpl)))))
+        (setf lisp-function-doc-command (lisp-implementation-function-documentation-command limpl)
+              lisp-var-doc-command      (lisp-implementation-variable-documentation-command limpl)
+              lisp-arglist-command      (lisp-implementation-argument-list-command limpl)
+              lisp-describe-sym-command (lisp-implementation-describe-symbol-command limpl)))))
 
-
-
-  ;; (prog1 nil
-  ;;   (set-inferior-lisp-implementation 'clisp)
-  ;;   (print `(clisp --> ,(symbol-plist 'clisp)))
-  ;;   (print `(inferior-lisp-program --> ,inferior-lisp-program))
-  ;;   (print `(inferior-lisp-prompt --> ,inferior-lisp-prompt)))
-
-
-  ;; system-type          darwin   gnu/linux  cygwin
-  ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin"
 
   ;; Used both by ilisp and slime:
   (case system-type
@@ -2259,10 +2244,6 @@ capitalized form."
     ((cygwin)     (set-inferior-lisp-implementation 'clisp))
     (otherwise    (warn "unexpected system-type for inferior-lisp-program")
                   (set-inferior-lisp-implementation 'clisp)))
-
-
-
-
 
 
 
