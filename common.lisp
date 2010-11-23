@@ -552,12 +552,6 @@ either scanned, or from the cache."
                 *original-asdf-registry*))))
 
 
-(update-asdf-registry)
-
-
-
-
-
 ;;;----------------------------------------------------------------------
 
 (fmakunbound 'hostname)
@@ -649,10 +643,23 @@ either scanned, or from the cache."
       (append (remove-duplicates
                (mapcar (lambda (path)
                          (make-pathname* :name nil :type nil :version nil :defaults path))
-                       (directory #p"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+                       #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
+                       #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
                :test (function equalp))
               asdf:*central-registry*))
 
+;; (update-asdf-registry)
+
+;;; This doesn't work:
+;; ;; You can use :tree instead of :directory to find all directories with
+;; ;; system files present.
+;; ;; See section 7.5 and 7.9 of http://l1sp.org/asdf/manual
+;; #+(or allegro ccl) (asdf:initialize-source-registry 
+;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
+;;                       :inherit-configuration))
+;; #-(or allegro ccl) (asdf:initialize-source-registry 
+;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
+;;                       :inherit-configuration))
 
 #-abcl (asdf-load  :com.informatimago.common-lisp)
 #-abcl (asdf-load  :com.informatimago.clmisc)
