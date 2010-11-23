@@ -80,7 +80,7 @@
 
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
-  (when 'thru-vnc
+  (if 'thru-vnc
     (setf mac-command-modifier 'alt
           mac-option-modifier  'meta
           one-buffer-one-frame nil)
