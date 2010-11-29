@@ -1,0 +1,315 @@
+!
+! This is an `xmodmap' input file for the  DasKeyboard 3
+! on MacOSX with X11.app, when it's botched.
+!
+! Bus 008 Device 005: ID 04d9:2013 Holtek Semiconductor, Inc. 
+!
+! PC 105 keys, wide Delete, wide Enter.
+!
+
+
+!------------------------------------------------------------
+! First line
+!------------------------------------------------------------
+
+keycode  61 = Escape
+          
+keycode 130 = F1              XF86_Switch_VT_1  F14 
+keycode 128 = F2              XF86_Switch_VT_2  F15
+keycode 107 = F3              XF86_Switch_VT_3  F16
+keycode 126 = F4              XF86_Switch_VT_4  F17
+
+keycode 104 = F5              XF86_Switch_VT_5  F18
+keycode 105 = F6              XF86_Switch_VT_6  F19
+keycode 106 = F7              XF86_Switch_VT_7  F20
+keycode 108 = F8              XF86_Switch_VT_8  F21
+
+keycode 109 = F9              XF86_Switch_VT_9  F22
+keycode 117 = F10             XF86_Switch_VT_10 F23
+keycode 111 = F11             XF86_Switch_VT_11 F24
+keycode 119 = F12             XF86_Switch_VT_12 F25
+
+keycode 113 = Pause           Break
+keycode 115 = Caps_Lock       
+keycode 121 = Print           Sys_Req
+
+
+!------------------------------------------------------------
+! Second line
+!------------------------------------------------------------
+
+keycode  58 = grave           asciitilde      infinity          variation
+keycode  26 = 1               exclam          onesubscript      onesuperior
+keycode  27 = 2               at              twosubscript      twosuperior
+keycode  28 = 3               numbersign      threesubscript    threesuperior
+keycode  29 = 4               dollar          foursubscript     foursuperior
+keycode  31 = 5               percent         fivesubscript     fivesuperior
+keycode  30 = 6               asciicircum     sixsubscript      sixsuperior
+keycode  34 = 7               ampersand       sevensubscript    sevensuperior
+keycode  36 = 8               asterisk        eightsubscript    eightsuperior
+keycode  33 = 9               parenleft       ninesubscript     ninesuperior
+keycode  37 = 0               parenright      zerosubscript     zerosuperior
+keycode  35 = minus           underscore      righttack         downtack
+keycode  32 = equal           plus            lefttack          uptack
+keycode  59 = BackSpace       BackSpace       BackSpace         BackSpace       
+
+
+!------------------------------------------------------------
+! Third line
+!------------------------------------------------------------
+
+keycode  56 = Tab             ISO_Left_Tab
+
+keycode  20  = q               Q             Greek_omega     Greek_OMEGA
+keycode  21 = w               W             EuroSign        cent
+keycode  22 = e               E             Greek_epsilon   Greek_EPSILON
+keycode  23 = r               R             Greek_rho       Greek_RHO
+keycode  25 = t               T             Greek_tau       Greek_TAU
+keycode  24 = y               Y             Greek_psi       Greek_PSI
+keycode  40 = u               U             Greek_upsilon   Greek_UPSILON
+keycode  42 = i               I             Greek_iota      Greek_IOTA
+keycode  39 = o               O             Greek_omicron   Greek_OMICRON
+keycode  43 = p               P             Greek_pi        Greek_PI
+keycode  41 = bracketleft     braceleft     guillemotleft   0x1002200
+keycode  38 = bracketright    braceright    guillemotright  0x1002203
+keycode  50 = backslash       bar           integral        partialderivative
+
+
+!------------------------------------------------------------
+! Fourth line (home row)
+!------------------------------------------------------------
+
+keycode  67 = Control_L
+
+keycode   8 = a               A             Greek_alpha     Greek_ALPHA
+keycode   9 = s               S             Greek_sigma     Greek_SIGMA
+keycode  10 = d               D             Greek_delta     Greek_DELTA
+keycode  11 = f               F             Greek_phi       Greek_PHI
+keycode  13 = g               G             Greek_gamma     Greek_GAMMA
+keycode  12 = h               H             Greek_theta     Greek_THETA
+keycode  46 = j               J             Greek_eta       Greek_ETA
+keycode  48 = k               K             Greek_kappa     Greek_KAPPA
+keycode  45 = l               L             Greek_lamda     Greek_LAMDA
+keycode  49 = semicolon       colon         quad            quad
+keycode  47 = apostrophe      quotedbl      circle          circle
+
+keycode  44 = Return
+
+
+!------------------------------------------------------------
+! Fifth line
+!------------------------------------------------------------
+
+keycode  64 = Shift_L
+
+keycode  14 = z               Z         Greek_zeta          Greek_ZETA
+keycode  15 = x               X         Greek_xi            Greek_XI
+keycode  16 = c               C         Greek_chi           Greek_CHI
+keycode  17 = v               V         nabla               radical
+keycode  19 = b               B         Greek_beta          Greek_BETA
+keycode  53 = n               N         Greek_nu            Greek_NU
+keycode  54 = m               M         Greek_mu            Greek_MU
+keycode  51 = comma           less      lessthanequal       logicaland
+keycode  55 = period          greater   greaterthanequal    logicalor
+keycode  52 = slash           question  notequal            notsign
+
+keycode  68 = Shift_R         
+
+
+!------------------------------------------------------------
+! Sixth line
+!------------------------------------------------------------
+
+keycode  67 = Multi_key       
+keycode  66 = Alt_L
+keycode  63 = Meta_L
+
+keycode  57 = space         space       digitspace          digitspace
+
+keycode  71 = Meta_R
+keycode  69 = Mode_switch
+keycode 118 = Hyper_R
+keycode  70 = Control_R
+
+
+!------------------------------------------------------------
+! Home
+!------------------------------------------------------------
+
+keycode 122 = Insert    Insert  elementof       notelementof
+keycode 125 = Delete    Delete  emptyset        stricteq
+
+keycode 123 = Home      Home    implies         ifonlyif       
+keycode 127 = End       End     therefore       because
+
+keycode 124 = Prior     Prior   identical       notidentical
+keycode 129 = Next      Next    approxeq        notapproxeq
+
+
+!------------------------------------------------------------
+! Arrows
+!------------------------------------------------------------
+
+keycode 134 = Up      Up        uparrow         intersection       
+keycode 131 = Left    Left      leftarrow       includedin
+keycode 133 = Down    Down      downarrow       union
+keycode 132 = Right   Right     rightarrow      includes
+
+
+!------------------------------------------------------------
+! Numerical Keypad
+!------------------------------------------------------------
+
+! Second line:
+!keycode  77 = Num_Lock        Pointer_EnableKeys
+keycode  79 = Num_Lock        
+keycode  83 = KP_Multiply     XF86_ClearGrab
+keycode  75 = KP_Divide       XF86_Ungrab
+keycode  86 = KP_Subtract     KP_Subtract 0x1002500 0x1002550
+
+! Third line:
+keycode  97 = KP_Home         KP_7    0x100250C  0x1002554
+keycode  99 = KP_Up           KP_8    0x100252C  0x1002566
+keycode 100 = KP_Prior        KP_9    0x1002510  0x1002557
+
+! Fourth line:
+keycode  94 = KP_Left         KP_4    0x100251C  0x1002560
+keycode  95 = KP_Begin        KP_5    0x100253C  0x100256C
+keycode  96 = KP_Right        KP_6    0x1002524  0x1002563
+keycode  77 = KP_Add          KP_Add  0x1002502  0x1002551
+
+! Fifth line:
+keycode  91 = KP_End          KP_1    0x1002514  0x100255A
+keycode  92 = KP_Down         KP_2    0x1002534  0x1002569
+keycode  93 = KP_Next         KP_3    0x1002518  0x100255D
+
+! Sixth line:
+keycode  90 = KP_Insert       KP_0
+keycode  73 = KP_Delete       KP_Decimal
+keycode  84 = KP_Enter 
+
+
+!------------------------------------------------------------
+! Modifiers
+!------------------------------------------------------------
+
+clear Shift
+clear Lock
+clear Control
+clear Mod1
+clear Mod2
+clear Mod3
+clear Mod4
+clear Mod5
+
+!!! In order of bits: 
+add    Shift   = Shift_L     Shift_R
+add    Lock    = Caps_Lock
+add    Control = Control_L   Control_R
+add    Mod1    = Num_Lock
+add    Mod2    = Alt_L       Alt_R       Mode_switch
+add    Mod3    = Meta_L      Meta_R
+add    Mod4    = Super_L     Super_R
+add    Mod5    = Hyper_L     Hyper_R     
+
+
+
+
+!----------------------------------------------------------------------------
+! Multi_key Sequences (»Compose«)
+! <URL:http://www.in-ulm.de/~mascheck/X11/compose.txt>
+!
+! '!' is the comment character for xmodmap(1), thus it's omnipresent here.
+!
+! See also:
+!   MIT:              $SRC/xc/nls/X11/locale/Compose/iso8859-1
+!   XFree86:          /usr/X11R6/lib/X11/locale/iso8859-1/Compose
+!   Solaris' Openwin: /usr/openwin/include/X11/Suncompose.h
+!                     /usr/openwin/lib/locale/*/Compose
+!   Irix6:            compose(5)
+!
+!   <URL:http://www.in-ulm.de/~mascheck/X11/keysyms.txt>
+!----------------------------------------------------------------------------
+!
+! In X11R6, there are even 7bit compose sequences, like for video terminals:
+!
+! + +        : #
+! A A        : @
+! ( (        : [
+! ) )        : ]
+! ( -        : {
+! ) -        : }
+! / / , / <  : \
+! > <space>  : ^
+! / ^, V L   : |
+! - <space>  : ~
+!
+!----------------------------------------------------------------------------
+! 8bit sequences in rather compressed form:
+!
+! From: Christian Weisgerber
+! Newsgroups: de.comp.os.unix.x11
+! Subject: Re: 8 keysym pro keycode !? -- wie benutzen ?
+! Message-ID: <869tp8$5d4$1@bigeye.rhein-neckar.de>
+!
+!    |   no-break space                      ¦  broken bar              ||
+!    ­  soft hyphen             --           µ  micro sign              /U
+!    ¡  inverted !              !!           ¿  inverted ?              ??
+!    ¢  cent sign            C/ or C|        £  pound sign           L- or L=
+!    ¤  currency sign        XO or X0        ¥  yen sign             Y- or Y=
+!    §  section sign         SO or S! or S0  ¶  pilcrow sign            P!
+!    ¨  diaeresis            "" or  "        ¯  macron               _^ or -^
+!    ´  acute accent            ''           ¸  cedilla                 ,,
+!    ©  copyright sign       CO or C0        ®  registered sign         RO
+!    ª  feminine ordinal        A_           º  masculine ordinal       O_
+!    «  opening angle brackets  <<           »  closing angle brakets   >>
+!    °  degree sign             0^           ¹  superscript 1           1^
+!    ²  superscript 2           2^           ³  superscript 3           3^
+!    ±  plus or minus sign      +-           ¼  fraction one-quarter    14
+!    ½  fraction one-half       12           ¾  fraction three-quarter  34
+!    ·  middle dot           .^ or ..        ¬  not sign                -,
+!    ×  multiplication sign     xx           ÷  division sign           :-
+!    
+!    À  A grave                 A`           à  a grave                 a`
+!    Á  A acute                 A'           á  a acute                 a'
+!    Â  A circumflex            A^           â  a circumflex            a^
+!    Ã  A tilde                 A~           ã  a tilde                 a~
+!    Ä  A diaeresis             A"           ä  a diaeresis             a"
+!    Å  A ring                  A*           å  a ring                  a*
+!    Æ  AE ligature             AE           æ  ae ligature             ae
+!    
+!    Ç  C cedilla               C,           ç  c cedilla               c,
+!    
+!    È  E grave                 E`           è  e grave                 e`
+!    É  E acute                 E'           é  e acute                 e'
+!    Ê  E circumflex            E^           ê  e circumflex            e^
+!    Ë  E diaeresis             E"           ë  e diaeresis             e"
+!    
+!    Ì  I grave                 I`           ì  i grave                 i`
+!    Í  I acute                 I'           í  i acute                 i'
+!    Î  I circumflex            I^           î  i circumflex            i^
+!    Ï  I diaeresis             I"           ï  i diaeresis             i"
+!    
+!    Ð  capital eth             D-           ð  small eth               d-
+!    
+!    Ñ  N tilde                 N~           ñ  n tilde                 n~
+!    
+!    Ò  O grave                 O`           ò  o grave                 o`
+!    Ó  O acute                 O'           ó  o acute                 o'
+!    Ô  O circumflex            O^           ô  o circumflex            o^
+!    Õ  O tilde                 O~           õ  o tilde                 o~
+!    Ö  O diaeresis             O"           ö  o diaeresis             o"
+!    Ø  O slash                 O/           ø  o slash                 o/
+!    
+!    Ù  U grave                 U`           ù  u grave                 u`
+!    Ú  U acute                 U'           ú  u acute                 u'
+!    Û  U circumflex            U^           û  u circumflex            u^
+!    Ü  U diaeresis             U"           ü  u diaeresis             u"
+!    
+!    Ý  Y acute                 Y'           ý  y acute                 y'
+!    
+!    Þ  capital thorn           TH           þ  small thorn             th
+!    
+!    ß  German small sharp s    ss           ÿ  y diaeresis             y"
+
+
