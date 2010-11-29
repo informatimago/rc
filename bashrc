@@ -485,11 +485,13 @@ fi
 
 if [ -x /usr/games/bin/fgfs ] ; then
     fgfs_default_options=(--control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d)
+    fgfs_nimitz_options=(--control=joystick --enable-hud-3d --enable-sound --enable-splash-screen --enable-enhanced-lighting --enable-distance-attenuation --enable-real-weather-fetch --enable-clouds3d)
     fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-Airspace:/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery-Photo:/backup/other/fgfs/Scenery)
     fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery)
 
     function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
     function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" > /tmp/netfs2.$$.out 2>&1  ; }
+
 
     function f14(){   netfs1  --callsign=AC112P  --aircraft=f-14b "$@" ; }
     function f16(){   netfs1  --callsign=BK1P    --aircraft=f16   "$@" ; }
@@ -499,13 +501,18 @@ if [ -x /usr/games/bin/fgfs ] ; then
     function f18-2(){ netfs2  --callsign=BK1Q    --aircraft=f18   "$@" ; }
     function nimitz(){
         local cs=CVN68
-        /usr/games/bin/fgfs ${fgfs_default_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,20,,5002  \
+        /usr/games/bin/fgfs ${fgfs_nimitz_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,20,,5002  \
             --callsign=$cs \
             --aircraft=nimitz \
             --ai-scenario=nimitz_demo \
             --prop:/sim/mp-carriers/nimitz-callsign=$cs \
             "$@"  > /tmp/nimitz.$$.out 2>&1
     }
+
+    function netfs1n(){ /usr/games/bin/fgfs  ${fgfs_nimitz_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
+    function f14n(){  netfs1n  --callsign=AC112P  --aircraft=f-14b "$@" ; }
+
+
 fi
 
 # ----------------------------------------
