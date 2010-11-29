@@ -78,15 +78,22 @@
         (tool-bar-mode       -1)
         (transient-mark-mode +1)))
 
+(defun mac-vnc-keys ()
+  (interactive)
+  (setf mac-command-modifier 'alt
+        mac-option-modifier  'meta
+        one-buffer-one-frame nil))
+
+(defun mac-vanilla-keys ()
+  (interactive)
+  (setf mac-command-modifier 'meta
+        mac-option-modifier  'alt
+        one-buffer-one-frame nil))
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
   (if 'thru-vnc
-    (setf mac-command-modifier 'alt
-          mac-option-modifier  'meta
-          one-buffer-one-frame nil)
-    (setf mac-command-modifier 'meta
-          mac-option-modifier  'alt
-          one-buffer-one-frame nil))
+      (mac-vnc-keys)
+      (mac-vanilla-keys))
   (cua-mode 0))
 
 (when (boundp 'x-toolkit-scroll-bars)
@@ -2046,7 +2053,7 @@ capitalized form."
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
 
-(unless (fboundp 'mdi)
+(progn ;; unless (fboundp 'mdi)
   
   (.EMACS " define-lisp-implementation")
   (defvar slime-lisp-implementations    nil)
@@ -2128,7 +2135,7 @@ capitalized form."
     iso-8859-15)
 
   (define-lisp-implementation cmucl
-      (first-existing-file '("/data/languages/ccl/bin/ccl"
+      (first-existing-file '("/data/languages/cmucl/bin/lisp"
                              "/usr/local/bin/lisp"
                              "/usr/bin/lisp"))
     "^\* "
@@ -2213,8 +2220,6 @@ capitalized form."
           (error "%S not a lisp implementation." impl)))
     impl)
 
-
-  
   (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
   (defun set-inferior-lisp-buffer (buffer-name)
@@ -2245,8 +2250,9 @@ capitalized form."
     (otherwise    (warn "unexpected system-type for inferior-lisp-program")
                   (set-inferior-lisp-implementation 'clisp)))
 
-
-
+  ;; (set-inferior-lisp-implementation 'ccl)
+  
+  
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
     (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
