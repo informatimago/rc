@@ -471,7 +471,8 @@ The HOST is added to the list of logical hosts defined.
 
 (defun asdf-delete-system (system)
   "Clear the system from ASDF, to force reloading them on next ASDF-LOAD."
-  (remhash (string-downcase system) asdf::*defined-systems*)
+  ;;(remhash (string-downcase system) asdf::*defined-systems*)
+  (asdf:clear-system system)
   (values))
 
 
