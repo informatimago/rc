@@ -2103,38 +2103,84 @@ capitalized form."
        ',name))
 
 
+  
   (define-lisp-implementation scheme
       "mzscheme"
     "^> "
-    iso-8859-15)
+    iso-8859-1)
 
   (define-lisp-implementation mzscheme
       "mzscheme"
     "^> "
-    iso-8859-15)
+    iso-8859-1)
 
   (define-lisp-implementation mit-scheme
       "/usr/local/languages/mit-scheme/bin/scheme"
     "^\[[0-9]*\]> "
-    iso-8859-15)
+    iso-8859-1)
 
   (define-lisp-implementation umb-scheme
       "/usr/bin/scheme"
     "^==> "
-    iso-8859-15)
+    iso-8859-1)
 
 
+  
   (define-lisp-implementation abcl
       "/data/languages/abcl/abcl"
     "^.*([0-9]+): "
-    iso-8859-15)
+    iso-8859-1)
   
   (define-lisp-implementation allegro
       "/data/languages/acl82express/alisp"
     "^\[[0-9]*\]> "
-    iso-8859-15)
+    iso-8859-1)
 
-  (define-lisp-implementation cmucl
+  (define-lisp-implementation ccl
+      (first-existing-file '("/data/languages/ccl/bin/ccl"
+                             "/usr/bin/ccl"))
+    "^? "
+    utf-8)
+  
+  (define-lisp-implementation openmcl
+      "/usr/local/bin/openmcl"
+    "^\[[0-9]*\]> "
+    iso-8859-1)
+
+  (define-lisp-implementation clisp
+      (list* (cond
+               ((eq system-type 'cygwin)  "/usr/bin/clisp")
+               (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
+                                          "/opt/local/bin/clisp"
+                                          "/usr/local/bin/clisp"
+                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
+                                          "/usr/bin/clisp"))))
+             "-ansi""-q""-m""32M""-I"; "-K""full"
+             (cond
+               ((eq system-type 'darwin)
+                (list "-Efile"     "UTF-8"
+                      "-Epathname" "UTF-8"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+               (t
+                (list "-Efile"     "UTF-8"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+    "^\[[0-9]*\]> "
+    utf-8
+    :argument-list-command
+    "(let ((fn '%s))
+     (cond
+       ((not (fboundp fn))      (format t \"~A is not a function\" fn))
+       ((special-operator-p fn) (format t \"~A is a special operator\" fn))
+       ((macro-function fn)     (format t \"~A is a macro\" fn))
+       (t  (format t \"Arglist for ~a: ~a\" fn (ext:arglist fn))))
+     (values))\n")
+
+    (define-lisp-implementation cmucl
       (first-existing-file '("/data/languages/cmucl/bin/lisp"
                              "/usr/local/bin/lisp"
                              "/usr/bin/lisp"))
@@ -2149,53 +2195,7 @@ capitalized form."
             "--noinform")
     "^\[[0-9]*\]> "
     utf-8)
-
-  (define-lisp-implementation ccl
-      (first-existing-file '("/data/languages/ccl/bin/ccl"
-                             "/usr/bin/ccl"))
-    "^? "
-    utf-8)
   
-  (define-lisp-implementation openmcl
-      "/usr/local/bin/openmcl"
-    "^\[[0-9]*\]> "
-    iso-8859-15)
-
-  (define-lisp-implementation clisp
-      (list* (cond
-               ((eq system-type 'cygwin)  "/usr/bin/clisp")
-               (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
-                                          "/opt/local/bin/clisp"
-                                          "/usr/local/bin/clisp"
-                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
-                                          "/usr/bin/clisp"))))
-             "-ansi""-q""-m""32M""-I"; "-K""full"
-             (cond
-               ((eq system-type 'darwin)
-                (list "-Efile"     "ISO-8859-15"
-                      "-Epathname" "UTF-8"
-                      "-Eterminal" "UTF-8"
-                      "-Emisc"     "UTF-8" ; better be same as terminal
-                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-               (t
-                (list "-Efile"     "ISO-8859-15"
-                      "-Epathname" "ISO-8859-1"
-                      "-Eterminal" "UTF-8"
-                      "-Emisc"     "UTF-8" ; better be same as terminal
-                      "-Eforeign"  "ISO-8859-1")
-                (list "-E"         "UTF-8"
-                      "-Epathname" "ISO-8859-1"
-                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
-    "^\[[0-9]*\]> "
-    utf-8
-    :argument-list-command
-    "(let ((fn '%s))
-     (cond
-       ((not (fboundp fn))      (format t \"~A is not a function\" fn))
-       ((special-operator-p fn) (format t \"~A is a special operator\" fn))
-       ((macro-function fn)     (format t \"~A is a macro\" fn))
-       (t  (format t \"Arglist for ~a: ~a\" fn (ext:arglist fn))))
-     (values))\n")
 
 
   (defun set-inferior-lisp-implementation (impl)
