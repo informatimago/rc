@@ -665,7 +665,7 @@ either scanned, or from the cache."
 #-abcl (asdf-load  :com.informatimago.common-lisp)
 #-abcl (asdf-load  :com.informatimago.clmisc)
 
-#-(or abcl ccl cmu ecl)
+#-(or abcl ccl cmu ecl sbcl)
 (asdf-load  :com.informatimago.clext)
 
 #+sbcl
