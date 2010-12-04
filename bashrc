@@ -626,6 +626,7 @@ function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 7 ; done ; }
+function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 
 
