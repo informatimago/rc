@@ -125,7 +125,7 @@
 ;; xterm-mouse-mode ;; To use the mouse inside xterm!
 
 
-(require 'rst)
+(require 'rst nil t)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
