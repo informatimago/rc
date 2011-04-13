@@ -13,7 +13,6 @@
 
 #+clisp (setf swank:*use-dedicated-output-stream*  nil)
 #+clisp (setf swank::*sldb-initial-frames*         40)
-;;;; .swank.lisp                      --                     --          ;;;;
 
 (setf swank:*sldb-printer-bindings* '((*PRINT-PRETTY* . nil)
                                       (*PRINT-LEVEL* . nil)
@@ -29,3 +28,5 @@
                                       (*PRINT-RIGHT-MARGIN* . 1000)
                                       (*SLDB-BITVECTOR-LENGTH* . nil)
                                       (*SLDB-STRING-LENGTH* . nil)))
+
+;;;; THE END ;;;;
