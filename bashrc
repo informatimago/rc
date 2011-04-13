@@ -482,34 +482,174 @@ else
     alias lsv='LC_COLLATE="C" /bin/ls -BCFN'
 fi
 
+fgfs=false
+fgfs_other_root=/other/fgfs
+fgfs_next_root=/data/src/simulation/fg/fgdata
+
+
 
 if [ -x /usr/games/bin/fgfs ] ; then
-    fgfs_default_options=(--control=joystick --enable-hud-3d --enable-random-objects --enable-ai-models --enable-sound --enable-splash-screen  --enable-enhanced-lighting --enable-distance-attenuation  --enable-real-weather-fetch  --enable-clouds3d)
-    fgfs_nimitz_options=(--control=joystick --enable-hud-3d --enable-sound --enable-splash-screen --enable-enhanced-lighting --enable-distance-attenuation --enable-real-weather-fetch --enable-clouds3d)
-    fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-Airspace:/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery-Photo:/backup/other/fgfs/Scenery)
-    fgfs_scenery_options=(--fg-scenery=/backup/other/fgfs/Scenery-AirportsOverlay:/backup/other/fgfs/Scenery)
-
-    function netfs1(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
-    function netfs2(){ /usr/games/bin/fgfs  ${fgfs_default_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5002 "$@" > /tmp/netfs2.$$.out 2>&1  ; }
+    fgfs=/usr/games/bin/fgfs
+    fgfs_gentoo_root=/usr/games/share/FlightGear
+    fgfs_root=$fgfs_other_root
+fi
 
 
-    function f14(){   netfs1  --callsign=AC112P  --aircraft=f-14b "$@" ; }
-    function f16(){   netfs1  --callsign=BK1P    --aircraft=f16   "$@" ; }
-    function f18(){   netfs1  --callsign=BK1P    --aircraft=f18   "$@" ; }
-    function f14-2(){ netfs2  --callsign=AC112Q  --aircraft=f-14b "$@" ; }
-    function f16-2(){ netfs2  --callsign=BK1Q    --aircraft=f16   "$@" ; }
-    function f18-2(){ netfs2  --callsign=BK1Q    --aircraft=f18   "$@" ; }
-    function nimitz(){
-        local cs=CVN68
-        /usr/games/bin/fgfs ${fgfs_nimitz_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,20,,5002  \
-            --callsign=$cs \
-            --aircraft=nimitz \
-            --ai-scenario=nimitz_demo \
-            --prop:/sim/mp-carriers/nimitz-callsign=$cs \
-            "$@"  > /tmp/nimitz.$$.out 2>&1
+if [ -x /opt/fgfs/bin/fgfs ] ; then
+    fgfs=/opt/fgfs/bin/fgfs
+    fgfs_opt_root=/opt/fgfs/share/FlightGear
+    fgfs_opt_root=$fgfs_next_root
+    fgfs_root=$fgfs_opt_root
+fi
+
+
+if [ -s "$fgfs" ] ; then
+
+    fgfs_base_options=(
+        --control=joystick
+        --enable-anti-alias-hud
+        --enable-clouds3d
+        --enable-distance-attenuation
+        --enable-enhanced-lighting
+        --enable-horizon-effect
+        --enable-hud-3d
+        --enable-mouse-pointer
+        --enable-real-weather-fetch
+        --enable-skyblend
+        --enable-sound
+        --enable-specular-highlight
+        --enable-splash-screen
+        --enable-textures
+        --enable-random-objects
+        --enable-skyblend
+    )
+
+    fgfs_festival_options=(
+        --prop:/sim/sound/voices/enabled=true 
+    )
+
+    fgfs_default_options=(
+        ${fgfs_base_options[@]}
+        --enable-random-objects
+        --enable-ai-models
+    )
+
+
+    fgfs_scenery_options=(
+        --fg-root=$fgfs_root
+        --fg-scenery=$fgfs_other_root/Scenery-Airspace:$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_other_root/Scenery-Photo:$fgfs_root/Scenery
+    )
+
+    fgfs_scenery_options=(
+        --fg-root=$fgfs_root
+        --fg-scenery=$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_root/Scenery
+    )
+
+    fgfs_scenery_options=(
+        --fg-root=$fgfs_root
+        --fg-scenery=$fgfs_gentoo_root/Scenery:$fgfs_root/Scenery
+    )
+
+    fgfs_scenery_options=(
+        --fg-root=$fgfs_root
+        --fg-scenery=$fgfs_root/Scenery:$fgfs_other_root/Scenery
+    )
+
+
+    fgfs_nimitz_options=(
+        ${fgfs_base_options[@]}
+        ${fgfs_scenery_options[@]}
+    )
+
+
+
+    # fgfs_scenery_options=(
+    #     --fg-root=/data/src/simulation/fg/fgdata
+    #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
+    # )
+    # fgfs=/opt/fgfs/bin/fgfs
+
+    fgfs_server=mpserver01.flightgear.org
+    fgfs_period=20
+
+
+    fgfs_port_ac112p=5112
+    fgfs_port_ac112q=5113
+    fgfs_port_ac112r=5114
+    fgfs_port_bk1p=5115
+    fgfs_port_f_pjb=5116
+    fgfs_port_nimits=5117
+
+
+
+    function netfs1(){ 
+        cd ~/fgfs/ 
+        "$fgfs" \
+            ${fgfs_default_options[@]} \
+            ${fgfs_scenery_options[@]} \
+            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
+            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ; 
+    }
+    function netfs2(){
+        cd ~/fgfs/ 
+        "$fgfs" \
+            ${fgfs_default_options[@]} \
+            ${fgfs_scenery_options[@]} \
+            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
+            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ; 
     }
 
-    function netfs1n(){ /usr/games/bin/fgfs  ${fgfs_nimitz_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
+    function typhoon(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
+    function f14-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=AC112P  --aircraft=f-14b   "$@" ; }
+    function f14-2(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=AC112Q  --aircraft=f-14b   "$@" ; }
+    function f14-3(){   fgfs_port=${fgfs_port_ac112r} ; netfs1  --callsign=AC112R  --aircraft=f-14b   "$@" ; }
+    function f14(){     f14-1 "$@" ; }
+    function f16-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f16     "$@" ; }
+    function f16-1(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f16     "$@" ; }
+    function f16(){     f16-1 "$@" ; }
+    function f18-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f18     "$@" ; }
+    function f18-2(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f18     "$@" ; }
+    function f18(){     f18-1 "$@" ; }
+
+
+    function f14main(){
+        local slaveIP=localhost
+        netfs2  --callsign=AC112M  --aircraft=f-14b  \
+            --native-fdm=socket,out,${fgfs_period},${slaveIP},5510,udp \
+            --native-ctrls=socket,out,${fgfs_period},${slaveIP},5511,udp \
+            "$@" ; }
+
+    function f14slave(){    
+       ( export DISPLAY=192.168.7.160:0.0 ;
+         netfs2  --callsign=AC112S  --aircraft=f-14b  \
+            --native-fdm=socket,in,${fgfs_period},,5510,udp \
+            --native-ctrls=socket,in,${fgfs_period},,5511,udp \
+            --fdm=null \
+            --enable-panel \
+            --disable-hud \
+            --disable-sound \
+            --prop:/sim/ai/enabled=false \
+            --prop:/sim/ai-traffic/enabled=false \
+            --prop:/sim/rendering/bump-mapping=false \
+            --prop:/sim/rendering/draw-otw=false \
+            "$@" ) ; }
+
+
+    function nimitz(){
+        local cs=CVN68
+        cd ~/fgfs/ 
+        "$fgfs" \
+            ${fgfs_nimitz_options[@]} \
+            --multiplay=out,${fgfs_period},mpserver01.flightgear.org,5000  --multiplay=in,${fgfs_period},,${fgfs_port_nimitz} \
+            --callsign=$cs \
+            --aircraft=nimitz \
+            --prop:/sim/mp-carriers/nimitz-callsign=$cs \
+            "$@"  # > /tmp/nimitz.$$.out 2>&1
+        # --ai-scenario=nimitz_demo \
+        #
+    }
+
+    function netfs1n(){ cd ~/fgfs/ ; /usr/games/bin/fgfs  ${fgfs_nimitz_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
     function f14n(){  netfs1n  --callsign=AC112P  --aircraft=f-14b "$@" ; }
 
 
@@ -614,7 +754,7 @@ function screen-size     (){ xwininfo -root|egrep 'Width|Height' ; }
 function xauth-add       (){ xauth add $(echo "${DISPLAY:-DISPLAY-UNSET}" | sed 's/.*\(:.*\)/\1/') . $(mcookie) ; }
 function xset-on         (){ ( export DISPLAY=:0.0 ; xset s 7200 0 ; xset dpms force on ; xset dpms 7200 8000 9000 ) ; }
 
-function yls             (){ /bin/ls -1 | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
+function yls             (){ /bin/ls -1 $@ | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
 # function wls(){  COLUMNS=$(stty -a|sed -n  -e '/columns;/s/.* \([0-9]*\) columns;.*/\1/p' -e '/; columns/s/.*columns \([0-9]\+\);.*/\1/p') ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${COLUMNS:-80}  columnify ; }
 function wls(){  c=$COLUMNS ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${c:-80}  columnify ; }
 function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else find "$@" -type f -print ; fi | sort ; }
@@ -625,7 +765,7 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 7 ; done ; }
+function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 9 ; done ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 
