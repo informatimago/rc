@@ -124,6 +124,7 @@
 ;; window-system ==> (display-multi-frame-p)
 ;; xterm-mouse-mode ;; To use the mouse inside xterm!
 
+(mouse-avoidance-mode 'cat-and-mouse)
 
 (require 'rst)
 
@@ -373,7 +374,6 @@ Content-Transfer-Encoding: 8bit
       l/GuZTF1wFGKiYYHKSFAkjIo1b6sCYS1sVmFhhhahKQssRjRT90ITWUk6vvK3RsPGs+M1RuR
       mV+hO/VvFAAAAABJRU5ErkJggg==
 X-Accept-Language:         fr, es, en
-X-Disabled: X-No-Archive: no
 ")
  '(message-directory "~/mail/")
  '(message-from-style (quote angles))
@@ -2147,6 +2147,7 @@ capitalized form."
     "^\[[0-9]*\]> "
     iso-8859-1)
 
+
   (define-lisp-implementation clisp
       (list* (cond
                ((eq system-type 'cygwin)  "/usr/bin/clisp")
@@ -2155,7 +2156,7 @@ capitalized form."
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q""-m""32M""-I"; "-K""full"
+             "-ansi""-q";"-m""32M""-I""-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "UTF-8"
@@ -3068,6 +3069,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
+(push 'paredit-mode slime-repl-mode-hook)
+
 
 
 ;; slime-net-valid-coding-systems
@@ -3898,7 +3901,8 @@ in the current directory, or in a parent."
 (defvar common-lisp-hyperspec-frame   (selected-frame))
 (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
 
-
+;; (setf common-lisp-hyperspec-browser 'w3m-browse-url
+;;       browse-url-browser-function   'w3m-browse-url)
 
 (defun thing-at-point-no-properties (thing)
   "Return the THING at point.
@@ -6242,6 +6246,8 @@ or as \"emacs at <hostname>\"."
 
 ;;;----------------------------------------------------------------------------
 
+(defvar *screen-dump-number* 0)
+
 (defun screen-dump (&optional screen-dump-file)
   (interactive)
   (cond
@@ -6249,9 +6255,10 @@ or as \"emacs at <hostname>\"."
      (shell-command (format "xwd | xwdtopnm | pnmtopng > %S"
                             (expand-file-name screen-dump-file))))
     (current-prefix-arg
-     (screen-dump (read-from-minibuffer "Screen dump file: " "~/screen-dump.png")))
+     (screen-dump (read-from-minibuffer "Screen dump file: "
+                                        (format "~/screen-dump-%d.png" (incf *screen-dump-number*)))))
     (t
-     (screen-dump "~/screen-dump.png"))))
+     (screen-dump (format "~/screen-dump-%d.png" (incf *screen-dump-number*))))))
 
 (global-set-key (kbd "<print>") 'screen-dump)
 
