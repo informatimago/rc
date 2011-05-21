@@ -184,9 +184,8 @@
                           (defun hostname ()
                             (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
                               (unwind-protect
-                                   (progn
-                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                                             outpath)
+                                   (let ((asdf::*verbose-out* t))
+                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A" outpath)
                                      (with-open-file (hostname outpath)
                                        (read-line hostname)))
                                 (delete-file outpath))))
