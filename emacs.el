@@ -149,6 +149,7 @@
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
+ '(font-lock-verbose nil)
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
@@ -256,7 +257,9 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp")
+                                       ("irc.oftc.net" "#uml")
+                                       )))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -294,7 +297,7 @@
  '(eval-expression-print-level nil)
  '(file-precious-flag t)
  '(focus-follows-mouse nil)
- '(font-lock-extra-types (quote ("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "CARD8" "CARD16" "CARD32" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN")) t)
+ '(font-lock-extra-types (quote ("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN")) t)
  '(font-lock-maximum-decoration t)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-article-loose-mime t)
@@ -310,10 +313,6 @@
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nnml "") (nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
- '(gnus-secondary-servers (quote ("news.gmane.org")))
- '(gnus-select-method (quote (nntp "news.individual.net")))
- '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-treat-display-x-face (quote head))
  '(gnus-use-nocem nil)
@@ -500,7 +499,28 @@ X-Accept-Language:         fr, es, en
  '(w3m-default-display-inline-images t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t))
+ '(x-select-enable-primary t)
+ '(gnus-select-method (quote (nntp "news.individual.net")))
+ '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org")
+                                         (nnimap "voyager.informatimago.com"))))
+
+ )
+
+ ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
+ ;; '(gnus-select-method (quote))
+ ;; '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
+
+
+
+
+;; nnarchive / gnus
+;; (setq gnus-message-archive-group 
+;;       '((if (message-news-p) "nnml:news.posted" "nnml:mail.sent")))
+;; (setq gnus-message-archive-group "sent-mail")
+
+
+
+
 
 (setf warning-suppress-types (quote ((undo discard-info))))
 
@@ -1551,14 +1571,25 @@ SIDE must be the symbol `left' or `right'."
     "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
 
+
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-*-*"
+
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--12-130-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--13-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--14-130-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--15-150-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
+
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-fontset-startup"
 
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -3069,7 +3100,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (setf slime-net-coding-system 'utf-8-unix)
 (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
-(push 'paredit-mode slime-repl-mode-hook)
+(pushnew 'paredit-mode slime-repl-mode-hook)
 
 
 
@@ -6043,11 +6074,12 @@ Attribution: ?"
       (message "src=%S" src)
       (message "exe=%S"  (name src))
       (compile
-       (format "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
-               src (name src) compiler *compile-and-run-cflags*
-               (case mode
-                 ((4) "valgrind")
-                 (otherwise "")))))))
+       (format ;; "SRC=%S ; EXE=%S ; cat $SRC ; echo '/*' ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $? ; echo '*/'"
+        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
+        src (name src) compiler *compile-and-run-cflags*
+        (case mode
+          ((4) "valgrind")
+          (otherwise "")))))))
 
 ;;;----------------------------------------------------------------------------
 (when (require 'psql-mode nil t)
