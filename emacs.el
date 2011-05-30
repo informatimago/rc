@@ -149,7 +149,6 @@
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
- '(font-lock-verbose nil)
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
@@ -173,6 +172,7 @@
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "cadetblue1" :foreground "black" :box (:line-width -1 :style released-button)))))
+ '(read-only-face ((t (:background "gray30"))) t)
  '(rst-level-1-face ((t (:background "grey20"))) t)
  '(rst-level-2-face ((t (:background "grey20"))) t)
  '(rst-level-3-face ((t (:background "grey20"))) t)
@@ -257,9 +257,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp")
-                                       ("irc.oftc.net" "#uml")
-                                       )))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -313,13 +311,16 @@
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
+ '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
+ '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-treat-display-x-face (quote head))
  '(gnus-use-nocem nil)
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
- '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))))
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
+ '(ido-enable-flex-matching t)
  '(indent-tabs-mode nil)
  '(inferior-lisp-filter-regexp "\\`\\s*\\'")
  '(inihibit-default-init t)
@@ -499,12 +500,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-default-display-inline-images t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t)
- '(gnus-select-method (quote (nntp "news.individual.net")))
- '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org")
-                                         (nnimap "voyager.informatimago.com"))))
-
- )
+ '(x-select-enable-primary t))
 
  ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
  ;; '(gnus-select-method (quote))
@@ -715,10 +711,11 @@ character-bag stripped off the end.
   (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
       (match-string 1 path)
       "./"))
-(defun basename (path)
-  (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
-      (match-string 2 path)
-      path))
+(defun basename (path &optional extension)
+  (let ((extension (or extension "")))
+   (if (string-match (format "^\\(.*/\\)\\([^/]*\\)%s$" (regexp-quote extension)) path)
+       (match-string 2 path)
+       path)))
 
 
 (defun prefixp (prefix string)
@@ -1571,7 +1568,7 @@ SIDE must be the symbol `left' or `right'."
     "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
 
-
+    
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-*-*"
@@ -1591,6 +1588,22 @@ SIDE must be the symbol `left' or `right'."
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
+    "-LFP-Bright-normal-normal-normal-*-9-*-*-*-c-60-*-*"
+    "-LFP-Smooth-normal-normal-normal-*-9-*-*-*-c-60-*-*"
+    "-LFP-LucidaTerminal-normal-normal-normal-*-9-*-*-*-c-90-*-*"
+    
+
+    "-LFP-Computer-normal-normal-normal-*-11-*-*-*-c-90-*-*"
+    "-LFP-Computer Alt-normal-normal-normal-*-9-*-*-*-c-90-iso10646-1"
+
+
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-9-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-11-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-13-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-15-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-17-*-*-*-m-0-*-*"
+
+    
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1598,11 +1611,24 @@ SIDE must be the symbol `left' or `right'."
     "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
 
+    "-Schumacher-Clean-normal-normal-normal-*-12-*-*-*-c-60-*-*"
     
     "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
     "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
     "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
+
+
+    "-unknown-ArnoldBoecklin-extra-bold-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Becker-normal-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Caligula-normal-normal-normal-*-19-*-*-*-*-0-*-*"
+
+    
+    "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
+    "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
+
     ))
+
 
 (defvar *pjb-current-font-index* 0)
 
@@ -2010,6 +2036,10 @@ SIDE must be the symbol `left' or `right'."
 ;; (setf (getenv "ESHELL") "/bin/bash")
 
 
+;;;----------------------------------------------------------------------------
+(.EMACS "ido-mode")
+(ido-mode 'both) ; 'file 'buffer  -1
+;; See also smex for M-x enhancements.
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "caps-mode")
@@ -6348,6 +6378,22 @@ or as \"emacs at <hostname>\"."
       (progn
         (font-lock-mode -1)
         (rainbow (point-min) (point-max)))))
+
+(defun get-random-color ()
+  (first (elt color-name-rgb-alist (random (length color-name-rgb-alist)))))
+
+(defun set-random-colors ()
+  (interactive)
+  (set-background-color (get-random-color))
+  (set-foreground-color (get-random-color)))
+
+(global-set-key (kbd "<f12>") 'set-random-colors)
+
+(defun toggle-read-only-region (start end)
+  (interactive "r")
+  (let ((inhibit-read-only t)
+        (ro    (not (getf (text-properties-at start) 'read-only))))
+    (set-text-properties start end (list 'read-only ro))))
 
 ;;;----------------------------------------------------------------------------
 (setf auto-mode-alist  (sort* auto-mode-alist
