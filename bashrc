@@ -497,7 +497,7 @@ fi
 
 if [ -x /opt/fgfs/bin/fgfs ] ; then
     fgfs=/opt/fgfs/bin/fgfs
-    fgfs_opt_root=/opt/fgfs/share/FlightGear
+    fgfs_opt_root=/opt/fgfs/share/flightgear
     fgfs_opt_root=$fgfs_next_root
     fgfs_root=$fgfs_opt_root
 fi
@@ -506,7 +506,6 @@ fi
 if [ -s "$fgfs" ] ; then
 
     fgfs_base_options=(
-        --control=joystick
         --enable-anti-alias-hud
         --enable-clouds3d
         --enable-distance-attenuation
@@ -568,8 +567,8 @@ if [ -s "$fgfs" ] ; then
     #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
     # )
     # fgfs=/opt/fgfs/bin/fgfs
-
-    fgfs_server=mpserver01.flightgear.org
+ 
+    fgfs_server=mpserver12.flightgear.org
     fgfs_period=20
 
 
@@ -599,17 +598,18 @@ if [ -s "$fgfs" ] ; then
             "$@" ; # > /tmp/netfs2.$$.out 2>&1  ; 
     }
 
-    function typhoon(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
-    function f14-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=AC112P  --aircraft=f-14b   "$@" ; }
-    function f14-2(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=AC112Q  --aircraft=f-14b   "$@" ; }
-    function f14-3(){   fgfs_port=${fgfs_port_ac112r} ; netfs1  --callsign=AC112R  --aircraft=f-14b   "$@" ; }
-    function f14(){     f14-1 "$@" ; }
-    function f16-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f16     "$@" ; }
-    function f16-1(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f16     "$@" ; }
-    function f16(){     f16-1 "$@" ; }
-    function f18-1(){   fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f18     "$@" ; }
-    function f18-2(){   fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f18     "$@" ; }
-    function f18(){     f18-1 "$@" ; }
+    function typhoon-1(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
+    function typhoon(){   typhoon-1 --control=joystick "@" ; }
+    function f14-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=AC112P  --aircraft=f-14b   "$@" ; }
+    function f14-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=AC112Q  --aircraft=f-14b   "$@" ; }
+    function f14-3(){     fgfs_port=${fgfs_port_ac112r} ; netfs1  --callsign=AC112R  --aircraft=f-14b   "$@" ; }
+    function f14(){       f14-1 --control=joystick  "$@" ; }
+    function f16-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f16     "$@" ; }
+    function f16-1(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f16     "$@" ; }
+    function f16(){       f16-1 --control=joystick   "$@" ; }
+    function f18-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f18     "$@" ; }
+    function f18-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f18     "$@" ; }
+    function f18(){       f18-1 --control=joystick   "$@" ; }
 
 
     function f14main(){
@@ -635,15 +635,39 @@ if [ -s "$fgfs" ] ; then
             "$@" ) ; }
 
 
+    fgfs_disable_everything=(
+        --disable-hud 
+        --disable-anti-alias-hud
+        --disable-hud-3d
+        --disable-random-objects
+        # --disable-ai-models
+        --disable-ai-traffic
+        --disable-freeze
+        --disable-clock-freeze
+        --disable-sound
+        --disable-splash-screen
+        --fog-disable
+        --disable-enhanced-lighting
+        --disable-distance-attenuation
+        --disable-horizon-effect
+        --disable-specular-highlight
+        --disable-fullscreen
+        --disable-skyblend
+        --disable-textures
+        --disable-clouds
+        --disable-clouds3d
+        )
+
     function nimitz(){
         local cs=CVN68
         cd ~/fgfs/ 
         "$fgfs" \
             ${fgfs_nimitz_options[@]} \
-            --multiplay=out,${fgfs_period},mpserver01.flightgear.org,5000  --multiplay=in,${fgfs_period},,${fgfs_port_nimitz} \
+            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port_nimitz} \
             --callsign=$cs \
             --aircraft=nimitz \
             --prop:/sim/mp-carriers/nimitz-callsign=$cs \
+            ${fgfs_disable_everything[@]} \
             "$@"  # > /tmp/nimitz.$$.out 2>&1
         # --ai-scenario=nimitz_demo \
         #
