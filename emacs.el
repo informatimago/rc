@@ -2037,8 +2037,8 @@ SIDE must be the symbol `left' or `right'."
 
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "ido-mode")
-(ido-mode 'both) ; 'file 'buffer  -1
+;; (.EMACS "ido-mode")
+;; (ido-mode 'both) ; 'file 'buffer  -1
 ;; See also smex for M-x enhancements.
 
 ;;;----------------------------------------------------------------------------
