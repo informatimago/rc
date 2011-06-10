@@ -3007,7 +3007,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ":n"))
   (local-set-key (kbd "<f7>") (make-lisp-command-sender ":o"))
   (local-set-key (kbd "<f8>") (make-lisp-command-sender ":c"))
-  (message "<f5> step into  <f6> next       <f7> step over  <f8> continue")
+  (message "<f5> step into  <f6> next       <f7> step over  <f8> continue"))
 
 (defun ecl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
