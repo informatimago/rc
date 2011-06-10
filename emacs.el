@@ -3006,7 +3006,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":s"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ":n"))
   (local-set-key (kbd "<f7>") (make-lisp-command-sender ":o"))
-  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":c")))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":c"))
+  (message "<f5> step into  <f6> next       <f7> step over  <f8> continue")
 
 (defun ecl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -3019,7 +3020,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ""))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ""))
   (local-set-key (kbd "<f7>") (make-lisp-command-sender ":skip"))
-  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":exit")))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":exit"))
+  (message "<f5> step into  <f6> next       <f7> step over  <f8> continue"))
 
 (defun sbcl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -3032,7 +3034,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key (kbd "<f5>") (make-lisp-command-sender "step"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender "next"))
   (local-set-key (kbd "<f7>") (make-lisp-command-sender "over"))
-  (local-set-key (kbd "<f8>") (make-lisp-command-sender "out")))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender "out"))
+  (message "<f5> step into  <f6> next       <f7> step over  <f8> continue"))
 
 (defun allegro-debug-keys ()
   "Binds locally some keys to send allegro debugger commands to the inferior-lisp
@@ -3044,7 +3047,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":scont 1"))
   ;; (local-set-key (kbd "<f6>") (make-lisp-command-sender ))
   (local-set-key (kbd "<f7>") (make-lisp-command-sender ":sover"))
-  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":continue")))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":continue"))
+  (message "<f5> step into                  <f7> step over  <f8> continue"))
 
 
 
