@@ -2987,6 +2987,14 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key [M-left]      'backward-sexp)
   (values))
 
+(defun make-lisp-command-sender (string)
+  (byte-compile `(lambda ()
+                   (interactive)
+                   (if (slime-inferior-process)
+                       (slime-repl-send-string ,(format "%s\n" string))
+                       (comint-send-string (inferior-lisp-proc)
+                                           ,(format "%s\n" string))))))
+
 (defun clisp-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
 <f5> step into
@@ -2995,15 +3003,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 <f8> continue
 "
   (interactive)
-  (macrolet ((cmd (string)
-               `(lambda ()
-                  (interactive)
-                  (comint-send-string (inferior-lisp-proc)
-                                      ,(format "%s\n" string)))))
-    (local-set-key (kbd "<f5>") (cmd ":s"))
-    (local-set-key (kbd "<f6>") (cmd ":n"))
-    (local-set-key (kbd "<f7>") (cmd ":o"))
-    (local-set-key (kbd "<f8>") (cmd ":c"))))
+  (local-set-key (kbd "<f5>") (make-lisp-command-sender ":s"))
+  (local-set-key (kbd "<f6>") (make-lisp-command-sender ":n"))
+  (local-set-key (kbd "<f7>") (make-lisp-command-sender ":o"))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":c")))
 
 (defun ecl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -3013,16 +3016,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 <f8> continue
 "
   (interactive)
-  (macrolet ((cmd (string)
-               `(lambda ()
-                  (interactive)
-                  (comint-send-string (inferior-lisp-proc)
-                                      ,(format "%s\n" string)))))
-    
-    (local-set-key (kbd "<f5>") (cmd ""))
-    (local-set-key (kbd "<f6>") (cmd ""))
-    (local-set-key (kbd "<f7>") (cmd ":skip"))
-    (local-set-key (kbd "<f8>") (cmd ":exit"))))
+  (local-set-key (kbd "<f5>") (make-lisp-command-sender ""))
+  (local-set-key (kbd "<f6>") (make-lisp-command-sender ""))
+  (local-set-key (kbd "<f7>") (make-lisp-command-sender ":skip"))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":exit")))
 
 (defun sbcl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -3032,15 +3029,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 <f8> continue
 "
   (interactive)
-  (macrolet ((cmd (string)
-               `(lambda ()
-                  (interactive)
-                  (comint-send-string (inferior-lisp-proc)
-                                      ,(format "%s\n" string)))))
-    (local-set-key (kbd "<f5>") (cmd "step"))
-    (local-set-key (kbd "<f6>") (cmd "next"))
-    (local-set-key (kbd "<f7>") (cmd "over"))
-    (local-set-key (kbd "<f8>") (cmd "out"))))
+  (local-set-key (kbd "<f5>") (make-lisp-command-sender "step"))
+  (local-set-key (kbd "<f6>") (make-lisp-command-sender "next"))
+  (local-set-key (kbd "<f7>") (make-lisp-command-sender "over"))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender "out")))
 
 (defun allegro-debug-keys ()
   "Binds locally some keys to send allegro debugger commands to the inferior-lisp
@@ -3049,15 +3041,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 <f8> continue
 "
   (interactive)
-  (macrolet ((cmd (string)
-               `(lambda ()
-                  (interactive)
-                  (comint-send-string (inferior-lisp-proc)
-                                      ,(format "%s\n" string)))))
-    (local-set-key (kbd "<f5>") (cmd ":scont 1"))
-    ;; (local-set-key (kbd "<f6>") (cmd ))
-    (local-set-key (kbd "<f7>") (cmd ":sover"))
-    (local-set-key (kbd "<f8>") (cmd ":continue"))))
+  (local-set-key (kbd "<f5>") (make-lisp-command-sender ":scont 1"))
+  ;; (local-set-key (kbd "<f6>") (make-lisp-command-sender ))
+  (local-set-key (kbd "<f7>") (make-lisp-command-sender ":sover"))
+  (local-set-key (kbd "<f8>") (make-lisp-command-sender ":continue")))
 
 
 
