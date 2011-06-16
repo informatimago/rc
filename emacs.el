@@ -408,6 +408,7 @@ X-Accept-Language:         fr, es, en
  '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
+ '(print-gensym t)
  '(ps-printer-name "normal_gray")
  '(ps-right-header nil)
  '(ps-show-n-of-n nil)
@@ -2990,10 +2991,18 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (defun make-lisp-command-sender (string)
   (byte-compile `(lambda ()
                    (interactive)
-                   (if (slime-inferior-process)
-                       (slime-repl-send-string ,(format "%s\n" string))
-                       (comint-send-string (inferior-lisp-proc)
-                                           ,(format "%s\n" string))))))
+                   (cond
+                     ((and (boundp 'slime-inferior-process:connlocal)
+                           slime-inferior-process:connlocal)
+                      (slime-repl-send-string ,(format "%s\n" string)))
+                     ((and inferior-lisp-buffer
+                           (inferior-lisp-proc))
+                      (comint-send-string (inferior-lisp-proc)
+                                          ,(format "%s\n" string)))
+                     ((get-buffer-process (current-buffer))
+                      (comint-send-string (get-buffer-process (current-buffer))
+                                          ,(format "%s\n" string)))
+                     (t (error "No process to send debugging command to."))))))
 
 (defun clisp-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
@@ -3080,12 +3089,13 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
       ilisp-mode-hook            nil
       scheme-mode-hook           nil)
 
-(add-hook 'scheme-mode-hook      (function pjb-lisp-meat))
+(add-hook 'scheme-mode-hook      'pjb-lisp-meat)
 (add-hook 'scheme-mode-hook
           (lambda () (local-set-key (kbd "C-x C-e") 'lisp-eval-last-sexp)))
-(add-hook 'lisp-mode-hook        (function pjb-lisp-meat))
-(add-hook 'common-lisp-mode-hook (function pjb-lisp-meat))
-(add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
+(add-hook 'lisp-mode-hook        'pjb-lisp-meat)
+(add-hook 'common-lisp-mode-hook 'pjb-lisp-meat)
+(add-hook 'emacs-lisp-mode-hook  'pjb-lisp-meat)
+(add-hook 'emacs-lisp-mode-hook  'eldoc-mode)
 
 (require 'slime)
 
@@ -3109,7 +3119,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
               (insert output value)))))))
 
 (or (ignore-errors
-      (progn (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation))
+      (progn (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation slime-fuzzy))
              t))
     (ignore-errors
       (progn (slime-setup '(slime-fancy slime-indentation))
@@ -6096,7 +6106,7 @@ Attribution: ?"
       (message "exe=%S"  (name src))
       (compile
        (format ;; "SRC=%S ; EXE=%S ; cat $SRC ; echo '/*' ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $? ; echo '*/'"
-        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
+        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && xterm -e %s ./${EXE} && echo status = $?"
         src (name src) compiler *compile-and-run-cflags*
         (case mode
           ((4) "valgrind")
@@ -6396,10 +6406,20 @@ or as \"emacs at <hostname>\"."
 (sfn t)
 (.EMACS "DONE")
 
+
 ;; (setf inhibit-splash-screen t)
 ;; (switch-to-buffer (get-buffer-create "emtpy"))
 ;; (delete-other-windows)
 
 ;; To assign windows to specific roles: C-h v split-window-preferred-function
+
+;; (let ((progress-reporter
+;;        (make-progress-reporter "Collecting mana for Emacs..."
+;;                                0 500)))
+;;   (dotimes (k 500)
+;;     (sit-for 0.01)
+;;     (progress-reporter-update progress-reporter k))
+;;   (progress-reporter-done progress-reporter))
+
 
 ;;;; THE END ;;;;
