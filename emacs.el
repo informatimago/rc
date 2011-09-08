@@ -80,15 +80,19 @@
 
 (defun mac-vnc-keys ()
   (interactive)
-  (setf mac-command-modifier 'alt
-        mac-option-modifier  'meta
-        one-buffer-one-frame nil))
+  (setf mac-command-modifier    'alt ; emacsformacosx
+        mac-option-modifier     'meta
+        one-buffer-one-frame    nil)
+  (setf mac-command-key-is-meta nil  ; which emacs?
+        mac-reverse-ctrl-meta   nil))
 
 (defun mac-vanilla-keys ()
   (interactive)
-  (setf mac-command-modifier 'meta
-        mac-option-modifier  'alt
-        one-buffer-one-frame nil))
+  (setf mac-command-modifier    'meta ; emacsformacosx
+        mac-option-modifier     'alt
+        one-buffer-one-frame    nil)
+  (setf mac-command-key-is-meta t     ; which emacs?
+        mac-reverse-ctrl-meta   nil))
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
   (if 'thru-vnc
@@ -131,6 +135,7 @@
 ;;;----------------------------------------------------------------------------
 ;;; Customization
 ;;;----------------------------------------------------------------------------
+
 
 (.EMACS "custom faces")
 (custom-set-faces
@@ -1394,8 +1399,6 @@ SIDE must be the symbol `left' or `right'."
      (.EMACS "Setting Macintosh keyboard")
      (setq *window-manager-y-offset* (+ 24 24))
      (set-keyboard-coding-system 'mac-roman)
-     (setq mac-command-key-is-meta t
-           mac-reverse-ctrl-meta   nil)
      (translate-powerbook-keyboard)))
   nil)
 
@@ -2243,7 +2246,11 @@ capitalized form."
        (t  (format t \"Arglist for ~a: ~a\" fn (ext:arglist fn))))
      (values))\n")
 
-    (define-lisp-implementation cmucl
+  ;; (lisp-implementation-coding(get 'clisp :lisp-implementation))
+  ;; utf-8
+  ;; slime-net-coding-system
+
+  (define-lisp-implementation cmucl
       (first-existing-file '("/data/languages/cmucl/bin/lisp"
                              "/usr/local/bin/lisp"
                              "/usr/bin/lisp"))
@@ -2278,7 +2285,7 @@ capitalized form."
                     lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
                     lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
                     default-process-coding-system (cons coding coding)
-                    slime-net-coding-system       coding
+                    slime-net-coding-system       (intern (format "%s-unix" coding))
                     slime-default-lisp            impl)))
           (error "%S not a lisp implementation." impl)))
     impl)
@@ -2306,14 +2313,14 @@ capitalized form."
 
 
   ;; Used both by ilisp and slime:
-  (case system-type
-    ((darwin)     (set-inferior-lisp-implementation 'clisp)) ; openmcl))
-    ((gnu/linux)  (set-inferior-lisp-implementation 'clisp)) ; sbcl))
-    ((cygwin)     (set-inferior-lisp-implementation 'clisp))
-    (otherwise    (warn "unexpected system-type for inferior-lisp-program")
-                  (set-inferior-lisp-implementation 'clisp)))
+  ;; (case system-type
+  ;;   ((darwin)     (set-default-lisp-implementation 'clisp)) ; openmcl))
+  ;;   ((gnu/linux)  (set-default-lisp-implementation 'clisp)) ; sbcl))
+  ;;   ((cygwin)     (set-default-lisp-implementation 'clisp))
+  ;;   (otherwise    (warn "unexpected system-type for inferior-lisp-program")
+  ;;                 (set-default-lisp-implementation 'clisp)))
 
-  ;; (set-inferior-lisp-implementation 'ccl)
+  (set-default-lisp-implementation 'ccl)
   
   
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
@@ -3119,7 +3126,15 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
               (insert output value)))))))
 
 (or (ignore-errors
-      (progn (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl slime-indentation slime-fuzzy))
+      (progn (slime-setup '(slime-fancy
+                            slime-asdf
+                            slime-banner
+                            slime-repl
+                            slime-indentation
+                            slime-fuzzy
+                            slime-autodoc
+                            slime-presentations
+                            slime-presentation-streams))
              t))
     (ignore-errors
       (progn (slime-setup '(slime-fancy slime-indentation))
@@ -4468,6 +4483,10 @@ URL in a new window."
 ;;   (require 'epa-file)
 ;;   (epa-file-enable)
 ;;   (setf epa-armor t))
+
+;; Distribution isntalls crypt++...
+(setf find-file-hook (remove 'crypt-find-file-hook find-file-hook))
+find-file-hook
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "mew")
