@@ -40,6 +40,7 @@
 (defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
+(setq source-directory "/usr/src/emacs-23.3/src/")
 
 (defvar *hostname*
   (or (and (boundp 'system-name) system-name)
@@ -159,7 +160,7 @@
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
- '(gnus-cite-1 ((((class color) (background light)) (:foreground "lightblue"))))
+ '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
  '(gnus-cite-2 ((((class color) (background light)) (:foreground "yellow1"))))
@@ -406,6 +407,7 @@ X-Accept-Language:         fr, es, en
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pr-faces-p t)
+ '(print-gensym t t)
  '(printer-name "normal_gray" t)
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
@@ -413,7 +415,6 @@ X-Accept-Language:         fr, es, en
  '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
- '(print-gensym t)
  '(ps-printer-name "normal_gray")
  '(ps-right-header nil)
  '(ps-show-n-of-n nil)
@@ -436,7 +437,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -1302,12 +1303,12 @@ SIDE must be the symbol `left' or `right'."
 
 (defun pjb-terminal-key-bindings ()
   (interactive)
-  (global-set-key "OF"    (function end-of-buffer))
-  (global-set-key "OH"    (function beginning-of-buffer))
+  (global-set-key "OF"    'end-of-buffer)
+  (global-set-key "OH"    'beginning-of-buffer)
   (global-unset-key "[")
-  (global-set-key "[15~"  (function set-justification-left)) ; <f5>
-  (global-set-key "[17~"  (function set-justification-center)) ; <f6>
-  (global-set-key "[18~"  (function set-justification-right)) ; <f7>
+  (global-set-key "[15~"  'set-justification-left) ; <f5>
+  (global-set-key "[17~"  'set-justification-center) ; <f6>
+  (global-set-key "[18~"  'set-justification-right) ; <f7>
   (global-set-key "[19~"  (lambda()(interactive)(beep)))  ; <f8>
   (global-set-key "[20~"  (lambda()(interactive)(beep)))  ; <f9>
   (global-set-key "[21~"  (lambda()(interactive)(beep)))  ; <f10>
@@ -2576,7 +2577,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (unless (eq 'emacs-lisp-mode major-mode)
-    (local-set-key [f8] (function  show-inferior-lisp-buffer)))
+    (local-set-key [f8] 'show-inferior-lisp-buffer))
   (local-set-key (kbd "RET") 'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
   ;; (setq blink-matching-paren t)
@@ -2973,22 +2974,22 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
       (insert "(")
       (goto-char (1+ (first bel))))))
 
-(global-set-key (kbd "A-[")   (function in-parenthese))
-(global-set-key (kbd "A-]")   (function ex-parenthese))
+(global-set-key (kbd "A-[")   'in-parenthese)
+(global-set-key (kbd "A-]")   'ex-parenthese)
 
 
 (require 'inf-lisp)
 (defun sexp-movement ()
   "Binds locally some keys to sexp movement commands."
   (interactive)
-  (define-key inferior-lisp-mode-map  (kbd "C-c .") (function forward-sexp))
-  (define-key inferior-lisp-mode-map  (kbd "C-c ,") (function backward-sexp))
-  (local-set-key (kbd "C-c .") (function forward-sexp))
-  (local-set-key (kbd "C-c ,") (function backward-sexp))
-  (define-key inferior-lisp-mode-map  (kbd "A-.") (function forward-sexp))
-  (define-key inferior-lisp-mode-map  (kbd "A-,") (function backward-sexp))
-  (local-set-key (kbd "A-.") (function forward-sexp))
-  (local-set-key (kbd "A-,") (function backward-sexp))
+  (define-key inferior-lisp-mode-map  (kbd "C-c .") 'forward-sexp)
+  (define-key inferior-lisp-mode-map  (kbd "C-c ,") 'backward-sexp)
+  (local-set-key (kbd "C-c .") 'forward-sexp)
+  (local-set-key (kbd "C-c ,") 'backward-sexp)
+  (define-key inferior-lisp-mode-map  (kbd "A-.") 'forward-sexp)
+  (define-key inferior-lisp-mode-map  (kbd "A-,") 'backward-sexp)
+  (local-set-key (kbd "A-.") 'forward-sexp)
+  (local-set-key (kbd "A-,") 'backward-sexp)
   (local-set-key [M-up]        'up-list)
   (local-set-key [M-down]      'down-list)
   (local-set-key [M-right]     'forward-sexp)
@@ -3281,7 +3282,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;;      (setf slime-net-coding-system 'utf-8-unix)
 ;;      (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 ;;      (setf slime-space-information-p t)
-;;      (global-set-key (kbd "C-c s") (function slime-selector))
+;;      (global-set-key (kbd "C-c s") 'slime-selector)
 ;;      ;; this prevents us from requiring the user get dev-lisp/hyperspec
 ;;      ;; (which is non-free) as a hard dependency
 ;; 
@@ -4088,9 +4089,9 @@ variable `common-lisp-hyperspec-root' to point to that location."
       :test (function equal))))
 
 
-  (defalias 'hyperspec-lookup 'common-lisp-hyperspec) ; 'gcl-hyperspec)
-  (global-set-key (kbd "C-h y") (function hyperspec-lookup))
-  (defalias 'clhs             'common-lisp-hyperspec)
+  (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
+  (global-set-key (kbd "C-h y") 'hyperspec-lookup)
+  (defalias 'clhs               'common-lisp-hyperspec)
 
   ) ;;(boundp 'common-lisp-hyperspec-symbols)
 
@@ -5100,7 +5101,7 @@ See the documentation for vm-mode for more information."
 ;; (ad-disable-advice 'gnus-summary-mark-as-expirable 'after 'gnus-summary-mark-as-expirable+next-line)
 
 
-;; (local-set-key (kbd "e") (function gnus-summary-mark-as-expirable))
+;; (local-set-key (kbd "e") 'gnus-summary-mark-as-expirable)
 
 (setf *pjb-gnus-trash-mailbox* "nnimap+voyager.informatimago.com:INBOX.Trash")
 (setf *pjb-gnus-junk-mailbox*  "nnimap+voyager.informatimago.com:INBOX.Junk")
@@ -5211,7 +5212,7 @@ See the documentation for vm-mode for more information."
 ;; (pjb-set-erc-nickserv-passwords)
 ;; (setf erc-timestamp-format "%Y-%m-%d %H:%M\n")
 ;; (erc-match-mode 1)
-;; (global-set-key (kbd "C-y") (function erc-yank))
+;; (global-set-key (kbd "C-y") 'erc-yank)
 
 
 ;;(erc-select :server "localhost" :nick "pjb")
@@ -6416,6 +6417,9 @@ or as \"emacs at <hostname>\"."
     (set-text-properties start end (list 'read-only ro))))
 
 ;;;----------------------------------------------------------------------------
+
+(add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
+
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
