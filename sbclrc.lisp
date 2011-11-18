@@ -178,7 +178,7 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-(declaim (sb-ext:muffle-conditions (or style-warning compiler-note))
+(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
 (SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES

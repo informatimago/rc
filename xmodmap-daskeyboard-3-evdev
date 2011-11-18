@@ -7,6 +7,24 @@
 !
 
 
+! x, S-x, g-x, g-S-x
+!
+! ESC         F1   F2   F3   F4     F5   F6   F7   F8     F9   F10  F11  F12    
+! `~∞∝ 1!₁¹ 2@₂² 3#₃³ 4$₄⁴ 5%₅⁵ 6^₆⁶ 7₇⁷ 8*₈⁸ 9(₉⁹ 0)₀⁰ -_⊣⊥ =+⊢⊤   Backspace   
+! TAB     qQωΩ wW€¢ eEεΕ rRρΡ tTτΤ yYψΨ uUυΥ iIιΙ oOοΟ pPπΠ [{«∀ ]}»∃     \|∖∫
+! Control   aAαΑ sSσΣ dDδΔ fFφΦ gGγΓ hHθΘ jJηΗ kKκΚ lLλΛ ;:⊆⎕ '"⊇○     Return
+! Shift       zZζΖ xXξΞ cCχΧ vV∇√ bBβΒ nNνΝ mMμΜ ,<≤∧ .>≥∨ /?≠¬         Shift
+! Multi_key Alt  Meta   ---- Space DigitSpace ------ Meta AltGr Hyper Control
+! 
+! 
+! 
+! Pause  ∂     CapsLock    Print
+! Insert ∈∉   Home ⇒⇔    Prior ≡≢      NumLock     *          /          -     
+! Delete ∅≣   End ∴ ∵     Next ≈≇        Home    7   Up    8   Prior 9    
+!                                         Left    4   Begin 5   Right 6     +
+!              Up ↑∩                     End     1   Down  2   Next  3    Ent 
+!  Left ←⊂    Down ↓∪    Right →⊃     Insert 0              Delete .    er
+
 !------------------------------------------------------------
 ! First line
 !------------------------------------------------------------
@@ -28,7 +46,7 @@ keycode  76 = F10             XF86_Switch_VT_10 F23
 keycode  95 = F11             XF86_Switch_VT_11 F24
 keycode  96 = F12             XF86_Switch_VT_12 F25
 
-keycode 107 = Pause           Break
+keycode 107 = Pause           Break           partialderivative
 keycode  78 = Caps_Lock       
 keycode 127 = Print           Sys_Req
 
@@ -71,7 +89,7 @@ keycode  32 = o               O             Greek_omicron   Greek_OMICRON
 keycode  33 = p               P             Greek_pi        Greek_PI
 keycode  34 = bracketleft     braceleft     guillemotleft   0x1002200
 keycode  35 = bracketright    braceright    guillemotright  0x1002203
-keycode  51 = backslash       bar           integral        partialderivative
+keycode  51 = backslash       bar           0x1002216       integral
 
 
 !------------------------------------------------------------
@@ -89,8 +107,8 @@ keycode  43 = h               H             Greek_theta     Greek_THETA
 keycode  44 = j               J             Greek_eta       Greek_ETA
 keycode  45 = k               K             Greek_kappa     Greek_KAPPA
 keycode  46 = l               L             Greek_lamda     Greek_LAMDA
-keycode  47 = semicolon       colon         quad            quad
-keycode  48 = apostrophe      quotedbl      circle          circle
+keycode  47 = semicolon       colon         0x1002286       quad            
+keycode  48 = apostrophe      quotedbl      0x1002287       circle          
 
 keycode  36 = Return
 
