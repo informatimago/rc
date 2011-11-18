@@ -52,6 +52,7 @@
 (in-package "COM.INFORMATIMAGO.PJB")
 (export '(EDIT QUIT))
 
+(setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --

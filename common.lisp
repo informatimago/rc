@@ -81,9 +81,11 @@
            "START-DRIBBLE"
            "DEFAUTOLOAD"
            "*INP*" "*OUT*"
-           "SCHEME"))
-
+           "SCHEME"
+           "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS"))
 (in-package "COM.INFORMATIMAGO.PJB")
+
 
 (defun make-pathname* (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
                        (name nil namep) (type nil typep) (version nil versionp)
@@ -287,6 +289,56 @@
 
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
+
+
+
+(defun quick-list-systems (&optional pattern)
+  "List the quicklisp systems.  If the string designator PATTERN is
+given, then only the systems containing it in their name are listed."
+  (if pattern
+      (let ((spattern (string pattern)))
+        (dolist (system (ql-dist:provided-systems t) (values))
+          (when (search spattern (slot-value system 'ql-dist:name)
+                        :test (function char-equal))
+            (print system))))
+      (dolist (system (ql-dist:provided-systems t) (values))
+        (print system))))
+
+
+(defun quick-apropos (pattern)
+  ;; For now, we just list the systems:
+  (let ((spattern (string pattern)))
+    (dolist (system (ql-dist:provided-systems t) (values))
+      (when (search spattern (slot-value system 'ql-dist:name)
+                    :test (function char-equal))
+        (format t "SYSTEM: ~S~%" system)))))
+
+
+(defun quick-update ()
+  "Updates the quicklisp client, and all the system distributions."
+  (ql:update-client)
+  (ql:update-all-dists)) 
+
+(defun quick-clean ()
+  "Clean the quicklisp system distributions."
+  (map nil 'ql-dist:clean (ql-dist:enabled-dists)))
+
+(defun quick-install-all (&key verbose)
+  "Installs all the quicklisp systems, skipping over the errors."
+  (map nil (lambda (system)
+             (handler-case
+                 (progn
+                   (when verbose
+                     (format *trace-output* "~&~A~%" system))
+                   (ql-dist:ensure-installed system))
+               (error (err)
+                 (format *trace-output* "~&~A ~A~%" system err))))
+       (ql-dist:provided-systems t)))
+
+(defun quick-uninstall (&rest systems)
+  "Uninstall the given systems releases from the quicklisp installation."
+  (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
+       systems))
 
 
 ;;;----------------------------------------------------------------------
@@ -638,6 +690,9 @@ either scanned, or from the cache."
 ;;; com.informatimago libraries
 ;;;
 
+
+;; (update-asdf-registry)
+
 ;; Should be included by (UPDATE-ASDF-REGISTRY)
 (setf asdf:*central-registry*
       (append (remove-duplicates
@@ -648,7 +703,6 @@ either scanned, or from the cache."
                :test (function equalp))
               asdf:*central-registry*))
 
-;; (update-asdf-registry)
 
 ;;; This doesn't work:
 ;; ;; You can use :tree instead of :directory to find all directories with
