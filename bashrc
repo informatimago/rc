@@ -495,10 +495,16 @@ if [ -x /usr/games/bin/fgfs ] ; then
 fi
 
 
-if [ -x /opt/fgfs/bin/fgfs ] ; then
-    fgfs=/opt/fgfs/bin/fgfs
-    fgfs_opt_root=/opt/fgfs/share/flightgear
-    fgfs_opt_root=$fgfs_next_root
+# if [ -x /opt/fgfs/bin/fgfs ] ; then
+#     fgfs=/opt/fgfs/bin/fgfs
+#     fgfs_opt_root=/opt/fgfs/share/flightgear
+#     fgfs_opt_root=$fgfs_next_root
+#     fgfs_root=$fgfs_opt_root
+# fi
+
+if [ -x /opt/fgfs-240/bin/fgfs ] ; then
+    fgfs=/opt/fgfs-240/bin/fgfs
+    fgfs_opt_root=/opt/fgfs-240/share/flightgear
     fgfs_root=$fgfs_opt_root
 fi
 
@@ -597,6 +603,56 @@ if [ -s "$fgfs" ] ; then
             --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
             "$@" ; # > /tmp/netfs2.$$.out 2>&1  ; 
     }
+
+
+cat > /dev/null <<EOF
+
+(defun gen-parking-positions (base-name heading start-lon start-lat &optional end-lon end-lat n)
+  (flet ((gen (name lon lat)
+           (insert (format "%s=(--heading=%f --lon=%f --lat=%f)\n" name heading lon lat))))
+    (if (or (null n) (<= n 1))
+        (gen base-name start-lon start-lat)
+        (loop
+           repeat n
+           for i from 1
+           for cur-lon from start-lon by (/ (- end-lon start-lon) (1- n))
+           for cur-lat from start-lat by (/ (- end-lat start-lat) (1- n))
+           do (gen (format "%s_%d" base-name i) cur-lon cur-lat)))))
+
+(progn
+  (insert "\nEOF\n\n")
+  (gen-parking-positions
+     "KSUU_parking"
+     145
+     (- (dms-d 121 56 1.1))   
+     (dms-d 38 16 0.4)
+     (- (dms-d 121 55 30.7))
+     (dms-d 38 16 22.3)
+     20))
+
+EOF
+
+KSUU_parking_1=(--heading=145.000000 --lon=-121.933639 --lat=38.266778)
+KSUU_parking_2=(--heading=145.000000 --lon=-121.933194 --lat=38.267098)
+KSUU_parking_3=(--heading=145.000000 --lon=-121.932750 --lat=38.267418)
+KSUU_parking_4=(--heading=145.000000 --lon=-121.932306 --lat=38.267738)
+KSUU_parking_5=(--heading=145.000000 --lon=-121.931861 --lat=38.268058)
+KSUU_parking_6=(--heading=145.000000 --lon=-121.931417 --lat=38.268379)
+KSUU_parking_7=(--heading=145.000000 --lon=-121.930972 --lat=38.268699)
+KSUU_parking_8=(--heading=145.000000 --lon=-121.930528 --lat=38.269019)
+KSUU_parking_9=(--heading=145.000000 --lon=-121.930083 --lat=38.269339)
+KSUU_parking_10=(--heading=145.000000 --lon=-121.929639 --lat=38.269659)
+KSUU_parking_11=(--heading=145.000000 --lon=-121.929194 --lat=38.269980)
+KSUU_parking_12=(--heading=145.000000 --lon=-121.928750 --lat=38.270300)
+KSUU_parking_13=(--heading=145.000000 --lon=-121.928306 --lat=38.270620)
+KSUU_parking_14=(--heading=145.000000 --lon=-121.927861 --lat=38.270940)
+KSUU_parking_15=(--heading=145.000000 --lon=-121.927417 --lat=38.271260)
+KSUU_parking_16=(--heading=145.000000 --lon=-121.926972 --lat=38.271580)
+KSUU_parking_17=(--heading=145.000000 --lon=-121.926528 --lat=38.271901)
+KSUU_parking_18=(--heading=145.000000 --lon=-121.926083 --lat=38.272221)
+KSUU_parking_19=(--heading=145.000000 --lon=-121.925639 --lat=38.272541)
+KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
+
 
     function typhoon-1(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
     function typhoon(){   typhoon-1 --control=joystick "@" ; }
@@ -789,7 +845,7 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 9 ; done ; }
+function emacsen         (){ mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true ; chmod 700 /tmp/emacs${UID} ; if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 9 ; done ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 
