@@ -1396,7 +1396,7 @@ SIDE must be the symbol `left' or `right'."
      (.EMACS "Setting X keyboard")
      (define-key global-map [(delete)]    "\C-d")
      (make-face-bold 'bold-italic))
-    ((mac)
+    ((mac ns)
      (.EMACS "Setting Macintosh keyboard")
      (setq *window-manager-y-offset* (+ 24 24))
      (set-keyboard-coding-system 'mac-roman)
@@ -1698,7 +1698,7 @@ SIDE must be the symbol `left' or `right'."
 
 
 ;;;----------------------------------------------------------------------------
-(when (and (not *pjb-pvs-is-running*) (member window-system '(x mac)))
+(when (and (not *pjb-pvs-is-running*) (member window-system '(x mac ns)))
   ;; By default turn on colorization.
 
   ;; ----------------------------------------
