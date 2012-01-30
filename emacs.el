@@ -40,7 +40,7 @@
 (defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
-(setq source-directory "/usr/src/emacs-23.3/src/")
+(setq source-directory "/usr/src/emacs-23.3/src")
 
 (defvar *hostname*
   (or (and (boundp 'system-name) system-name)
@@ -263,7 +263,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#hemlock" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -279,6 +279,7 @@
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
+ '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
@@ -444,6 +445,7 @@ X-Accept-Language:         fr, es, en
  '(sh-indent-for-case-label 0)
  '(show-paren-mode t)
  '(show-paren-ring-bell-on-mismatch t)
+ '(slime-autodoc-use-multiline-p t)
  '(slime-compilation-finished-hook (quote (slime-maybe-show-xrefs-for-notes)))
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
@@ -1024,8 +1026,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
 ;;;----------------------------------------------------------------------------
 ;;; CEDET / EIEIO
 ;;;----------------------------------------------------------------------------
-(when (or (require 'cedet nil t)
-          (require 'eieio nil t))
+(when (and (require 'eieio nil t)
+           (require 'cedet nil t))
   ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
   ;; Select one of the following:
 
@@ -1815,7 +1817,7 @@ SIDE must be the symbol `left' or `right'."
       (string-case hname
 
         (("thalassa" "despina" "kuiper")
-         (forward-font 10)
+         (forward-font 11)
          (setq palette            pal-thalassa
                width              81
                height             70))
@@ -2995,6 +2997,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
   (local-set-key [M-right]     'forward-sexp)
   (local-set-key [M-left]      'backward-sexp)
   (values))
+
+
+(require 'bytecomp)
+(byte-compile-disable-warning 'cl-functions)
 
 (defun make-lisp-command-sender (string)
   (byte-compile `(lambda ()
@@ -6100,6 +6106,13 @@ Attribution: ?"
 ;;;----------------------------------------------------------------------------
 ;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/gst-mode.el") 
 ;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/smalltalk-mode.el") 
+
+;;;----------------------------------------------------------------------------
+
+(defun pjb-compilation-meat ()
+  (toggle-truncate-lines +1))
+
+(add-hook 'compilation-mode-hook 'pjb-compilation-meat)
 
 ;;;----------------------------------------------------------------------------
 (defvar *compile-and-run-cflags*
