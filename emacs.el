@@ -40,7 +40,7 @@
 (defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
-(setq source-directory "/usr/src/emacs-23.3/src")
+(setq source-directory "/usr/src/emacs-23.3/src/")
 
 (defvar *hostname*
   (or (and (boundp 'system-name) system-name)
@@ -4495,7 +4495,11 @@ URL in a new window."
 
 ;; Distribution isntalls crypt++...
 (setf find-file-hook (remove 'crypt-find-file-hook find-file-hook))
-find-file-hook
+
+(defun find-file-read-args (prompt mustmatch)
+  (list (read-file-name prompt nil default-directory mustmatch nil
+                        (lambda (name) (not (string-match "~$" name))))
+	t))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "mew")
@@ -5387,6 +5391,22 @@ See the documentation for vm-mode for more information."
 
 
 
+
+(defun pjb-electric-ellipsis ()
+  (interactive)
+  (let ((recent (recent-keys)))
+    (if (and (equal (subseq recent (- (length recent) 2)) [?. ?.])
+             (equal (buffer-substring (- (point) 2) (point)) ".."))
+        (progn
+          (delete-region (- (point) 2) (point))
+          (insert "…"))
+        (insert "."))))
+
+(global-set-key (kbd ".") 'pjb-electric-ellipsis)
+
+
+
+
 ;; lisp modes
 
 ;; (setq emacs-lisp-mode-hook nil lisp-mode-hook nil)
@@ -5396,6 +5416,7 @@ See the documentation for vm-mode for more information."
 (when (and (< emacs-major-version 23) (and (eq window-system 'x) (fboundp 'pretty-greek)))
   (add-hook 'emacs-lisp-mode-hook 'pretty-greek))
 ;;(add-hook mode 'show-paren-mode)))
+
 
 (when (fboundp 'common-lisp-font-lock-hook)
   (add-hook 'lisp-mode-hook 'common-lisp-font-lock-hook))
