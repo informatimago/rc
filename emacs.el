@@ -1452,6 +1452,27 @@ SIDE must be the symbol `left' or `right'."
 
 
 
+(defun indentation ()
+  "returns the indentation of the line at point."
+  (back-to-indentation)
+  (current-column))
+
+(defun forward-same-indent ()
+  (interactive)
+  (let ((indentation (indentation)))
+    (while (and (< (point) (point-max))
+                (progn
+                  (forward-line)
+                  (/= indentation (indentation)))))))
+
+(defun backward-same-indent ()
+  (interactive)
+  (let ((indentation (indentation)))
+    (while (and (< (point-min) (point))
+                (progn
+                  (forward-line -1)
+                  (/= indentation (indentation)))))))
+
 
 (standard-display-ascii #o200 (vector (decode-char 'ucs #x253c)))
 (standard-display-ascii #o201 (vector (decode-char 'ucs #x251c)))
@@ -1662,6 +1683,9 @@ SIDE must be the symbol `left' or `right'."
 
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
 (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
+
+(global-set-key (kbd "H-<up>")    'backward-same-indent)
+(global-set-key (kbd "H-<down>")  'forward-same-indent)
 
 
 
@@ -3133,6 +3157,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (or (ignore-errors
       (progn (slime-setup '(slime-fancy
+                            slime-xref-browser
                             slime-asdf
                             slime-banner
                             slime-repl
@@ -3141,6 +3166,9 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
                             slime-autodoc
                             slime-presentations
                             slime-presentation-streams))
+             (setf slime-complete-symbol*-fancy   t
+                   slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+                   slime-load-failed-fasl         'never)
              t))
     (ignore-errors
       (progn (slime-setup '(slime-fancy slime-indentation))
@@ -5176,6 +5204,10 @@ See the documentation for vm-mode for more information."
 ;;(add-to-list 'mm-charset-synonym-alist '(iso885915 . iso-8859-15))
 
 
+(when (require 'erc-highlight-nicknames nil t)
+  (erc-highlight-nicknames-enable))
+
+(require 'erc-eval nil t)
 
 
 ;;(erc-select :server "localhost" :nick "pjb")
@@ -5392,15 +5424,22 @@ See the documentation for vm-mode for more information."
 
 
 
-(defun pjb-electric-ellipsis ()
-  (interactive)
-  (let ((recent (recent-keys)))
-    (if (and (equal (subseq recent (- (length recent) 2)) [?. ?.])
-             (equal (buffer-substring (- (point) 2) (point)) ".."))
-        (progn
-          (delete-region (- (point) 2) (point))
-          (insert "…"))
-        (insert "."))))
+(defun pjb-electric-ellipsis (p)
+  (interactive "P")
+  (message "p=%S" p)
+  (cond
+    ((null p)
+     (let ((recent (recent-keys)))
+       (if (and (equal (subseq recent (- (length recent) 2)) [?. ?.])
+                (equal (buffer-substring (- (point) 2) (point)) ".."))
+           (progn
+             (delete-region (- (point) 2) (point))
+             (insert "…"))
+           (insert "."))))
+    ((eq p '-))
+    ((integerp p)                       (insert (make-string p ?.)))
+    ((and (listp p) (integerp (car p))) (insert (make-string (car p) ?.)))
+    (t (error "Unknown raw prefix argument %S" p))))
 
 (global-set-key (kbd ".") 'pjb-electric-ellipsis)
 
