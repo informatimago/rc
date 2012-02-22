@@ -1,3 +1,4 @@
+
 ;; swank:*communication-style*          (member nil :fd-handler :sigio :spawn)
 ;; swank:*configure-emacs-indentation*  boolean t
 ;; swank:*globally-redirect-io*         boolean nil
@@ -13,7 +14,8 @@
 
 #+clisp (setf swank:*use-dedicated-output-stream*  nil)
 
-(setf swank::*sldb-initial-frames*         40)
+(setf swank::*sldb-initial-frames* 40)
+(setf swank:*globally-redirect-io* t)
 
 (let ((bindings '((*PRINT-PRETTY* . nil)
                   (*PRINT-LEVEL* . nil)
