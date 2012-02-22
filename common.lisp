@@ -83,7 +83,8 @@
            "*INP*" "*OUT*"
            "SCHEME"
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
-           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE-IS"))
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-DELETE"
+           "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
 
@@ -340,8 +341,23 @@ given, then only the systems containing it in their name are listed."
   (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
        systems))
 
-(defun quick-where-is (system)
-  (ql:where-is-system system))
+(defun quick-where (&rest systems)
+  "Says where the given systems are."
+  (map 'list (lambda (system) (ql:where-is-system (string-downcase system)))
+       systems))
+
+(defun quick-delete (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system) (asdf-delete-system system)) systems))
+
+(defun quick-reload (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system)
+               (asdf-delete-system system)
+               (ql:quickload system))
+       systems))
+
+>>>>>>> 8a62c5c9b0451a54ec30d3559508340cadf3f1fd
 
 ;;;----------------------------------------------------------------------
 ;;;
