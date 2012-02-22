@@ -83,7 +83,8 @@
            "*INP*" "*OUT*"
            "SCHEME"
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
-           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS"))
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-DELETE"
+           "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
 
@@ -338,6 +339,22 @@ given, then only the systems containing it in their name are listed."
 (defun quick-uninstall (&rest systems)
   "Uninstall the given systems releases from the quicklisp installation."
   (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
+       systems))
+
+(defun quick-where (&rest systems)
+  "Says where the given systems are."
+  (map 'list (lambda (system) (ql:where-is-system (string-downcase system)))
+       systems))
+
+(defun quick-delete (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system) (asdf-delete-system system)) systems))
+
+(defun quick-reload (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system)
+               (asdf-delete-system system)
+               (ql:quickload system))
        systems))
 
 
@@ -694,14 +711,14 @@ either scanned, or from the cache."
 ;; (update-asdf-registry)
 
 ;; Should be included by (UPDATE-ASDF-REGISTRY)
-(setf asdf:*central-registry*
-      (append (remove-duplicates
-               (mapcar (lambda (path)
-                         (make-pathname* :name nil :type nil :version nil :defaults path))
-                       #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
-                       #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
-               :test (function equalp))
-              asdf:*central-registry*))
+;; (setf asdf:*central-registry*
+;;       (append (remove-duplicates
+;;                (mapcar (lambda (path)
+;;                          (make-pathname* :name nil :type nil :version nil :defaults path))
+;;                        #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
+;;                        #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+;;                :test (function equalp))
+;;               asdf:*central-registry*))
 
 
 ;;; This doesn't work:
