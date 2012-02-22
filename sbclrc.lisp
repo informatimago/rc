@@ -47,6 +47,8 @@
       *print-level*  nil
       *print-lines*  nil)
 
+(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :utf-8)
+
 ;;;---------------------------------------------------------------------------
 ;;;
 
