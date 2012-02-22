@@ -83,7 +83,7 @@
            "*INP*" "*OUT*"
            "SCHEME"
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
-           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS"))
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE-IS"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
 
@@ -340,6 +340,8 @@ given, then only the systems containing it in their name are listed."
   (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
        systems))
 
+(defun quick-where-is (system)
+  (ql:where-is-system system))
 
 ;;;----------------------------------------------------------------------
 ;;;
@@ -619,11 +621,14 @@ either scanned, or from the cache."
 
 ;;;----------------------------------------------------------------------
 
+
 (defmacro defautoload (name arguments loader)
-  "Defines a function that will laud the LOADER file, before calling itself again."
-  `(defun ,name ,arguments
-     (load ,loader)
-     (eval '(,name ,@arguments))))
+  "Defines a function that will load the LOADER file, before calling itself again."
+  `(progn
+     (declaim (notinline ,name))
+     (defun ,name ,arguments
+       (load ,loader)
+       (,name ,@arguments))))
 
 (defautoload scheme () "LOADERS:PSEUDO")
 
@@ -693,15 +698,15 @@ either scanned, or from the cache."
 
 ;; (update-asdf-registry)
 
-;; Should be included by (UPDATE-ASDF-REGISTRY)
-(setf asdf:*central-registry*
-      (append (remove-duplicates
-               (mapcar (lambda (path)
-                         (make-pathname* :name nil :type nil :version nil :defaults path))
-                       #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
-                       #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
-               :test (function equalp))
-              asdf:*central-registry*))
+;; ;; Should be included by (UPDATE-ASDF-REGISTRY)
+;; (setf asdf:*central-registry*
+;;       (append (remove-duplicates
+;;                (mapcar (lambda (path)
+;;                          (make-pathname* :name nil :type nil :version nil :defaults path))
+;;                        #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
+;;                        #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+;;                :test (function equalp))
+;;               asdf:*central-registry*))
 
 
 ;;; This doesn't work:
