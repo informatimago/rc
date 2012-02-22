@@ -998,7 +998,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
                            (unless (string= "mdi-development-1" *hostname*)
                              (list
-                              (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                              ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                              (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
                               (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
        (if (listp directories)
          (find-if (function add-if-good) directories)
@@ -1068,21 +1069,55 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 
 ;;;----------------------------------------------------------------------------
-(defvar *milliways* '())
+(defparameter *milliways* '())
+
+
 (defun milliways-run ()
   (interactive)
-  (dolist (function *milliways*) (funcall function)))
+  (while *milliways*
+    (ignore-errors (funcall (pop *milliways*)))))
+
 (defun milliways-activate (&optional delay)
   "Called at the end of ~/.emacs"
   (run-at-time (or delay 5)
-               5
-               (function milliways-run)
-               nil))
+               1
+               'milliways-run))
+
 (defun milliways-schedule (function)
   "Schedule the function to be called after emacs started."
   (push function *milliways*))
 
 (milliways-schedule (lambda () (message "Welcome to the Restaurant at the End of the Universe!")))
+
+
+
+(defun emacs-time-to-universal-time (emacs-time)
+  (+ (* (first emacs-time) 65536.0)
+     (second emacs-time)
+     (/ (third emacs-time) 1000000.0)))
+
+(defun timer-emacs-time (timer)
+  (list (timer--high-seconds timer)
+        (timer--low-seconds timer)
+        (timer--usecs timer)))
+
+
+(defun timer-delete-function (function)
+  (cancel-timer (find function (append timer-list timer-idle-list)
+                      :key (function timer--function))))
+
+;; (timer-delete-function 'milliways-run)
+;; (milliways-activate)
+
+
+;; (mapcar (lambda (timer)
+;;           (list
+;;            (timer--function timer)
+;;            (- (emacs-time-to-universal-time (timer-emacs-time timer))
+;;               (emacs-time-to-universal-time (current-time)))))
+;;         timer-list)
+
+
 
 
 
@@ -1455,23 +1490,32 @@ SIDE must be the symbol `left' or `right'."
 (defun indentation ()
   "returns the indentation of the line at point."
   (back-to-indentation)
-  (current-column))
+  (let ((indentation (current-column)))
+    (if (= indentation (save-excursion (end-of-line) (current-column)))
+        0
+        indentation)))
 
 (defun forward-same-indent ()
   (interactive)
-  (let ((indentation (indentation)))
+  (let ((current (point))
+        (indentation (indentation)))
     (while (and (< (point) (point-max))
                 (progn
                   (forward-line)
-                  (/= indentation (indentation)))))))
+                  (/= indentation (indentation)))))
+    (unless (= indentation (indentation))
+      (goto-char current))))
 
 (defun backward-same-indent ()
   (interactive)
-  (let ((indentation (indentation)))
+  (let ((current (point))
+        (indentation (indentation)))
     (while (and (< (point-min) (point))
                 (progn
                   (forward-line -1)
-                  (/= indentation (indentation)))))))
+                  (/= indentation (indentation)))))
+    (unless (= indentation (indentation))
+      (goto-char current))))
 
 
 (standard-display-ascii #o200 (vector (decode-char 'ucs #x253c)))
@@ -1847,7 +1891,7 @@ SIDE must be the symbol `left' or `right'."
                height             70))
 
         (("triton" "proteus")
-         (font-forward 1)
+         (forward-font 1)
          (setq palette            pal-galatea
                width              86
                height             52))
@@ -6268,11 +6312,14 @@ Attribution: ?"
                       :test (function equalp)))
 
 
+;; find-grep customization:
 (setf grep-find-command "find $HOME/src/manager2/trunk \\( -name release -prune \\) -o -type f  \\(  -name \\*.h -o -name \\*.c -name \\*.hh -o -name \\*.hxx -o -name \\*.cc  -o -name \\*.cxx -o -name \\*.lisp -o -name \\*.rb -o -name \\*.logs \\) -print0 | xargs -0 -e grep -niH -e "
       grep-host-defaults-alist nil)
 (setf grep-find-command "find $HOME/firms/medicalis/src/amd/subprojects/incident-tracker/sources/siam \\( \\( -name release -o -name .git \\) -prune \\) -o -type f  \\( -name \\*.php -o -name \\*.inc -o -name \\*.txt \\) -print0 | xargs -0  grep -niH -e "
       grep-host-defaults-alist nil)
 (setf grep-find-command "find . \\( \\( -name release -o -name .git \\) -prune \\) -o -type f  -print0 | xargs -0  grep -niH -e "
+      grep-host-defaults-alist nil)
+(setf grep-find-command "find . -name \\*.lisp -print0 | xargs -0  grep -niH -e "
       grep-host-defaults-alist nil)
 
 
