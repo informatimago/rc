@@ -306,7 +306,8 @@ function be_generate(){
     be_unset LC_NUMERIC 
     be_unset LC_TIME
     be_variable LC_COLLATE              C # fr_FR
-    be_variable LC_CTYPE                C # fr_FR.UTF-8
+    #be_variable LC_CTYPE                C # fr_FR.UTF-8
+    be_variable LC_CTYPE                en_US.UTF-8
     be_unset LC_ALL
     be_unset LANG
     be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
