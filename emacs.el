@@ -187,7 +187,7 @@
  '(rst-level-5-face ((t (:background "grey20"))) t)
  '(rst-level-6-face ((t (:background "grey20"))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "red")))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
 
 
 (.EMACS "custom variables")
@@ -456,7 +456,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
  '(tab-width 4)
- '(tags-table-list (quote nil) t)
+ '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
