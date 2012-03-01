@@ -38,6 +38,17 @@
 (print *package*)
 (in-package "COMMON-LISP-USER")
 
+;; Those requires are required for quicklisp/asdf...
+(require :sb-posix)
+(require :sb-bsd-sockets)
+(require :sb-cltl2)
+(setf *print-circle* t
+      *print-length* nil
+      *print-level*  nil
+      *print-lines*  nil)
+
+(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :utf-8)
+
 ;;;---------------------------------------------------------------------------
 ;;;
 
@@ -169,7 +180,7 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-(declaim (sb-ext:muffle-conditions (or style-warning compiler-note))
+(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
 (SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES
@@ -222,8 +233,8 @@
 ;; Add "USER" nickname to "COMMON-LISP-USER",
 ;; for compatibility with old packages..
 (sb-ext:without-package-locks
-    (PACKAGE:ADD-NICKNAME  "COMMON-LISP-USER" "USER")
-  (PACKAGE:ADD-NICKNAME  "SB-PCL"           "CLOS"))
+  (com.informatimago.common-lisp.cesarum.PACKAGE:ADD-NICKNAME  "COMMON-LISP-USER" "USER")
+  (com.informatimago.common-lisp.cesarum.PACKAGE:ADD-NICKNAME  "SB-PCL"           "CLOS"))
 
 
 (defun edit-1 (arg)
@@ -244,9 +255,10 @@
 (use-package "COM.INFORMATIMAGO.PJB")
 
 ;; (require 'asdf) (require 'asdf-install) ;; done in .common.lisp
+;; Now we use quicklisp.
 ;; http://ww.telent.net/cclan-choose-mirror
 ;; (setf ASDF-INSTALL:*CCLAN-MIRROR* "http://thingamy.com/cclan/")
-(setf ASDF-INSTALL:*CCLAN-MIRROR* "http://ftp.linux.org.uk/pub/lisp/cclan/")
+;; (setf ASDF-INSTALL:*CCLAN-MIRROR* "http://ftp.linux.org.uk/pub/lisp/cclan/")
 
 #+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
 (pushnew 'swank:ed-in-emacs sb-ext:*ed-functions*)

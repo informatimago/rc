@@ -81,9 +81,12 @@
            "START-DRIBBLE"
            "DEFAUTOLOAD"
            "*INP*" "*OUT*"
-           "SCHEME"))
-
+           "SCHEME"
+           "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-DELETE"
+           "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
+
 
 (defun make-pathname* (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
                        (name nil namep) (type nil typep) (version nil versionp)
@@ -184,9 +187,8 @@
                           (defun hostname ()
                             (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
                               (unwind-protect
-                                   (progn
-                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                                             outpath)
+                                   (let ((asdf::*verbose-out* t))
+                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A" outpath)
                                      (with-open-file (hostname outpath)
                                        (read-line hostname)))
                                 (delete-file outpath))))
@@ -288,6 +290,73 @@
 
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
+
+
+
+(defun quick-list-systems (&optional pattern)
+  "List the quicklisp systems.  If the string designator PATTERN is
+given, then only the systems containing it in their name are listed."
+  (if pattern
+      (let ((spattern (string pattern)))
+        (dolist (system (ql-dist:provided-systems t) (values))
+          (when (search spattern (slot-value system 'ql-dist:name)
+                        :test (function char-equal))
+            (print system))))
+      (dolist (system (ql-dist:provided-systems t) (values))
+        (print system))))
+
+
+(defun quick-apropos (pattern)
+  ;; For now, we just list the systems:
+  (let ((spattern (string pattern)))
+    (dolist (system (ql-dist:provided-systems t) (values))
+      (when (search spattern (slot-value system 'ql-dist:name)
+                    :test (function char-equal))
+        (format t "SYSTEM: ~S~%" system)))))
+
+
+(defun quick-update ()
+  "Updates the quicklisp client, and all the system distributions."
+  (ql:update-client)
+  (ql:update-all-dists)) 
+
+(defun quick-clean ()
+  "Clean the quicklisp system distributions."
+  (map nil 'ql-dist:clean (ql-dist:enabled-dists)))
+
+(defun quick-install-all (&key verbose)
+  "Installs all the quicklisp systems, skipping over the errors."
+  (map nil (lambda (system)
+             (handler-case
+                 (progn
+                   (when verbose
+                     (format *trace-output* "~&~A~%" system))
+                   (ql-dist:ensure-installed system))
+               (error (err)
+                 (format *trace-output* "~&~A ~A~%" system err))))
+       (ql-dist:provided-systems t)))
+
+(defun quick-uninstall (&rest systems)
+  "Uninstall the given systems releases from the quicklisp installation."
+  (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
+       systems))
+
+(defun quick-where (&rest systems)
+  "Says where the given systems are."
+  (map 'list (lambda (system) (ql:where-is-system (string-downcase system)))
+       systems))
+
+(defun quick-delete (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system) (asdf-delete-system system)) systems))
+
+(defun quick-reload (&rest systems)
+  "Delete the ASDF systems so they'll be reloaded."
+  (map 'list (lambda (system)
+               (asdf-delete-system system)
+               (ql:quickload system))
+       systems))
+
 
 
 ;;;----------------------------------------------------------------------
@@ -568,11 +637,14 @@ either scanned, or from the cache."
 
 ;;;----------------------------------------------------------------------
 
+
 (defmacro defautoload (name arguments loader)
-  "Defines a function that will laud the LOADER file, before calling itself again."
-  `(defun ,name ,arguments
-     (load ,loader)
-     (eval '(,name ,@arguments))))
+  "Defines a function that will load the LOADER file, before calling itself again."
+  `(progn
+     (declaim (notinline ,name))
+     (defun ,name ,arguments
+       (load ,loader)
+       (,name ,@arguments))))
 
 (defautoload scheme () "LOADERS:PSEUDO")
 
@@ -639,17 +711,19 @@ either scanned, or from the cache."
 ;;; com.informatimago libraries
 ;;;
 
-;; Should be included by (UPDATE-ASDF-REGISTRY)
-(setf asdf:*central-registry*
-      (append (remove-duplicates
-               (mapcar (lambda (path)
-                         (make-pathname* :name nil :type nil :version nil :defaults path))
-                       #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
-                       #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
-               :test (function equalp))
-              asdf:*central-registry*))
 
 ;; (update-asdf-registry)
+
+;; ;; Should be included by (UPDATE-ASDF-REGISTRY)
+;; (setf asdf:*central-registry*
+;;       (append (remove-duplicates
+;;                (mapcar (lambda (path)
+;;                          (make-pathname* :name nil :type nil :version nil :defaults path))
+;;                        #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
+;;                        #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
+;;                :test (function equalp))
+;;               asdf:*central-registry*))
+
 
 ;;; This doesn't work:
 ;; ;; You can use :tree instead of :directory to find all directories with
@@ -665,7 +739,7 @@ either scanned, or from the cache."
 #-abcl (asdf-load  :com.informatimago.common-lisp)
 #-abcl (asdf-load  :com.informatimago.clmisc)
 
-#-(or abcl ccl cmu ecl)
+#-(or abcl ccl cmu ecl sbcl)
 (asdf-load  :com.informatimago.clext)
 
 #+sbcl
