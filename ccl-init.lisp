@@ -52,6 +52,7 @@
 (in-package "COM.INFORMATIMAGO.PJB")
 (export '(EDIT QUIT))
 
+(setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --
@@ -96,6 +97,10 @@
 ;; (setf COMMON-LISP-USER::*default-bundle-path* "CCL:OPENMCL.APP;")
 ;;  ccl::*module-search-path*  ;; paths used by REQUIRE.
 
+(setf ccl:*default-external-format*           :unix
+      ccl:*default-file-character-encoding*   :utf-8
+      ccl:*default-line-termination*          :unix
+      ccl:*default-socket-character-encoding* :utf-8)
 
 ;; #|
 ;; From: John DeSoi <jd@icx.net>

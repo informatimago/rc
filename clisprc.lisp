@@ -506,7 +506,7 @@
          (loop
             :for sexp = (read input nil input)
             :until (eq sexp input)
-            :do (print (eval sexp)))))))
+            :do (eval sexp))))))
 (export 'eval-string-in-unlocked-package)
         
 ;; for a *debugger-hook*:
@@ -515,8 +515,9 @@
 (defun ps ()
   (with-open-stream (in (ext:run-program "ps" :arguments '("axf") 
                                          :output :stream)) 
-    (loop for line = (read-line in nil nil) 
-       while line do (princ line ) (terpri))))
+    (loop
+       :for line = (read-line in nil nil) 
+       :while line :do (princ line ) (terpri))))
 (export 'ps)
 
 
