@@ -91,7 +91,7 @@
         one-buffer-one-frame nil))
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
-  (if 'thru-vnc
+  (if nil ; 'thru-vnc
       (mac-vnc-keys)
       (mac-vanilla-keys))
   (cua-mode 0))
