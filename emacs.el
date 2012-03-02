@@ -999,7 +999,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            (unless (string= "mdi-development-1" *hostname*)
                              (list
                               ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
-                              (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
+                              ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
                               (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
        (if (listp directories)
          (find-if (function add-if-good) directories)
@@ -1016,6 +1016,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
