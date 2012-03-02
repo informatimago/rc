@@ -1087,7 +1087,10 @@ NOTE:   ~/directories.txt is cached in *directories*.
   "Schedule the function to be called after emacs started."
   (push function *milliways*))
 
-(milliways-schedule (lambda () (message "Welcome to the Restaurant at the End of the Universe!")))
+(milliways-schedule
+ (lambda ()
+   (speak   "Welcome to the Restaurant at the End of the Universe!")
+   (message "Welcome to the Restaurant at the End of the Universe!")))
 
 
 
@@ -1286,6 +1289,7 @@ SIDE must be the symbol `left' or `right'."
 ;; C-z is used now by elscreen.
 
 
+(setf visible-bell t)
 
 (defun disabled ()
   (interactive)
@@ -1346,11 +1350,11 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[15~"  'set-justification-left) ; <f5>
   (global-set-key "[17~"  'set-justification-center) ; <f6>
   (global-set-key "[18~"  'set-justification-right) ; <f7>
-  (global-set-key "[19~"  (lambda()(interactive)(beep)))  ; <f8>
-  (global-set-key "[20~"  (lambda()(interactive)(beep)))  ; <f9>
-  (global-set-key "[21~"  (lambda()(interactive)(beep)))  ; <f10>
-  (global-set-key "[23~"  (lambda()(interactive)(beep)))  ; <f11>
-  (global-set-key "[24~"  (lambda()(interactive)(beep)))  ; <f12>
+  (global-set-key "[19~"  'disabled)  ; <f8>
+  (global-set-key "[20~"  'disabled)  ; <f9>
+  (global-set-key "[21~"  'disabled)  ; <f10>
+  (global-set-key "[23~"  'disabled)  ; <f11>
+  (global-set-key "[24~"  'disabled)  ; <f12>
   nil)
 
 
@@ -1777,9 +1781,24 @@ SIDE must be the symbol `left' or `right'."
   (defvar *palettes* '())
   (defvar *current-palette* nil)
 
+
   (defstruct palette
     name foreground background cursor region mouse)
 
+
+  (defmacro defpalette (name foreground background cursor region mouse)
+    `(progn
+       (defparameter ,name (make-palette :name ',name
+                                         :foreground ,foreground
+                                         :background ,background
+                                         :cursor ,cursor
+                                         :region ,region
+                                         :mouse ,mouse))
+       (pushnew ',name *palettes*)
+       (when (eq ',name *current-palette*)
+         (set-palette ',name))
+       ',name))
+  
 
   (defun set-palette (palette)
     (interactive
@@ -1797,9 +1816,10 @@ SIDE must be the symbol `left' or `right'."
                   (error "%S is not a palette name." palette)))
       (palette
        (setf *current-palette* (palette-name palette))
-       ;;        (set-default-frame-parameter 'foreground-color (palette-foreground palette))
-       ;;        (set-default-frame-parameter 'background-color (palette-background palette))
-       ;;        (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
+       (set-default-frame-parameter 'foreground-color (palette-foreground palette))
+       (set-default-frame-parameter 'background-color (palette-background palette))
+       (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
+       (set-default-frame-parameter 'mouse-color      (palette-mouse palette))
        (set-face-background 'region (palette-region palette))
        (when (getenv "EMACS_WM")
          (set-face-background 'border (palette-background palette)))
@@ -1810,18 +1830,7 @@ SIDE must be the symbol `left' or `right'."
          (set-mouse-color     (palette-mouse palette))))
       (otherwise (error "%S is not a palette" palette))))
 
-  (defmacro defpalette (name foreground background cursor region mouse)
-    `(progn
-       (defparameter ,name (make-palette :name ',name
-                                         :foreground ,foreground
-                                         :background ,background
-                                         :cursor ,cursor
-                                         :region ,region
-                                         :mouse ,mouse))
-       (pushnew ',name *palettes*)
-       (when (eq ',name *current-palette*)
-         (set-palette ',name))
-       ',name))
+
 
   ;;          name              foreground     background      cursor   region           mouse
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
@@ -1851,6 +1860,7 @@ SIDE must be the symbol `left' or `right'."
   (set-palette  pal-default)
 
 
+
   ;; ----------------------------------------
   (.EMACS "set-default-frame-alist")
 
@@ -1866,7 +1876,7 @@ SIDE must be the symbol `left' or `right'."
                            system-name
                            (substring display 0 colon))))
            ;; --- default values ---
-           ;; (font                 (or font (frame-font)))
+           (font                 (or font (frame-font)))
            (width                (frame-width))
            (height               (frame-height))
            (top                  1)
@@ -1884,64 +1894,64 @@ SIDE must be the symbol `left' or `right'."
       (setf default-cursor-type cursor-type)
       (string-case hname
 
-        (("thalassa" "despina" "kuiper")
-         (forward-font 11)
-         (setq palette            pal-thalassa
-               width              81
-               height             70))
+                   (("thalassa" "despina" "kuiper")
+                    (forward-font 11)
+                    (setq palette            pal-thalassa
+                          width              81
+                          height             70))
 
-        (("triton" "proteus")
-         (forward-font 1)
-         (setq palette            pal-galatea
-               width              86
-               height             52))
+                   (("triton" "proteus")
+                    (forward-font 1)
+                    (setq palette            pal-galatea
+                          width              86
+                          height             52))
 
-        (("galatea")
-         (forward-font 1)
-         (setq palette            pal-naiad
-               width              81
-               height             54
-               font   (let ((fixed (make-font-pattern :foundry "Misc"
-                                                      :family "Fixed"
-                                                      :weight "Medium"
-                                                      :slant "R"
-                                                      :width "SemiCondensed"
-                                                      :style ""
-                                                      :pixel-size "13"
-                                                      :point-size "120"
-                                                      :resolution-x "75"
-                                                      :resolution-y "75"
-                                                      :spacing "C"
-                                                      :average-width "60"
-                                                      :registry "ISO8859"
-                                                      :encoding "1")))
-                        (if (font-exists-p fixed) fixed font))))
-        
-        (("larissa") 
-         (setq palette            pal-larissa
-               Width              81
-               height             70))
+                   (("galatea")
+                    (forward-font 1)
+                    (setq palette            pal-naiad
+                          width              81
+                          height             54
+                          font   (let ((fixed (make-font-pattern :foundry "Misc"
+                                                                 :family "Fixed"
+                                                                 :weight "Medium"
+                                                                 :slant "R"
+                                                                 :width "SemiCondensed"
+                                                                 :style ""
+                                                                 :pixel-size "13"
+                                                                 :point-size "120"
+                                                                 :resolution-x "75"
+                                                                 :resolution-y "75"
+                                                                 :spacing "C"
+                                                                 :average-width "60"
+                                                                 :registry "ISO8859"
+                                                                 :encoding "1")))
+                                   (if (font-exists-p fixed) fixed font))))
+                   
+                   (("larissa") 
+                    (setq palette            pal-larissa
+                          Width              81
+                          height             70))
 
-        (("naiad")
-         (setq palette            pal-naiad
-               width              81
-               height             54))
+                   (("naiad")
+                    (setq palette            pal-naiad
+                          width              81
+                          height             54))
 
-        (("lassell")
-         (setq palette            pal-lassel
-               width              81
-               height             54))
+                   (("lassell")
+                    (setq palette            pal-lassel
+                          width              81
+                          height             54))
 
-        (("mini")
-         (setq palette            pal-white
-               width              86
-               height             52))
+                   (("mini")
+                    (setq palette            pal-white
+                          width              86
+                          height             52))
 
-        (("mdi-development-1" "mdi-development-2")
-         (setf fringe-background "yellow"))
+                   (("mdi-development-1" "mdi-development-2")
+                    (setf fringe-background "yellow"))
 
-        (("simias")
-         (setq palette            pal-anevia)))
+                   (("simias")
+                    (setq palette            pal-anevia)))
 
       (if (getenv "EMACS_WM")
           (progn
@@ -2000,6 +2010,7 @@ SIDE must be the symbol `left' or `right'."
                           (left                 . ,left)))
               (cursor-type          . ,cursor-type)
               (cursor-color         . ,(palette-cursor palette))
+              (mouse-color          . ,(palette-mouse palette))
               (foreground-color     . ,(palette-foreground palette))
               (background-color     . ,(palette-background palette))
               (vertical-scroll-bars . ,vertical-scroll-bars)
@@ -5248,6 +5259,10 @@ See the documentation for vm-mode for more information."
 ;;(add-to-list 'mm-charset-synonym-alist '(iso885915 . iso-8859-15))
 
 
+;;;---------------------------------------------------------------------
+;;; erc
+;;;---------------------------------------------------------------------
+
 (when (require 'erc-highlight-nicknames nil t)
   (erc-highlight-nicknames-enable))
 
@@ -5308,6 +5323,161 @@ See the documentation for vm-mode for more information."
 
 ;; (setf erc-hide-list '())
 ;; (setf erc-hide-list  (quote ("JOIN" "NICK" "PART" "QUIT" "MODE")))
+
+
+;;;----------------------------------------------------------------------------
+
+(defparameter *digits-for-letters*
+  '(("0" . "o")
+    ("1" . "il")
+    ("3" . "e")
+    ("4" . "a")
+    ("5" . "s")
+    ("6" . "b")
+    ("7" . "t")
+    ("8" . "b")
+    ("9" . "gq")))
+
+(defun vowelp (ch) (find ch "aeiouy"))
+
+;; (setf word "qu1j0t3")
+;; 
+;; (defun used-digits-for-letters-p (word)
+;;   (let ((d (map 'vector 'digit-char-p word))
+;;         (v (map 'vector 'vowelp word)))
+;;     (and (some 'identity d)
+;;          (loop
+;;             with m = (1- (length d))
+;;             for i below (length d)
+;;             always (or (not (aref d i))
+;;                        (and (< 0 i) (not (aref v (1- i))))
+;;                        (and (< i m) (not (aref v (1+ i)))))))))
+;; 
+;; (mapcar 'used-digits-for-letters-p '("qu1j0t3"
+;;                                      "tali713"
+;;                                      "elf"))
+;; (t t nil)
+
+
+;;;----------------------------------------------------------------------------
+
+(defvar *pjb-speak-file-counter* 0)
+
+(defun pjb-speak-file ()
+  (format "/tmp/emacs%d/speak-%d.txt"
+          (user-uid)
+          (incf *pjb-speak-file-counter*)))
+
+
+(defvar *pjb-speak-last-message* nil)
+
+(defun speak (message)
+  (interactive "sMessage: ")
+  (let ((file (pjb-speak-file)))
+    (with-current-buffer (get-buffer-create " *speak text*")
+      (erase-buffer)
+      (insert message)
+      (setf *pjb-speak-last-message* message)
+      (write-region (point-min) (point-max) file))
+    (shell-command (format "speak -f %s" file))))
+
+(defun speak-repeat ()
+  (interactive)
+  (speak *pjb-speak-last-message*))
+
+
+
+(defparameter *pjb-erc-spoken-nicks*
+  '(("\\<e1f\\>"          . "elf")
+    ("\\<tali[0-9]+"      . "tali")
+    ("\\<fsbot\\>"        . "F. S. Bot")
+    ("\\<qu1j0t3\\>"      . "quijote")
+    ("\\<chromaticwt\\>"  . "chromatic W. T.")
+    ("\\<jcowan\\>"       . "J. Cowan")
+    ("\\<cky\\>"          . "C. K. Y.")
+    ("\\<pjb\\>"          . "Pascal")
+    ("\\<H4ns\\>"         . "Hans")
+    ("\\<Corman[0-9]+\\>" . "Corman")))
+
+(defun pjb-erc-spoken-nick (nick)
+  (let ((entry (assoc* nick *pjb-erc-spoken-nicks*
+                       :test (lambda (nick ref) (string-match ref nick)))))
+    (if entry
+        (cdr entry)
+        nick)))
+
+
+(defun erc-response.recipient (response)
+  (first (erc-response.command-args response)))
+
+(defun erc-response.sender-nick (response)
+  (let ((sender (erc-response.sender response)))
+   (subseq sender 0 (position ?! sender))))
+
+
+(defparameter *pjb-erc-massage-substitutions*
+  '(("\\<C-"               "Control-")
+    ("\\<M-"               "Meta-")
+    ("\\<A-"               "Alt-")
+    ("\\<S-"               "Shift-")
+    ("\\<s-"               "super-")
+    ("\\<H-"               "Hyper-")
+    ("\\(:-?)\\|(-?:\\)"   "Ah! ah! ah!")
+    (":-?("                "Boo! Boo! Boo!")
+    (":-/"                 "muek") 
+    ("\\<pjb\\>"           "Pascal")
+    ("\\<hrm\\>"           "errrmmm") 
+    ("\\<btw\\>"           "by the way")
+    ("\\<wtf\\>"           "what the fuck")
+    ("\\<imo\\>"           "in my opinion")
+    ("\\<imho\\>"          "in my humble opinion")
+    ("\\<imnsho\\>"        "in my not so humble opinion")))
+
+
+(defun pjb-erc-massage-message (message)
+  (with-current-buffer (get-buffer-create "*pjb massage text*")
+    (erase-buffer)
+    (insert message)
+    (let ((case-fold-search nil))
+      (loop
+         for (reg sub) in *pjb-erc-massage-substitutions*
+         do (progn
+              (goto-char (point-min))
+              (loop
+                 while (re-search-forward reg nil t)
+                 do (progn
+                      (delete-region (match-beginning 0) (match-end 0))
+                      (insert sub))))))
+    (buffer-string)))
+
+
+
+(defvar *pjb-erc-speak-last-speaker* nil)
+(defvar *pjb-erc-speak-reject* '("#emacs"))
+
+(defun pjb-erc-privmsg-meat (process response)
+  (unless (member* (erc-response.recipient response) *pjb-erc-speak-reject* :test 'string=)
+    (speak (let* ((nick (pjb-erc-spoken-nick (erc-response.sender-nick response)))
+                  (chan (pjb-erc-spoken-nick (remove ?# (erc-response.recipient response))))
+                  (mesg (pjb-erc-massage-message (erc-response.contents response))))
+             (if (equal *pjb-erc-speak-last-speaker*
+                        (cons nick chan))
+                 (format "%s" mesg)
+                 (progn
+                   (setf *pjb-erc-speak-last-speaker* (cons nick chan))
+                   (format "%s said to %s: ... %s" nick chan mesg))))))
+  nil)
+
+
+(defun pjb-erc-speak-on ()
+  (interactive)
+  (pushnew 'pjb-erc-privmsg-meat  erc-server-PRIVMSG-functions))
+
+(defun pjb-erc-speak-off  ()
+  (interactive)
+  (setf erc-server-PRIVMSG-functions
+        (remove 'pjb-erc-privmsg-meat  erc-server-PRIVMSG-functions)))
+
 
 ;;;----------------------------------------------------------------------------
 
