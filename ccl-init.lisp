@@ -153,12 +153,15 @@ RETURN:     The first word of the string, or the empty string.
   (format *error-output* "~&Not implemented yet.~%"))
 (defun quit ()                      (ccl:quit))
 
-;;----------------------------------------------------------------------
-;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
-;;----------------------------------------------------------------------
+
+;;; (setf (current-directory) ...)
+
 
 
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
 
+;;----------------------------------------------------------------------
+;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
+;;----------------------------------------------------------------------
 ;;;; openmcl-init.lisp                --                     --          ;;;;

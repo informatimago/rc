@@ -28,6 +28,7 @@ else
 fi
 
 
+ulimit -s 32768
 
 
 function member(){
