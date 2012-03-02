@@ -297,19 +297,30 @@ function be_generate(){
 
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Madrid
-    be_variable LC_MONETARY             es_ES.UTF-8
-    be_variable LC_MESSAGES             en_US.UTF-8
-    be_variable LC_NUMERIC              en_US.UTF-8
-    be_variable LC_TIME                 en_US.UTF-8
+
+    # Most prioritary:
+    be_unset LC_ALL
+
+    # If LC_ALL is not defined:
+    # be_variable LC_MONETARY             es_ES.UTF-8
+    # be_variable LC_MESSAGES             en_US.UTF-8
+    # be_variable LC_NUMERIC              en_US.UTF-8
+    # be_variable LC_TIME                 en_US.UTF-8
+    # be_variable LC_COLLATE              fr_FR.UTF-8
+    # be_variable LC_CTYPE                fr_FR.UTF-8
+    # be_variable LC_COLLATE              C
+    # be_variable LC_CTYPE                en_US.UTF-8
     be_unset LC_MONETARY 
     be_unset LC_MESSAGES
     be_unset LC_NUMERIC 
     be_unset LC_TIME
-    be_variable LC_COLLATE              C # fr_FR
-    #be_variable LC_CTYPE                C # fr_FR.UTF-8
-    be_variable LC_CTYPE                en_US.UTF-8
-    be_unset LC_ALL
-    be_unset LANG
+    be_unset LC_COLLATE
+    be_unset LC_CTYPE
+
+    # If the above are not defined:
+    be_variable LANG                    en_US.UTF-8
+
+
     be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
     be_variable MAILHOST                mail.informatimago.com
     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
@@ -341,6 +352,8 @@ function be_generate(){
     be_variable ETAGS              
     be_variable CTAGS              
     be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
+
+    be_variable DTK_PROGRAM         espeak
 
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
