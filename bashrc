@@ -28,7 +28,14 @@ else
 fi
 
 
-ulimit -s 32768
+case $(uname -o) in
+Cygwin)
+    true 
+    ;;
+*)
+    ulimit -s 32768
+    ;;
+esac
 
 
 function member(){
