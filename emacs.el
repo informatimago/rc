@@ -40,7 +40,13 @@
 (defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
+
 (setq source-directory "/usr/src/emacs-23.3/src/")
+;; emacs-version"23.4.1"
+
+(defvar shell-file-name "/bin/bash")
+
+(defvar *tempdir*  (format "/tmp/emacs%d" (user-uid)))
 
 (defvar *hostname*
   (or (and (boundp 'system-name) system-name)
@@ -58,7 +64,7 @@
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
         (erase-buffer)
         (insert text "\n")
-        (append-to-file (point-min) (point-max) "/tmp/messages.txt")))
+        (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
 
 
@@ -67,9 +73,9 @@
 ;;;----------------------------------------------------------------------------
 (.EMACS "REQUIRE CL...")
 (require 'cl)
-(defvar shell-file-name "/bin/bash")
 (require 'parse-time)
 (require 'tramp nil t)
+
 
 
 (.EMACS "STARTING...")
@@ -999,7 +1005,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            (unless (string= "mdi-development-1" *hostname*)
                              (list
                               ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
-                              (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
+                              ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
                               (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
        (if (listp directories)
          (find-if (function add-if-good) directories)
@@ -1016,6 +1022,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
@@ -1841,7 +1849,7 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-lukhas        "#fff8dc"      "#537182"       "Red"     "#ddd"          "#444444")
   (defpalette pal-thalassa      "MidnightBlue" "#e0f8ff"       "Pink4"   "orchid1"       "#444444")
   (defpalette pal-larissa       "DarkOrchid4"  "#f8e8ff"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-lassell       "green"        "black"         "yellow"  "grey19"        "#444444")
+  (defpalette pal-lassell       "OliveGreen"   "#08350F"       "yellow"  "#0f0835"       "#444444")
   (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"   "orchid1"       "#444444")
   (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
   (defpalette pal-galatea-light "#60c0ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
@@ -1991,7 +1999,7 @@ SIDE must be the symbol `left' or `right'."
         (setq palette (copy-palette palette))
         (setf (palette-background palette) (getenv "EMACS_BG")))
 
-      (when(= (user-uid) 0)
+      (when (zerop (user-uid))
         (setq palette (copy-palette palette))
         (setf (palette-foreground palette) "Red"))
 
@@ -2208,6 +2216,7 @@ capitalized form."
   (defvar lisp-implementation nil
     "Buffer local variable indicating what lisp-implementation is used here.")
 
+
   (defstruct lisp-implementation
     name command prompt coding
     (function-documentation-command
@@ -2224,7 +2233,8 @@ capitalized form."
      "(let ((fn '%s))
      (format t \"Arglist for ~a: ~a\" fn (arglist fn))
      (values))\n")
-    (describe-symbol-command "(describe '%s)\n"))
+    (describe-symbol-command "(describe '%s)\n")
+    (init 'slime-init-command))
 
 
   (defmacro define-lisp-implementation (name command prompt coding &rest rest)
@@ -2242,19 +2252,21 @@ capitalized form."
        (setf (get ',name :lisp-implementation) li)
        (if (null sli)
            (push (list ',name command
-                       :coding-system  (intern (format "%s-unix" ',coding)))
+                       :coding-system  (intern (format "%s-unix" ',coding))
+                       :init (lisp-implementation-init li))
                  slime-lisp-implementations)
            (setf (cdr sli)
                  (list command
-                       :coding-system (intern (format "%s-unix" ',coding)))))
+                       :coding-system (intern (format "%s-unix" ',coding))
+                       :init (lisp-implementation-init li))))
        ',name))
 
 
-  
   (define-lisp-implementation scheme
       "mzscheme"
     "^> "
     iso-8859-1)
+
 
   (define-lisp-implementation mzscheme
       "mzscheme"
@@ -2285,9 +2297,43 @@ capitalized form."
 
   (define-lisp-implementation ccl
       (first-existing-file '("/data/languages/ccl/bin/ccl"
+                             "/usr/local/bin/ccl"
                              "/usr/bin/ccl"))
     "^? "
     utf-8)
+
+
+
+  (defun windoize-pathname (path)
+    ;; "/home/pjb/quicklisp/dists/quicklisp/software/slime-20120208-cvs/swank-loader.lisp"
+    (let ((home (expand-file-name "~/")))
+      (if (prefixp home path)
+          (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
+          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
+  
+  (defun slime-init-ccl-win-cygwin (port-filename coding-system)
+    "Return a string to initialize Lisp."
+    (let ((loader (if (file-name-absolute-p slime-backend)
+                      slime-backend
+                      (concat slime-path slime-backend))))
+      ;; Return a single form to avoid problems with buffered input.
+      (format "%S\n\n"
+              `(progn
+                 (load ,(windoize-pathname (expand-file-name loader)) 
+                       :verbose t)
+                 (funcall (read-from-string "swank-loader:init"))
+                 (funcall (read-from-string "swank:start-server")
+                          ,(windoize-pathname port-filename))))))
+
+  (define-lisp-implementation ccl-win-cygwin
+      ;; This is a Windows CCL run thru cygwin emacs…
+      (list (first-existing-file '("/usr/local/bin/ccl"))
+            "-K" "UTF-8")
+    "^? "
+    utf-8
+    :init  'slime-init-ccl-win-cygwin)
+
+
   
   (define-lisp-implementation openmcl
       "/usr/local/bin/openmcl"
@@ -5364,9 +5410,7 @@ See the documentation for vm-mode for more information."
 (defvar *pjb-speak-file-counter* 0)
 
 (defun pjb-speak-file ()
-  (format "/tmp/emacs%d/speak-%d.txt"
-          (user-uid)
-          (incf *pjb-speak-file-counter*)))
+  (format "%s/speak-%d.txt" *tempdir* (incf *pjb-speak-file-counter*)))
 
 
 (defvar *pjb-speak-last-message* nil)
@@ -5517,7 +5561,7 @@ See the documentation for vm-mode for more information."
 ;;;----------------------------------------------------------------------------
 (.EMACS "server")
 
-(setf server-socket-dir (format "/tmp/emacs%s" (user-uid))
+(setf server-socket-dir *tempdir*
       server-name       (format "server-%d" (emacs-pid)))
 
 
