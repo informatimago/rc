@@ -1,3 +1,4 @@
+# -*- mode:conf; -*-
 #
 # Example of a user's .screenrc file
 #
@@ -19,7 +20,7 @@ autodetach on
 startup_message off
 
 # emulate .logout message
-pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ende d."
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 
 # advertise hardstatus support to $TERMCAP
 # termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
@@ -43,6 +44,13 @@ defscrollback 10000
 #
 # xterm tweaks
 #
+
+
+term screen-256color
+attrcolor b ".I"    # allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+defbce on    # use current bg color for erased chars
+
 
 #xterm understands both im/ic and doesn't have a status line.
 #Note: Do not specify im and ic in the real termcap/info file as
