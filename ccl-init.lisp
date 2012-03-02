@@ -45,7 +45,8 @@
 (LOAD (MERGE-PATHNAMES
        (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
                       :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
+       #+windows-target (pathname (format nil "~A\\" (ccl::getenv "HOME")))
+       #-windows-target (USER-HOMEDIR-PATHNAME)
        NIL))
 
 
