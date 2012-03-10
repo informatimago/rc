@@ -27,16 +27,20 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
-
-case $(uname -o) in
-Cygwin)
-    true 
-    ;;
-*)
+case $(uname -s) in 
+Darwin)
     ulimit -s 32768
     ;;
+*)
+    case $(uname -o) in
+    Cygwin)
+        true 
+        ;;
+    *)
+        ulimit -s 32768
+        ;;
+    esac
 esac
-
 
 function member(){
     local item="$1" ; shift
