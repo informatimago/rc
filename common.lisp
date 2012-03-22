@@ -367,7 +367,7 @@ given, then only the systems containing it in their name are listed."
   (map 'list (lambda (system) (asdf-delete-system system)) systems))
 
 (defun quick-reload (&rest systems)
-  "Delete the ASDF systems so they'll be reloaded."
+  "Delete and reload the ASDF systems."
   (map 'list (lambda (system)
                (asdf-delete-system system)
                (ql:quickload system))
