@@ -157,7 +157,7 @@
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "yellow3"))))
- '(erc-notice-face ((t (:foreground "LightSalmon4"))))
+ '(erc-notice-face ((t (:foreground "gray30"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
@@ -184,7 +184,8 @@
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
- '(mode-line ((((class color) (min-colors 88)) (:background "cadetblue1" :foreground "black" :box (:line-width -1 :style released-button)))))
+ '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
+ '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "black" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
  '(read-only-face ((t (:background "gray30"))) t)
  '(rst-level-1-face ((t (:background "grey20"))) t)
  '(rst-level-2-face ((t (:background "grey20"))) t)
@@ -213,6 +214,8 @@
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
+ '(browse-url-browser-function (quote pjb-browse-url))
+ '(browse-url-new-window-flag t)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
  '(c-backslash-column 72)
@@ -270,7 +273,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#hemlock" "#scheme" "#emacs" "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -342,7 +345,7 @@
  '(ispell-choices-win-default-height 4)
  '(ispell-highlight-p t)
  '(ispell-local-dictionary "francais")
- '(ispell-local-dictionary-alist (quote (("francais" "[A-Za-zÀ-ÖØ-öø-ÿ]" "[^A-Za-zÀ-ÖØ-öø-ÿ]" "[-']" t nil "~latin9" iso-8859-15))) t)
+ '(ispell-local-dictionary-alist (quote (("francais" "[A-Za-zÀ-ÖØ-öø-ÿ]" "[^A-Za-zÀ-ÖØ-öø-ÿ]" "[-']" t nil "~latin9" iso-8859-15))))
  '(ispell-message-dictionary-alist (quote (("\"^Newsgroups:[ \\t]*fr\\\\.\"" . "\"francais\"") ("\"^To:[^\\n,]+\\\\.fr[ \\t\\n,>]\"" . "\"francais\"") ("\"^Newsgroups:[ \\t]*(es|mx|ar)\\\\.\"" . "\"castillano\"") ("\"^To:[^\\n,]+\\\\.(es|mx|ar)[ \\t\\n,>]\"" . "\"castillano\"") ("\"^Newsgroups:[ \\t]*uk\\\\.\"" . "\"english\"") ("\"^To:[^\\n,]+\\\\.uk[ \\t\\n,>]\"" . "\"english\"") ("\".*\"" . "\"american\""))))
  '(ispell-query-replace-choices nil)
  '(kept-new-versions 9)
@@ -428,6 +431,9 @@ X-Accept-Language:         fr, es, en
  '(ps-show-n-of-n nil)
  '(read-mail-command (quote vm))
  '(read-quoted-char-radix 10)
+ '(redshank-accessor-name-function (quote identity))
+ '(redshank-canonical-package-designator-function (quote redshank-package-designator/string))
+ '(redshank-licence-names (quote ("BSD-style" "GPL" "LGPL" "LLGPL" "MIT" "MIT-style" "GPL2" "GPL2+" "GPL3" "AGPL3")))
  '(require-final-newline (quote visit-save))
  '(rmail-confirm-expunge nil)
  '(rmail-display-summary t)
@@ -514,6 +520,8 @@ X-Accept-Language:         fr, es, en
  '(w3-user-fonts-take-precedence t)
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
+ '(w3m-pop-up-frames nil)
+ '(w3m-pop-up-windows nil)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
@@ -558,7 +566,7 @@ X-Accept-Language:         fr, es, en
 (put 'mh-rmail         'disabled t)
 (put 'scroll-left      'disabled nil)
 (put 'set-goal-column  'disabled t)
-
+(put 'erase-buffer     'disabled nil)
 
 
 
@@ -1024,7 +1032,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
-
+(require 'highlight-flet)
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
@@ -1903,7 +1911,7 @@ SIDE must be the symbol `left' or `right'."
       (string-case hname
 
                    (("thalassa" "despina" "kuiper")
-                    (forward-font 11)
+                    (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
                     (setq palette            pal-thalassa
                           width              81
                           height             70))
@@ -2385,6 +2393,17 @@ capitalized form."
     "^\* "
     utf-8)
 
+  
+  (define-lisp-implementation ecl
+      (first-existing-file '("/data/languages/ecl/bin/ecl"
+                             "/opt/local/bin/ecl"
+                             "/usr/local/bin/ecl"
+                             "/usr/bin/ecl"))
+    
+    "^> "
+    utf-8)
+
+  
   (define-lisp-implementation sbcl
       (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
                                    "/opt/local/bin/sbcl"
@@ -3900,6 +3919,11 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
 
 
+(.EMACS "Redshank")
+(when (require 'redshank-loader "redshank/redshank-loader" t)
+  (eval-after-load "redshank-loader"
+    `(redshank-setup '(lisp-mode-hook
+                       slime-repl-mode-hook) t)))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "Common Lisp indenting")
@@ -4150,6 +4174,20 @@ a symbol as a valid THING."
           result)
         (try-completion string common-lisp-hyperspec-symbols predicate)))
 
+
+  (defun pjb-browse-url (url &optional new-session)
+    (interactive "sUrl: ")
+    (message "enter pjb-browse-url")
+    (if (< 1 (length (window-list)))
+        (progn
+          (other-window 1)
+          (w3m-browse-url url new-session))
+        (progn
+          (split-window)
+          (other-window 1)
+          (w3m-browse-url url new-session))))
+  
+  
   (defun common-lisp-hyperspec (symbol-name)
     "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
 If SYMBOL-NAME has more than one definition, all of them are displayed with
@@ -4183,9 +4221,12 @@ variable `common-lisp-hyperspec-root' to point to that location."
                    (browse-url-generic-program "/usr/bin/open"))
                (browse-url (concat common-lisp-hyperspec-root
                                    "Body/" (car entry)))) )
-            (otherwise (error "Unknown window-system"))))
+            (otherwise
+             (error "Unknown window-system"))))
          ((gnu/linux)
-          (let ((browse-url-browser-function common-lisp-hyperspec-browser))
+          (let ((browse-url-browser-function 'pjb-browse-url
+                                        ;common-lisp-hyperspec-browser
+                  ))
             (browse-url (concat common-lisp-hyperspec-root
                                 "Body/" (car entry)))) )
          (otherwise
@@ -5473,7 +5514,7 @@ See the documentation for vm-mode for more information."
     ("\\(:-?)\\|(-?:\\)"         "AhAhAh!")
     (":-?("                      "BooBooBoo!")
     (":-/"                       "muek")
-    (":-?p"                      "bruu")
+    (":-?[Pp]"                   "bruu")
     ("\\<\\(ty\\|thx\\)\\>"      "Thank you!")
     ("\\<LOL\\>"                 "AhAhAh! Laughting Out Loud!") 
     ("\\<ROFL\\>"                "AhAhAh! Rolling On the Floor!")
@@ -5689,9 +5730,38 @@ See the documentation for vm-mode for more information."
 
 
 
+;; To correct some rebound problem I have with my keyboard, disable
+;; two spaces in a row, unless it's preceded by a punctuation, or
+;; explicitely requested.
+
+(defun pjb-electric-space-rebound (p)
+  (interactive "P")
+  ;; (message "p=%S" p)
+  (cond
+    ((null p)
+     (let ((recent (recent-keys)))
+       ;; (message "recent=%S"(equal (subseq recent (1- (length recent))) [32]))
+       (if (equal (subseq recent (- (length recent) 2)) [32 32])
+           (when (let ((pt (point)))
+                   (when (< (+ (point-min) 2) pt)
+                     (unwind-protect
+                          (progn
+                            (forward-char -2)
+                            (looking-at "[.;!?] "))
+                       (goto-char pt))))
+             (insert " "))
+           (insert " "))))
+    ((eq p '-))
+    ((integerp p)                       (insert (make-string p 32)))
+    ((and (listp p) (integerp (car p))) (insert (make-string (car p) 32)))
+    (t (error "Unknown raw prefix argument %S" p))))
+
+;; (global-set-key (kbd "SPC") 'pjb-electric-space-rebound)
+
+
+
 (defun pjb-electric-ellipsis (p)
   (interactive "P")
-  (message "p=%S" p)
   (cond
     ((null p)
      (let ((recent (recent-keys)))
@@ -6790,4 +6860,4 @@ or as \"emacs at <hostname>\"."
 
 ;;;; THE END ;;;;
 
-(put 'erase-buffer 'disabled nil)
+
