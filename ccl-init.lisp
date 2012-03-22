@@ -45,7 +45,11 @@
 (LOAD (MERGE-PATHNAMES
        (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
                       :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
+       #+windows-target (let ((home (ccl::getenv "HOME")))
+                          (if home
+                              (pathname (format nil "~A\\" home))
+                              #P"C:\\cygwin\\home\\pjb\\"))
+       #-windows-target (USER-HOMEDIR-PATHNAME)
        NIL))
 
 
