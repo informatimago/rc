@@ -89,7 +89,10 @@
 
 (defun user-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
-  #+windows-target (pathname (format nil "~A\\" (ccl::getenv "HOME")))
+  #+windows-target (let ((home (ccl::getenv "HOME")))
+                     (if home
+                         (pathname (format nil "~A\\" home))
+                         #P"C:\\cygwin\\home\\pjb\\"))
   #-windows-target (USER-HOMEDIR-PATHNAME))
 
 

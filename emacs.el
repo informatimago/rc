@@ -1849,7 +1849,7 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-lukhas        "#fff8dc"      "#537182"       "Red"     "#ddd"          "#444444")
   (defpalette pal-thalassa      "MidnightBlue" "#e0f8ff"       "Pink4"   "orchid1"       "#444444")
   (defpalette pal-larissa       "DarkOrchid4"  "#f8e8ff"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-lassell       "OliveGreen"   "#08350F"       "yellow"  "#0f0835"       "#444444")
+  (defpalette pal-lassell       "green yellow"  "#08350F"       "yellow"  "#0f0835"       "#444444")
   (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"   "orchid1"       "#444444")
   (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
   (defpalette pal-galatea-light "#60c0ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
@@ -1946,7 +1946,7 @@ SIDE must be the symbol `left' or `right'."
                           height             54))
 
                    (("lassell")
-                    (setq palette            pal-lassel
+                    (setq palette            pal-lassell
                           width              81
                           height             54))
 
@@ -4399,6 +4399,12 @@ variable `common-lisp-hyperspec-root' to point to that location."
 (.EMACS "PHP mode")
 (autoload 'php-mode "php-mode" "Major mode for editing PHP" t)
 (appendf auto-mode-alist '(("\\.php\\'" . php-mode)))
+
+;;;----------------------------------------------------------------------------
+(.EMACS "lua mode")
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\(\\.lua\\)\\|\\(/mission\\)$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "css mode")
