@@ -18,7 +18,7 @@
 (defparameter swank::*sldb-initial-frames* 40)
 (defparameter swank:*globally-redirect-io* t)
 
-(let ((bindings '((*PRINT-PRETTY* . nil)
+(let ((bindings `((*PRINT-PRETTY* . nil)
                   (*PRINT-LEVEL* . nil)
                   (*PRINT-LENGTH* . nil)
                   (*PRINT-CIRCLE* . T)
@@ -31,17 +31,21 @@
                   (*PRINT-LINES* . nil)
                   (*PRINT-ESCAPE* . T)
                   (*PRINT-RIGHT-MARGIN* . 1000)
+                  (*random-state* . ,(make-random-state t))
                   (*SLDB-BITVECTOR-LENGTH* . nil)
                   (*SLDB-STRING-LENGTH* . nil)))
-      (variables '(SWANK:*MACROEXPAND-PRINTER-BINDINGS*
+      (variables '(swank:*default-worker-thread-bindings*
+                   SWANK:*MACROEXPAND-PRINTER-BINDINGS*
                    SWANK::*INSPECTOR-VERBOSE-PRINTER-BINDINGS*
                    SWANK::*INSPECTOR-PRINTER-BINDINGS*
-                   swank:*backtrace-printer-bindings*
+                   swank::*backtrace-printer-bindings*
                    #+#.(cl:if (cl:find-symbol "*SLDB-PRINTER-BINDINGS*" "SWANK")
                             '(:and) '(:or))
                    swank:*sldb-printer-bindings*)))
   (dolist (var variables)
     (set var bindings)))
+
+
 
 
 ;;;; THE END ;;;;

@@ -87,6 +87,14 @@
            "QUICK-DELETE" "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
+(defun user-pathname ()
+  "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
+  #+windows-target (let ((home (ccl::getenv "HOME")))
+                     (if home
+                         (pathname (format nil "~A\\" home))
+                         #P"C:\\cygwin\\home\\pjb\\"))
+  #-windows-target (USER-HOMEDIR-PATHNAME))
+
 
 (defun make-pathname* (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
                        (name nil namep) (type nil typep) (version nil versionp)
@@ -162,8 +170,8 @@
 (let ((ql-asdf-init-file (merge-pathnames
                           (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
                                           :name "INIT" :type "LISP" :version :newest :case :common 
-                                          :defaults (user-homedir-pathname))
-                          (user-homedir-pathname)
+                                          :defaults (user-pathname))
+                          (user-pathname)
                           nil)))
   ;; (print ql-asdf-init-file) (terpri) (finish-output)
   (when (or (not (ignore-errors (probe-file ql-asdf-init-file)))
@@ -185,13 +193,21 @@
                           (defparameter *init-verbose* nil)
                           
                           (defun hostname ()
-                            (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+                            #-windows-target
+                            (let ((outpath (make-pathname :name (format nil "hostname-~8,'0X" (random #x100000000))
+                                                          :type "txt"
+                                                          :case :local
+                                                          :defaults (user-pathname))))
                               (unwind-protect
                                    (let ((asdf::*verbose-out* t))
-                                     (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A" outpath)
+                                     (asdf:run-shell-command
+                                      "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                      (namestring outpath))
                                      (with-open-file (hostname outpath)
                                        (read-line hostname)))
-                                (delete-file outpath))))
+                                (delete-file outpath)))
+                            #+windows-target (machine-instance))
+
 
 
                           ;; asdf-binary-locations is already loaded in sbcl.
@@ -238,7 +254,7 @@
                              :default-toplevel-directory   (truename
                                                             (merge-pathnames
                                                              (format nil ".cache/common-lisp/~A/" (hostname))
-                                                             (user-homedir-pathname) nil))
+                                                             (user-pathname) nil))
                              :include-per-user-information nil
                              ;; :map-all-source-files ???
                              :source-to-target-mappings    nil))
@@ -253,7 +269,7 @@
                                   asdf:*default-toplevel-directory*
                                   (truename (merge-pathnames
                                              (format nil ".cache/common-lisp/~A/" (hostname))
-                                             (user-homedir-pathname) nil))
+                                             (user-pathname) nil))
                                   asdf:*source-to-target-mappings* '()))
 
                           (sharp - (:or :has-asdf-enable-asdf-binary-locations-compatibility :asdf-binary-locations))
@@ -281,8 +297,8 @@
                                   :type "LISP"
                                   :version :newest
                                   :case :common
-                                  :defaults (user-homedir-pathname))
-                  (user-homedir-pathname)
+                                  :defaults (user-pathname))
+                  (user-pathname)
                   nil)))
   (if (probe-file quicklisp)
       (load quicklisp)
@@ -362,7 +378,7 @@ given, then only the systems containing it in their name are listed."
   (map 'list (lambda (system) (asdf-delete-system system)) systems))
 
 (defun quick-reload (&rest systems)
-  "Delete the ASDF systems so they'll be reloaded."
+  "Delete and reload the ASDF systems."
   (map 'list (lambda (system)
                (asdf-delete-system system)
                (ql:quickload system))
@@ -393,7 +409,7 @@ selected by KEY, and the given SUBPATH.
     (with-open-file (dirs (merge-pathnames
                            (make-pathname* :name "DIRECTORIES" :type "TXT"
                                           :version nil :case :common)
-                           (user-homedir-pathname)
+                           (user-pathname)
                            nil))
       (loop
          :for k = (read dirs nil dirs)
@@ -505,7 +521,7 @@ The HOST is added to the list of logical hosts defined.
   "packages/net/sourceforge/clocc/clocc/src/defsystem-3.x/")
 
 
-(define-logical-pathname-translations "HOME"     (user-homedir-pathname)   "")
+(define-logical-pathname-translations "HOME"     (user-pathname)   "")
 (define-logical-pathname-translations "LOADERS"  *pjb-comm*        "cl-loaders/")
 ;;(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   *PJB-LISP*        "norvig/")
 (define-logical-pathname-translations "NORVIG"   #p"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
@@ -564,9 +580,9 @@ The HOST is added to the list of logical hosts defined.
   "Force rescan at leastr once this amount of seconds.")
 
 (defparameter *asdf-registry-file*
-  (merge-pathnames (user-homedir-pathname)
+  (merge-pathnames (user-pathname)
                    (make-pathname* :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :version :newest :case :common
-                                   :defaults (user-homedir-pathname))
+                                   :defaults (user-pathname))
                    nil)
   "Cache file.")
 
@@ -690,8 +706,8 @@ either scanned, or from the cache."
                              ye mo da ho mi se (implementation-id))))
            :type "DRIBBLE"
            :version nil
-           :defaults (user-homedir-pathname))
-          (user-homedir-pathname) nil)))
+           :defaults (user-pathname))
+          (user-pathname) nil)))
     (ensure-directories-exist path)
     (dribble path)))
 
