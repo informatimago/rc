@@ -45,13 +45,15 @@
 (LOAD (MERGE-PATHNAMES
        (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
                       :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
+       #+windows-target (pathname (format nil "~A\\" (ccl::getenv "HOME")))
+       #-windows-target (USER-HOMEDIR-PATHNAME)
        NIL))
 
 
 (in-package "COM.INFORMATIMAGO.PJB")
 (export '(EDIT QUIT))
 
+(setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --
@@ -96,6 +98,10 @@
 ;; (setf COMMON-LISP-USER::*default-bundle-path* "CCL:OPENMCL.APP;")
 ;;  ccl::*module-search-path*  ;; paths used by REQUIRE.
 
+(setf ccl:*default-external-format*           :unix
+      ccl:*default-file-character-encoding*   :utf-8
+      ccl:*default-line-termination*          :unix
+      ccl:*default-socket-character-encoding* :utf-8)
 
 ;; #|
 ;; From: John DeSoi <jd@icx.net>
@@ -148,12 +154,15 @@ RETURN:     The first word of the string, or the empty string.
   (format *error-output* "~&Not implemented yet.~%"))
 (defun quit ()                      (ccl:quit))
 
-;;----------------------------------------------------------------------
-;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
-;;----------------------------------------------------------------------
+
+;;; (setf (current-directory) ...)
+
 
 
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
 
+;;----------------------------------------------------------------------
+;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
+;;----------------------------------------------------------------------
 ;;;; openmcl-init.lisp                --                     --          ;;;;
