@@ -40,7 +40,7 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- ecl part --
 ;; ------------------------------------
-
+(setf ext:*default-external-format* '(:utf-8 :lf))  
 
 (when (string= (namestring (make-pathname :name "ABC" :case :common
                                           :defaults (make-pathname :type "ABC" :case :common
