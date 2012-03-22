@@ -83,13 +83,16 @@
            "*INP*" "*OUT*"
            "SCHEME"
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
-           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-DELETE"
-           "QUICK-RELOAD"))
+           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
+           "QUICK-DELETE" "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
 (defun user-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
-  #+windows-target (pathname (format nil "~A\\" (ccl::getenv "HOME")))
+  #+windows-target (let ((home (ccl::getenv "HOME")))
+                     (if home
+                         (pathname (format nil "~A\\" home))
+                         #P"C:\\cygwin\\home\\pjb\\"))
   #-windows-target (USER-HOMEDIR-PATHNAME))
 
 
@@ -335,7 +338,10 @@ given, then only the systems containing it in their name are listed."
 
 (defun quick-clean ()
   "Clean the quicklisp system distributions."
-  (map nil 'ql-dist:clean (ql-dist:enabled-dists)))
+  #+#.(cl:if (cl:find-symbol "CLEAN" "QL-DIST") '(:and) '(:or))
+  (map nil 'ql-dist:clean (ql-dist:enabled-dists))
+  #-#.(cl:if (cl:find-symbol "CLEAN" "QL-DIST") '(:and) '(:or))
+  (error "QL-DIST:CLEAN is not available."))
 
 (defun quick-install-all (&key verbose)
   "Installs all the quicklisp systems, skipping over the errors."
@@ -351,13 +357,21 @@ given, then only the systems containing it in their name are listed."
 
 (defun quick-uninstall (&rest systems)
   "Uninstall the given systems releases from the quicklisp installation."
-  (map 'list (lambda (system) (ql-dist:uninstall (ql-dist:release (string-downcase system))))
+  (map 'list (lambda (system)
+               (ql-dist:uninstall (ql-dist:release (string-downcase system))))
        systems))
 
-(defun quick-where (&rest systems)
+
+(defun quick-where-is (&rest systems)
   "Says where the given systems are."
+  #+#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
   (map 'list (lambda (system) (ql:where-is-system (string-downcase system)))
-       systems))
+       systems)
+  #-#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
+  (error "QUICKLISP-CLIENT:WHERE-IS-SYSTEM is not available."))
+
+(defun quick-where (&rest systems) (apply (function quick-where-is) systems))
+
 
 (defun quick-delete (&rest systems)
   "Delete the ASDF systems so they'll be reloaded."
