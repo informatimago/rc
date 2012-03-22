@@ -120,7 +120,7 @@ keycode  68 = Shift_R
 ! Sixth line
 !------------------------------------------------------------
 
-keycode  67 = Multi_key       
+keycode  65 = Multi_key       
 keycode  66 = Alt_L
 keycode  63 = Meta_L
 
