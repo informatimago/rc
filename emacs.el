@@ -417,6 +417,7 @@ X-Accept-Language:         fr, es, en
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
+ '(pop-up-windows nil)
  '(pr-faces-p t)
  '(print-gensym t t)
  '(printer-name "normal_gray" t)
@@ -520,8 +521,11 @@ X-Accept-Language:         fr, es, en
  '(w3-user-fonts-take-precedence t)
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
+ '(w3m-fb-mode nil)
  '(w3m-pop-up-frames nil)
  '(w3m-pop-up-windows nil)
+ '(w3m-use-tab nil)
+ '(w3m-use-tab-menubar nil)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
@@ -5550,11 +5554,68 @@ See the documentation for vm-mode for more information."
 
 
 
+(defvar *pjb-erc-speak-reject-recipient* '()
+  "can be:
+nil   don't reject any channel.
+:all  reject every channel.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to reject (never speak them aloud).
+See: `*pjb-erc-speak-reject-sender*', `*pjb-erc-speak-accept-sender*',
+      and `pjb-erc-privmsg-meat'.
+
+Messages are spoken if the recipient
+")
+
+(defvar *pjb-erc-speak-reject-sender* '()
+  "can be:
+nil   don't reject anybody.
+:all  reject everybody.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to reject (never speak them aloud).
+See: `*pjb-erc-speak-reject-recipient*', `*pjb-erc-speak-accept-sender*',
+      and `pjb-erc-privmsg-meat'.
+")
+
+(defvar *pjb-erc-speak-accept-sender* '()
+  "can be:
+nil   don't accept anything.
+:all  accept everything.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to accept (speak them aloud).
+See: `*pjb-erc-speak-reject-recipient*', `*pjb-erc-speak-reject-sender*',
+      and `pjb-erc-privmsg-meat'.
+")
+
+(setf *pjb-erc-speak-reject-recipient* '("#emacs")
+      *pjb-erc-speak-reject-recipient* :all
+      *pjb-erc-speak-reject-sender*    :all
+      *pjb-erc-speak-accept-sender*    '("Posterdati" "pjb-"))
+
+
 (defvar *pjb-erc-speak-last-speaker* nil)
-(defvar *pjb-erc-speak-reject* '("#emacs"))
+
 
 (defun pjb-erc-privmsg-meat (process response)
-  (unless (member* (erc-response.recipient response) *pjb-erc-speak-reject* :test 'string=)
+  "The messages are spoken if the sender is in `*pjb-erc-speak-accept-sender*',
+or the sender is not in `*pjb-erc-speak-reject-sender*',
+or the recipient is not in `*pjb-erc-speak-reject-recipient*',
+"
+  (when (or
+         (case *pjb-erc-speak-accept-sender*
+           ((nil)    nil)
+           ((:all t) t)
+           (otherwise (member* (erc-response.sender-nick response)
+                               *pjb-erc-speak-accept-sender* :test 'string=)))
+         (case *pjb-erc-speak-reject-sender*
+           ((nil)    t)
+           ((:all t) nil)
+           (otherwise (not (member* (erc-response.sender-nick response)
+                                    *pjb-erc-speak-reject-sender* :test 'string=))))
+         (case *pjb-erc-speak-reject-recipient*
+           ((nil)    t)
+           ((:all t) nil)
+           (otherwise (not (member* (erc-response.recipient response)
+                                    *pjb-erc-speak-reject-recipient* :test 'string=)))))
     (speak (let* ((nick (pjb-erc-spoken-nick (erc-response.sender-nick response)))
                   (chan (pjb-erc-spoken-nick (remove ?# (erc-response.recipient response))))
                   (mesg (pjb-erc-massage-message (erc-response.contents response))))
