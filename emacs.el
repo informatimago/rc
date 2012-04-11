@@ -1404,6 +1404,9 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c <f5>")      'force-set-justification-left)
   (global-set-key (kbd "C-c <f6>")      'force-set-justification-full)
   (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
+
+  (global-set-key (kbd "<f8>")          'pjb-show-lisp-repl)
+
   (global-set-key (kbd "C-c .")         'forward-sexp)
   (global-set-key (kbd "C-c ,")         'backward-sexp)
   (global-set-key (kbd "C-x DEL")       'disabled)
@@ -1412,8 +1415,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "A-x")           'insert-sharp-brace)
   (global-set-key (kbd "M-[")           'insert-parentheses)
   (global-set-key (kbd "M-]")           'move-past-close-and-reindent)
-  (global-set-key "\M-["                'insert-parentheses)
-  (global-set-key "\M-]"                'move-past-close-and-reindent)
+  ;; (global-set-key "\M-["                'insert-parentheses)
+  ;; (global-set-key "\M-]"                'move-past-close-and-reindent)
 
   (global-set-key (kbd "C-<f9>")  (lambda()(interactive)(set-input-method 'chinese-py-b5)))
   (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-yawerty)))
@@ -2647,15 +2650,38 @@ Prefix argument means switch to the Lisp buffer afterwards."
 (appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 
-(defun show-inferior-lisp-buffer ()
+(defun pjb-show-lisp-repl ()
+  "Switches to a repl buffer, depending on the major mode and what's available."
   (interactive)
-  (let ((lisp-buffer (get-buffer inferior-lisp-buffer)))
-    (when lisp-buffer
-      (delete-other-windows)
-      (split-window-vertically)
-      (other-window 1)
-      (switch-to-buffer lisp-buffer)
-      (other-window 1))))
+  (labels ((show-buffer (buffer)
+             (delete-other-windows)
+             (split-window-horizontally)
+             (other-window 1)
+             (etypecase buffer
+               (buffer (switch-to-buffer buffer))
+               (function (funcall buffer)))
+             (other-window 1))
+           (inferior-lisp-repl ()
+             (when inferior-lisp-buffer
+               (let ((lisp-buffer (get-buffer inferior-lisp-buffer)))
+                 (when lisp-buffer
+                   (show-buffer lisp-buffer)
+                   (return-from inferior-lisp-repl))))
+             ;; No inferior-lisp buffer, let's start a lisp.
+             (if (fboundp 'slime)
+                 (show-buffer (function slime))
+                 (show-buffer (function inferior-lisp)))))
+   (case major-mode
+     ((emacs-lisp-mode)
+      (show-buffer (function ielm)))
+     ((lisp-mode)
+      (if (and (boundp 'slime-mode) slime-mode)
+          (show-buffer (function slime-repl))
+          (inferior-lisp-repl)))
+     ((slime-repl-mode inferior-emacs-lisp-mode)
+      (message "Already there."))
+     (t
+      (inferior-lisp-repl)))))
 
 (defun indent-defun ()
   (interactive)
@@ -2726,9 +2752,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
-  (unless (eq 'emacs-lisp-mode major-mode)
-    (local-set-key [f8] 'show-inferior-lisp-buffer))
-  (local-set-key (kbd "RET") 'newline-and-indent)
+  (local-set-key (kbd "RET")  'newline-and-indent)
+  (local-set-key (kbd "<f8>") 'pjb-show-lisp-repl)
   ;; (local-set-key (kbd "RET") 'indent-defun)
   ;; (setq blink-matching-paren t)
   (setf skeleton-pair         nil
@@ -3849,6 +3874,91 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;;     ))
 
 
+
+
+;;;----------------------------------------------------------------------------
+;;; W3M and Web Browsers
+;;;----------------------------------------------------------------------------
+
+
+(defun browse-url-firefox2 (url &optional new-window)
+  "Ask the Firefox WWW browser to load URL.
+Default to the URL around or before point.  The strings in
+variable `browse-url-firefox-arguments' are also passed to
+Firefox.
+
+When called interactively, if variable
+`browse-url-new-window-flag' is non-nil, load the document in a
+new Firefox window, otherwise use a random existing one.  A
+non-nil interactive prefix argument reverses the effect of
+`browse-url-new-window-flag'.
+
+If `browse-url-firefox-new-window-is-tab' is non-nil, then
+whenever a document would otherwise be loaded in a new window, it
+is loaded in a new tab in an existing window instead.
+
+When called non-interactively, optional second argument
+NEW-WINDOW is used instead of `browse-url-new-window-flag'.
+
+On MS-Windows systems the optional `new-window' parameter is
+ignored.  Firefox for Windows does not support the \"-remote\"
+command line parameter.  Therefore, the
+`browse-url-new-window-flag' and `browse-url-firefox-new-window-is-tab'
+are ignored as well.  Firefox on Windows will always open the requested
+URL in a new window."
+  (interactive (browse-url-interactive-arg "URL: "))
+  ;; URL encode any `confusing' characters in the URL.  This needs to
+  ;; include at least commas; presumably also close parens.
+  (while (string-match "[[-` -$&-,;->{-~]" url)
+    (setq url (replace-match
+               (format "%%%x" (string-to-char (match-string 0 url))) t t url)))
+  (let* ((process-environment (browse-url-process-environment))
+         (process (apply 'start-process
+                         (concat "firefox " url)
+                         " *start-browser*"
+                         browse-url-firefox-program
+                         (append
+                          browse-url-firefox-arguments
+                          (list url)))))
+    (set-process-sentinel process
+                          `(lambda (process change)
+                             (browse-url-firefox-sentinel process ,url)))))
+
+
+(setf common-lisp-hyperspec-browser (function browse-url-firefox2)
+      browse-url-browser-function   (function browse-url-firefox2))
+
+
+
+(when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
+           (ignore-errors (require 'w3m        nil t))
+           (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
+  (.EMACS "w3m mode")
+
+  (global-set-key (kbd "H-w") 'w3m-browse-url)
+  (global-set-key (kbd "H-b") 'w3m-select-buffer)
+  
+  (defvar *browse-frame-name* "*w3m*")
+  (pushnew *browse-frame-name* special-display-buffer-names :test (function equal))
+
+  (defun pjb-w3m-browse-url-in-another-frame (url &rest args)
+    (save-excursion
+      (raise-frame
+       (select-frame
+        (or (find-if (lambda (frame) (equalp (frame-name frame) +browse-frame-name+))
+                     (frame-list))
+            (make-frame (list (cons 'name *browse-frame-name*))))))
+      (w3m-goto-url url)))
+
+  ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
+  (setf common-lisp-hyperspec-browser (function w3m-browse-url)
+        browse-url-browser-function   (function w3m-browse-url))
+  
+  ) ;;when
+
+
+
+
 ;;;----------------------------------------------------------------------------
 (.EMACS "emacs<->Common Lisp RPC with slime/swank")
 
@@ -4554,78 +4664,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
 
 
 
-;;;----------------------------------------------------------------------------
-
-(defun browse-url-firefox2 (url &optional new-window)
-  "Ask the Firefox WWW browser to load URL.
-Default to the URL around or before point.  The strings in
-variable `browse-url-firefox-arguments' are also passed to
-Firefox.
-
-When called interactively, if variable
-`browse-url-new-window-flag' is non-nil, load the document in a
-new Firefox window, otherwise use a random existing one.  A
-non-nil interactive prefix argument reverses the effect of
-`browse-url-new-window-flag'.
-
-If `browse-url-firefox-new-window-is-tab' is non-nil, then
-whenever a document would otherwise be loaded in a new window, it
-is loaded in a new tab in an existing window instead.
-
-When called non-interactively, optional second argument
-NEW-WINDOW is used instead of `browse-url-new-window-flag'.
-
-On MS-Windows systems the optional `new-window' parameter is
-ignored.  Firefox for Windows does not support the \"-remote\"
-command line parameter.  Therefore, the
-`browse-url-new-window-flag' and `browse-url-firefox-new-window-is-tab'
-are ignored as well.  Firefox on Windows will always open the requested
-URL in a new window."
-  (interactive (browse-url-interactive-arg "URL: "))
-  ;; URL encode any `confusing' characters in the URL.  This needs to
-  ;; include at least commas; presumably also close parens.
-  (while (string-match "[[-` -$&-,;->{-~]" url)
-    (setq url (replace-match
-               (format "%%%x" (string-to-char (match-string 0 url))) t t url)))
-  (let* ((process-environment (browse-url-process-environment))
-         (process (apply 'start-process
-                         (concat "firefox " url)
-                         " *start-browser*"
-                         browse-url-firefox-program
-                         (append
-                          browse-url-firefox-arguments
-                          (list url)))))
-    (set-process-sentinel process
-                          `(lambda (process change)
-                             (browse-url-firefox-sentinel process ,url)))))
-
-(setf common-lisp-hyperspec-browser (function browse-url-firefox2)
-      browse-url-browser-function   (function browse-url-firefox2))
-
-
-
-(when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
-           (ignore-errors (require 'w3m        nil t))
-           (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
-  (.EMACS "w3m mode")
-
-  (defvar *browse-frame-name* "*w3m*")
-  (pushnew *browse-frame-name* special-display-buffer-names :test (function equal))
-
-  (defun pjb-w3m-browse-url-in-another-frame (url &rest args)
-    (save-excursion
-      (raise-frame
-       (select-frame
-        (or (find-if (lambda (frame) (equalp (frame-name frame) +browse-frame-name+))
-                     (frame-list))
-            (make-frame (list (cons 'name *browse-frame-name*))))))
-      (w3m-goto-url url)))
-
-  ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
-  (setf common-lisp-hyperspec-browser (function w3m-browse-url)
-        browse-url-browser-function   (function w3m-browse-url))
-  
-  ) ;;when
 
 
 ;;;----------------------------------------------------------------------------
@@ -6288,6 +6326,9 @@ rather than at left margin."
   (unless (and (stringp file) (string= "" file))
     ad-do-it))
 
+(add-to-list 'vc-handled-backends 'Fossil)
+(require 'vc-fossil)
+
 ;;;----------------------------------------------------------------------------
 (.EMACS "darcs")
 (load "vc-darcs" t nil)
@@ -6895,6 +6936,55 @@ or as \"emacs at <hostname>\"."
   (let ((inhibit-read-only t)
         (ro    (not (getf (text-properties-at start) 'read-only))))
     (set-text-properties start end (list 'read-only ro))))
+
+
+;;;----------------------------------------------------------------------------
+
+(defvar *echo-keys-last* nil "Last command processed by `echo-keys'.")
+
+(defun echo-keys ()
+  (interactive)
+  (let ((deactivate-mark deactivate-mark))
+   (when (this-command-keys)
+     (with-current-buffer (get-buffer-create "*echo-key*")
+       (goto-char (point-max))
+       ;; self  self
+       ;; self  other \n
+       ;; other self  \n
+       ;; other other \n
+       (unless (and (eq 'self-insert-command *echo-keys-last*)
+                    (eq 'self-insert-command this-command))
+         (insert "\n"))
+       (if (eql this-command 'self-insert-command)
+           (let ((desc (key-description (this-command-keys))))
+             (if (= 1 (length desc))
+                 (insert desc)
+                 (insert " " desc " ")))
+           (insert (key-description (this-command-keys))))
+       (setf *echo-keys-last* this-command)
+       (dolist (window (window-list))
+         (when (eq (window-buffer window) (current-buffer))
+           ;; We need to use both to get the effect.
+           (set-window-point window (point))
+           (end-of-buffer)))))))
+
+
+(defun toggle-echo-keys ()
+  (interactive)
+  (if (member 'echo-keys  pre-command-hook)
+      (progn
+        (remove-hook 'pre-command-hook 'echo-keys)
+        (dolist (window (window-list))
+          (when (eq (window-buffer window) (get-buffer "*echo-key*"))
+            (delete-window window))))
+      (progn
+        (add-hook    'pre-command-hook 'echo-keys)
+        (delete-other-windows)
+        (split-window nil (- (window-width) 32) t)
+        (other-window 1)
+        (switch-to-buffer (get-buffer-create "*echo-key*"))
+        (set-window-dedicated-p (selected-window) t)
+        (other-window 1))))
 
 ;;;----------------------------------------------------------------------------
 
