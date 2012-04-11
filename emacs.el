@@ -1406,6 +1406,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
 
   (global-set-key (kbd "<f8>")          'pjb-show-lisp-repl)
+  (global-set-key (kbd "C-<f8>")         (lambda () (interactive) (pjb-show-lisp-repl t)))
 
   (global-set-key (kbd "C-c .")         'forward-sexp)
   (global-set-key (kbd "C-c ,")         'backward-sexp)
@@ -2650,9 +2651,10 @@ Prefix argument means switch to the Lisp buffer afterwards."
 (appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 
-(defun pjb-show-lisp-repl ()
-  "Switches to a repl buffer, depending on the major mode and what's available."
-  (interactive)
+(defun pjb-show-lisp-repl (jump-in)
+  "Switches to a repl buffer, depending on the major mode and what's available.
+If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
+  (interactive "P")
   (labels ((show-buffer (buffer)
              (delete-other-windows)
              (split-window-horizontally)
@@ -2660,7 +2662,7 @@ Prefix argument means switch to the Lisp buffer afterwards."
              (etypecase buffer
                (buffer (switch-to-buffer buffer))
                (function (funcall buffer)))
-             (other-window 1))
+             (unless jump-in (other-window 1)))
            (inferior-lisp-repl ()
              (when inferior-lisp-buffer
                (let ((lisp-buffer (get-buffer inferior-lisp-buffer)))
@@ -2753,7 +2755,6 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (local-set-key (kbd "RET")  'newline-and-indent)
-  (local-set-key (kbd "<f8>") 'pjb-show-lisp-repl)
   ;; (local-set-key (kbd "RET") 'indent-defun)
   ;; (setq blink-matching-paren t)
   (setf skeleton-pair         nil
