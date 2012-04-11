@@ -2678,7 +2678,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       (show-buffer (function ielm)))
      ((lisp-mode)
       (if (and (boundp 'slime-mode) slime-mode)
-          (show-buffer (function slime-repl))
+          (show-buffer (function slime-switch-to-output-buffer))
           (inferior-lisp-repl)))
      ((slime-repl-mode inferior-emacs-lisp-mode)
       (message "Already there."))
