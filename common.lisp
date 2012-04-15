@@ -166,7 +166,7 @@
     (defpackage "ASDF"
       (:export . #.*asdf-symbol-names*)))
 
-
+#-(and)
 (let ((ql-asdf-init-file (merge-pathnames
                           (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
                                           :name "INIT" :type "LISP" :version :newest :case :common 
