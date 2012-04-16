@@ -94,6 +94,7 @@ function prependNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir in $(reverse "$@" ) ; do
+        echo prependNewToStringVariableDirectoryIfExists $dir
         if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
