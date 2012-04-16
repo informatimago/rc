@@ -147,6 +147,9 @@ function be_generate(){
         /usr/bin        /usr/sbin
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /Developer/Tools 
+        /opt/bin        /opt/sbin
+        /opt/*/bin      /opt/*/sbin 
+        /opt/local/lib/postgresql84/bin  # on galatea
         /data/languages/abcl
         /data/languages/acl82express
         /data/languages/ccl/bin
@@ -154,10 +157,7 @@ function be_generate(){
         /data/languages/cmucl/bin
         /data/languages/ecl/bin
         # /data/languages/sbcl/bin
-        /opt/bin        /opt/sbin
-        /opt/*/bin      /opt/*/sbin 
         /usr/local/bin  /usr/local/sbin
-        /opt/local/lib/postgresql84/bin  # on galatea
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
