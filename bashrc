@@ -226,17 +226,17 @@ function be_generate(){
         fi
     done
 
-    list="$PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
-    be_variable PATH "$list"
+    be_variable PATH "$list:$PATH"
 
-    list="$MANPATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
-    be_variable MANPATH "$list"
+    be_variable MANPATH "$list:$MANPATH"
 
-    list="$LD_LIBRARY_PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
-    be_variable LD_LIBRARY_PATH "$list"
+    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
 
 
     be_comment 'ANSI terminal codes:'
