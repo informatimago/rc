@@ -167,9 +167,7 @@
     (defpackage "ASDF"
       (:export . #.*asdf-symbol-names*)))
 
-
-;; We compute the hostname
-
+;; We compute the hostname.
 #-(and)
 (let ((ql-asdf-init-file (merge-pathnames
                           (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
