@@ -65,7 +65,7 @@ function reverse(){
 
 
 function appendToListVariable(){
-    # appendToList VAARIABLE element...
+    # appendToList VARIABLE element...
     # Appends to the array VARIABLE each element.
     # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
     local var=$1 ; shift
@@ -91,9 +91,10 @@ function appendNewToStringVariableDirectoryIfExists(){
 function prependNewToStringVariableDirectoryIfExists(){
     # prependNewToStringVariableDirectoryIfExists VARIABLE dir...
     # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # The last processed will be before in the resulting list.
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
-    for dir in $(reverse "$@" ) ; do
+    for dir in "$@" ; do
         if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
@@ -146,15 +147,6 @@ function be_generate(){
         /usr/bin        /usr/sbin
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /Developer/Tools 
-        /usr/local/bin  /usr/local/sbin
-        /usr/local/cint
-        /usr/local/apps/netscape 
-        /usr/local/apps/Acrobat4/bin 
-        /usr/local/apps/WordPerfect/wpbin 
-        /opt/bin        /opt/sbin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/local/lib/postgresql84/bin 
-        /Library/PostgreSQL8/bin 
         /data/languages/abcl
         /data/languages/acl82express
         /data/languages/ccl/bin
@@ -162,17 +154,18 @@ function be_generate(){
         /data/languages/cmucl/bin
         /data/languages/ecl/bin
         # /data/languages/sbcl/bin
+        /opt/bin        /opt/sbin
+        /opt/*/bin      /opt/*/sbin 
+        /usr/local/bin  /usr/local/sbin
+        /opt/local/lib/postgresql84/bin  # on galatea
         $HOME/bin 
-        $HOME/bin-$(hostname|sed -e 's/\..*//')
+        # $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
 
     mandirs=( 
         /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
         /usr/local/bin /usr/local/share/man 
         /opt/local/man /opt/local/share/man 
-        /usr/local/languages/fpc/man 
-        /usr/local/languages/clisp/share/man 
-        /usr/local/cint/doc
     )
 
     lddirs=( 
@@ -180,18 +173,18 @@ function be_generate(){
         /usr/local/lib 
         /opt/local/lib 
         /opt/*/lib 
-        /usr/lib/Real 
-        /usr/local/apps/rvplayer5.0 
     )
 
     editors=( 
         $HOME/bin/ec 
+        /opt/emacs-23.4/bin/emacsclient 
+        /opt/emacs-23.3/bin/emacsclient 
+        /opt/emacs-23.2/bin/emacsclient 
         /opt/emacs-23.1/bin/emacsclient 
         /opt/emacs-22.1/bin/emacsclient 
         /opt/emacs-21.3/bin/emacsclient 
-        /usr/local/emacs-multitty/bin/emacsclient 
+        /opt/local/bin/emacsclient 
         /usr/local/bin/emacsclient 
-        /sw/bin/emacsclient 
         /usr/bin/emacsclient 
         /bin/emacsclient 
         /bin/ed 
@@ -228,17 +221,20 @@ function be_generate(){
         fi
     done
 
-    list="$PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list"
+#    be_variable PATH "$list:$PATH"
 
-    list="$MANPATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
     be_variable MANPATH "$list"
+#    be_variable MANPATH "$list:$MANPATH"
 
-    list="$LD_LIBRARY_PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
     be_variable LD_LIBRARY_PATH "$list"
+#    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
 
 
     be_comment 'ANSI terminal codes:'
@@ -404,7 +400,7 @@ function be_generate(){
 }
 ########################################################################
 if [ -f $BASH_ENV ] ; then
-    if [ $HOME/.bashrc -nt $BASH_ENV ] ; then
+    if [ $HOME/rc/bashrc -nt $BASH_ENV ] ; then
         be_generate
     fi
 else

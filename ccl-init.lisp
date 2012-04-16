@@ -37,6 +37,10 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+
+#-ccl-1.6 (defun ccl::delete-directory (path)
+            (ccl::recursive-delete-directory path))
+
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
@@ -100,6 +104,47 @@
 
 ;; (setf COMMON-LISP-USER::*default-bundle-path* "CCL:OPENMCL.APP;")
 ;;  ccl::*module-search-path*  ;; paths used by REQUIRE.
+
+(defun locale-terminal-encoding ()
+  "Returns the terminal encoding specified by the locale(7)."
+  #+(and ccl windows-target)
+  :iso-8859-1
+  ;; ccl doesn't support :windows-1252.
+  ;; (intern (format nil "WINDOWS-~A" (#_GetACP)) "KEYWORD")
+  #-(and ccl windows-target)
+  (dolist (var '("LC_ALL" "LC_CTYPE" "LANG")
+               :iso-8859-1) ; some random default…
+    (let* ((val (ccl::getenv var))
+           (dot (position #\. val))
+           (at  (position #\@ val :start (or dot (length val)))))
+      (when (and dot (< dot (1- (length val))))
+        (flet ((prefixp (p s)
+                 (and (<= (length p) (length s))
+                      (string= p s :end1 (length p)))))
+         (return (intern (let ((name (string-upcase (subseq val (1+ dot)
+                                                            (or at (length val))))))
+                           (if (and (prefixp "ISO" name) (not (prefixp "ISO-" name)))
+                               (concatenate 'string "ISO-" (subseq name 3))
+                               name))
+                         "KEYWORD")))))))
+
+
+(defun set-terminal-encoding (encoding)
+  #-(and ccl (not swank)) (declare (ignore encoding))
+  #+(and ccl (not swank))
+  (mapc (lambda (stream)
+          (setf (ccl::stream-external-format stream)
+                (ccl:make-external-format :domain nil
+                                          :character-encoding encoding
+                                          :line-termination
+                                          #+unix :unix
+                                          #+windows :windows
+                                          #-(or unix windows) :unix)))
+        (list (two-way-stream-input-stream  *terminal-io*)
+              (two-way-stream-output-stream *terminal-io*)))
+  (values))
+
+(set-terminal-encoding  (locale-terminal-encoding))
 
 (setf ccl:*default-external-format*           :unix
       ccl:*default-file-character-encoding*   :utf-8
