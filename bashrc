@@ -91,10 +91,10 @@ function appendNewToStringVariableDirectoryIfExists(){
 function prependNewToStringVariableDirectoryIfExists(){
     # prependNewToStringVariableDirectoryIfExists VARIABLE dir...
     # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # The last processed will be before in the resulting list.
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
-    for dir in $(reverse "$@" ) ; do
-        echo prependNewToStringVariableDirectoryIfExists $dir
+    for dir in "$@" ; do
         if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
@@ -166,9 +166,6 @@ function be_generate(){
         /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
         /usr/local/bin /usr/local/share/man 
         /opt/local/man /opt/local/share/man 
-        /usr/local/languages/fpc/man 
-        /usr/local/languages/clisp/share/man 
-        /usr/local/cint/doc
     )
 
     lddirs=( 
@@ -176,8 +173,6 @@ function be_generate(){
         /usr/local/lib 
         /opt/local/lib 
         /opt/*/lib 
-        /usr/lib/Real 
-        /usr/local/apps/rvplayer5.0 
     )
 
     editors=( 
@@ -228,15 +223,18 @@ function be_generate(){
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
-    be_variable PATH "$list:$PATH"
+    be_variable PATH "$list"
+#    be_variable PATH "$list:$PATH"
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
-    be_variable MANPATH "$list:$MANPATH"
+    be_variable MANPATH "$list"
+#    be_variable MANPATH "$list:$MANPATH"
 
     list=""
     prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
-    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
+    be_variable LD_LIBRARY_PATH "$list"
+#    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
 
 
     be_comment 'ANSI terminal codes:'
