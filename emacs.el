@@ -199,6 +199,10 @@
 
 (.EMACS "custom variables")
 (custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(ad-redefinition-action (quote accept))
  '(all-christian-calendar-holidays t t)
  '(all-hebrew-calendar-holidays nil t)
@@ -275,7 +279,7 @@
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
- '(erc-default-coding-system (quote (utf-8 . undecided)) t)
+ '(erc-default-coding-system (quote (utf-8 . undecided)))
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
  '(erc-email-userid t)
@@ -420,11 +424,11 @@ X-Accept-Language:         fr, es, en
  '(pop-up-windows nil)
  '(pr-faces-p t)
  '(print-gensym t t)
- '(printer-name "normal_gray" t)
+ '(printer-name "normal_gray")
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4) t)
+ '(ps-paper-type (quote a4))
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -452,7 +456,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((lexical-binding . t) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -565,7 +569,6 @@ X-Accept-Language:         fr, es, en
 (put 'mh-rmail         'disabled t)
 (put 'scroll-left      'disabled nil)
 (put 'set-goal-column  'disabled t)
-(put 'erase-buffer     'disabled nil)
 
 
 
@@ -1009,11 +1012,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            ;;   '(("~/opt/share/emacs/site-lisp/slime/contribs/")))
                            ;; (when (string= "mdi-development-1" *hostname*)
                            ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
-                           (unless (string= "mdi-development-1" *hostname*)
-                             (list
-                              ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
-                              ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
-                              (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))))
+                           ;; (unless (string= "mdi-development-1" *hostname*)
+                           ;;   (list
+                           ;;    ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                           ;;    ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
+                           ;;    (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))
+                           ))
        (if (listp directories)
          (find-if (function add-if-good) directories)
          (add-if-good directories)))
@@ -2297,7 +2301,8 @@ capitalized form."
 
   
   (define-lisp-implementation abcl
-      "/data/languages/abcl/abcl"
+      (first-existing-file '("/data/languages/abcl/abcl"
+                             "/opt/local/bin/ccl"))
     "^.*([0-9]+): "
     iso-8859-1)
   
@@ -2309,6 +2314,7 @@ capitalized form."
   (define-lisp-implementation ccl
       (first-existing-file '("/data/languages/ccl/bin/ccl"
                              "/usr/local/bin/ccl"
+                             "/opt/local/bin/ccl"
                              "/usr/bin/ccl"))
     "^? "
     utf-8)
@@ -2392,6 +2398,7 @@ capitalized form."
   (define-lisp-implementation cmucl
       (first-existing-file '("/data/languages/cmucl/bin/lisp"
                              "/usr/local/bin/lisp"
+                             "/opt/local/bin/lisp"
                              "/usr/bin/lisp"))
     "^\* "
     utf-8)
@@ -2399,8 +2406,8 @@ capitalized form."
   
   (define-lisp-implementation ecl
       (first-existing-file '("/data/languages/ecl/bin/ecl"
-                             "/opt/local/bin/ecl"
                              "/usr/local/bin/ecl"
+                             "/opt/local/bin/usr"
                              "/usr/bin/ecl"))
     
     "^> "
@@ -2409,8 +2416,8 @@ capitalized form."
   
   (define-lisp-implementation sbcl
       (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
-                                   "/opt/local/bin/sbcl"
                                    "/usr/local/bin/sbcl"
+                                   "/opt/local/bin/sbcl"
                                    "/usr/bin/sbcl"))
             "--noinform")
     "^\[[0-9]*\]> "
@@ -7014,3 +7021,5 @@ or as \"emacs at <hostname>\"."
 ;;;; THE END ;;;;
 
 
+
+(put 'erase-buffer 'disabled nil)
