@@ -401,7 +401,7 @@ function be_generate(){
 }
 ########################################################################
 if [ -f $BASH_ENV ] ; then
-    if [ $HOME/.bashrc -nt $BASH_ENV ] ; then
+    if [ $HOME/rc/bashrc -nt $BASH_ENV ] ; then
         be_generate
     fi
 else
