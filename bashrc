@@ -146,15 +146,6 @@ function be_generate(){
         /usr/bin        /usr/sbin
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /Developer/Tools 
-        /usr/local/bin  /usr/local/sbin
-        /usr/local/cint
-        /usr/local/apps/netscape 
-        /usr/local/apps/Acrobat4/bin 
-        /usr/local/apps/WordPerfect/wpbin 
-        /opt/bin        /opt/sbin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/local/lib/postgresql84/bin 
-        /Library/PostgreSQL8/bin 
         /data/languages/abcl
         /data/languages/acl82express
         /data/languages/ccl/bin
@@ -162,6 +153,16 @@ function be_generate(){
         /data/languages/cmucl/bin
         /data/languages/ecl/bin
         # /data/languages/sbcl/bin
+        /opt/bin        /opt/sbin
+        /opt/*/bin      /opt/*/sbin 
+        /opt/local/lib/postgresql84/bin 
+        /usr/local/bin
+        /usr/local/sbin
+        /usr/local/cint
+        /usr/local/apps/netscape 
+        /usr/local/apps/Acrobat4/bin 
+        /usr/local/apps/WordPerfect/wpbin 
+        /Library/PostgreSQL8/bin 
         $HOME/bin 
         $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
