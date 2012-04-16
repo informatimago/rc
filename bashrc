@@ -65,7 +65,7 @@ function reverse(){
 
 
 function appendToListVariable(){
-    # appendToList VAARIABLE element...
+    # appendToList VARIABLE element...
     # Appends to the array VARIABLE each element.
     # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
     local var=$1 ; shift
@@ -156,16 +156,10 @@ function be_generate(){
         # /data/languages/sbcl/bin
         /opt/bin        /opt/sbin
         /opt/*/bin      /opt/*/sbin 
-        /opt/local/lib/postgresql84/bin 
-        /usr/local/bin
-        /usr/local/sbin
-        /usr/local/cint
-        /usr/local/apps/netscape 
-        /usr/local/apps/Acrobat4/bin 
-        /usr/local/apps/WordPerfect/wpbin 
-        /Library/PostgreSQL8/bin 
+        /usr/local/bin  /usr/local/sbin
+        /opt/local/lib/postgresql84/bin  # on galatea
         $HOME/bin 
-        $HOME/bin-$(hostname|sed -e 's/\..*//')
+        # $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
 
     mandirs=( 
@@ -188,12 +182,14 @@ function be_generate(){
 
     editors=( 
         $HOME/bin/ec 
+        /opt/emacs-23.4/bin/emacsclient 
+        /opt/emacs-23.3/bin/emacsclient 
+        /opt/emacs-23.2/bin/emacsclient 
         /opt/emacs-23.1/bin/emacsclient 
         /opt/emacs-22.1/bin/emacsclient 
         /opt/emacs-21.3/bin/emacsclient 
-        /usr/local/emacs-multitty/bin/emacsclient 
+        /opt/local/bin/emacsclient 
         /usr/local/bin/emacsclient 
-        /sw/bin/emacsclient 
         /usr/bin/emacsclient 
         /bin/emacsclient 
         /bin/ed 
@@ -406,7 +402,7 @@ function be_generate(){
 }
 ########################################################################
 if [ -f $BASH_ENV ] ; then
-    if [ $HOME/.bashrc -nt $BASH_ENV ] ; then
+    if [ $HOME/rc/bashrc -nt $BASH_ENV ] ; then
         be_generate
     fi
 else
