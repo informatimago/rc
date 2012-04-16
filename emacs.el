@@ -1035,7 +1035,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
-(require 'highlight-flet)
+(require 'highlight-flet nil t)
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
