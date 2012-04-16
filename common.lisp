@@ -84,6 +84,7 @@
            "SCHEME"
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
            "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
+           "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
            "QUICK-DELETE" "QUICK-RELOAD"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
@@ -167,6 +168,9 @@
       (:export . #.*asdf-symbol-names*)))
 
 
+;; We compute the hostname
+
+#-(and)
 (let ((ql-asdf-init-file (merge-pathnames
                           (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
                                           :name "INIT" :type "LISP" :version :newest :case :common 
@@ -192,6 +196,7 @@
                           
                           (defparameter *init-verbose* nil)
                           
+                          
                           (defun hostname ()
                             #-windows-target
                             (let ((outpath (make-pathname :name (format nil "hostname-~8,'0X" (random #x100000000))
@@ -207,6 +212,7 @@
                                        (read-line hostname)))
                                 (delete-file outpath)))
                             #+windows-target (machine-instance))
+
 
 
 
@@ -308,27 +314,39 @@
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 
 
+(defun print-systems (systems pattern)
+  (if pattern
+      (let ((spattern (string pattern)))
+        (dolist (system systems)
+          (when (search spattern (slot-value system 'ql-dist:name)
+                        :test (function char-equal))
+            (print system))))
+      (dolist (system systems)
+        (print system)))
+   (values))
+
+
+(defun quick-installed-systems (&optional pattern)
+  (print-systems (ql-dist:installed-releases (ql-dist:dist "quicklisp"))
+                 pattern))
 
 (defun quick-list-systems (&optional pattern)
   "List the quicklisp systems.  If the string designator PATTERN is
 given, then only the systems containing it in their name are listed."
-  (if pattern
-      (let ((spattern (string pattern)))
-        (dolist (system (ql-dist:provided-systems t) (values))
-          (when (search spattern (slot-value system 'ql-dist:name)
-                        :test (function char-equal))
-            (print system))))
-      (dolist (system (ql-dist:provided-systems t) (values))
-        (print system))))
+  (print-systems (ql-dist:provided-systems t)
+                 pattern))
+
+(defun quick-list-projects (&optional pattern)
+  "List the quicklisp projects (releases).  If the string designator
+PATTERN is given, then only the projects containing it in their name
+are listed."
+  (print-systems (ql-dist:provided-releases t)
+                 pattern))
 
 
 (defun quick-apropos (pattern)
   ;; For now, we just list the systems:
-  (let ((spattern (string pattern)))
-    (dolist (system (ql-dist:provided-systems t) (values))
-      (when (search spattern (slot-value system 'ql-dist:name)
-                    :test (function char-equal))
-        (format t "SYSTEM: ~S~%" system)))))
+  (print-systems (ql-dist:provided-systems t) pattern))
 
 
 (defun quick-update ()
@@ -380,7 +398,10 @@ given, then only the systems containing it in their name are listed."
 (defun quick-reload (&rest systems)
   "Delete and reload the ASDF systems."
   (map 'list (lambda (system)
-               (asdf-delete-system system)
+               ;; (asdf-delete-system system)
+               (format *trace-output* "~&See also M-x slime-load-system RET~%")
+               (force-output  *trace-output*)
+               (asdf:load-system system)
                (ql:quickload system))
        systems))
 
@@ -662,6 +683,35 @@ either scanned, or from the cache."
              (read-line hostname)))
       (delete-file outpath))))
 
+
+
+;; (run-program "example" '() :input :stream)
+
+;; nil                                    (open "/dev/null")
+;; :stream                                (make-stream)
+;; "/some/file" #P "/some/file"           (open "/some/file")
+;; stream                                 stream
+
+;; (with-open-file (input "/etc/passwd")
+;;   (with-open-file (output "/tmp/test.txt" :direction :output
+;;                           :if-does-not-exist :create
+;;                           :if-exists :supersede)
+;;     (multiple-value-bind (inp out err pid) (run-program #("/bin/cat" "cat")
+;;                                                         :input input
+;;                                                         :output output
+;;                                                         :error-output :stream
+;;                                                         :wait nil)
+;;       (loop
+;;         :for line = (read-line err nil nil)
+;;         :while line :do (write-line line))
+;;       (excl.osi:waitpid pid))))
+
+;; sleep
+;; ls|
+;; |sort|
+
+
+
 ;;;----------------------------------------------------------------------
 
 
@@ -768,9 +818,6 @@ either scanned, or from the cache."
 
 #-(or abcl ccl cmu ecl sbcl)
 (asdf-load  :com.informatimago.clext)
-
-#+sbcl
-(asdf-load  :com.informatimago.sbcl)
 
 #-(and)
 (asdf-load  :com.informatimago.clisp)
