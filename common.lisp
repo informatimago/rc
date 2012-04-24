@@ -85,8 +85,9 @@
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
            "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
            "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
-           "QUICK-DELETE" "QUICK-RELOAD"))
+           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS"))
 (in-package "COM.INFORMATIMAGO.PJB")
+
 
 (defun user-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
@@ -402,6 +403,10 @@ are listed."
                (asdf:load-system system)
                (ql:quickload system))
        systems))
+
+(defun quick-local-projects ()
+  "Rebuilds the local projects system index."
+  (ql:register-local-projects))
 
 
 
