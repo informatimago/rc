@@ -199,10 +199,6 @@
 
 (.EMACS "custom variables")
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
  '(ad-redefinition-action (quote accept))
  '(all-christian-calendar-holidays t t)
  '(all-hebrew-calendar-holidays nil t)
@@ -279,7 +275,7 @@
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
- '(erc-default-coding-system (quote (utf-8 . undecided)))
+ '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
  '(erc-email-userid t)
@@ -456,7 +452,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((lexical-binding . t) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -488,7 +484,6 @@ X-Accept-Language:         fr, es, en
  '(vc-make-backup-files t)
  '(version-control t)
  '(view-calendar-holidays-initially t t)
- '(visible-bell nil)
  '(vm-auto-displayed-mime-content-types (quote ("text/enriched" "text/plain" "message" "message/rfc822" "message/disposition-notification" "multipart")))
  '(vm-auto-folder-alist (quote (("^\\(From:\\|To:\\|Cc:\\)" ("svn-.*anevia.com" . "~/mail/anevia-svn.mbox") ("staff@anevia.com" . "~/mail/anevia-staff.mbox") ("cpptest@anevia.com" . "~/mail/cpptest.mbox") ("\\(bese.*common-lisp\\)" . "~/mail/ucw.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox") ("cert-advisory@cert.org" . "~/mail/cert.mbox") ("gentoo" . "~/mail/gentoo.mbox")) ("^Subject:" ("\\[libanevia\\|manager2\\|aipc\\]" . "~/mail/anevia-manager2.mbox") ("cs daily" . "~/mail/cs-papers.mbox") ("CRYPTO.*GRAM" . "~/mail/crypto-gram.mbox") ("ipnsig" . "~/mail/ipnsig.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox")))))
  '(vm-auto-folder-case-fold-search t)
@@ -527,8 +522,11 @@ X-Accept-Language:         fr, es, en
  '(w3m-coding-system (quote utf-8))
  '(w3m-default-display-inline-images t)
  '(w3m-fb-mode nil)
+ '(w3m-file-coding-system (quote utf-8))
+ '(w3m-file-name-coding-system (quote iso-8859-1))
  '(w3m-pop-up-frames nil)
  '(w3m-pop-up-windows nil)
+ '(w3m-use-cookies t)
  '(w3m-use-tab nil)
  '(w3m-use-tab-menubar nil)
  '(warning-suppress-types (quote ((undo discard-info))))
@@ -751,6 +749,14 @@ STRING:  A sequence.
 RETURN:  Whether PREFIX is a prefix of the STRING.
 "
   (string= prefix (subseq string 0 (min (length string) (length prefix)))))
+
+(defun suffixp (suffix string)
+  "
+PREFIX:  A sequence.
+STRING:  A sequence.
+RETURN:  Whether PREFIX is a prefix of the STRING.
+"
+  (string= suffix (subseq string (max 0 (- (length string) (length suffix))))))
 
 
 (defun first-char (string)
@@ -1739,18 +1745,23 @@ SIDE must be the symbol `left' or `right'."
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
-  (let ((increment (if (zerop increment) 1 increment)))
-    (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
-                                        (length *pjb-font-list*)))
-    (loop
+  (typecase increment
+    (integer
+     (let ((increment (if (zerop increment) 1 increment)))
+       (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
+                                           (length *pjb-font-list*)))))
+    (string
+     (setf *pjb-current-font-index* (or (position increment *pjb-font-list*
+                                                  :test (function string=))))))
+  (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
           (return
-           (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
-                  (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
+            (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
+                   (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
-                                            (length *pjb-font-list*))))))
+                                            (length *pjb-font-list*)))))
 
 
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
@@ -1920,19 +1931,19 @@ SIDE must be the symbol `left' or `right'."
       (string-case hname
 
                    (("thalassa" "despina" "kuiper")
-                    (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
+                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
                     (setq palette            pal-thalassa
                           width              81
                           height             70))
 
                    (("triton" "proteus")
-                    (forward-font 1)
+                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
                     (setq palette            pal-galatea
                           width              86
                           height             52))
 
                    (("galatea")
-                    (forward-font 1)
+                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
                     (setq palette            pal-naiad
                           width              81
                           height             54
@@ -3886,6 +3897,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;;;----------------------------------------------------------------------------
 
 
+
 (defun browse-url-firefox2 (url &optional new-window)
   "Ask the Firefox WWW browser to load URL.
 Default to the URL around or before point.  The strings in
@@ -3929,11 +3941,25 @@ URL in a new window."
                           `(lambda (process change)
                              (browse-url-firefox-sentinel process ,url)))))
 
-
-(setf common-lisp-hyperspec-browser (function browse-url-firefox2)
-      browse-url-browser-function   (function browse-url-firefox2))
+;; (setf common-lisp-hyperspec-browser (function browse-url-firefox2))
 
 
+(defun pjb-browse-url (url &optional new-session)
+  (interactive "sUrl: ")
+  (let ((w3m-pop-up-windows t))
+    (when (one-window-p)
+      (split-window))
+    (other-window 1)
+    (w3m-browse-url url new-session)))
+
+(defun pjb-w3m-browse-url-in-another-frame (url &rest args)
+  (save-excursion
+    (raise-frame
+     (select-frame
+      (or (find-if (lambda (frame) (equalp (frame-name frame) *browse-frame-name*))
+                   (frame-list))
+          (make-frame (list (cons 'name *browse-frame-name*))))))
+    (w3m-goto-url url)))
 
 (when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
@@ -3946,18 +3972,9 @@ URL in a new window."
   (defvar *browse-frame-name* "*w3m*")
   (pushnew *browse-frame-name* special-display-buffer-names :test (function equal))
 
-  (defun pjb-w3m-browse-url-in-another-frame (url &rest args)
-    (save-excursion
-      (raise-frame
-       (select-frame
-        (or (find-if (lambda (frame) (equalp (frame-name frame) +browse-frame-name+))
-                     (frame-list))
-            (make-frame (list (cons 'name *browse-frame-name*))))))
-      (w3m-goto-url url)))
-
   ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
-  (setf common-lisp-hyperspec-browser (function w3m-browse-url)
-        browse-url-browser-function   (function w3m-browse-url))
+  (setf common-lisp-hyperspec-browser (function w3m-browse-url))
+  ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
   
   ) ;;when
 
@@ -4224,6 +4241,7 @@ in the current directory, or in a parent."
 (.EMACS "Common-Lisp Hyperspec")
 ;; common-lisp-hyperspec-symbols
 
+
 (defun probe-url (url)
   (cond
     ((string= "file://" (subseq url 0 (min (length url) 7)))
@@ -4259,8 +4277,8 @@ in the current directory, or in a parent."
 (defvar common-lisp-hyperspec-frame   (selected-frame))
 (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
 
-;; (setf common-lisp-hyperspec-browser 'w3m-browse-url
-;;       browse-url-browser-function   'w3m-browse-url)
+;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
+;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
 
 (defun thing-at-point-no-properties (thing)
   "Return the THING at point.
@@ -4277,7 +4295,9 @@ a symbol as a valid THING."
             (buffer-substring-no-properties (car bounds) (cdr bounds))))))
 
 
-(when  (or t  (boundp 'common-lisp-hyperspec-symbols))
+
+
+(when (or t  (boundp 'common-lisp-hyperspec-symbols))
 
   (defun common-lisp-hyperspec-complete (string predicate allp)
     (if allp
@@ -4293,19 +4313,16 @@ a symbol as a valid THING."
           result)
         (try-completion string common-lisp-hyperspec-symbols predicate)))
 
-
-  (defun pjb-browse-url (url &optional new-session)
-    (interactive "sUrl: ")
-    (message "enter pjb-browse-url")
-    (if (< 1 (length (window-list)))
-        (progn
-          (other-window 1)
-          (w3m-browse-url url new-session))
-        (progn
-          (split-window)
-          (other-window 1)
-          (w3m-browse-url url new-session))))
   
+  (defun clhs-entry (symbol-designator)
+    (let ((symbol (intern-soft (downcase (etypecase symbol-designator
+                                           (symbol (symbol-name symbol-designator))
+                                           (string  symbol-designator)))
+                               common-lisp-hyperspec-symbols)))
+      (if (and symbol (boundp symbol))
+          (symbol-value symbol)
+          nil)))
+
   
   (defun common-lisp-hyperspec (symbol-name)
     "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
@@ -4336,29 +4353,21 @@ variable `common-lisp-hyperspec-root' to point to that location."
              (browse-url (concat common-lisp-hyperspec-root
                                  "Body/" (car entry))))
             ((mac ns nil)
-             (let ((browse-url-browser-function 'browse-url-generic)
+             (let ((browse-url-browser-function (cons '("." . browse-url-generic) browse-url-browser-function))
                    (browse-url-generic-program "/usr/bin/open"))
-               (browse-url (concat common-lisp-hyperspec-root
-                                   "Body/" (car entry)))) )
+               (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))))
             (otherwise
              (error "Unknown window-system"))))
          ((gnu/linux)
-          (let ((browse-url-browser-function 'pjb-browse-url
-                                        ;common-lisp-hyperspec-browser
-                  ))
-            (browse-url (concat common-lisp-hyperspec-root
-                                "Body/" (car entry)))) )
+          (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry))))
          (otherwise
           (error "Unknown system-type.")))
        (if (cdr entry)
            (sleep-for 1.5)))
      (delete-duplicates
-      (let ((symbol (intern-soft (downcase symbol-name)
-                                 common-lisp-hyperspec-symbols)))
-        (if (and symbol (boundp symbol))
-            (symbol-value symbol)
-            (error "The symbol `%s' is not defined in Common Lisp"
-                   symbol-name)))
+      (or (clhs-entry symbol-name)
+          (error "The symbol `%s' is not defined in Common Lisp"
+                 symbol-name))
       :test (function equal))))
   
 
@@ -4386,9 +4395,9 @@ variable `common-lisp-hyperspec-root' to point to that location."
       :test (function equal))))
 
 
+  (defalias 'clhs               'common-lisp-hyperspec)
   (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
   (global-set-key (kbd "C-h y") 'hyperspec-lookup)
-  (defalias 'clhs               'common-lisp-hyperspec)
 
   ) ;;(boundp 'common-lisp-hyperspec-symbols)
 
@@ -4432,10 +4441,10 @@ variable `common-lisp-hyperspec-root' to point to that location."
 
 
 ;;; or:
-;;;       (setq browse-url-browser-function
-;;; 	    '(lambda (url &optional new-win)
+;;;       (push browse-url-browser-function
+;;; 	    '("."  . (lambda (url &optional new-win)
 ;;; 	       (do-applescript (concat "open location \""
-;;; 				       url "\""))))
+;;; 				       url "\"")))))
 
 
 
@@ -4610,6 +4619,14 @@ variable `common-lisp-hyperspec-root' to point to that location."
                              ("\\.htm$"    . html-mode))))
 
 
+(global-set-key (kbd "H-h a")
+                (lambda (start end)
+                  (interactive "r")
+                  (let ((url (buffer-substring start end)))
+                    (delete-region start end)
+                    (insert (format (if prefix-arg
+                                        "<a href=\"%s\">%s</a>"
+                                        "<a href=\\\"%s\\\">%s</a>") url url)))))
 
 ;; ------------------------------------------------------------------------
 ;; AIM client for emacs:
@@ -5498,6 +5515,95 @@ See the documentation for vm-mode for more information."
 ;;                                      "elf"))
 ;; (t t nil)
 
+
+
+;;;----------------------------------------------------------------------------
+
+(defparameter *pjb-erc-answers*
+  '((lisp-1         . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
+    (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
+    (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
+    (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+    (intersection   . "Have a look at http://paste.lisp.org/display/122296 (intersection common-lisp emacs-lisp scheme)")
+    (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
+    (emacs-lisp-intro . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
+    (emacs-lisp       . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
+    (emacs-manual     . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
+    (taoup     . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
+    (htbah     . "http://www.catb.org/~esr/faqs/hacker-howto.html")
+    (tcote     . "The Craft of Text Editing   http://www.finseth.com/craft/")
+    (eopl      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
+    (pcl       . "Practical Common Lisp http://www.gigamonkeys.com/book/")
+    (gentle    . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
+    (clpfai    . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
+    (claia     . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
+    (paip      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
+    (aima      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
+    (sicp      . "Structure and Interpretation of Computer Programs  http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html  http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/")
+    (sicp-mit  . "http://web.mit.edu/alexmv/6.S184/")
+    ;; http://www.codepoetics.com/wiki/index.php?title=Topics:SICP_in_other_languages
+    ;; http://eli.thegreenplace.net/category/programming/lisp/sicp/
+    ;; http://www.neilvandyke.org/sicp-plt/
+    ;; http://www.youtube.com/watch?v=rdj6deraQ6k
+    (htdp      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
+    (ca        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
+    (lisp      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
+    (onlisp    . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
+    (cptt      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
+    (taocp     . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
+    (geb       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
+    (blt       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
+    (casting   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
+
+    (gitorious-lisp  . "https://gitorious.org/com-informatimago/com-informatimago/trees/master")
+    (gitorious-emacs . "https://gitorious.org/com-informatimago/emacs/trees/master")
+    (rc        . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
+    (bin       . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/bin")
+    (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
+    (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
+    (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
+
+    (see-defpackage . ";;;;    See defpackage documentation string.\n")
+    (agpl3          . "
+License:
+
+    AGPL3
+    
+    Copyright Pascal J. Bourguignon 1994 - 2012
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+    
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.
+    If not, see <a href=\\\"http://www.gnu.org/licenses/\\\">http://www.gnu.org/licenses/</a>.
+
+")))
+
+
+
+(defun pjb-erc-get-answers ()
+  (mapcar (function car) *pjb-erc-answers*))
+
+(defvar *pjb-erc-last-answer* nil)
+
+(defun pjb-erc-answer (key)
+  (interactive (list 
+                (intern (completing-read 
+                         "What? " (mapcar (lambda (x) (cons x nil)) (pjb-erc-get-answers))
+                         (lambda (answer) (setq *pjb-erc-last-answer* (car answer)))
+                         t))))
+  (insert (format "%s" (cdr (assoc key *pjb-erc-answers*)))))
+
+;; (add-hook 'erc-join-hook (lambda () (local-set-key (kbd "H-a") 'pjb-erc-answer)))
+(global-set-key (kbd "H-a") 'pjb-erc-answer)
 
 ;;;----------------------------------------------------------------------------
 
@@ -6774,6 +6880,8 @@ or as \"emacs at <hostname>\"."
                                (string-upcase use))))
       (select-frame c))))
 
+(milliways-schedule (lambda () (sfn t)))
+
 ;; (setf (getenv "EMACS_USE") "erc")
 ;; (setf (getenv "EMACS_USE") "gnus")
 ;; (setf (getenv "EMACS_USE") "pgm")
@@ -7001,7 +7109,6 @@ or as \"emacs at <hostname>\"."
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
-(sfn t)
 (.EMACS "DONE")
 
 
