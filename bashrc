@@ -408,6 +408,12 @@ else
 fi
 source $BASH_ENV
 
+# GNUstep:
+if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
+    . /usr/share/GNUstep/Makefiles/GNUstep.sh
+fi
+
+
 case "$(hostname)" in
 mdi-development-*)
     source /usr/local/env.sh
@@ -1000,3 +1006,4 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
+
