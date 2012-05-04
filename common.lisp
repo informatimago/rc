@@ -85,7 +85,38 @@
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
            "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
            "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
-           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS"))
+           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS")
+  (:documentation "
+
+This package contains REPL utilities, defined in ~/rc/common.lisp,
+which is loaded from the various rc files of the various CL
+implementations.
+
+It also re-exports the exported symbols of
+COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE.
+
+
+License:
+
+    AGPL3
+    
+    Copyright Pascal J. Bourguignon 2003 - 2012
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+    
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.
+    If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
+
+"))
 (in-package "COM.INFORMATIMAGO.PJB")
 
 
@@ -165,8 +196,10 @@
         (let ((sym  (intern  name *asdf*)))
           (export sym *asdf*)
           (push sym *asdf-added-symbols*))))
-    (defpackage "ASDF"
-      (:export . #.*asdf-symbol-names*)))
+    (unless (find-package "ASDF")
+     (defpackage "ASDF"
+       (:use "CL")
+       (:export . #.*asdf-symbol-names*))))
 
 ;; We compute the hostname.
 #-(and)
@@ -326,6 +359,7 @@
 
 
 (defun quick-installed-systems (&optional pattern)
+  "Print the system installed by quicklisp."
   (print-systems (ql-dist:installed-releases (ql-dist:dist "quicklisp"))
                  pattern))
 
@@ -344,6 +378,7 @@ are listed."
 
 
 (defun quick-apropos (pattern)
+  "Search the quicklisp system matching the pattern and print them."
   ;; For now, we just list the systems:
   (print-systems (ql-dist:provided-systems t) pattern))
 
@@ -387,7 +422,9 @@ are listed."
   #-#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
   (error "QUICKLISP-CLIENT:WHERE-IS-SYSTEM is not available."))
 
-(defun quick-where (&rest systems) (apply (function quick-where-is) systems))
+(defun quick-where (&rest systems)
+  "Says where the given systems are."
+  (apply (function quick-where-is) systems))
 
 
 (defun quick-delete (&rest systems)
@@ -677,6 +714,7 @@ either scanned, or from the cache."
 
 (fmakunbound 'hostname)
 (defun hostname ()
+  "RETURN: The FQDN of the local host."
   (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
     (unwind-protect
          (progn
@@ -723,6 +761,7 @@ either scanned, or from the cache."
   `(progn
      (declaim (notinline ,name))
      (defun ,name ,arguments
+       "Autoload function."
        (load ,loader)
        (,name ,@arguments))))
 
