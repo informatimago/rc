@@ -168,160 +168,30 @@ License:
 
 ;;;----------------------------------------------------------------------
 ;;;
-;;; ASDF-BINARY-LOCATIONS
+;;; ASDF-CONFIGURATION
 ;;;
 
-
-;; Some implementations don't have ASDF loaded at this point.  For
-;; them, we create a temporary ASDF package exporting the symbols we
-;; need to write to the ~/quicklisp/adsf-config/init.lisp file.
-;;
-;; Some other implementations have ASDF loaded, but don't define these
-;; symbols.  For them, we add these symbols temporarily, so that we
-;; can write them to the  ~/quicklisp/adsf-config/init.lisp file.
-
-(defvar *asdf* (find-package "ASDF"))
-(defvar *asdf-added-symbols* '())
-(defvar *asdf-symbol-names* '("RUN-SHELL-COMMAND"
-                              "OOS" "LOAD-OP"
-                              "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY"
-                              "*CENTRAL-REGISTRY*"
-                              "*CENTRALIZE-LISP-BINARIES*"
-                              "*INCLUDE-PER-USER-INFORMATION*" 
-                              "*DEFAULT-TOPLEVEL-DIRECTORY*"
-                              "*SOURCE-TO-TARGET-MAPPINGS*"))
-(if *asdf*
-    (dolist (name *asdf-symbol-names*)
-      (unless (find-symbol name *asdf*)
-        (let ((sym  (intern  name *asdf*)))
-          (export sym *asdf*)
-          (push sym *asdf-added-symbols*))))
-    (unless (find-package "ASDF")
-     (defpackage "ASDF"
-       (:use "CL")
-       (:export . #.*asdf-symbol-names*))))
-
-;; We compute the hostname.
-#-(and)
-(let ((ql-asdf-init-file (merge-pathnames
-                          (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
-                                          :name "INIT" :type "LISP" :version :newest :case :common 
-                                          :defaults (user-pathname))
-                          (user-pathname)
-                          nil)))
-  ;; (print ql-asdf-init-file) (terpri) (finish-output)
-  (when (or (not (ignore-errors (probe-file ql-asdf-init-file)))
-            (<= (file-write-date ql-asdf-init-file)
-                (file-write-date *load-pathname*)))
-    (ensure-directories-exist ql-asdf-init-file)
-    (with-open-file (src ql-asdf-init-file
-                         :direction :output
-                         :if-exists :supersede 
-                         :if-does-not-exist :create)
-      (with-standard-io-syntax
-        (let ((*print-readably* t))
-          (dolist (form '(
-                          (unless (find-package "COM.INFORMATIMAGO.PJB")
-                            (defpackage "COM.INFORMATIMAGO.PJB"
-                              (:use "COMMON-LISP")))
-                          (in-package "COM.INFORMATIMAGO.PJB")
-                          
-                          (defparameter *init-verbose* nil)
-                          
-                          
-                          (defun hostname ()
-                            #-windows-target
-                            (let ((outpath (make-pathname :name (format nil "hostname-~8,'0X" (random #x100000000))
-                                                          :type "txt"
-                                                          :case :local
-                                                          :defaults (user-pathname))))
-                              (unwind-protect
-                                   (let ((asdf::*verbose-out* t))
-                                     (asdf:run-shell-command
-                                      "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                      (namestring outpath))
-                                     (with-open-file (hostname outpath)
-                                       (read-line hostname)))
-                                (delete-file outpath)))
-                            #+windows-target (machine-instance))
-
-
-
-
-                          ;; asdf-binary-locations is already loaded in sbcl.
-                          ;; asdf-binary-locations is mutually exclusive with asdf2.
-                          ;; (or sbcl asdf2 clc-os-debian)
-
-                          #2=(let ((sym (find-symbol "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY" "ASDF")))
-                               (if (and sym (fboundp sym))
-                                   (progn
-                                     (when *init-verbose*
-                                       (format t "~&Pushing :has-asdf-enable-asdf-binary-locations-compatibility to *features*~%"))
-                                     (pushnew :has-asdf-enable-asdf-binary-locations-compatibility *features*))
-                                   (when *init-verbose*
-                                     (format t "~&There's no asdf:enable-asdf-binary-locations-compatibility ~%"))))
-
-                          (sharp - :has-asdf-enable-asdf-binary-locations-compatibility)
-                          (progn
-                            (handler-case (progn (when *init-verbose*
-                                                   (format t "~&Asdf loading asdf-binary-locations ~%"))
-                                                 (asdf:oos 'asdf:load-op :asdf-binary-locations)
-                                                 (when *init-verbose*
-                                                   (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
-                                                 (pushnew :asdf-binary-locations *features*))
-                              (error ()
-                                (when *init-verbose*
-                                  (format t "~&Pushing /data/lisp/asdf-install/site/asdf-binary-locations/ to asdf:*central-registry* ~%"))
-                                (push #P"/data/lisp/asdf-install/site/asdf-binary-locations/"
-                                      asdf:*central-registry*)
-                                (progn (when *init-verbose*
-                                         (format t "~&Asdf loading asdf-binary-locations ~%"))
-                                       (asdf:oos 'asdf:load-op :asdf-binary-locations)
-                                       (when *init-verbose*
-                                         (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
-                                       (pushnew :asdf-binary-locations *features*)))))
-                          
-                          #2#
-
-                          (sharp + :has-asdf-enable-asdf-binary-locations-compatibility)
-                          (progn
-                            (when *init-verbose*
-                              (format t "~&Using asdf:enable-asdf-binary-locations-compatibility ~%"))
-                            (asdf:enable-asdf-binary-locations-compatibility
-                             :centralize-lisp-binaries     t
-                             :default-toplevel-directory   (truename
-                                                            (merge-pathnames
-                                                             (format nil ".cache/common-lisp/~A/" (hostname))
-                                                             (user-pathname) nil))
-                             :include-per-user-information nil
-                             ;; :map-all-source-files ???
-                             :source-to-target-mappings    nil))
-                          
-                          (sharp + (:and (:not :has-asdf-enable-asdf-binary-locations-compatibility)
-                                    :asdf-binary-locations))
-                          (progn
-                            (when *init-verbose*
-                              (format t "~&Using asdf-binary-locations ~%"))
-                            (setf asdf:*centralize-lisp-binaries*     t
-                                  asdf:*include-per-user-information* nil
-                                  asdf:*default-toplevel-directory*
-                                  (truename (merge-pathnames
-                                             (format nil ".cache/common-lisp/~A/" (hostname))
-                                             (user-pathname) nil))
-                                  asdf:*source-to-target-mappings* '()))
-
-                          (sharp - (:or :has-asdf-enable-asdf-binary-locations-compatibility :asdf-binary-locations))
-                          (error "ASDF-BINARY-LOCATIONS is not available.")))
-            
-            (if (and (listp form) (eql 'sharp (first form)))
-                (format src "~2%#~A~S " (second form) (third form))
-                (pprint form src))))))))
-
-
-(if *asdf*
-    (dolist (sym *asdf-added-symbols*)
-      (unintern sym *asdf*))
-    (delete-package "ASDF"))
+(let ((asdf-conf-path (make-pathname :directory '(:relative ".config" "common-lisp")
+                                     :name "asdf-output-translations"
+                                     :type "conf"
+                                     :case :local
+                                     :defaults (user-homedir-pathname))))
+  (unless (ignore-errors (probe-file asdf-conf-path))
+    (ensure-directories-exist asdf-conf-path)
+    (with-open-file (asdfconf asdf-conf-path
+                              :direction :output
+                              :if-does-not-exist :create
+                              :if-exists nil
+                              :external-format :default)
+      (princ
+       ";; -*- mode:lisp -*-
+\(:output-translations
+ :ignore-invalid-entries
+ (t (:home \".cache\" \"common-lisp\" :hostname :implementation))
+ (t (:home \".cache\" \"common-lisp\" :implementation))
+ :inherit-configuration)
+"
+       asdfconf))))
 
 
 ;;;----------------------------------------------------------------------
@@ -341,9 +211,6 @@ License:
   (if (probe-file quicklisp)
       (load quicklisp)
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
-
-
-;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 
 
 (defun print-systems (systems pattern)
@@ -855,17 +722,17 @@ either scanned, or from the cache."
 ;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
 ;;                       :inherit-configuration))
 
-#-abcl (asdf-load  :com.informatimago.common-lisp)
-#-abcl (asdf-load  :com.informatimago.clmisc)
+#-abcl (ql:quickload  :com.informatimago.common-lisp)
+#-abcl (ql:quickload  :com.informatimago.clmisc)
 
 #-(or abcl ccl cmu ecl sbcl)
-(asdf-load  :com.informatimago.clext)
+(ql:quickload  :com.informatimago.clext)
 
 #-(and)
-(asdf-load  :com.informatimago.clisp)
+(ql:quickload  :com.informatimago.clisp)
 
 #-(and)
-(asdf-load  :com.informatimago.susv3)
+(ql:quickload  :com.informatimago.susv3)
 
 
 ;;;----------------------------------------------------------------------
