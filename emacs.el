@@ -1338,6 +1338,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "<prior>")       'scroll-down)
   (global-set-key (kbd "<next>")        'scroll-up))
 
+;; http://paste.lisp.org/display/10157
+
 (defun swap-brackets-parens ()
   (interactive)
   (keyboard-translate ?\( ?\[)
@@ -2795,6 +2797,12 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   ;;   (local-set-key "{"  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "|"  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "\"" 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "M-[") 'paredit-wrap-square)
+  (local-set-key (kbd "M-{") 'paredit-wrap-curly)
+  (modify-syntax-entry ?\[ "()" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\] ")(" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\{ "()" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\} ")(" lisp-mode-syntax-table)
   (when (fboundp 'column-marker-1) (column-marker-1 80))
   (add-hook 'comint-preoutput-filter-functions (function pjb-comint-preoutput-insert-image))
   (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" (0 font-lock-builtin-face))))
@@ -5525,6 +5533,7 @@ See the documentation for vm-mode for more information."
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
     (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
     (intersection   . "Have a look at http://paste.lisp.org/display/122296 (intersection common-lisp emacs-lisp scheme)")
+    (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
     (emacs-lisp-intro . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp       . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
@@ -6832,6 +6841,19 @@ Attribution: ?"
 (setf grep-find-command "find . -name \\*.lisp -print0 | xargs -0  grep -niH -e "
       grep-host-defaults-alist nil)
 
+
+
+(defun pwfind (start end)
+  (interactive "r")
+  (message (format "%S" (list start end)))
+  (let ((what (if (and (region-active-p) (< start end))
+                  (buffer-substring-no-properties start end)
+                  (progn
+                    (backward-sexp)
+                    (thing-at-point-no-properties 'symbol)))))
+   (find-grep
+    (format "find ~/works/patchwork/patchwork/src/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
+(global-set-key (kbd "H-/") 'pwfind)
 
 (defun next-day (date)
   "Returns the next day.
