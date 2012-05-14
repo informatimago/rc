@@ -157,7 +157,7 @@
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "yellow3"))))
- '(erc-notice-face ((t (:foreground "gray30"))))
+ '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
@@ -273,7 +273,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lispcafe" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -336,7 +336,7 @@
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
- '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))))
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
  '(ido-enable-flex-matching nil)
  '(indent-tabs-mode nil)
  '(inferior-lisp-filter-regexp "\\`\\s*\\'")
@@ -420,11 +420,11 @@ X-Accept-Language:         fr, es, en
  '(pop-up-windows nil)
  '(pr-faces-p t)
  '(print-gensym t t)
- '(printer-name "normal_gray")
+ '(printer-name "normal_gray" t)
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4))
+ '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
  '(ps-printer-name "normal_gray")
@@ -469,7 +469,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
  '(tab-width 4)
- '(tags-table-list (quote nil))
+ '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -647,10 +647,35 @@ WELCOME TO EMACS!
      (setq   ,symbol ,initvalue)))
 
 
-(defun string* (x) (etypecase x
-                     (integer (string x))
-                     (symbol (symbol-name x))
-                     (string  x)))
+
+
+
+(defun symbol-name* (sym)
+  (let* ((name (symbol-name sym))
+         (colon (position (character ":") name)))
+    (cond 
+      ((and colon (char= (character ":") (char name (1+ colon))))
+       (subseq name (+ 2 colon)))
+      (colon
+       (subseq name (+ 1 colon)))
+      (t name))))
+
+(defun string* (x)
+  "Common-Lisp: If X is a string, then X, else if it's a symbol, then (symbol-name* X)
+X---a string, a symbol, or a character.
+
+Returns a string described by x; specifically:
+
+    * If X is a string, it is returned.
+    * If X is a symbol, its name is returned.
+    * If X is a character, then a string containing that one character is returned.
+    * string might perform additional, implementation-defined conversions.
+"
+  (cond
+    ((stringp x) x)
+    ((symbolp x) (symbol-name* x))
+    ((characterp x) (make-string* 1 :initial-element x))
+    (t (signal 'type-error "Expected a string, a symbol or a character."))))
 (defun string-downcase (x) (downcase (string* x)))
 (defun string-upcase   (x) (upcase   (string* x)))
 
@@ -678,7 +703,7 @@ WELCOME TO EMACS!
 
 (defun string-right-trim (character-bag string-designator)
   "Common-Lisp: returns a substring of string, with all characters in \
-character-bag stripped off the end.
+`character-bag' stripped off the end.
 
 "
   (unless (sequencep character-bag)
@@ -1049,6 +1074,17 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (load "paredit")
 
+(defun pjb-paredit-space-for-delimiter-p/sharp-plus-minus (endp delimiter)
+  (not (and (not endp)
+            (let ((two-before  (- (point) 2)))
+              (and (<= (point-min) two-before)
+                   (let ((previous (buffer-substring two-before (point))))
+                     (and (or (string= previous "#+")  (string= previous "#-"))
+                          (or (= (point-min) two-before)
+                              (not (memq (char-syntax (aref (buffer-substring two-before (1+ two-before)) 0))
+                                         (list ?w ?_)))))))))))
+
+(push 'pjb-paredit-space-for-delimiter-p/sharp-plus-minus paredit-space-for-delimiter-predicates)
 
 ;;;----------------------------------------------------------------------------
 ;;; CEDET / EIEIO
@@ -2791,6 +2827,9 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "A-g")         'paredit-forward-barf-sexp)
   (local-set-key (kbd "C-M-U")       'paredit-beginning-of-toplevel-form)
   (local-set-key (kbd "C-M-N")       'paredit-end-of-toplevel-form)
+  (local-set-key (kbd "C-x C-r g")   'redshank-make-defgeneric-from-defmethod)
+  (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
+  (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
@@ -4068,6 +4107,388 @@ URL in a new window."
   (eval-after-load "redshank-loader"
     `(redshank-setup '(lisp-mode-hook
                        slime-repl-mode-hook) t)))
+
+
+(defun redshank-looking-at-symbol (sym)
+  (forward-sexp)
+  (backward-sexp)
+  (string-equal* sym (symbol-at-point)))
+
+(defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
+  (paredit-wrap-sexp)
+  (insert (format "defgeneric %S %S\n" fname gf-lambda-list))
+  (when docstring (insert (format "  (:documentation %S)" docstring))))
+
+(defun redshank-generalize-lambda-list (specialized-lambda-list)
+  (let ((end (position '&aux specialized-lambda-list)))
+    (mapcar (lambda (item)
+              (if (atom item)
+                  item
+                  (let ((kv (first item)))
+                    (if (atom kv)
+                        kv
+                        (second kv)))))
+            (if end
+                (subseq specialized-lambda-list 0 end)
+                specialized-lambda-list))))
+
+(defun redshank-current-sexp ()
+  (forward-sexp)
+  (backward-sexp)
+  (sexp-at-point))
+
+(defun redshank-next-sexp ()
+  (forward-sexp 2)
+  (backward-sexp)
+  (sexp-at-point))
+
+
+(defun pjb-cl-equal-cl-symbol (cl-symbol item)
+  (and  (char/= ?: (aref (prin1-to-string item) 0))
+   (or (string-equal* item cl-symbol)
+       (string-equal* item (format "CL:%s"           cl-symbol))
+       (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
+       (string-equal* item (format "CL::%s"          cl-symbol))
+       (string-equal* item (format "COMMON-LISP::%s" cl-symbol)))))
+
+
+(defun pjb-cl-equal-cl-keyword (cl-keyword item)
+  (and (string-equal* cl-keyword item)
+       (string-equal* "KEYWORD" (symbol-package item))))
+
+
+(defun redshank-make-defgeneric-from-defmethod ()
+  "
+The point must be before the defmethod form.
+The method is then wrapped in a defgeneric form.
+If there's a docstring, it's moved to the :documentation option of the
+defgeneric.
+"
+  (interactive)
+  (forward-sexp) (backward-sexp)
+  (let ((outerpt (point)))
+    (when (looking-at "(")
+      (forward-char)
+      (let ((startpt (point)))
+        (when (pjb-cl-equal-cl-symbol 'defmethod (redshank-current-sexp))
+          (let* ((fname          (redshank-next-sexp))
+                 (qualifier      (redshank-next-sexp))
+                 (endpt          (point))
+                 (gf-lambda-list (redshank-generalize-lambda-list
+                                  (if (symbolp qualifier)
+                                      (redshank-next-sexp)
+                                      qualifier)))
+                 (docstring      (let ((str (redshank-next-sexp)))
+                                   (when (stringp str)
+                                     str)))
+                 (doc-start      (when docstring
+                                   (point)))
+                 (doc-end        (when docstring
+                                   (redshank-next-sexp)
+                                   (point))))
+            ;; first delete the method docstring
+            (when (and doc-start doc-end)
+              (delete-region doc-start doc-end))
+            ;; then delete defmethod and fname
+            (delete-region startpt endpt)
+            ;; and insert :method instead
+            (goto-char startpt)
+            (insert ":method ")
+            ;; finally wrap the defgeneric
+            (goto-char outerpt)
+            (redshank-wrap-defgeneric fname
+                                      gf-lambda-list
+                                      docstring)
+            (insert "\n")
+            (paredit-reindent-defun)))))))
+
+
+
+
+
+
+(defun pjb-cl-find-defpackage-form (package-name)
+  "Find the defpackage form for the given `package-name' in the current buffer.
+RETURN:  The point at the start of the defpackage sexp, or NIL if not found.
+NOTE:    Excursion is saved.
+"
+  (save-excursion
+    (goto-char (point-min))
+    (forward-sexp)
+    (loop
+       do (let ((form (progn (backward-sexp) (redshank-current-sexp))))
+            (when (and (listp form)
+                       (pjb-cl-equal-cl-symbol 'defpackage (car form))
+                       (string-equal* (second form) package-name))
+              (return  (point)))
+            (forward-sexp 2))
+       while (< (point) (point-max))
+       finally (return nil))))
+
+
+(defun pjb-cl-package-files ()
+  "RETURN: A list of files named *package*.lisp and the current buffer file."
+  (let ((current-file (buffer-file-name)))
+    (append
+     (when current-file (list current-file))
+     (file-expand-wildcards
+      (replace-regexp-in-string "//" "/"
+                                (format "%s/*package*.lisp" default-directory))))))
+
+
+(defvar pjb-cl-package-files 'pjb-cl-package-files
+  "The function used to get a list of files where there are defpackage forms.
+The default function only searches in the current file and in
+\"*package*.lisp\" in the same directory.")
+
+
+(defun* pjb-cl-find-package-file (package-name &key (if-does-not-exist nil))
+  "Find the file where the current package is defined.
+Search the current buffer and files named *package*.lisp in the default directory.
+
+IF-DOES-NOT-EXIST:  can be :error, :file or another value.
+
+RETURN: If a defpackage form is found for the current package (path point).
+NOTE:   The searched files are left open.  Excursion is saved.
+"
+  (let ((pos (pjb-cl-find-defpackage-form package-name)))
+    (if pos
+        (list (buffer-file-name) pos)
+        (save-excursion
+          (loop
+             with files = (funcall pjb-cl-package-files)
+             for file in files
+             do (progn
+                  (find-file file)
+                  (let ((pos (pjb-cl-find-defpackage-form package-name)))
+                    (when pos
+                      (return (list file pos)))))
+             finally ; doesn't exist
+               (return (case if-does-not-exist
+                         (:error (error "No file with (defpackage %S) found." package-name))
+                         (:file  (or (first files) (buffer-file-name)))
+                         (otherwise if-does-not-exist))))))))
+
+
+(defun pjb-cl-package-designator (name)
+  (funcall redshank-canonical-package-designator-function
+           (etypecase name
+             (symbol (symbol-name name))
+             (string name))))
+
+
+(defun* pjb-cl-insert-defpackage (name &key
+                                       (nicknames '())
+                                       (documentation nil)
+                                       (use '("COMMON-LISP"))
+                                       (shadow '())
+                                       (shadowing-import-from '())
+                                       (import-from '())
+                                       (export '())
+                                       (intern '())
+                                       (size   nil))
+  (flet ((insert-option (option items)
+           (insert (format "\n  (%s" option))
+           (when (listp items)
+             (dolist (name items)
+               (insert (format  " %s" (pjb-cl-package-designator name)))))
+           (insert ")")))
+    (insert (format  "(defpackage %s" (pjb-cl-package-designator name)))
+    (when nicknames             (insert-option :nicknames nicknames))
+    (when documentation         (insert (format "\n  (:documentation %S)" documentation)))
+    (insert-option :use use)
+    (when shadow                (insert-option :shadow shadow))
+    (when shadowing-import-from (insert-option :shadowing-import-from shadowing-import-from))
+    (when import-from           (insert-option :import-from import-from))
+    (when export                (insert-option :export export))
+    (when intern                (insert-option :intern intern))
+    (when size                  (insert (format "\n  (:size %s)")))
+    (insert ")\n")))
+
+
+(defun pjb-cl-find-export-point ()
+  "Find the file where the current package is defined, and in it, the
+point where one can insert an exported symbol.  If there's no :export
+clause, add one in the defpackage form.  If there's no defpackage
+form, then error out.
+RETURN: (path point)
+"
+  (let* ((package-name   (first (read-from-string (slime-current-package))))
+         (file-defpackpt (pjb-cl-find-package-file package-name :if-does-not-exist :file)))
+    (when file-defpackpt
+      (save-excursion ; in case it's in the same file.
+        (destructuring-bind (file defpackpt)
+            (if (stringp file-defpackpt)
+                (progn ; a new defpackage form is needed in that file.
+                  (find-file file-defpackpt)
+                  (save-excursion
+                    (goto-char (point-min))
+                    (forward-sexp)
+                    (backward-sexp)
+                    (prog1 (list file-defpackpt (point))
+                      (pjb-cl-insert-defpackage package-name
+                                                :documentation "\nUndocumented yet.\n"
+                                                :export t)
+                      (insert "\n"))))
+                file-defpackpt)
+          ;; we can insert into that defpackage form.
+          (find-file file)
+          (let ((pt (point)))
+            (goto-char defpackpt) ; looking at the defpackage form.
+            (let ((defpack (redshank-current-sexp)))
+              (unless (ignore-errors (find :export (cddr defpack) :key (function first)))
+                ;; no export
+                (forward-char) (forward-sexp 2)
+                (insert "\n(:export)"))
+              ;; there's an export
+              (goto-char defpackpt)
+              (forward-char)
+              (forward-sexp)
+              (loop
+                 for sexp = (redshank-next-sexp)
+                 until (string-equal* (car sexp) :export))
+              (let ((start (prog1 (point) (forward-sexp)))
+                    (end   (prog1 (point) (backward-sexp))))
+                (forward-char)
+                (forward-sexp) 
+                (loop
+                   with target = (if (and (< start pt) (< pt end))
+                                     pt ; current point inside the export.
+                                     (1- end)) ; current point ouside the export.
+                   for lastpt = (point)
+                   while (and (ignore-errors (progn (forward-sexp) t))
+                              (< (point) target))
+                   finally (return (list file lastpt)))))))))))
+
+
+(defun pjb-cl-export-symbols (symbol-list)
+  (destructuring-bind (file point) (pjb-cl-find-export-point)
+    (find-file file)
+    (goto-char point)
+    (dolist (sym symbol-list)
+      (insert (format "\n   %s" (pjb-cl-package-designator sym))))))
+
+
+(defun pjb-cl-export-symbol-at-point ()
+  "Insert into the defpackage form an export of the symbol following the point."
+  (interactive)
+  (save-window-excursion
+    (save-excursion
+     (forward-sexp) (backward-sexp)
+     (pjb-cl-export-symbols (list (symbol-at-point))))))
+
+
+(defun pjb-cl-function-name-symbol (name)
+  "RETURN: the symbol of a function name (either itself or the second element of (setf name))."
+  (cond ((and (listp name)
+              (<= 2 (length name))
+              (pjb-cl-equal-cl-symbol 'setf (first name))
+              (symbolp (second name)))
+         (second name))
+        ((symbolp name)
+         name)
+        (t
+         (error "~S is not a function name" name))))
+
+
+(defun pjb-cl-defstruct-symbols (form)
+  "Return a list of symbol names defined by the defstruct FORM."
+  (let* ((name         (second form))
+         (uname        (string-upcase (if (listp name)
+                                          (first name)
+                                          name)))
+         (conc-name    (format "%s-" uname))
+         (constructors (list (format "MAKE-%s" uname)))
+         (copier       (format "COPY-%s" uname))
+         (predicate    (format "%s-P" uname)))
+    (when (listp name)
+      (loop
+         for option in (rest name)
+         do (if (atom option)
+                (case option
+                  (:conc-name   (setf conc-name    ""))
+                  (:constructor (setf constructors (pushnew (format "MAKE-%s" uname) constructors
+                                                            :test (function string=))))
+                  (:copier      (setf copier       nil))
+                  (:predicate   (setf predicate    nil)))
+                (case (first option)
+                  (:conc-name   (setf conc-name (or (and (second option)
+                                                         (string-upcase (second option)))
+                                                    "")))
+                  (:constructor (cond
+                                  ((null (rest option))
+                                   (pushnew (format "MAKE-%s" uname) constructors
+                                            :test (function string=)))
+                                  ((null (second option))
+                                   (setf constructors '()))
+                                  (t
+                                   (pushnew (string-upcase (second option)) constructors
+                                            :test (function string=)))))
+                  (:copier      (setf copier       (and (second option)
+                                                        (string-upcase (second option)))))
+                  (:predicate   (setf predicate    (and (second option)
+                                                        (string-upcase (second option)))))))))
+    (append (list uname)
+            constructors
+            (when predicate (list predicate))
+            (when copier    (list copier))
+            (mapcar (lambda (field)
+                      (format "%s%s"
+                              conc-name
+                              (string-upcase
+                               (if (listp field)
+                                   (first field)
+                                   field))))
+                    (cddr form)))))
+
+
+(defun pjb-cl-defclass-symbols (form)
+  "Return a list of symbol names defined by the defclass or define-condition FORM."
+  (cons (second form)
+        (mapcan (lambda (slot)
+                  (when (listp slot)
+                    (loop
+                       for (key name) on (cdr slot) by (function cddr)
+                       when (or (pjb-cl-equal-cl-keyword :reader   key)
+                                (pjb-cl-equal-cl-keyword :writer   key)
+                                (pjb-cl-equal-cl-keyword :accessor key))
+                       collect (pjb-cl-function-name-symbol name))))
+                (fourth form))))
+
+
+(defun pjb-cl-export-definition-at-point ()
+  "Insert into the defpackage form an export of the symbols defined by the form the point."
+  (interactive)
+  (save-window-excursion
+   (save-excursion
+     (forward-sexp) (backward-sexp)
+     (let ((form (sexp-at-point)))
+       (cond
+         ((symbolp form) (pjb-cl-export-symbols (list form)))
+         ((atom form)    (error "Cannot export a %S" (type-of form)))
+         (t (cond
+              ((and (pjb-cl-equal-cl-symbol 'defstruct (first form))
+                    (<= 2 (length form)))
+               (pjb-cl-export-symbols (pjb-cl-defstruct-symbols form)))
+              ((and (or (pjb-cl-equal-cl-symbol 'defclass         (first form))
+                        (pjb-cl-equal-cl-symbol 'define-condition (first form)))
+                    (<= 4 (length form)))
+               (pjb-cl-export-symbols (pjb-cl-defclass-symbols form)))
+              ((and (or (pjb-cl-equal-cl-symbol 'defun      (first form))
+                        (pjb-cl-equal-cl-symbol 'defmacro   (first form))
+                        (pjb-cl-equal-cl-symbol 'defmethod  (first form))
+                        (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
+                    (<= 2 (length form)))
+               (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
+              ((and (string-equal* "def" (first form)
+                                   :end2 (min 3 (length (prin1-to-string (first form)))))
+                    (<= 2 (length form))
+                    (symbolp (second form)))
+               (pjb-cl-export-symbols (list (second form))))
+              (t
+               (error "No recognized form.")))))))))
+
+
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "Common Lisp indenting")
@@ -5535,6 +5956,7 @@ See the documentation for vm-mode for more information."
     (intersection   . "Have a look at http://paste.lisp.org/display/122296 (intersection common-lisp emacs-lisp scheme)")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
+    (getting-started  . "Start with http://www.cliki.net/Getting%20Started")
     (emacs-lisp-intro . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp       . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
     (emacs-manual     . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
@@ -5563,6 +5985,7 @@ See the documentation for vm-mode for more information."
     (geb       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
     (blt       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
     (casting   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
+    (spell     . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
 
     (gitorious-lisp  . "https://gitorious.org/com-informatimago/com-informatimago/trees/master")
     (gitorious-emacs . "https://gitorious.org/com-informatimago/emacs/trees/master")
@@ -5652,9 +6075,14 @@ License:
     ("\\<cky\\>"          . "C. K. Y.")
     ("\\<pjb\\>"          . "Pascal")
     ("\\<H4ns\\>"         . "Hans")
-    ("\\<Corman[0-9]+\\>" . "Corman")))
+    ("\\<Corman[0-9]+\\>" . "Corman"))
+  "An a-list mapping regexps of nicks to the corresponding text to be read aloud.")
+
 
 (defun pjb-erc-spoken-nick (nick)
+  "
+RETURN:  The text to be read aloud for the `nick' in `*pjb-erc-spoken-nicks*'.
+"
   (let ((entry (assoc* nick *pjb-erc-spoken-nicks*
                        :test (lambda (nick ref) (string-match ref nick)))))
     (if entry
