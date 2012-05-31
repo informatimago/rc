@@ -171,11 +171,13 @@ License:
 ;;; ASDF-CONFIGURATION
 ;;;
 
-(let ((asdf-conf-path (make-pathname :directory '(:relative ".config" "common-lisp")
-                                     :name "asdf-output-translations"
-                                     :type "conf"
-                                     :case :local
-                                     :defaults (user-homedir-pathname))))
+(let ((asdf-conf-path (merge-pathnames
+                       (make-pathname :directory '(:relative ".config" "common-lisp")
+                                      :name "asdf-output-translations"
+                                      :type "conf"
+                                      :case :local
+                                      :defaults (user-homedir-pathname))
+                       (user-homedir-pathname) nil)))
   (unless (ignore-errors (probe-file asdf-conf-path))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
