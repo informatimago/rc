@@ -77,13 +77,14 @@
 (require 'tramp nil t)
 
 
-
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))
       '((scroll-bar-mode     -1)
         (menu-bar-mode       -1)
         (tool-bar-mode       -1)
         (transient-mark-mode +1)))
+
+;; (progn (scroll-bar-mode -1) (menu-bar-mode -1) (tool-bar-mode -1) (transient-mark-mode +1))
 
 (defun mac-vnc-keys ()
   (interactive)
@@ -139,6 +140,7 @@
 (mouse-avoidance-mode 'cat-and-mouse)
 
 (require 'rst)
+(require 'rst-mode nil t)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -157,7 +159,7 @@
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "yellow3"))))
- '(erc-notice-face ((t (:foreground "gray70"))))
+ '(erc-notice-face ((t (:foreground "gray30"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
@@ -273,7 +275,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lispcafe" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -286,6 +288,8 @@
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list (quote nil))
+ '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
@@ -326,7 +330,7 @@
 ]*\\(fido7\\|relcom\\)\\.[^,]*\\)*$" koi8-r (koi8-r)) (message-this-is-mail nil nil) (message-this-is-news iso-8859-15 (iso-8859-15)))))
  '(gnus-ignored-headers (quote ("^Path:" "^Expires:" "^Date-Received:" "^References:" "^Xref:" "^Lines:" "^Relay-Version:" "^Approved:" "^Sender:" "^Received:" "^X-UIDL:" "^MIME-Version:" "^Return-Path:" "^In-Reply-To:" "^Content-Type:" "^Content-Transfer-Encoding:" "^X-WebTV-Signature:" "^X-MimeOLE:" "^X-MSMail-Priority:" "^X-Priority:" "^X-Loop:" "^X-Authentication-Warning:" "^X-MIME-Autoconverted:" "^X-Face:" "^X-Attribution:" "^X-Originating-IP:" "^Delivered-To:" "^NNTP-[-A-Za-z]+:" "^Distribution:" "^X-no-archive:" "^X-Trace:" "^X-Complaints-To:" "^X-NNTP-Posting-Host:" "^X-Orig.*:" "^Abuse-Reports-To:" "^Cache-Post-Path:" "^X-Article-Creation-Date:" "^X-Poster:" "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:" "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:" "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:" "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:" "^Autoforwarded:" "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:" "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:" "^Content-length:" "^X-precedence:" "^X-Authenticated-User:" "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:" "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:" "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:" "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:" "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:" "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:" "^X-Received-Date:" "^X-Hashcash:" "^Face:" "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:")))
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
- '(gnus-nntp-server nil)
+ '(gnus-nntp-server "news.individual.net")
  '(gnus-play-startup-jingle nil)
  '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
@@ -452,7 +456,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -469,7 +473,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
  '(tab-width 4)
- '(tags-table-list (quote nil) t)
+ '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -1449,6 +1453,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c <f6>")      'force-set-justification-full)
   (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
 
+  (global-set-key (kbd "M-g g")         'goto-char)
+  
   (global-set-key (kbd "<f8>")          'pjb-show-lisp-repl)
   (global-set-key (kbd "C-<f8>")         (lambda () (interactive) (pjb-show-lisp-repl t)))
 
@@ -2817,16 +2823,17 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "<A-up>")      'backward-up-list)
   (local-set-key (kbd "<A-down>")    'down-list)
   (paredit-mode +1)
-  (local-set-key (kbd "<s-A-left>")  'paredit-backward-barf-sexp)
-  (local-set-key (kbd "<s-A-right>") 'paredit-backward-slurp-sexp)
-  (local-set-key (kbd "<A-right>")   'paredit-forward-slurp-sexp)
-  (local-set-key (kbd "<A-left>")    'paredit-forward-barf-sexp)
+  (local-set-key (kbd "s-A-<left>")  'paredit-backward-barf-sexp)
+  (local-set-key (kbd "s-A-<right>") 'paredit-backward-slurp-sexp)
+  (local-set-key (kbd "A-<right>")   'paredit-forward-slurp-sexp)
+  (local-set-key (kbd "A-<left>")    'paredit-forward-barf-sexp)
   (local-set-key (kbd "A-s")         'paredit-backward-barf-sexp)
   (local-set-key (kbd "A-d")         'paredit-backward-slurp-sexp)
   (local-set-key (kbd "A-f")         'paredit-forward-slurp-sexp)
   (local-set-key (kbd "A-g")         'paredit-forward-barf-sexp)
   (local-set-key (kbd "C-M-U")       'paredit-beginning-of-toplevel-form)
   (local-set-key (kbd "C-M-N")       'paredit-end-of-toplevel-form)
+  (local-set-key (kbd "C-M-<backspace>") 'backwards-kill-sexp)
   (local-set-key (kbd "C-x C-r g")   'redshank-make-defgeneric-from-defmethod)
   (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
@@ -4459,34 +4466,38 @@ RETURN: (path point)
 (defun pjb-cl-export-definition-at-point ()
   "Insert into the defpackage form an export of the symbols defined by the form the point."
   (interactive)
-  (save-window-excursion
-   (save-excursion
-     (forward-sexp) (backward-sexp)
-     (let ((form (sexp-at-point)))
-       (cond
-         ((symbolp form) (pjb-cl-export-symbols (list form)))
-         ((atom form)    (error "Cannot export a %S" (type-of form)))
-         (t (cond
-              ((and (pjb-cl-equal-cl-symbol 'defstruct (first form))
-                    (<= 2 (length form)))
-               (pjb-cl-export-symbols (pjb-cl-defstruct-symbols form)))
-              ((and (or (pjb-cl-equal-cl-symbol 'defclass         (first form))
-                        (pjb-cl-equal-cl-symbol 'define-condition (first form)))
-                    (<= 4 (length form)))
-               (pjb-cl-export-symbols (pjb-cl-defclass-symbols form)))
-              ((and (or (pjb-cl-equal-cl-symbol 'defun      (first form))
-                        (pjb-cl-equal-cl-symbol 'defmacro   (first form))
-                        (pjb-cl-equal-cl-symbol 'defmethod  (first form))
-                        (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
-                    (<= 2 (length form)))
-               (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
-              ((and (string-equal* "def" (first form)
-                                   :end2 (min 3 (length (prin1-to-string (first form)))))
-                    (<= 2 (length form))
-                    (symbolp (second form)))
-               (pjb-cl-export-symbols (list (second form))))
-              (t
-               (error "No recognized form.")))))))))
+  (let ((pt (point)))
+    (save-window-excursion
+      (forward-sexp)
+      (setf pt (point))
+      (backward-sexp)
+      (let ((form (sexp-at-point)))
+        (cond
+          ((null form)    (error "Cannot find a sexp at point (possibly because of a reader macro in it)."))
+          ((symbolp form) (pjb-cl-export-symbols (list form)))
+          ((atom form)    (error "Cannot export a %S" (type-of form)))
+          (t (cond
+               ((and (pjb-cl-equal-cl-symbol 'defstruct (first form))
+                     (<= 2 (length form)))
+                (pjb-cl-export-symbols (pjb-cl-defstruct-symbols form)))
+               ((and (or (pjb-cl-equal-cl-symbol 'defclass         (first form))
+                         (pjb-cl-equal-cl-symbol 'define-condition (first form)))
+                     (<= 4 (length form)))
+                (pjb-cl-export-symbols (pjb-cl-defclass-symbols form)))
+               ((and (or (pjb-cl-equal-cl-symbol 'defun      (first form))
+                         (pjb-cl-equal-cl-symbol 'defmacro   (first form))
+                         (pjb-cl-equal-cl-symbol 'defmethod  (first form))
+                         (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
+                     (<= 2 (length form)))
+                (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
+               ((and (string-equal* "def" (first form)
+                                    :end2 (min 3 (length (prin1-to-string (first form)))))
+                     (<= 2 (length form))
+                     (symbolp (second form)))
+                (pjb-cl-export-symbols (list (second form))))
+               (t
+                (error "No recognized form.")))))))
+    (goto-char pt)))
 
 
 
@@ -5945,6 +5956,146 @@ See the documentation for vm-mode for more information."
 ;; (t t nil)
 
 
+;;;----------------------------------------------------------------------------
+
+(defcustom erc-ignore-per-channel-alist nil
+  "*A-List of regexps matching user identifiers to ignore, for each channel.
+
+Some users are obnoxious only in some channels (eg. rudybot on #emacs).
+
+A user identifier has the form \"nick!login@host\".  If an
+identifier matches, the message from the person will not be
+processed."
+  :group 'erc-ignore
+  :type '(repeat (cons string regexp)))
+
+(defcustom erc-ignore-per-channel-reply-alist nil
+  "*A-List of regexps matching user identifiers to ignore completely, for each channel.
+
+Some users are obnoxious only in some channels (eg. rudybot on #emacs).
+
+
+This differs from `erc-ignore-list' in that it also ignores any
+messages directed at the user.
+
+A user identifier has the form \"nick!login@host\".
+
+If an identifier matches, or a message is addressed to a nick
+whose identifier matches, the message will not be processed.
+
+CAVEAT: ERC doesn't know about the user and host of anyone who
+was already in the channel when you joined, but never said
+anything, so it won't be able to match the user and host of those
+people.  You can update the ERC internal info using /WHO *."
+  :group 'erc-ignore
+  :type '(repeat (cons string regexp)))
+
+;; ;; Note: it would be better to have  per-server-per-channel variables…
+;; (make-variable-buffer-local 'erc-ignore-per-channel-list) ; in server buffers.
+;; (make-variable-buffer-local 'erc-ignore-per-channel-reply-list) ; in server buffers.
+
+
+(defun erc-ignored-user-in-channel-p (msg tgt spec)
+  "Return non-nil if SPEC matches something in `erc-ignore-list'.
+
+Takes a full SPEC of a user in the form \"nick!login@host\", and
+matches against all the regexp's in `erc-ignore-list'.  If any
+match, returns that regexp."
+  (loop
+     for (channel . regexp) in (erc-with-server-buffer erc-ignore-per-channel-alist)
+     thereis (and (string= channel tgt)
+                  (string-match regexp spec))))
+
+
+(defun erc-message-target (msg)
+  "Return the addressed target in MSG.
+
+The addressed target is the string before the first colon in MSG."
+  (if (string-match "^\\([^:, \n]*\\):" msg)
+      (match-string 1 msg)
+    nil))
+
+
+(defun erc-ignored-reply-p (msg tgt proc)
+  ;; FIXME: this docstring needs fixing -- Lawrence 2004-01-08
+  "Return non-nil if MSG matches something in `erc-ignore-reply-list'.
+
+Takes a message MSG to a channel and returns non-nil if the addressed
+user matches any regexp in `erc-ignore-reply-list'."
+  (let ((target-nick (erc-message-target msg)))
+    (if (not target-nick)
+        nil
+        (erc-with-buffer (tgt proc)
+          (let ((user (erc-get-server-user target-nick)))
+            (when user
+              (let ((spec (erc-user-spec user)))
+                (or (erc-list-match erc-ignore-reply-list spec)
+                    (loop
+                       for (channel . regexp) in (erc-with-server-buffer erc-ignore-per-channel-reply-alist)
+                       thereis (and (string= channel tgt)
+                                    (string-match regexp spec)))))))))))
+
+
+(define-erc-response-handler (PRIVMSG NOTICE)
+    "Handle private messages, including messages in channels." nil
+    (let ((sender-spec (erc-response.sender parsed))
+          (cmd (erc-response.command parsed))
+          (tgt (car (erc-response.command-args parsed)))
+          (msg (erc-response.contents parsed)))
+      (if (or (erc-ignored-user-p                    sender-spec)
+              (erc-ignored-user-in-channel-p msg tgt sender-spec)
+              (erc-ignored-reply-p           msg tgt proc))
+          (when erc-minibuffer-ignored
+            (message "Ignored %s from %s to %s" cmd sender-spec tgt))
+          (let* ((sndr (erc-parse-user sender-spec))
+                 (nick (nth 0 sndr))
+                 (login (nth 1 sndr))
+                 (host (nth 2 sndr))
+                 (msgp (string= cmd "PRIVMSG"))
+                 (noticep (string= cmd "NOTICE"))
+                 ;; S.B. downcase *both* tgt and current nick
+                 (privp (erc-current-nick-p tgt))
+                 s buffer
+                 fnick)
+            (setf (erc-response.contents parsed) msg)
+            (setq buffer (erc-get-buffer (if privp nick tgt) proc))
+            (when buffer
+              (with-current-buffer buffer
+                ;; update the chat partner info.  Add to the list if private
+                ;; message.  We will accumulate private identities indefinitely
+                ;; at this point.
+                (erc-update-channel-member (if privp nick tgt) nick nick
+                                           privp nil nil host login nil nil t)
+                (let ((cdata (erc-get-channel-user nick)))
+                  (setq fnick (funcall erc-format-nick-function
+                                       (car cdata) (cdr cdata))))))
+            (cond
+              ((erc-is-message-ctcp-p msg)
+               (setq s (if msgp
+                           (erc-process-ctcp-query proc parsed nick login host)
+                           (erc-process-ctcp-reply proc parsed nick login host
+                                                   (match-string 1 msg)))))
+              (t
+               (setcar erc-server-last-peers nick)
+               (setq s (erc-format-privmessage
+                        (or fnick nick) msg
+                        ;; If buffer is a query buffer,
+                        ;; format the nick as for a channel.
+                        (and (not (and buffer
+                                       (erc-query-buffer-p buffer)
+                                       erc-format-query-as-channel-p))
+                             privp)
+                        msgp))))
+            (when s
+              (if (and noticep privp)
+                  (progn
+                    (run-hook-with-args 'erc-echo-notice-always-hook
+                                        s parsed buffer nick)
+                    (run-hook-with-args-until-success
+                     'erc-echo-notice-hook s parsed buffer nick))
+                  (erc-display-message parsed nil buffer s)))
+            (when (string= cmd "PRIVMSG")
+              (erc-auto-query proc parsed))))))
 
 ;;;----------------------------------------------------------------------------
 
@@ -5972,10 +6123,12 @@ See the documentation for vm-mode for more information."
     (aima      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
     (sicp      . "Structure and Interpretation of Computer Programs  http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html  http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/")
     (sicp-mit  . "http://web.mit.edu/alexmv/6.S184/")
+    (6.S184    . "http://web.mit.edu/alexmv/6.S184/")
     ;; http://www.codepoetics.com/wiki/index.php?title=Topics:SICP_in_other_languages
     ;; http://eli.thegreenplace.net/category/programming/lisp/sicp/
     ;; http://www.neilvandyke.org/sicp-plt/
     ;; http://www.youtube.com/watch?v=rdj6deraQ6k
+    (r5rs      . "http://www.schemers.org/Documents/Standards/R5RS/HTML/")
     (htdp      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
     (ca        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
     (lisp      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
@@ -7277,7 +7430,7 @@ Attribution: ?"
   (let ((what (if (and (region-active-p) (< start end))
                   (buffer-substring-no-properties start end)
                   (progn
-                    (backward-sexp)
+                    (forward-sexp) (backward-sexp)
                     (thing-at-point-no-properties 'symbol)))))
    (find-grep
     (format "find ~/works/patchwork/patchwork/src/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
