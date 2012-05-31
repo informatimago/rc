@@ -170,12 +170,15 @@ License:
 ;;;
 ;;; ASDF-CONFIGURATION
 ;;;
+ 
 
-(let ((asdf-conf-path (make-pathname :directory '(:relative ".config" "common-lisp")
+(let ((asdf-conf-path (merge-pathnames
+                       (make-pathname :directory '(:relative ".config" "common-lisp")
                                      :name "asdf-output-translations"
                                      :type "conf"
                                      :case :local
-                                     :defaults (user-homedir-pathname))))
+                                     :defaults (user-homedir-pathname))
+                       (user-homedir-pathname) nil)))
   (unless (ignore-errors (probe-file asdf-conf-path))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
@@ -461,7 +464,7 @@ The HOST is added to the list of logical hosts defined.
   (defun post-process-logical-host-translations ()
     (when (fboundp 'common-lisp-user::post-process-logical-pathname-translations)
       (map nil
-           (function common-lisp-user::post-process-logical-pathname-translations)
+           'common-lisp-user::post-process-logical-pathname-translations
            *logical-hosts*)))) 
 
 (post-process-logical-host-translations)
