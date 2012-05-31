@@ -2314,8 +2314,7 @@ capitalized form."
 
   
   (define-lisp-implementation abcl
-      (first-existing-file '("/data/languages/abcl/abcl"
-                             "/opt/local/bin/ccl"))
+      (first-existing-file '("/data/languages/abcl/abcl"))
     "^.*([0-9]+): "
     iso-8859-1)
   
