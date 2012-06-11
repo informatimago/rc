@@ -159,7 +159,7 @@
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "yellow3"))))
- '(erc-notice-face ((t (:foreground "gray30"))))
+ '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
@@ -197,6 +197,24 @@
  '(rst-level-6-face ((t (:background "grey20"))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
+
+
+;; Unfortunately, custom only updates toplevel forms, so we need to do the same.
+(defun reset-faces ()
+  "Search in ~/.emacs for a custom-set-faces toplevel form, and evaluates it."
+  (interactive)
+  (save-window-excursion
+    (find-file "~/.emacs")
+    (goto-char (point-min))
+    (forward-sexp) 
+    (while (and (< (point) (point-max))
+                (not
+                 (let ((form (progn (backward-sexp) (sexp-at-point))))
+                   (when (and (listp form)
+                              (eq 'custom-set-faces (first form)))
+                     (eval form)
+                     t))))
+      (forward-sexp 2))))
 
 
 (.EMACS "custom variables")
@@ -275,7 +293,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#emacs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp-lab" "#lisp" "#scheme") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -288,11 +306,15 @@
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list (quote nil))
+ '(erc-ignore-list (quote ("qu1j0t3")))
  '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-reply-list (quote ("qu1j0t3")))
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
+ '(erc-log-write-after-insert t)
+ '(erc-log-write-after-send t)
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
@@ -330,7 +352,7 @@
 ]*\\(fido7\\|relcom\\)\\.[^,]*\\)*$" koi8-r (koi8-r)) (message-this-is-mail nil nil) (message-this-is-news iso-8859-15 (iso-8859-15)))))
  '(gnus-ignored-headers (quote ("^Path:" "^Expires:" "^Date-Received:" "^References:" "^Xref:" "^Lines:" "^Relay-Version:" "^Approved:" "^Sender:" "^Received:" "^X-UIDL:" "^MIME-Version:" "^Return-Path:" "^In-Reply-To:" "^Content-Type:" "^Content-Transfer-Encoding:" "^X-WebTV-Signature:" "^X-MimeOLE:" "^X-MSMail-Priority:" "^X-Priority:" "^X-Loop:" "^X-Authentication-Warning:" "^X-MIME-Autoconverted:" "^X-Face:" "^X-Attribution:" "^X-Originating-IP:" "^Delivered-To:" "^NNTP-[-A-Za-z]+:" "^Distribution:" "^X-no-archive:" "^X-Trace:" "^X-Complaints-To:" "^X-NNTP-Posting-Host:" "^X-Orig.*:" "^Abuse-Reports-To:" "^Cache-Post-Path:" "^X-Article-Creation-Date:" "^X-Poster:" "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:" "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:" "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:" "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:" "^Autoforwarded:" "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:" "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:" "^Content-length:" "^X-precedence:" "^X-Authenticated-User:" "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:" "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:" "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:" "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:" "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:" "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:" "^X-Received-Date:" "^X-Hashcash:" "^Face:" "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:")))
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
- '(gnus-nntp-server "news.individual.net")
+ '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
  '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
@@ -572,6 +594,7 @@ X-Accept-Language:         fr, es, en
 (put 'mh-rmail         'disabled t)
 (put 'scroll-left      'disabled nil)
 (put 'set-goal-column  'disabled t)
+(put 'erase-buffer     'disabled nil)
 
 
 
@@ -1710,14 +1733,6 @@ SIDE must be the symbol `left' or `right'."
 (defparameter *pjb-font-list*
   '(
     "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
-
     
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
@@ -1726,6 +1741,18 @@ SIDE must be the symbol `left' or `right'."
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-*-*"
+
+    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
+
+    "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
 
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
@@ -1736,13 +1763,11 @@ SIDE must be the symbol `left' or `right'."
     "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
 
-    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
     "-LFP-Bright-normal-normal-normal-*-9-*-*-*-c-60-*-*"
     "-LFP-Smooth-normal-normal-normal-*-9-*-*-*-c-60-*-*"
     "-LFP-LucidaTerminal-normal-normal-normal-*-9-*-*-*-c-90-*-*"
     
-
     "-LFP-Computer-normal-normal-normal-*-11-*-*-*-c-90-*-*"
     "-LFP-Computer Alt-normal-normal-normal-*-9-*-*-*-c-90-iso10646-1"
 
@@ -1776,6 +1801,17 @@ SIDE must be the symbol `left' or `right'."
     "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
     "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
     "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
+
+    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
+
+    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
+    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
+    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
 
     ))
 
@@ -7340,15 +7376,18 @@ Attribution: ?"
                                         ("C" . "g++"))
                                       :test (function string=)))
                          "gcc")))
-      (message "src=%S" src)
-      (message "exe=%S"  (name src))
+      ;; (message "src=%S" src)
+      ;; (message "exe=%S"  (name src))
+      ;; (message "mode=%S" mode)
       (compile
        (format ;; "SRC=%S ; EXE=%S ; cat $SRC ; echo '/*' ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $? ; echo '*/'"
-        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && xterm -e %s ./${EXE} && echo status = $?"
+        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
         src (name src) compiler *compile-and-run-cflags*
-        (case mode
-          ((4) "valgrind")
-          (otherwise "")))))))
+        (cond
+          ((equal '(4) mode) "valgrind")
+          ((equal '-1  mode) "xterm -hold -e")
+          ((equal '-4  mode) "xterm -hold -e valgrind")
+          (t                 "")))))))
 
 ;;;----------------------------------------------------------------------------
 (when (require 'psql-mode nil t)
@@ -7730,7 +7769,3 @@ or as \"emacs at <hostname>\"."
 
 
 ;;;; THE END ;;;;
-
-
-
-(put 'erase-buffer 'disabled nil)
