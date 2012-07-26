@@ -46,6 +46,8 @@
     (set var bindings)))
 
 
-
+;; Before saving a core with swank, if slime uses options:
+;; (swank:swank-require '(swank-repl swank-asdf swank-fuzzy swank-indentation swank-media))
+;; otherwise swank tries to load them from source files after launching the core.
 
 ;;;; THE END ;;;;
