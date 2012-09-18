@@ -30,7 +30,7 @@
                   (*PRINT-ARRAY* . T)
                   (*PRINT-LINES* . nil)
                   (*PRINT-ESCAPE* . T)
-                  (*PRINT-RIGHT-MARGIN* . 1000)
+                  (*PRINT-RIGHT-MARGIN* . 110)
                   (*random-state* . ,(make-random-state t))
                   (*SLDB-BITVECTOR-LENGTH* . nil)
                   (*SLDB-STRING-LENGTH* . nil)))
