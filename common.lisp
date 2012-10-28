@@ -59,9 +59,10 @@
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
-      *print-lines*  nil)
+      *print-lines*  nil
+      *print-right-margin* 110)
 
-(declaim (optimize (safety 3) (space 0) (speed 0) (debug 3)))
+(declaim (optimize (safety 3) (debug 3) (space 0) (speed 0)))
 
 
 
@@ -85,7 +86,12 @@
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
            "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
            "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
-           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS")
+           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS"
+
+           "SELF"
+           "IT" "THIS" "THAT"
+           "THEM" "THESE" "THOSE"
+           )
   (:documentation "
 
 This package contains REPL utilities, defined in ~/rc/common.lisp,
@@ -119,6 +125,19 @@ License:
 "))
 (in-package "COM.INFORMATIMAGO.PJB")
 
+(define-symbol-macro self -)
+
+(define-symbol-macro it   *)
+(define-symbol-macro this **)
+(define-symbol-macro that ***)
+
+(define-symbol-macro them  /)
+(define-symbol-macro these //)
+(define-symbol-macro those ///)
+
+;; (define-symbol-macro what  +)
+;; (define-symbol-macro  ++)
+;; (define-symbol-macro  +++)
 
 (defun user-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
@@ -170,12 +189,15 @@ License:
 ;;;
 ;;; ASDF-CONFIGURATION
 ;;;
+ 
 
-(let ((asdf-conf-path (make-pathname :directory '(:relative ".config" "common-lisp")
-                                     :name "asdf-output-translations"
-                                     :type "conf"
-                                     :case :local
-                                     :defaults (user-homedir-pathname))))
+(let ((asdf-conf-path (merge-pathnames
+                       (make-pathname :directory '(:relative ".config" "common-lisp")
+                                      :name "asdf-output-translations"
+                                      :type "conf"
+                                      :case :local
+                                      :defaults (user-homedir-pathname))
+                       (user-homedir-pathname) nil)))
   (unless (ignore-errors (probe-file asdf-conf-path))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
@@ -461,7 +483,7 @@ The HOST is added to the list of logical hosts defined.
   (defun post-process-logical-host-translations ()
     (when (fboundp 'common-lisp-user::post-process-logical-pathname-translations)
       (map nil
-           (function common-lisp-user::post-process-logical-pathname-translations)
+           'common-lisp-user::post-process-logical-pathname-translations
            *logical-hosts*)))) 
 
 (post-process-logical-host-translations)
@@ -677,26 +699,11 @@ either scanned, or from the cache."
 (defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
-;;;----------------------------------------------------------------------
-;;;
-;;; Alexandria
-;;;
-
-(ql:quickload :alexandria :verbose nil)
-
-;; (handler-case
-;;     (ql:quickload :alexandria :verbose t)
-;;   (error (err)
-;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
-;;     (print (compute-restarts))
-;;     (invoke-restart (find-restart 'skip))))
-
 
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; com.informatimago libraries
 ;;;
-
 
 ;; (update-asdf-registry)
 
@@ -736,14 +743,36 @@ either scanned, or from the cache."
 
 
 ;;;----------------------------------------------------------------------
-#-abcl
-(use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
-#-abcl
-(export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
-              "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
+;;;
+;;; Alexandria
+;;;
 
+(ql:quickload :alexandria :verbose nil)
+
+;; (handler-case
+;;     (ql:quickload :alexandria :verbose t)
+;;   (error (err)
+;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
+;;     (print (compute-restarts))
+;;     (invoke-restart (find-restart 'skip))))
+
+;;;----------------------------------------------------------------------
+(in-package :com.informatimago.pjb)
+#-abcl (use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
+#-abcl (export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
+                     "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
 (push :com.informatimago.pjb *features*)
+
+(cl:in-package :cl-user)
+(use-package :com.informatimago.pjb)
+
+
+(in-package :cl-user)
+
+;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
+;; (in-package :ibcl-user)
+;; (use-package :com.informatimago.pjb)
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 ;;;; THE END ;;;;
