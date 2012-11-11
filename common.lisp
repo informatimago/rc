@@ -59,9 +59,10 @@
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
-      *print-lines*  nil)
+      *print-lines*  nil
+      *print-right-margin* 110)
 
-(declaim (optimize (safety 3) (space 0) (speed 0) (debug 3)))
+(declaim (optimize (safety 3) (debug 3) (space 0) (speed 0)))
 
 
 
@@ -85,8 +86,58 @@
            "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
            "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
            "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
-           "QUICK-DELETE" "QUICK-RELOAD"))
+           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS"
+
+           "SELF"
+           "IT" "THIS" "THAT"
+           "THEM" "THESE" "THOSE"
+           )
+  (:documentation "
+
+This package contains REPL utilities, defined in ~/rc/common.lisp,
+which is loaded from the various rc files of the various CL
+implementations.
+
+It also re-exports the exported symbols of
+COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE.
+
+
+License:
+
+    AGPL3
+    
+    Copyright Pascal J. Bourguignon 2003 - 2012
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+    
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.
+    If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
+
+"))
 (in-package "COM.INFORMATIMAGO.PJB")
+
+(define-symbol-macro self -)
+
+(define-symbol-macro it   *)
+(define-symbol-macro this **)
+(define-symbol-macro that ***)
+
+(define-symbol-macro them  /)
+(define-symbol-macro these //)
+(define-symbol-macro those ///)
+
+;; (define-symbol-macro what  +)
+;; (define-symbol-macro  ++)
+;; (define-symbol-macro  +++)
 
 (defun user-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
@@ -136,158 +187,33 @@
 
 ;;;----------------------------------------------------------------------
 ;;;
-;;; ASDF-BINARY-LOCATIONS
+;;; ASDF-CONFIGURATION
 ;;;
+ 
 
-
-;; Some implementations don't have ASDF loaded at this point.  For
-;; them, we create a temporary ASDF package exporting the symbols we
-;; need to write to the ~/quicklisp/adsf-config/init.lisp file.
-;;
-;; Some other implementations have ASDF loaded, but don't define these
-;; symbols.  For them, we add these symbols temporarily, so that we
-;; can write them to the  ~/quicklisp/adsf-config/init.lisp file.
-
-(defvar *asdf* (find-package "ASDF"))
-(defvar *asdf-added-symbols* '())
-(defvar *asdf-symbol-names* '("RUN-SHELL-COMMAND"
-                              "OOS" "LOAD-OP"
-                              "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY"
-                              "*CENTRAL-REGISTRY*"
-                              "*CENTRALIZE-LISP-BINARIES*"
-                              "*INCLUDE-PER-USER-INFORMATION*" 
-                              "*DEFAULT-TOPLEVEL-DIRECTORY*"
-                              "*SOURCE-TO-TARGET-MAPPINGS*"))
-(if *asdf*
-    (dolist (name *asdf-symbol-names*)
-      (unless (find-symbol name *asdf*)
-        (let ((sym  (intern  name *asdf*)))
-          (export sym *asdf*)
-          (push sym *asdf-added-symbols*))))
-    (defpackage "ASDF"
-      (:export . #.*asdf-symbol-names*)))
-
-;; We compute the hostname.
-#-(and)
-(let ((ql-asdf-init-file (merge-pathnames
-                          (make-pathname* :directory '(:relative "QUICKLISP" "ASDF-CONFIG")
-                                          :name "INIT" :type "LISP" :version :newest :case :common 
-                                          :defaults (user-pathname))
-                          (user-pathname)
-                          nil)))
-  ;; (print ql-asdf-init-file) (terpri) (finish-output)
-  (when (or (not (ignore-errors (probe-file ql-asdf-init-file)))
-            (<= (file-write-date ql-asdf-init-file)
-                (file-write-date *load-pathname*)))
-    (ensure-directories-exist ql-asdf-init-file)
-    (with-open-file (src ql-asdf-init-file
-                         :direction :output
-                         :if-exists :supersede 
-                         :if-does-not-exist :create)
-      (with-standard-io-syntax
-        (let ((*print-readably* t))
-          (dolist (form '(
-                          (unless (find-package "COM.INFORMATIMAGO.PJB")
-                            (defpackage "COM.INFORMATIMAGO.PJB"
-                              (:use "COMMON-LISP")))
-                          (in-package "COM.INFORMATIMAGO.PJB")
-                          
-                          (defparameter *init-verbose* nil)
-                          
-                          
-                          (defun hostname ()
-                            #-windows-target
-                            (let ((outpath (make-pathname :name (format nil "hostname-~8,'0X" (random #x100000000))
-                                                          :type "txt"
-                                                          :case :local
-                                                          :defaults (user-pathname))))
-                              (unwind-protect
-                                   (let ((asdf::*verbose-out* t))
-                                     (asdf:run-shell-command
-                                      "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                      (namestring outpath))
-                                     (with-open-file (hostname outpath)
-                                       (read-line hostname)))
-                                (delete-file outpath)))
-                            #+windows-target (machine-instance))
-
-
-
-
-                          ;; asdf-binary-locations is already loaded in sbcl.
-                          ;; asdf-binary-locations is mutually exclusive with asdf2.
-                          ;; (or sbcl asdf2 clc-os-debian)
-
-                          #2=(let ((sym (find-symbol "ENABLE-ASDF-BINARY-LOCATIONS-COMPATIBILITY" "ASDF")))
-                               (if (and sym (fboundp sym))
-                                   (progn
-                                     (when *init-verbose*
-                                       (format t "~&Pushing :has-asdf-enable-asdf-binary-locations-compatibility to *features*~%"))
-                                     (pushnew :has-asdf-enable-asdf-binary-locations-compatibility *features*))
-                                   (when *init-verbose*
-                                     (format t "~&There's no asdf:enable-asdf-binary-locations-compatibility ~%"))))
-
-                          (sharp - :has-asdf-enable-asdf-binary-locations-compatibility)
-                          (progn
-                            (handler-case (progn (when *init-verbose*
-                                                   (format t "~&Asdf loading asdf-binary-locations ~%"))
-                                                 (asdf:oos 'asdf:load-op :asdf-binary-locations)
-                                                 (when *init-verbose*
-                                                   (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
-                                                 (pushnew :asdf-binary-locations *features*))
-                              (error ()
-                                (when *init-verbose*
-                                  (format t "~&Pushing /data/lisp/asdf-install/site/asdf-binary-locations/ to asdf:*central-registry* ~%"))
-                                (push #P"/data/lisp/asdf-install/site/asdf-binary-locations/"
-                                      asdf:*central-registry*)
-                                (progn (when *init-verbose*
-                                         (format t "~&Asdf loading asdf-binary-locations ~%"))
-                                       (asdf:oos 'asdf:load-op :asdf-binary-locations)
-                                       (when *init-verbose*
-                                         (format t "~&Got it, pushing :asdf-binary-locations to *features*~%"))
-                                       (pushnew :asdf-binary-locations *features*)))))
-                          
-                          #2#
-
-                          (sharp + :has-asdf-enable-asdf-binary-locations-compatibility)
-                          (progn
-                            (when *init-verbose*
-                              (format t "~&Using asdf:enable-asdf-binary-locations-compatibility ~%"))
-                            (asdf:enable-asdf-binary-locations-compatibility
-                             :centralize-lisp-binaries     t
-                             :default-toplevel-directory   (truename
-                                                            (merge-pathnames
-                                                             (format nil ".cache/common-lisp/~A/" (hostname))
-                                                             (user-pathname) nil))
-                             :include-per-user-information nil
-                             ;; :map-all-source-files ???
-                             :source-to-target-mappings    nil))
-                          
-                          (sharp + (:and (:not :has-asdf-enable-asdf-binary-locations-compatibility)
-                                    :asdf-binary-locations))
-                          (progn
-                            (when *init-verbose*
-                              (format t "~&Using asdf-binary-locations ~%"))
-                            (setf asdf:*centralize-lisp-binaries*     t
-                                  asdf:*include-per-user-information* nil
-                                  asdf:*default-toplevel-directory*
-                                  (truename (merge-pathnames
-                                             (format nil ".cache/common-lisp/~A/" (hostname))
-                                             (user-pathname) nil))
-                                  asdf:*source-to-target-mappings* '()))
-
-                          (sharp - (:or :has-asdf-enable-asdf-binary-locations-compatibility :asdf-binary-locations))
-                          (error "ASDF-BINARY-LOCATIONS is not available.")))
-            
-            (if (and (listp form) (eql 'sharp (first form)))
-                (format src "~2%#~A~S " (second form) (third form))
-                (pprint form src))))))))
-
-
-(if *asdf*
-    (dolist (sym *asdf-added-symbols*)
-      (unintern sym *asdf*))
-    (delete-package "ASDF"))
+(let ((asdf-conf-path (merge-pathnames
+                       (make-pathname :directory '(:relative ".config" "common-lisp")
+                                      :name "asdf-output-translations"
+                                      :type "conf"
+                                      :case :local
+                                      :defaults (user-homedir-pathname))
+                       (user-homedir-pathname) nil)))
+  (unless (ignore-errors (probe-file asdf-conf-path))
+    (ensure-directories-exist asdf-conf-path)
+    (with-open-file (asdfconf asdf-conf-path
+                              :direction :output
+                              :if-does-not-exist :create
+                              :if-exists nil
+                              :external-format :default)
+      (princ
+       ";; -*- mode:lisp -*-
+\(:output-translations
+ :ignore-invalid-entries
+ (t (:home \".cache\" \"common-lisp\" :hostname :implementation))
+ (t (:home \".cache\" \"common-lisp\" :implementation))
+ :inherit-configuration)
+"
+       asdfconf))))
 
 
 ;;;----------------------------------------------------------------------
@@ -309,9 +235,6 @@
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
 
 
-;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
-
-
 (defun print-systems (systems pattern)
   (if pattern
       (let ((spattern (string pattern)))
@@ -325,6 +248,7 @@
 
 
 (defun quick-installed-systems (&optional pattern)
+  "Print the system installed by quicklisp."
   (print-systems (ql-dist:installed-releases (ql-dist:dist "quicklisp"))
                  pattern))
 
@@ -343,6 +267,7 @@ are listed."
 
 
 (defun quick-apropos (pattern)
+  "Search the quicklisp system matching the pattern and print them."
   ;; For now, we just list the systems:
   (print-systems (ql-dist:provided-systems t) pattern))
 
@@ -386,7 +311,9 @@ are listed."
   #-#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
   (error "QUICKLISP-CLIENT:WHERE-IS-SYSTEM is not available."))
 
-(defun quick-where (&rest systems) (apply (function quick-where-is) systems))
+(defun quick-where (&rest systems)
+  "Says where the given systems are."
+  (apply (function quick-where-is) systems))
 
 
 (defun quick-delete (&rest systems)
@@ -402,6 +329,10 @@ are listed."
                (asdf:load-system system)
                (ql:quickload system))
        systems))
+
+(defun quick-local-projects ()
+  "Rebuilds the local projects system index."
+  (ql:register-local-projects))
 
 
 
@@ -552,7 +483,7 @@ The HOST is added to the list of logical hosts defined.
   (defun post-process-logical-host-translations ()
     (when (fboundp 'common-lisp-user::post-process-logical-pathname-translations)
       (map nil
-           (function common-lisp-user::post-process-logical-pathname-translations)
+           'common-lisp-user::post-process-logical-pathname-translations
            *logical-hosts*)))) 
 
 (post-process-logical-host-translations)
@@ -672,6 +603,7 @@ either scanned, or from the cache."
 
 (fmakunbound 'hostname)
 (defun hostname ()
+  "RETURN: The FQDN of the local host."
   (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
     (unwind-protect
          (progn
@@ -718,6 +650,7 @@ either scanned, or from the cache."
   `(progn
      (declaim (notinline ,name))
      (defun ,name ,arguments
+       "Autoload function."
        (load ,loader)
        (,name ,@arguments))))
 
@@ -766,26 +699,11 @@ either scanned, or from the cache."
 (defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
-;;;----------------------------------------------------------------------
-;;;
-;;; Alexandria
-;;;
-
-(ql:quickload :alexandria :verbose nil)
-
-;; (handler-case
-;;     (ql:quickload :alexandria :verbose t)
-;;   (error (err)
-;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
-;;     (print (compute-restarts))
-;;     (invoke-restart (find-restart 'skip))))
-
 
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; com.informatimago libraries
 ;;;
-
 
 ;; (update-asdf-registry)
 
@@ -811,28 +729,50 @@ either scanned, or from the cache."
 ;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
 ;;                       :inherit-configuration))
 
-#-abcl (asdf-load  :com.informatimago.common-lisp)
-#-abcl (asdf-load  :com.informatimago.clmisc)
+#-abcl (ql:quickload  :com.informatimago.common-lisp)
+#-abcl (ql:quickload  :com.informatimago.clmisc)
 
 #-(or abcl ccl cmu ecl sbcl)
-(asdf-load  :com.informatimago.clext)
+(ql:quickload  :com.informatimago.clext)
 
 #-(and)
-(asdf-load  :com.informatimago.clisp)
+(ql:quickload  :com.informatimago.clisp)
 
 #-(and)
-(asdf-load  :com.informatimago.susv3)
+(ql:quickload  :com.informatimago.susv3)
 
 
 ;;;----------------------------------------------------------------------
-#-abcl
-(use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
-#-abcl
-(export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
-              "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
+;;;
+;;; Alexandria
+;;;
 
+(ql:quickload :alexandria :verbose nil)
+
+;; (handler-case
+;;     (ql:quickload :alexandria :verbose t)
+;;   (error (err)
+;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
+;;     (print (compute-restarts))
+;;     (invoke-restart (find-restart 'skip))))
+
+;;;----------------------------------------------------------------------
+(in-package :com.informatimago.pjb)
+#-abcl (use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
+#-abcl (export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
+                     "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
 (push :com.informatimago.pjb *features*)
+
+(cl:in-package :cl-user)
+(use-package :com.informatimago.pjb)
+
+
+(in-package :cl-user)
+
+;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
+;; (in-package :ibcl-user)
+;; (use-package :com.informatimago.pjb)
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 ;;;; THE END ;;;;

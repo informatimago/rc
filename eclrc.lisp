@@ -40,6 +40,8 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- ecl part --
 ;; ------------------------------------
+#+#.(cl:if (cl:find-symbol "*DEFAULT-EXTERNAL-FORMAT*" :ext)
+           '(:and) '(:or))
 (setf ext:*default-external-format* '(:utf-8 :lf))  
 
 (when (string= (namestring (make-pathname :name "ABC" :case :common
