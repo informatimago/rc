@@ -93,13 +93,15 @@
   (setf mac-command-key-is-meta nil  ; which emacs?
         mac-reverse-ctrl-meta   nil))
 
-(defun mac-vanilla-keys ()
-  (interactive)
-  (setf mac-command-modifier    'meta ; emacsformacosx
-        mac-option-modifier     'alt
-        one-buffer-one-frame    nil)
-  (setf mac-command-key-is-meta t     ; which emacs?
-        mac-reverse-ctrl-meta   nil))
+(defun mac-vanilla-keys (&optional prefix)
+  (interactive "P")
+  (if prefix
+   (setf mac-command-key-is-meta t     ; which emacs?
+         mac-reverse-ctrl-meta   nil)
+   (setf mac-command-modifier    'meta  ; emacsformacosx
+         mac-option-modifier     'alt
+         one-buffer-one-frame    nil)))
+
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
   (mac-vanilla-keys)
@@ -222,26 +224,43 @@
  '(browse-url-new-window-flag t)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
- '(c-backslash-column 72)
- '(c-basic-offset 4)
+
+ '(c-backslash-column set-from-style)
+ '(c-backslash-max-column set-from-style)
+ '(c-basic-offset set-from-style)
+ '(c-block-comment-prefix set-from-style)
+ '(c-cleanup-list set-from-style)
+ '(c-comment-only-line-offset set-from-style)
+ '(c-comment-prefix-regexp set-from-style)
+ '(c-doc-comment-style set-from-style)
+ '(c-hanging-braces-alist set-from-style)
+ '(c-hanging-colons-alist set-from-style)
+ '(c-hanging-semi&comma-criteria set-from-style)
+ '(c-indent-comment-alist set-from-style)
+ '(c-indent-comments-syntactically-p set-from-style)
+ '(c-label-minimum-indentation set-from-style)
+ '(c-offsets-alist set-from-style)
+ '(c-special-indent-hook set-from-style)
+
+ '(c-label-minimum-indentation set-from-style)
+ 
+ '(c-default-style "pjb")
+
  '(c-brace-imaginary-offset 0 t)
  '(c-brace-offset 0 t)
- '(c-cleanup-list (quote (brace-else-brace brace-elseif-brace brace-catch-brace list-close-comma scope-operator)))
  '(c-comment-continuation-stars "" t)
- '(c-comment-only-line-offset (quote (0 . 0)))
  '(c-continued-brace-offset 0 t)
  '(c-continued-statement-offset 4 t)
- '(c-default-style "gnu")
  '(c-echo-syntactic-information-p t)
- '(c-hanging-braces-alist (quote ((defun-open before after) (defun-close before) (class-open before after) (inline-open before after) (inline-close before) (block-open) (block-close . c-snug-do-while) (substatement-open after) (statement-case-open after) (extern-lang-open after) (extern-lang-close before after) (brace-list-open after) (brace-list-close before after) (brace-list-intro before after) (brace-entry-open before after) (inexpr-class-open after) (inexpr-class-close before))))
+
  '(c-hanging-comment-ender-p nil t)
  '(c-hanging-comment-starter-p nil t)
  '(c-indent-level 4 t)
  '(c-label-minimum-indentation 2)
  '(c-label-offset -4 t)
- '(c-macro-shrink-window-flag t)
- '(c-offsets-alist (quote ((topmost-intro . 0) (inclass . c-basic-offset) (cpp-macro . [0]) (objc-method-intro . [0]) (defun-block-intro . c-basic-offset) (statement-block-intro . c-basic-offset) (access-label . -4) (defun-open . 0) (topmost-intro . 0) (member-init-cont . 0) (statement-cont . 0) (inclass . 4) (cpp-macro . -1000) (objc-method-intro . 0))))
+ '(c-macro-shrink-window-flag t) 
  '(c-tab-always-indent t)
+ 
  '(calendar-christian-all-holidays-flag t)
  '(calendar-date-display-form (quote ((if dayname (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day dayname) (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day "")))))
  '(calendar-hebrew-all-holidays-flag nil)
@@ -4505,6 +4524,15 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;; (add-hook 'find-tag-hook (function pjb-find-tag-meat))
 ;; (setq find-tag-hook nil)
 
+
+;;;----------------------------------------------------------------------------
+(.EMACS "bee for bigloo")
+(when (file-exists-p "/usr/local/share/emacs/bigloo/")
+  (setf load-path (cons (expand-file-name "/usr/local/share/emacs/bigloo/") load-path))
+  (when (require 'bmacs nil t)
+    (push '("\\.scm\\'" . bee-mode) auto-mode-alist)
+    (push '("\\.sch\\'" . bee-mode) auto-mode-alist)))
+
 ;;;----------------------------------------------------------------------------
 (.EMACS "matlab/scilab")
 
@@ -6992,11 +7020,18 @@ or as \"emacs at <hostname>\"."
 
 ;;;----------------------------------------------------------------------------
 
+(add-to-list 'auto-mode-alist '("/Users/pjb/src/public/emacs/dxo/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
+
 (add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
 
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
+
+;;;----------------------------------------------------------------------------
+(require 'semantic)
+(semantic-mode 1)
+(push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
 ;;;----------------------------------------------------------------------------
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
