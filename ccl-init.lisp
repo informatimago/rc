@@ -61,6 +61,7 @@
 (export '(EDIT QUIT))
 
 (setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
+;; (setf ccl:*save-definitions*  t) ; for function-lambda-expression
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --

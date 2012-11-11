@@ -156,8 +156,8 @@ function be_generate(){
         # /data/languages/sbcl/bin
         /opt/bin        /opt/sbin
         /opt/*/bin      /opt/*/sbin 
-        /usr/local/bin  /usr/local/sbin
         /opt/local/lib/postgresql84/bin  # on galatea
+        /usr/local/bin  /usr/local/sbin
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
     )
@@ -407,6 +407,12 @@ else
     be_generate
 fi
 source $BASH_ENV
+
+# GNUstep:
+if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
+    . /usr/share/GNUstep/Makefiles/GNUstep.sh
+fi
+
 
 case "$(hostname)" in
 mdi-development-*)
@@ -1000,3 +1006,4 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
+

@@ -28,8 +28,8 @@ alias erc       exec erc
 alias web       exec firefox
 alias xterm     exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
 alias objing    exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
-alias size      echo $(screen-size)
 alias galatea   exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
+alias date      exec xmessage $(date)
 
 escape C-t
 bind t         meta C-t
