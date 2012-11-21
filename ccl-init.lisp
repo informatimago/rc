@@ -210,9 +210,16 @@ RETURN:     The first word of the string, or the empty string.
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
 
+
+
+
 (ql:quickload :swank)
-(let ((swank::*loopback-interface* "192.168.7.4")) 
-  (swank:create-server))
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (let ((swank::*loopback-interface* "192.168.7.4")
+        (port (+ 4005 (random 123))))
+    (swank:create-server :port port)))
+
+(setf *print-right-margin* 110)
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
