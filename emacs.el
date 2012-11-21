@@ -158,7 +158,7 @@
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "yellow3"))))
+ '(erc-input-face ((t (:foreground "cyan"))))
  '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
@@ -234,8 +234,8 @@
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
- '(browse-url-browser-function (quote pjb-browse-url))
- '(browse-url-new-window-flag t)
+ '(browse-url-browser-function (quote w3m-browse-url))
+ '(browse-url-new-window-flag nil)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
  '(c-backslash-column 72)
@@ -268,6 +268,7 @@
  '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
  '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
  '(chess-sound-directory "/usr/share/sounds/chess" t)
+ '(comint-dynamic-complete-functions nil t)
  '(comint-process-echoes nil)
  '(comment-empty-lines t)
  '(comment-force-also-empty-lines t)
@@ -293,7 +294,9 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp-lab" "#lisp" "#scheme") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs"
+                                        "#ml-class" "#nlp-class" "#ai-class" "#compilers-class" "#algo-class" "#hci-class") 
+                                       ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
@@ -306,10 +309,10 @@
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list (quote nil))
- '(erc-ignore-list (quote ("qu1j0t3")))
+ '(erc-ignore-list (quote ("ad37e918" "173.55.233.24")))
  '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
- '(erc-ignore-reply-list (quote ("qu1j0t3")))
+ '(erc-ignore-reply-list (quote nil))
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
@@ -354,7 +357,7 @@
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
+ '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com") (nnimap "mail.intergruas.com"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-treat-display-x-face (quote head))
@@ -362,6 +365,7 @@
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
+ '(hl-paren-colors (quote ("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray")))
  '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
  '(ido-enable-flex-matching nil)
  '(indent-tabs-mode nil)
@@ -395,6 +399,7 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 ")
  '(mail-default-reply-to "pjb@informatimago.com")
+ '(mail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
  '(mail-from-style (quote angle))
  '(mail-host-address "informatimago.com")
  '(mail-interactive t)
@@ -433,8 +438,9 @@ X-Accept-Language:         fr, es, en
  '(mew-use-biff t)
  '(mew-use-biff-bell t)
  '(mew-use-full-window t)
- '(mew-use-other-frame-for-draft t)
+ '(mew-use-other-frame-for-draft nil)
  '(mew-use-text/html t)
+ '(minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
  '(mm-coding-system-priorities (quote (ascii iso-latin-1 iso-latin-9 utf-8)))
  '(mspools-update t)
  '(next-screen-context-lines 0)
@@ -443,7 +449,7 @@ X-Accept-Language:         fr, es, en
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
- '(pop-up-windows nil)
+ '(pop-up-windows t)
  '(pr-faces-p t)
  '(print-gensym t t)
  '(printer-name "normal_gray" t)
@@ -464,7 +470,6 @@ X-Accept-Language:         fr, es, en
  '(require-final-newline (quote visit-save))
  '(rmail-confirm-expunge nil)
  '(rmail-display-summary t)
- '(rmail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
  '(rmail-enable-mime nil)
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
@@ -478,7 +483,8 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((Package . User) (lexical-binding . t) (Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(send-mail-function (quote sendmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -507,6 +513,7 @@ X-Accept-Language:         fr, es, en
  '(vc-annotate-background "snow1")
  '(vc-annotate-color-map (quote ((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010"))))
  '(vc-annotate-very-old-color "#000000")
+ '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
  '(view-calendar-holidays-initially t t)
@@ -536,7 +543,7 @@ X-Accept-Language:         fr, es, en
  '(vm-use-lucid-highlighting t)
  '(w3-default-homepage "http://www.google.com")
  '(w3-delay-image-loads t)
- '(w3-display-frames t)
+ '(w3-display-frames nil)
  '(w3-do-incremental-display t)
  '(w3-honor-stylesheets nil)
  '(w3-horizontal-rule-char 45)
@@ -545,20 +552,32 @@ X-Accept-Language:         fr, es, en
  '(w3-use-terminal-characters-on-tty nil)
  '(w3-user-colors-take-precedence t)
  '(w3-user-fonts-take-precedence t)
+ '(w3m-arrived-file "~/.w3m/arrived")
+ '(w3m-bookmark-file "~/.w3m/bookmark.html")
+ '(w3m-bookmark-file-coding-system (quote utf-8))
  '(w3m-coding-system (quote utf-8))
+ '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
  '(w3m-fb-mode nil)
  '(w3m-file-coding-system (quote utf-8))
  '(w3m-file-name-coding-system (quote iso-8859-1))
+ '(w3m-form-textarea-directory "~/.w3m/textarea")
+ '(w3m-home-page "http://localhost/")
  '(w3m-pop-up-frames nil)
  '(w3m-pop-up-windows nil)
+ '(w3m-session-file "~/.w3m/sessions")
+ '(w3m-terminal-coding-system (quote utf-8))
  '(w3m-use-cookies t)
  '(w3m-use-tab nil)
  '(w3m-use-tab-menubar nil)
+ '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
+ ;; (push '(x . …) frame-creation-function-alist)
+ ;; (push `(x . ,(lambda (&optional parameters) (selected-frame))) frame-creation-function-alist)
+ ;; (pop frame-creation-function-alist)
  ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
  ;; '(gnus-select-method (quote))
  ;; '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
@@ -1046,7 +1065,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                                       '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
                                       ))
                              ((23)
-                              '())
+                              '("/usr/local/share/emacs/site-lisp"))
                              (otherwise
                               (.EMACS "WARNING: No load-paths for emacs version %d"
                                       emacs-major-version)
@@ -1435,6 +1454,7 @@ SIDE must be the symbol `left' or `right'."
 
 (defun pjb-terminal-key-bindings ()
   (interactive)
+  ;; http://paste.lisp.org/display/131216
   (global-set-key "OF"    'end-of-buffer)
   (global-set-key "OH"    'beginning-of-buffer)
   (global-unset-key "[")
@@ -1815,7 +1835,6 @@ SIDE must be the symbol `left' or `right'."
 
     ))
 
-
 (defvar *pjb-current-font-index* 0)
 
 (defun sign (number)
@@ -1849,6 +1868,8 @@ SIDE must be the symbol `left' or `right'."
 
 (global-set-key (kbd "H-<up>")    'backward-same-indent)
 (global-set-key (kbd "H-<down>")  'forward-same-indent)
+
+(global-set-key (kbd "H-`")  'next-error)
 
 
 
@@ -1946,7 +1967,8 @@ SIDE must be the symbol `left' or `right'."
       (otherwise (error "%S is not a palette" palette))))
 
 
-
+  ;; (apply 'format "#%02x%02x%02x" (mapcar (lambda (x) (* 0.199219 x)) '( 42 203 243)))
+  
   ;;          name              foreground     background      cursor   region           mouse
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
@@ -1968,6 +1990,8 @@ SIDE must be the symbol `left' or `right'."
   (defpalette pal-dark-amber    "#e0d010"      "black"         "cyan"    "grey40"        "#444444")
   (defpalette pal-dark-galatea  "#60f0c0"      "#0c2040"       "green"   "gray60"        "#444444")
   (defpalette pal-irc           "MidnightBlue" "light yellow"  "blue"    "light green"   "#444444")
+  (defpalette pal-stripe        "#a7feff"      "#0a171b"       "Cyan"    "#082830"       "#446688")
+  (defpalette pal-stripe1       "#a7feff"      "#0a171b"       "Cyan"    "#105060"       "#446688")
   (defpalette pal-anevia        "white"        "#081040"       "green"   "cadetblue4"    "yellow")
   (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
@@ -4158,8 +4182,8 @@ URL in a new window."
 
 (defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
   (paredit-wrap-sexp)
-  (insert (format "defgeneric %S %S\n" fname gf-lambda-list))
-  (when docstring (insert (format "  (:documentation %S)" docstring))))
+  (insert (format "defgeneric %S %S" fname gf-lambda-list))
+  (when docstring (insert (format "\n  (:documentation %S)" docstring))))
 
 (defun redshank-generalize-lambda-list (specialized-lambda-list)
   (let ((end (position '&aux specialized-lambda-list)))
@@ -4199,6 +4223,77 @@ URL in a new window."
        (string-equal* "KEYWORD" (symbol-package item))))
 
 
+
+(defun parse-body (where body)
+  "
+WHERE:          (member :lambda :locally :progn) specifies where the
+                body is found, that is whether it may contains
+                docstrings and declarations, or just declarations, or
+                none.
+
+BODY:           A list of forms.
+
+RETURN:         Three values: a docstring or nil, a list of declarations, a list of forms.
+"
+  (flet ((progn-body (body)
+           (if (some (lambda (form) (and (consp form) (eq 'declare (first form))))
+                     body)
+             (error "Found a declaration in the a progn body: ~S" body)
+             body)))
+    (ecase where
+      ((:lambda)
+       ;; {declaration} [docstring declaration {declaration}] {form}
+       ;; {declaration} [docstring] form {form}
+       (loop
+          with docstring    = nil
+          with declarations = '()
+          with actual-body  = '()
+          with state        = :opt-decl
+          for form in body
+          do (ecase state
+               (:opt-decl
+                (cond
+                  ((declarationp form) (push form declarations))
+                  ((stringp form)      (setf docstring form
+                                             state :seen-string))
+                  (t                   (push form actual-body)
+                                       (setf state :body))))
+               ((:seen-string :after-decl)
+                (if (declarationp form)
+                  (progn (push form declarations)
+                         (setf state :after-decl))
+                  (progn (push form actual-body)
+                         (setf state :body))))
+               (:body
+                 (if (declarationp form)
+                   (error "Found a declaration ~S in the body ~S" form body)
+                   (push form actual-body))))
+          finally (return (ecase state
+                            (:opt-decl
+                             (values docstring declarations (nreverse actual-body)))
+                            (:seen-string
+                             (if actual-body
+                               (values docstring declarations (nreverse actual-body))
+                               (values nil declarations (list docstring))))
+                            ((:after-decl :body)
+                             (values docstring declarations (nreverse actual-body)))))))
+      ((:locally)
+       ;; {declaration} {form}
+       (loop
+          for current on body
+          for form = (car current)
+          while (declarationp form)
+          collect form into declarations
+          finally (return  (values nil
+                                   declarations
+                                   (progn-body current)))))
+      ((:progn)
+       ;; {form}
+       (values nil
+               nil
+               (progn-body body))))))
+
+
 (defun redshank-make-defgeneric-from-defmethod ()
   "
 The point must be before the defmethod form.
@@ -4220,6 +4315,9 @@ defgeneric.
                                   (if (symbolp qualifier)
                                       (redshank-next-sexp)
                                       qualifier)))
+                 ;; Note: this docstring stuff is bad. We should
+                 ;; implement the algorithm for CL bodies. See
+                 ;; parse-body above.
                  (docstring      (let ((str (redshank-next-sexp)))
                                    (when (stringp str)
                                      str)))
@@ -4228,6 +4326,15 @@ defgeneric.
                  (doc-end        (when docstring
                                    (redshank-next-sexp)
                                    (point))))
+            (when doc-end
+              ;; check if there's something after the docstring. If
+              ;; not, it's not a docstring.
+              (goto-char doc-end)
+              (ignore-errors (forward-sexp))
+              (when (= (point) doc-end)
+                (setf docstring nil
+                      doc-start nil
+                      doc-end nil)))
             ;; first delete the method docstring
             (when (and doc-start doc-end)
               (delete-region doc-start doc-end))
@@ -4243,8 +4350,6 @@ defgeneric.
                                       docstring)
             (insert "\n")
             (paredit-reindent-defun)))))))
-
-
 
 
 
@@ -4501,10 +4606,13 @@ RETURN: (path point)
 (defun pjb-cl-export-definition-at-point ()
   "Insert into the defpackage form an export of the symbols defined by the form the point."
   (interactive)
-  (let ((pt (point)))
+  (let* ((pt     (point))
+         (marker (make-marker)))
+    (set-marker marker pt)
     (save-window-excursion
       (forward-sexp)
       (setf pt (point))
+      (set-marker marker pt)
       (backward-sexp)
       (let ((form (sexp-at-point)))
         (cond
@@ -4532,7 +4640,7 @@ RETURN: (path point)
                 (pjb-cl-export-symbols (list (second form))))
                (t
                 (error "No recognized form.")))))))
-    (goto-char pt)))
+    (goto-char marker)))
 
 
 
@@ -5033,6 +5141,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
 (.EMACS "COBOL mode")
 (autoload 'cobol-mode "cobol")
 (appendf auto-mode-alist '(("\\.cbl\\'" . cobol-mode)
+                           ("\\.cob\\'" . cobol-mode)
                            ("\\.cobol\\'" . cobol-mode)))
 
 (when (fboundp 'speedbar-add-supported-extension)
@@ -6081,7 +6190,10 @@ user matches any regexp in `erc-ignore-reply-list'."
               (erc-ignored-user-in-channel-p msg tgt sender-spec)
               (erc-ignored-reply-p           msg tgt proc))
           (when erc-minibuffer-ignored
-            (message "Ignored %s from %s to %s" cmd sender-spec tgt))
+            (message "Ignored %s from %s to %s for %s %s %s" cmd sender-spec tgt
+                     (erc-ignored-user-p                    sender-spec)
+                     (erc-ignored-user-in-channel-p msg tgt sender-spec)
+                     (erc-ignored-reply-p           msg tgt proc)))
           (let* ((sndr (erc-parse-user sender-spec))
                  (nick (nth 0 sndr))
                  (login (nth 1 sndr))
@@ -6182,7 +6294,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
     (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
     (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
-
+    (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
 License:
