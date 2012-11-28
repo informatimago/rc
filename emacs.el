@@ -294,8 +294,8 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs"
-                                        "#ml-class" "#nlp-class" "#ai-class" "#compilers-class" "#algo-class" "#hci-class") 
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lisp-lab" "#lispcafe" "#lispgames" "#lispweb" "#scheme" "#clnoobs")
+                                        
                                        ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-default-coding-system (quote (utf-8 . undecided)) t)
@@ -574,6 +574,8 @@ X-Accept-Language:         fr, es, en
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
+
+;; "#ml-class" "#nlp-class" "#ai-class" "#compilers-class" "#algo-class" "#hci-class"
 
  ;; (push '(x . …) frame-creation-function-alist)
  ;; (push `(x . ,(lambda (&optional parameters) (selected-frame))) frame-creation-function-alist)
@@ -7635,22 +7637,6 @@ or as \"emacs at <hostname>\"."
 
 (milliways-schedule (lambda () (sfn t)))
 
-;; (setf (getenv "EMACS_USE") "erc")
-;; (setf (getenv "EMACS_USE") "gnus")
-;; (setf (getenv "EMACS_USE") "pgm")
-
-
-(cond
-  ((string= (getenv "EMACS_USE") "erc")
-   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
-   (set-frame-name "ERC")
-   (erc-select))
-  ((string= (getenv "EMACS_USE") "gnus")
-   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
-   (gnus))
-  (t
-   (when (fboundp 'set-palette) (set-palette pal-green))))
-
 
 (defun current-minor-modes (&optional buffer)
   "The list of the minor modes currently active in the buffer (or current buffer)."
@@ -7860,6 +7846,25 @@ or as \"emacs at <hostname>\"."
                               (function string<)
                               :key (function car)))
 ;;;----------------------------------------------------------------------------
+;;; At the very end:
+
+;; (setf (getenv "EMACS_USE") "erc")
+;; (setf (getenv "EMACS_USE") "gnus")
+;; (setf (getenv "EMACS_USE") "pgm")
+
+
+(cond
+  ((string= (getenv "EMACS_USE") "erc")
+   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
+   (set-frame-name "ERC")
+   (erc-select))
+  ((string= (getenv "EMACS_USE") "gnus")
+   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
+   (gnus))
+  (t
+   (when (fboundp 'set-palette) (set-palette pal-green))))
+
+
 (.EMACS "epilogue")
 (milliways-activate) (.EMACS "milliways activated!")
 (.EMACS "DONE")

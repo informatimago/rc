@@ -205,15 +205,14 @@ License:
                               :if-does-not-exist :create
                               :if-exists nil
                               :external-format :default)
-      (princ
-       ";; -*- mode:lisp -*-
-\(:output-translations
- :ignore-invalid-entries
- (t (:home \".cache\" \"common-lisp\" :hostname :implementation))
- (t (:home \".cache\" \"common-lisp\" :implementation))
- :inherit-configuration)
-"
-       asdfconf))))
+      (write-line ";; -*- mode:lisp -*-" asdfconf)
+      (print '(:output-translations
+               :ignore-invalid-entries
+               (t (:home ".cache" "common-lisp" :hostname :implementation))
+               (t (:home ".cache" "common-lisp" :implementation))
+               :inherit-configuration)
+             asdfconf)
+      (terpri asdfconf))))
 
 
 ;;;----------------------------------------------------------------------
