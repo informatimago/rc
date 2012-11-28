@@ -1447,7 +1447,7 @@ SIDE must be the symbol `left' or `right'."
 
 (global-set-key (kbd "H-`")  'next-error)
 
-
+(set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
 
    ;; *** Which font backends to use can be specified by the X resource
    ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
