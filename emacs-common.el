@@ -4960,8 +4960,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
     ;; (inactivate-input-method)
     (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
-  (add-hook 'mail-setup-hook           'pjb-mail-mode-meat)
-
   ;; (add-hook 'vm-mode-hook              'mc-install-read-mode)
   ;; (add-hook 'vm-summary-mode-hook      'mc-install-read-mode)
   ;; (add-hook 'vm-virtual-mode-hook      'mc-install-read-mode)
