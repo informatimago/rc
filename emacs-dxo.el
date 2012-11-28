@@ -70,9 +70,11 @@
 
 (when (require 'semantic nil t) 
   (semantic-mode 1))
+
 (require 'pjb-c-style)
 (require 'pjb-objc-edit)
 (require 'dxo)
+
 
 (ignore-errors (visit-tags-table "~/src/Cocoa.ETAGS"))
 (ignore-errors (visit-tags-table "~/src/ETAGS"))
@@ -84,7 +86,16 @@
       grep-host-defaults-alist nil)
 
 
+
+;;----------------------------------------------------------------------------
+;; Gherkin/Cucumber stuff.
+
+(setf feature-default-language "en")
+(setf feature-default-i18n-file "~/emacs/cucumber/i18n.yml")
+(when (require 'feature-mode nil t)
+ (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode)))
+
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-epilog.el")
+ (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
