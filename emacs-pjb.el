@@ -255,7 +255,7 @@ Content-Transfer-Encoding: 8bit
  '(mail-interactive t)
  '(mail-mode-hook (quote (mail-abbrevs-setup (lambda nil (set-buffer-file-coding-system (quote utf-8) t t) (set-input-method default-input-method) (local-set-key "	" (quote expand-mail-aliases))))))
  '(mail-self-blind t)
- '(mail-setup-hook (quote ((lambda nil (local-set-key "	" (quote expand-mail-aliases))))))
+ '(mail-setup-hook (quote (pjb-mail-mode-meat)))
  '(mail-signature t)
  '(mail-yank-ignored-headers "^via:\\|^mail-from:\\|^origin:\\|^status:\\|^remailed\\|^received:\\|^message-id:\\|^summary-line:\\|^to:\\|^subject:\\|^in-reply-to:\\|^reply-to:\\|^return-path:\\|^mailing-list:\\|^precedence:\\|^x-\\|^content-\\|^cc:\\|^list-\\|^resent\\|^organization:\\|^sender:\\|^user-agent:\\|^mime-version:\\|^delivered-to:\\|^references:")
  '(mail-yank-prefix "> ")
