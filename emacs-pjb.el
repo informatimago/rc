@@ -4,6 +4,8 @@
 
 (load "~/rc/emacs-common.el")
 
+(require 'cc-mode)
+
 ;;;----------------------------------------------------------------------------
 ;;; Customization
 ;;;----------------------------------------------------------------------------
@@ -11,11 +13,10 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(eval-expression-print-length nil)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -66,8 +67,6 @@
 (.EMACS "custom variables")
 (custom-set-variables
  '(ad-redefinition-action (quote accept))
- '(all-christian-calendar-holidays t t)
- '(all-hebrew-calendar-holidays nil t)
  '(auto-compression-mode t nil (jka-compr))
  '(auto-image-file-mode t)
  '(auto-save-interval 2500)
@@ -84,43 +83,35 @@
  '(browse-url-new-window-flag nil)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
-
- '(c-backslash-column set-from-style)
- '(c-backslash-max-column set-from-style)
- '(c-basic-offset set-from-style)
- '(c-block-comment-prefix set-from-style)
- '(c-cleanup-list set-from-style)
- '(c-comment-only-line-offset set-from-style)
- '(c-comment-prefix-regexp set-from-style)
- '(c-doc-comment-style set-from-style)
- '(c-hanging-braces-alist set-from-style)
- '(c-hanging-colons-alist set-from-style)
- '(c-hanging-semi&comma-criteria set-from-style)
- '(c-indent-comment-alist set-from-style)
- '(c-indent-comments-syntactically-p set-from-style)
- '(c-label-minimum-indentation set-from-style)
- '(c-offsets-alist set-from-style)
- '(c-special-indent-hook set-from-style)
-
- '(c-label-minimum-indentation set-from-style)
- 
- '(c-default-style "pjb")
-
+ '(c-backslash-column (quote set-from-style))
+ '(c-backslash-max-column 'set-from-style)
+ '(c-basic-offset 'set-from-style)
+ '(c-block-comment-prefix 'set-from-style)
  '(c-brace-imaginary-offset 0 t)
  '(c-brace-offset 0 t)
+ '(c-cleanup-list 'set-from-style)
  '(c-comment-continuation-stars "" t)
+ '(c-comment-only-line-offset 'set-from-style)
+ '(c-comment-prefix-regexp 'set-from-style)
  '(c-continued-brace-offset 0 t)
  '(c-continued-statement-offset 4 t)
+ '(c-default-style "pjb")
+ '(c-doc-comment-style 'set-from-style)
  '(c-echo-syntactic-information-p t)
-
+ '(c-hanging-braces-alist 'set-from-style)
+ '(c-hanging-colons-alist 'set-from-style)
  '(c-hanging-comment-ender-p nil t)
  '(c-hanging-comment-starter-p nil t)
+ '(c-hanging-semi&comma-criteria 'set-from-style)
+ '(c-indent-comment-alist 'set-from-style)
+ '(c-indent-comments-syntactically-p 'set-from-style)
  '(c-indent-level 4 t)
  '(c-label-minimum-indentation 2)
  '(c-label-offset -4 t)
- '(c-macro-shrink-window-flag t) 
+ '(c-macro-shrink-window-flag t)
+ '(c-offsets-alist 'set-from-style)
+ '(c-special-indent-hook 'set-from-style)
  '(c-tab-always-indent t)
- 
  '(calendar-christian-all-holidays-flag t)
  '(calendar-date-display-form (quote ((if dayname (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day dayname) (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day "")))))
  '(calendar-hebrew-all-holidays-flag nil)
@@ -157,11 +148,8 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs"
-                                        "#ml-class" "#nlp-class" "#ai-class" "#compilers-class" "#algo-class" "#hci-class") 
-                                       ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs" "#ml-class" "#nlp-class" "#ai-class" "#compilers-class" "#algo-class" "#hci-class") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
- '(erc-default-coding-system (quote (utf-8 . undecided)) t)
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
  '(erc-email-userid t)
@@ -210,7 +198,7 @@
  '(gnus-article-loose-mime t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
  '(gnus-cacheable-groups "*")
- '(gnus-carpal nil)
+ '(gnus-carpal nil t)
  '(gnus-default-charset (quote iso-8859-15))
  '(gnus-default-posting-charset (quote utf-8) t)
  '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
@@ -272,7 +260,6 @@ Content-Transfer-Encoding: 8bit
  '(mail-yank-ignored-headers "^via:\\|^mail-from:\\|^origin:\\|^status:\\|^remailed\\|^received:\\|^message-id:\\|^summary-line:\\|^to:\\|^subject:\\|^in-reply-to:\\|^reply-to:\\|^return-path:\\|^mailing-list:\\|^precedence:\\|^x-\\|^content-\\|^cc:\\|^list-\\|^resent\\|^organization:\\|^sender:\\|^user-agent:\\|^mime-version:\\|^delivered-to:\\|^references:")
  '(mail-yank-prefix "> ")
  '(mark-even-if-inactive t)
- '(mark-holidays-in-calendar t t)
  '(matlab-comment-line-s "// " t)
  '(matlab-comment-on-line-s "// " t)
  '(matlab-comment-region-s "// " t)
@@ -336,8 +323,6 @@ X-Accept-Language:         fr, es, en
  '(rmail-enable-multibyte t t)
  '(rmail-ignored-headers "^user-agent:\\|^\\(importa\\|precede\\)nce:\\|^priority:\\|^list-\\|^mailing-list\\|^via:\\|^mail-\\(from:\\|follow\\)\\|^\\(in-\\)?reply-to:\\|^sender:\\|^origin:\\|^references:\\|^status:\\|^received:\\|^summary-line:\\|^resent-\\|^\\(resent-\\)?message-id:\\|^nntp-posting-host:\\|^path:\\|^delivered-to:\\|^lines:\\|^mime-version:\\|^content-\\|^return-path:\\|^errors-to:\\|^return-receipt-to:\\|^x400-\\|^x-\\|^x-attribution:\\|^x-char.*:\\|^x-coding-system:\\|^x-face:\\|^x-mailer:\\|^x-disclaimer:\\|phone:")
  '(rmail-output-file-alist nil t)
- '(rmail-pop-password nil t)
- '(rmail-pop-password-required nil t)
  '(rmail-preserve-inbox nil)
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
@@ -363,7 +348,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)))
  '(tab-width 4)
- '(tags-table-list (quote nil))
+ '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -378,7 +363,6 @@ X-Accept-Language:         fr, es, en
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
- '(view-calendar-holidays-initially t t)
  '(vm-auto-displayed-mime-content-types (quote ("text/enriched" "text/plain" "message" "message/rfc822" "message/disposition-notification" "multipart")))
  '(vm-auto-folder-alist (quote (("^\\(From:\\|To:\\|Cc:\\)" ("svn-.*anevia.com" . "~/mail/anevia-svn.mbox") ("staff@anevia.com" . "~/mail/anevia-staff.mbox") ("cpptest@anevia.com" . "~/mail/cpptest.mbox") ("\\(bese.*common-lisp\\)" . "~/mail/ucw.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox") ("cert-advisory@cert.org" . "~/mail/cert.mbox") ("gentoo" . "~/mail/gentoo.mbox")) ("^Subject:" ("\\[libanevia\\|manager2\\|aipc\\]" . "~/mail/anevia-manager2.mbox") ("cs daily" . "~/mail/cs-papers.mbox") ("CRYPTO.*GRAM" . "~/mail/crypto-gram.mbox") ("ipnsig" . "~/mail/ipnsig.mbox") ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)" . "~/mail/lisp.mbox")))))
  '(vm-auto-folder-case-fold-search t)
