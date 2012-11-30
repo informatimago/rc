@@ -202,7 +202,7 @@ RETURN:     The first word of the string, or the empty string.
   (declare (ignore x x-p))
   (format *error-output* "~&Not implemented yet.~%"))
 (defun quit ()                      (ccl:quit))
-
+(defun really-quit () (#_kill (ccl::getpid) 9))
 
 ;;; (setf (current-directory) ...)
 
@@ -210,6 +210,17 @@ RETURN:     The first word of the string, or the empty string.
 
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
+
+
+
+
+(ql:quickload :swank)
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (let ((swank::*loopback-interface* "192.168.7.4")
+        (port (+ 4005 (random 123))))
+    (swank:create-server :port port)))
+
+(setf *print-right-margin* 110)
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
