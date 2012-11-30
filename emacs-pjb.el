@@ -419,10 +419,9 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t))
+ '(x-select-enable-primary t)
+ '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com") (nnimap "mail.intergruas.com")))))
 
-
-;; '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com") (nnimap "mail.intergruas.com"))))
 ;; (setf gnus-secondary-select-methods '())
 
 
