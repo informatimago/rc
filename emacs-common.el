@@ -690,6 +690,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (require 'highlight-flet nil t)
+
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
