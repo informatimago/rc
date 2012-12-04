@@ -55,8 +55,10 @@
 
 (deletef auto-mode-alist "\\.m$"  :test (function equal) :key (function car))
 (deletef auto-mode-alist "\\.mm$" :test (function equal) :key (function car))
+(deletef auto-mode-alist "\\.md$" :test (function equal) :key (function car))
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
-                           ("\\.mm$" . objc-mode)))
+                           ("\\.mm$" . objc-mode)
+                           ("\\.md$" . text-mode)))
 
 
 
@@ -79,11 +81,14 @@
 (ignore-errors (visit-tags-table "~/src/Cocoa.ETAGS"))
 (ignore-errors (visit-tags-table "~/src/ETAGS"))
 
-(defparameter *opticspro-branch* "OpticsProMac-filmstripRefactor2")
-(setf grep-find-command
-      (format "find $HOME/src/%s \\( \\( -name build -o -name debug -o -name release -o -name .svn \\) -prune \\) -o -type f  \\(  -name \\*.h -o -name \\*.m -o -name \\*.mm -o -name \\*.c -name \\*.hh -o -name \\*.hxx -o -name \\*.cc  -o -name \\*.cxx -o -name \\*.lisp -o -name \\*.rb -o -name \\*.logs \\) -print0 | xargs -0 grep -niH -e "
-	      *opticspro-branch*)
-      grep-host-defaults-alist nil)
+
+
+
+(defparameter *opticspro-branch* "OpticsProMac-filmstripRefactor")
+(defparameter *opticspro-branch* "OpticsProMac-trunk")
+(set-sources (file-truename (format "~/src/%s" *opticspro-branch*)))
+
+
 
 
 
