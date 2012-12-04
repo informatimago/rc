@@ -163,6 +163,10 @@ function be_generate(){
         $HOME/.rvm/bin # Add RVM to PATH for scripting
     )
 
+    sharedirs=(
+        /opt/*/share
+    )
+
     mandirs=( 
         /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
         /usr/local/bin /usr/local/share/man 
@@ -226,6 +230,10 @@ function be_generate(){
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list"
 #    be_variable PATH "$list:$PATH"
+
+    list=""
+    prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
+    be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}

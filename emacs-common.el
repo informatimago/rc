@@ -1448,7 +1448,7 @@ SIDE must be the symbol `left' or `right'."
 
 (global-set-key (kbd "H-`")  'next-error)
 
-
+(set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
 
    ;; *** Which font backends to use can be specified by the X resource
    ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
@@ -4960,8 +4960,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
     ;; (setf buffer-file-coding-system  'utf-8)
     ;; (inactivate-input-method)
     (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
-
-  (add-hook 'mail-setup-hook           'pjb-mail-mode-meat)
 
   ;; (add-hook 'vm-mode-hook              'mc-install-read-mode)
   ;; (add-hook 'vm-summary-mode-hook      'mc-install-read-mode)

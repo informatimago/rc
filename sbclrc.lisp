@@ -39,15 +39,15 @@
 (in-package "COMMON-LISP-USER")
 
 ;; Those requires are required for quicklisp/asdf...
-(require :sb-posix)
-(require :sb-bsd-sockets)
-(require :sb-cltl2)
+;; (require :sb-posix)
+;; (require :sb-bsd-sockets)
+;; (require :sb-cltl2)
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
       *print-lines*  nil)
 
-(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :utf-8)
+(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :us-ascii)
 
 ;;;---------------------------------------------------------------------------
 ;;;
@@ -277,14 +277,14 @@
           (print ht out))))))
 
 ;;--------------------
-(setf (logical-pathname-translations "clg")
-      '(("**;*.*.*" "/home/pjb/works/patchwork/src/clg-0.93/**/")))
-
-(push #+sbcl(truename #p"clg:systems;")
-      #+cmu(concatenate 'string (unix-namestring #p"clg:systems") "/")
-      asdf:*central-registry*)
-
-(require 'gtk)
+;; (setf (logical-pathname-translations "clg")
+;;       '(("**;*.*.*" "/home/pjb/works/patchwork/src/clg-0.93/**/")))
+;; 
+;; (push #+sbcl(truename #p"clg:systems;")
+;;       #+cmu(concatenate 'string (unix-namestring #p"clg:systems") "/")
+;;       asdf:*central-registry*)
+;; 
+;; (require 'gtk)
 ;;--------------------
 
 (format t "~~/.sbclrc loaded~%")
