@@ -160,6 +160,7 @@ function be_generate(){
         /usr/local/bin  /usr/local/sbin /usr/local/opt
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
+        $HOME/.rvm/bin # Add RVM to PATH for scripting
     )
 
     mandirs=( 
@@ -917,7 +918,7 @@ function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medi
 function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
 
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 
 
@@ -1021,4 +1022,3 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #### THE END ####
 
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
