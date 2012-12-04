@@ -5,6 +5,10 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
+(message "Pascal J. Bourguignon's emacs startup file.")
+
+(setq message-log-max 5000)
+
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
 
