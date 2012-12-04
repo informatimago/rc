@@ -16,7 +16,11 @@ fi
 # Read first /etc/inputrc if the variable is not defined, and after 
 # the /etc/inputrc include the ~/.inputrc
 [ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
-stty erase  >/dev/null 2>&1
+
+
+case "$DISPLAY" in
+/tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
+esac
 
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
@@ -30,6 +34,7 @@ fi
 case $(uname -s) in 
 Darwin)
     ulimit -s 32768
+    stty erase  >/dev/null 2>&1
     ;;
 *)
     case $(uname -o) in
