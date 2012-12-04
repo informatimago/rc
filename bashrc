@@ -162,9 +162,14 @@ function be_generate(){
         /opt/bin        /opt/sbin
         /opt/*/bin      /opt/*/sbin 
         /opt/local/lib/postgresql84/bin  # on galatea
-        /usr/local/bin  /usr/local/sbin
+        /usr/local/bin  /usr/local/sbin /usr/local/opt
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
+        $HOME/.rvm/bin # Add RVM to PATH for scripting
+    )
+
+    sharedirs=(
+        /opt/*/share
     )
 
     mandirs=( 
@@ -181,7 +186,7 @@ function be_generate(){
     )
 
     editors=( 
-        $HOME/bin/ec 
+	/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
         /opt/emacs-23.4/bin/emacsclient 
         /opt/emacs-23.3/bin/emacsclient 
         /opt/emacs-23.2/bin/emacsclient 
@@ -230,6 +235,10 @@ function be_generate(){
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list"
 #    be_variable PATH "$list:$PATH"
+
+    list=""
+    prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
+    be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
@@ -333,11 +342,22 @@ function be_generate(){
     # If the above are not defined:
     be_variable LANG                    en_US.UTF-8
 
+    if [ $(hostname) = iMac-Core-i5.local ] ; then
 
-    be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
-    be_variable MAILHOST                mail.informatimago.com
-    be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
-    be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+        be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
+        be_variable MAILHOST                localhost
+        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+        be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
+
+    else
+
+        be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
+        be_variable MAILHOST                mail.informatimago.com
+        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+        be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+
+    fi
+
     be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
     be_variable NNTPSERVER              news.individual.net
@@ -911,6 +931,8 @@ function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medi
 function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 
 
 #    WHEN starting
@@ -1011,4 +1033,5 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
+
 
