@@ -924,6 +924,10 @@ function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t
 function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
 # ----------------------------------------
+
+function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
+
+# ----------------------------------------
 # old one liners
 # ----------------------------------------
 function remote-nntp     (){ sudo ssh -L 119:news.free.fr:119 pjb@free.informatimago.com ; }
