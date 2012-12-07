@@ -1142,7 +1142,76 @@ SIDE must be the symbol `left' or `right'."
 (pjb-global-key-bindings)
 
 
+;;;----------------------------------------------------------------------------
+(.EMACS "PJB FUNCTION KEYS")
 
+(defun pjb-undefined-function-key ()
+  "Default command for undefined dynamic function keys."
+  (interactive)
+  (message (format "Undefined key %S" (this-command-keys))))
+
+(defvar *pjb-function-key-commands*
+  '()
+  "An a-list mapping dynamic function keys to either a command (symbol) or a register (integer).")
+
+(defun pjb-function-key-command ()
+  "The command bound to dynamic function keys: it redirects to the command or register mapped to in `*pjb-function-key-command*'."
+  (interactive)
+  (let* ((key   (this-command-keys))
+         (entry (assoc (aref key 0) *pjb-function-key-commands*)))
+    (if entry
+        (cond
+          ((integerp (cdr entry)) (jump-to-register (cdr entry)))
+          ((symbolp (cdr entry))  (call-interactively (cdr entry)))
+          (t (error "Unexpected binding for pjb-function-key: %S" entry)))
+        (pjb-undefined-function-key))))
+
+(defun pjb-define-function-key (ask-for-a-command)
+  "Defines a dynamic function key as a command if a prefix is given, or as a register."
+  (interactive "P")
+  (let* ((c-key  (this-command-keys))
+         (name   (symbol-name (aref c-key (if ask-for-a-command 1 0))))
+         (key    (intern (subseq name 2)))
+         (number (parse-integer name (- (length name) 2)))
+         (entry  (assoc key *pjb-function-key-commands*)))
+    (unless entry
+      (push (setf entry (cons key nil)) *pjb-function-key-commands*))
+    (setf (cdr entry) (if ask-for-a-command
+                          (read-command (format "Command to bind to %S:" key))
+                          (progn
+                            (point-to-register number)
+                            number)))
+    (global-set-key (vector key) 'pjb-function-key-command)
+    (message (format "Defined key %S as %s"
+                     (vector key)
+                     (if (symbolp (cdr entry))
+                         (cdr entry)
+                         (format "register %c" (cdr entry)))))))
+
+(defun pjb-function-keys ()
+  "Binds function keys to allow for their dynamic binding to a jump register or a command.
+Function keys from f13 to f35 and M-f13 to M-f35 can be bound by
+typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
+"
+  (interactive)
+  (loop
+     ;; There are function keys from 1 to 35.  f1 to f12 are on the
+     ;; toprow of the pc keyboards and used and bound specifically.
+     ;; f13 to f35 are mapped to the numeric keypad, and free.
+     for i from 13 to 35
+     for f   = (format "<f%d>" i)
+     for cf  = (format "C-<f%d>" i)
+     for mf  = (format "M-<f%d>" i)
+     for cmf = (format "C-M-<f%d>" i)
+     do
+       (global-set-key (read-kbd-macro f)   'pjb-undefined-function-key)
+       (global-set-key (read-kbd-macro mf)  'pjb-undefined-function-key)
+       (global-set-key (read-kbd-macro cf)  'pjb-define-function-key)
+       (global-set-key (read-kbd-macro cmf) 'pjb-define-function-key)))
+
+(pjb-function-keys)
+
+;;------------------------------------------------------------------------
 
 
 (defvar scroll-page-delimiter "")
@@ -1911,6 +1980,8 @@ capitalized form."
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
+
+
 
 
 
