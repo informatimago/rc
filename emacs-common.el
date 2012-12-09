@@ -742,15 +742,19 @@ NOTE:   ~/directories.txt is cached in *directories*.
 ;;; Emacs-CL
 ;;;----------------------------------------------------------------------------
 (defvar *pjb-emacs-cl-present-p* nil)
-(when (load "load-cl" t)
-  (setf *pjb-emacs-cl-present-p* t)
-  (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*  
-                                          *STANDARD-OUTPUT* 
-                                          *TERMINAL-IO*))
-  (let ((stream (make-buffer-output-stream "*scratch*")))
-    (setf *STANDARD-INPUT*  stream
-          *STANDARD-OUTPUT* stream
-          *TERMINAL-IO*     stream)))
+
+;; We cannot load old emacs-cl in emacs-24 with lexical-binding, since
+;; it overrides new emacs functions.
+
+;; (when (load "load-cl" t)
+;;   (setf *pjb-emacs-cl-present-p* t)
+;;   (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*  
+;;                                           *STANDARD-OUTPUT* 
+;;                                           *TERMINAL-IO*))
+;;   (let ((stream (make-buffer-output-stream "*scratch*")))
+;;     (setf *STANDARD-INPUT*  stream
+;;           *STANDARD-OUTPUT* stream
+;;           *TERMINAL-IO*     stream)))
 
 
 ;;;----------------------------------------------------------------------------
