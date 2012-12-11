@@ -17,7 +17,6 @@ fi
 # the /etc/inputrc include the ~/.inputrc
 [ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
 
-
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
 esac
@@ -166,6 +165,7 @@ function be_generate(){
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
         $HOME/.rvm/bin # Add RVM to PATH for scripting
+        $HOME/Tools
     )
 
     sharedirs=(
@@ -926,6 +926,27 @@ function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 # ----------------------------------------
 
 function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
+
+
+function update-localized-xibs() {
+    if [ $(basename $(pwd)) = "Resources" ] ; then
+        for xibFile in "$@" ; do
+            xibName="$(echo "$(basename ${xibFile})"|sed -e 's/.xib$//')"
+            xibFile="${xibName}.xib"
+            cp "English.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
+            svn revert "English.lproj/${xibFile}" 
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "German.lproj/${xibFile}"   --localize-incremental --write "German.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "French.lproj/${xibFile}"   --localize-incremental --write "French.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "Japanese.lproj/${xibFile}" --localize-incremental --write "Japanese.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
+            rm "English.lproj/${xibFile}"
+            mv "English.lproj/${xibName}-UP.xib" "English.lproj/${xibFile}"
+        done
+        svn status 
+    else
+        echo "Please, cd to a Resources directory."
+        return 1
+    fi
+}
 
 # ----------------------------------------
 # old one liners
