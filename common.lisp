@@ -206,7 +206,7 @@ License:
                               :external-format :default)
       (write-line ";; -*- mode:lisp -*-" asdfconf)
       (print '(:output-translations
-               :ignore-invalid-entries
+               #-clisp :ignore-invalid-entries
                (t (:home ".cache" "common-lisp" :hostname :implementation))
                (t (:home ".cache" "common-lisp" :implementation))
                :inherit-configuration)
