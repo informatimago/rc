@@ -189,7 +189,6 @@ License:
 ;;;
 ;;; ASDF-CONFIGURATION
 ;;;
- 
 
 (let ((asdf-conf-path (merge-pathnames
                        (make-pathname :directory '(:relative ".config" "common-lisp")
@@ -232,6 +231,9 @@ License:
   (if (probe-file quicklisp)
       (load quicklisp)
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
+
+
+;; (asdf:clear-source-registry)
 
 
 (defun print-systems (systems pattern)
