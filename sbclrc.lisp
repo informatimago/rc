@@ -39,15 +39,15 @@
 (in-package "COMMON-LISP-USER")
 
 ;; Those requires are required for quicklisp/asdf...
-(require :sb-posix)
-(require :sb-bsd-sockets)
-(require :sb-cltl2)
+;; (require :sb-posix)
+;; (require :sb-bsd-sockets)
+;; (require :sb-cltl2)
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
       *print-lines*  nil)
 
-(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :utf-8)
+(setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :us-ascii)
 
 ;;;---------------------------------------------------------------------------
 ;;;
@@ -267,14 +267,25 @@
 (when nil
   (dolist (host-path (directory (merge-pathnames
                                  (make-pathname :name :wild
-                                                      :type "HOST"
-                                                      :case :common)
+                                                :type "HOST"
+                                                :case :common)
                                  common-lisp-user::*LOGHOSTS-DIRECTORY* nil)))
     (let ((host (pathname-name host-path)))
       (let ((ht (reverse (with-open-file (in host-path) (read in)))))
         (with-open-file (out host-path :direction :output :if-exists :supersede)
           (format out ";; -*- mode:lisp -*- ~%")
           (print ht out))))))
+
+;;--------------------
+;; (setf (logical-pathname-translations "clg")
+;;       '(("**;*.*.*" "/home/pjb/works/patchwork/src/clg-0.93/**/")))
+;; 
+;; (push #+sbcl(truename #p"clg:systems;")
+;;       #+cmu(concatenate 'string (unix-namestring #p"clg:systems") "/")
+;;       asdf:*central-registry*)
+;; 
+;; (require 'gtk)
+;;--------------------
 
 (format t "~~/.sbclrc loaded~%")
 ;;;; .sbclrc                          --                     --          ;;;;

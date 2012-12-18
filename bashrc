@@ -16,7 +16,10 @@ fi
 # Read first /etc/inputrc if the variable is not defined, and after 
 # the /etc/inputrc include the ~/.inputrc
 [ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
-stty erase  >/dev/null 2>&1
+
+case "$DISPLAY" in
+/tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
+esac
 
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
@@ -30,6 +33,7 @@ fi
 case $(uname -s) in 
 Darwin)
     ulimit -s 32768
+    stty erase  >/dev/null 2>&1
     ;;
 *)
     case $(uname -o) in
@@ -65,7 +69,7 @@ function reverse(){
 
 
 function appendToListVariable(){
-    # appendToList VAARIABLE element...
+    # appendToList VARIABLE element...
     # Appends to the array VARIABLE each element.
     # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
     local var=$1 ; shift
@@ -91,9 +95,10 @@ function appendNewToStringVariableDirectoryIfExists(){
 function prependNewToStringVariableDirectoryIfExists(){
     # prependNewToStringVariableDirectoryIfExists VARIABLE dir...
     # Prepend to the VARIABLE each directory, if it exists as a directory [ -d dir ].
+    # The last processed will be before in the resulting list.
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
-    for dir in $(reverse "$@" ) ; do
+    for dir in "$@" ; do
         if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
@@ -146,15 +151,6 @@ function be_generate(){
         /usr/bin        /usr/sbin
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /Developer/Tools 
-        /usr/local/bin  /usr/local/sbin
-        /usr/local/cint
-        /usr/local/apps/netscape 
-        /usr/local/apps/Acrobat4/bin 
-        /usr/local/apps/WordPerfect/wpbin 
-        /opt/bin        /opt/sbin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/local/lib/postgresql84/bin 
-        /Library/PostgreSQL8/bin 
         /data/languages/abcl
         /data/languages/acl82express
         /data/languages/ccl/bin
@@ -162,17 +158,24 @@ function be_generate(){
         /data/languages/cmucl/bin
         /data/languages/ecl/bin
         # /data/languages/sbcl/bin
+        /opt/bin        /opt/sbin
+        /opt/*/bin      /opt/*/sbin 
+        /opt/local/lib/postgresql84/bin  # on galatea
+        /usr/local/bin  /usr/local/sbin /usr/local/opt
         $HOME/bin 
-        $HOME/bin-$(hostname|sed -e 's/\..*//')
+        # $HOME/bin-$(hostname|sed -e 's/\..*//')
+        $HOME/.rvm/bin # Add RVM to PATH for scripting
+        $HOME/Tools
+    )
+
+    sharedirs=(
+        /opt/*/share
     )
 
     mandirs=( 
         /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
         /usr/local/bin /usr/local/share/man 
         /opt/local/man /opt/local/share/man 
-        /usr/local/languages/fpc/man 
-        /usr/local/languages/clisp/share/man 
-        /usr/local/cint/doc
     )
 
     lddirs=( 
@@ -180,18 +183,18 @@ function be_generate(){
         /usr/local/lib 
         /opt/local/lib 
         /opt/*/lib 
-        /usr/lib/Real 
-        /usr/local/apps/rvplayer5.0 
     )
 
     editors=( 
-        $HOME/bin/ec 
+	/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+        /opt/emacs-23.4/bin/emacsclient 
+        /opt/emacs-23.3/bin/emacsclient 
+        /opt/emacs-23.2/bin/emacsclient 
         /opt/emacs-23.1/bin/emacsclient 
         /opt/emacs-22.1/bin/emacsclient 
         /opt/emacs-21.3/bin/emacsclient 
-        /usr/local/emacs-multitty/bin/emacsclient 
+        /opt/local/bin/emacsclient 
         /usr/local/bin/emacsclient 
-        /sw/bin/emacsclient 
         /usr/bin/emacsclient 
         /bin/emacsclient 
         /bin/ed 
@@ -228,17 +231,24 @@ function be_generate(){
         fi
     done
 
-    list="$PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list"
+#    be_variable PATH "$list:$PATH"
 
-    list="$MANPATH"
+    list=""
+    prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
+    be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
+
+    list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
     be_variable MANPATH "$list"
+#    be_variable MANPATH "$list:$MANPATH"
 
-    list="$LD_LIBRARY_PATH"
+    list=""
     prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
     be_variable LD_LIBRARY_PATH "$list"
+#    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
 
 
     be_comment 'ANSI terminal codes:'
@@ -332,11 +342,22 @@ function be_generate(){
     # If the above are not defined:
     be_variable LANG                    en_US.UTF-8
 
+    if [ $(hostname) = iMac-Core-i5.local ] ; then
 
-    be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
-    be_variable MAILHOST                mail.informatimago.com
-    be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
-    be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+        be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
+        be_variable MAILHOST                localhost
+        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+        be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
+
+    else
+
+        be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
+        be_variable MAILHOST                mail.informatimago.com
+        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+        be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+
+    fi
+
     be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
     be_variable NNTPSERVER              news.individual.net
@@ -404,13 +425,19 @@ function be_generate(){
 }
 ########################################################################
 if [ -f $BASH_ENV ] ; then
-    if [ $HOME/.bashrc -nt $BASH_ENV ] ; then
+    if [ $HOME/rc/bashrc -nt $BASH_ENV ] ; then
         be_generate
     fi
 else
     be_generate
 fi
 source $BASH_ENV
+
+# GNUstep:
+if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
+    . /usr/share/GNUstep/Makefiles/GNUstep.sh
+fi
+
 
 case "$(hostname)" in
 mdi-development-*)
@@ -897,12 +924,39 @@ function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t
 function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
 # ----------------------------------------
+
+function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
+
+
+function update-localized-xibs() {
+    if [ $(basename $(pwd)) = "Resources" ] ; then
+        for xibFile in "$@" ; do
+            xibName="$(echo "$(basename ${xibFile})"|sed -e 's/.xib$//')"
+            xibFile="${xibName}.xib"
+            cp "English.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
+            svn revert "English.lproj/${xibFile}" 
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "German.lproj/${xibFile}"   --localize-incremental --write "German.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "French.lproj/${xibFile}"   --localize-incremental --write "French.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
+            ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "Japanese.lproj/${xibFile}" --localize-incremental --write "Japanese.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
+            rm "English.lproj/${xibFile}"
+            mv "English.lproj/${xibName}-UP.xib" "English.lproj/${xibFile}"
+        done
+        svn status 
+    else
+        echo "Please, cd to a Resources directory."
+        return 1
+    fi
+}
+
+# ----------------------------------------
 # old one liners
 # ----------------------------------------
 function remote-nntp     (){ sudo ssh -L 119:news.free.fr:119 pjb@free.informatimago.com ; }
 function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medium-r-normal-*-*-140-75-*-*-*-iso8859-1' -T atc -e bash -c "while true ; do /usr/games/bin/atc -g ${1:-Atlantis} ; sleep 5 ; done" ; }
 function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 
 
@@ -1004,3 +1058,5 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
+
+
