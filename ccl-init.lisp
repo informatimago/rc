@@ -61,6 +61,7 @@
 (export '(EDIT QUIT))
 
 (setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
+;; (setf ccl:*save-definitions*  t) ; for function-lambda-expression
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --
@@ -104,6 +105,47 @@
 
 ;; (setf COMMON-LISP-USER::*default-bundle-path* "CCL:OPENMCL.APP;")
 ;;  ccl::*module-search-path*  ;; paths used by REQUIRE.
+
+(defun locale-terminal-encoding ()
+  "Returns the terminal encoding specified by the locale(7)."
+  #+(and ccl windows-target)
+  :iso-8859-1
+  ;; ccl doesn't support :windows-1252.
+  ;; (intern (format nil "WINDOWS-~A" (#_GetACP)) "KEYWORD")
+  #-(and ccl windows-target)
+  (dolist (var '("LC_ALL" "LC_CTYPE" "LANG")
+               :iso-8859-1) ; some random default…
+    (let* ((val (ccl::getenv var))
+           (dot (position #\. val))
+           (at  (position #\@ val :start (or dot (length val)))))
+      (when (and dot (< dot (1- (length val))))
+        (flet ((prefixp (p s)
+                 (and (<= (length p) (length s))
+                      (string= p s :end1 (length p)))))
+         (return (intern (let ((name (string-upcase (subseq val (1+ dot)
+                                                            (or at (length val))))))
+                           (if (and (prefixp "ISO" name) (not (prefixp "ISO-" name)))
+                               (concatenate 'string "ISO-" (subseq name 3))
+                               name))
+                         "KEYWORD")))))))
+
+
+(defun set-terminal-encoding (encoding)
+  #-(and ccl (not swank)) (declare (ignore encoding))
+  #+(and ccl (not swank))
+  (mapc (lambda (stream)
+          (setf (ccl::stream-external-format stream)
+                (ccl:make-external-format :domain nil
+                                          :character-encoding encoding
+                                          :line-termination
+                                          #+unix :unix
+                                          #+windows :windows
+                                          #-(or unix windows) :unix)))
+        (list (two-way-stream-input-stream  *terminal-io*)
+              (two-way-stream-output-stream *terminal-io*)))
+  (values))
+
+(set-terminal-encoding  (locale-terminal-encoding))
 
 (setf ccl:*default-external-format*           :unix
       ccl:*default-file-character-encoding*   :utf-8
@@ -160,7 +202,7 @@ RETURN:     The first word of the string, or the empty string.
   (declare (ignore x x-p))
   (format *error-output* "~&Not implemented yet.~%"))
 (defun quit ()                      (ccl:quit))
-
+(defun really-quit () (#_kill (ccl::getpid) 9))
 
 ;;; (setf (current-directory) ...)
 
@@ -168,6 +210,17 @@ RETURN:     The first word of the string, or the empty string.
 
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
+
+
+
+
+(ql:quickload :swank)
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (let ((swank::*loopback-interface* "192.168.7.4")
+        (port (+ 4005 (random 123))))
+    (swank:create-server :port port)))
+
+(setf *print-right-margin* 110)
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
