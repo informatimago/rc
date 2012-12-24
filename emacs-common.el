@@ -1698,7 +1698,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
                    (("galatea")
                     (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
-                    (setq palette            pal-naiad
+                    (setq palette            pal-blueprint3
                           width              81
                           height             54
                           font   (let ((fixed (make-font-pattern :foundry "Misc"
@@ -6248,8 +6248,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
    (push '(name . "GNUS") default-frame-alist)
    (set-background-color "#ccccfefeebb7")
    (when (fboundp 'set-default-frame-alist)
-     ;; (set-default-frame-alist *default-font*)
-     )
+     (set-default-frame-alist *default-font*))
    (setf *frame-server-job-ticket* "~/frame-gnus"))
   ((member "(irc)"  command-line-args)
    (setf uptimes-auto-save-interval (* 11 60))
@@ -6257,8 +6256,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
    (push '(name . "ERC") default-frame-alist)
    (setf *frame-server-job-ticket* "~/frame-erc")
    (when (fboundp 'set-default-frame-alist)
-     ;; (set-default-frame-alist *default-font*)
-     ))
+     (set-default-frame-alist *default-font*)))
   (t
    (setf *activity-tag* "EMACS")
    (setf uptimes-auto-save-interval (* 13 60))
@@ -6271,8 +6269,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
          (getenv "VISUAL")     "emacsclient")
    (setf *frame-server-job-ticket* "~/frame-emacs")
    (when (fboundp 'set-default-frame-alist)
-     ;; (set-default-frame-alist *default-font*)
-     )))
+     (set-default-frame-alist *default-font*))))
 
 ;;;----------------------------------------------------------------------------
 
