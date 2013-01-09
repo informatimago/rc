@@ -36,3 +36,5 @@
 
 
 ;;;; THE END ;;;;
+
+(put 'erase-buffer 'disabled nil)
