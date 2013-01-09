@@ -18,7 +18,15 @@
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
  '(font-lock-string-face ((t (:foreground "#aa2211"))))
- '(font-lock-type-face ((t (:foreground "#6620b0")))))
+ '(font-lock-type-face ((t (:foreground "#6620b0"))))
+ '(smerge-refined-change ((t (:background "#997722"))))
+ '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
+ '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
+ '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
+ )
 
 
 
@@ -41,6 +49,46 @@
  '(c-label-minimum-indentation (quote set-from-style))
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
+ '(erc-auto-query (quote window))
+ '(erc-autojoin-channels-alist (quote (("freenode.net"  "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-away-timestamp-format "<%H:%M:%S>")
+ '(erc-echo-notices-in-current-buffer t)
+ '(erc-echo-timestamps nil)
+ '(erc-email-userid t)
+ '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
+ '(erc-fill-column 90)
+ '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-prefix "\"\"")
+ '(erc-fill-static-center 0)
+ '(erc-fill-variable-maximum-indentation 0)
+ '(erc-hide-list (quote nil))
+ '(erc-ignore-list (quote ("ad37e918" "173.55.233.24")))
+ '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-reply-list (quote nil))
+ '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
+ '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
+ '(erc-interpret-mirc-color t)
+ '(erc-log-write-after-insert t)
+ '(erc-log-write-after-send t)
+ '(erc-max-buffer-size 300000)
+ '(erc-minibuffer-ignored t)
+ '(erc-minibuffer-notice t)
+ '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-nick (quote ("pjb-d")))
+ '(erc-notice-prefix "   *** ")
+ '(erc-pals (quote ()))
+ '(erc-port 6667)
+ '(erc-prompt (lambda nil (buffer-name (current-buffer))))
+ '(erc-prompt-for-password t)
+ '(erc-quit-reason-various-alist nil)
+ '(erc-server "irc.freenode.org")
+ '(erc-server-coding-system (quote (utf-8 . undecided)))
+ '(erc-server-reconnect-attempts 100)
+ '(erc-server-reconnect-timeout 60)
+ '(erc-timestamp-format nil)
+ '(erc-timestamp-intangible nil)
+ '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-print-length nil)
  '(indent-tabs-mode nil)
  '(mail-host-address nil)
@@ -50,6 +98,7 @@
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
+ '(visible-bell nil)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
 
@@ -127,14 +176,13 @@
   (setf font-lock-keywords '())
   (font-lock-add-keywords
    nil
-   '(("\\(^error .*\\)"                1 gherkin-error)
-     ("\\(^build .*error on line.*\\)" 1 gherkin-error)
-     ("\\(^.*\\.m:[0-9]+: error:.*\\)" 1 gherkin-error)
-     ("\\(^simple .*\\)"               1 gherkin-simple)
-     ("\\(^command .*\\)"              1 gherkin-command)
-     ("\\(^build .*\\)"                1 gherkin-build)))
+   '(("^\\(error .*\\)"                (1 gherkin-error))
+     ("^\\(build .*error on line.*\\)" (1 gherkin-error))
+     ("^\\(.*\\.m:[0-9]+: error:.*\\)" (1 gherkin-error))
+     ("^\\(simple .*\\)"               (1 gherkin-simple))
+     ("^\\(command .*\\)"              (1 gherkin-command))
+     ("^\\(build .*\\)"                (1 gherkin-build))))
   (font-lock-fontify-buffer))
-
 
 (put 'define-derived-mode 'lisp-indent-function 3)
 
@@ -151,9 +199,54 @@
 
 
 
+
+(define-derived-mode valgrind-mode compilation-mode "Valgrind"
+ "Mode to read valgrind log files."
+ (setf font-lock-keywords nil)
+ (font-lock-add-keywords
+  nil
+  '(("^{[^}]*}"
+     (0 font-lock-preprocessor-face))
+    ("^\\(==[0-9]*==\\) \\([^ \n].*\\)$"
+     (1 font-lock-variable-name-face)
+     (2 font-lock-warning-face))
+    ("^\\(==[0-9]*==\\)   \\([^ \n].*\\)$"
+     (1 font-lock-variable-name-face)
+     (2 font-lock-comment-face))
+    ("^\\(==[0-9]*==\\)    [a-z]+ \\(0x[0-9A-F]*\\): \\([^( \n]*\\)(\\(.*\\)) (\\([^:]+:[0-9]+\\))$"
+     (1 font-lock-variable-name-face)
+     (2 font-lock-constant-face)
+     (3 font-lock-function-name-face)
+     (4 font-lock-type-face)
+     (5 font-lock-comment-face)))))
+
+(add-to-list 'auto-mode-alist '("\\.\\(val\\|hel\\)grind$" . valgrind-mode))
+
+
+
+(defun dxo-bell ()
+  (message "bell"))
+
+(setf ring-bell-function 'dxo-bell)
+
+
+(dolist (key (list (kbd "<C-wheel-down>")
+                   (kbd "<S-wheel-down>")
+                   (kbd "<wheel-down>")
+                   (kbd "<C-wheel-up>")
+                   (kbd "<S-wheel-up>")
+                   (kbd "<wheel-up>")))
+  (global-unset-key key))
+
 ;; (setf eval-expression-print-length nil)
 ;;----------------------------------------------------------------------------
 
+(require 'confluence)
+(setq confluence-url "https://confluence:8453/rpc/xmlrpc")
+
+;;----------------------------------------------------------------------------
+
+(require 'erc-notify)
 
 (desktop-read)
 

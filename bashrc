@@ -20,6 +20,7 @@ fi
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
 esac
+export DISPLAY=:0.0
 
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
@@ -85,7 +86,9 @@ function appendNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir ; do
-        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+        echo "a probing ${dir}"
+        if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+            echo "  yep"
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
         fi
     done
@@ -99,7 +102,9 @@ function prependNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir in "$@" ; do
-        if [ -d "${dir}" -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+        echo "p probing ${dir}"
+        if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+            echo "  yep"
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
     done
@@ -164,8 +169,12 @@ function be_generate(){
         /usr/local/bin  /usr/local/sbin /usr/local/opt
         $HOME/bin 
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
+
+        # DxO stuff:
         $HOME/.rvm/bin # Add RVM to PATH for scripting
         $HOME/Tools
+        $HOME/src/reposurgeon
+        $HOME/src/fast-export
     )
 
     sharedirs=(
@@ -233,8 +242,7 @@ function be_generate(){
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
-    be_variable PATH "$list"
-#    be_variable PATH "$list:$PATH"
+    be_variable PATH "$list:$PATH"
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
@@ -284,7 +292,7 @@ function be_generate(){
     be_variable CVS_RSH            ssh 
 
 
-    if [ -d /usr/share/kaffe/ ] ; then
+    if [ -d /usr/share/kaffe/. ] ; then
         be_variable KAFFEHOME /usr/share/kaffe
         list=''
         appendNewToStringVariableDirectoryIfExists list \
@@ -299,7 +307,7 @@ function be_generate(){
         be_variable PATH "$JAVA_HOME"/bin:"$PATH"
     fi
 
-    if [ -d /usr/local/languages/java/ ] ; then
+    if [ -d /usr/local/languages/java/. ] ; then
         be_variable JAVA_BASE /usr/local/languages/java
         be_variable JAVA_HOME "$JAVA_BASE"/jdk1.1.6/
         list=''
@@ -310,7 +318,7 @@ function be_generate(){
             "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
         be_variable classpath_jdk "$list"
         be_variable CLASSPATH "$classpath_jdk"
-        if [ -d /usr/local/JavaApps/ ] ; then
+        if [ -d /usr/local/JavaApps/. ] ; then
             be_variable PATH /usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
         else
             be_variable PATH "$JAVA_HOME"/bin:"$PATH"
@@ -402,10 +410,13 @@ function be_generate(){
     be_variable SHOOPMOD           /usr/local/share/shoop/modules
     be_variable SHOOPPATH          $SHOOPMOD
 
-    if [ -d /usr/local/cint/ ] ; then
+    if [ -d /usr/local/cint/. ] ; then
         be_variable CINTSYSDIR     /usr/local/cint
     fi
 
+
+    be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
+    be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
 
     # # GNUstep environment
     # 
