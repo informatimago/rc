@@ -105,6 +105,10 @@
 ;;;----------------------------------------------------------------------------
 ;;; DxO specific stuff
 ;;;----------------------------------------------------------------------------
+(push (lambda ()
+        (when (string-match "^/usr/local/Cellar/" (buffer-file-name (current-buffer)))
+          (view-mode 1)))
+      find-file-hook)
 
 (deletef auto-mode-alist "\\.m$"  :test (function equal) :key (function car))
 (deletef auto-mode-alist "\\.mm$" :test (function equal) :key (function car))
