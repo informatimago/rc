@@ -117,21 +117,32 @@ xterm*activeIcon:               false
 !! -----------------------------
 xterm*Font:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
 
-xterm*font1:   -*-lucidatypewriter-medium-r-normal-*-8-*-*-*-m-*-*-*
-xterm*font2:   -*-lucidatypewriter-medium-r-normal-*-10-*-*-*-m-*-*-*
-xterm*font3:   -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
-xterm*font4:   -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
-xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
-xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
-xterm*font7:   -*-lucidatypewriter-medium-r-normal-*-24-*-*-*-m-*-*-*
+! xterm*font1:   -*-lucidatypewriter-medium-r-normal-*-8-*-*-*-m-*-*-*
+! xterm*font2:   -*-lucidatypewriter-medium-r-normal-*-10-*-*-*-m-*-*-*
+! xterm*font3:   -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+! xterm*font4:   -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
+! xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
+! xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
+! xterm*font1.Label: lycidatypewriter-8
+! xterm*font2.Label: lycidatypewriter-10
+! xterm*font3.Label: lycidatypewriter-12
+! xterm*font4.Label: lycidatypewriter-14
+! xterm*font5.Label: lycidatypewriter-16
+! xterm*font6.Label: lycidatypewriter-18
 
-xterm*font1.Label: lycidatypewriter-8
-xterm*font2.Label: lycidatypewriter-10
-xterm*font3.Label: lycidatypewriter-12
-xterm*font4.Label: lycidatypewriter-14
-xterm*font5.Label: lycidatypewriter-16
-xterm*font6.Label: lycidatypewriter-18
-xterm*font7.Label: lycidatypewriter-24
+xterm*font1:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+xterm*font2:    -*-smoothansi-medium-r-*-*-13-*-*-*-m-*-*-*
+xterm*font3:    -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
+xterm*font4:    -*-dejavu sans mono-medium-r-*-*-17-*-*-*-m-*-*-*
+xterm*font5:    -*-droid sans mono-*-*-*-*-17-120-*-*-m-*-*-*
+xterm*font6:    -*-courier-medium-r-normal-*-18-*-*-*-*-*-*-*
+xterm*font1.Label: lycidatypewriter 12
+xterm*font2.Label: smoothansi 13
+xterm*font3.Label: lycidatypewriter 14
+xterm*font4.Label: dejavu sans mono 17
+xterm*font5.Label: droid sans mono 17
+xterm*font6.Label: courier 18
+
 
 
 ! xterm*font1.Label: courier-10

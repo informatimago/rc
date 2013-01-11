@@ -86,9 +86,7 @@ function appendNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir ; do
-        echo "a probing ${dir}"
         if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
-            echo "  yep"
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
         fi
     done
@@ -102,9 +100,7 @@ function prependNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir in "$@" ; do
-        echo "p probing ${dir}"
         if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
-            echo "  yep"
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
     done
@@ -1071,3 +1067,5 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #### THE END ####
 
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
