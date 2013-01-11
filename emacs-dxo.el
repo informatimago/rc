@@ -18,7 +18,13 @@
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
  '(font-lock-string-face ((t (:foreground "#aa2211"))))
- '(font-lock-type-face ((t (:foreground "#6620b0")))))
+ '(font-lock-type-face ((t (:foreground "#6620b0"))))
+ '(org-done ((t (:foreground "PaleGreen"   
+                 :weight normal
+                 :strike-through t))))
+ '(org-headline-done 
+   ((((class color) (min-colors 16) (background dark)) 
+     (:foreground "LightSalmon" :strike-through t)))) )
 
 
 
@@ -50,7 +56,10 @@
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
- '(warning-suppress-types (quote ((undo discard-info)))))
+ '(warning-suppress-types (quote ((undo discard-info))))
+ '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)")
+                             (sequence "|" "CANCELED(c)"))))
+ '(org-fontify-done-headline t))
 
 
 ;;;----------------------------------------------------------------------------
