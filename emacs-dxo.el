@@ -26,7 +26,12 @@
  '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
- )
+ '(org-done ((t (:foreground "PaleGreen"   
+                 :weight normal
+                 :strike-through t))))
+ '(org-headline-done 
+   ((((class color) (min-colors 16) (background dark)) 
+     (:foreground "LightSalmon" :strike-through t)))) )
 
 
 
@@ -98,8 +103,11 @@
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
- '(visible-bell nil)
- '(warning-suppress-types (quote ((undo discard-info)))))
+ '(visible-bell t)
+ '(warning-suppress-types (quote ((undo discard-info))))
+ '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)")
+                             (sequence "|" "CANCELED(c)"))))
+ '(org-fontify-done-headline t))
 
 
 ;;;----------------------------------------------------------------------------

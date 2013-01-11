@@ -14,8 +14,8 @@
 
 (defvar *hostname-configuration-map*
   '(("iMac-Core-i5.local" . "~/rc/emacs-dxo.el")
+    ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
     (t                    . "~/rc/emacs-pjb.el")))
-
 
 (defun hostname ()
   (or (and (boundp  'system-name) system-name)
