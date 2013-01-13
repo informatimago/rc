@@ -1715,7 +1715,10 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                                                                  :average-width "60"
                                                                  :registry "ISO8859"
                                                                  :encoding "1")))
-                                   (if (font-exists-p fixed) fixed font))))
+                                   (if (and (eq window-system 'x)
+					    (font-exists-p fixed))
+				       fixed
+				       font))))
                    
                    (("larissa") 
                     (setq palette            pal-larissa
