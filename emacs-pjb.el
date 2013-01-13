@@ -52,15 +52,18 @@
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
  '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "black" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
- '(read-only-face ((t (:background "gray30"))) t)
- '(rst-level-1-face ((t (:height 1.8))) t)
- '(rst-level-2-face ((t (:height 1.6))) t)
- '(rst-level-3-face ((t (:height 1.4))) t)
- '(rst-level-4-face ((t (:height 1.2))) t)
- '(rst-level-5-face ((t (:weight bold :height 1.1))) t)
- '(rst-level-6-face ((t (:weight bold))) t)
+ '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
+ '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+ '(read-only-face   ((t (:background "gray30"))) t)
+ '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
+ '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
+ '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
+
 
 
 
@@ -109,8 +112,8 @@
  '(c-label-minimum-indentation 2)
  '(c-label-offset -4 t)
  '(c-macro-shrink-window-flag t)
- '(c-offsets-alist (quote nil))
- '(c-special-indent-hook (quote set-from-style))
+ '(c-offsets-alist (quote ()))
+ '(c-special-indent-hook (quote ()))
  '(c-tab-always-indent t)
  '(calendar-christian-all-holidays-flag t)
  '(calendar-date-display-form (quote ((if dayname (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day dayname) (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day "")))))
@@ -150,6 +153,7 @@
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
+ '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
  '(erc-email-userid t)
@@ -167,6 +171,7 @@
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
+ '(erc-keywords (quote ("^\\(<.*>\\|\\* \\)")))
  '(erc-log-write-after-insert t)
  '(erc-log-write-after-send t)
  '(erc-max-buffer-size 300000)
@@ -184,8 +189,10 @@
  '(erc-server-coding-system (quote (utf-8 . undecided)))
  '(erc-server-reconnect-attempts 100)
  '(erc-server-reconnect-timeout 60)
+ '(erc-text-matched-hook (quote (erc-log-matches erc-beep-on-match)))
  '(erc-timestamp-format nil)
  '(erc-timestamp-intangible nil)
+ '(erc-track-enable-keybindings t)
  '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-debug-on-error t)
  '(eval-expression-print-length nil)
@@ -299,6 +306,8 @@ X-Accept-Language:         fr, es, en
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
  '(org-agenda-files (quote ("~/notes.txt")))
+ '(org-fontify-done-headline t)
+ '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -334,7 +343,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . User) (lexical-binding . t) (Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (Package . User) (lexical-binding . t) (Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(send-mail-function (quote sendmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -352,7 +361,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
- '(tags-table-list (quote nil))
+ '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -472,6 +481,17 @@ X-Accept-Language:         fr, es, en
 
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 ;;;----------------------------------------------------------------------------
+
+;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
+;;            (file-exists-p "/usr/bin/mplayer"))
+;;   (setf visible-bell nil
+;;         ring-bell-function (lambda ()
+;;                              (shell-command-to-string
+;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
+
+(setf visible-bell nil
+      ring-bell-function nil)
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

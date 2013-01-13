@@ -1958,30 +1958,25 @@ capitalized form."
 (.EMACS "ORG-MODE")
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
-(setf org-log-done      t
-      org-agenda-files  '("~/notes.txt"
-                          ;; "~/notes-kuiper.txt"
-                          ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
-                          ;; "~/firms/wizards/notes.txt"
-                          ;; "~/firms/willcom/notes.txt"
-                          ;; "~/firms/secur.net/notes.txt"
-                          ;; "~/firms/ravenpack/notes.txt"
-                          ;; "~/firms/osii/notes.txt"
-                          ;; "~/firms/medicalis/notes.txt"
-                          ;; "~/firms/mappy/notes.txt"
-                          ;; "~/firms/joellegymtonic/notes.txt"
-                          ;; "~/firms/jem/notes.txt"
-                          ;; "~/firms/intergruas/notes.txt"
-                          ;; "~/firms/hf/notes.txt"
-                          ;; "~/firms/hbedv/notes.txt"
-                          ;; "~/firms/hamster-s-fabric-inc/notes.txt"
-                          ;; "~/firms/camille/notes.txt"
-                          ;; "~/firms/afaa/notes.txt"
-                          )
-      org-todo-keywords '((sequence "TODO" "|" "DONE(d)")
-                          (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
-                          (sequence "|" "CANCELED(c)"))
-      org-todo-keywords '("TODO" "|" "DONE")
+(setf org-agenda-files '("~/notes.txt"
+                         ;; "~/notes-kuiper.txt"
+                         ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+                         ;; "~/firms/wizards/notes.txt"
+                         ;; "~/firms/willcom/notes.txt"
+                         ;; "~/firms/secur.net/notes.txt"
+                         ;; "~/firms/ravenpack/notes.txt"
+                         ;; "~/firms/osii/notes.txt"
+                         ;; "~/firms/medicalis/notes.txt"
+                         ;; "~/firms/mappy/notes.txt"
+                         ;; "~/firms/joellegymtonic/notes.txt"
+                         ;; "~/firms/jem/notes.txt"
+                         ;; "~/firms/intergruas/notes.txt"
+                         ;; "~/firms/hf/notes.txt"
+                         ;; "~/firms/hbedv/notes.txt"
+                         ;; "~/firms/hamster-s-fabric-inc/notes.txt"
+                         ;; "~/firms/camille/notes.txt"
+                         ;; "~/firms/afaa/notes.txt"
+                         )
       org-enforce-todo-dependencies t
       org-log-done 'note)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -2422,6 +2417,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
                            ("\\.j$"      . java-mode)))
 
 (appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
+
+(appendf auto-mode-alist '(("\\.html\\.in$"  . html-mode)))
 
 
 (defun pjb-show-lisp-repl (jump-in)
@@ -2957,6 +2954,10 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 
 (require 'bytecomp)
 (byte-compile-disable-warning 'cl-functions)
+;; byte-compile-warning-types
+;; (redefine callargs free-vars unresolved obsolete noruntime cl-functions interactive-only make-local mapcar constants suspicious lexical)
+;; byte-compile-warnings
+;; (not cl-functions)
 
 (defun make-lisp-command-sender (string)
   (byte-compile `(lambda ()
@@ -5026,18 +5027,20 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;;   (message "Found a UNIX mailbox!"))
 
 ;;;----------------------------------------------------------------------------
+
+(defun pjb-mail-mode-meat ()
+  (message "mail-mode-meat")
+  (set-buffer-file-coding-system   'utf-8)
+  ;; (setf buffer-file-coding-system  'utf-8)
+  ;; (inactivate-input-method)
+  (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
+
 (when (require 'vm nil t)
   (.EMACS "vm")
   (require 'vm-vars)
   (ignore-errors (load-library "vm-w3m"))
 
 
-  (defun pjb-mail-mode-meat ()
-    (message "mail-mode-meat")
-    (set-buffer-file-coding-system   'utf-8)
-    ;; (setf buffer-file-coding-system  'utf-8)
-    ;; (inactivate-input-method)
-    (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
   ;; (add-hook 'vm-mode-hook              'mc-install-read-mode)
   ;; (add-hook 'vm-summary-mode-hook      'mc-install-read-mode)
@@ -5913,7 +5916,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
     (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
-    (intersection   . "Have a look at http://paste.lisp.org/display/122296 (intersection common-lisp emacs-lisp scheme)")
+    (intersection   . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
     (getting-started  . "Start with http://www.cliki.net/Getting%20Started")
