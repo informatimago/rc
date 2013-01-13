@@ -2415,6 +2415,8 @@ Prefix argument means switch to the Lisp buffer afterwards."
 
 (appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
+(appendf auto-mode-alist '(("\\.html\\.in$"  . html-mode)))
+
 
 (defun pjb-show-lisp-repl (jump-in)
   "Switches to a repl buffer, depending on the major mode and what's available.
