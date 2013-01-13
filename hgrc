@@ -1,0 +1,14 @@
+;; -*- mode:conf -*-
+
+
+[ui]
+username="Pascal Bourguignon <pjb@informatimago.com>"
+verbose=True
+merge=internal:merge
+
+[extensions]
+hgext.convert=
+graphlog=
+
+
+%include src/mercurial-tests/Tools/hooks/hooks.rc
