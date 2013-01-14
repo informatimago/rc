@@ -1,0 +1,6 @@
+# -*- mode:shell-script -*-
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+. ~/src/mercurial-tests/Tools/macbuild/mb.sh
+
+#### THE END ####
