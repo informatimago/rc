@@ -4982,7 +4982,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;;   (epa-file-enable)
 ;;   (setf epa-armor t))
 
-;; Distribution isntalls crypt++...
+;; Distribution installs crypt++...
 (setf find-file-hook (remove 'crypt-find-file-hook find-file-hook))
 
 (defun find-file-read-args (prompt mustmatch)
