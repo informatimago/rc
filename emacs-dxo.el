@@ -19,19 +19,15 @@
  '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
  '(font-lock-string-face ((t (:foreground "#aa2211"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
- '(smerge-refined-change ((t (:background "#997722"))))
+ '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
+ '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
  '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
- '(org-done ((t (:foreground "PaleGreen"   
-                 :weight normal
-                 :strike-through t))))
- '(org-headline-done 
-   ((((class color) (min-colors 16) (background dark)) 
-     (:foreground "LightSalmon" :strike-through t)))) )
+ '(smerge-refined-change ((t (:background "#997722")))))
 
 
 
@@ -55,7 +51,7 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net"  "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -82,7 +78,7 @@
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
  '(erc-nick (quote ("pjb-d")))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ()))
+ '(erc-pals (quote nil))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
@@ -98,16 +94,19 @@
  '(indent-tabs-mode nil)
  '(mail-host-address nil)
  '(message-log-max 5000)
+ '(org-fontify-done-headline t)
+ '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
+ '(safe-local-variable-values (quote ((Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "voyager.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
  '(visible-bell t)
- '(warning-suppress-types (quote ((undo discard-info))))
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)")
                              (sequence "|" "CANCELED(c)"))))
  '(org-fontify-done-headline t))
+ '(warning-suppress-types (quote ((undo discard-info)))))
 
 
 ;;;----------------------------------------------------------------------------

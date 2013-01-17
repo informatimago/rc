@@ -1066,6 +1066,8 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
 
+case $(hostname) in
+dxo-pbo.local) . ~/rc/bashrc-dxo ;;
+*)             . ~/rc/bashrc-pjb ;;
+esac
 
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
