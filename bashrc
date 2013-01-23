@@ -930,6 +930,8 @@ function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t
 
 function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
+function history-graph   (){ history | awk '{h[$2]++}END{for(i in h){print h[i],i|"sort -rn|head -20"}}' | awk '{if(!m)m=$1;r="";i=s=60*$1/m;while(i-->0)r=r"#";printf "%15s %5d %s %s",$2,$1,r,"\n";}' ; }
+
 # ----------------------------------------
 
 function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
