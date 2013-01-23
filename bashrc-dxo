@@ -1,6 +1,10 @@
 # -*- mode:shell-script -*-
 
+export p27=/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/mercurial/2.4.2/libexec
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 . ~/src/mercurial-tests/Tools/macbuild/mb.sh
 
+export DXOSHLIB=/Users/pbourguignon/src/mercurial-tests/Tools/test-scripts/dxoshlib
 #### THE END ####
