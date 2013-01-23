@@ -1955,6 +1955,12 @@ capitalized form."
                       minor-mode-map-alist)))))
 
 ;;;----------------------------------------------------------------------------
+(.EMACS "AUTO-COMPLETE-MODE")
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+  (ac-config-default))
+
+;;;----------------------------------------------------------------------------
 (.EMACS "ORG-MODE")
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
