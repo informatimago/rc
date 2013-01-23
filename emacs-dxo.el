@@ -96,16 +96,13 @@
  '(message-log-max 5000)
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
+ '(safe-local-variable-values (quote ((Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "voyager.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
  '(visible-bell t)
- '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)")
-                             (sequence "|" "CANCELED(c)"))))
- '(org-fontify-done-headline t))
  '(warning-suppress-types (quote ((undo discard-info)))))
 
 
@@ -149,8 +146,8 @@
 
 
 
-(defparameter *opticspro-branch* "OpticsProMac-filmstripRefactor")
-(defparameter *opticspro-branch* "OpticsProMac-trunk")
+(defparameter *opticspro-branch* "OpticsPro-Mac-filmstripRefactor")
+(defparameter *opticspro-branch* "OpticsPro-Mac-trunk")
 (set-sources (file-truename (format "~/src/%s" *opticspro-branch*)))
 
 
@@ -244,7 +241,7 @@
 (dolist (key (list (kbd "<C-wheel-down>")
                    (kbd "<S-wheel-down>")
                    (kbd "<wheel-down>")
-                   (kbd "<C-wheel-up>")
+                   (kbd "<C-wheel-up>")1
                    (kbd "<S-wheel-up>")
                    (kbd "<wheel-up>")))
   (global-unset-key key))
@@ -252,12 +249,26 @@
 ;; (setf eval-expression-print-length nil)
 ;;----------------------------------------------------------------------------
 
+(require 'auto-complete)
+(dolist (mode '(python-mode-hook ruby-mode-hook lisp-mode-hook emacs-lisp-mode-hook))
+  (add-hook mode 'auto-complete-mode))
+
+;; (setf (getenv "PYTHONPATH") "/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/mercurial/2.4.2/libexec")
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setf jedi:setup-keys t
+      jedi:complete-on-dot t)
+
+
 (require 'confluence)
 (setq confluence-url "https://confluence:8453/rpc/xmlrpc")
 
 ;;----------------------------------------------------------------------------
 
 (require 'erc-notify)
+
+(global-set-key (kbd "C-c C-SPC") 'toggle-header/implementation)
+(global-set-key (kbd "C-c SPC") 'toggle-header/implementation)
 
 (desktop-read)
 
