@@ -776,4 +776,10 @@ either scanned, or from the cache."
 ;; (use-package :com.informatimago.pjb)
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
+
+(when (probe-file "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py")
+  (defparameter cl-user::*clpython-module-search-paths*
+    '("/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/")))
+
+
 ;;;; THE END ;;;;
