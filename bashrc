@@ -914,7 +914,7 @@ function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
 function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
 function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
 
-function svn-status      (){ svn status | grep -v -e '^? ' ; }
+function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
 function svn-obsolete    (){ for f in "$@" ; do mv "$f" "$f"-obsolete && svn update "$f" ; diff "$f" "$f"-obsolete  ; done ; }
 function svn-keep        (){ for f ; do mv "${f}" "${f}-keep" && svn update "${f}" && mv "${f}" "${f}-old" && mv "${f}-keep" "${f}" ; done ; }
 
@@ -931,8 +931,6 @@ function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t
 function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
 # ----------------------------------------
-
-function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
 
 
 function update-localized-xibs() {
