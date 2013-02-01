@@ -149,7 +149,7 @@
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
-(require 'rst)
+(require 'rst nil t)
 (require 'rst-mode nil t)
 
 
