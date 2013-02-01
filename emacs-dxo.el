@@ -31,8 +31,11 @@
 
 
 
+
+
 (.EMACS "custom variables")
 (custom-set-variables
+ '(safe-local-variable-values (quote ((Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (Package . User) (lexical-binding . t) (Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
  '(c-backslash-column (quote set-from-style))
  '(c-backslash-max-column (quote set-from-style))
  '(c-basic-offset (quote set-from-style))
@@ -96,7 +99,6 @@
  '(message-log-max 5000)
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "voyager.informatimago.com")
  '(smtpmail-smtp-service 25)
@@ -104,6 +106,8 @@
  '(user-mail-address "pbourguignon@dxo.com")
  '(visible-bell t)
  '(warning-suppress-types (quote ((undo discard-info)))))
+
+(put 'erase-buffer 'disabled nil)
 
 
 ;;;----------------------------------------------------------------------------
@@ -120,7 +124,7 @@
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
                            ("\\.mm$" . objc-mode)
                            ("\\.md$" . text-mode)))
-
+(push '("/src/OpticsPro-Mac.*\\.[hm]" . objc-mode)  auto-mode-alist)
 
 
 (require 'tls)
@@ -136,19 +140,38 @@
 
 (require 'pjb-c-style)
 (require 'pjb-objc-edit)
+(require 'pjb-objc-ide)
 (require 'dxo)
+
+
+(defun dxo-objc-ide--dxo-class-type-p (type)
+  ;; TODO: It would be better to collect the exact list of OPM classes…
+  (and (listp type)
+       (eq (second type) '*)
+       (null (cddr type))
+       (symbolp (first type))
+       (member* (substring (symbol-name (first type)) 0 3) '("DOP" "DXF")
+                :test (function string=))))
+
+
+(defun dxo-objc-ide-settings ()
+  (interactive)
+  (setf *pjb-objc-ide--nslog-function* "DXFLogDebug"
+        *pjb-objc-ide--entry-log-tag*  "PJB-DEBUG")
+  (pushnew '((ZoomMode) . "%d")  *pjb-objc-ide--type-formatter-map*
+           :test (function equal))
+  (pushnew '(dxo-objc-ide--dxo-class-type-p . "%@") *pjb-objc-ide--type-formatter-map*
+           :test (function equal)))
+
+(dxo-objc-ide-settings)
+
 
 (let ((tags-add-tables t))
   (setf tags-table-list '()) 
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
-  (ignore-errors (visit-tags-table "~/src/Ruby.etags"))
+  ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
   (ignore-errors (visit-tags-table "~/src/OpticsPro.etags")))
 
-
-
-(defparameter *opticspro-branch* "OpticsPro-Mac-filmstripRefactor")
-(defparameter *opticspro-branch* "OpticsPro-Mac-trunk")
-(set-sources (file-truename (format "~/src/%s" *opticspro-branch*)))
 
 
 ;;----------------------------------------------------------------------------
@@ -267,11 +290,18 @@
 (require 'erc-notify)
 (desktop-read)
 
+;;----------------------------------------------------------------------------
+
+(defparameter *opticspro-branch* "OpticsPro-Mac-branches-filmstripRefactor")
+(defparameter *opticspro-branch* "OpticsPro-Mac-branches-filmstripRefactor-BCCollectionView")
+(defparameter *opticspro-branch* "OpticsPro-Mac-trunk")
+(set-sources (file-truename (format "~/src/%s" *opticspro-branch*)))
+
 
 (require 'pjb-thi)
-(set-shadow-map '(("~/src/OpticsPro-Mac-trunk/"                      . "~/src/OpticsPro-Mac-shadow/")
-                  ("~/src/OpticsPro-Mac-branches-filmstripRefactor/" . "~/src/OpticsPro-Mac-shadow/")
+(set-shadow-map '(("~/src/OpticsPro-Mac-trunk/"                                               . "~/src/OpticsPro-Mac-shadow/")
                   ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-trunk/"                      . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")
+                  ("~/src/OpticsPro-Mac-branches-filmstripRefactor/"                          . "~/src/OpticsPro-Mac-shadow/")
                   ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-branches-filmstripRefactor/" . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")))
 
 (setf c-macro-preprocessor
