@@ -18,7 +18,7 @@
 ;; Zehn
 ;; Hemlock 
 ;; Climacs Common Lisp Interface Manager Application Creating Sources 
-
+;; Mince Is Not Complete Emacs
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
