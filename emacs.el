@@ -15,6 +15,7 @@
 (defvar *hostname-configuration-map*
   '(("iMac-Core-i5.local" . "~/rc/emacs-employer-d.el")
     ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
+    ( "pbo-employer-d.local"     . "~/rc/emacs-employer-d.el")
     (t                    . "~/rc/emacs-pjb.el")))
 
 (defun hostname ()
