@@ -387,45 +387,6 @@ Returns a string described by x; specifically:
        path)))
 
 
-(defun prefixp (prefix string)
-  "
-PREFIX:  A sequence.
-STRING:  A sequence.
-RETURN:  Whether PREFIX is a prefix of the STRING.
-"
-  (string= prefix (subseq string 0 (min (length string) (length prefix)))))
-
-(defun suffixp (suffix string)
-  "
-PREFIX:  A sequence.
-STRING:  A sequence.
-RETURN:  Whether PREFIX is a prefix of the STRING.
-"
-  (string= suffix (subseq string (max 0 (- (length string) (length suffix))))))
-
-
-(defun first-char (string)
-  "Returns the first character of string, or nil if it's empty."
-  (when (plusp (length string))
-    (aref string 0)))
-
-(defun last-char (string)
-  "Returns the last character of string, or nil if it's empty."
-  (when (plusp (length string))
-    (aref string (1- (length string)))))
-
-(defun butlast-char (string)
-  "Returns the string without its last character."
-  (if (plusp (length string))
-      (subseq string 0 (1- (length string)))
-      string))
-
-(defun butfirst-char (string)
-  "Returns the string without its last character."
-  (if (plusp (length string))
-      (subseq string 1)
-      string))
-
 
 
 ;;;----------------------------------------------------------------------------
