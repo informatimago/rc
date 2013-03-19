@@ -7,4 +7,10 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 . ~/src/mercurial-tests/Tools/macbuild/mb.sh
 
 export DXOSHLIB=/Users/pbourguignon/src/mercurial-tests/Tools/test-scripts/dxoshlib
+
+
+alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej --exclude \*~.\* --exclude \*.build --exclude build --exclude bin --exclude xcuserdata --exclude \*.original'
+
+
+alias music='cd ~/"Music/iTunes/iTunes Media/Music"'
 #### THE END ####
