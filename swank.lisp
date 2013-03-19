@@ -17,6 +17,7 @@
 
 (defparameter swank::*sldb-initial-frames* 40)
 (defparameter swank:*globally-redirect-io* t)
+(defparameter swank::*auto-abbreviate-dotted-packages* t)
 
 (let ((bindings `((*PRINT-PRETTY* . nil)
                   (*PRINT-LEVEL* . nil)
