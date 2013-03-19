@@ -325,7 +325,7 @@ function be_generate(){
     be_variable TZ                      Europe/Madrid
 
     # Most prioritary:
-    be_unset LC_ALL
+    be_variable LC_ALL                    C
 
     # If LC_ALL is not defined:
     # be_variable LC_MONETARY             es_ES.UTF-8
@@ -344,7 +344,7 @@ function be_generate(){
     be_unset LC_CTYPE
 
     # If the above are not defined:
-    be_variable LANG                    en_US.UTF-8
+    be_unset LANG
 
     if [ $(hostname) = iMac-Core-i5.local ] ; then
 
