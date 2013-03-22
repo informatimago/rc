@@ -103,6 +103,14 @@
 ;;          mac-option-modifier     'alt
 ;;          one-buffer-one-frame    nil)))
 
+;; MacOSX Modifiers:
+;; C-
+;; S-                     S-
+;; C- A- M- SPC M- A- C-p C-
+
+;; (global-set-key (kbd "C") 'self-insert-command)
+;; (local-set-key (kbd "C") 'self-insert-command)
+
 (defun mac-vanilla-keys ()
   (interactive)
   (setf mac-command-modifier    'meta ; emacsformacosx
@@ -6300,11 +6308,43 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
         (indent-for-tab-command))))
 
 
+(defun pjb-ide-beginning-of-line-to-point ()
+  (buffer-substring (save-excursion
+                      (beginning-of-line)
+                      (point))
+                    (point)))
+
+(defun pjb-ide-tag-comment (tag)
+  (case tag
+     ((1)        "/*** PJB-DEBUG ***/")
+     (otherwise  "/*** PJB ***/")))
+
+(defun pjb-ide-insert-tag-comment (&optional tag)
+  (interactive "p")
+  (let ((tag   (or tag 0)))
+    (unless (string= "" (string-trim " \t" (pjb-ide-beginning-of-line-to-point)))
+      (insert "\n"))
+    (if (region-active-p)
+        (let ((start (region-beginning))
+              (end   (region-end)))
+          (message  "tag=%S start=%S end=%S" tag start end)
+          (goto-char start)
+          (with-marker (end end)
+            (while (< (point) end)
+              (insert (pjb-ide-tag-comment tag))
+              (beginning-of-line 2))))
+        (insert (pjb-ide-tag-comment tag)))))
+
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
-(add-hook 'c-mode-hook
-          (lambda ()
-            (define-key c-mode-map "{" 'self-insert-command)
-            (local-set-key (kbd "TAB") (quote c-indent-or-tab))))
+
+(defun c-mode-meat ()
+  (interactive)
+  (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+  (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+  (define-key c-mode-map "{" 'self-insert-command)
+  (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
+(add-hook 'c-mode-hook 'c-mode-meat)
 
 ;;(add-hook 'c++-mode-hook (function pjb-c++-mode-hook))
 ;;(setf c++-mode-hook (delete (function pjb-c++-mode-hook) c++-mode-hook))
