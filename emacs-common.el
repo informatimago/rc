@@ -6287,8 +6287,11 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 ;; c modes
 
 (when (fboundp 'pjb-c-todo-hook)
-  (mapc (lambda (hook) (add-hook hook (function pjb-c-todo-hook)))
+  (mapc (lambda (hook) (add-hook hook 'pjb-c-todo-hook))
         '(c-mode-hook c++-mode-hook objc-mode-hook )))
+
+(when (fboundp 'pjb-objc-edit-meat)
+  (add-hook 'objc-mode-hook 'pjb-objc-edit-meat))
 
 (appendf auto-mode-alist  '(("\\.mc\\'" . c++-mode)))
 
@@ -6597,6 +6600,24 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 ;; ;; or M-x google-search-region RET
 ;; (defalias 'url-retrieve-synchronously 'url-retrieve)
 
+(defun %search-region (start end thing search-function)
+  (when start
+    (cond
+      ((or (not mark-active) (null end))
+       (let ((bounds (bounds-of-thing-at-point thing)))
+         (if bounds
+             (%search-region (car bounds) (cdr bounds) thing search-function)
+             (call-interactively search-function))))
+      ((= start end)
+       (call-interactively search-function))
+      (t
+       (funcall search-function (buffer-substring-no-properties start end))))))
+
+;; (if (or (not mark-active) (eql (point) (mark)))
+;;     "string"
+;;     (buffer-substring-no-properties (min (point) (mark))
+;;                                     (max (point) (mark))))
+
 
 (defparameter *whitespaces* '(32 9 10 13))
 
@@ -6612,52 +6633,91 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 (defun apple-search-region (start end)
   "Search the text in the region with Apple."
   (interactive "r")
-  (if (= start end)
-      (call-interactively 'apple-search)
-      (apple-search (buffer-substring-no-properties start end))))
+  (%search-region start end 'symbol 'apple-search))
+
+
+(defun project-search (search-string)
+  "Search a regex in the current project (with `find-grep' and `grep-find-command')."
+  (interactive "sSearch Project Regexp: ")
+  (find-grep (concat grep-find-command " " (shell-quote-argument search-string))))
+
+(defun project-search-region (start end)
+  "Search the text in the region in the current project (with `find-grep' and `grep-find-command')."
+  (interactive "r")
+  (%search-region start end 'symbol 'project-search))
 
 
 (defun google-search (search-string)
   "Search a string with Google."
   (interactive "sGoogle Search: ")
   (browse-url
-   (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_sitesearch=&safe=images"
+   (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_s
+itesearch=&safe=images"
 	   (browse-url-url-encode-chars
 	    (string-trim *whitespaces* search-string)
 	    "[^A-Za-z0-9]")))) 
 
 (defun google-search-region (start end)
-  "Search the text in the region with Google."
+  (%search-region start end 'symbol 'google-search))
+
+
+(defun acronym-search (acronym-string)
+  (interactive "sAcronym Search: ")
+  (browse-url (format "http://www.cygwin.com/acronyms/#%s" acronym-string)))
+
+(defun acronym-search-region (start end)
+  (interactive r)
+  (%search-region start end 'symbol 'acronym-search))
+
+
+
+(defun includes-search (string)
+  (interactive "sIncludes Search: ")
+  (find-grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
+
+(defun includes-search-region (start end)
+  (interactive r)
+  (%search-region start end 'symbol 'includes-search))
+
+(defalias 'grep-includes 'includes-search)
+
+
+(defun hyperspec-search (string)
+  (interactive "sHyperspec Search: ")
+  (find-grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
+
+(defun hyperspec-search-region (start end)
+  (interactive r)
+  (%search-region start end 'symbol 'hyperspec-search))
+
+(defalias 'grep-hyperspec 'hyperspec-search)
+
+
+(defun here-search (pattern)
+  "Does an egrep  in the current directory just asking for a pattern."
+  (interactive (list (read-from-minibuffer (format "In %s egrep pattern: " (shell-quote-argument default-directory)))))
+  (check-type pattern string)
+  (if (string-equal "" pattern)
+      (error "The empty string matches everything. Are you happy?")
+      (grep (format "egrep -n -e '%s' `find . -type f -print` /dev/null" pattern))))
+
+(defun here-search-region (start end)
   (interactive "r")
-  (message (format "%S %S" start end))
-  (if (= start end)
-      (call-interactively 'google-search)
-      (google-search (buffer-substring-no-properties start end))))
+  (%search-region start end 'symbol 'here-search))
 
-
-(defun acronym ()
-  (interactive)
-  (browse-url 
-   (if (or (not mark-active) (eql (point) (mark)))
-       (format "http://www.cygwin.com/acronyms/#%s"
-               (read-from-minibuffer "Acronym: "))
-       (buffer-substring-no-properties (min (point) (mark))
-                                       (max (point) (mark))))))
 
 
 (global-set-key (kbd "C-h 1") 'apple-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
-(global-set-key (kbd "C-h 3") 'acronym)
+(global-set-key (kbd "C-h 3") 'acronym-search-region)
+(global-set-key (kbd "C-h 4") 'project-search-region)
+(global-set-key (kbd "C-h 5") 'includes-search-region)
+(global-set-key (kbd "C-h 6") 'hyperspec-search-region)
+(global-set-key (kbd "C-h 7") 'here-search-region)
 
 ;;;----------------------------------------------------------------------------
 
-(defun grep-hyperspec (&optional string)
-  (interactive "sString: ")
-  (grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
 
-(defun grep-includes (&optional string)
-  (interactive "sString: ")
-  (grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
 
 
 
