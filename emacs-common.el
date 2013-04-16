@@ -40,7 +40,7 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (setq source-directory "/usr/src/emacs-23.3/src/")
-;; emacs-version"23.4.1"
+;; emacs-version "23.4.1"
 
 (defvar shell-file-name "/bin/bash")
 
@@ -5892,6 +5892,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
     (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+    (clhs           . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
     (intersection   . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
