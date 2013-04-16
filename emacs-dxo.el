@@ -393,6 +393,9 @@
 
 (setf c-macro-cppflags "-I. -framework /Applications/Xcode.app//Contents/Developer/Library/Frameworks/SenTestingKit.framework/Versions/A/Headers/")
 
+(require 'pjb-xcode)
+(load-faces-from-xcode-dvtcolortheme "~/Library/Developer/Xcode/UserData/FontAndColorThemes/PJB Midnight.dvtcolortheme")
+
 ;;;----------------------------------------------------------------------------
  (load "~/rc/emacs-epilog.el")
 

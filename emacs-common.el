@@ -2537,7 +2537,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (modify-syntax-entry ?\} ")(" lisp-mode-syntax-table)
   (when (fboundp 'column-marker-1) (column-marker-1 80))
   (add-hook 'comint-preoutput-filter-functions (function pjb-comint-preoutput-insert-image))
-  (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" (0 font-lock-builtin-face))))
+  (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" 0 font-lock-builtin-face)
+                                ("(\\(\\<[-A-Za-z0-9]+-define-[-A-Za-z0-9]+\\>\\)" 1 font-lock-keyword)))
   (.EMACS "pjb-lisp-meat on %S done" (buffer-name))
   (values))
 
@@ -6311,33 +6312,6 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
         (indent-for-tab-command))))
 
 
-(defun pjb-ide-beginning-of-line-to-point ()
-  (buffer-substring (save-excursion
-                      (beginning-of-line)
-                      (point))
-                    (point)))
-
-(defun pjb-ide-tag-comment (tag)
-  (case tag
-     ((1)        "/*** PJB-DEBUG ***/")
-     (otherwise  "/*** PJB ***/")))
-
-(defun pjb-ide-insert-tag-comment (&optional tag)
-  (interactive "p")
-  (let ((tag   (or tag 0)))
-    (unless (string= "" (string-trim " \t" (pjb-ide-beginning-of-line-to-point)))
-      (insert "\n"))
-    (if (region-active-p)
-        (let ((start (region-beginning))
-              (end   (region-end)))
-          (message  "tag=%S start=%S end=%S" tag start end)
-          (goto-char start)
-          (with-marker (end end)
-            (while (< (point) end)
-              (insert (pjb-ide-tag-comment tag))
-              (beginning-of-line 2))))
-        (insert (pjb-ide-tag-comment tag)))))
-
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
 
 (defun c-mode-meat ()
@@ -6603,7 +6577,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 (defun %search-region (start end thing search-function)
   (when start
     (cond
-      ((or (not mark-active) (null end))
+      ((null end)
        (let ((bounds (bounds-of-thing-at-point thing)))
          (if bounds
              (%search-region (car bounds) (cdr bounds) thing search-function)
@@ -6661,12 +6635,14 @@ itesearch=&safe=images"
   (%search-region start end 'symbol 'google-search))
 
 
+(defparameter *acronym-search-url* "http://www.acronymfinder.com/%s.html")
+;;  "http://www.cygwin.com/acronyms/#%s"
 (defun acronym-search (acronym-string)
   (interactive "sAcronym Search: ")
-  (browse-url (format "http://www.cygwin.com/acronyms/#%s" acronym-string)))
+  (browse-url (format *acronym-search-url* acronym-string)))
 
 (defun acronym-search-region (start end)
-  (interactive r)
+  (interactive "r")
   (%search-region start end 'symbol 'acronym-search))
 
 
@@ -6676,7 +6652,7 @@ itesearch=&safe=images"
   (find-grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
 
 (defun includes-search-region (start end)
-  (interactive r)
+  (interactive "r")
   (%search-region start end 'symbol 'includes-search))
 
 (defalias 'grep-includes 'includes-search)
@@ -6687,7 +6663,7 @@ itesearch=&safe=images"
   (find-grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
 
 (defun hyperspec-search-region (start end)
-  (interactive r)
+  (interactive "r")
   (%search-region start end 'symbol 'hyperspec-search))
 
 (defalias 'grep-hyperspec 'hyperspec-search)

@@ -499,7 +499,14 @@ alias more=less
 alias ec='emacsclient --no-wait'
 alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
-alias df='df -ah'
+case $(uname -s) in 
+    Darwin)
+        alias df='df -h'
+        ;;
+    *)
+        alias df='df -ah'
+        ;;
+esac
 alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
