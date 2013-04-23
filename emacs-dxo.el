@@ -393,6 +393,38 @@
 
 (setf c-macro-cppflags "-I. -framework /Applications/Xcode.app//Contents/Developer/Library/Frameworks/SenTestingKit.framework/Versions/A/Headers/")
 
+(require 'pjb-xcode)
+(load-faces-from-xcode-dvtcolortheme "~/Library/Developer/Xcode/UserData/FontAndColorThemes/PJB Midnight.dvtcolortheme")
+
+
+
+(defun re-delete-lines-between (start end start-re end-re)
+  (interactive "rsStart regexp: \nsEnd regexp: ")
+  (save-excursion
+    (narrow-to-region start end)
+    (while (re-search-forward start-re nil t)
+      (let ((end (match-end 0)))
+        (goto-char (match-beginning 0))
+        (beginning-of-line)
+        (let ((start (point)))
+          (if (re-search-forward end-re nil t)
+              (progn
+                (goto-char (match-end 0))
+                (end-of-line)
+                (forward-char)
+                (delete-region start (point)))
+              (goto-char end)))))
+    (widen)))
+
+(defun dxo-log-clean ()
+  (interactive)
+  (delete-matching-lines "not doing caf matching on unsupported image" (point-min) (point-max))
+  (re-delete-lines-between (point-min) (point-max)
+                           "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
+                           "^\t}\\()\\| error: \\)"))
+
+
+
 ;;;----------------------------------------------------------------------------
  (load "~/rc/emacs-epilog.el")
 
