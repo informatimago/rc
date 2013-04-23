@@ -5927,6 +5927,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
     (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
     (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
+    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html") 
     (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
