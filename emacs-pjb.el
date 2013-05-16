@@ -344,14 +344,14 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . de\.setf\.utility\.implementation) (Package . GBB) (Package DATABASE :USE LISP) (eval progn (cl-indent (quote define-configuration) 1)) (eval cl-indent (quote with-carre) 1) (eval cl-indent (quote until) 1) (eval cl-indent (quote for) 1) (eval cl-indent (quote match-case) 1) (eval cl-indent (quote do-tags) 1) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (Package . User) (lexical-binding . t) (Patch-file . Yes) (Base . 8) (Syntax . Zetalisp) (Package . ccl) (Package . USER) (eval cl-indent (quote dolist/separator) 1) (eval cl-indent (quote defcommand) 3) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (Package . wire) (Log . code\.log) (Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . CCL) (Package . SYSTEM) (Package . modlisp) (package . asdf) (Syntax . ansi-COMMON-LISP) (Package . cl-user) (Package . CYC-DEFSYS) (Patch-file . T) (Syntax . ANSI-COMMON-LISP) (Package . future-common-lisp-user) (Syntax . ansi-Common-lisp) (Package . SUBLISP) (Package . SUBLISP-INTERNALS) (Syntax . ANSI-Common-lisp) (No-Style-Shift . t) (Package . PTTP) (show-trailing-whitespace . t) (pretty-greek) (Package . CL-FAD) (Package . com\.ravenpack\.econoraven\.database) (Package . com\.ravenpack\.econoraven\.prediction) (Package . com\.ravenpack\.econoraven\.predictor) (Package . common-lisp-user) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . XLIB) (Lowercase . Yes) (show-nonbreak-escape) (Package . CL-WHO) (Package . CL-PPCRE) (Package . PS) (Package . UFFI) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . Memoization) (Package . DEMO-MENU) (Package . COMMON-LISP-USER) (egoge-buffer-language . english) (package . net\.aserve\.client) (Syntax . COMMON-LISP) (Package . CL-GD) (package . net\.html\.generator) (package . net\.aserve) (Eval cl-indent (quote with-item) 2) (package . pjb-cl) (Syntax . ansi-common-lisp) (Package . ALIEN) (Package . CL-USER) (coding-system . iso-8859-1-dos) (comment-start . ";") (pbook-heading-regexp . "^;;;\\(;+\\)") (pbook-commentary-regexp . "^;;;\\($\\|[^;]\\)") (Syntax . Common-lisp) (Package . DWIM) (byte-compile-warnings redefine callargs free-vars unresolved obsolete noruntime) (Syntax . Common-Lisp) (Package . HEMLOCK-EXT) (Syntax . ANSI-Common-Lisp) (Base . 10) (comment-start . "#") (package . COM\.INFORMATIMAGO\.COMMON-LISP\.VIRTUAL-FILE-SYSTEM) (package . COM\.INFORMATIMAGO\.COMMON-LISP\.SOURCE) (package . COM\.INFORMATIMAGO\.PJB) (standard-indent . 4) (Package . DTRACE) (unibyte . t))))
+ '(safe-local-variable-values (quote ((Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote sendmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
  '(sh-indent-for-case-label 0)
  '(show-paren-mode t)
- '(show-paren-ring-bell-on-mismatch t)
+ '(show-paren-ring-bell-on-mismatch nil)
  '(slime-autodoc-use-multiline-p t)
  '(slime-compilation-finished-hook (quote (slime-maybe-show-xrefs-for-notes)))
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
@@ -362,7 +362,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
- '(tags-table-list (quote nil))
+ '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -434,6 +434,7 @@ X-Accept-Language:         fr, es, en
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
+
 
 ;; (setf gnus-secondary-select-methods '())
 
