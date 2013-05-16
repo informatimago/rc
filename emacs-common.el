@@ -73,8 +73,9 @@
 (require 'cl)
 (require 'parse-time)
 (require 'tramp nil t)
-
 (require 'cc-mode)
+
+(setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types))
 
 
 (.EMACS "STARTING...")
@@ -1463,14 +1464,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
-  (typecase increment
+  (typecase increment 
     (integer
      (let ((increment (if (zerop increment) 1 increment)))
        (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
                                            (length *pjb-font-list*)))))
     (string
-     (setf *pjb-current-font-index* (or (position increment *pjb-font-list*
-                                                  :test (function string=))))))
+     (let ((new-index (or (position increment *pjb-font-list*
+				    :test (function string=))
+			  0)))
+       (setf increment (- new-index *pjb-current-font-index*)
+	     *pjb-current-font-index* new-index))))
   (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
@@ -1490,7 +1494,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (global-set-key (kbd "H-`")  'next-error)
 
-(set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
+(defvar *default-font* "fixed")
+(ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 
    ;; *** Which font backends to use can be specified by the X resource
    ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
@@ -1580,15 +1585,57 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
          (set-face-background 'border (palette-background palette)))
        (set-foreground-color (palette-foreground palette))
        (set-background-color (palette-background palette))
+       (set-face-background 'fringe (palette-background palette))
        (set-cursor-color     (palette-cursor palette))
        (when (fboundp 'set-mouse-color)
          (set-mouse-color     (palette-mouse palette))))
       (otherwise (error "%S is not a palette" palette))))
 
 
+  (defparameter *turquoise*      "#1abc9c")
+  (defparameter *green-sea*      "#16a085")
+
+  (defparameter *emerland*       "#2ecc71")
+  (defparameter *nephritis*      "#27ae60")
+
+  (defparameter *peter-river*    "#3498db")
+  (defparameter *belize-hole*    "#2980b9")
+
+  (defparameter *amethyst*       "#9b59b6")
+  (defparameter *wisteria*       "#8e44ad")
+
+  (defparameter *wet-asphalt*    "#34495e")
+  (defparameter *midnight-blue*  "#2c3e50")
+
+  (defparameter *sun-flower*     "#f1c40f")
+  (defparameter *orange*         "#f39c12")
+
+  (defparameter *carrot*         "#e67e22")
+  (defparameter *pumpkin*        "#d35400")
+
+  (defparameter *alizarin*       "#e74c3c")
+  (defparameter *pomegranate*    "#c0392b")
+
+  (defparameter *clouds*         "#ecf0f1")
+  (defparameter *silver*         "#bdc3c7")
+
+  (defparameter *concrete*       "#95a5a6")
+  (defparameter *asbestos*       "#7f8c8d")
+
   ;; (apply 'format "#%02x%02x%02x" (mapcar (lambda (x) (* 0.199219 x)) '( 42 203 243)))
   
   ;;          name              foreground     background      cursor   region           mouse
+  (defpalette pal-tg            "Black"        *turquoise*     "Red"     *green-sea*     "#444444")
+  (defpalette pal-en            "Black"        *emerland*      "Red"     *nephritis*     "#444444")
+  (defpalette pal-pb            "Black"        *peter-river*   "Red"     *belize-hole*   "#444444")
+  (defpalette pal-aw            "Black"        *amethyst*      "Red"     *wisteria*      "#444444")
+  (defpalette pal-wm            "Black"        *wet-asphalt*   "Red"     *midnight-blue* "#444444")
+  (defpalette pal-so            "Black"        *sun-flower*    "Red"     *orange*        "#444444")
+  (defpalette pal-cp            "Black"        *carrot*        "Red"     *pumpkin*       "#444444")
+  (defpalette pal-ap            "Black"        *alizarin*      "Red"     *pomegranate*   "#444444")
+  (defpalette pal-cs            "Black"        *clouds*        "Red"     *silver*        "#444444")
+  (defpalette pal-ca            "Black"        *concrete*      "Red"     *asbestos*      "#444444")
+
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
   (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff" "#555555"       "#444444")
@@ -1742,8 +1789,19 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
       (when (getenv "EMACS_OLD")
         (setq palette            pal-green)
-        (setq font
-              "-Adobe-Courier-Bold-R-Normal--12-120-75-75-M-70-ISO8859-*"
+        (setq font               (make-font-pattern :foundry "Adobe"
+                                                    :family "Courier"
+                                                    :weight "Bold"
+                                                    :slant "R"
+                                                    :width "Normal"
+                                                    :style ""
+                                                    :pixel-size "12"
+                                                    :point-size "120"
+                                                    :resolution-x "75"
+                                                    :resolution-y "75"
+                                                    :spacing "M"
+                                                    :average-width "70"
+                                                    :registry "ISO8859")
               background-color "black"
               foreground-color "green"
               region-color     "navyblue"
@@ -1786,12 +1844,12 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
         (setq frame-initial-frame nil))
 
       (set-face-background 'region (palette-region palette))
+      (set-palette palette)
       (unless (fboundp 'mdi)
         (when (facep 'fringe)
           (if fringe-background
               (set-face-background 'fringe fringe-background)
               (set-face-background 'fringe (palette-background palette)))))
-      (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
         (set-foreground-color "Red"))))
@@ -4472,25 +4530,23 @@ in the current directory, or in a parent."
 
 ;; (require 'clhs)
 (require 'hyperspec)
-
-(defvar *lw-clhs*)
-(setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
-(defvar *hyperspec-path*)
-(setf   *hyperspec-path*   (or (ignore-errors (get-directory :hyperspec))
-                               (concat "/usr/local/html/local/lisp/" *lw-clhs*))
-        common-lisp-hyperspec-root
-        (dolist
-            (url (list
-                  (concat "file://" *hyperspec-path*)
-                  "file:///usr/share/doc/hyperspec/HyperSpec/"
-                  ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
-                  (concat "http://" *lw-clhs*)))
-          (when (probe-url url)
-            (return url))))
-
-(defvar common-lisp-hyperspec-browser (function ignore))
-(defvar common-lisp-hyperspec-frame   (selected-frame))
 (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
+
+(defparameter *lw-clhs* "www.lispworks.com/documentation/HyperSpec/")
+(defparameter *hyperspec-path*  (or (ignore-errors (get-directory :hyperspec))
+                                    (concat "/usr/local/html/local/lisp/" *lw-clhs*)))
+(setf common-lisp-hyperspec-root
+      (dolist
+          (url (list
+                (concat "file://" *hyperspec-path*)
+                "file:///usr/share/doc/hyperspec/HyperSpec/"
+                ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
+                (concat "http://" *lw-clhs*)))
+        (when (probe-url url)
+          (return url))))
+
+(defparameter common-lisp-hyperspec-browser (function ignore))
+(defparameter common-lisp-hyperspec-frame   (selected-frame))
 
 ;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
 ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
