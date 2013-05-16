@@ -53,7 +53,7 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -72,8 +72,8 @@
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
- '(erc-log-write-after-insert t)
- '(erc-log-write-after-send t)
+ '(erc-log-write-after-insert nil)
+ '(erc-log-write-after-send nil)
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
@@ -85,6 +85,8 @@
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
  '(erc-quit-reason-various-alist nil)
+ '(erc-save-buffer-on-part nil)
+ '(erc-save-queries-on-quit nil)
  '(erc-server "irc.freenode.org")
  '(erc-server-coding-system (quote (utf-8 . undecided)))
  '(erc-server-reconnect-attempts 100)
@@ -93,6 +95,7 @@
  '(erc-timestamp-intangible nil)
  '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-print-length nil)
+ '(gnus-select-method (quote (nntp "news.individual.com")))
  '(indent-tabs-mode nil)
  '(mail-host-address nil)
  '(message-log-max 5000)
@@ -126,6 +129,8 @@
                            ("\\.md$" . text-mode)))
 (push '("/src/OpticsPro-Mac.*\\.[hm]" . objc-mode)  auto-mode-alist)
 
+
+(require 'vc-svn)
 
 (require 'tls)
 (setf tls-program '("openssl s_client -connect %h:%p -no_ssl2 -ign_eof"
@@ -394,7 +399,7 @@
 (setf c-macro-cppflags "-I. -framework /Applications/Xcode.app//Contents/Developer/Library/Frameworks/SenTestingKit.framework/Versions/A/Headers/")
 
 (require 'pjb-xcode)
-(load-faces-from-xcode-dvtcolortheme "~/Library/Developer/Xcode/UserData/FontAndColorThemes/PJB Midnight.dvtcolortheme")
+(ignore-errors (load-faces-from-xcode-dvtcolortheme "~/Library/Developer/Xcode/UserData/FontAndColorThemes/PJB Midnight.dvtcolortheme"))
 
 
 
@@ -423,7 +428,31 @@
                            "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
                            "^\t}\\()\\| error: \\)"))
 
+(require 'package)
+;; Any add to list for package-archives (to add marmalade or melpa) goes here
+(setq package-archives (append package-archives
+                               '(("marmalade" . "http://marmalade-repo.org/packages/")
+                                 ("melpa" . "http://melpa.milkbox.net/packages/"))))
+(package-initialize)
 
+(defun package-update-load-path ()
+  "Update the load path for newly installed packages."
+  (interactive)
+  (let ((package-dir (expand-file-name package-user-dir)))
+    (mapc (lambda (pkg)
+            (let ((stem (symbol-name (car pkg)))
+		  (version "")
+		  (first t)
+		  path)
+	      (mapc (lambda (num)
+		      (if first
+			  (setq first nil)
+			  (setq version (format "%s." version)))
+		      (setq version (format "%s%s" version num)))
+		    (aref (cdr pkg) 0))
+              (setq path (format "%s/%s-%s" package-dir stem version))
+              (add-to-list 'load-path path)))
+          package-alist)))
 
 ;;;----------------------------------------------------------------------------
  (load "~/rc/emacs-epilog.el")
