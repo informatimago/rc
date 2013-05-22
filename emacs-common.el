@@ -39,6 +39,7 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
+(warn "~/rc/emacs-common.el: Please set the right source-directory.")
 (setq source-directory "/usr/src/emacs-23.3/src/")
 ;; emacs-version "23.4.1"
 
