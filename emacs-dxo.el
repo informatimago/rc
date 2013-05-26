@@ -185,7 +185,7 @@
 (setf feature-default-language "en")
 (setf feature-default-i18n-file "~/emacs/cucumber/i18n.yml")
 (when (require 'feature-mode nil t)
- (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode)))
+  (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode)))
 
 ;;----------------------------------------------------------------------------
 
@@ -237,24 +237,24 @@
 
 
 (define-derived-mode valgrind-mode compilation-mode "Valgrind"
- "Mode to read valgrind log files."
- (setf font-lock-keywords nil)
- (font-lock-add-keywords
-  nil
-  '(("^{[^}]*}"
-     (0 font-lock-preprocessor-face))
-    ("^\\(==[0-9]*==\\) \\([^ \n].*\\)$"
-     (1 font-lock-variable-name-face)
-     (2 font-lock-warning-face))
-    ("^\\(==[0-9]*==\\)   \\([^ \n].*\\)$"
-     (1 font-lock-variable-name-face)
-     (2 font-lock-comment-face))
-    ("^\\(==[0-9]*==\\)    [a-z]+ \\(0x[0-9A-F]*\\): \\([^( \n]*\\)(\\(.*\\)) (\\([^:]+:[0-9]+\\))$"
-     (1 font-lock-variable-name-face)
-     (2 font-lock-constant-face)
-     (3 font-lock-function-name-face)
-     (4 font-lock-type-face)
-     (5 font-lock-comment-face)))))
+  "Mode to read valgrind log files."
+  (setf font-lock-keywords nil)
+  (font-lock-add-keywords
+   nil
+   '(("^{[^}]*}"
+      (0 font-lock-preprocessor-face))
+     ("^\\(==[0-9]*==\\) \\([^ \n].*\\)$"
+      (1 font-lock-variable-name-face)
+      (2 font-lock-warning-face))
+     ("^\\(==[0-9]*==\\)   \\([^ \n].*\\)$"
+      (1 font-lock-variable-name-face)
+      (2 font-lock-comment-face))
+     ("^\\(==[0-9]*==\\)    [a-z]+ \\(0x[0-9A-F]*\\): \\([^( \n]*\\)(\\(.*\\)) (\\([^:]+:[0-9]+\\))$"
+      (1 font-lock-variable-name-face)
+      (2 font-lock-constant-face)
+      (3 font-lock-function-name-face)
+      (4 font-lock-type-face)
+      (5 font-lock-comment-face)))))
 
 (add-to-list 'auto-mode-alist '("\\.\\(val\\|hel\\)grind$" . valgrind-mode))
 
@@ -316,7 +316,7 @@
          "SRC=$(pwd) ; while [ ! -z \"${SRC}\" -a ! -d \"${SRC}/DXOOpticsPro.xcodeproj\" ] ; do SRC=\"$(dirname \"${SRC}\")\" ; done"
          ";"
          "/Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc-4.2"
-                  
+         
          "-O0"
          "-Wall"
          "-Werror-implicit-function-declaration"
@@ -455,6 +455,54 @@
           package-alist)))
 
 ;;;----------------------------------------------------------------------------
- (load "~/rc/emacs-epilog.el")
+
+(defun my-nxml-forward-element ()
+  (let ((nxml-sexp-element-flag))
+    (setq nxml-sexp-element-flag (not (looking-at "<!--")))
+    (unless (looking-at outline-regexp)
+      (condition-case nil
+          (nxml-forward-balanced-item 1)
+        (error nil)))))
+
+(setf hs-special-modes-alist
+      (append '((lua-mode
+                 "\\([[{(]\\|\\<\\(do\\|\\(?:functio\\|the\\)n\\)\\>\\)"
+                 "\\([]})]\\|\\<\\(end\\)\\>\\)"
+                 nil
+                 lua-forward-sexp
+                 nil)
+                (nxml-mode
+                 "<!--\\|<[^/>]>\\|<[^/][^>]*[^/]>"
+                 ""
+                 "<!--" ;; won't work on its own; uses syntax table
+                 (lambda (arg) (my-nxml-forward-element))
+                 nil))
+              (remove-if (lambda (key) (member key '(lua-mode nxml-mode)))
+                         hs-special-modes-alist :key 'car)))
+
+(global-set-key (kbd "<f9>") 'hs-toggle-hiding)
+
+
+(defun outline-easy-bindings-meat ()
+  (interactive)
+  (require 'outline-mode-easy-bindings))
+
+(add-hook 'outline-mode-hook       'outline-easy-bindings-meat)
+(add-hook 'outline-minor-mode-hook 'outline-easy-bindings-meat)
+
+(defun lua-mode-meat ()
+  (interactive)
+  (auto-complete-mode 1)
+  ;; (setf outline-regexp ".*\\([[{(]\\|\\<\\(do\\|\\(?:functio\\|the\\)n\\)\\>\\)")
+  ;; (outline-minor-mode 1)
+  (hs-minor-mode 1))
+
+(add-hook 'lua-mode-hook 'lua-mode-meat)
+
+
+;;;----------------------------------------------------------------------------
+(load "~/rc/emacs-epilog.el")
 
 ;;;; THE END ;;;;
+
+(find-library "outline-mode-easy-bindings") 
