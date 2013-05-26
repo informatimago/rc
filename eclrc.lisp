@@ -165,7 +165,7 @@
 ;; ----------------------------------------
 
 (DEFUN QUIT () (SYSTEM:QUIT))
-(EXPORT 'QUIT)
+;; (EXPORT 'QUIT)
 
 
 (PUSH (function si:chdir)
