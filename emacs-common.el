@@ -18,7 +18,7 @@
 ;; Zehn
 ;; Hemlock 
 ;; Climacs Common Lisp Interface Manager Application Creating Sources 
-
+;; Mince Is Not Complete Emacs
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
@@ -39,8 +39,9 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
+(warn "~/rc/emacs-common.el: Please set the right source-directory.")
 (setq source-directory "/usr/src/emacs-23.3/src/")
-;; emacs-version"23.4.1"
+;; emacs-version "23.4.1"
 
 (defvar shell-file-name "/bin/bash")
 
@@ -73,8 +74,9 @@
 (require 'cl)
 (require 'parse-time)
 (require 'tramp nil t)
-
 (require 'cc-mode)
+
+(setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types))
 
 
 (.EMACS "STARTING...")
@@ -102,6 +104,14 @@
 ;;    (setf mac-command-modifier    'meta  ; emacsformacosx
 ;;          mac-option-modifier     'alt
 ;;          one-buffer-one-frame    nil)))
+
+;; MacOSX Modifiers:
+;; C-
+;; S-                     S-
+;; C- A- M- SPC M- A- C-p C-
+
+;; (global-set-key (kbd "C") 'self-insert-command)
+;; (local-set-key (kbd "C") 'self-insert-command)
 
 (defun mac-vanilla-keys ()
   (interactive)
@@ -149,7 +159,7 @@
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
-(require 'rst)
+(require 'rst nil t)
 (require 'rst-mode nil t)
 
 
@@ -386,45 +396,6 @@ Returns a string described by x; specifically:
        (match-string 2 path)
        path)))
 
-
-(defun prefixp (prefix string)
-  "
-PREFIX:  A sequence.
-STRING:  A sequence.
-RETURN:  Whether PREFIX is a prefix of the STRING.
-"
-  (string= prefix (subseq string 0 (min (length string) (length prefix)))))
-
-(defun suffixp (suffix string)
-  "
-PREFIX:  A sequence.
-STRING:  A sequence.
-RETURN:  Whether PREFIX is a prefix of the STRING.
-"
-  (string= suffix (subseq string (max 0 (- (length string) (length suffix))))))
-
-
-(defun first-char (string)
-  "Returns the first character of string, or nil if it's empty."
-  (when (plusp (length string))
-    (aref string 0)))
-
-(defun last-char (string)
-  "Returns the last character of string, or nil if it's empty."
-  (when (plusp (length string))
-    (aref string (1- (length string)))))
-
-(defun butlast-char (string)
-  "Returns the string without its last character."
-  (if (plusp (length string))
-      (subseq string 0 (1- (length string)))
-      string))
-
-(defun butfirst-char (string)
-  "Returns the string without its last character."
-  (if (plusp (length string))
-      (subseq string 1)
-      string))
 
 
 
@@ -1496,14 +1467,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
-  (typecase increment
+  (typecase increment 
     (integer
      (let ((increment (if (zerop increment) 1 increment)))
        (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
                                            (length *pjb-font-list*)))))
     (string
-     (setf *pjb-current-font-index* (or (position increment *pjb-font-list*
-                                                  :test (function string=))))))
+     (let ((new-index (or (position increment *pjb-font-list*
+				    :test (function string=))
+			  0)))
+       (setf increment (- new-index *pjb-current-font-index*)
+	     *pjb-current-font-index* new-index))))
   (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
@@ -1523,7 +1497,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (global-set-key (kbd "H-`")  'next-error)
 
-(set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
+(defvar *default-font* "fixed")
+(ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 
    ;; *** Which font backends to use can be specified by the X resource
    ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
@@ -1613,15 +1588,57 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
          (set-face-background 'border (palette-background palette)))
        (set-foreground-color (palette-foreground palette))
        (set-background-color (palette-background palette))
+       (set-face-background 'fringe (palette-background palette))
        (set-cursor-color     (palette-cursor palette))
        (when (fboundp 'set-mouse-color)
          (set-mouse-color     (palette-mouse palette))))
       (otherwise (error "%S is not a palette" palette))))
 
 
+  (defparameter *turquoise*      "#1abc9c")
+  (defparameter *green-sea*      "#16a085")
+
+  (defparameter *emerland*       "#2ecc71")
+  (defparameter *nephritis*      "#27ae60")
+
+  (defparameter *peter-river*    "#3498db")
+  (defparameter *belize-hole*    "#2980b9")
+
+  (defparameter *amethyst*       "#9b59b6")
+  (defparameter *wisteria*       "#8e44ad")
+
+  (defparameter *wet-asphalt*    "#34495e")
+  (defparameter *midnight-blue*  "#2c3e50")
+
+  (defparameter *sun-flower*     "#f1c40f")
+  (defparameter *orange*         "#f39c12")
+
+  (defparameter *carrot*         "#e67e22")
+  (defparameter *pumpkin*        "#d35400")
+
+  (defparameter *alizarin*       "#e74c3c")
+  (defparameter *pomegranate*    "#c0392b")
+
+  (defparameter *clouds*         "#ecf0f1")
+  (defparameter *silver*         "#bdc3c7")
+
+  (defparameter *concrete*       "#95a5a6")
+  (defparameter *asbestos*       "#7f8c8d")
+
   ;; (apply 'format "#%02x%02x%02x" (mapcar (lambda (x) (* 0.199219 x)) '( 42 203 243)))
   
   ;;          name              foreground     background      cursor   region           mouse
+  (defpalette pal-tg            "Black"        *turquoise*     "Red"     *green-sea*     "#444444")
+  (defpalette pal-en            "Black"        *emerland*      "Red"     *nephritis*     "#444444")
+  (defpalette pal-pb            "Black"        *peter-river*   "Red"     *belize-hole*   "#444444")
+  (defpalette pal-aw            "Black"        *amethyst*      "Red"     *wisteria*      "#444444")
+  (defpalette pal-wm            "Black"        *wet-asphalt*   "Red"     *midnight-blue* "#444444")
+  (defpalette pal-so            "Black"        *sun-flower*    "Red"     *orange*        "#444444")
+  (defpalette pal-cp            "Black"        *carrot*        "Red"     *pumpkin*       "#444444")
+  (defpalette pal-ap            "Black"        *alizarin*      "Red"     *pomegranate*   "#444444")
+  (defpalette pal-cs            "Black"        *clouds*        "Red"     *silver*        "#444444")
+  (defpalette pal-ca            "Black"        *concrete*      "Red"     *asbestos*      "#444444")
+
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
   (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff" "#555555"       "#444444")
@@ -1775,8 +1792,19 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
       (when (getenv "EMACS_OLD")
         (setq palette            pal-green)
-        (setq font
-              "-Adobe-Courier-Bold-R-Normal--12-120-75-75-M-70-ISO8859-*"
+        (setq font               (make-font-pattern :foundry "Adobe"
+                                                    :family "Courier"
+                                                    :weight "Bold"
+                                                    :slant "R"
+                                                    :width "Normal"
+                                                    :style ""
+                                                    :pixel-size "12"
+                                                    :point-size "120"
+                                                    :resolution-x "75"
+                                                    :resolution-y "75"
+                                                    :spacing "M"
+                                                    :average-width "70"
+                                                    :registry "ISO8859")
               background-color "black"
               foreground-color "green"
               region-color     "navyblue"
@@ -1819,12 +1847,12 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
         (setq frame-initial-frame nil))
 
       (set-face-background 'region (palette-region palette))
+      (set-palette palette)
       (unless (fboundp 'mdi)
         (when (facep 'fringe)
           (if fringe-background
               (set-face-background 'fringe fringe-background)
               (set-face-background 'fringe (palette-background palette)))))
-      (set-palette palette)
       (set-frame-name name)
       (when (zerop (user-uid))
         (set-foreground-color "Red"))))
@@ -2017,6 +2045,12 @@ capitalized form."
         (setq minor-mode-map-alist
               (delete (assoc 'caps-mode minor-mode-map-alist)
                       minor-mode-map-alist)))))
+
+;;;----------------------------------------------------------------------------
+(.EMACS "AUTO-COMPLETE-MODE")
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+  (ac-config-default))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "ORG-MODE")
@@ -2626,7 +2660,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (modify-syntax-entry ?\} ")(" lisp-mode-syntax-table)
   (when (fboundp 'column-marker-1) (column-marker-1 80))
   (add-hook 'comint-preoutput-filter-functions (function pjb-comint-preoutput-insert-image))
-  (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" (0 font-lock-builtin-face))))
+  (font-lock-add-keywords nil '(("\\<[Rr][Kk]:\\sw\\sw+\\>" 0 font-lock-builtin-face)
+                                ("(\\(\\<[-A-Za-z0-9]+-define-[-A-Za-z0-9]+\\>\\)" 1 font-lock-keyword)))
   (.EMACS "pjb-lisp-meat on %S done" (buffer-name))
   (values))
 
@@ -4560,25 +4595,23 @@ in the current directory, or in a parent."
 
 ;; (require 'clhs)
 (require 'hyperspec)
-
-(defvar *lw-clhs*)
-(setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
-(defvar *hyperspec-path*)
-(setf   *hyperspec-path*   (or (ignore-errors (get-directory :hyperspec))
-                               (concat "/usr/local/html/local/lisp/" *lw-clhs*))
-        common-lisp-hyperspec-root
-        (dolist
-            (url (list
-                  (concat "file://" *hyperspec-path*)
-                  "file:///usr/share/doc/hyperspec/HyperSpec/"
-                  ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
-                  (concat "http://" *lw-clhs*)))
-          (when (probe-url url)
-            (return url))))
-
-(defvar common-lisp-hyperspec-browser (function ignore))
-(defvar common-lisp-hyperspec-frame   (selected-frame))
 (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
+
+(defparameter *lw-clhs* "www.lispworks.com/documentation/HyperSpec/")
+(defparameter *hyperspec-path*  (or (ignore-errors (get-directory :hyperspec))
+                                    (concat "/usr/local/html/local/lisp/" *lw-clhs*)))
+(setf common-lisp-hyperspec-root
+      (dolist
+          (url (list
+                (concat "file://" *hyperspec-path*)
+                "file:///usr/share/doc/hyperspec/HyperSpec/"
+                ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
+                (concat "http://" *lw-clhs*)))
+        (when (probe-url url)
+          (return url))))
+
+(defparameter common-lisp-hyperspec-browser (function ignore))
+(defparameter common-lisp-hyperspec-frame   (selected-frame))
 
 ;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
 ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
@@ -5980,6 +6013,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
     (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+    (clhs           . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
     (intersection   . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
@@ -6023,6 +6057,7 @@ user matches any regexp in `erc-ignore-reply-list'."
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
     (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
     (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
+    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html") 
     (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
@@ -6378,8 +6413,11 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 ;; c modes
 
 (when (fboundp 'pjb-c-todo-hook)
-  (mapc (lambda (hook) (add-hook hook (function pjb-c-todo-hook)))
+  (mapc (lambda (hook) (add-hook hook 'pjb-c-todo-hook))
         '(c-mode-hook c++-mode-hook objc-mode-hook )))
+
+(when (fboundp 'pjb-objc-edit-meat)
+  (add-hook 'objc-mode-hook 'pjb-objc-edit-meat))
 
 (appendf auto-mode-alist  '(("\\.mc\\'" . c++-mode)))
 
@@ -6400,10 +6438,15 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 
 
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
-(add-hook 'c-mode-hook
-          (lambda ()
-            (define-key c-mode-map "{" 'self-insert-command)
-            (local-set-key (kbd "TAB") (quote c-indent-or-tab))))
+
+(defun c-mode-meat ()
+  (interactive)
+  (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+  (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+  (define-key c-mode-map "{" 'self-insert-command)
+  (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
+(add-hook 'c-mode-hook 'c-mode-meat)
 
 ;;(add-hook 'c++-mode-hook (function pjb-c++-mode-hook))
 ;;(setf c++-mode-hook (delete (function pjb-c++-mode-hook) c++-mode-hook))
@@ -6656,6 +6699,24 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 ;; ;; or M-x google-search-region RET
 ;; (defalias 'url-retrieve-synchronously 'url-retrieve)
 
+(defun %search-region (start end thing search-function)
+  (when start
+    (cond
+      ((null end)
+       (let ((bounds (bounds-of-thing-at-point thing)))
+         (if bounds
+             (%search-region (car bounds) (cdr bounds) thing search-function)
+             (call-interactively search-function))))
+      ((= start end)
+       (call-interactively search-function))
+      (t
+       (funcall search-function (buffer-substring-no-properties start end))))))
+
+;; (if (or (not mark-active) (eql (point) (mark)))
+;;     "string"
+;;     (buffer-substring-no-properties (min (point) (mark))
+;;                                     (max (point) (mark))))
+
 
 (defparameter *whitespaces* '(32 9 10 13))
 
@@ -6671,52 +6732,93 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 (defun apple-search-region (start end)
   "Search the text in the region with Apple."
   (interactive "r")
-  (if (= start end)
-      (call-interactively 'apple-search)
-      (apple-search (buffer-substring-no-properties start end))))
+  (%search-region start end 'symbol 'apple-search))
+
+
+(defun project-search (search-string)
+  "Search a regex in the current project (with `find-grep' and `grep-find-command')."
+  (interactive "sSearch Project Regexp: ")
+  (find-grep (concat grep-find-command " " (shell-quote-argument search-string))))
+
+(defun project-search-region (start end)
+  "Search the text in the region in the current project (with `find-grep' and `grep-find-command')."
+  (interactive "r")
+  (%search-region start end 'symbol 'project-search))
 
 
 (defun google-search (search-string)
   "Search a string with Google."
   (interactive "sGoogle Search: ")
   (browse-url
-   (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_sitesearch=&safe=images"
+   (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_s
+itesearch=&safe=images"
 	   (browse-url-url-encode-chars
 	    (string-trim *whitespaces* search-string)
 	    "[^A-Za-z0-9]")))) 
 
 (defun google-search-region (start end)
-  "Search the text in the region with Google."
+  (%search-region start end 'symbol 'google-search))
+
+
+(defparameter *acronym-search-url* "http://www.acronymfinder.com/%s.html")
+;;  "http://www.cygwin.com/acronyms/#%s"
+(defun acronym-search (acronym-string)
+  (interactive "sAcronym Search: ")
+  (browse-url (format *acronym-search-url* acronym-string)))
+
+(defun acronym-search-region (start end)
   (interactive "r")
-  (message (format "%S %S" start end))
-  (if (= start end)
-      (call-interactively 'google-search)
-      (google-search (buffer-substring-no-properties start end))))
+  (%search-region start end 'symbol 'acronym-search))
 
 
-(defun acronym ()
-  (interactive)
-  (browse-url 
-   (if (or (not mark-active) (eql (point) (mark)))
-       (format "http://www.cygwin.com/acronyms/#%s"
-               (read-from-minibuffer "Acronym: "))
-       (buffer-substring-no-properties (min (point) (mark))
-                                       (max (point) (mark))))))
+
+(defun includes-search (string)
+  (interactive "sIncludes Search: ")
+  (find-grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
+
+(defun includes-search-region (start end)
+  (interactive "r")
+  (%search-region start end 'symbol 'includes-search))
+
+(defalias 'grep-includes 'includes-search)
+
+
+(defun hyperspec-search (string)
+  (interactive "sHyperspec Search: ")
+  (find-grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
+
+(defun hyperspec-search-region (start end)
+  (interactive "r")
+  (%search-region start end 'symbol 'hyperspec-search))
+
+(defalias 'grep-hyperspec 'hyperspec-search)
+
+
+(defun here-search (pattern)
+  "Does an egrep  in the current directory just asking for a pattern."
+  (interactive (list (read-from-minibuffer (format "In %s egrep pattern: " (shell-quote-argument default-directory)))))
+  (check-type pattern string)
+  (if (string-equal "" pattern)
+      (error "The empty string matches everything. Are you happy?")
+      (grep (format "egrep -n -e '%s' `find . -type f -print` /dev/null" pattern))))
+
+(defun here-search-region (start end)
+  (interactive "r")
+  (%search-region start end 'symbol 'here-search))
+
 
 
 (global-set-key (kbd "C-h 1") 'apple-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
-(global-set-key (kbd "C-h 3") 'acronym)
+(global-set-key (kbd "C-h 3") 'acronym-search-region)
+(global-set-key (kbd "C-h 4") 'project-search-region)
+(global-set-key (kbd "C-h 5") 'includes-search-region)
+(global-set-key (kbd "C-h 6") 'hyperspec-search-region)
+(global-set-key (kbd "C-h 7") 'here-search-region)
 
 ;;;----------------------------------------------------------------------------
 
-(defun grep-hyperspec (&optional string)
-  (interactive "sString: ")
-  (grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
 
-(defun grep-includes (&optional string)
-  (interactive "sString: ")
-  (grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
 
 
 
@@ -7616,5 +7718,11 @@ or as \"emacs at <hostname>\"."
 ;;     (progress-reporter-update progress-reporter k))
 ;;   (progress-reporter-done progress-reporter))
 
+
+;; For long lines:
+;; (progn
+;;   (fundamental-mode)
+;;   (toggle-truncate-lines 1)
+;;   (setq-default cache-long-line-scans t))
 
 ;;;; THE END ;;;;

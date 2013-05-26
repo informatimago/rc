@@ -325,7 +325,7 @@ function be_generate(){
     be_variable TZ                      Europe/Madrid
 
     # Most prioritary:
-    be_unset LC_ALL
+    be_variable LC_ALL                    C
 
     # If LC_ALL is not defined:
     # be_variable LC_MONETARY             es_ES.UTF-8
@@ -344,7 +344,7 @@ function be_generate(){
     be_unset LC_CTYPE
 
     # If the above are not defined:
-    be_variable LANG                    en_US.UTF-8
+    be_unset LANG
 
     if [ $(hostname) = iMac-Core-i5.local ] ; then
 
@@ -499,7 +499,14 @@ alias more=less
 alias ec='emacsclient --no-wait'
 alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
-alias df='df -ah'
+case $(uname -s) in 
+    Darwin)
+        alias df='df -h'
+        ;;
+    *)
+        alias df='df -ah'
+        ;;
+esac
 alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
@@ -914,7 +921,8 @@ function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
 function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
 function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
 
-function svn-status      (){ svn status | grep -v -e '^? ' ; }
+function svn-changes     (){ svn status | grep -e '^[?AMD]' ; }
+function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
 function svn-obsolete    (){ for f in "$@" ; do mv "$f" "$f"-obsolete && svn update "$f" ; diff "$f" "$f"-obsolete  ; done ; }
 function svn-keep        (){ for f ; do mv "${f}" "${f}-keep" && svn update "${f}" && mv "${f}" "${f}-old" && mv "${f}-keep" "${f}" ; done ; }
 
@@ -930,9 +938,9 @@ function dui             (){ local f="$1" ; cp "$f" "${f}~" ;  iconv -f utf-8 -t
 
 function lisps           (){ clall -r '(lisp-implementation-version)' ; }
 
-# ----------------------------------------
+function history-graph   (){ history | awk '{h[$2]++}END{for(i in h){print h[i],i|"sort -rn|head -20"}}' | awk '{if(!m)m=$1;r="";i=s=60*$1/m;while(i-->0)r=r"#";printf "%15s %5d %s %s",$2,$1,r,"\n";}' ; }
 
-function sst             (){ svn status --ignore-externals $1 | grep -v ^X ; }
+# ----------------------------------------
 
 
 function update-localized-xibs() {
