@@ -7652,4 +7652,10 @@ or as \"emacs at <hostname>\"."
 ;;   (progress-reporter-done progress-reporter))
 
 
+;; For long lines:
+;; (progn
+;;   (fundamental-mode)
+;;   (toggle-truncate-lines 1)
+;;   (setq-default cache-long-line-scans t))
+
 ;;;; THE END ;;;;
