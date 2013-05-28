@@ -22,16 +22,29 @@
 (let ((configuration (if (boundp 'aquamacs-version)
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (let* ((hostname-configuration-map
-                                 '(("iMac-Core-i5.local" . "~/rc/emacs-employer-d.el")
+                                 '(("mercure"            . "~/rc/emacs-employer-c.el")
+                                   ("imac-core-i5.local" . "~/rc/emacs-employer-d.el")
                                    ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
                                    ( "pbo-employer-d.local"     . "~/rc/emacs-employer-d.el")
                                    (t                    . "~/rc/emacs-pjb.el"))))
-                           (or (assoc (hostname) hostname-configuration-map)
-                               (assoc t          hostname-configuration-map)))))
-      (if configuration
-          (let ((file (file-truename (cdr configuration))))
-            (load file)
-            (setq custom-file (or file custom-file)))
-          (message "Found no configuration to load for %s" (hostname)))))
+                           (or (assoc* (hostname) hostname-configuration-map :test (function equalp))
+                               (assoc  t          hostname-configuration-map))))))
+  (if configuration
+      (let ((file (file-truename (cdr configuration))))
+        (load file)
+        (setq custom-file (or file custom-file)))
+      (message "Found no configuration to load for %s" (hostname))))
 
 ;;;; THE END ;;;;
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((lexical-binding . t)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
