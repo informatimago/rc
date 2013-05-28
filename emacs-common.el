@@ -76,7 +76,8 @@
 (require 'tramp nil t)
 (require 'cc-mode)
 
-(setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types))
+(when (boundp 'byte-compile-warning-types)
+  (setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types)))
 
 
 (.EMACS "STARTING...")
@@ -499,17 +500,16 @@ NOTE:   ~/directories.txt is cached in *directories*.
 "
   (unless *directories*
     (load-directories))
-  (unless  (getf *directories* key)
-    (error "get-directory: No directory keyed %s" key))
-  (let ((dir (getf *directories* key)))
-    (if (or (null subpath) (string= "" subpath))
-        dir
-        (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-               (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-               (xor (a b) (or (and a (not b)) (and (not a) b))))
-          (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-              (concat dir subpath)
-              (concat dir "/" subpath))))))
+  (when  (getf *directories* key)
+    (let ((dir (getf *directories* key)))
+      (if (or (null subpath) (string= "" subpath))
+	  dir
+	  (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
+		 (firstchar (str) (and (< 0 (length str)) (aref str 0)))
+		 (xor (a b) (or (and a (not b)) (and (not a) b))))
+	    (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
+		(concat dir subpath)
+		(concat dir "/" subpath)))))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -661,7 +661,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(load (expand-file-name "~/quicklisp/slime-helper.el") t)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
@@ -2088,8 +2088,59 @@ capitalized form."
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
 
-(progn ;; unless (fboundp 'mdi)
+(when (require 'slime nil t)
   
+  (defun slime-eval-print (string)
+    "Eval STRING in Lisp; insert any output and the result at point."
+    (message "current-prefix-arg = %S" current-prefix-arg)
+    (let ((commentp (and (listp current-prefix-arg)
+			 (integerp (first current-prefix-arg))
+			 (< 4 (first current-prefix-arg)))))
+      (slime-eval-async `(swank:eval-and-grab-output ,string)
+			`(lambda (result)
+			   (destructuring-bind (output value) result
+			     (push-mark)
+			     (if ,commentp
+			       (progn
+				 (insert output)
+				 (let ((lines (split-string value "\n")))
+				   (insert "\n;; --> " (pop lines) "\n")
+				   (dolist (line lines)
+				     (insert ";;     " line "\n"))))
+			       (insert output value)))))))
+
+  (or (ignore-errors
+	(progn (slime-setup '(slime-fancy
+			      slime-xref-browser
+			      slime-asdf
+			      slime-banner
+			      slime-repl
+			      slime-indentation
+			      slime-fuzzy
+			      slime-autodoc
+			      slime-presentations
+			      slime-presentation-streams))
+	       (setf slime-complete-symbol*-fancy   t
+		     slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+		     slime-load-failed-fasl         'never)
+	       t))
+      (ignore-errors
+	(progn (slime-setup '(slime-fancy slime-indentation))
+	       t))
+      (ignore-errors
+	(progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
+	       t))
+      (ignore-errors
+	(progn (slime-setup)
+	       t))
+      (error ".EMACS: Cannot setup slime :-("))
+
+  (setf slime-net-coding-system 'utf-8-unix)
+  (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
+  (pushnew 'paredit-mode slime-repl-mode-hook)
+
+
+
   (.EMACS " define-lisp-implementation")
   (defvar slime-lisp-implementations    nil)
   (defvar *default-lisp-implementation* nil)
@@ -2124,62 +2175,62 @@ capitalized form."
                  :name     ',name
                  :command  (apply (function concat)
                                   (cdr (loop for word in command
-                                          collect " " collect word)))
+					     collect " " collect word)))
                  :prompt   ,prompt
                  :coding  ',coding
                  ,@rest))
             (sli (assoc ',name slime-lisp-implementations)))
        (setf (get ',name :lisp-implementation) li)
        (if (null sli)
-           (push (list ',name command
-                       :coding-system  (intern (format "%s-unix" ',coding))
-                       :init (lisp-implementation-init li))
-                 slime-lisp-implementations)
-           (setf (cdr sli)
-                 (list command
-                       :coding-system (intern (format "%s-unix" ',coding))
-                       :init (lisp-implementation-init li))))
+	 (push (list ',name command
+		     :coding-system  (intern (format "%s-unix" ',coding))
+		     :init (lisp-implementation-init li))
+	       slime-lisp-implementations)
+	 (setf (cdr sli)
+	       (list command
+		     :coding-system (intern (format "%s-unix" ',coding))
+		     :init (lisp-implementation-init li))))
        ',name))
 
 
   (define-lisp-implementation scheme
-      "mzscheme"
+    "mzscheme"
     "^> "
     iso-8859-1)
 
 
   (define-lisp-implementation mzscheme
-      "mzscheme"
+    "mzscheme"
     "^> "
     iso-8859-1)
 
   (define-lisp-implementation mit-scheme
-      "/usr/local/languages/mit-scheme/bin/scheme"
+    "/usr/local/languages/mit-scheme/bin/scheme"
     "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation umb-scheme
-      "/usr/bin/scheme"
+    "/usr/bin/scheme"
     "^==> "
     iso-8859-1)
 
 
   
   (define-lisp-implementation abcl
-      (first-existing-file '("/data/languages/abcl/abcl"))
+    (first-existing-file '("/data/languages/abcl/abcl"))
     "^.*([0-9]+): "
     iso-8859-1)
   
   (define-lisp-implementation allegro
-      "/data/languages/acl82express/alisp"
+    "/data/languages/acl82express/alisp"
     "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation ccl
-      (first-existing-file '("/data/languages/ccl/bin/ccl"
-                             "/usr/local/bin/ccl"
-                             "/opt/local/bin/ccl"
-                             "/usr/bin/ccl"))
+    (first-existing-file '("/data/languages/ccl/bin/ccl"
+			   "/usr/local/bin/ccl"
+			   "/opt/local/bin/ccl"
+			   "/usr/bin/ccl"))
     "^? "
     utf-8)
 
@@ -2189,14 +2240,14 @@ capitalized form."
     ;; "/home/pjb/quicklisp/dists/quicklisp/software/slime-20120208-cvs/swank-loader.lisp"
     (let ((home (expand-file-name "~/")))
       (if (prefixp home path)
-          (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
-          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
+	(format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
+	(format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
   
   (defun slime-init-ccl-win-cygwin (port-filename coding-system)
     "Return a string to initialize Lisp."
     (let ((loader (if (file-name-absolute-p slime-backend)
-                      slime-backend
-                      (concat slime-path slime-backend))))
+		    slime-backend
+		    (concat slime-path slime-backend))))
       ;; Return a single form to avoid problems with buffered input.
       (format "%S\n\n"
               `(progn
@@ -2207,9 +2258,9 @@ capitalized form."
                           ,(windoize-pathname port-filename))))))
 
   (define-lisp-implementation ccl-win-cygwin
-      ;; This is a Windows CCL run thru cygwin emacs…
-      (list (first-existing-file '("/usr/local/bin/ccl"))
-            "-K" "UTF-8")
+    ;; This is a Windows CCL run thru cygwin emacs…
+    (list (first-existing-file '("/usr/local/bin/ccl"))
+	  "-K" "UTF-8")
     "^? "
     utf-8
     :init  'slime-init-ccl-win-cygwin)
@@ -2217,33 +2268,33 @@ capitalized form."
 
   
   (define-lisp-implementation openmcl
-      "/usr/local/bin/openmcl"
+    "/usr/local/bin/openmcl"
     "^\[[0-9]*\]> "
     iso-8859-1)
 
 
   (define-lisp-implementation clisp
-      (list* (cond
-               ((eq system-type 'cygwin)  "/usr/bin/clisp")
-               (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
-                                          "/opt/local/bin/clisp"
-                                          "/usr/local/bin/clisp"
-                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
-                                          "/usr/bin/clisp"))))
-             "-ansi""-q";"-m""32M""-I""-K""full"
-             (cond
-               ((eq system-type 'darwin)
-                (list "-Efile"     "UTF-8"
-                      "-Epathname" "UTF-8"
-                      "-Eterminal" "UTF-8"
-                      "-Emisc"     "UTF-8" ; better be same as terminal
-                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-               (t
-                (list "-Efile"     "UTF-8"
-                      "-Epathname" "ISO-8859-1"
-                      "-Eterminal" "UTF-8"
-                      "-Emisc"     "UTF-8" ; better be same as terminal
-                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+    (list* (cond
+	    ((eq system-type 'cygwin)  "/usr/bin/clisp")
+	    (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
+				       "/opt/local/bin/clisp"
+				       "/usr/local/bin/clisp"
+				       "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
+				       "/usr/bin/clisp"))))
+	   "-ansi""-q";"-m""32M""-I""-K""full"
+	   (cond
+	    ((eq system-type 'darwin)
+	     (list "-Efile"     "UTF-8"
+		   "-Epathname" "UTF-8"
+		   "-Eterminal" "UTF-8"
+		   "-Emisc"     "UTF-8" ; better be same as terminal
+		   "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+	    (t
+	     (list "-Efile"     "UTF-8"
+		   "-Epathname" "ISO-8859-1"
+		   "-Eterminal" "UTF-8"
+		   "-Emisc"     "UTF-8" ; better be same as terminal
+		   "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
     "^\[[0-9]*\]> "
     utf-8
     :argument-list-command
@@ -2260,30 +2311,30 @@ capitalized form."
   ;; slime-net-coding-system
 
   (define-lisp-implementation cmucl
-      (first-existing-file '("/data/languages/cmucl/bin/lisp"
-                             "/usr/local/bin/lisp"
-                             "/opt/local/bin/lisp"
-                             "/usr/bin/lisp"))
+    (first-existing-file '("/data/languages/cmucl/bin/lisp"
+			   "/usr/local/bin/lisp"
+			   "/opt/local/bin/lisp"
+			   "/usr/bin/lisp"))
     "^\* "
     utf-8)
 
   
   (define-lisp-implementation ecl
-      (first-existing-file '("/data/languages/ecl/bin/ecl"
-                             "/usr/local/bin/ecl"
-                             "/opt/local/bin/usr"
-                             "/usr/bin/ecl"))
+    (first-existing-file '("/data/languages/ecl/bin/ecl"
+			   "/usr/local/bin/ecl"
+			   "/opt/local/bin/usr"
+			   "/usr/bin/ecl"))
     
     "^> "
     utf-8)
 
   
   (define-lisp-implementation sbcl
-      (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
-                                   "/usr/local/bin/sbcl"
-                                   "/opt/local/bin/sbcl"
-                                   "/usr/bin/sbcl"))
-            "--noinform")
+    (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
+				 "/usr/local/bin/sbcl"
+				 "/opt/local/bin/sbcl"
+				 "/usr/bin/sbcl"))
+	  "--noinform")
     "^\[[0-9]*\]> "
     utf-8)
   
@@ -2294,21 +2345,21 @@ capitalized form."
     (interactive "SImplementation: ")
     (let ((limpl (get impl :lisp-implementation)))
       (if limpl
-          (progn
-            (message ".EMACS: inferior-lisp implementation: %s"
-                     (lisp-implementation-name limpl))
-            (let ((coding (lisp-implementation-coding limpl)))
-              (setf *default-lisp-implementation* limpl
-                    inferior-lisp-program         (lisp-implementation-command limpl)
-                    inferior-lisp-prompt          (lisp-implementation-prompt limpl)
-                    lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
-                    lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
-                    lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
-                    lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
-                    default-process-coding-system (cons coding coding)
-                    slime-net-coding-system       (intern (format "%s-unix" coding))
-                    slime-default-lisp            impl)))
-          (error "%S not a lisp implementation." impl)))
+	(progn
+	  (message ".EMACS: inferior-lisp implementation: %s"
+		   (lisp-implementation-name limpl))
+	  (let ((coding (lisp-implementation-coding limpl)))
+	    (setf *default-lisp-implementation* limpl
+		  inferior-lisp-program         (lisp-implementation-command limpl)
+		  inferior-lisp-prompt          (lisp-implementation-prompt limpl)
+		  lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
+		  lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
+		  lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
+		  lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
+		  default-process-coding-system (cons coding coding)
+		  slime-net-coding-system       (intern (format "%s-unix" coding))
+		  slime-default-lisp            impl)))
+	(error "%S not a lisp implementation." impl)))
     impl)
 
   (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
@@ -2356,15 +2407,15 @@ capitalized form."
                (mapcar (function buffer-name) (buffer-list))))
   (defun %lisp-buffer-next-number ()
     (loop
-       with i = 0
-       with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-                                    (inferior-lisp-buffers-list))
-                            (function <=))
-       while numbers
-       do (if (= i (car numbers))
-              (progn (incf i) (pop numbers))
-              (return i))
-       finally (return i)))
+     with i = 0
+     with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+				  (inferior-lisp-buffers-list))
+			  (function <=))
+     while numbers
+     do (if (= i (car numbers))
+	  (progn (incf i) (pop numbers))
+	  (return i))
+     finally (return i)))
 
   (defvar *lisp-command-history* '())
 
@@ -2377,13 +2428,13 @@ of `inferior-lisp-program').  Runs the hooks from
 `inferior-lisp-mode-hook' (after the `comint-mode-hook' is run).
 \(Type \\[describe-mode] in the process buffer for a list of commands.)"
     (interactive (list (if current-prefix-arg
-                           (read-string "Run lisp: " inferior-lisp-program)
-                           inferior-lisp-program)))
+			 (read-string "Run lisp: " inferior-lisp-program)
+			 inferior-lisp-program)))
     (if (not (comint-check-proc "*inferior-lisp*"))
-        (let ((cmdlist (split-string cmd)))
-          (set-buffer (apply (function make-comint)
-                             "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
-          (inferior-lisp-mode)))
+      (let ((cmdlist (split-string cmd)))
+	(set-buffer (apply (function make-comint)
+			   "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
+	(inferior-lisp-mode)))
     (setq inferior-lisp-buffer "*inferior-lisp*")
     (pop-to-buffer "*inferior-lisp*" t))
 
@@ -2393,13 +2444,13 @@ of `inferior-lisp-program').  Runs the hooks from
     (interactive "P")
     (let* ((impl-or-cmd
             (if ask-command
-                (read-from-minibuffer
-                 "Lisp implementation or command: "
-                 (format "%s" (lisp-implementation-name
-                               *default-lisp-implementation*))
-                 nil nil '*lisp-command-history*)
-                (format "%s" (lisp-implementation-name
-                              *default-lisp-implementation*))))
+	      (read-from-minibuffer
+	       "Lisp implementation or command: "
+	       (format "%s" (lisp-implementation-name
+			     *default-lisp-implementation*))
+	       nil nil '*lisp-command-history*)
+	      (format "%s" (lisp-implementation-name
+			    *default-lisp-implementation*))))
            (impl  (unless (position (character " ") impl-or-cmd
                                     :test (function char=))
                     (intern-soft impl-or-cmd)))
@@ -2414,11 +2465,11 @@ of `inferior-lisp-program').  Runs the hooks from
              (%lisp-buffer-name
               (%lisp-buffer-next-number)
               (cond
-                (impl)
-                ((string= cmd (lisp-implementation-command
-                               *default-lisp-implementation*))
-                 (lisp-implementation-name *default-lisp-implementation*))
-                ('custom)))))))
+	       (impl)
+	       ((string= cmd (lisp-implementation-command
+			      *default-lisp-implementation*))
+		(lisp-implementation-name *default-lisp-implementation*))
+	       ('custom)))))))
 
 
   (defun lisp (&optional ask-command)
@@ -2427,12 +2478,12 @@ of `inferior-lisp-program').  Runs the hooks from
     (interactive "P")
     (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
              (get-buffer inferior-lisp-buffer))
-        (switch-to-buffer inferior-lisp-buffer)
-        (let ((lisp-buffers (inferior-lisp-buffers-list)))
-          (if lisp-buffers
-              (switch-to-buffer
-               (setf inferior-lisp-buffer (first lisp-buffers)))
-              (nlisp ask-command))))))
+      (switch-to-buffer inferior-lisp-buffer)
+      (let ((lisp-buffers (inferior-lisp-buffers-list)))
+	(if lisp-buffers
+	  (switch-to-buffer
+	   (setf inferior-lisp-buffer (first lisp-buffers)))
+	  (nlisp ask-command))))))
 
 
 (defvar package 'common-lisp-user)
@@ -3167,56 +3218,7 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 (add-hook 'emacs-lisp-mode-hook  'pjb-lisp-meat)
 (add-hook 'emacs-lisp-mode-hook  'eldoc-mode)
 
-(require 'slime)
 
-(defun slime-eval-print (string)
-  "Eval STRING in Lisp; insert any output and the result at point."
-  (message "current-prefix-arg = %S" current-prefix-arg)
-  (let ((commentp (and (listp current-prefix-arg)
-                       (integerp (first current-prefix-arg))
-                       (< 4 (first current-prefix-arg)))))
-    (slime-eval-async `(swank:eval-and-grab-output ,string)
-      `(lambda (result)
-        (destructuring-bind (output value) result
-          (push-mark)
-          (if ,commentp
-              (progn
-                (insert output)
-                (let ((lines (split-string value "\n")))
-                  (insert "\n;; --> " (pop lines) "\n")
-                  (dolist (line lines)
-                    (insert ";;     " line "\n"))))
-              (insert output value)))))))
-
-(or (ignore-errors
-      (progn (slime-setup '(slime-fancy
-                            slime-xref-browser
-                            slime-asdf
-                            slime-banner
-                            slime-repl
-                            slime-indentation
-                            slime-fuzzy
-                            slime-autodoc
-                            slime-presentations
-                            slime-presentation-streams))
-             (setf slime-complete-symbol*-fancy   t
-                   slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-                   slime-load-failed-fasl         'never)
-             t))
-    (ignore-errors
-      (progn (slime-setup '(slime-fancy slime-indentation))
-             t))
-    (ignore-errors
-      (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
-             t))
-    (ignore-errors
-      (progn (slime-setup)
-             t))
-    (error ".EMACS: Cannot setup slime :-("))
-
-(setf slime-net-coding-system 'utf-8-unix)
-(setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
-(pushnew 'paredit-mode slime-repl-mode-hook)
 
 
 
@@ -4593,29 +4595,6 @@ in the current directory, or in a parent."
                       url)))))))
 
 
-;; (require 'clhs)
-(require 'hyperspec)
-(load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
-
-(defparameter *lw-clhs* "www.lispworks.com/documentation/HyperSpec/")
-(defparameter *hyperspec-path*  (or (ignore-errors (get-directory :hyperspec))
-                                    (concat "/usr/local/html/local/lisp/" *lw-clhs*)))
-(setf common-lisp-hyperspec-root
-      (dolist
-          (url (list
-                (concat "file://" *hyperspec-path*)
-                "file:///usr/share/doc/hyperspec/HyperSpec/"
-                ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
-                (concat "http://" *lw-clhs*)))
-        (when (probe-url url)
-          (return url))))
-
-(defparameter common-lisp-hyperspec-browser (function ignore))
-(defparameter common-lisp-hyperspec-frame   (selected-frame))
-
-;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
-;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
-
 (defun thing-at-point-no-properties (thing)
   "Return the THING at point.
 THING is a symbol which specifies the kind of syntactic entity you want.
@@ -4632,36 +4611,63 @@ a symbol as a valid THING."
 
 
 
+(when (require 'hyperspec nil t)
 
-(when (or t  (boundp 'common-lisp-hyperspec-symbols))
+  (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
 
-  (defun common-lisp-hyperspec-complete (string predicate allp)
-    (if allp
-        (let ((result '()))
-          (mapatoms
-           (lambda (symbol)
-             (let ((name (symbol-name symbol)))
-               (when (or (and (<= (length string) (length name))
-                              (string-equal* string name :end2 (length string)))
-                         (search (concat "-" string) name :test (function equalp)))
-                 (push name result))))
-           common-lisp-hyperspec-symbols)
-          result)
-        (try-completion string common-lisp-hyperspec-symbols predicate)))
+  (defparameter *lw-clhs* "www.lispworks.com/documentation/HyperSpec/")
+  (defparameter *hyperspec-path*  (or (get-directory :hyperspec)
+				      (concat "/usr/local/html/local/lisp/" *lw-clhs*)))
+  (setf common-lisp-hyperspec-root
+	(dolist
+	    (url (list
+		  (concat "file://" *hyperspec-path*)
+		  "file:///usr/share/doc/hyperspec/HyperSpec/"
+		  ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
+		  (concat "http://" *lw-clhs*)))
+	  (when (probe-url url)
+	    (return url))))
 
-  
-  (defun clhs-entry (symbol-designator)
-    (let ((symbol (intern-soft (downcase (etypecase symbol-designator
-                                           (symbol (symbol-name symbol-designator))
-                                           (string  symbol-designator)))
-                               common-lisp-hyperspec-symbols)))
-      (if (and symbol (boundp symbol))
-          (symbol-value symbol)
-          nil)))
+  (defparameter common-lisp-hyperspec-browser (function ignore))
+  (defparameter common-lisp-hyperspec-frame   (selected-frame))
 
-  
-  (defun common-lisp-hyperspec (symbol-name)
-    "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
+  ;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
+  ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
+
+
+
+
+
+
+  (when (or t  (boundp 'common-lisp-hyperspec-symbols))
+
+    (defun common-lisp-hyperspec-complete (string predicate allp)
+      (if allp
+	  (let ((result '()))
+	    (mapatoms
+	     (lambda (symbol)
+	       (let ((name (symbol-name symbol)))
+		 (when (or (and (<= (length string) (length name))
+				(string-equal* string name :end2 (length string)))
+			   (search (concat "-" string) name :test (function equalp)))
+		   (push name result))))
+	     common-lisp-hyperspec-symbols)
+	    result)
+	  (try-completion string common-lisp-hyperspec-symbols predicate)))
+
+    
+    (defun clhs-entry (symbol-designator)
+      (let ((symbol (intern-soft (downcase (etypecase symbol-designator
+					     (symbol (symbol-name symbol-designator))
+					     (string  symbol-designator)))
+				 common-lisp-hyperspec-symbols)))
+	(if (and symbol (boundp symbol))
+	    (symbol-value symbol)
+	    nil)))
+
+    
+    (defun common-lisp-hyperspec (symbol-name)
+      "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
 If SYMBOL-NAME has more than one definition, all of them are displayed with
 your favorite browser in sequence.  The browser should have a \"back\"
 function to view the separate definitions.
@@ -4672,81 +4678,81 @@ the entire Common Lisp HyperSpec to your own site under certain conditions.
 Visit http://www.xanalys.com/software_tools/reference/HyperSpec/ for more
 information.  If you copy the HyperSpec to another location, customize the
 variable `common-lisp-hyperspec-root' to point to that location."
-    (interactive
-     (list (let ((completion-ignore-case t)
-                 (symbol-at-point (thing-at-point-no-properties 'symbol)))
-             (completing-read
-              "Look up symbol in Common Lisp HyperSpec: "
-              (function common-lisp-hyperspec-complete) #'boundp
-              t symbol-at-point
-              'common-lisp-hyperspec-history))))
-    (maplist
-     (lambda (entry)
-       (case system-type
-         ((darwin)
-          (case window-system
-            ((x)
-             (browse-url (concat common-lisp-hyperspec-root
-                                 "Body/" (car entry))))
-            ((mac ns nil)
-             (let ((browse-url-browser-function (cons '("." . browse-url-generic) browse-url-browser-function))
-                   (browse-url-generic-program "/usr/bin/open"))
-               (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))))
-            (otherwise
-             (error "Unknown window-system"))))
-         ((gnu/linux)
-          (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry))))
-         (otherwise
-          (error "Unknown system-type.")))
-       (if (cdr entry)
-           (sleep-for 1.5)))
-     (delete-duplicates
-      (or (clhs-entry symbol-name)
-          (error "The symbol `%s' is not defined in Common Lisp"
-                 symbol-name))
-      :test (function equal))))
-  
+      (interactive
+       (list (let ((completion-ignore-case t)
+		   (symbol-at-point (thing-at-point-no-properties 'symbol)))
+	       (completing-read
+		"Look up symbol in Common Lisp HyperSpec: "
+		(function common-lisp-hyperspec-complete) #'boundp
+		t symbol-at-point
+		'common-lisp-hyperspec-history))))
+      (maplist
+       (lambda (entry)
+	 (case system-type
+	   ((darwin)
+	    (case window-system
+	      ((x)
+	       (browse-url (concat common-lisp-hyperspec-root
+				   "Body/" (car entry))))
+	      ((mac ns nil)
+	       (let ((browse-url-browser-function (cons '("." . browse-url-generic) browse-url-browser-function))
+		     (browse-url-generic-program "/usr/bin/open"))
+		 (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))))
+	      (otherwise
+	       (error "Unknown window-system"))))
+	   ((gnu/linux)
+	    (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry))))
+	   (otherwise
+	    (error "Unknown system-type.")))
+	 (if (cdr entry)
+	     (sleep-for 1.5)))
+       (delete-duplicates
+	(or (clhs-entry symbol-name)
+	    (error "The symbol `%s' is not defined in Common Lisp"
+		   symbol-name))
+	:test (function equal))))
+    
 
-  (defun gcl-hyperspec (symbol-name)
-    (interactive
-     (list (let ((completion-ignore-case t)
-                 (symbol-at-point (thing-at-point-no-properties 'symbol)))
-             (completing-read
-              "Look up symbol in Common Lisp HyperSpec: "
-              common-lisp-hyperspec-symbols #'boundp
-              t symbol-at-point
-              'common-lisp-hyperspec-history))))
-    (maplist
-     (lambda (entry)
-       (info (format "(gcl)%s" (car entry)))
-       (if (cdr entry)
-           (sleep-for 1.5)))
-     (delete-duplicates
-      (let ((symbol (intern-soft (downcase symbol-name)
-                                 common-lisp-hyperspec-symbols)))
-        (if (and symbol (boundp symbol))
-            (list symbol)
-            (error "The symbol `%s' is not defined in Common Lisp"
-                   symbol-name)))
-      :test (function equal))))
-
-
-  (defalias 'clhs               'common-lisp-hyperspec)
-  (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
-  (global-set-key (kbd "C-h y") 'hyperspec-lookup)
-
-  ) ;;(boundp 'common-lisp-hyperspec-symbols)
+    (defun gcl-hyperspec (symbol-name)
+      (interactive
+       (list (let ((completion-ignore-case t)
+		   (symbol-at-point (thing-at-point-no-properties 'symbol)))
+	       (completing-read
+		"Look up symbol in Common Lisp HyperSpec: "
+		common-lisp-hyperspec-symbols #'boundp
+		t symbol-at-point
+		'common-lisp-hyperspec-history))))
+      (maplist
+       (lambda (entry)
+	 (info (format "(gcl)%s" (car entry)))
+	 (if (cdr entry)
+	     (sleep-for 1.5)))
+       (delete-duplicates
+	(let ((symbol (intern-soft (downcase symbol-name)
+				   common-lisp-hyperspec-symbols)))
+	  (if (and symbol (boundp symbol))
+	      (list symbol)
+	      (error "The symbol `%s' is not defined in Common Lisp"
+		     symbol-name)))
+	:test (function equal))))
 
 
-(defun random-hyperspec ()
-  (interactive)
-  (let* ((random-hyperspec-symbol
-          (let ((syms '()))
-            (do-symbols (sym common-lisp-hyperspec-symbols) (push sym syms))
-            (nth (random (length syms)) syms)))
-         (random-page (let ((pages (symbol-value random-hyperspec-symbol)))
-                        (nth (random (length pages)) pages))))
-    (browse-url (concat common-lisp-hyperspec-root "Body/" random-page))))
+    (defalias 'clhs               'common-lisp-hyperspec)
+    (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
+    (global-set-key (kbd "C-h y") 'hyperspec-lookup)
+
+    ) ;;(boundp 'common-lisp-hyperspec-symbols)
+
+
+  (defun random-hyperspec ()
+    (interactive)
+    (let* ((random-hyperspec-symbol
+	    (let ((syms '()))
+	      (do-symbols (sym common-lisp-hyperspec-symbols) (push sym syms))
+	      (nth (random (length syms)) syms)))
+	   (random-page (let ((pages (symbol-value random-hyperspec-symbol)))
+			  (nth (random (length pages)) pages))))
+      (browse-url (concat common-lisp-hyperspec-root "Body/" random-page)))))
 
 
 
@@ -7511,10 +7517,10 @@ or as \"emacs at <hostname>\"."
 ;;;----------------------------------------------------------------------------
 ;;; Google Maps
 ;;;----------------------------------------------------------------------------
-
-(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-maps/google-maps.el"))
-  (push (get-directory :share-lisp  "packages/org/naquadah/google-maps/") load-path)
-  (require 'google-maps))
+(let ((gomapel  (get-directory :share-lisp  "packages/org/naquadah/google-maps/google-maps.el")))
+  (when (and gomapel (file-exists-p gomapel))
+    (push (get-directory :share-lisp  "packages/org/naquadah/google-maps/") load-path)
+    (require 'google-maps)))
 ;; (google-maps-static-show :center "Valencia"
 ;;                          :maptype 'hybrid)
 ;; (google-maps-static-show
@@ -7528,10 +7534,11 @@ or as \"emacs at <hostname>\"."
 ;;            . (:weight 3 :color "black" :fillcolor "yellow"))))
 
 
-(when (file-exists-p (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/google-weather.el"))
-  (push (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/") load-path)
-  (require 'google-weather)
-  (require 'org-google-weather))
+(let ((gowel (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/google-weather.el")))
+  (when (and gowel (file-exists-p gowel))
+    (push (get-directory :share-lisp  "packages/org/naquadah/google-weather-el/") load-path)
+    (require 'google-weather)
+    (require 'org-google-weather)))
 
 
 ;;;----------------------------------------------------------------------------
