@@ -82,7 +82,8 @@ keycode  96 = F12             XF86_Switch_VT_12 F32
 
 keycode 107 = Pause           Break             F33
 keycode  78 = Caps_Lock       Caps_Lock         F34
-keycode 127 = Print           Sys_Req           F35
+!keycode 127 = Print           Sys_Req           F35
+keycode 127 = Super_R 	      Super_R
 
 
 !------------------------------------------------------------

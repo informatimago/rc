@@ -1,0 +1,8 @@
+
+
+export PATH=$HOME/bin:$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH
+
+# sudo $(which adb) root
+
+xmodmap ~/.xmodmap
+
