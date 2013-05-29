@@ -1079,3 +1079,5 @@ employer-d-pbo.local) . ~/rc/bashrc-employer-d ;;
 *)             . ~/rc/bashrc-pjb ;;
 esac
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
