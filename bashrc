@@ -1079,3 +1079,5 @@ dxo-pbo.local) . ~/rc/bashrc-dxo ;;
 *)             . ~/rc/bashrc-pjb ;;
 esac
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
