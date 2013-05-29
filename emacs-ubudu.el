@@ -13,10 +13,10 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -32,7 +32,7 @@
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
- '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(font-lock-string-face ((t (:foreground "#ccdd33"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -78,7 +78,7 @@
  '(backup-by-copying-when-linked t)
  '(backup-by-copying-when-mismatch t)
  '(backup-by-copying-when-privileged-mismatch 1000)
- '(bcc-user-mail-address "pjb@informatimago.com" t)
+ '(bcc-user-mail-address "pascal.bourguignon@ubudu.com" t)
  '(blink-matching-paren t)
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
@@ -207,7 +207,7 @@
  '(gnus-article-loose-mime t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
  '(gnus-cacheable-groups "*")
- '(gnus-carpal nil t)
+ '(gnus-carpal nil)
  '(gnus-default-charset (quote iso-8859-15))
  '(gnus-default-posting-charset (quote utf-8) t)
  '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
@@ -247,24 +247,17 @@
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
- '(mail-default-headers "Organization: InformatiMago.
-X-PGP-Key-ID:      0xEF5E9966
-X-PGP-fingerprint: 00 F5 7B DB CA 51 8A AD 04 5B 6C DE 32 60 16 8E EF 5E 99 66
-X-PGP-Public-Key:  http://www.informatimago.com/pgpkey.asc
-X-URL:             http://www.informatimago.com/index
-X-Face: \":yO)Vk=vFU3)FL&2#7gT_G=KUuNv*BEOo+Shubl.V4Whu&;A.>.+&yEVB5I5vrpZIJ{yOW
- >CgV%jD]GHL6rp:.OCM~_YO&aY34]|`{yNq79\\x=g:7XSboBUj]1ULpA;v>-bS3veufw-rB!N0kZW!
- @A4i?z|
+ '(mail-default-headers "Organization: Ubudu SAS
 X-Accept-Language:         fr, es, en
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Bcc: pjb@informatimago.com
+Bcc: pascal.bourguignon@ubudu.com
 ")
- '(mail-default-reply-to "pjb@informatimago.com")
+ '(mail-default-reply-to "pascal.bourguignon@ubudu.com")
  '(mail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
  '(mail-from-style (quote angle))
- '(mail-host-address "informatimago.com")
+ '(mail-host-address "ubudu.com")
  '(mail-interactive t)
  '(mail-mode-hook (quote (mail-abbrevs-setup (lambda nil (set-buffer-file-coding-system (quote utf-8) t t) (set-input-method default-input-method) (local-set-key "	" (quote expand-mail-aliases))))))
  '(mail-self-blind t)
@@ -289,7 +282,7 @@ X-Accept-Language:         fr, es, en
  '(message-from-style (quote angles))
  '(message-log-max 5000)
  '(message-required-news-headers (quote (From Newsgroups Subject Date Message-ID (optional . Organization) (optional . User-Agent) (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm")))))
- '(message-user-organization "Informatimago")
+ '(message-user-organization "Ubudu SAS")
  '(mew-conf-path "~/.new")
  '(mew-mail-path "~/mail")
  '(mew-pop-auth (quote pass))
@@ -346,7 +339,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values (quote ((Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
- '(send-mail-function (quote sendmail-send-it))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -358,11 +351,12 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-smtp-server "voyager.informatimago.com")
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
- '(tab-stop 4 t)
+ '(tab-stop 2 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
- '(tab-width 4)
+ '(tab-width 2)
  '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
@@ -370,8 +364,8 @@ X-Accept-Language:         fr, es, en
  '(truncate-partial-width-windows nil)
  '(url-be-asynchronous t)
  '(url-honor-refresh-requests nil)
- '(user-full-name "Pascal J. Bourguignon")
- '(user-mail-address "pjb@informatimago.com")
+ '(user-full-name "Pascal. Bourguignon")
+ '(user-mail-address "pascal.bourguignon@ubudu.com")
  '(vc-annotate-background "snow1")
  '(vc-annotate-color-map (quote ((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010"))))
  '(vc-annotate-very-old-color "#000000")

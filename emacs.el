@@ -7,6 +7,8 @@
 
 (message "Pascal J. Bourguignon's emacs startup file.")
 (setq message-log-max 5000)
+(when (< emacs-major-version 24) 
+  (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
@@ -25,10 +27,12 @@
                                  '(("mercure"            . "~/rc/emacs-ubudu.el")
                                    ("imac-core-i5.local" . "~/rc/emacs-dxo.el")
                                    ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
-                                   ( "pbo-dxo.local"     . "~/rc/emacs-dxo.el")
-                                   (t                    . "~/rc/emacs-pjb.el"))))
-                           (or (assoc* (hostname) hostname-configuration-map :test (function equalp))
-                               (assoc  t          hostname-configuration-map))))))
+                                   ( "pbo-dxo.local"     . "~/rc/emacs-dxo.el")))
+                                (hostname  (hostname))
+                                (conf  hostname-configuration-map))
+                           (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
+                             (setq conf (cdr conf)))
+                           (car conf)))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
         (load file)
@@ -36,15 +40,4 @@
       (message "Found no configuration to load for %s" (hostname))))
 
 ;;;; THE END ;;;;
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((lexical-binding . t)))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+
