@@ -1075,7 +1075,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #### THE END ####
 
 case $(hostname) in
-Mercure)       . ~/rc/bashrc-ubudu ;;
+mercure)       . ~/rc/bashrc-ubudu ;;
 dxo-pbo.local) . ~/rc/bashrc-dxo ;;
 *)             . ~/rc/bashrc-pjb ;;
 esac

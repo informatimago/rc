@@ -13,10 +13,10 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -46,7 +46,7 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
- '(match ((t (:background "#cacafe"))))
+ '(match ((t (:background "#434355"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -207,7 +207,7 @@
  '(gnus-article-loose-mime t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
  '(gnus-cacheable-groups "*")
- '(gnus-carpal nil)
+ '(gnus-carpal nil t)
  '(gnus-default-charset (quote iso-8859-15))
  '(gnus-default-posting-charset (quote utf-8) t)
  '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
@@ -303,6 +303,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -338,7 +339,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -472,6 +473,16 @@ X-Accept-Language:         fr, es, en
                               :key (function car)))
 
 (set-sources "/home/pjb/src/")
+
+(defun java-meat ()
+  (interactive)
+  (setf tab-stop 2
+        tab-width 2
+        c-indent-level 2
+        c-basic-offset 2
+        c-tab-always-indent t))
+
+(add-hook 'java-mode-hook 'java-meat)
 
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 ;;;----------------------------------------------------------------------------

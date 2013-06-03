@@ -1,6 +1,8 @@
+# -*- mode:shell-script; coding:utf-8 -*-
 
+export PATH="$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH"
 
-export PATH=$HOME/bin:$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH
+export PATH="$HOME/opt/jdk/bin:$PATH"
 
 # sudo $(which adb) root
 

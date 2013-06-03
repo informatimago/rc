@@ -66,7 +66,6 @@ symlinks: save
 	ln -sf $(SRCDIR)/emacs-bash                       $$HOME/.emacs_bash
 	ln -sf $(SRCDIR)/gclrc.lisp                       $$HOME/.gclrc.lisp
 	ln -sf $(SRCDIR)/geek                             $$HOME/.geek
-	ln -sf $(SRCDIR)/gitconfig                        $$HOME/.gitconfig
 	ln -sf $(SRCDIR)/irbrc                            $$HOME/.irbrc
 	ln -sf $(SRCDIR)/ircrc                            $$HOME/.ircrc
 	ln -sf $(SRCDIR)/kermrc                           $$HOME/.kermrc
@@ -82,6 +81,8 @@ symlinks: save
 	ln -sf $(SRCDIR)/abclrc.lisp                      $$HOME/.abclrc
 	ln -sf $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
 	ln -sf $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
+
+#	ln -sf $(SRCDIR)/gitconfig                        $$HOME/.gitconfig
 
 showlinks:
 	cd     $$HOME ; ls -la |awk "/-> $(SRCDIR)/{printf "ln -sf %-30s $$    $$HOME/%s\n",$$11,$$9;}"
