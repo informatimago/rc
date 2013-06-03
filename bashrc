@@ -1075,7 +1075,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #### THE END ####
 
 case $(hostname) in
-Mercure)       . ~/rc/bashrc-employer-c ;;
+mercure)       . ~/rc/bashrc-employer-c ;;
 employer-d-pbo.local) . ~/rc/bashrc-employer-d ;;
 *)             . ~/rc/bashrc-pjb ;;
 esac
