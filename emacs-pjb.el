@@ -181,7 +181,7 @@
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ("bolet.*" "dmiles")))
+ '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
