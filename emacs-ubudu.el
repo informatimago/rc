@@ -152,7 +152,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -180,8 +180,9 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
+ '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ("bolet.*" "dmiles")))
+ '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
@@ -339,7 +340,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -467,10 +468,12 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 ;;;----------------------------------------------------------------------------
 
-
-(setf auto-mode-alist  (sort* auto-mode-alist
-                              (function string<)
-                              :key (function car)))
+(setf auto-mode-alist
+      (sort* (cons '("\\.md$" . text-mode)
+                   (remove* 'modula-2-mode auto-mode-alist
+                            :key (function cdr)))
+             (function string<)
+             :key (function car)))
 
 (set-sources "/home/pjb/src/")
 
@@ -496,6 +499,24 @@ X-Accept-Language:         fr, es, en
 
 (setf visible-bell nil
       ring-bell-function nil)
+
+
+(require 'android-mode)
+(setf android-mode-sdk-dir (expand-file-name "~/opt/adt/sdk"))
+
+(push (expand-file-name "~/opt/adt/sdk/tools/lib/") load-path)
+(require 'android)
+
+(defun gud-meat ()
+  (interactive)
+  (add-to-list 'gud-jdb-classpath
+               (expand-file-name "~/opt/adt/sdk/platforms/android-17/android.jar")))
+(add-hook 'gud-mode-hook 'gud-meat)
+
+(require 'cedet)
+(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+(require 'jde)
+
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
