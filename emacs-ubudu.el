@@ -179,7 +179,7 @@
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
- '(erc-nick (quote ("pjb")))
+ '(erc-nick (quote ("ogamita")))
  '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))

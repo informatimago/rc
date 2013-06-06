@@ -492,6 +492,8 @@ X-Accept-Language:         fr, es, en
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
+(load "~/rc/emacs-package.el")
+
 (setf visible-bell nil
       ring-bell-function nil)
 
