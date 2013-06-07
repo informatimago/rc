@@ -46,6 +46,7 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(match ((t (:background "#434355"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
@@ -179,7 +180,7 @@
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
- '(erc-nick (quote ("ogamita")))
+ '(erc-nick (quote ("pjb")))
  '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
@@ -500,6 +501,8 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 
+
+(add-hook 'java-mode 'pjb-java-edit-meat)
 
 (require 'android-mode)
 (setf android-mode-sdk-dir (expand-file-name "~/opt/adt/sdk"))
