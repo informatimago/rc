@@ -23,21 +23,22 @@
 
 (let ((configuration (if (boundp 'aquamacs-version)
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
-                         (let* ((hostname-configuration-map
-                                 '(("mercure"            . "~/rc/emacs-employer-c.el")
-                                   ("imac-core-i5.local" . "~/rc/emacs-employer-d.el")
-                                   ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
-                                   ( "pbo-employer-d.local"     . "~/rc/emacs-employer-d.el")))
-                                (hostname  (hostname))
-                                (conf  hostname-configuration-map))
-                           (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
-                             (setq conf (cdr conf)))
-                           (car conf)))))
+		       (or (let* ((hostname-configuration-map
+				   '(("mercure"            . "~/rc/emacs-employer-c.el")
+				     ("imac-core-i5.local" . "~/rc/emacs-employer-d.el")
+				     ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
+				     ("pbo-employer-d.local"      . "~/rc/emacs-employer-d.el")))
+				  (hostname  (hostname))
+				  (conf  hostname-configuration-map))
+			     (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
+			       (setq conf (cdr conf)))
+			     (car conf))
+			   '("informatimago.com" . "~/rc/emacs-pjb.el")))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
         (load file)
         (setq custom-file (or file custom-file)))
-      (message "Found no configuration to load for %s" (hostname))))
+    (message "Found no configuration to load for %s" (hostname))))
 
 ;;;; THE END ;;;;
 
