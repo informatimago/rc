@@ -146,7 +146,7 @@
   (when (boundp 'aquamacs-version)
     (.EMACS "aquamacs-version     = %S" aquamacs-version)))
 
-;; system-type          darwin   gnu/linux  cygwin
+;; system-type          darwin   gnu/linux  cygwin windows-nt
 ;; system-name          "naiad.informatimago.com" "hermes.afaa.asso.fr"
 ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin" "i386-apple-darwin9.8.0"
 ;; window-system        nil x mac ns w32
