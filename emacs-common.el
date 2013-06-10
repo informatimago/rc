@@ -6833,7 +6833,10 @@ itesearch=&safe=images"
   (%search-region start end 'symbol 'here-search))
 
 
-
+(global-set-key (kbd "C-h 0")
+                (lambda ()
+                  (interactive)
+                  (message (concat "C-h 1 apple  C-h 2 google  C-h 3 acronym  C-h 4 project  C-h 5 includes  C-h 6 hyperspec  C-h 7 this directory"))))
 (global-set-key (kbd "C-h 1") 'apple-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
 (global-set-key (kbd "C-h 3") 'acronym-search-region)
