@@ -368,8 +368,6 @@ Returns a string described by x; specifically:
 
 
 
-
-
 ;;; Some other utility.
 
 (defmacro* string-case (string-expression &body clauses)
@@ -6425,6 +6423,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 (when (fboundp 'pjb-objc-edit-meat)
   (add-hook 'objc-mode-hook 'pjb-objc-edit-meat))
 
+
 (appendf auto-mode-alist  '(("\\.mc\\'" . c++-mode)))
 
 
@@ -6740,6 +6739,27 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
   (interactive "r")
   (%search-region start end 'symbol 'apple-search))
 
+(defun android-search (search-string)
+  "Search a string with Android."
+  (interactive "sAndroid Developer Documentation Search: ")
+  (browse-url (or (when (and (search "." search-string) (not (search ".." search-string)))
+                    (let ((words (split-string search-string "\\.")))
+                      (when (and (<= 3 (length words))
+                                 (every (lambda (word)
+                                          (and (alpha-char-p (aref word 0))
+                                               (every (function alphanumericp) word)))
+                                        words))
+                        (format "http://developer.android.com/reference/%s.html"
+                                (mapconcat (function identity) words "/")))))
+                  (format "http://developer.android.com/index.html#q=%s"
+                          (browse-url-url-encode-chars
+                           (string-trim *whitespaces* search-string)
+                           "[^A-Za-z0-9]")))))
+
+(defun android-search-region (start end)
+  "Search the text in the region with Android."
+  (interactive "r")
+  (%search-region start end 'symbol 'android-search))
 
 (defun project-search (search-string)
   "Search a regex in the current project (with `find-grep' and `grep-find-command')."
@@ -6813,7 +6833,10 @@ itesearch=&safe=images"
   (%search-region start end 'symbol 'here-search))
 
 
-
+(global-set-key (kbd "C-h 0")
+                (lambda ()
+                  (interactive)
+                  (message (concat "C-h 1 apple  C-h 2 google  C-h 3 acronym  C-h 4 project  C-h 5 includes  C-h 6 hyperspec  C-h 7 this directory"))))
 (global-set-key (kbd "C-h 1") 'apple-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
 (global-set-key (kbd "C-h 3") 'acronym-search-region)
@@ -6821,6 +6844,14 @@ itesearch=&safe=images"
 (global-set-key (kbd "C-h 5") 'includes-search-region)
 (global-set-key (kbd "C-h 6") 'hyperspec-search-region)
 (global-set-key (kbd "C-h 7") 'here-search-region)
+
+(add-hook 'objc-mode-hook (lambda ()
+                            (interactive)
+                            (local-set-key (kbd "C-h 1") 'apple-search-region)))
+
+(add-hook 'java-mode-hook (lambda ()
+                            (interactive)
+                            (local-set-key (kbd "C-h 1") 'android-search-region)))
 
 ;;;----------------------------------------------------------------------------
 
