@@ -23,11 +23,15 @@
 
 (let ((configuration (if (boundp 'aquamacs-version)
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
-                         (let* ((hostname-configuration-map
-                                 '(("mercure"            . "~/rc/emacs-ubudu.el")
-                                   ("imac-core-i5.local" . "~/rc/emacs-dxo.el")
-                                   ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
-                                   ( "pbo-dxo.local"     . "~/rc/emacs-dxo.el")))
+		       (let* ((hostname-configuration-map
+			       '(("galle"              . "~/rc/emacs-pjb.el")
+				 ("triton"             . "~/rc/emacs-pjb.el")
+				 ("galatea"            . "~/rc/emacs-pjb.el")
+				 ("kuiper"             . "~/rc/emacs-pjb.el")
+				 ("mercure"            . "~/rc/emacs-ubudu.el")
+				 ("imac-core-i5.local" . "~/rc/emacs-dxo.el")
+				 ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
+				 ("pbo-dxo.local"      . "~/rc/emacs-dxo.el")))
                                 (hostname  (hostname))
                                 (conf  hostname-configuration-map))
                            (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))

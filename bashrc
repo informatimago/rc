@@ -446,12 +446,6 @@ if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
 fi
 
 
-case "$(hostname)" in
-mdi-development-*)
-    source /usr/local/env.sh
-    ;; 
-esac
-
 
 wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
 
@@ -1071,14 +1065,13 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
+case $(hostname) in
+mercure)           . ~/rc/bashrc-ubudu ;;
+dxo-pbo.local)     . ~/rc/bashrc-dxo ;;
+mdi-development-*) .  /usr/local/env.sh  ;;
+*)                 . ~/rc/bashrc-pjb ;;
+esac
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 #### THE END ####
 
-case $(hostname) in
-mercure)       . ~/rc/bashrc-ubudu ;;
-dxo-pbo.local) . ~/rc/bashrc-dxo ;;
-*)             . ~/rc/bashrc-pjb ;;
-esac
-
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
