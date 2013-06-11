@@ -47,6 +47,7 @@
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
  '(match ((t (:background "#434355"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
@@ -501,7 +502,7 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 
-
+(global-set-key (kbd "C-h 1") 'android-search-region)
 (add-hook 'java-mode 'pjb-java-edit-meat)
 
 (require 'android-mode)
