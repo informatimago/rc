@@ -336,11 +336,25 @@ are listed."
   (ql:register-local-projects))
 
 
+;;;----------------------------------------------------------------------
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (flet ((fundefine (fname)
+           (when (fboundp fname)
+             (fmakunbound fname))))
+    (fundefine 'get-directory)
+    (fundefine 'make-translations)))
 
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; Directories.
 ;;;
+
+(defvar *default-directories*
+  '(:asdf-install  "/usr/local/share/lisp/asdf-install/"
+    :share-lisp    "/usr/local/share/lisp/"
+    :lisp-sources  "/home/pjb/src/public/lisp/"
+    :pjb-lisp      "/home/pjb/src/lisp/"))
 
 (defvar *directories*  '())
 
@@ -361,13 +375,17 @@ selected by KEY, and the given SUBPATH.
                            (make-pathname* :name "DIRECTORIES" :type "TXT"
                                           :version nil :case :common)
                            (user-pathname)
-                           nil))
-      (loop
+                           nil)
+                          :if-does-not-exist nil)
+      (if dirs
+       (loop
          :for k = (read dirs nil dirs)
          :until (eq k dirs)
          :do (push (string-trim " " (read-line dirs)) *directories*)
-         :do (push (intern (substitute #\- #\_ (string k))
-                           "KEYWORD") *directories*))))
+         :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+       (progn
+         (warn "No directories.txt file.")
+         (setf *directories* *default-directories*)))))
   (unless (getf *directories* key)
     (error "~S: No directory keyed ~S" 'get-directory key))
   (merge-pathnames subpath (getf *directories* key) nil))
