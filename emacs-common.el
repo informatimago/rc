@@ -2177,9 +2177,7 @@ capitalized form."
            (let* ((command (ensure-list command))
                   (li (make-lisp-implementation
                        :name     ',name
-                       :command  (apply (function concat)
-                                        (cdr (loop for word in command
-                                                collect " " collect word)))
+                       :command  (mapconcat (function identity) command " ")
                        :prompt   ,prompt
                        :coding  ',coding
                        ,@rest))
