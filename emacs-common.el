@@ -146,7 +146,7 @@
   (when (boundp 'aquamacs-version)
     (.EMACS "aquamacs-version     = %S" aquamacs-version)))
 
-;; system-type          darwin   gnu/linux  cygwin
+;; system-type          darwin   gnu/linux  cygwin windows-nt
 ;; system-name          "naiad.informatimago.com" "hermes.afaa.asso.fr"
 ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin" "i386-apple-darwin9.8.0"
 ;; window-system        nil x mac ns w32
@@ -2144,8 +2144,9 @@ capitalized form."
 
 
   (.EMACS " define-lisp-implementation")
+  (defvar *lisp-implementations* '() "List of defined lisp implementations.")
+  (defvar *default-lisp-implementation* nil "The default lisp implementation.")
   (defvar slime-lisp-implementations    nil)
-  (defvar *default-lisp-implementation* nil)
   (defvar lisp-implementation nil
     "Buffer local variable indicating what lisp-implementation is used here.")
 
@@ -2170,69 +2171,74 @@ capitalized form."
     (init 'slime-init-command))
 
 
-  (defmacro define-lisp-implementation (name command prompt coding &rest rest)
-    `(let* ((command (let ((command ,command))
-                       (if (stringp command) (list command) command)))
-            (li (make-lisp-implementation
-                 :name     ',name
-                 :command  (apply (function concat)
-                                  (cdr (loop for word in command
-					     collect " " collect word)))
-                 :prompt   ,prompt
-                 :coding  ',coding
-                 ,@rest))
-            (sli (assoc ',name slime-lisp-implementations)))
-       (setf (get ',name :lisp-implementation) li)
-       (if (null sli)
-	 (push (list ',name command
-		     :coding-system  (intern (format "%s-unix" ',coding))
-		     :init (lisp-implementation-init li))
-	       slime-lisp-implementations)
-	 (setf (cdr sli)
-	       (list command
-		     :coding-system (intern (format "%s-unix" ',coding))
-		     :init (lisp-implementation-init li))))
-       ',name))
+  (defmacro define-lisp-implementation (name commands-expression prompt coding &rest rest)
+    `(let ((command (first-existing-file (mapcar (lambda (cmd)
+                                                     (if (listp cmd)
+                                                         (first cmd)
+                                                         cmd))
+                                                 ,commands-expression))))
+       (if command
+           (let* ((command (ensure-list command))
+                  (li (make-lisp-implementation
+                       :name     ',name
+                       :command  (mapconcat (function identity) command " ")
+                       :prompt   ,prompt
+                       :coding  ',coding
+                       ,@rest))
+                  (sli (assoc ',name slime-lisp-implementations)))
+             (setf (get ',name :lisp-implementation) li)
+	     (pushnew ',name *lisp-implementations*)
+             (if (null sli)
+                 (push (list ',name command
+                             :coding-system  (intern (format "%s-unix" ',coding))
+                             :init (lisp-implementation-init li))
+                       slime-lisp-implementations)
+                 (setf (cdr sli)
+                       (list command
+                             :coding-system (intern (format "%s-unix" ',coding))
+                             :init (lisp-implementation-init li))))
+             ',name)
+           (warn "No executable for lisp implementation: %s" ',name))))
 
 
   (define-lisp-implementation scheme
-    "mzscheme"
+      '("mzscheme")
     "^> "
     iso-8859-1)
 
 
   (define-lisp-implementation mzscheme
-    "mzscheme"
+      '("mzscheme")
     "^> "
     iso-8859-1)
 
   (define-lisp-implementation mit-scheme
-    "/usr/local/languages/mit-scheme/bin/scheme"
+      '("/usr/local/languages/mit-scheme/bin/scheme")
     "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation umb-scheme
-    "/usr/bin/scheme"
+      '("/usr/bin/scheme")
     "^==> "
     iso-8859-1)
 
 
   
   (define-lisp-implementation abcl
-    (first-existing-file '("/data/languages/abcl/abcl"))
+      '("/data/languages/abcl/abcl")
     "^.*([0-9]+): "
     iso-8859-1)
   
   (define-lisp-implementation allegro
-    "/data/languages/acl82express/alisp"
+      '("/data/languages/acl82express/alisp")
     "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation ccl
-    (first-existing-file '("/data/languages/ccl/bin/ccl"
-			   "/usr/local/bin/ccl"
-			   "/opt/local/bin/ccl"
-			   "/usr/bin/ccl"))
+      '("/data/languages/ccl/bin/ccl"
+       "/usr/local/bin/ccl"
+       "/opt/local/bin/ccl"
+       "/usr/bin/ccl")
     "^? "
     utf-8)
 
@@ -2260,9 +2266,8 @@ capitalized form."
                           ,(windoize-pathname port-filename))))))
 
   (define-lisp-implementation ccl-win-cygwin
-    ;; This is a Windows CCL run thru cygwin emacs…
-    (list (first-existing-file '("/usr/local/bin/ccl"))
-	  "-K" "UTF-8")
+      ;; This is a Windows CCL run thru cygwin emacs…
+      '("/usr/local/bin/ccl")
     "^? "
     utf-8
     :init  'slime-init-ccl-win-cygwin)
@@ -2270,33 +2275,33 @@ capitalized form."
 
   
   (define-lisp-implementation openmcl
-    "/usr/local/bin/openmcl"
+      '("/usr/local/bin/openmcl")
     "^\[[0-9]*\]> "
     iso-8859-1)
 
 
   (define-lisp-implementation clisp
-    (list* (cond
-	    ((eq system-type 'cygwin)  "/usr/bin/clisp")
-	    (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
-				       "/opt/local/bin/clisp"
-				       "/usr/local/bin/clisp"
-				       "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
-				       "/usr/bin/clisp"))))
-	   "-ansi""-q";"-m""32M""-I""-K""full"
-	   (cond
-	    ((eq system-type 'darwin)
-	     (list "-Efile"     "UTF-8"
-		   "-Epathname" "UTF-8"
-		   "-Eterminal" "UTF-8"
-		   "-Emisc"     "UTF-8" ; better be same as terminal
-		   "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
-	    (t
-	     (list "-Efile"     "UTF-8"
-		   "-Epathname" "ISO-8859-1"
-		   "-Eterminal" "UTF-8"
-		   "-Emisc"     "UTF-8" ; better be same as terminal
-		   "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
+      (list* (cond
+               ((eq system-type 'cygwin)  "/usr/bin/clisp")
+               (t  (first-existing-file '("/data/languages/clisp/bin/clisp"
+                                          "/opt/local/bin/clisp"
+                                          "/usr/local/bin/clisp"
+                                          "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
+                                          "/usr/bin/clisp"))))
+             "-ansi""-q";"-m""32M""-I""-K""full"
+             (cond
+               ((eq system-type 'darwin)
+                (list "-Efile"     "UTF-8"
+                      "-Epathname" "UTF-8"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")) ; must be 1-1.
+               (t
+                (list "-Efile"     "UTF-8"
+                      "-Epathname" "ISO-8859-1"
+                      "-Eterminal" "UTF-8"
+                      "-Emisc"     "UTF-8" ; better be same as terminal
+                      "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
     "^\[[0-9]*\]> "
     utf-8
     :argument-list-command
@@ -2313,30 +2318,29 @@ capitalized form."
   ;; slime-net-coding-system
 
   (define-lisp-implementation cmucl
-    (first-existing-file '("/data/languages/cmucl/bin/lisp"
-			   "/usr/local/bin/lisp"
-			   "/opt/local/bin/lisp"
-			   "/usr/bin/lisp"))
+      '("/data/languages/cmucl/bin/lisp"
+       "/usr/local/bin/lisp"
+       "/opt/local/bin/lisp"
+       "/usr/bin/lisp")
     "^\* "
     utf-8)
 
   
   (define-lisp-implementation ecl
-    (first-existing-file '("/data/languages/ecl/bin/ecl"
-			   "/usr/local/bin/ecl"
-			   "/opt/local/bin/usr"
-			   "/usr/bin/ecl"))
-    
+      '("/data/languages/ecl/bin/ecl"
+       "/usr/local/bin/ecl"
+       "/opt/local/bin/usr"
+       "/usr/bin/ecl")
     "^> "
     utf-8)
 
   
   (define-lisp-implementation sbcl
-    (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
-				 "/usr/local/bin/sbcl"
-				 "/opt/local/bin/sbcl"
-				 "/usr/bin/sbcl"))
-	  "--noinform")
+      (mapcar (lambda (cmd) (list cmd "--noinform"))
+              '("/data/languages/sbcl/bin/sbcl" 
+               "/usr/local/bin/sbcl" 
+               "/opt/local/bin/sbcl"
+               "/usr/bin/sbcl"))
     "^\[[0-9]*\]> "
     utf-8)
   
@@ -2345,24 +2349,25 @@ capitalized form."
   (defun set-inferior-lisp-implementation (impl)
     "Set the default lisp implementation used by inferior-lisp and slime."
     (interactive "SImplementation: ")
-    (let ((limpl (get impl :lisp-implementation)))
-      (if limpl
-	(progn
-	  (message ".EMACS: inferior-lisp implementation: %s"
-		   (lisp-implementation-name limpl))
-	  (let ((coding (lisp-implementation-coding limpl)))
-	    (setf *default-lisp-implementation* limpl
-		  inferior-lisp-program         (lisp-implementation-command limpl)
-		  inferior-lisp-prompt          (lisp-implementation-prompt limpl)
-		  lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
-		  lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
-		  lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
-		  lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
-		  default-process-coding-system (cons coding coding)
-		  slime-net-coding-system       (intern (format "%s-unix" coding))
-		  slime-default-lisp            impl)))
-	(error "%S not a lisp implementation." impl)))
-    impl)
+    (when (member impl *lisp-implementations*)
+      (let ((limpl (get impl :lisp-implementation)))
+	(if limpl
+	  (progn
+	    (message ".EMACS: inferior-lisp implementation: %s"
+		     (lisp-implementation-name limpl))
+	    (let ((coding (lisp-implementation-coding limpl)))
+	      (setf *default-lisp-implementation* limpl
+		    inferior-lisp-program         (lisp-implementation-command limpl)
+		    inferior-lisp-prompt          (lisp-implementation-prompt limpl)
+		    lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
+		    lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
+		    lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
+		    lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
+		    default-process-coding-system (cons coding coding)
+		    slime-net-coding-system       (intern (format "%s-unix" coding))
+		    slime-default-lisp            impl)))
+	  (error "%S not a lisp implementation." impl))
+	impl)))
 
   (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
@@ -2394,8 +2399,12 @@ capitalized form."
   ;;   (otherwise    (warn "unexpected system-type for inferior-lisp-program")
   ;;                 (set-default-lisp-implementation 'clisp)))
 
-  (set-default-lisp-implementation 'ccl)
-  
+  (loop
+   for impl in '(ccl clisp sbcl ecl abcl)
+   when (set-default-lisp-implementation impl)
+   do (progn
+	(message "Default Lisp implementations is %s" impl)
+	(return impl)))
   
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
