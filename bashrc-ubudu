@@ -1,9 +1,9 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 
+export PATH="$HOME/opt/bin:$PATH"
 export PATH="$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH"
-
 export PATH="$HOME/opt/jdk/bin:$PATH"
-
+export JAVA_HOME="${HOME}/opt/jdk"
 # sudo $(which adb) root
 
 xmodmap ~/.xmodmap

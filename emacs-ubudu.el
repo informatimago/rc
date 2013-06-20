@@ -17,6 +17,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -417,7 +421,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-coding-system (quote utf-8))
  '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
- '(w3m-fb-mode nil)
+ '(w3m-fb-mode nil t)
  '(w3m-file-coding-system (quote utf-8))
  '(w3m-file-name-coding-system (quote iso-8859-1))
  '(w3m-form-textarea-directory "~/.w3m/textarea")
@@ -479,8 +483,15 @@ X-Accept-Language:         fr, es, en
 
 (set-sources "/home/pjb/src/")
 
+
+(when (require 'yasnippet nil t)
+  (yas-global-mode 1))
+
+
+(require 'auto-complete)
 (defun java-meat ()
   (interactive)
+  (auto-complete-mode 1)
   (setf tab-stop 2
         tab-width 2
         c-indent-level 2
