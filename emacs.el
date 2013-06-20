@@ -23,16 +23,17 @@
 
 (let ((configuration (if (boundp 'aquamacs-version)
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
-                         (let* ((hostname-configuration-map
-                                 '(("mercure"            . "~/rc/emacs-ubudu.el")
-                                   ("imac-core-i5.local" . "~/rc/emacs-dxo.el")
-                                   ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
-                                   ( "pbo-dxo.local"     . "~/rc/emacs-dxo.el")))
-                                (hostname  (hostname))
-                                (conf  hostname-configuration-map))
-                           (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
-                             (setq conf (cdr conf)))
-                           (car conf)))))
+                         (or (let* ((hostname-configuration-map
+                                     '(("mercure"            . "~/rc/emacs-ubudu.el")
+                                       ("imac-core-i5.local" . "~/rc/emacs-dxo.el")
+                                       ("dxo-pbo.local"      . "~/rc/emacs-dxo.el")
+                                       ("pbo-dxo.local"      . "~/rc/emacs-dxo.el")))
+                                    (hostname  (hostname))
+                                    (conf  hostname-configuration-map))
+                               (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
+                                 (setq conf (cdr conf)))
+                               (car conf))
+                             '("informatimago.com" . "~/rc/emacs-pjb.el")))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
         (load file)

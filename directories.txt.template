@@ -1,0 +1,5 @@
+SHARE_LISP       /usr/local/share/lisp/
+ASDF_INSTALL     /usr/local/share/lisp/asdf-install/
+LISP_SOURCES     /home/pjb/src/public/lisp/
+PJB_LISP         /home/pjb/src/lisp/
+HYPERSPEC        /usr/share/doc/hyperspec/
