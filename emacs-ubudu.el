@@ -477,7 +477,6 @@ X-Accept-Language:         fr, es, en
              (function string<)
              :key (function car)))
 
-(set-sources "/home/pjb/src/")
 
 (defun java-meat ()
   (interactive)
@@ -505,16 +504,29 @@ X-Accept-Language:         fr, es, en
 (global-set-key (kbd "C-h 1") 'android-search-region)
 (add-hook 'java-mode 'pjb-java-edit-meat)
 
-(require 'android-mode)
-(setf android-mode-sdk-dir (expand-file-name "~/opt/adt/sdk"))
 
-(push (expand-file-name "~/opt/adt/sdk/tools/lib/") load-path)
+(defparameter *android-tools-directory*
+  (if (string= (hostname) "kuiper")
+      "~/firms/ubudu/tools"
+      "~/opt"))
+
+(defparameter *ubudu-sources*
+  (if (string= (hostname) "kuiper")
+      "~/firms/ubudu/src/ubudu-android"
+      "~/src/ubudu-android"))
+
+(require 'ubudu) ; c-style
+(set-sources (expand-file-name *ubudu-sources*))
+(push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
 (require 'android)
+(setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+(require 'android-mode)
 
 (defun gud-meat ()
   (interactive)
   (add-to-list 'gud-jdb-classpath
-               (expand-file-name "~/opt/adt/sdk/platforms/android-17/android.jar")))
+               (expand-file-name (concat *android-tools-directory*
+                                         "/adt/sdk/platforms/android-17/android.jar"))))
 (add-hook 'gud-mode-hook 'gud-meat)
 
 (require 'cedet)
