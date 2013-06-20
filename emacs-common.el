@@ -1962,12 +1962,14 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (unless (featurep 'eshell-auto)
   (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
 (defun pjb-eshell-load-meat ()
-  (defun string (&rest chars)
-    (do ((s (make-string (length chars) 0))
-         (ch chars (cdr ch))
-         (i 0 (1+ i)))
-        ((null ch) s)
-      (setf (aref s i) (car ch)))))
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  ;; (defun string (&rest chars)
+  ;;   (do ((s (make-string (length chars) 0))
+  ;;        (ch chars (cdr ch))
+  ;;        (i 0 (1+ i)))
+  ;;       ((null ch) s)
+  ;;     (setf (aref s i) (car ch))))
+  )
 (add-hook 'eshell-load-hook (function pjb-eshell-load-meat))
 
 
@@ -1984,6 +1986,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (set-buffer-modified-p modified)))
 
 (defun pjb-shell-mode-meat ()
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
   (when (fboundp 'ansi-color-for-comint-mode-on)
@@ -2046,6 +2049,7 @@ capitalized form."
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "AUTO-COMPLETE-MODE")
+(require 'auto-complete nil t)
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
   (ac-config-default))
@@ -2680,6 +2684,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
   ;; (setq blink-matching-paren t)
@@ -5140,6 +5145,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
 
 (defun pjb-mail-mode-meat ()
   (message "mail-mode-meat")
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
@@ -6455,6 +6461,7 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 
 (defun c-mode-meat ()
   (interactive)
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (define-key c-mode-map "{" 'self-insert-command)
@@ -6845,7 +6852,13 @@ itesearch=&safe=images"
 (global-set-key (kbd "C-h 0")
                 (lambda ()
                   (interactive)
-                  (message (concat "C-h 1 apple  C-h 2 google  C-h 3 acronym  C-h 4 project  C-h 5 includes  C-h 6 hyperspec  C-h 7 this directory"))))
+                  (message (format "C-h 1 %s  C-h 2 google  C-h 3 acronym  C-h 4 project  C-h 5 includes  C-h 6 hyperspec  C-h 7 this directory"
+                                   (let* ((search (format "%s" (local-key-binding (kbd "C-h 1") t)))
+                                          (dash   (search "-" search)))
+                                     (if dash
+                                         (subseq search 0 dash)
+                                         search))))))
+
 (global-set-key (kbd "C-h 1") 'apple-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
 (global-set-key (kbd "C-h 3") 'acronym-search-region)
