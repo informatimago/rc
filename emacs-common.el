@@ -6799,6 +6799,7 @@ itesearch=&safe=images"
 	    "[^A-Za-z0-9]")))) 
 
 (defun google-search-region (start end)
+  (interactive "r")
   (%search-region start end 'symbol 'google-search))
 
 
