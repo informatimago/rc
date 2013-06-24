@@ -191,7 +191,7 @@ function be_generate(){
     )
 
     editors=( 
-	/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+	      /Applications/Emacs.app/Contents/MacOS/bin/emacsclient
         /opt/emacs-23.4/bin/emacsclient 
         /opt/emacs-23.3/bin/emacsclient 
         /opt/emacs-23.2/bin/emacsclient 
