@@ -14,6 +14,7 @@
 ;; (or with clisp).
 
 #+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
+#-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
 
 (defparameter swank::*sldb-initial-frames* 40)
 (defparameter swank:*globally-redirect-io* t)
