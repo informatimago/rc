@@ -1383,6 +1383,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-25-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-29-*-*-*-m-0-*-*"
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
@@ -1990,6 +1993,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
+  (when (fboundp 'auto-complete-mode)
+    (auto-complete-mode -1))
   (when (fboundp 'ansi-color-for-comint-mode-on)
     (ansi-color-for-comint-mode-on))
   ;; (cond
