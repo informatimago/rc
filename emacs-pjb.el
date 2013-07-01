@@ -17,6 +17,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -46,6 +50,8 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
  '(match ((t (:background "#cacafe"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
@@ -121,7 +127,6 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
  '(calendar-view-holidays-initially-flag t)
- '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
  '(case-fold-search t)
  '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
  '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
@@ -148,11 +153,11 @@
  '(emms-lyrics-display-on-minibuffer t)
  '(emms-player-started-hook (quote (emms-show)))
  '(emms-show-format "NP %s")
- '(emms-source-file-default-directory "/d5/music/")
+ '(emms-source-file-default-directory "~/Music/")
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -310,6 +315,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -345,8 +351,8 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
- '(send-mail-function (quote sendmail-send-it))
+ '(safe-local-variable-values (quote ((Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -358,11 +364,14 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-local-domain "lan.informatimago.com")
+ '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
- '(tab-stop 4 t)
+ '(tab-stop 2 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
- '(tab-width 4)
+ '(tab-width 2)
  '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
@@ -436,37 +445,6 @@ X-Accept-Language:         fr, es, en
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
-
-;; (setf gnus-secondary-select-methods '())
-
-
- ;; (push '(x . …) frame-creation-function-alist)
- ;; (push `(x . ,(lambda (&optional parameters) (selected-frame))) frame-creation-function-alist)
- ;; (pop frame-creation-function-alist)
- ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
- ;; '(gnus-select-method (quote))
- ;; '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
-
-
-;; nnarchive / gnus
-;; (setq gnus-message-archive-group 
-;;       '((if (message-news-p) "nnml:news.posted" "nnml:mail.sent")))
-;; (setq gnus-message-archive-group "sent-mail")
-
-
-;; '(org-agenda-files (quote ("~/notes.txt" "~/firms/medicalis/notes.txt")))
-
-;; '(vm-spool-files '(("~/INBOX"
-;;                     "/var/spool/mail/pjb"
-;;                     "~/INBOX.local.crash")
-;;                    ;; pop-ssl (nad pop) don't work, they merge emails.
-;;                    ("~/INBOX"
-;;                     "pop-ssl:voyager.informatimago.com:995:pass:pjb:g1ekquar"
-;;                     "~/INBOX-voyager.crash")
-;;                    ("~/INBOX"
-;;                     "pop-ssl:correo.intergruas.com:995:pass:pjb:a-los-bel"
-;;                     "~/INBOX-intergruas.crash")
-;;                    ))
 
 
 ;;;----------------------------------------------------------------------------

@@ -127,7 +127,6 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
  '(calendar-view-holidays-initially-flag t)
- '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
  '(case-fold-search t)
  '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
  '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
@@ -186,7 +185,6 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
- '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
@@ -451,40 +449,6 @@ X-Accept-Language:         fr, es, en
 
 
 
-
-;; (setf gnus-secondary-select-methods '())
-
-
- ;; (push '(x . …) frame-creation-function-alist)
- ;; (push `(x . ,(lambda (&optional parameters) (selected-frame))) frame-creation-function-alist)
- ;; (pop frame-creation-function-alist)
- ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
- ;; '(gnus-select-method (quote))
- ;; '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
-
-
-;; nnarchive / gnus
-;; (setq gnus-message-archive-group 
-;;       '((if (message-news-p) "nnml:news.posted" "nnml:mail.sent")))
-;; (setq gnus-message-archive-group "sent-mail")
-
-
-;; '(org-agenda-files (quote ("~/notes.txt" "~/firms/medicalis/notes.txt")))
-
-;; '(vm-spool-files '(("~/INBOX"
-;;                     "/var/spool/mail/pjb"
-;;                     "~/INBOX.local.crash")
-;;                    ;; pop-ssl (nad pop) don't work, they merge emails.
-;;                    ("~/INBOX"
-;;                     "pop-ssl:voyager.informatimago.com:995:pass:pjb:g1ekquar"
-;;                     "~/INBOX-voyager.crash")
-;;                    ("~/INBOX"
-;;                     "pop-ssl:correo.intergruas.com:995:pass:pjb:a-los-bel"
-;;                     "~/INBOX-intergruas.crash")
-;;                    ))
-
-
-;;;----------------------------------------------------------------------------
 ;;;----------------------------------------------------------------------------
 
 (load "~/rc/emacs-package.el")
