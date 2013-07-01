@@ -391,9 +391,9 @@ Returns a string described by x; specifically:
       "./"))
 (defun basename (path &optional extension)
   (let ((extension (or extension "")))
-   (if (string-match (format "^\\(.*/\\)\\([^/]*\\)%s$" (regexp-quote extension)) path)
-       (match-string 2 path)
-       path)))
+    (if (string-match (format "^\\(.*/\\)\\([^/]*\\)%s$" (regexp-quote extension)) path)
+        (match-string 2 path)
+        path)))
 
 
 
@@ -501,13 +501,13 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (when  (getf *directories* key)
     (let ((dir (getf *directories* key)))
       (if (or (null subpath) (string= "" subpath))
-	  dir
-	  (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-		 (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-		 (xor (a b) (or (and a (not b)) (and (not a) b))))
-	    (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-		(concat dir subpath)
-		(concat dir "/" subpath)))))))
+          dir
+          (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
+                 (firstchar (str) (and (< 0 (length str)) (aref str 0)))
+                 (xor (a b) (or (and a (not b)) (and (not a) b))))
+            (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
+                (concat dir subpath)
+                (concat dir "/" subpath)))))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -558,98 +558,98 @@ NOTE:   ~/directories.txt is cached in *directories*.
                      (file-name-directory file)))
         (setf must-suffix nil))
       (if (fboundp 'locate-file-internal)
-        (locate-file-internal file
-                              load-path
-                              (cond (nosuffix    '())
-                                    (must-suffix (get-load-suffixes))
-                                    (t           (append (get-load-suffixes)
-                                                         load-file-rep-suffixes)))
-                              nil)
-        (error "Missing locate-file-internal in version %s" emacs-version)
-        ;; (let ((suffixes (append (get-load-suffixes) "")))
-        ;;   (dolist (dir load-path)
-        ;;     (dolist (suffix suffixes)
-        ;;       (format "%s/%s%s" dir file suffix))))
-        ))))
+          (locate-file-internal file
+                                load-path
+                                (cond (nosuffix    '())
+                                      (must-suffix (get-load-suffixes))
+                                      (t           (append (get-load-suffixes)
+                                                           load-file-rep-suffixes)))
+                                nil)
+          (error "Missing locate-file-internal in version %s" emacs-version)
+          ;; (let ((suffixes (append (get-load-suffixes) "")))
+          ;;   (dolist (dir load-path)
+          ;;     (dolist (suffix suffixes)
+          ;;       (format "%s/%s%s" dir file suffix))))
+          ))))
 
 
 
 (defun setup-load-path ()
   "Set up my load-path."
- (let ((new-paths '())
-       (base-load-path (copy-list load-path)))
-   (flet ((add-if-good
-           (site-lisp)
-           (let ((site-lisp (expand-file-name site-lisp)))
-             (when (file-exists-p site-lisp)
-               (pushnew site-lisp new-paths)
-               (mapc (lambda (file)
-                       (let ((file (concat site-lisp "/" file)))
-                         (when (file-exists-p file)
-                           (let ((default-directory site-lisp))
-                             (.EMACS "%s FOUND" file)
-                             (.EMACS "load file = %s " (load file))
-                             (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
-                             ))))
-                     '("site-start.el" "site-gentoo.el" "subdirs.el"))
-               t))))
-     (dolist (directories (append
-                           ;; When several directories are listed in a sublist, only
-                           ;; the first found directory will be added.
-                           (case emacs-major-version
-                             ((20 21 22)
-                              (append '("/opt/lisp/emacs"
-                                        "/opt/local/share/emacs/site-lisp"
-                                        "/usr/local/share/emacs/site-lisp")
-                                      '("/opt/clisp-2.48/share/emacs/site-lisp"
-                                        "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                                        "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                                        "/opt/clisp-2.47/share/emacs/site-lisp"
-                                        "/opt/clisp-2.46/share/emacs/site-lisp"
-                                        "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                                      '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                                      ))
-                             ((23)
-                              '("/usr/local/share/emacs/site-lisp"))
-                             ((24)
-                              '("/opt/share/emacs/site-lisp/w3m/"))
-                             (otherwise
-                              (.EMACS "WARNING: No load-paths for emacs version %d"
-                                      emacs-major-version)
-                              '()))
-                           (list
-                            ;; -----------------
-                            ;; PJB emacs sources
-                            ;; -----------------
-                            ;; Since we may have several emacs version running
-                            ;; on the same system, for now we will avoid
-                            ;; compiling pjb sources, and we will load them
-                            ;; directly from ~/src/public/emacs/.  Later we
-                            ;; will see how we can install elc in version
-                            ;; specific directories, but keeping references to
-                            ;; the same source directory.
-                            ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
-                            '("~/src/public/emacs")
-                            '("~/emacs"))
-                           ;; (unless (fboundp 'mdi)
-                           ;;   '("~/opt/share/emacs/site-lisp"))
-                           ;; (when (string= "mdi-development-1" *hostname*)
-                           ;;   '(("~/opt/share/emacs/site-lisp/slime/contribs/")))
-                           ;; (when (string= "mdi-development-1" *hostname*)
-                           ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
-                           ;; (unless (string= "mdi-development-1" *hostname*)
-                           ;;   (list
-                           ;;    ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
-                           ;;    ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
-                           ;;    (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))
-                           ))
-       (if (listp directories)
-         (find-if (function add-if-good) directories)
-         (add-if-good directories)))
-     
-     (setf load-path (append new-paths
-                             (set-difference load-path base-load-path :test (function equal))
-                             base-load-path)))))
+  (let ((new-paths '())
+        (base-load-path (copy-list load-path)))
+    (flet ((add-if-good
+               (site-lisp)
+             (let ((site-lisp (expand-file-name site-lisp)))
+               (when (file-exists-p site-lisp)
+                 (pushnew site-lisp new-paths)
+                 (mapc (lambda (file)
+                         (let ((file (concat site-lisp "/" file)))
+                           (when (file-exists-p file)
+                             (let ((default-directory site-lisp))
+                               (.EMACS "%s FOUND" file)
+                               (.EMACS "load file = %s " (load file))
+                               (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
+                               ))))
+                       '("site-start.el" "site-gentoo.el" "subdirs.el"))
+                 t))))
+      (dolist (directories (append
+                            ;; When several directories are listed in a sublist, only
+                            ;; the first found directory will be added.
+                            (case emacs-major-version
+                              ((20 21 22)
+                               (append '("/opt/lisp/emacs"
+                                         "/opt/local/share/emacs/site-lisp"
+                                         "/usr/local/share/emacs/site-lisp")
+                                       '("/opt/clisp-2.48/share/emacs/site-lisp"
+                                         "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                                         "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                                         "/opt/clisp-2.47/share/emacs/site-lisp"
+                                         "/opt/clisp-2.46/share/emacs/site-lisp"
+                                         "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                                       '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                                       ))
+                              ((23)
+                               '("/usr/local/share/emacs/site-lisp"))
+                              ((24)
+                               '("/opt/share/emacs/site-lisp/w3m/"))
+                              (otherwise
+                               (.EMACS "WARNING: No load-paths for emacs version %d"
+                                       emacs-major-version)
+                               '()))
+                            (list
+                             ;; -----------------
+                             ;; PJB emacs sources
+                             ;; -----------------
+                             ;; Since we may have several emacs version running
+                             ;; on the same system, for now we will avoid
+                             ;; compiling pjb sources, and we will load them
+                             ;; directly from ~/src/public/emacs/.  Later we
+                             ;; will see how we can install elc in version
+                             ;; specific directories, but keeping references to
+                             ;; the same source directory.
+                             ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                             '("~/src/public/emacs")
+                             '("~/emacs"))
+                            ;; (unless (fboundp 'mdi)
+                            ;;   '("~/opt/share/emacs/site-lisp"))
+                            ;; (when (string= "mdi-development-1" *hostname*)
+                            ;;   '(("~/opt/share/emacs/site-lisp/slime/contribs/")))
+                            ;; (when (string= "mdi-development-1" *hostname*)
+                            ;;   '(("~/opt/share/emacs/site-lisp/slime/")))
+                            ;; (unless (string= "mdi-development-1" *hostname*)
+                            ;;   (list
+                            ;;    ;; (list (get-directory :share-lisp  "packages/net/common-lisp/projects/slime/slime/"))
+                            ;;    ;; (list "/home/pjb/quicklisp/dists/quicklisp/software/slime-20111105-cvs/")
+                            ;;    (list (get-directory :share-lisp  "packages/net/mumble/campbell/emacs/"))))
+                            ))
+        (if (listp directories)
+            (find-if (function add-if-good) directories)
+            (add-if-good directories)))
+      
+      (setf load-path (append new-paths
+                              (set-difference load-path base-load-path :test (function equal))
+                              base-load-path)))))
 
 (message "old load-path = %S" (with-output-to-string (dump-load-path)))
 (setup-load-path)
@@ -1473,10 +1473,10 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                                            (length *pjb-font-list*)))))
     (string
      (let ((new-index (or (position increment *pjb-font-list*
-				    :test (function string=))
-			  0)))
+                                    :test (function string=))
+                          0)))
        (setf increment (- new-index *pjb-current-font-index*)
-	     *pjb-current-font-index* new-index))))
+             *pjb-current-font-index* new-index))))
   (loop
      for try below (length *pjb-font-list*)
      do (ignore-errors
@@ -1499,17 +1499,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (defvar *default-font* "fixed")
 (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 
-   ;; *** Which font backends to use can be specified by the X resource
-   ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
-   ;; 
-   ;; Emacs.FontBackend: x,xft
-   ;; 
-   ;; If this resource is not set, Emacs tries to use all font backends
-   ;; available on your graphic device.
-   ;; 
-   ;; *** New frame parameter `font-backend' specifies a list of
-   ;; font-backends supported by the frame's graphic device.  On X, they are
-   ;; currently `x' and `xft'.
+;; *** Which font backends to use can be specified by the X resource
+;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
+;; 
+;; Emacs.FontBackend: x,xft
+;; 
+;; If this resource is not set, Emacs tries to use all font backends
+;; available on your graphic device.
+;; 
+;; *** New frame parameter `font-backend' specifies a list of
+;; font-backends supported by the frame's graphic device.  On X, they are
+;; currently `x' and `xft'.
 
 
 ;; (when (eq window-system 'x)
@@ -1734,9 +1734,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                                                                  :registry "ISO8859"
                                                                  :encoding "1")))
                                    (if (and (eq window-system 'x)
-					    (font-exists-p fixed))
-				       fixed
-				       font))))
+                                            (font-exists-p fixed))
+                                       fixed
+                                       font))))
                    
                    (("larissa") 
                     (setq palette            pal-larissa
@@ -2097,45 +2097,45 @@ capitalized form."
     "Eval STRING in Lisp; insert any output and the result at point."
     (message "current-prefix-arg = %S" current-prefix-arg)
     (let ((commentp (and (listp current-prefix-arg)
-			 (integerp (first current-prefix-arg))
-			 (< 4 (first current-prefix-arg)))))
+                         (integerp (first current-prefix-arg))
+                         (< 4 (first current-prefix-arg)))))
       (slime-eval-async `(swank:eval-and-grab-output ,string)
-			`(lambda (result)
-			   (destructuring-bind (output value) result
-			     (push-mark)
-			     (if ,commentp
-			       (progn
-				 (insert output)
-				 (let ((lines (split-string value "\n")))
-				   (insert "\n;; --> " (pop lines) "\n")
-				   (dolist (line lines)
-				     (insert ";;     " line "\n"))))
-			       (insert output value)))))))
+        `(lambda (result)
+           (destructuring-bind (output value) result
+             (push-mark)
+             (if ,commentp
+                 (progn
+                   (insert output)
+                   (let ((lines (split-string value "\n")))
+                     (insert "\n;; --> " (pop lines) "\n")
+                     (dolist (line lines)
+                       (insert ";;     " line "\n"))))
+                 (insert output value)))))))
 
   (or (ignore-errors
-	(progn (slime-setup '(slime-fancy
-			      slime-xref-browser
-			      slime-asdf
-			      slime-banner
-			      slime-repl
-			      slime-indentation
-			      slime-fuzzy
-			      slime-autodoc
-			      slime-presentations
-			      slime-presentation-streams))
-	       (setf slime-complete-symbol*-fancy   t
-		     slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-		     slime-load-failed-fasl         'never)
-	       t))
+        (progn (slime-setup '(slime-fancy
+                              slime-xref-browser
+                              slime-asdf
+                              slime-banner
+                              slime-repl
+                              slime-indentation
+                              slime-fuzzy
+                              slime-autodoc
+                              slime-presentations
+                              slime-presentation-streams))
+               (setf slime-complete-symbol*-fancy   t
+                     slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+                     slime-load-failed-fasl         'never)
+               t))
       (ignore-errors
-	(progn (slime-setup '(slime-fancy slime-indentation))
-	       t))
+        (progn (slime-setup '(slime-fancy slime-indentation))
+               t))
       (ignore-errors
-	(progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
-	       t))
+        (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
+               t))
       (ignore-errors
-	(progn (slime-setup)
-	       t))
+        (progn (slime-setup)
+               t))
       (error ".EMACS: Cannot setup slime :-("))
 
   (setf slime-net-coding-system 'utf-8-unix)
@@ -2174,9 +2174,9 @@ capitalized form."
 
   (defmacro define-lisp-implementation (name commands-expression prompt coding &rest rest)
     `(let ((command (first-existing-file (mapcar (lambda (cmd)
-                                                     (if (listp cmd)
-                                                         (first cmd)
-                                                         cmd))
+                                                   (if (listp cmd)
+                                                       (first cmd)
+                                                       cmd))
                                                  ,commands-expression))))
        (if command
            (let* ((command (ensure-list command))
@@ -2188,7 +2188,7 @@ capitalized form."
                        ,@rest))
                   (sli (assoc ',name slime-lisp-implementations)))
              (setf (get ',name :lisp-implementation) li)
-	     (pushnew ',name *lisp-implementations*)
+             (pushnew ',name *lisp-implementations*)
              (if (null sli)
                  (push (list ',name command
                              :coding-system  (intern (format "%s-unix" ',coding))
@@ -2237,9 +2237,9 @@ capitalized form."
 
   (define-lisp-implementation ccl
       '("/data/languages/ccl/bin/ccl"
-       "/usr/local/bin/ccl"
-       "/opt/local/bin/ccl"
-       "/usr/bin/ccl")
+        "/usr/local/bin/ccl"
+        "/opt/local/bin/ccl"
+        "/usr/bin/ccl")
     "^? "
     utf-8)
 
@@ -2249,14 +2249,14 @@ capitalized form."
     ;; "/home/pjb/quicklisp/dists/quicklisp/software/slime-20120208-cvs/swank-loader.lisp"
     (let ((home (expand-file-name "~/")))
       (if (prefixp home path)
-	(format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
-	(format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
+          (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
+          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
   
   (defun slime-init-ccl-win-cygwin (port-filename coding-system)
     "Return a string to initialize Lisp."
     (let ((loader (if (file-name-absolute-p slime-backend)
-		    slime-backend
-		    (concat slime-path slime-backend))))
+                      slime-backend
+                      (concat slime-path slime-backend))))
       ;; Return a single form to avoid problems with buffered input.
       (format "%S\n\n"
               `(progn
@@ -2320,30 +2320,42 @@ capitalized form."
 
   (define-lisp-implementation cmucl
       '("/data/languages/cmucl/bin/lisp"
-       "/usr/local/bin/lisp"
-       "/opt/local/bin/lisp"
-       "/usr/bin/lisp")
+        "/usr/local/bin/lisp"
+        "/opt/local/bin/lisp"
+        "/usr/bin/lisp")
     "^\* "
-    utf-8)
-
-  
-  (define-lisp-implementation ecl
-      '("/data/languages/ecl/bin/ecl"
-       "/usr/local/bin/ecl"
-       "/opt/local/bin/usr"
-       "/usr/bin/ecl")
-    "^> "
     utf-8)
 
   
   (define-lisp-implementation sbcl
       (mapcar (lambda (cmd) (list cmd "--noinform"))
               '("/data/languages/sbcl/bin/sbcl" 
-               "/usr/local/bin/sbcl" 
-               "/opt/local/bin/sbcl"
-               "/usr/bin/sbcl"))
+                "/usr/local/bin/sbcl" 
+                "/opt/local/bin/sbcl"
+                "/usr/bin/sbcl"))
     "^\[[0-9]*\]> "
     utf-8)
+
+
+  (define-lisp-implementation ecl
+      '("/data/languages/ecl/bin/ecl"
+        "/usr/local/bin/ecl"
+        "/opt/local/bin/ecl"
+        "/usr/bin/ecl")
+    "^> "
+    utf-8)
+
+  
+  (define-lisp-implementation gcl
+      '("/data/languages/gcl/bin/gcl"
+        "/usr/local/bin/gcl"
+        "/opt/local/bin/gcl"
+        "/usr/bin/gcl")
+    "^> "
+    utf-8)
+
+  
+
   
 
 
@@ -2352,23 +2364,23 @@ capitalized form."
     (interactive "SImplementation: ")
     (when (member impl *lisp-implementations*)
       (let ((limpl (get impl :lisp-implementation)))
-	(if limpl
-	  (progn
-	    (message ".EMACS: inferior-lisp implementation: %s"
-		     (lisp-implementation-name limpl))
-	    (let ((coding (lisp-implementation-coding limpl)))
-	      (setf *default-lisp-implementation* limpl
-		    inferior-lisp-program         (lisp-implementation-command limpl)
-		    inferior-lisp-prompt          (lisp-implementation-prompt limpl)
-		    lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
-		    lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
-		    lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
-		    lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
-		    default-process-coding-system (cons coding coding)
-		    slime-net-coding-system       (intern (format "%s-unix" coding))
-		    slime-default-lisp            impl)))
-	  (error "%S not a lisp implementation." impl))
-	impl)))
+        (if limpl
+            (progn
+              (message ".EMACS: inferior-lisp implementation: %s"
+                       (lisp-implementation-name limpl))
+              (let ((coding (lisp-implementation-coding limpl)))
+                (setf *default-lisp-implementation* limpl
+                      inferior-lisp-program         (lisp-implementation-command limpl)
+                      inferior-lisp-prompt          (lisp-implementation-prompt limpl)
+                      lisp-function-doc-command     (lisp-implementation-function-documentation-command limpl)
+                      lisp-var-doc-command          (lisp-implementation-variable-documentation-command limpl)
+                      lisp-arglist-command          (lisp-implementation-argument-list-command limpl)
+                      lisp-describe-sym-command     (lisp-implementation-describe-symbol-command limpl)
+                      default-process-coding-system (cons coding coding)
+                      slime-net-coding-system       (intern (format "%s-unix" coding))
+                      slime-default-lisp            impl)))
+            (error "%S not a lisp implementation." impl))
+        impl)))
 
   (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
 
@@ -2401,11 +2413,11 @@ capitalized form."
   ;;                 (set-default-lisp-implementation 'clisp)))
 
   (loop
-   for impl in '(ccl clisp sbcl ecl abcl)
-   when (set-default-lisp-implementation impl)
-   do (progn
-	(message "Default Lisp implementations is %s" impl)
-	(return impl)))
+     for impl in '(ccl clisp sbcl ecl abcl)
+     when (set-default-lisp-implementation impl)
+     do (progn
+          (message "Default Lisp implementations is %s" impl)
+          (return impl)))
   
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
@@ -2419,15 +2431,15 @@ capitalized form."
                (mapcar (function buffer-name) (buffer-list))))
   (defun %lisp-buffer-next-number ()
     (loop
-     with i = 0
-     with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-				  (inferior-lisp-buffers-list))
-			  (function <=))
-     while numbers
-     do (if (= i (car numbers))
-	  (progn (incf i) (pop numbers))
-	  (return i))
-     finally (return i)))
+       with i = 0
+       with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+                                    (inferior-lisp-buffers-list))
+                            (function <=))
+       while numbers
+       do (if (= i (car numbers))
+              (progn (incf i) (pop numbers))
+              (return i))
+       finally (return i)))
 
   (defvar *lisp-command-history* '())
 
@@ -2440,13 +2452,13 @@ of `inferior-lisp-program').  Runs the hooks from
 `inferior-lisp-mode-hook' (after the `comint-mode-hook' is run).
 \(Type \\[describe-mode] in the process buffer for a list of commands.)"
     (interactive (list (if current-prefix-arg
-			 (read-string "Run lisp: " inferior-lisp-program)
-			 inferior-lisp-program)))
+                           (read-string "Run lisp: " inferior-lisp-program)
+                           inferior-lisp-program)))
     (if (not (comint-check-proc "*inferior-lisp*"))
-      (let ((cmdlist (split-string cmd)))
-	(set-buffer (apply (function make-comint)
-			   "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
-	(inferior-lisp-mode)))
+        (let ((cmdlist (split-string cmd)))
+          (set-buffer (apply (function make-comint)
+                             "inferior-lisp" (car cmdlist) nil (cdr cmdlist)))
+          (inferior-lisp-mode)))
     (setq inferior-lisp-buffer "*inferior-lisp*")
     (pop-to-buffer "*inferior-lisp*" t))
 
@@ -2456,13 +2468,13 @@ of `inferior-lisp-program').  Runs the hooks from
     (interactive "P")
     (let* ((impl-or-cmd
             (if ask-command
-	      (read-from-minibuffer
-	       "Lisp implementation or command: "
-	       (format "%s" (lisp-implementation-name
-			     *default-lisp-implementation*))
-	       nil nil '*lisp-command-history*)
-	      (format "%s" (lisp-implementation-name
-			    *default-lisp-implementation*))))
+                (read-from-minibuffer
+                 "Lisp implementation or command: "
+                 (format "%s" (lisp-implementation-name
+                               *default-lisp-implementation*))
+                 nil nil '*lisp-command-history*)
+                (format "%s" (lisp-implementation-name
+                              *default-lisp-implementation*))))
            (impl  (unless (position (character " ") impl-or-cmd
                                     :test (function char=))
                     (intern-soft impl-or-cmd)))
@@ -2477,11 +2489,11 @@ of `inferior-lisp-program').  Runs the hooks from
              (%lisp-buffer-name
               (%lisp-buffer-next-number)
               (cond
-	       (impl)
-	       ((string= cmd (lisp-implementation-command
-			      *default-lisp-implementation*))
-		(lisp-implementation-name *default-lisp-implementation*))
-	       ('custom)))))))
+                (impl)
+                ((string= cmd (lisp-implementation-command
+                               *default-lisp-implementation*))
+                 (lisp-implementation-name *default-lisp-implementation*))
+                ('custom)))))))
 
 
   (defun lisp (&optional ask-command)
@@ -2490,12 +2502,12 @@ of `inferior-lisp-program').  Runs the hooks from
     (interactive "P")
     (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
              (get-buffer inferior-lisp-buffer))
-      (switch-to-buffer inferior-lisp-buffer)
-      (let ((lisp-buffers (inferior-lisp-buffers-list)))
-	(if lisp-buffers
-	  (switch-to-buffer
-	   (setf inferior-lisp-buffer (first lisp-buffers)))
-	  (nlisp ask-command))))))
+        (switch-to-buffer inferior-lisp-buffer)
+        (let ((lisp-buffers (inferior-lisp-buffers-list)))
+          (if lisp-buffers
+              (switch-to-buffer
+               (setf inferior-lisp-buffer (first lisp-buffers)))
+              (nlisp ask-command))))))
 
 
 (defvar package 'common-lisp-user)
@@ -2604,17 +2616,17 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
              (if (fboundp 'slime)
                  (show-buffer (function slime))
                  (show-buffer (function inferior-lisp)))))
-   (case major-mode
-     ((emacs-lisp-mode)
-      (show-buffer (function ielm)))
-     ((lisp-mode)
-      (if (and (boundp 'slime-mode) slime-mode)
-          (show-buffer (function slime-switch-to-output-buffer))
-          (inferior-lisp-repl)))
-     ((slime-repl-mode inferior-emacs-lisp-mode)
-      (message "Already there."))
-     (t
-      (inferior-lisp-repl)))))
+    (case major-mode
+      ((emacs-lisp-mode)
+       (show-buffer (function ielm)))
+      ((lisp-mode)
+       (if (and (boundp 'slime-mode) slime-mode)
+           (show-buffer (function slime-switch-to-output-buffer))
+           (inferior-lisp-repl)))
+      ((slime-repl-mode inferior-emacs-lisp-mode)
+       (message "Already there."))
+      (t
+       (inferior-lisp-repl)))))
 
 (defun indent-defun ()
   (interactive)
@@ -3274,12 +3286,12 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;; to see the report after running.  
 
 (when (fboundp 'slime-repl-bol)
- (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
- (defun slime-repl-bol ()
-   (interactive)
-   (if (eql 'home last-input-event)
-     (beginning-of-buffer) 
-     (funcall *slime-repl-bol*))))
+  (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+  (defun slime-repl-bol ()
+    (interactive)
+    (if (eql 'home last-input-event)
+        (beginning-of-buffer) 
+        (funcall *slime-repl-bol*))))
 
 
 ;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
@@ -3425,8 +3437,8 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
 ;;      (require 'slime)
 ;;      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl))
 ;; 
-;;      (add-hook 'lisp-mode-hook
-;;                (lambda () (slime-mode t) (slime-autodoc-mode t)))
+     (add-hook 'lisp-mode-hook
+               (lambda () (slime-mode t) (slime-autodoc-mode t)))
 ;;      ;;(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 ;;      ;; (modify-syntax-entry ?$ "'" lisp-mode-syntax-table)
 ;; 
