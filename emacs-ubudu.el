@@ -62,12 +62,12 @@
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(read-only-face ((t (:background "gray30"))) t)
- '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
- '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
- '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
- '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
- '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
- '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
+ '(rst-level-1-face ((t (:background "grey33" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey33" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey33" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey33" :height 1.2))) t)
+ '(rst-level-5-face ((t (:background "grey33" :height 1.1 :weight bold))) t)
+ '(rst-level-6-face ((t (:background "grey33" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
 
@@ -142,8 +142,8 @@
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
- '(display-time-day-and-date t)
- '(display-time-mode t)
+ '(display-time-day-and-date t t)
+ '(display-time-mode t t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -222,7 +222,11 @@
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com") (nnimap "mail.intergruas.com"))))
+ '(gnus-secondary-select-methods (quote ((nnimap "googlemail"
+                                                 (nnimap-address "imap.googlemail.com")
+                                                 (nnimap-server-port 993)
+                                                 (nnimap-stream ssl))
+                                         (nntp "news.gmane.org"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-summary-line-format "%U%R%z%o %B%(%[%4L: %-23,23f%]%) %s
@@ -345,7 +349,6 @@ X-Accept-Language:         fr, es, en
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values (quote ((tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
- '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -357,7 +360,6 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
- '(smtpmail-smtp-server "voyager.informatimago.com")
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
  '(tab-stop 2 t)
@@ -434,9 +436,27 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t))
+ '(x-select-enable-primary t)
+ '(send-mail-function (quote smtpmail-send-it))
+ '(message-send-mail-function 'smtpmail-send-it)
+ '(smtpmail-starttls-credentials '(("smtp.googlemail.com" 465 nil nil)))
+ '(smtpmail-auth-credentials '(("smtp.googlemail.com" 465 "pascal.bourguignon@ubudu.com" nil)))
+ '(smtpmail-default-smtp-server "smtp.googlemail.com")
+ '(smtpmail-smtp-server "smtp.googlemail.com")
+ '(smtpmail-smtp-service 465)
+ '(smtpmail-local-domain "ubudu.com")
+ '(gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"))
+
+
 
 ;;;----------------------------------------------------------------------------
+
+(load "~/rc/emacs-package.el")
+(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+
+(setf visible-bell nil
+      ring-bell-function nil)
+
 
 (setf auto-mode-alist
       (sort* (cons '("\\.md$" . text-mode)
@@ -444,7 +464,6 @@ X-Accept-Language:         fr, es, en
                             :key (function cdr)))
              (function string<)
              :key (function car)))
-
 
 
 (when (require 'yasnippet nil t)
@@ -463,7 +482,6 @@ X-Accept-Language:         fr, es, en
 
 (add-hook 'java-mode-hook 'java-meat)
 
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 ;;;----------------------------------------------------------------------------
 
 ;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
@@ -472,9 +490,6 @@ X-Accept-Language:         fr, es, en
 ;;         ring-bell-function (lambda ()
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
-
-(setf visible-bell nil
-      ring-bell-function nil)
 
 (global-set-key (kbd "C-h 1") 'android-search-region)
 (add-hook 'java-mode 'pjb-java-edit-meat)
