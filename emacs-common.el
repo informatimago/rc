@@ -5020,6 +5020,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (when (require 'emms-info-id3v2 nil t)
     (add-to-list 'emms-info-functions 'emms-info-id3v2))
 
+
   (emms-all)
   (emms-default-players)
   (setq emms-playlist-default-major-mode 'emms-playlist-mode)
