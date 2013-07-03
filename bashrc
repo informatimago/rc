@@ -512,6 +512,8 @@ alias dr='darcs record -am'
 alias ds='darcs push'
 alias dl='darcs pull'
 
+alias ..='cd ..'
+alias ...='cd ../..'
 
 alias mplayer='mplayer -nojoystick'
 
