@@ -7821,4 +7821,16 @@ or as \"emacs at <hostname>\"."
 ;;   (toggle-truncate-lines 1)
 ;;   (setq-default cache-long-line-scans t))
 
+(defun eval-in-shell-last-command ()
+  (interactive "*")
+  (let* ((end   (point))
+         (start (save-excursion (beginning-of-line) (point)))
+         (start (if (re-search-backward shell-prompt-pattern start t)
+                    (match-end 0)
+                    start)))
+    (goto-char end)
+    (insert (format "\n| %s\n" (mapconcat (function identity) (split-string (shell-command-to-string (buffer-substring start end))) "\n| ")))
+    (set-mark (point))
+    (goto-char end)))
+
 ;;;; THE END ;;;;
