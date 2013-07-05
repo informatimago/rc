@@ -7722,6 +7722,11 @@ or as \"emacs at <hostname>\"."
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
 
+(loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
+                       (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
+     do (global-set-key key 'ignore)) 
+
+
 (defun toggle-read-only-region (start end)
   (interactive "r")
   (let ((inhibit-read-only t)
