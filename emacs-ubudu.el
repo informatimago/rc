@@ -153,7 +153,7 @@
  '(emms-lyrics-display-on-minibuffer t)
  '(emms-player-started-hook (quote (emms-show)))
  '(emms-show-format "NP %s")
- '(emms-source-file-default-directory "/d5/music/")
+ '(emms-source-file-default-directory "~/Music/")
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))

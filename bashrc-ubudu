@@ -6,5 +6,7 @@ export PATH="$HOME/opt/jdk/bin:$PATH"
 export JAVA_HOME="${HOME}/opt/jdk"
 # sudo $(which adb) root
 
+alias eclipse='eclipse > /tmp/eclipse.log 2>&1'
+
 xmodmap ~/.xmodmap
 
