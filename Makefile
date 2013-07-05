@@ -1,3 +1,4 @@
+# -*- mode:makefile; coding:utf-8; tab-width:4 -*-
 all:help
 
 SRCDIR=rc
@@ -34,11 +35,11 @@ FILES= \
 	.screenrc-daemon \
 	.swank.lisp \
 	.wgetrc \
-	.xmodmap \
 	.ratpoisonrc \
 	.abclrc \
 	ccl-init.lisp \
-	openmcl-init.lisp
+	openmcl-init.lisp \
+	.xmodmap 
 
 help:
 	@echo 'make symlinks # makes the symbolic links between ~/$(SRCDIR) and ~/.'
@@ -76,11 +77,13 @@ symlinks: save
 	ln -sf $(SRCDIR)/screenrc-daemon                  $$HOME/.screenrc-daemon
 	ln -sf $(SRCDIR)/swank.lisp                       $$HOME/.swank.lisp
 	ln -sf $(SRCDIR)/wgetrc                           $$HOME/.wgetrc
-	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-evdev      $$HOME/.xmodmap
 	ln -sf $(SRCDIR)/ccl-init.lisp                    $$HOME/ccl-init.lisp
 	ln -sf $(SRCDIR)/abclrc.lisp                      $$HOME/.abclrc
 	ln -sf $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
 	ln -sf $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
+
+symlink.xmodmap:
+	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-evdev      $$HOME/.xmodmap
 
 #	ln -sf $(SRCDIR)/gitconfig                        $$HOME/.gitconfig
 
