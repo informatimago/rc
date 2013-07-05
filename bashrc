@@ -414,19 +414,21 @@ function be_generate(){
     be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
     be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
 
-    # # GNUstep environment
-    # 
-    # if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-    #     for gsr in / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
-    #         if [ -d $gsr/System/Makefiles ] ; then
-    #            gsr=$gsr/System
-    #            break
-    #         fi
-    #         [ -d $gsr/Makefiles ] && break
-    #     done
-    #     [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
-    # fi
-    # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+    # GNUstep environment
+    
+    if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+        for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+            if [ -d $gsr/System/Makefiles ] ; then
+               gsr=$gsr/System
+               break
+            fi
+            [ -d $gsr/Makefiles ] && break
+        done
+        [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+    fi
+    if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+    fi
 
     be_terminate
 }
