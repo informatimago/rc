@@ -25,6 +25,7 @@
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (or (let* ((hostname-configuration-map
                                      '(("mercure"            . "~/rc/emacs-employer-c.el")
+				       ("uiserver.local"     . "~/rc/emacs-employer-c.el")
                                        ("imac-core-i5.local" . "~/rc/emacs-employer-d.el")
                                        ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
                                        ("pbo-employer-d.local"      . "~/rc/emacs-employer-d.el")))

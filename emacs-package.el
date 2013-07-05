@@ -23,3 +23,10 @@
               (setq path (format "%s/%s-%s" package-dir stem version))
               (add-to-list 'load-path path)))
           package-alist)))
+
+
+(when (fboundp 'run-lac-functions)
+  (run-lac-functions))
+
+;;;; The End ;;;;
+
