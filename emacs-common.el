@@ -43,6 +43,19 @@
 (setq source-directory "/usr/src/emacs-23.3/src/")
 ;; emacs-version "23.4.1"
 
+(defvar *lac-functions* '()
+  "A list of functions to be called after elpa is loaded.
+please, use `add-lac' and `remove-lac' instead of accessing this list directly.")
+(defun add-lac (&rest lac-functions)
+  (setf *lac-functions* (union lac-functions *lac-functions*)))
+(defun remove-lac (&rest lac-functions)
+  (setf *lac-functions* (set-difference *lac-functions* lac-functions)))
+(defun run-lac-functions ()
+  "Runs each lac function in *lac-functions*."
+  (interactive)
+  (dolist (lac *lac-functions*)
+    (ignore-errors (funcall lac))))
+
 (defvar shell-file-name "/bin/bash")
 
 (defvar *tempdir*  (format "/tmp/emacs%d" (user-uid)))
@@ -5015,58 +5028,61 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;; (load"tnt") ;; Doesn't work good.
 
 ;; ------------------------------------------------------------------------
-(when (require 'emms-setup nil t)
-  (require 'emms-player-simple)
-  (require 'emms-source-file)
-  (require 'emms-source-playlist)
-  ;; save playlist and load at emacs start
-  (require 'emms-history)
-  (emms-history-load)
-  (require 'emms-volume)
-  (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
-  (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
-  (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
-  ;; (setq emms-repeat-playlist 1)
-  ;; (emms-standard)
+(defun lac-emms ()
+  "Load and configure emms"
+ (when (require 'emms-setup nil t)
+   (require 'emms-player-simple)
+   (require 'emms-source-file)
+   (require 'emms-source-playlist)
+   ;; save playlist and load at emacs start
+   (require 'emms-history)
+   (emms-history-load)
+   (require 'emms-volume)
+   (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
+   (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
+   (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
+   ;; (setq emms-repeat-playlist 1)
+   ;; (emms-standard)
 
-  (when (require 'emms-info-id3v2 nil t)
-    (add-to-list 'emms-info-functions 'emms-info-id3v2))
-
-
-  (emms-all)
-  (emms-default-players)
-  (setq emms-playlist-default-major-mode 'emms-playlist-mode)
+   (when (require 'emms-info-id3v2 nil t)
+     (add-to-list 'emms-info-functions 'emms-info-id3v2))
 
 
-  (defvar emms-browser-mode-hook '()
-    "Hook for meat called after emms-browser-mode is activated.")
+   (emms-all)
+   (emms-default-players)
+   (setq emms-playlist-default-major-mode 'emms-playlist-mode)
+
+
+   (defvar emms-browser-mode-hook '()
+     "Hook for meat called after emms-browser-mode is activated.")
   
-  (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
-    "Add an emms-browser-mode-hook feature."
-    (interactive)
-    (run-mode-hooks 'emms-browser-mode-hook)
-    (when (null delay-mode-hooks)
-      (run-mode-hooks 'after-change-major-mode-hook)))
+   (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
+     "Add an emms-browser-mode-hook feature."
+     (interactive)
+     (run-mode-hooks 'emms-browser-mode-hook)
+     (when (null delay-mode-hooks)
+       (run-mode-hooks 'after-change-major-mode-hook)))
 
-  (defun pjb-emms-save-file-path ()
-    (interactive)
-    (let* ((bdata (emms-browser-bdata-at-point))
-           (data  (cdr (assoc 'data    bdata)))
-           (track (cdr (assoc '*track* data)))
-           (name  (cdr (assoc 'name    track))))
-      (kill-new name nil nil)
-      (message "%s" name)))
+   (defun pjb-emms-save-file-path ()
+     (interactive)
+     (let* ((bdata (emms-browser-bdata-at-point))
+            (data  (cdr (assoc 'data    bdata)))
+            (track (cdr (assoc '*track* data)))
+            (name  (cdr (assoc 'name    track))))
+       (kill-new name nil nil)
+       (message "%s" name)))
   
-  (defun pjb-emms-browser-mode-meat ()
-    (interactive)
-    (local-set-key (kbd "u") 'pjb-emms-save-file-path)
-    (local-set-key (kbd "U") 'pjb-emms-save-file-path))
+   (defun pjb-emms-browser-mode-meat ()
+     (interactive)
+     (local-set-key (kbd "u") 'pjb-emms-save-file-path)
+     (local-set-key (kbd "U") 'pjb-emms-save-file-path))
 
-  (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
+   (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
   
-  (defalias 'np 'emms-show))
+   (defalias 'np 'emms-show)))
 
-
+(add-lac 'lac-emms)
+(lac-emms)
 
 
 
@@ -7723,6 +7739,11 @@ or as \"emacs at <hostname>\"."
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
 
+(loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
+                       (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
+     do (global-set-key key 'ignore)) 
+
+
 (defun toggle-read-only-region (start end)
   (interactive "r")
   (let ((inhibit-read-only t)
@@ -7804,5 +7825,17 @@ or as \"emacs at <hostname>\"."
 ;;   (fundamental-mode)
 ;;   (toggle-truncate-lines 1)
 ;;   (setq-default cache-long-line-scans t))
+
+(defun eval-in-shell-last-command ()
+  (interactive "*")
+  (let* ((end   (point))
+         (start (save-excursion (beginning-of-line) (point)))
+         (start (if (re-search-backward shell-prompt-pattern start t)
+                    (match-end 0)
+                    start)))
+    (goto-char end)
+    (insert (format "\n| %s\n" (mapconcat (function identity) (split-string (shell-command-to-string (buffer-substring start end))) "\n| ")))
+    (set-mark (point))
+    (goto-char end)))
 
 ;;;; THE END ;;;;
