@@ -672,8 +672,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
 
-
-(load (expand-file-name "~/quicklisp/slime-helper.el") t)
+(defun reload-swank ()
+  (interactive)
+  (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+  (load-library "slime")
+  (slime-setup '(slime-fancy)))
+(reload-swank)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------

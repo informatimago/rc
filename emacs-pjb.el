@@ -17,6 +17,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -46,7 +50,9 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
- '(match ((t (:background "#2a2a3d"))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
+ '(match ((t (:background "#cacafe"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -56,10 +62,10 @@
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(read-only-face ((t (:background "gray30"))) t)
- '(rst-level-1-face ((t (:background "grey33" :height 1.9))) t)
- '(rst-level-2-face ((t (:background "grey33" :height 1.7))) t)
- '(rst-level-3-face ((t (:background "grey33" :height 1.4))) t)
- '(rst-level-4-face ((t (:background "grey33" :height 1.2))) t)
+ '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
@@ -152,7 +158,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -180,6 +186,7 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
+ '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
@@ -228,7 +235,7 @@
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
  '(hl-paren-colors (quote ("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray")))
- '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))))
  '(ido-enable-flex-matching nil)
  '(indent-tabs-mode nil)
  '(inferior-lisp-filter-regexp "\\`\\s*\\'")
@@ -247,14 +254,7 @@
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
- '(mail-default-headers "Organization: InformatiMago.
-X-PGP-Key-ID:      0xEF5E9966
-X-PGP-fingerprint: 00 F5 7B DB CA 51 8A AD 04 5B 6C DE 32 60 16 8E EF 5E 99 66
-X-PGP-Public-Key:  http://www.informatimago.com/pgpkey.asc
-X-URL:             http://www.informatimago.com/index
-X-Face: \":yO)Vk=vFU3)FL&2#7gT_G=KUuNv*BEOo+Shubl.V4Whu&;A.>.+&yEVB5I5vrpZIJ{yOW
- >CgV%jD]GHL6rp:.OCM~_YO&aY34]|`{yNq79\\x=g:7XSboBUj]1ULpA;v>-bS3veufw-rB!N0kZW!
- @A4i?z|
+ '(mail-default-headers "Organization: Informatimago
 X-Accept-Language:         fr, es, en
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -310,6 +310,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -345,8 +346,8 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
- '(send-mail-function (quote sendmail-send-it))
+ '(safe-local-variable-values (quote ((Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -358,12 +359,15 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-local-domain "lan.informatimago.com")
+ '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
- '(tags-table-list (quote nil) t)
+ '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
