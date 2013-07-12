@@ -240,9 +240,16 @@ function be_generate(){
     prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
     be_variable PATH "$list:$PATH"
 
+    # TODO: Check same thing is done elsewhere:
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
-    be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
+    if [ -s "$list" ] ; then
+        if [ -s "$XDG_DATA_DIRS" ] ; then
+            be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
+        else
+            be_variable XDG_DATA_DIRS "$list"
+        fi
+    fi
 
     list=""
     prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
