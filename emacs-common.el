@@ -672,8 +672,12 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin"))
 
-
-(load (expand-file-name "~/quicklisp/slime-helper.el") t)
+(defun reload-swank ()
+  (interactive)
+  (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+  (load-library "slime")
+  (slime-setup '(slime-fancy)))
+(reload-swank)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
@@ -7773,6 +7777,11 @@ or as \"emacs at <hostname>\"."
   (set-foreground-color (get-random-color)))
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
+
+(loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
+                       (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
+     do (global-set-key key 'ignore)) 
+
 
 (defun toggle-read-only-region (start end)
   (interactive "r")
