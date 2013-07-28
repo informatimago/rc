@@ -967,7 +967,10 @@ SIDE must be the symbol `left' or `right'."
 ;; C-z is used now by elscreen.
 
 
-(setf visible-bell t)
+(setf visible-bell t
+      ring-bell-function 
+      (lambda ()
+        (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil)))
 
 (defun disabled ()
   (interactive)
