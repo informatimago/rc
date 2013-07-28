@@ -90,6 +90,7 @@
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
  '(browse-url-browser-function (quote w3m-browse-url))
+ '(browse-url-generic-program "open")
  '(browse-url-new-window-flag nil)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
@@ -219,14 +220,11 @@
 ]*\\(no\\|fr\\)\\.[^,]*\\)*$" iso-8859-15 (iso-8859-15)) ("^\\(fido7\\|relcom\\)\\.[^,]*\\(,[ 	
 ]*\\(fido7\\|relcom\\)\\.[^,]*\\)*$" koi8-r (koi8-r)) (message-this-is-mail nil nil) (message-this-is-news iso-8859-15 (iso-8859-15)))))
  '(gnus-ignored-headers (quote ("^Path:" "^Expires:" "^Date-Received:" "^References:" "^Xref:" "^Lines:" "^Relay-Version:" "^Approved:" "^Sender:" "^Received:" "^X-UIDL:" "^MIME-Version:" "^Return-Path:" "^In-Reply-To:" "^Content-Type:" "^Content-Transfer-Encoding:" "^X-WebTV-Signature:" "^X-MimeOLE:" "^X-MSMail-Priority:" "^X-Priority:" "^X-Loop:" "^X-Authentication-Warning:" "^X-MIME-Autoconverted:" "^X-Face:" "^X-Attribution:" "^X-Originating-IP:" "^Delivered-To:" "^NNTP-[-A-Za-z]+:" "^Distribution:" "^X-no-archive:" "^X-Trace:" "^X-Complaints-To:" "^X-NNTP-Posting-Host:" "^X-Orig.*:" "^Abuse-Reports-To:" "^Cache-Post-Path:" "^X-Article-Creation-Date:" "^X-Poster:" "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:" "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:" "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:" "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:" "^Autoforwarded:" "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:" "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:" "^Content-length:" "^X-precedence:" "^X-Authenticated-User:" "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:" "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:" "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:" "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:" "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:" "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:" "^X-Received-Date:" "^X-Hashcash:" "^Face:" "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:")))
+ '(gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nnimap "googlemail"
-                                                 (nnimap-address "imap.googlemail.com")
-                                                 (nnimap-server-port 993)
-                                                 (nnimap-stream ssl))
-                                         (nntp "news.gmane.org"))))
+ '(gnus-secondary-select-methods (quote ((nnimap "googlemail" (nnimap-address "imap.googlemail.com") (nnimap-server-port 993) (nnimap-stream ssl)) (nntp "news.gmane.org"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-summary-line-format "%U%R%z%o %B%(%[%4L: %-23,23f%]%) %s
@@ -291,6 +289,7 @@ X-Accept-Language:         fr, es, en
  '(message-from-style (quote angles))
  '(message-log-max 5000)
  '(message-required-news-headers (quote (From Newsgroups Subject Date Message-ID (optional . Organization) (optional . User-Agent) (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm")))))
+ '(message-send-mail-function (quote smtpmail-send-it))
  '(message-user-organization "Ubudu SAS")
  '(mew-conf-path "~/.new")
  '(mew-mail-path "~/mail")
@@ -349,6 +348,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values (quote ((tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -360,6 +360,12 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-auth-credentials (quote (("smtp.googlemail.com" 465 "pascal.bourguignon@ubudu.com" nil))))
+ '(smtpmail-default-smtp-server "smtp.googlemail.com")
+ '(smtpmail-local-domain "ubudu.com")
+ '(smtpmail-smtp-server "smtp.googlemail.com")
+ '(smtpmail-smtp-service 465)
+ '(smtpmail-starttls-credentials (quote (("smtp.googlemail.com" 465 nil nil))))
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
  '(tab-stop 2 t)
@@ -436,16 +442,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info))))
  '(x-select-enable-clipboard t)
- '(x-select-enable-primary t)
- '(send-mail-function (quote smtpmail-send-it))
- '(message-send-mail-function 'smtpmail-send-it)
- '(smtpmail-starttls-credentials '(("smtp.googlemail.com" 465 nil nil)))
- '(smtpmail-auth-credentials '(("smtp.googlemail.com" 465 "pascal.bourguignon@ubudu.com" nil)))
- '(smtpmail-default-smtp-server "smtp.googlemail.com")
- '(smtpmail-smtp-server "smtp.googlemail.com")
- '(smtpmail-smtp-service 465)
- '(smtpmail-local-domain "ubudu.com")
- '(gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"))
+ '(x-select-enable-primary t))
 
 
 
@@ -457,11 +454,11 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 
-
 (setf auto-mode-alist
-      (sort* (cons '("\\.md$" . text-mode)
-                   (remove* 'modula-2-mode auto-mode-alist
-                            :key (function cdr)))
+      (sort* (list* '("\\.md$" . text-mode)
+                    '("/src/\\(audio\\|uscdtest\\)/.*\\.h$" . objc-mode)
+                    (remove* 'modula-2-mode auto-mode-alist
+                             :key (function cdr)))
              (function string<)
              :key (function car)))
 
@@ -508,16 +505,16 @@ X-Accept-Language:         fr, es, en
 (require 'ubudu) ; c-style
 (set-sources (expand-file-name *ubudu-sources*))
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
-(require 'android)
-(setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
-(require 'android-mode)
+(when (require 'android nil t)
+ (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+ (require 'android-mode)
 
-(defun gud-meat ()
-  (interactive)
-  (add-to-list 'gud-jdb-classpath
-               (expand-file-name (concat *android-tools-directory*
-                                         "/adt/sdk/platforms/android-17/android.jar"))))
-(add-hook 'gud-mode-hook 'gud-meat)
+ (defun gud-meat ()
+   (interactive)
+   (add-to-list 'gud-jdb-classpath
+                (expand-file-name (concat *android-tools-directory*
+                                          "/adt/sdk/platforms/android-17/android.jar"))))
+ (add-hook 'gud-mode-hook 'gud-meat))
 
 (require 'cedet)
 (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
