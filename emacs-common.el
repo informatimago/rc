@@ -670,10 +670,14 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
-                    '("/sw/sbin/" "/sw/bin/" "/opt/local/sbin" "/opt/local/bin"))
+                    '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin"))
 
-
-(load (expand-file-name "~/quicklisp/slime-helper.el") t)
+(defun reload-swank ()
+  (interactive)
+  (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+  (load-library "slime")
+  (slime-setup '(slime-fancy)))
+(reload-swank)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
@@ -963,7 +967,10 @@ SIDE must be the symbol `left' or `right'."
 ;; C-z is used now by elscreen.
 
 
-(setf visible-bell t)
+(setf visible-bell t
+      ring-bell-function 
+      (lambda ()
+        (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil)))
 
 (defun disabled ()
   (interactive)
@@ -6776,19 +6783,44 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 
 (defparameter *whitespaces* '(32 9 10 13))
 
-(defun apple-search (search-string)
+(defmacro with-browser-for-apple-documentation (&rest body)
+  `(let ((browse-url-browser-function (if (and (eq window-system 'ns)
+                                              (eq system-type 'darwin))
+                                         'browse-url-generic
+                                         'browse-url-firefox2)))
+    ,@body))
+
+(defun osx-search (search-string)
   "Search a string with Apple."
   (interactive "sApple Developer Documentation Search: ")
-  (browse-url
-   (format "https://developer.apple.com/library/mac/search/?q=%s"
-	   (browse-url-url-encode-chars
-	    (string-trim *whitespaces* search-string)
-	    "[^A-Za-z0-9]"))))
+  (with-browser-for-apple-documentation
+   (browse-url
+    (format "https://developer.apple.com/library/mac/search/?q=%s"
+            (browse-url-url-encode-chars
+             (string-trim *whitespaces* search-string)
+             "[^A-Za-z0-9]")))))
 
-(defun apple-search-region (start end)
+(defun osx-search-region (start end)
   "Search the text in the region with Apple."
   (interactive "r")
-  (%search-region start end 'symbol 'apple-search))
+  (%search-region start end 'symbol 'osx-search))
+
+;; (debug-on-entry 'browse-url)
+(defun ios-search (search-string)
+  "Search a string with Apple."
+  (interactive "sApple Developer Documentation Search: ")
+  (with-browser-for-apple-documentation
+      (browse-url
+       (format "https://developer.apple.com/library/ios/search/?q=%s"
+               (browse-url-url-encode-chars
+                (string-trim *whitespaces* search-string)
+                "[^A-Za-z0-9]")))))
+
+(defun ios-search-region (start end)
+  "Search the text in the region with Apple."
+  (interactive "r")
+  (%search-region start end 'symbol 'ios-search))
+
 
 (defun android-search (search-string)
   "Search a string with Android."
@@ -6895,7 +6927,9 @@ itesearch=&safe=images"
                                          (subseq search 0 dash)
                                          search))))))
 
-(global-set-key (kbd "C-h 1") 'apple-search-region)
+;;(global-set-key (kbd "C-h 1") 'android-search-region)
+;;(global-set-key (kbd "C-h 1") 'osx-search-region)
+(global-set-key (kbd "C-h 1") 'ios-search-region)
 (global-set-key (kbd "C-h 2") 'google-search-region)
 (global-set-key (kbd "C-h 3") 'acronym-search-region)
 (global-set-key (kbd "C-h 4") 'project-search-region)
@@ -6903,13 +6937,21 @@ itesearch=&safe=images"
 (global-set-key (kbd "C-h 6") 'hyperspec-search-region)
 (global-set-key (kbd "C-h 7") 'here-search-region)
 
-(add-hook 'objc-mode-hook (lambda ()
-                            (interactive)
-                            (local-set-key (kbd "C-h 1") 'apple-search-region)))
+(defun set-osx-search-region-function ()
+  (interactive)
+  (local-set-key (kbd "C-h 1") 'osx-search-region))
+(defun set-ios-search-region-function ()
+  (interactive)
+  (local-set-key (kbd "C-h 1") 'ios-search-region))
+(defun set-android-search-region-function ()
+  (interactive)
+  (local-set-key (kbd "C-h 1") 'osx-search-region))
 
-(add-hook 'java-mode-hook (lambda ()
-                            (interactive)
-                            (local-set-key (kbd "C-h 1") 'android-search-region)))
+
+(add-hook 'objc-mode-hook 'set-osx-search-region-function)
+(add-hook 'objc-mode-hook 'set-ios-search-region-function)
+(add-hook 'java-mode-hook 'set-android-search-region-function)
+
 
 ;;;----------------------------------------------------------------------------
 
@@ -7739,6 +7781,11 @@ or as \"emacs at <hostname>\"."
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
 
+(loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
+                       (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
+     do (global-set-key key 'ignore)) 
+
+
 (defun toggle-read-only-region (start end)
   (interactive "r")
   (let ((inhibit-read-only t)
@@ -7820,5 +7867,17 @@ or as \"emacs at <hostname>\"."
 ;;   (fundamental-mode)
 ;;   (toggle-truncate-lines 1)
 ;;   (setq-default cache-long-line-scans t))
+
+(defun eval-in-shell-last-command ()
+  (interactive "*")
+  (let* ((end   (point))
+         (start (save-excursion (beginning-of-line) (point)))
+         (start (if (re-search-backward shell-prompt-pattern start t)
+                    (match-end 0)
+                    start)))
+    (goto-char end)
+    (insert (format "\n| %s\n" (mapconcat (function identity) (split-string (shell-command-to-string (buffer-substring start end))) "\n| ")))
+    (set-mark (point))
+    (goto-char end)))
 
 ;;;; THE END ;;;;
