@@ -92,6 +92,7 @@
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
  '(browse-url-browser-function (quote w3m-browse-url))
+ '(browse-url-generic-program "open")
  '(browse-url-new-window-flag nil)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
@@ -455,11 +456,11 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 
-
 (setf auto-mode-alist
-      (sort* (cons '("\\.md$" . text-mode)
-                   (remove* 'modula-2-mode auto-mode-alist
-                            :key (function cdr)))
+      (sort* (list* '("\\.md$" . text-mode)
+                    '("/src/\\(audio\\|uscdtest\\)/.*\\.h$" . objc-mode)
+                    (remove* 'modula-2-mode auto-mode-alist
+                             :key (function cdr)))
              (function string<)
              :key (function car)))
 
@@ -506,16 +507,16 @@ X-Accept-Language:         fr, es, en
 (require 'ubudu) ; c-style
 (set-sources (expand-file-name *ubudu-sources*))
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
-(require 'android)
-(setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
-(require 'android-mode)
+(when (require 'android nil t)
+ (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+ (require 'android-mode)
 
-(defun gud-meat ()
-  (interactive)
-  (add-to-list 'gud-jdb-classpath
-               (expand-file-name (concat *android-tools-directory*
-                                         "/adt/sdk/platforms/android-17/android.jar"))))
-(add-hook 'gud-mode-hook 'gud-meat)
+ (defun gud-meat ()
+   (interactive)
+   (add-to-list 'gud-jdb-classpath
+                (expand-file-name (concat *android-tools-directory*
+                                          "/adt/sdk/platforms/android-17/android.jar"))))
+ (add-hook 'gud-mode-hook 'gud-meat))
 
 (require 'cedet)
 (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)

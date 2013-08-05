@@ -17,6 +17,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
@@ -46,7 +50,9 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
- '(match ((t (:background "#2a2a3d"))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
+ '(match ((t (:background "#cacafe"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -152,7 +158,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -180,6 +186,7 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
+ '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
@@ -246,14 +253,7 @@
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
- '(mail-default-headers "Organization: InformatiMago.
-X-PGP-Key-ID:      0xEF5E9966
-X-PGP-fingerprint: 00 F5 7B DB CA 51 8A AD 04 5B 6C DE 32 60 16 8E EF 5E 99 66
-X-PGP-Public-Key:  http://www.informatimago.com/pgpkey.asc
-X-URL:             http://www.informatimago.com/index
-X-Face: \":yO)Vk=vFU3)FL&2#7gT_G=KUuNv*BEOo+Shubl.V4Whu&;A.>.+&yEVB5I5vrpZIJ{yOW
- >CgV%jD]GHL6rp:.OCM~_YO&aY34]|`{yNq79\\x=g:7XSboBUj]1ULpA;v>-bS3veufw-rB!N0kZW!
- @A4i?z|
+ '(mail-default-headers "Organization: Informatimago
 X-Accept-Language:         fr, es, en
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -310,6 +310,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -345,8 +346,8 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
- '(send-mail-function (quote sendmail-send-it))
+ '(safe-local-variable-values (quote ((Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -358,6 +359,9 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-local-domain "lan.informatimago.com")
+ '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
  '(tab-stop 4 t)

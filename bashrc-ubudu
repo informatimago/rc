@@ -9,6 +9,6 @@ export JAVA_HOME="${HOME}/opt/jdk"
 export PATH="$HOME/binubudu:$PATH"
 
 alias eclipse='eclipse > /tmp/eclipse.log 2>&1'
+alias ls='gls -FaCB'
 
 xmodmap ~/.xmodmap
-
