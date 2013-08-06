@@ -211,10 +211,9 @@ RETURN:     The first word of the string, or the empty string.
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
 
-
-
-
-(ql:quickload :swank)
+;; Temporarily, while developping from kuiper for galatea:
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (ql:quickload :swank))
 (when (string= (com.informatimago.pjb:hostname) "galatea.local")
   (let ((swank::*loopback-interface* "192.168.7.4")
         (port (+ 4005 (random 123))))
