@@ -50,6 +50,8 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(hi-green ((t (:inherit nil :background "#223311"))))
+ '(hi-yellow ((t (:background "#223311"))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
  '(match ((t (:background "#434355"))))
@@ -378,7 +380,7 @@ X-Accept-Language:         fr, es, en
  '(truncate-partial-width-windows nil)
  '(url-be-asynchronous t)
  '(url-honor-refresh-requests nil)
- '(user-full-name "Pascal. Bourguignon")
+ '(user-full-name "Pascal J. Bourguignon")
  '(user-mail-address "pascal.bourguignon@ubudu.com")
  '(vc-annotate-background "snow1")
  '(vc-annotate-color-map (quote ((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010"))))
@@ -427,7 +429,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-coding-system (quote utf-8))
  '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
- '(w3m-fb-mode nil t)
+ '(w3m-fb-mode nil)
  '(w3m-file-coding-system (quote utf-8))
  '(w3m-file-name-coding-system (quote iso-8859-1))
  '(w3m-form-textarea-directory "~/.w3m/textarea")
@@ -520,6 +522,8 @@ X-Accept-Language:         fr, es, en
 (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
 (require 'jde)
 
+(require 'twittering-mode)
+(setf twittering-username "ogamita")
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;

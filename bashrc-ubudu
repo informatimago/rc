@@ -6,6 +6,8 @@ export PATH="$HOME/opt/jdk/bin:$PATH"
 export JAVA_HOME="${HOME}/opt/jdk"
 # sudo $(which adb) root
 
+export PATH="$HOME/binubudu:$PATH"
+
 alias eclipse='eclipse > /tmp/eclipse.log 2>&1'
 alias ls='gls -FaCB'
 

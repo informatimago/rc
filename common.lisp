@@ -783,6 +783,42 @@ either scanned, or from the cache."
 
 (push :com.informatimago.pjb *features*)
 
+
+
+;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
+
+(defun shell (control-string &rest arguments)
+  #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
+  #+ccl
+  (let ((process
+         (ccl:run-program "/bin/bash"
+                          (list "-c" (format nil "~?" control-string arguments))
+                          :output :stream
+                          :error :stream)))
+    (com.informatimago.common-lisp.cesarum.stream:copy-stream
+     (ccl:external-process-output-stream process)
+     *standard-output*)
+    (com.informatimago.common-lisp.cesarum.stream:copy-stream
+     (ccl:external-process-error-stream process)
+     *error-output*)))
+
+(defun shell-command-to-string (control-string &rest arguments)
+  #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
+  #+ccl
+  (let ((process
+         (ccl:run-program "/bin/bash"
+                          (list "-c" (format nil "~?" control-string arguments))
+                          :output :stream
+                          :error :stream)))
+    (values (with-output-to-string (out)
+              (com.informatimago.common-lisp.cesarum.stream:copy-stream
+               (ccl:external-process-output-stream process) out))
+            (with-output-to-string (err)
+              (com.informatimago.common-lisp.cesarum.stream:copy-stream
+               (ccl:external-process-error-stream process) err)))))
+
+(export '(shell shell-command-to-string)  :com.informatimago.pjb)
+
 (cl:in-package :cl-user)
 (use-package :com.informatimago.pjb)
 
