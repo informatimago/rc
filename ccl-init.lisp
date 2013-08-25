@@ -212,12 +212,13 @@ RETURN:     The first word of the string, or the empty string.
 (use-package "COM.INFORMATIMAGO.PJB")
 
 ;; Temporarily, while developping from kuiper for galatea:
+
 (when (string= (com.informatimago.pjb:hostname) "galatea.local")
-  (ql:quickload :swank))
-(when (string= (com.informatimago.pjb:hostname) "galatea.local")
-  (let ((swank::*loopback-interface* "192.168.7.4")
-        (port (+ 4005 (random 123))))
-    (swank:create-server :port port)))
+  (ql:quickload :swank)
+  (eval (read-from-string
+         "(let ((swank::*loopback-interface* \"192.168.7.4\")
+                (port (+ 4005 (random 123))))
+            (swank:create-server :port port))")))
 
 (setf *print-right-margin* 110)
 

@@ -18,3 +18,12 @@ esac
 [ -f ~/.bashrc ] && . ~/.bashrc
 
 #### THE END ####
+
+##
+# Your previous /Users/pjb/.bash_profile file was backed up as /Users/pjb/.bash_profile.macports-saved_2013-08-25_at_03:55:34
+##
+
+# MacPorts Installer addition on 2013-08-25_at_03:55:34: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
