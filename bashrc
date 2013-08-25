@@ -1076,7 +1076,16 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
-case $(hostname) in
+
+
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname)
+fi
+
+case "$host" in
+macosx.mercure)    . ~/rc/bashrc-macosx-mercure ;;
 mercure)           . ~/rc/bashrc-ubudu ;;
 dxo-pbo.local)     . ~/rc/bashrc-dxo ;;
 mdi-development-*) .  /usr/local/env.sh  ;;
