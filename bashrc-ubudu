@@ -1,14 +1,25 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 
+if [ -s "$DISPLAY" ] ; then
+    setxkbmap -model pc104 -layout us -option compose:multi
+    xmodmap -pke|grep -q -s -e 'keycode *38 *= *a *A *Greek_alpha *Greek_ALPHA' || xmodmap ~/.xmodmap
+fi
+
 export PATH="$HOME/opt/bin:$PATH"
 export PATH="$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH"
 export PATH="$HOME/opt/jdk/bin:$PATH"
-export JAVA_HOME="${HOME}/opt/jdk"
+# export JAVA_HOME="${HOME}/opt/jdk"
 # sudo $(which adb) root
 
 export PATH="$HOME/binubudu:$PATH"
 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu
 alias eclipse='eclipse > /tmp/eclipse.log 2>&1'
-alias ls='gls -FaCB'
+type -p gls && alias ls='gls -FaCB' || alias ls='ls -FaCB'
 
-xmodmap ~/.xmodmap
+
+[ -r "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+
+# export PATH="${PATH}:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/bin:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/usr/bin:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/mipsel-linux-uclibc/bin"
+

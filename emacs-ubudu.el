@@ -145,8 +145,8 @@
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
- '(display-time-day-and-date t t)
- '(display-time-mode t t)
+ '(display-time-day-and-date t)
+ '(display-time-mode t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -160,7 +160,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "##java" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -349,7 +349,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -429,7 +429,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-coding-system (quote utf-8))
  '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
- '(w3m-fb-mode nil)
+ '(w3m-fb-mode nil t)
  '(w3m-file-coding-system (quote utf-8))
  '(w3m-file-name-coding-system (quote iso-8859-1))
  '(w3m-form-textarea-directory "~/.w3m/textarea")
@@ -449,11 +449,12 @@ X-Accept-Language:         fr, es, en
 
 
 ;;;----------------------------------------------------------------------------
+(display-time-mode 1)
 
 (load "~/rc/emacs-package.el")
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
-(setf visible-bell nil
+(setf visible-bell t
       ring-bell-function nil)
 
 (setf auto-mode-alist
