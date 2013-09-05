@@ -424,22 +424,6 @@ function be_generate(){
     be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
     be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
 
-    # GNUstep environment
-    
-    if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-        for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
-            if [ -d $gsr/System/Makefiles ] ; then
-               gsr=$gsr/System
-               break
-            fi
-            [ -d $gsr/Makefiles ] && break
-        done
-        [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
-    fi
-    if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
-    fi
-
     be_terminate
 }
 ########################################################################
@@ -452,9 +436,25 @@ else
 fi
 source $BASH_ENV
 
-# GNUstep:
+
+
+# GNUstep environment:
 if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
     . /usr/share/GNUstep/Makefiles/GNUstep.sh
+fi
+if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+    for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+            #echo "$gsr/System/Makefiles"
+        if [ -d $gsr/System/Makefiles ] ; then
+            gsr=$gsr/System
+            break
+        fi
+        [ -d $gsr/Makefiles ] && break
+    done
+    [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+fi
+if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
 fi
 
 
@@ -1079,16 +1079,23 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-case $(hostname) in
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname)
+fi
+
+case "$host" in
+macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
 mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
+mercure)            source ~/rc/bashrc-ubudu ;;
 dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
 mdi-development-*)  source  /usr/local/env.sh  ;;
 *)                  source ~/rc/bashrc-pjb ;;
 esac
 
-# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
 
 
