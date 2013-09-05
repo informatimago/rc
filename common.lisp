@@ -196,8 +196,12 @@ License:
                                       :type "conf"
                                       :case :local
                                       :defaults (user-homedir-pathname))
-                       (user-homedir-pathname) nil)))
-  (unless (ignore-errors (probe-file asdf-conf-path))
+                       (user-homedir-pathname) nil))
+      (common-path *load-truename*))
+  (when (or (not (ignore-errors (probe-file asdf-conf-path)))
+            (null (file-write-date asdf-conf-path))
+            (null (file-write-date common-path))
+            (< (file-write-date asdf-conf-path) (file-write-date common-path)))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
                               :direction :output
@@ -378,11 +382,14 @@ selected by KEY, and the given SUBPATH.
                            nil)
                           :if-does-not-exist nil)
       (if dirs
-       (loop
-         :for k = (read dirs nil dirs)
-         :until (eq k dirs)
-         :do (push (string-trim " " (read-line dirs)) *directories*)
-         :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+          (handler-case
+           (loop
+             :for k = (read dirs nil dirs)
+             :until (eq k dirs)
+             :do (push (string-trim " " (read-line dirs)) *directories*)
+             :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+            (error (err)
+              (warn "Error while reading directories.txt file: ~A" err)))
        (progn
          (warn "No directories.txt file.")
          (setf *directories* *default-directories*)))))

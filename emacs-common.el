@@ -1391,7 +1391,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   );; when emacs-major-version < 23
 
 
-
 (defparameter *pjb-font-list*
   '(
     "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
@@ -1406,6 +1405,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-25-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-29-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-33-*-*-*-m-0-*-*"
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
@@ -1418,6 +1418,11 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-19-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-20-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-24-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-28-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-32-*-*-*-m-*-*-*"
 
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
