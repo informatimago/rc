@@ -1,5 +1,7 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 
+ulimit -n 4000
+
 if [ -s "$DISPLAY" ] ; then
     setxkbmap -model pc104 -layout us -option compose:multi
     xmodmap -pke|grep -q -s -e 'keycode *38 *= *a *A *Greek_alpha *Greek_ALPHA' || xmodmap ~/.xmodmap
