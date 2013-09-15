@@ -1522,6 +1522,10 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (defvar *default-font* "fixed")
 (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 
+;; (let ((*pjb-font-list* (split-string (shell-command-to-string "xlsfonts -fn  -*-*-medium-r-normal-*-19-137-*-*-m-*-iso10646-*") "\n" t)))
+;;   (forward-font))
+
+
 ;; *** Which font backends to use can be specified by the X resource
 ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
 ;; 
@@ -6118,7 +6122,8 @@ user matches any regexp in `erc-ignore-reply-list'."
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
     (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
     (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
-    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html") 
+    (commits . "http://tinyurl.com/last-commit-six-month-ago http://tinyurl.com/monthly-commits http://tinyurl.com/last-commit-yesterday http://tinyurl.com/last-commit-before-VCS-existed")
+    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/") 
     (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
@@ -7774,10 +7779,40 @@ or as \"emacs at <hostname>\"."
 (defun get-random-color ()
   (first (elt color-name-rgb-alist (random (length color-name-rgb-alist)))))
 
+
+(defun v+ (a b) (mapcar* (function +) a b))
+(defun v- (a b) (mapcar* (function -) a b))
+(defun v. (a b) (reduce (function +) (mapcar* (function *) a b)))
+(defun *v (n a) (mapcar (lambda (x) (* n x)) a))
+
+(defun get-pair-of-random-colors ()
+  (let* ((fn   (get-random-color))
+         (bn   (get-random-color))
+         (f    (color-name-to-rgb fn))
+         (b    (color-name-to-rgb bn)))
+    (if (equal f b)
+        (get-pair-of-random-colors)
+        (mapcar (lambda (rgb)
+                  (apply (function color-rgb-to-hex)
+                         (mapcar (lambda (x) (min (max 0.0 x) 1.0)) rgb)))
+                (let* ((fh (apply (function color-rgb-to-hsl) f))
+                       (bh (apply (function color-rgb-to-hsl) b)))
+                  (flet ((spread (l d)
+                           (list (color-lighten-hsl (first l) (second l) (third l) 80)
+                                 (color-darken-hsl  (first d) (second d) (third d) 50))))
+                    (if (< (third fh) (third bh))
+                        (reverse (spread bh fh))
+                        (spread fh bh))))))))
+
+
 (defun set-random-colors ()
   (interactive)
-  (set-background-color (get-random-color))
-  (set-foreground-color (get-random-color)))
+  (let ((pair (get-pair-of-random-colors)))
+    (message "newcolors = %S" pair)
+    (mapcar* (function funcall)
+             (list (function set-background-color)
+                   (function set-foreground-color))
+             pair)))
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
 
