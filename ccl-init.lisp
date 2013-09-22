@@ -214,14 +214,14 @@ RETURN:     The first word of the string, or the empty string.
 ;; Temporarily, while developping from kuiper for galatea:
 (when (string= (com.informatimago.pjb:hostname) "galatea.local")
   (ql:quickload :swank))
-(when (string= (com.informatimago.pjb:hostname) "galatea.local")
-  (let ((swank::*loopback-interface* "192.168.7.4")
-        (port (+ 4005 (random 123))))
-    (swank:create-server :port port)))
+#+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
+(let ((swank::*loopback-interface* "192.168.7.4")
+      (port (+ 4005 (random 123))))
+  (swank:create-server :port port))
 
 (setf *print-right-margin* 110)
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
 ;;----------------------------------------------------------------------
-;;;; openmcl-init.lisp                --                     --          ;;;;
+;;;; THE END ;;;;
