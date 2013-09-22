@@ -212,6 +212,7 @@ RETURN:     The first word of the string, or the empty string.
 (use-package "COM.INFORMATIMAGO.PJB")
 
 ;; Temporarily, while developping from kuiper for galatea:
+
 (when (string= (com.informatimago.pjb:hostname) "galatea.local")
   (ql:quickload :swank))
 #+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
