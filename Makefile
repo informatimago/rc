@@ -28,6 +28,7 @@ FILES= \
 	.irbrc \
 	.ircrc \
 	.kermrc \
+	.lispworks \
 	.plan \
 	.profile \
 	.sbclrc \
@@ -70,6 +71,7 @@ symlinks: save
 	ln -sf $(SRCDIR)/irbrc                            $$HOME/.irbrc
 	ln -sf $(SRCDIR)/ircrc                            $$HOME/.ircrc
 	ln -sf $(SRCDIR)/kermrc                           $$HOME/.kermrc
+	ln -sf $(SRCDIR)/lispworks.lisp                   $$HOME/.lispworks
 	ln -sf $(SRCDIR)/plan                             $$HOME/.plan
 	ln -sf $(SRCDIR)/profile                          $$HOME/.profile
 	ln -sf $(SRCDIR)/sbclrc.lisp                      $$HOME/.sbclrc
