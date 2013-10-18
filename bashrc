@@ -22,6 +22,9 @@ case "$DISPLAY" in
 esac
 export DISPLAY=:0.0
 
+XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+/:/g')"
+
+
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
     export PS1='[\u@\h $DISPLAY \W]# '
@@ -1076,13 +1079,23 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
-case $(hostname) in
-mercure)           . ~/rc/bashrc-ubudu ;;
-dxo-pbo.local)     . ~/rc/bashrc-dxo ;;
-mdi-development-*) .  /usr/local/env.sh  ;;
-*)                 . ~/rc/bashrc-pjb ;;
+
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname)
+fi
+
+case "$host" in
+macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
+mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
+mercure)            source ~/rc/bashrc-ubudu ;;
+dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
+mdi-development-*)  source  /usr/local/env.sh  ;;
+*)                  source ~/rc/bashrc-pjb ;;
 esac
 
-# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+
 

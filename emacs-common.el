@@ -159,6 +159,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
   (when (boundp 'aquamacs-version)
     (.EMACS "aquamacs-version     = %S" aquamacs-version)))
 
+
 ;; system-type          darwin   gnu/linux  cygwin windows-nt
 ;; system-name          "naiad.informatimago.com" "hermes.afaa.asso.fr"
 ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin" "i386-apple-darwin9.8.0"
@@ -383,6 +384,8 @@ Returns a string described by x; specifically:
 
 ;;; Some other utility.
 
+(defun ensure-list (x) (if (listp x) x (list x)))
+
 (defmacro* string-case (string-expression &body clauses)
   "Like case, but for strings, compared with string-equal*"
   (let ((value (gensym)))
@@ -437,7 +440,7 @@ and converted as such."
 (defun first-existing-file (list-of-files)
   "Finds the first file in LIST-OF-FILES that exists.
 "
-  (find-if (function file-exists-p) list-of-files))
+  (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
 
 (defun map-existing-files (function list-of-files)
   "Calls FUNCTION on each file in LIST-OF-FILES that exists, and returns the list of results.
@@ -967,10 +970,12 @@ SIDE must be the symbol `left' or `right'."
 ;; C-z is used now by elscreen.
 
 
-(setf visible-bell t
-      ring-bell-function 
-      (lambda ()
-        (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil)))
+
+(setf visible-bell t)
+(when (eq window-system 'x)
+  (setf ring-bell-function 
+        (lambda ()
+          (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil))))
 
 (defun disabled ()
   (interactive)
@@ -1391,7 +1396,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   );; when emacs-major-version < 23
 
 
-
 (defparameter *pjb-font-list*
   '(
     "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
@@ -1406,6 +1410,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-25-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-29-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-33-*-*-*-m-0-*-*"
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
@@ -1418,6 +1423,11 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-19-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-20-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-24-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-28-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-32-*-*-*-m-*-*-*"
 
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
     "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
@@ -1605,10 +1615,11 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                   (error "%S is not a palette name." palette)))
       (palette
        (setf *current-palette* (palette-name palette))
-       (set-default-frame-parameter 'foreground-color (palette-foreground palette))
-       (set-default-frame-parameter 'background-color (palette-background palette))
-       (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
-       (set-default-frame-parameter 'mouse-color      (palette-mouse palette))
+       (when (fboundp 'set-default-frame-parameter)
+	 (set-default-frame-parameter 'foreground-color (palette-foreground palette))
+	 (set-default-frame-parameter 'background-color (palette-background palette))
+	 (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
+	 (set-default-frame-parameter 'mouse-color      (palette-mouse palette)))
        (set-face-background 'region (palette-region palette))
        (when (getenv "EMACS_WM")
          (set-face-background 'border (palette-background palette)))
@@ -2824,7 +2835,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
             (push item result))
      finally (return (nreverse result))))
 
-(defun ensure-list (x) (if (listp x) x (list x)))
+
 (defun comint-output-filter (process string)
   (let ((oprocbuf (process-buffer process)))
     ;; First check for killed buffer or no input.
@@ -5758,6 +5769,8 @@ See the documentation for vm-mode for more information."
 ;;;----------------------------------------------------------------------------
 ;;; GNUS
 
+(require 'gnus)
+
 ;; (defadvice gnus-summary-mark-as-expirable
 ;;     (after gnus-summary-mark-as-expirable+next-line activate)
 ;;   (next-line))
@@ -5771,12 +5784,12 @@ See the documentation for vm-mode for more information."
 
 
 
+(when (boundp 'gnus-summary-mode-map)
+ (define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
+ (define-key gnus-article-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
 
-(define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
-(define-key gnus-article-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
-
-(define-key gnus-summary-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk)
-(define-key gnus-article-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk)
+ (define-key gnus-summary-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk)
+ (define-key gnus-article-mode-map (kbd "v j")   'pjb-gnus-summary-move-article-to-junk))
 
 ;; (define-key gnus-group-mode-map   (kbd "v j d")
 ;;   (lambda ()
