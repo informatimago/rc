@@ -27,6 +27,8 @@
                                      '(("mercure"                . "~/rc/emacs-ubudu.el")
                                        ("mercure.lan.ubudu.com"  . "~/rc/emacs-ubudu.el")
                                        ("uiserver.local"         . "~/rc/emacs-ubudu.el")
+                                       ("ubudu-vm-mac-1"         . "~/rc/emacs-ubudu.el")
+                                       ("ubudu-vm-mac-2"         . "~/rc/emacs-ubudu.el")
                                        ("imac-core-i5.local"     . "~/rc/emacs-dxo.el")
                                        ("dxo-pbo.local"          . "~/rc/emacs-dxo.el")
                                        ("pbo-dxo.local"          . "~/rc/emacs-dxo.el")))
