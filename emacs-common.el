@@ -1540,6 +1540,10 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (defvar *default-font* "fixed")
 (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 
+;; (let ((*pjb-font-list* (split-string (shell-command-to-string "xlsfonts -fn  -*-*-medium-r-normal-*-19-137-*-*-m-*-iso10646-*") "\n" t)))
+;;   (forward-font))
+
+
 ;; *** Which font backends to use can be specified by the X resource
 ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
 ;; 
@@ -6091,28 +6095,29 @@ user matches any regexp in `erc-ignore-reply-list'."
 ;;;----------------------------------------------------------------------------
 
 (defparameter *pjb-erc-answers*
-  '((lisp-1         . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
+  '((lisp-1-vs-lisp-2-technical-issues   . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
     (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
-    (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+    (what-implementation   . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
     (clhs           . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
     (intersection   . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
-    (getting-started  . "Start with http://www.cliki.net/Getting%20Started")
+    (newbie . "http://cliki.net/Getting%20Started or http://articulate-lisp.com/ ")
+    (getting-started  . "Start with http://www.cliki.net/Getting%20Started  or  http://articulate-lisp.com/" )
     (emacs-lisp-intro . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp       . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
     (emacs-manual     . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
-    (taoup     . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
-    (htbah     . "http://www.catb.org/~esr/faqs/hacker-howto.html")
-    (tcote     . "The Craft of Text Editing   http://www.finseth.com/craft/")
-    (eopl      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
-    (pcl       . "Practical Common Lisp http://www.gigamonkeys.com/book/")
-    (gentle    . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
-    (clpfai    . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
-    (claia     . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
-    (paip      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
-    (aima      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
+    (the-art-of-unix-programming     . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
+    (hacker-howto     . "http://www.catb.org/~esr/faqs/hacker-howto.html")
+    (the-craft-of-text-editing     . "The Craft of Text Editing   http://www.finseth.com/craft/")
+    (essentials-of-programming-languages      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
+    (practical-common-lisp       . "Practical Common Lisp http://www.gigamonkeys.com/book/")
+    (common-lisp-a-gentle-introduction-to-symbolic-computation    . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
+    (common-lisp-programming-for-artificial-intelligence    . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
+    (common-lisp-an-interactive-approach     . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
+    (paradigms-of-artificial-intellgience      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
+    (artifical-intelligence-a-modern-approach      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
     (sicp      . "Structure and Interpretation of Computer Programs  http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html  http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/")
     (sicp-mit  . "http://web.mit.edu/alexmv/6.S184/")
     (6.S184    . "http://web.mit.edu/alexmv/6.S184/")
@@ -6121,26 +6126,25 @@ user matches any regexp in `erc-ignore-reply-list'."
     ;; http://www.neilvandyke.org/sicp-plt/
     ;; http://www.youtube.com/watch?v=rdj6deraQ6k
     (r5rs      . "http://www.schemers.org/Documents/Standards/R5RS/HTML/")
-    (htdp      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
-    (ca        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
-    (lisp      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
-    (onlisp    . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
-    (cptt      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
-    (taocp     . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
-    (geb       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
-    (blt       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
-    (casting   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
-    (spell     . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
-
+    (how-to-design-programs      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
+    (concrete-abstraction        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
+    (lisp-in-small-pieces      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
+    (on-lisp    . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
+    (compiler-principle-techniques-and-tools      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
+    (the-art-of-computer-programming     . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
+    (goedel-escher-bach       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
+    (basic-lisp-technique       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
+    (casting-speels-in-lisp   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
+    (floating-point . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/") 
+    ;; --
     (gitorious-lisp  . "https://gitorious.org/com-informatimago/com-informatimago/trees/master")
     (gitorious-emacs . "https://gitorious.org/com-informatimago/emacs/trees/master")
     (rc        . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
     (bin       . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/bin")
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
-    (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
-    (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
-    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html") 
+    (maintained-illustration . "http://tinyurl.com/last-commit-six-month-ago http://tinyurl.com/monthly-commits http://tinyurl.com/last-commit-yesterday http://tinyurl.com/last-commit-before-VCS-existed")
     (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
+    ;; --
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
 License:
@@ -7795,10 +7799,40 @@ or as \"emacs at <hostname>\"."
 (defun get-random-color ()
   (first (elt color-name-rgb-alist (random (length color-name-rgb-alist)))))
 
+
+(defun v+ (a b) (mapcar* (function +) a b))
+(defun v- (a b) (mapcar* (function -) a b))
+(defun v. (a b) (reduce (function +) (mapcar* (function *) a b)))
+(defun *v (n a) (mapcar (lambda (x) (* n x)) a))
+
+(defun get-pair-of-random-colors ()
+  (let* ((fn   (get-random-color))
+         (bn   (get-random-color))
+         (f    (color-name-to-rgb fn))
+         (b    (color-name-to-rgb bn)))
+    (if (equal f b)
+        (get-pair-of-random-colors)
+        (mapcar (lambda (rgb)
+                  (apply (function color-rgb-to-hex)
+                         (mapcar (lambda (x) (min (max 0.0 x) 1.0)) rgb)))
+                (let* ((fh (apply (function color-rgb-to-hsl) f))
+                       (bh (apply (function color-rgb-to-hsl) b)))
+                  (flet ((spread (l d)
+                           (list (color-lighten-hsl (first l) (second l) (third l) 80)
+                                 (color-darken-hsl  (first d) (second d) (third d) 50))))
+                    (if (< (third fh) (third bh))
+                        (reverse (spread bh fh))
+                        (spread fh bh))))))))
+
+
 (defun set-random-colors ()
   (interactive)
-  (set-background-color (get-random-color))
-  (set-foreground-color (get-random-color)))
+  (let ((pair (get-pair-of-random-colors)))
+    (message "newcolors = %S" pair)
+    (mapcar* (function funcall)
+             (list (function set-background-color)
+                   (function set-foreground-color))
+             pair)))
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
 
