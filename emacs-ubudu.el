@@ -459,7 +459,7 @@ X-Accept-Language:         fr, es, en
 
 (setf auto-mode-alist
       (sort* (list* '("\\.md$" . text-mode)
-                    '("/src/\\(audio\\|uscdtest\\)/.*\\.h$" . objc-mode)
+                    '("/src/\\(IOS-SDK\\|audio\\|uscdtest\\)/.*\\.[hm]$" . objc-mode)
                     (remove* 'modula-2-mode auto-mode-alist
                              :key (function cdr)))
              (function string<)

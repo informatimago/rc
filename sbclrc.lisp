@@ -249,6 +249,9 @@
 
 (defun quit () (sb-ext:quit))
 
+(push 'SB-POSIX:CHDIR com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
+(cd (SB-POSIX:GETCWD))     
+
 ;;----------------------------------------------------------------------
 
 (in-package "COMMON-LISP-USER")
@@ -288,5 +291,5 @@
 ;;--------------------
 
 (format t "~~/.sbclrc loaded~%")
-;;;; .sbclrc                          --                     --          ;;;;
+;;;; THE END ;;;;
 
