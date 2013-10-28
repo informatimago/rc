@@ -27,6 +27,8 @@
                                      '(("mercure"                . "~/rc/emacs-employer-c.el")
                                        ("mercure.lan.employer-c.com"  . "~/rc/emacs-employer-c.el")
                                        ("uiserver.local"         . "~/rc/emacs-employer-c.el")
+                                       ("employer-c-vm-mac-1"         . "~/rc/emacs-employer-c.el")
+                                       ("employer-c-vm-mac-2"         . "~/rc/emacs-employer-c.el")
                                        ("imac-core-i5.local"     . "~/rc/emacs-employer-d.el")
                                        ("employer-d-pbo.local"          . "~/rc/emacs-employer-d.el")
                                        ("pbo-employer-d.local"          . "~/rc/emacs-employer-d.el")))

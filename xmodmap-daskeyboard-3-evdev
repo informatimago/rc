@@ -25,8 +25,7 @@
 ! TAB     qQωΩ wW€¢ eEεΕ rRρΡ tTτΤ yYψΨ uUυΥ iIιΙ oOοΟ pPπΠ [{«∀ ]}»∃     \|∖∫
 ! Control   aAαΑ sSσΣ dDδΔ fFφΦ gGγΓ hHθΘ jJηΗ kKκΚ lLλΛ ;:⊆⎕ '"⊇○     Return
 ! Shift       zZζΖ xXξΞ cCχΧ vV∇√ bBβΒ nNνΝ mMμΜ ,<≤∧ .>≥∨ /?≠¬         Shift
-! Multi_key Alt  Meta   ---- Space DigitSpace ------ Meta AltGr Hyper Control
-! 
+! Multi_key Alt  Meta   ---- Space DigitSpace ----- Meta ModeSw Hyper Control
 ! 
 ! 
 ! Pause  ∂     CapsLock    Print
