@@ -517,7 +517,7 @@ alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
+alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif'
 
 alias dw='darcs whatsnew -sl'
 alias dr='darcs record -am'
@@ -1001,7 +1001,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #    WHEN exiting
 #     AND login
 #      DO ~/.bash_logout
-      
+
 
 
 #       When  bash is invoked as an interactive login shell, or as
