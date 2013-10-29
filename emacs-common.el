@@ -25,6 +25,9 @@
 ;;  (error "~/.emacs: Cannot load ~/.emacs under root account."))
 
 
+;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
+;; tramp hops: /ssh:you@remotehost:/path
+
 
 ;;;----------------------------------------------------------------------------
 ;;; Message Log
@@ -1423,10 +1426,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-18-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-19-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-20-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-24-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-28-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-21-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-23-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-25-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-27-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-29-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-32-*-*-*-m-*-*-*"
 
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -5202,6 +5208,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
+  (auto-complete-mode -1)
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 (when (require 'vm nil t)
@@ -6844,10 +6851,11 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
                                  (every (lambda (word)
                                           (and (alpha-char-p (aref word 0))
                                                (every (function alphanumericp) word)))
+                                        
                                         words))
                         (format "http://developer.android.com/reference/%s.html"
                                 (mapconcat (function identity) words "/")))))
-                  (format "http://developer.android.com/index.html#q=%s"
+                  (format "http://developer.android.com/reference/index.html?q=%s"
                           (browse-url-url-encode-chars
                            (string-trim *whitespaces* search-string)
                            "[^A-Za-z0-9]")))))
@@ -6949,6 +6957,7 @@ itesearch=&safe=images"
 (global-set-key (kbd "C-h 5") 'includes-search-region)
 (global-set-key (kbd "C-h 6") 'hyperspec-search-region)
 (global-set-key (kbd "C-h 7") 'here-search-region)
+(global-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point)
 
 (defun set-osx-search-region-function ()
   (interactive)
@@ -6958,7 +6967,8 @@ itesearch=&safe=images"
   (local-set-key (kbd "C-h 1") 'ios-search-region))
 (defun set-android-search-region-function ()
   (interactive)
-  (local-set-key (kbd "C-h 1") 'osx-search-region))
+  (local-set-key (kbd "C-h 1") 'android-search-region)
+  (local-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point))
 
 
 (add-hook 'objc-mode-hook 'set-osx-search-region-function)
@@ -7793,6 +7803,8 @@ or as \"emacs at <hostname>\"."
   (set-foreground-color (get-random-color)))
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
+
+
 
 (loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
                        (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
