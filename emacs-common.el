@@ -5,20 +5,20 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
-;; Emacs Makes All Computing Simple.
-;; Eine Is Not Emacs.
-;; Zwei Was Eine Initially.
-;; Drei Ressembled Emacs Intelligently.
-;; Vier Integrates Emacs Regexps.
-;; Fünf
-;; Sechs 
-;; Sieben Is Even Better Emacs Now
-;; Acht
-;; Neun
-;; Zehn
-;; Hemlock 
+;; Emacs   Makes All Computing Simple.
+;; Eine    Is Not Emacs.
+;; Zwei    Was Eine Initially.
+;; Drei    Ressembled Emacs Intelligently.
+;; Vier    Integrates Emacs Regexps.
+;; Fünf    Überly New Framework
+;; Sechs   Sechs Emacs Can Handle Strings
+;; Sieben  Is Even Better Emacs Now
+;; Acht    Can Handle Text
+;; Neun    Emacs Usually 
+;; Zehn    Emacs Handles News
+;; Hemlock Emacs Made Laughically Overly Capably Kidding
 ;; Climacs Common Lisp Interface Manager Application Creating Sources 
-;; Mince Is Not Complete Emacs
+;; Mince   Is Not Complete Emacs
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
