@@ -927,7 +927,8 @@ function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient 
 
 function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
 function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
-function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+# function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+function xvv             (){ xv -maxpect -smooth "$@" ;}
 
 function svn-changes     (){ svn status | grep -e '^[?AMD]' ; }
 function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
