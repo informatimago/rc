@@ -3,7 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-
+(.EMACS "~/rc/emacs-ubudu.el %s" "At UBUDU Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
 ;;;----------------------------------------------------------------------------

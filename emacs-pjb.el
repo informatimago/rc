@@ -3,7 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-
+(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
 ;;;----------------------------------------------------------------------------
@@ -470,6 +470,18 @@ X-Accept-Language:         fr, es, en
 
 (setf visible-bell nil
       ring-bell-function nil)
+
+(defun pjb-w3m-mode-meat ()
+  (interactive)
+  (local-set-key (kbd "<up>") 'previous-line)
+  (local-set-key (kbd "<down>") 'next-line)
+  (local-set-key (kbd "<left>") 'backward-char)
+  (local-set-key (kbd "<right>") 'forward-char)
+  (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
+  (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
+
+(pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
+;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
