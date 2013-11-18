@@ -82,6 +82,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
 
+(.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
+
 
 ;;;----------------------------------------------------------------------------
 ;;; Life saver
@@ -7946,5 +7948,25 @@ or as \"emacs at <hostname>\"."
     (insert (format "\n| %s\n" (mapconcat (function identity) (split-string (shell-command-to-string (buffer-substring start end))) "\n| ")))
     (set-mark (point))
     (goto-char end)))
+
+
+(defun len ()
+  "Displays the length of the object at point.
+For a string or a symbol, the length of the designated string; for a
+list or vector, the length of the sequence."
+  (interactive)
+  (let ((thing (thing-at-point 'sexp)))
+    (when thing
+      (let* ((object (car (read-from-string thing)))
+             (length (typecase object
+                       (string (length object))
+                       (symbol (length (symbol-name object)))
+                       (list   (length object))
+                       (vector (length object))
+                       (t      -1))))
+        (unless (minusp length)
+          (message "length: %d" length))))))
+
+
 
 ;;;; THE END ;;;;
