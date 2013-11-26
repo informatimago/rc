@@ -1096,6 +1096,8 @@ mdi-development-*)  source  /usr/local/env.sh  ;;
 *)                  source ~/rc/bashrc-pjb ;;
 esac
 
+export "PATH=$HOME/opt/jdk/bin:$PATH"
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
 

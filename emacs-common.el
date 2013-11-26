@@ -10,15 +10,17 @@
 ;; Zwei    Was Eine Initially.
 ;; Drei    Ressembled Emacs Intelligently.
 ;; Vier    Integrates Emacs Regexps.
-;; Fünf    Überly New Framework
-;; Sechs   Sechs Emacs Can Handle Strings
+;; Vier    Is Emacs Rewritten.
+;; Vier    Improves Eine's Revisions.
+;; Fünf    Überly New Framework.
+;; Sechs   Sechs Emacs Can Handle Strings.
 ;; Sieben  Is Even Better Emacs Now
-;; Acht    Can Handle Text
-;; Neun    Emacs Usually 
-;; Zehn    Emacs Handles News
-;; Hemlock Emacs Made Laughically Overly Capably Kidding
-;; Climacs Common Lisp Interface Manager Application Creating Sources 
-;; Mince   Is Not Complete Emacs
+;; Acht    Can Handle Text.
+;; Neun    Emacs Usually .
+;; Zehn    Emacs Handles News.
+;; Hemlock Emacs Made Laughically Overly Capably Kidding.
+;; Climacs Common Lisp Interface Manager Application Creating Sources.
+;; Mince   Is Not Complete Emacs.
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
@@ -688,7 +690,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (interactive)
   (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (load-library "slime")
-  (slime-setup '(slime-fancy)))
+  (slime-setup '(slime-fancy slime-media)))
 (reload-swank)
 (require 'highlight-flet nil t)
 
@@ -1423,6 +1425,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
+    
     "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
@@ -1467,7 +1470,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
     
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+
     "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-Luxi Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-23-*-*-*-m-0-iso10646-1"
+
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
     "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1490,7 +1499,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
 
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
     "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1508,6 +1516,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (cond ((< number 0) -1)
         ((> number 0) +1)
         (t             0)))
+
+;; (set-face-attribute 'default nil :height 150)
+;; (set-face-attribute 'default nil :height 200)
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
@@ -1692,6 +1703,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
+  (defpalette pal-whiteish      "gray20"       "gray90"       "gray30" "gray70"       "#444444")
   (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff" "#555555"       "#444444")
   (defpalette pal-dkgray        "#ffffff"      "#555555"       "#000000" "#aaaaaa"       "#444444")
   (defpalette pal-black         "#ffffff"      "#000000"       "#aaaaaa" "#555555"       "#444444")
