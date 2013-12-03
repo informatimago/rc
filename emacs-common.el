@@ -110,6 +110,12 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
   (setf mac-command-key-is-meta nil  ; which emacs?
         mac-reverse-ctrl-meta   nil))
 
+(defun mac-adjust-full-screen ()
+  (interactive)
+  (tool-bar-mode +1)
+  (tool-bar-mode -1)
+  (ff -1))
+
 ;; (defun mac-vanilla-keys (&optional prefix)
 ;;   (interactive "P")
 ;;   (if prefix
@@ -1518,7 +1524,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                    (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
-                                            (length *pjb-font-list*)))))
+                                            (length *pjb-font-list*))))
+  (when (eq window-system 'ns)
+    (mac-adjust-full-screen)))
 
 
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
