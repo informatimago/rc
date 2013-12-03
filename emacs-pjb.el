@@ -3,7 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-
+(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
 ;;;----------------------------------------------------------------------------
@@ -26,9 +26,10 @@
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan"))))
- '(erc-notice-face ((t (:foreground "gray70"))))
- '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
+ '(erc-input-face ((t (:foreground "cyan2"))))
+ '(erc-notice-face ((t (:foreground "gray50"))))
+ '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
@@ -37,7 +38,6 @@
  '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
- '(fringe ((t (:background "#081055"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -53,7 +53,7 @@
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
- '(match ((t (:background "#441111"))))
+ '(match ((t (:background "#cacafe"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -159,7 +159,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lisp" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -251,6 +251,7 @@
  '(kept-new-versions 9)
  '(kept-old-versions 0)
  '(kill-whole-line t)
+ '(line-number-mode t)
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
@@ -277,7 +278,6 @@ Bcc: pjb@informatimago.com
  '(matlab-comment-on-line-s "// " t)
  '(matlab-comment-region-s "// " t)
  '(max-specpdl-size 2048)
- '(menu-bar-mode nil)
  '(message-default-charset (quote iso-8859-15))
  '(message-default-headers "Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAAD///+l2Z/dAAAA
       oElEQVR4nK3OsRHCMAwF0O8YQufUNIQRGIAja9CxSA55AxZgFO4coMgYrEDDQZWPIlNAjwq9
@@ -347,7 +347,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . CLIM-INTERNALS) (Package . CLIM-CLX) (Lowercase . Yes) (Package . XLIB) (Syntax . Common-lisp) (Log . clx\.log) (Package . Xlib) (Package . DREI-LISP-SYNTAX) (Package . GUI) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -364,6 +364,7 @@ X-Accept-Language:         fr, es, en
  '(smtpmail-smtp-server "voyager.informatimago.com")
  '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
+ '(speedbar-show-unknown-files t)
  '(stack-trace-on-error nil)
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
@@ -371,7 +372,6 @@ X-Accept-Language:         fr, es, en
  '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
- '(tool-bar-mode nil)
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
  '(truncate-partial-width-windows nil)
  '(url-be-asynchronous t)
@@ -471,6 +471,18 @@ X-Accept-Language:         fr, es, en
 
 (setf visible-bell nil
       ring-bell-function nil)
+
+(defun pjb-w3m-mode-meat ()
+  (interactive)
+  (local-set-key (kbd "<up>") 'previous-line)
+  (local-set-key (kbd "<down>") 'next-line)
+  (local-set-key (kbd "<left>") 'backward-char)
+  (local-set-key (kbd "<right>") 'forward-char)
+  (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
+  (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
+
+(pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
+;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;

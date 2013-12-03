@@ -517,7 +517,7 @@ alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
+alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif'
 
 alias dw='darcs whatsnew -sl'
 alias dr='darcs record -am'
@@ -927,7 +927,8 @@ function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient 
 
 function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
 function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
-function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+# function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+function xvv             (){ xv -maxpect -smooth "$@" ;}
 
 function svn-changes     (){ svn status | grep -e '^[?AMD]' ; }
 function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
@@ -1001,7 +1002,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #    WHEN exiting
 #     AND login
 #      DO ~/.bash_logout
-      
+
 
 
 #       When  bash is invoked as an interactive login shell, or as
@@ -1094,6 +1095,8 @@ dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
 mdi-development-*)  source  /usr/local/env.sh  ;;
 *)                  source ~/rc/bashrc-pjb ;;
 esac
+
+export "PATH=$HOME/opt/jdk/bin:$PATH"
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####

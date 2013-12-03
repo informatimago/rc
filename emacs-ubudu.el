@@ -3,7 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-
+(.EMACS "~/rc/emacs-ubudu.el %s" "At UBUDU Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
 ;;;----------------------------------------------------------------------------
@@ -29,6 +29,7 @@
  '(erc-input-face ((t (:foreground "cyan"))))
  '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "gold" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
@@ -130,6 +131,7 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
  '(calendar-view-holidays-initially-flag t)
+ '(canlock-password "5e246e4d5cef0837ff91dbfe0ac2933cda8ee140")
  '(case-fold-search t)
  '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
  '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
@@ -146,6 +148,7 @@
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
+ '(display-time-format "%Y%m%dT%H%M%S")
  '(display-time-mode t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
@@ -160,7 +163,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "##java" "#android" "#emacs" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#android-dev" "##java" "#emacs" "#ccl" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -312,7 +315,7 @@ X-Accept-Language:         fr, es, en
  '(nntp-authinfo-file "~/.authinfo")
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
- '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "IN-REVIEW(r@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
@@ -362,11 +365,11 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
- '(smtpmail-auth-credentials (quote (("smtp.googlemail.com" 465 "pascal.bourguignon@ubudu.com" nil))))
+ '(smtpmail-auth-credentials (quote (("smtp.googlemail.com" 587 "pascal.bourguignon@ubudu.com" nil))))
  '(smtpmail-default-smtp-server "smtp.googlemail.com")
  '(smtpmail-local-domain "ubudu.com")
  '(smtpmail-smtp-server "smtp.googlemail.com")
- '(smtpmail-smtp-service 465)
+ '(smtpmail-smtp-service 587)
  '(smtpmail-starttls-credentials (quote (("smtp.googlemail.com" 465 nil nil))))
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
@@ -446,7 +449,10 @@ X-Accept-Language:         fr, es, en
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
+;; 587 is the Outgoing server (SMTP) port for IMAP. It uses a TLS encryption connection.
+;; 465 is the Outgoing server (SMTP) port for pop. It uses an SSL encryption connection. 
 
+(setq pgp-signer  "0xC5F8B7FC") ;; "pascal.bourguignon@ubudu.com"
 
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
@@ -459,6 +465,7 @@ X-Accept-Language:         fr, es, en
 
 (setf auto-mode-alist
       (sort* (list* '("\\.md$" . text-mode)
+                    '("/ubudu-sdk/documentation/ios/.*\\.h$". objc-mode)
                     '("/src/\\(IOS-SDK\\|audio\\|uscdtest\\)/.*\\.[hm]$" . objc-mode)
                     (remove* 'modula-2-mode auto-mode-alist
                              :key (function cdr)))
@@ -525,7 +532,7 @@ X-Accept-Language:         fr, es, en
 
 (require 'twittering-mode)
 (setf twittering-username "ogamita")
-
+(setf (getenv "XMODIFIERS") nil)
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
