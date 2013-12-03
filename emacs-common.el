@@ -5,25 +5,30 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
-;; Emacs Makes All Computing Simple.
-;; Eine Is Not Emacs.
-;; Zwei Was Eine Initially.
-;; Drei Ressembled Emacs Intelligently.
-;; Vier Integrates Emacs Regexps.
-;; Fünf
-;; Sechs 
-;; Sieben Is Even Better Emacs Now
-;; Acht
-;; Neun
-;; Zehn
-;; Hemlock 
-;; Climacs Common Lisp Interface Manager Application Creating Sources 
-;; Mince Is Not Complete Emacs
+;; Emacs   Makes All Computing Simple.
+;; Eine    Is Not Emacs.
+;; Zwei    Was Eine Initially.
+;; Drei    Ressembled Emacs Intelligently.
+;; Vier    Integrates Emacs Regexps.
+;; Vier    Is Emacs Rewritten.
+;; Vier    Improves Eine's Revisions.
+;; Fünf    Überly New Framework.
+;; Sechs   Sechs Emacs Can Handle Strings.
+;; Sieben  Is Even Better Emacs Now
+;; Acht    Can Handle Text.
+;; Neun    Emacs Usually .
+;; Zehn    Emacs Handles News.
+;; Hemlock Emacs Made Laughically Overly Capably Kidding.
+;; Climacs Common Lisp Interface Manager Application Creating Sources.
+;; Mince   Is Not Complete Emacs.
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
 ;;  (error "~/.emacs: Cannot load ~/.emacs under root account."))
 
+
+;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
+;; tramp hops: /ssh:you@remotehost:/path
 
 
 ;;;----------------------------------------------------------------------------
@@ -78,6 +83,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
         (insert text "\n")
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
+
+(.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
 
 
 ;;;----------------------------------------------------------------------------
@@ -685,7 +692,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (interactive)
   (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (load-library "slime")
-  (slime-setup '(slime-fancy)))
+  (slime-setup '(slime-fancy slime-media)))
 (reload-swank)
 (require 'highlight-flet nil t)
 
@@ -1420,6 +1427,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
     "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
 
+    
     "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
@@ -1429,10 +1437,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-18-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-19-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-20-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-24-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-28-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-21-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-23-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-25-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-27-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-29-*-*-*-m-*-*-*"
     "-b&h-lucidatypewriter-medium-r-normal-sans-32-*-*-*-m-*-*-*"
 
     "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1461,7 +1472,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
     
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+
     "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-Luxi Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1"
+    "-b&h-Luxi Mono-normal-normal-normal-*-23-*-*-*-m-0-iso10646-1"
+
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
     "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1484,7 +1501,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
 
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
     "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1502,6 +1518,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (cond ((< number 0) -1)
         ((> number 0) +1)
         (t             0)))
+
+;; (set-face-attribute 'default nil :height 150)
+;; (set-face-attribute 'default nil :height 200)
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
@@ -1539,6 +1558,10 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (defvar *default-font* "fixed")
 (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
+
+;; (let ((*pjb-font-list* (split-string (shell-command-to-string "xlsfonts -fn  -*-*-medium-r-normal-*-19-137-*-*-m-*-iso10646-*") "\n" t)))
+;;   (forward-font))
+
 
 ;; *** Which font backends to use can be specified by the X resource
 ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
@@ -1682,6 +1705,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
+  (defpalette pal-whiteish      "gray20"       "gray90"       "gray30" "gray70"       "#444444")
   (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff" "#555555"       "#444444")
   (defpalette pal-dkgray        "#ffffff"      "#555555"       "#000000" "#aaaaaa"       "#444444")
   (defpalette pal-black         "#ffffff"      "#000000"       "#aaaaaa" "#555555"       "#444444")
@@ -5210,6 +5234,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
+  (auto-complete-mode -1)
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 (when (require 'vm nil t)
@@ -6091,28 +6116,29 @@ user matches any regexp in `erc-ignore-reply-list'."
 ;;;----------------------------------------------------------------------------
 
 (defparameter *pjb-erc-answers*
-  '((lisp-1         . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
+  '((lisp-1-vs-lisp-2-technical-issues   . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
     (equal          . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
-    (choice         . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+    (what-implementation   . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
     (clhs           . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
     (intersection   . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
     (scheme-or-cl   . "CL vs. Scheme http://irreal.org/blog/?p=813")
     (cliki          . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
-    (getting-started  . "Start with http://www.cliki.net/Getting%20Started")
+    (newbie . "http://cliki.net/Getting%20Started or http://articulate-lisp.com/ ")
+    (getting-started  . "Start with http://www.cliki.net/Getting%20Started  or  http://articulate-lisp.com/" )
     (emacs-lisp-intro . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp       . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
     (emacs-manual     . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
-    (taoup     . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
-    (htbah     . "http://www.catb.org/~esr/faqs/hacker-howto.html")
-    (tcote     . "The Craft of Text Editing   http://www.finseth.com/craft/")
-    (eopl      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
-    (pcl       . "Practical Common Lisp http://www.gigamonkeys.com/book/")
-    (gentle    . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
-    (clpfai    . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
-    (claia     . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
-    (paip      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
-    (aima      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
+    (the-art-of-unix-programming     . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
+    (hacker-howto     . "http://www.catb.org/~esr/faqs/hacker-howto.html")
+    (the-craft-of-text-editing     . "The Craft of Text Editing   http://www.finseth.com/craft/")
+    (essentials-of-programming-languages      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
+    (practical-common-lisp       . "Practical Common Lisp http://www.gigamonkeys.com/book/")
+    (common-lisp-a-gentle-introduction-to-symbolic-computation    . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
+    (common-lisp-programming-for-artificial-intelligence    . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
+    (common-lisp-an-interactive-approach     . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
+    (paradigms-of-artificial-intellgience      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
+    (artifical-intelligence-a-modern-approach      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
     (sicp      . "Structure and Interpretation of Computer Programs  http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html  http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/")
     (sicp-mit  . "http://web.mit.edu/alexmv/6.S184/")
     (6.S184    . "http://web.mit.edu/alexmv/6.S184/")
@@ -6121,26 +6147,25 @@ user matches any regexp in `erc-ignore-reply-list'."
     ;; http://www.neilvandyke.org/sicp-plt/
     ;; http://www.youtube.com/watch?v=rdj6deraQ6k
     (r5rs      . "http://www.schemers.org/Documents/Standards/R5RS/HTML/")
-    (htdp      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
-    (ca        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
-    (lisp      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
-    (onlisp    . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
-    (cptt      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
-    (taocp     . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
-    (geb       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
-    (blt       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
-    (casting   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
-    (spell     . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
-
+    (how-to-design-programs      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
+    (concrete-abstraction        . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
+    (lisp-in-small-pieces      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
+    (on-lisp    . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
+    (compiler-principle-techniques-and-tools      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
+    (the-art-of-computer-programming     . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
+    (goedel-escher-bach       . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
+    (basic-lisp-technique       . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
+    (casting-speels-in-lisp   . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
+    (floating-point . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/") 
+    ;; --
     (gitorious-lisp  . "https://gitorious.org/com-informatimago/com-informatimago/trees/master")
     (gitorious-emacs . "https://gitorious.org/com-informatimago/emacs/trees/master")
     (rc        . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
     (bin       . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/bin")
     (idiots    . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
-    (implementation       . "what-implementation is at telnet://clis.informatimago.com:8101")
-    (what-implementation  . "what-implementation is at telnet://clis.informatimago.com:8101")
-    (float . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html") 
+    (maintained-illustration . "http://tinyurl.com/last-commit-six-month-ago http://tinyurl.com/monthly-commits http://tinyurl.com/last-commit-yesterday http://tinyurl.com/last-commit-before-VCS-existed")
     (ibcl . "Image Based Development http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/ibcl/index.html")
+    ;; --
     (see-defpackage . ";;;;    See defpackage documentation string.\n")
     (agpl3          . "
 License:
@@ -6852,10 +6877,11 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
                                  (every (lambda (word)
                                           (and (alpha-char-p (aref word 0))
                                                (every (function alphanumericp) word)))
+                                        
                                         words))
                         (format "http://developer.android.com/reference/%s.html"
                                 (mapconcat (function identity) words "/")))))
-                  (format "http://developer.android.com/index.html#q=%s"
+                  (format "http://developer.android.com/reference/index.html?q=%s"
                           (browse-url-url-encode-chars
                            (string-trim *whitespaces* search-string)
                            "[^A-Za-z0-9]")))))
@@ -6957,6 +6983,7 @@ itesearch=&safe=images"
 (global-set-key (kbd "C-h 5") 'includes-search-region)
 (global-set-key (kbd "C-h 6") 'hyperspec-search-region)
 (global-set-key (kbd "C-h 7") 'here-search-region)
+(global-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point)
 
 (defun set-osx-search-region-function ()
   (interactive)
@@ -6966,7 +6993,8 @@ itesearch=&safe=images"
   (local-set-key (kbd "C-h 1") 'ios-search-region))
 (defun set-android-search-region-function ()
   (interactive)
-  (local-set-key (kbd "C-h 1") 'osx-search-region))
+  (local-set-key (kbd "C-h 1") 'android-search-region)
+  (local-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point))
 
 
 (add-hook 'objc-mode-hook 'set-osx-search-region-function)
@@ -7795,12 +7823,44 @@ or as \"emacs at <hostname>\"."
 (defun get-random-color ()
   (first (elt color-name-rgb-alist (random (length color-name-rgb-alist)))))
 
+
+(defun v+ (a b) (mapcar* (function +) a b))
+(defun v- (a b) (mapcar* (function -) a b))
+(defun v. (a b) (reduce (function +) (mapcar* (function *) a b)))
+(defun *v (n a) (mapcar (lambda (x) (* n x)) a))
+
+(defun get-pair-of-random-colors ()
+  (let* ((fn   (get-random-color))
+         (bn   (get-random-color))
+         (f    (color-name-to-rgb fn))
+         (b    (color-name-to-rgb bn)))
+    (if (equal f b)
+        (get-pair-of-random-colors)
+        (mapcar (lambda (rgb)
+                  (apply (function color-rgb-to-hex)
+                         (mapcar (lambda (x) (min (max 0.0 x) 1.0)) rgb)))
+                (let* ((fh (apply (function color-rgb-to-hsl) f))
+                       (bh (apply (function color-rgb-to-hsl) b)))
+                  (flet ((spread (l d)
+                           (list (color-lighten-hsl (first l) (second l) (third l) 80)
+                                 (color-darken-hsl  (first d) (second d) (third d) 50))))
+                    (if (< (third fh) (third bh))
+                        (reverse (spread bh fh))
+                        (spread fh bh))))))))
+
+
 (defun set-random-colors ()
   (interactive)
-  (set-background-color (get-random-color))
-  (set-foreground-color (get-random-color)))
+  (let ((pair (get-pair-of-random-colors)))
+    (message "newcolors = %S" pair)
+    (mapcar* (function funcall)
+             (list (function set-background-color)
+                   (function set-foreground-color))
+             pair)))
 
 (global-set-key (kbd "<f12>") 'set-random-colors)
+
+
 
 (loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
                        (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
@@ -7900,5 +7960,25 @@ or as \"emacs at <hostname>\"."
     (insert (format "\n| %s\n" (mapconcat (function identity) (split-string (shell-command-to-string (buffer-substring start end))) "\n| ")))
     (set-mark (point))
     (goto-char end)))
+
+
+(defun len ()
+  "Displays the length of the object at point.
+For a string or a symbol, the length of the designated string; for a
+list or vector, the length of the sequence."
+  (interactive)
+  (let ((thing (thing-at-point 'sexp)))
+    (when thing
+      (let* ((object (car (read-from-string thing)))
+             (length (typecase object
+                       (string (length object))
+                       (symbol (length (symbol-name object)))
+                       (list   (length object))
+                       (vector (length object))
+                       (t      -1))))
+        (unless (minusp length)
+          (message "length: %d" length))))))
+
+
 
 ;;;; THE END ;;;;
