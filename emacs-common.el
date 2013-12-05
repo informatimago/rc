@@ -677,7 +677,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (load-library "slime")
   (slime-setup '(slime-fancy)))
-(reload-swank)
+(when (require 'slime nil t)
+ (reload-swank))
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
