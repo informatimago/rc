@@ -1,3 +1,4 @@
+(.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
 (require 'package)
 ;; Any add to list for package-archives (to add marmalade or melpa) goes here
 (setq package-archives (append package-archives

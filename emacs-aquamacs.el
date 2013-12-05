@@ -1,5 +1,5 @@
 ;;;; PJB's Aquamacs rc file.
-
+(.EMACS "~/rc/emacs-aquamacs.el PJB's Aquamacs rc file.")
 
 (defun mac-vanilla-keys ()
   (interactive)

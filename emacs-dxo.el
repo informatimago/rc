@@ -3,6 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.
 
 (load "~/rc/emacs-common.el")
+(.EMACS "~/rc/emacs-dxo.el %s" "Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.")
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization

@@ -420,9 +420,8 @@
 (defun quit () (ext:quit))
 (export 'quit)
 
-;; (push (function ext:cd)
-;;       com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
-;; (cd (ext:cd))     
+(push 'ext:cd com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
+(cd (ext:cd))     
 
 
 (defun sh (command)

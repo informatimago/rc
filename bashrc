@@ -22,6 +22,9 @@ case "$DISPLAY" in
 esac
 export DISPLAY=:0.0
 
+XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+/:/g')"
+
+
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
     export PS1='[\u@\h $DISPLAY \W]# '
@@ -421,22 +424,6 @@ function be_generate(){
     be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
     be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
 
-    # GNUstep environment
-    
-    if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-        for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
-            if [ -d $gsr/System/Makefiles ] ; then
-               gsr=$gsr/System
-               break
-            fi
-            [ -d $gsr/Makefiles ] && break
-        done
-        [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
-    fi
-    if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
-    fi
-
     be_terminate
 }
 ########################################################################
@@ -449,9 +436,25 @@ else
 fi
 source $BASH_ENV
 
-# GNUstep:
+
+
+# GNUstep environment:
 if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
     . /usr/share/GNUstep/Makefiles/GNUstep.sh
+fi
+if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+    for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+            #echo "$gsr/System/Makefiles"
+        if [ -d $gsr/System/Makefiles ] ; then
+            gsr=$gsr/System
+            break
+        fi
+        [ -d $gsr/Makefiles ] && break
+    done
+    [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+fi
+if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
 fi
 
 
@@ -514,7 +517,7 @@ alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \*TAGS --exclude .git --exclude .svn --exclude CVS --exclude _darcs --exclude \*~ --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so  --exclude \#\* --exclude \*.orig --exclude \*.rej'
+alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif'
 
 alias dw='darcs whatsnew -sl'
 alias dr='darcs record -am'
@@ -924,7 +927,8 @@ function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient 
 
 function subx            (){ Xnest -geometry 640x480 :4 -broadcast ; }
 function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
-function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+# function xvv             (){ xv -windowid $(xwininfo -int  2> /dev/null |awk '/Window id/{print $4}') -maxpect -smooth "$@" ;}
+function xvv             (){ xv -maxpect -smooth "$@" ;}
 
 function svn-changes     (){ svn status | grep -e '^[?AMD]' ; }
 function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
@@ -998,7 +1002,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #    WHEN exiting
 #     AND login
 #      DO ~/.bash_logout
-      
+
 
 
 #       When  bash is invoked as an interactive login shell, or as
@@ -1076,13 +1080,25 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
-case $(hostname) in
-mercure)           . ~/rc/bashrc-ubudu ;;
-dxo-pbo.local)     . ~/rc/bashrc-dxo ;;
-mdi-development-*) .  /usr/local/env.sh  ;;
-*)                 . ~/rc/bashrc-pjb ;;
+
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname)
+fi
+
+case "$host" in
+macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
+mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
+mercure)            source ~/rc/bashrc-ubudu ;;
+dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
+mdi-development-*)  source  /usr/local/env.sh  ;;
+*)                  source ~/rc/bashrc-pjb ;;
 esac
 
-# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+export "PATH=$HOME/opt/jdk/bin:$PATH"
+
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+
 

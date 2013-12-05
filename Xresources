@@ -123,12 +123,39 @@ xterm*activeIcon:               false
 ! xterm*font4:   -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
 ! xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
 ! xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
-! xterm*font1.Label: lycidatypewriter-8
-! xterm*font2.Label: lycidatypewriter-10
-! xterm*font3.Label: lycidatypewriter-12
-! xterm*font4.Label: lycidatypewriter-14
-! xterm*font5.Label: lycidatypewriter-16
-! xterm*font6.Label: lycidatypewriter-18
+
+! xterm*font1.Label: lycidatypewriter-14
+! xterm*font2.Label: lycidatypewriter-16
+! xterm*font3.Label: lycidatypewriter-17
+! xterm*font4.Label: lycidatypewriter-19
+! xterm*font5.Label: lycidatypewriter-21
+! xterm*font6.Label: lycidatypewriter-24
+
+
+
+
+
+
+
+
+
+
+
+
+
+xterm*font1.Label: -adobe-courier-medium-r-normal--11-80-100-100-m-60-iso8859-1  
+xterm*font2.Label: -adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1 
+xterm*font3.Label: -adobe-courier-medium-r-normal--17-120-100-100-m-100-iso8859-1
+xterm*font4.Label: -adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1
+xterm*font5.Label: -adobe-courier-medium-r-normal--25-180-100-100-m-150-iso8859-1
+xterm*font6.Label: -adobe-courier-medium-r-normal--34-240-100-100-m-200-iso8859-1
+
+xterm*font1.Label: Very Small
+xterm*font2.Label: Small
+xterm*font3.Label: Normal
+xterm*font4.Label: Big
+xterm*font5.Label: Very Big
+xterm*font6.Label: Really Very Big
 
 ! xterm*font1:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
 ! xterm*font2:    -*-smoothansi-medium-r-*-*-13-*-*-*-m-*-*-*

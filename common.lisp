@@ -196,8 +196,12 @@ License:
                                       :type "conf"
                                       :case :local
                                       :defaults (user-homedir-pathname))
-                       (user-homedir-pathname) nil)))
-  (unless (ignore-errors (probe-file asdf-conf-path))
+                       (user-homedir-pathname) nil))
+      (common-path *load-truename*))
+  (when (or (not (ignore-errors (probe-file asdf-conf-path)))
+            (null (file-write-date asdf-conf-path))
+            (null (file-write-date common-path))
+            (< (file-write-date asdf-conf-path) (file-write-date common-path)))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
                               :direction :output
@@ -378,11 +382,14 @@ selected by KEY, and the given SUBPATH.
                            nil)
                           :if-does-not-exist nil)
       (if dirs
-       (loop
-         :for k = (read dirs nil dirs)
-         :until (eq k dirs)
-         :do (push (string-trim " " (read-line dirs)) *directories*)
-         :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+          (handler-case
+           (loop
+             :for k = (read dirs nil dirs)
+             :until (eq k dirs)
+             :do (push (string-trim " " (read-line dirs)) *directories*)
+             :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+            (error (err)
+              (warn "Error while reading directories.txt file: ~A" err)))
        (progn
          (warn "No directories.txt file.")
          (setf *directories* *default-directories*)))))
@@ -782,6 +789,42 @@ either scanned, or from the cache."
                      "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
 
 (push :com.informatimago.pjb *features*)
+
+
+
+;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
+
+(defun shell (control-string &rest arguments)
+  #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
+  #+ccl
+  (let ((process
+         (ccl:run-program "/bin/bash"
+                          (list "-c" (format nil "~?" control-string arguments))
+                          :output :stream
+                          :error :stream)))
+    (com.informatimago.common-lisp.cesarum.stream:copy-stream
+     (ccl:external-process-output-stream process)
+     *standard-output*)
+    (com.informatimago.common-lisp.cesarum.stream:copy-stream
+     (ccl:external-process-error-stream process)
+     *error-output*)))
+
+(defun shell-command-to-string (control-string &rest arguments)
+  #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
+  #+ccl
+  (let ((process
+         (ccl:run-program "/bin/bash"
+                          (list "-c" (format nil "~?" control-string arguments))
+                          :output :stream
+                          :error :stream)))
+    (values (with-output-to-string (out)
+              (com.informatimago.common-lisp.cesarum.stream:copy-stream
+               (ccl:external-process-output-stream process) out))
+            (with-output-to-string (err)
+              (com.informatimago.common-lisp.cesarum.stream:copy-stream
+               (ccl:external-process-error-stream process) err)))))
+
+(export '(shell shell-command-to-string)  :com.informatimago.pjb)
 
 (cl:in-package :cl-user)
 (use-package :com.informatimago.pjb)
