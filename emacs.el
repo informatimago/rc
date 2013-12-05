@@ -5,7 +5,7 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
-(message "Pascal J. Bourguignon's emacs startup file.")
+(message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (setq message-log-max 5000)
 (when (< emacs-major-version 24) 
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
@@ -24,14 +24,16 @@
 (let ((configuration (if (boundp 'aquamacs-version)
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (or (let* ((hostname-configuration-map
-                                     '(("mercure"            . "~/rc/emacs-employer-c.el")
-				       ("uiserver.local"     . "~/rc/emacs-employer-c.el")
-                                       ("imac-core-i5.local" . "~/rc/emacs-employer-d.el")
-                                       ("employer-d-pbo.local"      . "~/rc/emacs-employer-d.el")
-                                       ("pbo-employer-d.local"      . "~/rc/emacs-employer-d.el")))
+                                     '(("^mercure"                . "~/rc/emacs-employer-c.el")
+                                       ("^uiserver"               . "~/rc/emacs-employer-c.el")
+                                       ("^employer-c-vm-mac-[0-9]"     . "~/rc/emacs-employer-c.el")
+                                       ("^imac-core-i5.local"     . "~/rc/emacs-employer-d.el")
+                                       ("^employer-d-pbo.local"          . "~/rc/emacs-employer-d.el")
+                                       ("^pbo-employer-d.local"          . "~/rc/emacs-employer-d.el")))
                                     (hostname  (hostname))
                                     (conf  hostname-configuration-map))
-                               (while (and conf (not (string-equal (upcase hostname) (upcase (caar conf)))))
+                               (while (and conf (not (let ((case-fold-search t))
+                                                       (string-match (caar conf) hostname))))
                                  (setq conf (cdr conf)))
                                (car conf))
                              '("informatimago.com" . "~/rc/emacs-pjb.el")))))
