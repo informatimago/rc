@@ -53,7 +53,7 @@
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
- '(match ((t (:background "#cacafe"))))
+ '(match ((t (:background "#3a3a3e"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -159,7 +159,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lisp" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#mailman" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lisp" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -347,7 +347,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -484,6 +484,5 @@ X-Accept-Language:         fr, es, en
 (pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
 ;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
-(load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

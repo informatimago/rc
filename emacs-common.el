@@ -45,7 +45,8 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (warn "~/rc/emacs-common.el: Please set the right source-directory.")
-(setq source-directory "/usr/src/emacs-23.3/src/")
+;; (setq source-directory "/usr/local/src/emacs23-23.4+1/src/")
+(setq source-directory "/usr/local/src/emacs-24.3/src/")
 ;; emacs-version "23.4.1"
 
 (defvar *lac-functions* '()
@@ -6775,11 +6776,12 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 
 
 (when t
-  (unless (intersection
-           '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
-             "--execute" "-insert" "--insert") command-line-args
-             :test (function string=))
-    (afaire)))
+  (milliways-schedule (lambda ()
+			(unless (intersection
+				 '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
+				   "--execute" "-insert" "--insert") command-line-args
+				   :test (function string=))
+			  (afaire)))))
 
 
 (defun doing (what)
