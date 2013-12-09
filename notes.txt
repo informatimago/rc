@@ -1,5 +1,46 @@
 -*- mode:org; coding:utf-8 -*-
 
+Thank you for supporting the proposed European Citizens' Initiative: Unconditional Basic Income (UBI) - Exploring a pathway towards emancipatory welfare conditions in the EU
+Your statement of support has been submitted successfully.
+Date: 04/12/2013
+Signature identifier: 2d139d94-b9f1-4f78-8089-12fda49854f3
+
+
+* 
+    <ExtraData>
+      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
+
+      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
+      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
+      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
+
+      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
+      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
+      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
+      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="4"/>
+      <ExtraDataItem name="VBoxInternal2/SmcDeviceKey" value="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"/>
+      <ExtraDataItem name="VBoxInternal2/UgaHorizontalResolution" value="1920"/>
+      <ExtraDataItem name="VBoxInternal2/UgaVerticalResolution" value="1080"/>
+      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
+    </ExtraData>
+
+      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="5"/>
+
+    <ExtraData>
+      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
+      <ExtraDataItem name="GUI/Fullscreen" value="on"/>
+      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
+      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
+      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
+      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
+      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
+      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
+    </ExtraData>
+
+
 http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
 
 ;; SFR
@@ -2081,7 +2122,6 @@ internal disk                            external backup
       TimeMachine Backup galatea
       Copy of newton.medicalis.es before upgrade to 10.5.
       --> full galatea backup
-
 
 * ALIRE, LECTURES
 ** TODO To watch
