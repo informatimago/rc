@@ -74,24 +74,18 @@
 (defpackage "COM.INFORMATIMAGO.PJB"
   (:nicknames "PJB")
   (:use "COMMON-LISP")
-  (:export "HOSTNAME"
-           "LIST-DIRECTORIES"   "GET-DIRECTORY"
+  (:shadow "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
+  (:export "LIST-DIRECTORIES"   "GET-DIRECTORY"
            "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
-           "ASDF-LOAD" "ASDF-LOAD-SOURCE" "ASDF-INSTALL" "ASDF-DELETE-SYSTEM"
-           "FIND-ASDF-SUBDIRECTORIES"  "UPDATE-ASDF-REGISTRY"
            "START-DRIBBLE"
            "DEFAUTOLOAD"
-           "*INP*" "*OUT*"
+           "HOSTNAME"
            "SCHEME"
-           "QUICK-UPDATE" "QUICK-CLEAN"  "QUICK-INSTALL-ALL" "QUICK-UNINSTALL"
-           "QUICK-APROPOS" "QUICK-LIST-SYSTEMS" "QUICK-WHERE" "QUICK-WHERE-IS"
-           "QUICK-INSTALLED-SYSTEMS" "QUICK-LIST-PROJECTS"
-           "QUICK-DELETE" "QUICK-RELOAD" "QUICK-LOCAL-PROJECTS"
-
+           "*INP*" "*OUT*"
            "SELF"
            "IT" "THIS" "THAT"
            "THEM" "THESE" "THOSE"
-           )
+           "IS" "WAS" "WERE")
   (:documentation "
 
 This package contains REPL utilities, defined in ~/rc/common.lisp,
@@ -125,34 +119,27 @@ License:
 "))
 (in-package "COM.INFORMATIMAGO.PJB")
 
-(define-symbol-macro self -)
 
-(define-symbol-macro it   *)
-(define-symbol-macro this **)
-(define-symbol-macro that ***)
+;;;----------------------------------------------------------------------
+;;;
+;;; COM.INFORMATIMAGO.TOOLS.PATHNAME
+;;;
 
-(define-symbol-macro them  /)
-(define-symbol-macro these //)
-(define-symbol-macro those ///)
 
-;; (define-symbol-macro what  +)
-;; (define-symbol-macro  ++)
-;; (define-symbol-macro  +++)
-
-(defun user-pathname ()
+(defun user-homedir-pathname ()
   "On MS-Windows, it's not the USER-HOMEDIR-PATHNAME."
   #+windows-target (let ((home (ccl::getenv "HOME")))
                      (if home
                          (pathname (format nil "~A\\" home))
                          #P"C:\\cygwin\\home\\pjb\\"))
-  #-windows-target (USER-HOMEDIR-PATHNAME))
+  #-windows-target (cl:user-homedir-pathname))
 
 
-(defun make-pathname* (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
+(defun make-pathname (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
                        (name nil namep) (type nil typep) (version nil versionp)
                        (defaults nil defaultsp) (case :local casep))
   (declare (ignorable casep))
-  #+ (or abcl ccl allegro)
+  #+(or abcl ccl allegro)
   (labels ((localize (object)
              (typecase object
                (list   (mapcar (function localize) object))
@@ -163,7 +150,7 @@ License:
                (list key (if (eql case :common)
                              (localize value)
                              value)))))
-    (apply (function make-pathname)
+    (apply (function cl:make-pathname)
            (append (parameter hostp      :host      host)
                    (parameter devicep    :device    device)
                    (parameter directoryp :directory directory)
@@ -173,7 +160,7 @@ License:
                    (parameter defaultsp  :defaults  defaults)
                    (list :case :local))))
   #-(or abcl ccl allegro)
-  (apply (function make-pathname)
+  (apply (function cl:make-pathname)
          (append
           (when hostp      (list :host      host))
           (when devicep    (list :device    device))
@@ -224,121 +211,54 @@ License:
 ;;;
 
 (let ((quicklisp (merge-pathnames
-                  (make-pathname* :directory '(:relative "QUICKLISP")
+                  (make-pathname :directory '(:relative "QUICKLISP")
                                   :name "SETUP"
                                   :type "LISP"
                                   :version :newest
                                   :case :common
-                                  :defaults (user-pathname))
-                  (user-pathname)
+                                  :defaults (user-homedir-pathname))
+                  (user-homedir-pathname)
                   nil)))
   (if (probe-file quicklisp)
       (load quicklisp)
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
 
 
-;; (asdf:clear-source-registry)
+
+(ql:quickload "com.informatimago.tools.pathname")
+
+(ql:quickload "com.informatimago.tools.quicklisp")
+(ql:quickload "com.informatimago.common-lisp")
+(ql:quickload "com.informatimago.clmisc")
+
+#-(or ccl cmu ecl sbcl)
+(ql:quickload "com.informatimago.clext")
+
+#+clisp
+(ql:quickload "com.informatimago.clisp")
+
+#+disabled-temporarily-for-bitrot
+(ql:quickload "com.informatimago.susv3")
 
 
-(defun print-systems (systems pattern)
-  (if pattern
-      (let ((spattern (string pattern)))
-        (dolist (system systems)
-          (when (search spattern (slot-value system 'ql-dist:name)
-                        :test (function char-equal))
-            (print system))))
-      (dolist (system systems)
-        (print system)))
-   (values))
+(ql:quickload "alexandria" :verbose nil)
 
 
-(defun quick-installed-systems (&optional pattern)
-  "Print the system installed by quicklisp."
-  (print-systems (ql-dist:installed-releases (ql-dist:dist "quicklisp"))
-                 pattern))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (mapcar (function unintern) '(make-pathname
+                                translate-logical-pathname
+                                user-homedir-pathname)))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (shadowing-import '(com.informatimago.tools.pathname:make-pathname
+                      com.informatimago.tools.pathname:translate-logical-pathname
+                      com.informatimago.tools.pathname:user-homedir-pathname)))
 
-(defun quick-list-systems (&optional pattern)
-  "List the quicklisp systems.  If the string designator PATTERN is
-given, then only the systems containing it in their name are listed."
-  (print-systems (ql-dist:provided-systems t)
-                 pattern))
-
-(defun quick-list-projects (&optional pattern)
-  "List the quicklisp projects (releases).  If the string designator
-PATTERN is given, then only the projects containing it in their name
-are listed."
-  (print-systems (ql-dist:provided-releases t)
-                 pattern))
-
-
-(defun quick-apropos (pattern)
-  "Search the quicklisp system matching the pattern and print them."
-  ;; For now, we just list the systems:
-  (print-systems (ql-dist:provided-systems t) pattern))
-
-
-(defun quick-update ()
-  "Updates the quicklisp client, and all the system distributions."
-  (ql:update-client)
-  (ql:update-all-dists)) 
-
-(defun quick-clean ()
-  "Clean the quicklisp system distributions."
-  #+#.(cl:if (cl:find-symbol "CLEAN" "QL-DIST") '(:and) '(:or))
-  (map nil 'ql-dist:clean (ql-dist:enabled-dists))
-  #-#.(cl:if (cl:find-symbol "CLEAN" "QL-DIST") '(:and) '(:or))
-  (error "QL-DIST:CLEAN is not available."))
-
-(defun quick-install-all (&key verbose)
-  "Installs all the quicklisp systems, skipping over the errors."
-  (map nil (lambda (system)
-             (handler-case
-                 (progn
-                   (when verbose
-                     (format *trace-output* "~&~A~%" system))
-                   (ql-dist:ensure-installed system))
-               (error (err)
-                 (format *trace-output* "~&~A ~A~%" system err))))
-       (ql-dist:provided-systems t)))
-
-(defun quick-uninstall (&rest systems)
-  "Uninstall the given systems releases from the quicklisp installation."
-  (map 'list (lambda (system)
-               (ql-dist:uninstall (ql-dist:release (string-downcase system))))
-       systems))
-
-
-(defun quick-where-is (&rest systems)
-  "Says where the given systems are."
-  #+#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
-  (map 'list (lambda (system) (ql:where-is-system (string-downcase system)))
-       systems)
-  #-#.(cl:if (cl:find-symbol "WHERE-IS-SYSTEM" "QUICKLISP-CLIENT") '(:and) '(:or))
-  (error "QUICKLISP-CLIENT:WHERE-IS-SYSTEM is not available."))
-
-(defun quick-where (&rest systems)
-  "Says where the given systems are."
-  (apply (function quick-where-is) systems))
-
-
-(defun quick-delete (&rest systems)
-  "Delete the ASDF systems so they'll be reloaded."
-  (map 'list (lambda (system) (asdf-delete-system system)) systems))
-
-(defun quick-reload (&rest systems)
-  "Delete and reload the ASDF systems."
-  (map 'list (lambda (system)
-               ;; (asdf-delete-system system)
-               (format *trace-output* "~&See also M-x slime-load-system RET~%")
-               (force-output  *trace-output*)
-               (asdf:load-system system)
-               (ql:quickload system))
-       systems))
-
-(defun quick-local-projects ()
-  "Rebuilds the local projects system index."
-  (ql:register-local-projects))
-
+(dolist (pname '("COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"
+                 "COM.INFORMATIMAGO.TOOLS.QUICKLISP"
+                 "COM.INFORMATIMAGO.TOOLS.ASDF"))
+  (use-package pname)
+  (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols pname)))
+                 
 
 ;;;----------------------------------------------------------------------
 
@@ -376,9 +296,9 @@ selected by KEY, and the given SUBPATH.
 "
   (unless *directories*
     (with-open-file (dirs (merge-pathnames
-                           (make-pathname* :name "DIRECTORIES" :type "TXT"
+                           (make-pathname :name "DIRECTORIES" :type "TXT"
                                           :version nil :case :common)
-                           (user-pathname)
+                           (user-homedir-pathname)
                            nil)
                           :if-does-not-exist nil)
       (if dirs
@@ -428,9 +348,10 @@ The inclusion  of a version wildcard is also implementation dependant.
   (mapcar
    (lambda (item)
      (destructuring-bind (logical-tail physical-tail) item
-       (list (apply (function make-pathname*)
+       (list (apply (function make-pathname)
                     :host host
                     :directory `(:absolute ,@logical-dir :wild-inferiors)
+                    :case :common
                     logical-tail)
              (format nil "~A**/~A" physical-dir physical-tail))))
    #+clisp
@@ -496,8 +417,8 @@ The HOST is added to the list of logical hosts defined.
   ;; We must go thru a translation for defsystem-3.x isn't a valid logical name!
   "packages/net/sourceforge/clocc/clocc/src/defsystem-3.x/")
 
-
-(define-logical-pathname-translations "HOME"     (user-pathname)   "")
+#-cmu
+(define-logical-pathname-translations "HOME"     (user-homedir-pathname)   "")
 (define-logical-pathname-translations "LOADERS"  *pjb-comm*        "cl-loaders/")
 ;;(DEFINE-LOGICAL-PATHNAME-TRANSLATIONS "NORVIG"   *PJB-LISP*        "norvig/")
 (define-logical-pathname-translations "NORVIG"   #p"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
@@ -517,159 +438,7 @@ The HOST is added to the list of logical hosts defined.
 
 
 
-;;;------------------------------------------------------------------------
-;;;
-;;; ADSF
-;;;
-
-
-(defun asdf-load (&rest systems)
-  "Load the ASDF systems.  See also (QL:QUICKLOAD system) to install them."
-  (dolist (system systems systems)
-    #+quicklisp (ql:quickload system)
-    #-quicklisp (asdf:operate 'asdf:load-op system)))
-
-
-(defun asdf-load-source (&rest systems)
-  "Load the sources of the ASDF systems.  See also (QL:QUICKLOAD system) to install them."
-  (dolist (system systems systems)
-    (asdf:operate 'asdf:load-source-op system)))
-
-(defun asdf-install (&rest systems)
-  "Download and install a system.  Now, uses quicklisp."
-  (dolist (system systems systems)
-    #+quicklisp (ql:quickload system)
-    #-quicklisp (error "Please install and use quicklisp!")))
-
-(defun asdf-delete-system (system)
-  "Clear the system from ASDF, to force reloading them on next ASDF-LOAD."
-  ;;(remhash (string-downcase system) asdf::*defined-systems*)
-  (asdf:clear-system system)
-  (values))
-
-
-;;;------------------------------------------------------------------------
-;;;
-
-
-(defparameter *asdf-interval-between-rescan* (* 7 24 60 60)
-  "Force rescan at leastr once this amount of seconds.")
-
-(defparameter *asdf-registry-file*
-  (merge-pathnames (user-pathname)
-                   (make-pathname* :name "ASDF-CENTRAL-REGISTRY" :type "DATA" :version :newest :case :common
-                                   :defaults (user-pathname))
-                   nil)
-  "Cache file.")
-
-(defparameter *original-asdf-registry* asdf:*central-registry*)
-
-(defun find-asdf-subdirectories (&optional (directories (list #p"PACKAGES:" *asdf-install-location*)))
-  "Return a list of all the subdirectories of DIRECTORIES that contain .asd files.
-It is sorted in ascending namestring length."
-  (format *trace-output* "~&;; Scanning ASDF packages...~%")
-  (prog1
-      (sort 
-       (delete-duplicates 
-        (mapcar
-         (lambda (p) (make-pathname* :name nil :type nil :version nil :defaults p))
-         (mapcan (lambda (dir)
-                   (directory (merge-pathnames
-                               (make-pathname* :directory (if (pathname-directory dir)
-                                                             '(:relative :wild-inferiors)
-                                                             '(:absolute :wild-inferiors))
-                                              :name :wild
-                                              :type "ASD"
-                                              :version :newest
-                                              :case :common
-                                              :defaults dir)
-                               dir nil)))
-                 directories))
-        :test (function equal))
-       (lambda (a b) (if (= (length a) (length b))
-                    (string< a b)
-                    (< (length a) (length b))))
-       :key (function namestring))
-    (format *trace-output* "~&;; Done.~%")))
-
-
-(defun update-asdf-registry (&key (force-scan nil) (directories nil directoriesp))
-  "Update asdf:*central-registry* with the subdirectories of DIRECTORIES containing ASD files,
-either scanned, or from the cache."
-  (length
-   (setf asdf:*central-registry*
-         (nconc (if (and (not force-scan)
-                         (probe-file *asdf-registry-file*)
-                         (let ((fdate (file-write-date *asdf-registry-file*)))
-                           (and fdate (< (get-universal-time)
-                                         (+ fdate *asdf-interval-between-rescan*)))))
-                    ;; Get it from the cache.
-                    (with-open-file (in *asdf-registry-file*)
-                      (format *trace-output* "~&;; Reading ASDF packages from ~A...~%"
-                              *asdf-registry-file*)
-                      (let ((*read-eval* nil))
-                        (read in nil nil)))
-                    ;; Scan it anew.
-                    (let ((scan (apply (function find-asdf-subdirectories)
-                                       (when directoriesp
-                                         (list directories)))))
-                      (unless force-scan ; we save only when not :force-scan t
-                        (format *trace-output* "~&;; Writing ASDF packages to ~A...~%"
-                                *asdf-registry-file*)
-                        (with-open-file (out *asdf-registry-file*
-                                             :direction :output
-                                             :if-does-not-exist :create
-                                             :if-exists :supersede)
-                          (print scan out)))
-                      scan))
-                *original-asdf-registry*))))
-
-
 ;;;----------------------------------------------------------------------
-
-(fmakunbound 'hostname)
-(defun hostname ()
-  "RETURN: The FQDN of the local host."
-  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
-    (unwind-protect
-         (progn
-           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                   outpath)
-           (with-open-file (hostname outpath)
-             (read-line hostname)))
-      (delete-file outpath))))
-
-
-
-;; (run-program "example" '() :input :stream)
-
-;; nil                                    (open "/dev/null")
-;; :stream                                (make-stream)
-;; "/some/file" #P "/some/file"           (open "/some/file")
-;; stream                                 stream
-
-;; (with-open-file (input "/etc/passwd")
-;;   (with-open-file (output "/tmp/test.txt" :direction :output
-;;                           :if-does-not-exist :create
-;;                           :if-exists :supersede)
-;;     (multiple-value-bind (inp out err pid) (run-program #("/bin/cat" "cat")
-;;                                                         :input input
-;;                                                         :output output
-;;                                                         :error-output :stream
-;;                                                         :wait nil)
-;;       (loop
-;;         :for line = (read-line err nil nil)
-;;         :while line :do (write-line line))
-;;       (excl.osi:waitpid pid))))
-
-;; sleep
-;; ls|
-;; |sort|
-
-
-
-;;;----------------------------------------------------------------------
-
 
 (defmacro defautoload (name arguments loader)
   "Defines a function that will load the LOADER file, before calling itself again."
@@ -680,16 +449,16 @@ either scanned, or from the cache."
        (load ,loader)
        (,name ,@arguments))))
 
-(defautoload scheme () "LOADERS:PSEUDO")
+#-ccl
+(defautoload scheme () (translate-logical-pathname #P"LOADERS:PSEUDO"))
 
 ;;;----------------------------------------------------------------------
-
 
 (defun start-dribble ()
   "We dribble to a timestamped file in a specific #P\"HOME:DRIBBLE;\" directory."
   (let ((path
          (merge-pathnames
-          (make-pathname*
+          (make-pathname
            :directory '(:relative "DRIBBLES")
            :name (flet ((implementation-id ()
                           (flet ((first-word (text)
@@ -713,85 +482,31 @@ either scanned, or from the cache."
                              ye mo da ho mi se (implementation-id))))
            :type "DRIBBLE"
            :version nil
-           :defaults (user-pathname))
-          (user-pathname) nil)))
+           :defaults (user-homedir-pathname))
+          (user-homedir-pathname) nil)))
     (ensure-directories-exist path)
     (dribble path)))
 
 ;; (start-dribble)
 
-;;;----------------------------------------------------------------------
-
-(defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
-(defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
 
 ;;;----------------------------------------------------------------------
-;;;
-;;; com.informatimago libraries
-;;;
 
-;; (update-asdf-registry)
-
-;; ;; Should be included by (UPDATE-ASDF-REGISTRY)
-;; (setf asdf:*central-registry*
-;;       (append (remove-duplicates
-;;                (mapcar (lambda (path)
-;;                          (make-pathname* :name nil :type nil :version nil :defaults path))
-;;                        #+ccl(directory #P"PACKAGES:com;informatimago;**;*.asd")
-;;                        #-ccl(directory #P"PACKAGES:COM;INFORMATIMAGO;**;*.ASD"))
-;;                :test (function equalp))
-;;               asdf:*central-registry*))
-
-
-;;; This doesn't work:
-;; ;; You can use :tree instead of :directory to find all directories with
-;; ;; system files present.
-;; ;; See section 7.5 and 7.9 of http://l1sp.org/asdf/manual
-;; #+(or allegro ccl) (asdf:initialize-source-registry 
-;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
-;;                       :inherit-configuration))
-;; #-(or allegro ccl) (asdf:initialize-source-registry 
-;;                     '(:source-registry (:tree #P"PACKAGES:COM;INFORMATIMAGO;")
-;;                       :inherit-configuration))
-
-#-abcl (ql:quickload  :com.informatimago.common-lisp)
-#-abcl (ql:quickload  :com.informatimago.clmisc)
-
-#-(or abcl ccl cmu ecl sbcl)
-(ql:quickload  :com.informatimago.clext)
-
-#-(and)
-(ql:quickload  :com.informatimago.clisp)
-
-#-(and)
-(ql:quickload  :com.informatimago.susv3)
+(fmakunbound 'hostname)
+(defun hostname ()
+  "RETURN: The FQDN of the local host."
+  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+    (unwind-protect
+         (progn
+           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                   outpath)
+           (with-open-file (hostname outpath)
+             (read-line hostname)))
+      (delete-file outpath))))
 
 
 ;;;----------------------------------------------------------------------
-;;;
-;;; Alexandria
-;;;
-
-(ql:quickload :alexandria :verbose nil)
-
-;; (handler-case
-;;     (ql:quickload :alexandria :verbose t)
-;;   (error (err)
-;;     (princ err *trace-output*) (terpri *trace-output*) (finish-output *trace-output*)
-;;     (print (compute-restarts))
-;;     (invoke-restart (find-restart 'skip))))
-
-;;;----------------------------------------------------------------------
-(in-package :com.informatimago.pjb)
-#-abcl (use-package "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE")
-#-abcl (export      (com.informatimago.common-lisp.cesarum.package:list-external-symbols
-                     "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
-
-(push :com.informatimago.pjb *features*)
-
-
-
 ;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
 
 (defun shell (control-string &rest arguments)
@@ -826,11 +541,32 @@ either scanned, or from the cache."
 
 (export '(shell shell-command-to-string)  :com.informatimago.pjb)
 
-(cl:in-package :cl-user)
-(use-package :com.informatimago.pjb)
+
+;;;----------------------------------------------------------------------
+
+(define-symbol-macro self -)
+
+(define-symbol-macro it   *)
+(define-symbol-macro this **)
+(define-symbol-macro that ***)
+
+(define-symbol-macro them  /)
+(define-symbol-macro these //)
+(define-symbol-macro those ///)
+
+(define-symbol-macro is   +)
+(define-symbol-macro was  ++)
+(define-symbol-macro were +++)
+
+(defvar *inp* (make-synonym-stream '*standard-input*)  "Synonym to *standard-input*")
+(defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
 
-(in-package :cl-user)
+;;;----------------------------------------------------------------------
+(push :com.informatimago.pjb *features*)
+;;;----------------------------------------------------------------------
+(in-package "CL-USER")
+(use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
 
 ;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
 ;; (in-package :ibcl-user)

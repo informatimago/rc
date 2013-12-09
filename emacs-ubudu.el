@@ -533,6 +533,5 @@ X-Accept-Language:         fr, es, en
 (require 'twittering-mode)
 (setf twittering-username "ogamita")
 (setf (getenv "XMODIFIERS") nil)
-(load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
