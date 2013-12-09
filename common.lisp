@@ -843,4 +843,8 @@ either scanned, or from the cache."
     '("/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/")))
 
 
+;; Not really: call-in should be in some package.
+#-mocl (declaim (declaration call-in))
+
+
 ;;;; THE END ;;;;
