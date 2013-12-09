@@ -1,18 +1,32 @@
 -*- mode:org; coding:utf-8 -*-
+
+http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
+
+;; SFR
+;;
+;; Carte SIM n°89331036123640651403
+;; 
+;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
+;; Votre contrat est le XFR460.
+;;
+;; samsung: pjb@ogamita.org | vih3doq9
+;; dropbox: pjb@ogamita.org | ciliz6kah3
+
+Gerald Jay Sussman
+http://www.infoq.com/presentations/Expression-of-Ideas
+http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
+
+
 http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
+
+vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
+vboxmanage clonehd  /path/to/virtualdisk.vdi  /path/to/copy.vdi
 
 scan la-construction-de-programmes-structures
 missing: page 132 135 136 
 
 maillists: cmucl*@cmucl.cons.org
 
-* TODO
-
-- abnotation(gsharp)
-- abalone
-- mocl test 2 (ios/android).
-- lispos (lire eros, prendre notes)
-- beyondvoice
 
 * NOTES
 http://www.omg.org/spec/index.htm
@@ -439,6 +453,13 @@ diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/da
    525M  /a3/save/systems
 51G      total
 
+** Developments to do
+*** TODO [#A] mocl test 2 (ios/android).
+*** TODO [#A] enolaba abalone MacOSX
+*** TODO [#A] enolaba abalone iOS
+*** TODO [#A] enolaba abalone Android
+*** TODO lispos (lire eros, prendre notes)
+*** TODO [#B] beyondvoice
 *** TODO Application mobiles (iOS, Android): comptage de manifestation + geolocation.
 *** TODO Application mobiles (iOS, Android): geofamily-like but free.
 *** TODO Copy music to disk for Manon and send it to her.
@@ -505,13 +526,13 @@ http://feeds.harvardbusiness.org/harvardbusiness/schwartz?format=xml
     :PROPERTIES:
     :LAST_REPEAT: [2012-12-12 Wed 22:12]
     :END:
-*** TODO [0/5] Emploi.
-    :DEADLINE: <2013-02-01 -2m>
+*** TODO [#A] [0/5] Emploi.
+    :DEADLINE: <2013-12-31 -1m>
+- [ ] update profile on linkedin.com
+- [ ] update profile on etc…
 - [ ] update CV on pjb.ogamita.org
 - [ ] update CV on Monster.com
 - [ ] update CV on pole-emploi.fr
-- [ ] update profile on linkedin.com
-- [ ] update profile on etc…
 **** TODO [#B] Redesign my résumé / cv:
    + different facettes of PJB: { {C/C++ track, Lisp track, ...},
                                   {MacOSX track, unix track},
@@ -1569,6 +1590,8 @@ Check a lisp X11 server?
 - write pbxproj parser and tools (search files, explain targets, etc).
 http://www.monobjc.net/index.php?page=xcode-project-file-format
 
+** TODO [#A] Publish HTML documentation snippets for my packages     :cl:dev:
+eg. Extract from ASDF descriptions.
 ** TODO [#A] Failing test case in reader.lisp                        :cl:dev:
    :DEADLINE: <2012-12-31 -7d>
 From: Orivej Desh <orivej@gmx.fr>
@@ -2058,7 +2081,6 @@ internal disk                            external backup
       TimeMachine Backup galatea
       Copy of newton.medicalis.es before upgrade to 10.5.
       --> full galatea backup
-
 
 
 
@@ -2917,8 +2939,6 @@ http://www.rubinsteyn.com/pl_fall_2011/recitation.html
 http://fare.tunes.org/articles/ll99/index.en.html
 http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
 https://github.com/DamienCassou/DSLides
-
-
 
 
 > See asm7090-describe-codop.  You could even do that in a
@@ -4617,7 +4637,8 @@ http://www.robotwisdom.com/map.html
     one solution like Lexalytics, Serendio, Clarabridge, etc
 
 *** CSAIL, AILabs
-
+**** TODO  Make a clone of http://ftp.sunet.se/pub/lang/lisp/  and compare it with our ailab repo lang/lisp.
+**** Bookmarks
     http://www.ai.mit.edu/research/publications/
 
     http://www.haible.de/bruno/papers/cs/weak/WeakDatastructures-writeup.html
