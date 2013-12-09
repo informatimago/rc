@@ -2083,7 +2083,6 @@ internal disk                            external backup
       --> full galatea backup
 
 
-
 * ALIRE, LECTURES
 ** TODO To watch
 
