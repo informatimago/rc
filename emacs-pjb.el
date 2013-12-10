@@ -457,7 +457,6 @@ X-Accept-Language:         fr, es, en
 
 (set-sources "/home/pjb/works/patchwork/patchwork/")
 
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 ;;;----------------------------------------------------------------------------
 
 ;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
@@ -472,6 +471,9 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 
+
+(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+
 (defun pjb-w3m-mode-meat ()
   (interactive)
   (local-set-key (kbd "<up>") 'previous-line)
@@ -481,6 +483,7 @@ X-Accept-Language:         fr, es, en
   (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
   (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
 
+(defvar w3m-mode-hook '())
 (pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
 ;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
