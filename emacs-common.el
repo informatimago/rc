@@ -690,7 +690,15 @@ NOTE:   ~/directories.txt is cached in *directories*.
   (interactive)
   (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (load-library "slime")
-  (slime-setup '(slime-fancy)))
+  (slime-setup '(slime-fancy
+                 slime-asdf
+                 slime-sprof
+                 slime-compiler-notes-tree
+                 slime-hyperdoc
+                 slime-mdot-fu
+                 slime-mrepl
+                 slime-indentation
+                 slime-repl)))
 (reload-swank)
 (require 'highlight-flet nil t)
 
@@ -1537,6 +1545,11 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (mac-adjust-full-screen)))
 
 
+(defun* backward-font (&optional (increment 1))
+  (interactive "p")
+  (forward-font (- increment)))
+
+
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
 (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
 
@@ -1705,7 +1718,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"   "orchid1"       "#444444")
   (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
   (defpalette pal-galatea-light "#60c0ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-green         "green"        "black"         "yellow"  "grey50"        "#444444")
+  (defpalette pal-green         "green"        "black"         "yellow"  "grey50"        "magenta")
   (defpalette pal-dark          "White"        "#055045"       "yellow"  "grey40"        "#444444")
   (defpalette pal-dark-cyan     "#11eef2"      "black"         "yellow"  "grey80"        "#444444")
   (defpalette pal-dark-blue     "#1199f2"      "black"         "yellow"  "grey80"        "#444444")
