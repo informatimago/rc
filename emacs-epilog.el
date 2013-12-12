@@ -3,5 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs common epilog.
 
 (.EMACS "epilogue")
-(milliways-activate) (.EMACS "milliways activated!")
+(when (fboundp 'milliways-activate) 
+  (milliways-activate)
+  (.EMACS "milliways activated!"))
 (.EMACS "DONE")
