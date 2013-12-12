@@ -703,8 +703,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
                  slime-indentation
                  slime-repl
                  slime-media)))
-(when (require 'slime nil t)
- (reload-swank))
+
+(reload-swank)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
