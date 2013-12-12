@@ -352,7 +352,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . HUNCHENTOOT) (Package . CL-USER) (Syntax . COMMON-LISP) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -432,7 +432,7 @@ X-Accept-Language:         fr, es, en
  '(w3m-coding-system (quote utf-8))
  '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
- '(w3m-fb-mode nil t)
+ '(w3m-fb-mode nil)
  '(w3m-file-coding-system (quote utf-8))
  '(w3m-file-name-coding-system (quote iso-8859-1))
  '(w3m-form-textarea-directory "~/.w3m/textarea")
@@ -533,6 +533,12 @@ X-Accept-Language:         fr, es, en
 (require 'twittering-mode)
 (setf twittering-username "ogamita")
 (setf (getenv "XMODIFIERS") nil)
+
+(let ((temporary-file-directory "~/.backups"))
+  (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
