@@ -50,6 +50,8 @@ Darwin)
     esac
 esac
 
+
+
 function member(){
     local item="$1" ; shift
     for arg ; do 
@@ -62,13 +64,35 @@ function member(){
     return 1
 }
 
+
 function reverse(){
-    args=("$@")
+    local args=("$@")
     i=${#args[@]}
     while [ $i -ge 0 ] ; do
         echo "${args[$i]}"
         i=$(( $i - 1 ))
     done
+}
+
+
+function remove(){
+    local element="$1" ; shift
+    for arg ; do
+        if [ "$element" != "$arg" ] ; then
+            echo "$arg "
+        fi
+    done
+}
+
+
+function joinWithSeparator(){
+    local separator="$1" ; shift
+    local sep=''
+    for arg ; do
+        echo -n "${sep}${arg}"
+        sep="$separator"
+    done
+    echo ''
 }
 
 
@@ -111,6 +135,19 @@ function prependNewToStringVariableDirectoryIfExists(){
 
 
 
+function prependIfDirectoryExists(){
+    local dir
+    local result=()
+    for dir in $(reverse $@) ; do
+        if [ NIL != $(member $dir ${result[@]}) ] ; then
+            result=($dir $(remove $dir ${result[@]}))
+        elif [ -d $dir ] ; then
+            result=($dir ${result[@]})
+        fi
+    done
+    echo ${result[@]}
+}
+
 
 # User specific environment and startup programs
 export BASH_ENV=$HOME/.bash_env
@@ -151,29 +188,29 @@ function be_generate(){
     local list
 
     bindirs=( 
-        /bin            /sbin
-        /usr/bin        /usr/sbin
-        /usr/X11R6/bin  /usr/X11/bin /usr/games 
-        /Developer/Tools 
-        /data/languages/abcl
-        /data/languages/acl82express
-        /data/languages/ccl/bin
-        /data/languages/clisp/bin
-        /data/languages/cmucl/bin
-        /data/languages/ecl/bin
-        # /data/languages/sbcl/bin
-        /opt/bin        /opt/sbin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/local/lib/postgresql84/bin  # on galatea
-        /usr/local/bin  /usr/local/sbin /usr/local/opt
-        $HOME/bin 
-        # $HOME/bin-$(hostname|sed -e 's/\..*//')
-
-        # DxO stuff:
-        $HOME/.rvm/bin # Add RVM to PATH for scripting
-        $HOME/Tools
-        $HOME/src/reposurgeon
         $HOME/src/fast-export
+        $HOME/src/reposurgeon
+        $HOME/Tools
+        $HOME/.rvm/bin # Add RVM to PATH for scripting
+        # DxO stuff:
+
+        # $HOME/bin-$(hostname|sed -e 's/\..*//')
+        $HOME/bin 
+        /usr/local/bin  /usr/local/sbin /usr/local/opt
+        /opt/local/lib/postgresql84/bin  # on galatea
+        /opt/*/bin      /opt/*/sbin 
+        /opt/bin        /opt/sbin
+        # /data/languages/sbcl/bin
+        /data/languages/ecl/bin
+        /data/languages/cmucl/bin
+        /data/languages/clisp/bin
+        /data/languages/ccl/bin
+        /data/languages/acl82express
+        /data/languages/abcl
+        /Developer/Tools 
+        /usr/X11R6/bin  /usr/X11/bin /usr/games 
+        /usr/bin        /usr/sbin
+        /bin            /sbin
     )
 
     sharedirs=(
@@ -181,20 +218,20 @@ function be_generate(){
     )
 
     mandirs=( 
-        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
-        /usr/local/bin /usr/local/share/man 
         /opt/local/man /opt/local/share/man 
+        /usr/local/bin /usr/local/share/man 
+        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
     )
 
     lddirs=( 
-        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
-        /usr/local/lib 
-        /opt/local/lib 
         /opt/*/lib 
+        /opt/local/lib 
+        /usr/local/lib 
+        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
     )
 
     editors=( 
-	      /Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+	    /Applications/Emacs.app/Contents/MacOS/bin/emacsclient
         /opt/emacs-23.4/bin/emacsclient 
         /opt/emacs-23.3/bin/emacsclient 
         /opt/emacs-23.2/bin/emacsclient 
@@ -239,13 +276,11 @@ function be_generate(){
         fi
     done
 
-    list=""
-    prependNewToStringVariableDirectoryIfExists list  ${bindirs[@]}
-    be_variable PATH "$list:$PATH"
+
+    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
 
     # TODO: Check same thing is done elsewhere:
-    list=""
-    prependNewToStringVariableDirectoryIfExists list  ${sharedirs[@]}
+    list="$(joinWithSeparator \: $(prependIfDirectoryExists ${sharedirs[@]}))"
     if [ -s "$list" ] ; then
         if [ -s "$XDG_DATA_DIRS" ] ; then
             be_variable XDG_DATA_DIRS "$list:$XDG_DATA_DIRS"
@@ -254,15 +289,8 @@ function be_generate(){
         fi
     fi
 
-    list=""
-    prependNewToStringVariableDirectoryIfExists list  ${mandirs[@]}
-    be_variable MANPATH "$list"
-#    be_variable MANPATH "$list:$MANPATH"
-
-    list=""
-    prependNewToStringVariableDirectoryIfExists list ${lddirs[@]}
-    be_variable LD_LIBRARY_PATH "$list"
-#    be_variable LD_LIBRARY_PATH "$list:$LD_LIBRARY_PATH"
+    be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
+    be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
 
 
     be_comment 'ANSI terminal codes:'
@@ -358,21 +386,21 @@ function be_generate(){
     # If the above are not defined:
     be_unset LANG
 
-    if [ $(hostname) = iMac-Core-i5.local ] ; then
-
-        be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
-        be_variable MAILHOST                localhost
-        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
-        be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
-
-    else
+    # if [ $(hostname) = iMac-Core-i5.local ] ; then
+    # 
+    #     be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
+    #     be_variable MAILHOST                localhost
+    #     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
+    #     be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
+    # 
+    # else
 
         be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
         be_variable MAILHOST                mail.informatimago.com
         be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
         be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
 
-    fi
+    # fi
 
     be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
@@ -521,10 +549,10 @@ alias du='du -h'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
 alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif'
 
-alias dw='darcs whatsnew -sl'
-alias dr='darcs record -am'
-alias ds='darcs push'
-alias dl='darcs pull'
+# alias dw='darcs whatsnew -sl'
+# alias dr='darcs record -am'
+# alias ds='darcs push'
+# alias dl='darcs pull'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -922,7 +950,20 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true ; chmod 700 /tmp/emacs${UID} ; if [ -x /opt/emacs-23.1/bin/emacs ] ; then EMACS=/opt/emacs-23.1/bin/emacs ; else EMACS=emacs ; fi ; for EMACS_USE in pgm gnus erc ; do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown ; sleep 9 ; done ; }
+function emacsen         (){ 
+    mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true 
+    chmod 700 /tmp/emacs${UID} 
+    if [ -x /opt/emacs-23.1/bin/emacs ] 
+    then EMACS=/opt/emacs-23.1/bin/emacs 
+    elif [ -x /usr/local/bin/emacs ] 
+    then EMACS=/usr/local/bin/emacs 
+    else EMACS=emacs 
+    fi 
+    for EMACS_USE in pgm gnus erc 
+    do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown 
+        sleep 9 
+    done 
+}
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 
@@ -1097,6 +1138,8 @@ dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
 mdi-development-*)  source  /usr/local/env.sh  ;;
 *)                  source ~/rc/bashrc-pjb ;;
 esac
+
+export "PATH=$HOME/opt/jdk/bin:$PATH"
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####

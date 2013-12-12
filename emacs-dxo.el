@@ -476,10 +476,7 @@
 
 (add-hook 'lua-mode-hook 'lua-mode-meat)
 
-
-;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-epilog.el")
+(find-library "outline-mode-easy-bindings") 
 
 ;;;; THE END ;;;;
 
-(find-library "outline-mode-easy-bindings") 

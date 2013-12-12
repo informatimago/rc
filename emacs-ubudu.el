@@ -533,6 +533,7 @@ X-Accept-Language:         fr, es, en
 (require 'twittering-mode)
 (setf twittering-username "ogamita")
 (setf (getenv "XMODIFIERS") nil)
+<<<<<<< HEAD
 
 (let ((temporary-file-directory "~/.backups"))
   (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
@@ -540,5 +541,7 @@ X-Accept-Language:         fr, es, en
 
 
 (load "~/rc/emacs-epilog.el")
+=======
+>>>>>>> 594d4cda19b6442afbbfaa06d87d2aed7dabf4ef
 ;;;; THE END ;;;;
 
