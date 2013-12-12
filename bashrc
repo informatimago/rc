@@ -353,6 +353,8 @@ function be_generate(){
     be_unset LC_COLLATE
     be_unset LC_CTYPE
 
+    be_unset XMODIFIERS
+
     # If the above are not defined:
     be_unset LANG
 
