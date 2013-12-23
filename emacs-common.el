@@ -700,7 +700,6 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
                     '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin"))
 
-
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------
