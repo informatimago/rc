@@ -1,5 +1,28 @@
 -*- mode:org; coding:utf-8 -*-
 
+http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
+
+TODO: add llrbtree as an implementation for dictionary
+
+6502 lisp
+http://ahefner.livejournal.com/20528.html#
+https://github.com/ahefner/asm6502
+
+ecl android
+../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
+https://github.com/pasky/pachi/blob/master/ANDROID.txt
+https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
+https://github.com/ageneau/ecl-android
+
+
+GBOM
+
+Green 
+Beans
+Onion
+Mushrooms
+
+
 Thank you for supporting the proposed European Citizens' Initiative: Unconditional Basic Income (UBI) - Exploring a pathway towards emancipatory welfare conditions in the EU
 Your statement of support has been submitted successfully.
 Date: 04/12/2013
@@ -495,6 +518,24 @@ diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/da
 51G      total
 
 ** Developments to do
+*** TODO [#A] web service to setup private mail-lists with aliases.
+
+http://list.ogamita.com
+
+create mail list:
+
+    name:        [      ]@list.ogamita.com
+    owner:       [                ] password: [              ]
+    recpipents:  [                ]
+                 [                ]
+                 …
+
+
+mailto:${name}@list.ogamita.com
+
+
+
+
 *** TODO [#A] mocl test 2 (ios/android).
 *** TODO [#A] enolaba abalone MacOSX
 *** TODO [#A] enolaba abalone iOS
