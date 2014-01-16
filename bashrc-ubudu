@@ -10,7 +10,8 @@ fi
 export PATH="$HOME/opt/bin:$PATH"
 export PATH="$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH"
 export PATH="$HOME/opt/jdk/bin:$PATH"
-# export JAVA_HOME="${HOME}/opt/jdk"
+export JAVA_HOME="${HOME}/opt/jdk"
+export ANDROID_HOME="${HOME}/opt/adt/sdk"
 # sudo $(which adb) root
 
 export PATH="$HOME/binubudu:$PATH"
@@ -25,3 +26,34 @@ type -p gls && alias ls='gls -FaCB' || alias ls='ls -FaCB'
 
 # export PATH="${PATH}:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/bin:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/usr/bin:${HOME}/src/wifi-scanner/current-toolchains/toolchain-mipsel_4.1.1_BRCM24/mipsel-linux-uclibc/bin"
 
+
+function connect-adb-device(){
+    adb devices
+    adb tcpip ${ANDROID_SERIAL/.*:/}
+    sleep 2
+    adb connect ${ANDROID_SERIAL}
+    adb devices
+}
+
+function connect-nereid(){
+    export ANDROID_SERIAL=192.168.2.182:5555
+    connect-adb-device
+}
+
+function connect-tab(){
+    export ANDROID_SERIAL=192.168.2.103:5555
+    connect-adb-device
+}
+
+function connect-g3(){
+    export ANDROID_SERIAL=192.168.2.50:5555
+    connect-adb-device
+}
+
+function adb-reconnect(){
+    adb disconnect 192.168.2.182:5555 
+    sleep 1 
+    adb tcpip 5555 
+    sleep 1 
+    adb connect 192.168.2.182:5555
+}
