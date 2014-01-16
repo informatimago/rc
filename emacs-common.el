@@ -44,10 +44,7 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
-(warn "~/rc/emacs-common.el: Please set the right source-directory.")
-;; (setq source-directory "/usr/local/src/emacs23-23.4+1/src/")
-(setq source-directory "/usr/local/src/emacs-24.3/src/")
-;; emacs-version "23.4.1"
+(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 (defvar *lac-functions* '()
   "A list of functions to be called after elpa is loaded.

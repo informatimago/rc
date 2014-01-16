@@ -26,6 +26,7 @@
                          (or (let* ((hostname-configuration-map
                                      '(("^mercure"                . "~/rc/emacs-ubudu.el")
                                        ("^uiserver"               . "~/rc/emacs-ubudu.el")
+                                       ("^ubudair"                . "~/rc/emacs-ubudu.el")
                                        ("^ubudu-vm-mac-[0-9]"     . "~/rc/emacs-ubudu.el")
                                        ("^imac-core-i5.local"     . "~/rc/emacs-dxo.el")
                                        ("^dxo-pbo.local"          . "~/rc/emacs-dxo.el")
