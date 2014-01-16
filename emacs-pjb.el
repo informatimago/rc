@@ -481,6 +481,7 @@ X-Accept-Language:         fr, es, en
   (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
   (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
 
+(defvar w3m-mode-hook '())
 (pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
 ;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
