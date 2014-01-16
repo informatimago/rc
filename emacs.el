@@ -26,6 +26,7 @@
                          (or (let* ((hostname-configuration-map
                                      '(("^mercure"                . "~/rc/emacs-employer-c.el")
                                        ("^uiserver"               . "~/rc/emacs-employer-c.el")
+                                       ("^ubudair"                . "~/rc/emacs-employer-c.el")
                                        ("^employer-c-vm-mac-[0-9]"     . "~/rc/emacs-employer-c.el")
                                        ("^imac-core-i5.local"     . "~/rc/emacs-employer-d.el")
                                        ("^employer-d-pbo.local"          . "~/rc/emacs-employer-d.el")
