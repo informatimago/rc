@@ -1,0 +1,9 @@
+# -*- mode:shell-script; coding:utf-8 -*-
+
+# export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+# export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+
+export PATH="/opt/local/sbin:/opt/local/bin:$PATH"
+export MANPATH="/opt/local/man:$MANPATH"
+
+alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'

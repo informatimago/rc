@@ -41,8 +41,12 @@
   (if configuration
       (let ((file (file-truename (cdr configuration))))
         (load file)
+        ;; setting custom-file needs to be done after we've customized our stuff
+        ;; otherwise it may be overridden with an empty customization.
         (setq custom-file (or file custom-file)))
       (message "Found no configuration to load for %s" (hostname))))
 
-;;;; THE END ;;;;
+;;;----------------------------------------------------------------------------
+(load "~/rc/emacs-epilog.el")
 
+;;;; THE END ;;;;
