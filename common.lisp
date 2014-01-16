@@ -48,6 +48,7 @@
 ;;; Clean the packages imported into COMMON-LISP-USER:
 ;;;
 
+
 (mapc (lambda (package) (unuse-package package "COMMON-LISP-USER"))
       (set-difference
        (copy-seq (package-use-list "COMMON-LISP-USER"))
@@ -61,6 +62,14 @@
       *print-level*  nil
       *print-lines*  nil
       *print-right-margin* 110)
+
+#+swank
+(setq *debugger-hook* (let ((old-debugger-hook *debugger-hook*))
+                        (defun trace-error-debugger-hook (condition me-or-my-encapsulation)
+                          (format *trace-output* "~A~%" condition)
+                          (funcall old-debugger-hook condition me-or-my-encapsulation))))
+
+
 
 (declaim (optimize (safety 3) (debug 3) (space 0) (speed 0)))
 

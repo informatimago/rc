@@ -362,6 +362,8 @@ function be_generate(){
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Madrid
 
+    be_unset GNOME_KEYRING_CONTROL
+
     # Most prioritary:
     be_variable LC_ALL                    C
 

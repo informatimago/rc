@@ -458,10 +458,12 @@ Returns a string described by x; specifically:
 (defun octal (n)
   "N is a decimal numbers whose digits are taken as octal digits
 and converted as such."
-  (loop
-     for d across (format "%d" n)
-     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-     finally (return r)))
+  (let ((digits (format "%d" n))
+        (r 0))
+    (dotimes (i (length digits))
+      (setf r (+ (* 8 r) (digit-char-p (aref digits i)))))
+    r))
+
 
 (defun chmod (file mode)
   (interactive "fFile path: \nXMode: ")
