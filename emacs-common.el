@@ -44,10 +44,7 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
-(warn "~/rc/emacs-common.el: Please set the right source-directory.")
-;; (setq source-directory "/usr/local/src/emacs23-23.4+1/src/")
-(setq source-directory "/usr/local/src/emacs-24.3/src/")
-;; emacs-version "23.4.1"
+(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 (defvar *lac-functions* '()
   "A list of functions to be called after elpa is loaded.
@@ -692,19 +689,19 @@ NOTE:   ~/directories.txt is cached in *directories*.
 (defun reload-swank ()
   (interactive)
   (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-  (load-library "slime")
-  (slime-setup '(slime-fancy
-                 slime-asdf
-                 slime-sprof
-                 slime-compiler-notes-tree
-                 slime-hyperdoc
-                 slime-mdot-fu
-                 slime-mrepl
-                 slime-indentation
-                 slime-repl
-                 slime-media)))
-(when (require 'slime nil t)
- (reload-swank))
+  (when (require 'slime nil t)
+    (slime-setup '(slime-fancy
+                   slime-asdf
+                   slime-sprof
+                   slime-compiler-notes-tree
+                   slime-hyperdoc
+                   slime-mdot-fu
+                   slime-mrepl
+                   slime-indentation
+                   slime-repl
+                   slime-media))))
+
+(reload-swank)
 (require 'highlight-flet nil t)
 
 ;;;----------------------------------------------------------------------------

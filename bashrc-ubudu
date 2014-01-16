@@ -10,7 +10,8 @@ fi
 export PATH="$HOME/opt/bin:$PATH"
 export PATH="$HOME/opt/adt/eclipse:$HOME/opt/adt/sdk/tools/:$HOME/opt/adt/sdk/build-tools/:$HOME/opt/adt/sdk/platform-tools/:$PATH"
 export PATH="$HOME/opt/jdk/bin:$PATH"
-# export JAVA_HOME="${HOME}/opt/jdk"
+export JAVA_HOME="${HOME}/opt/jdk"
+export ANDROID_HOME="${HOME}/opt/adt/sdk"
 # sudo $(which adb) root
 
 export PATH="$HOME/binubudu:$PATH"
