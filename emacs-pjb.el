@@ -35,7 +35,7 @@
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
- '(font-lock-comment-face ((nil (:foreground "red"))))
+ '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
