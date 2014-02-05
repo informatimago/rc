@@ -883,14 +883,14 @@ NOTE:   ~/directories.txt is cached in *directories*.
      (set-language-environment                "utf-8")
      (prefer-coding-system                    'utf-8-unix)
      (set-default-coding-systems              'utf-8-unix)
-     (set-keyboard-coding-system              'iso-8859-1-unix)
-     (set-terminal-coding-system              'iso-8859-1-unix)
+     (set-keyboard-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
+     (set-terminal-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
      (set-clipboard-coding-system             'utf-8-unix)
      (set-selection-coding-system             'utf-8-unix)
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
-           default-terminal-coding-system     'iso-8859-1-unix
-           default-keyboard-coding-system     'iso-8859-1-unix
+           default-terminal-coding-system     'utf-8-unix ; 'iso-8859-1-unix
+           default-keyboard-coding-system     'utf-8-unix ; 'iso-8859-1-unix
            default-sendmail-coding-system     'utf-8-unix
            default-process-coding-system      '(utf-8-unix . utf-8-unix))
      (modify-coding-system-alist 'process ".*shell\\'"     'utf-8-unix)
