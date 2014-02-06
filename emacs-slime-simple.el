@@ -654,7 +654,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 ;; (load-library "cl")
 ;; (setq indent-region-function (function lisp-indent-function))
-;; (setq lisp-indent-function   (function common-lisp-indent-function))
+(setq lisp-indent-function   (function common-lisp-indent-function))
 ;; (setq lisp-indent-function   (function lisp-indent-function))
 ;; (put 'let  'lisp-indent-function        '(&lambda &body))
 ;; (put 'let* 'lisp-indent-function        '(&lambda &body))
