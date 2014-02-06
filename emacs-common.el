@@ -44,10 +44,7 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
-(warn "~/rc/emacs-common.el: Please set the right source-directory.")
-;; (setq source-directory "/usr/local/src/emacs23-23.4+1/src/")
-(setq source-directory "/usr/local/src/emacs-24.3/src/")
-;; emacs-version "23.4.1"
+(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 (defvar *lac-functions* '()
   "A list of functions to be called after elpa is loaded.
@@ -458,10 +455,12 @@ Returns a string described by x; specifically:
 (defun octal (n)
   "N is a decimal numbers whose digits are taken as octal digits
 and converted as such."
-  (loop
-     for d across (format "%d" n)
-     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-     finally (return r)))
+  (let ((digits (format "%d" n))
+        (r 0))
+    (dotimes (i (length digits))
+      (setf r (+ (* 8 r) (digit-char-p (aref digits i)))))
+    r))
+
 
 (defun chmod (file mode)
   (interactive "fFile path: \nXMode: ")
@@ -884,14 +883,14 @@ NOTE:   ~/directories.txt is cached in *directories*.
      (set-language-environment                "utf-8")
      (prefer-coding-system                    'utf-8-unix)
      (set-default-coding-systems              'utf-8-unix)
-     (set-keyboard-coding-system              'iso-8859-1-unix)
-     (set-terminal-coding-system              'iso-8859-1-unix)
+     (set-keyboard-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
+     (set-terminal-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
      (set-clipboard-coding-system             'utf-8-unix)
      (set-selection-coding-system             'utf-8-unix)
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
-           default-terminal-coding-system     'iso-8859-1-unix
-           default-keyboard-coding-system     'iso-8859-1-unix
+           default-terminal-coding-system     'utf-8-unix ; 'iso-8859-1-unix
+           default-keyboard-coding-system     'utf-8-unix ; 'iso-8859-1-unix
            default-sendmail-coding-system     'utf-8-unix
            default-process-coding-system      '(utf-8-unix . utf-8-unix))
      (modify-coding-system-alist 'process ".*shell\\'"     'utf-8-unix)

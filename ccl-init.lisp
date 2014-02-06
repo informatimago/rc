@@ -134,6 +134,7 @@
   #-(and ccl (not swank)) (declare (ignore encoding))
   #+(and ccl (not swank))
   (mapc (lambda (stream)
+
           (setf (ccl::stream-external-format stream)
                 (ccl:make-external-format :domain nil
                                           :character-encoding encoding

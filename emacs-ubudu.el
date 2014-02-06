@@ -466,6 +466,7 @@ X-Accept-Language:         fr, es, en
 (setf auto-mode-alist
       (sort* (list* '("\\.md$" . text-mode)
                     '("/ubudu-sdk/documentation/ios/.*\\.h$". objc-mode)
+                    '("/src/bwin_tournament_ios/.*\\.h$". objc-mode)
                     '("/src/\\(IOS-SDK\\|audio\\|uscdtest\\)/.*\\.[hm]$" . objc-mode)
                     (remove* 'modula-2-mode auto-mode-alist
                              :key (function cdr)))
@@ -537,6 +538,12 @@ X-Accept-Language:         fr, es, en
 (let ((temporary-file-directory "~/.backups"))
   (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+
+
+(setf android-filter-function nil)
+(setf android-filter-function (android-filter-or
+                                (android-filter-match-tag     "ubudu\\|bwin")
+                                (android-filter-match-message "ubudu\\|bwin")))
 
 
 (load "~/rc/emacs-epilog.el")
