@@ -883,14 +883,14 @@ NOTE:   ~/directories.txt is cached in *directories*.
      (set-language-environment                "utf-8")
      (prefer-coding-system                    'utf-8-unix)
      (set-default-coding-systems              'utf-8-unix)
-     (set-keyboard-coding-system              'iso-8859-1-unix)
-     (set-terminal-coding-system              'iso-8859-1-unix)
+     (set-keyboard-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
+     (set-terminal-coding-system              'utf-8-unix) ; 'iso-8859-1-unix)
      (set-clipboard-coding-system             'utf-8-unix)
      (set-selection-coding-system             'utf-8-unix)
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
-           default-terminal-coding-system     'iso-8859-1-unix
-           default-keyboard-coding-system     'iso-8859-1-unix
+           default-terminal-coding-system     'utf-8-unix ; 'iso-8859-1-unix
+           default-keyboard-coding-system     'utf-8-unix ; 'iso-8859-1-unix
            default-sendmail-coding-system     'utf-8-unix
            default-process-coding-system      '(utf-8-unix . utf-8-unix))
      (modify-coding-system-alist 'process ".*shell\\'"     'utf-8-unix)
@@ -1416,6 +1416,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (defparameter *pjb-font-list*
   '(
+
+    
     "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
     
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
@@ -1515,9 +1517,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
     "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
 
-    ))
+    )
 
-(defvar *pjb-current-font-index* 0)
+  (defvar *pjb-current-font-index* 0))
 
 (defun sign (number)
   (cond ((< number 0) -1)
@@ -1526,6 +1528,21 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 ;; (set-face-attribute 'default nil :height 150)
 ;; (set-face-attribute 'default nil :height 200)
+
+'(progn
+  '("Andale Mono"
+    "Courier"
+    "Courier New"
+    "Menlo"
+    "Monaco"
+    "Osaka"
+    "PCMyungjo"
+    "Apple Color Emoji")
+
+  (set-frame-font "Apple Color Emoji Regular 13")
+  (set-frame-font "Osaka Regular 12")
+  (set-frame-font "Andale Mono Regular 12")
+  )
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
