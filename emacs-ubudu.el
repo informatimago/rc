@@ -540,6 +540,12 @@ X-Accept-Language:         fr, es, en
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
 
+(setf android-filter-function nil)
+(setf android-filter-function (android-filter-or
+                                (android-filter-match-tag     "ubudu\\|bwin")
+                                (android-filter-match-message "ubudu\\|bwin")))
+
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
