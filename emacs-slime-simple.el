@@ -647,7 +647,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (values))
 
 
-
+(setf lisp-indent-function 'common-lisp-indent-function)
 
 
 
