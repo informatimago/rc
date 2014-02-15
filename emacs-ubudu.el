@@ -540,6 +540,128 @@ X-Accept-Language:         fr, es, en
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
 
+
+(defun ubudu-process-assert-methods ()
+  (interactive)
+  (while (re-search-forward "\\(static void \\([a-zA-Z]*\\)(\\(.*\\))\\)" nil t)
+    (let* ((end    (match-end 0))
+           (header (match-string 1))
+           (name   (match-string 2))
+           (args   (match-string 3))
+           (args   (mapcar (lambda (arg) (split-string arg " +" t))
+                           (split-string (match-string 3) ", *" t))))
+      (goto-char end)
+      (insert "{" "\n")
+      (insert "  if(expected!=actual){" "\n")
+      (if args
+        (insert (format "    Log.e(TAG,String.format(\"Assertion failed: %s\",%s));"
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "String")
+                                            (format "(%s \\\"%%s\\\")" name))
+                                           ((or (string= type "Object")
+                                                (string= type "boolean")
+                                                (string= type "char"))
+                                            (format "(%s %%s)" name))
+                                           ((or (string= type "float")
+                                                (string= type "double"))
+                                            (format "(%s %%f)" name))
+                                           ((or (string= type "byte")
+                                                (string= type "short")
+                                                (string= type "int")
+                                                (string= type "long"))
+                                            (format "(%s %%d)" name))
+                                           (t (format "(%s %%s)" name)))))
+                                      args)
+                              " ")
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "boolean")
+                                            (format "(%s?\"true\":\"false\")" name))
+                                           (t name))))
+                                      args)
+                              ","))
+                "\n")
+        (insert "    Log.e(TAG,String.format(\"Assertion failed\"));" "\n"))
+      (insert "  }" "\n")
+      (insert (format "  super.%s(%s);\n"
+                      name
+                      (join (mapcar (function second) args) ","))
+              "\n")
+      (insert "}" "\n"))))
+
+(defun ubudu-process-log-methods ()
+  (interactive)
+  (while (re-search-forward "\\(static int \\([a-zA-Z]*\\)(\\(.*\\))\\)" nil t)
+    (let* ((end    (match-end 0))
+           (header (match-string 1))
+           (name   (match-string 2))
+           (args   (match-string 3))
+           (args   (mapcar (lambda (arg) (split-string arg " +" t))
+                           (split-string (match-string 3) ", *" t))))
+      (goto-char end)
+      (insert "{" "\n")
+      (insert "  android.util.Log.%s(){" "\n")
+      (if args
+        (insert (format "    Log.e(TAG,String.format(\"Assertion failed: %s\",%s));"
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "String")
+                                            (format "(%s \\\"%%s\\\")" name))
+                                           ((or (string= type "Object")
+                                                (string= type "boolean")
+                                                (string= type "char"))
+                                            (format "(%s %%s)" name))
+                                           ((or (string= type "float")
+                                                (string= type "double"))
+                                            (format "(%s %%f)" name))
+                                           ((or (string= type "byte")
+                                                (string= type "short")
+                                                (string= type "int")
+                                                (string= type "long"))
+                                            (format "(%s %%d)" name))
+                                           (t (format "(%s %%s)" name)))))
+                                      args)
+                              " ")
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "boolean")
+                                            (format "(%s?\"true\":\"false\")" name))
+                                           (t name))))
+                                      args)
+                              ","))
+                "\n")
+        (insert "    Log.e(TAG,String.format(\"Assertion failed\"));" "\n"))
+      (insert "  }" "\n")
+      (insert (format "  super.%s(%s);\n"
+                      name
+                      (join (mapcar (function second) args) ","))
+              "\n")
+      (insert "}" "\n"))))
+
+
+(setf android-filter-function nil)
+(setf android-filter-function
+      (android-filter-or (android-filter-match-tag "ubudu\\|bwin")
+                         (android-filter-match-message "ubudu\\|bwin")))
+
+(defun ubudu-reindent-all-java (dirpath)
+  (with-files (file dirpath  'recursive)
+              (when (string-match "\.java$" file )
+                (with-file (file :save t :kill t :literal nil)
+                           (untabify (point-min) (point-max))
+                           (indent-region (point-min) (point-max))))))
+
+;; (ubudu-reindent-all-java "~/src/Android-SDK/")
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
