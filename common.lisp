@@ -204,7 +204,7 @@ License:
                               :if-does-not-exist :create
                               :if-exists nil
                               :external-format :default)
-      (write-line ";; -*- mode:lisp -*-" asdfconf)
+      (write-string ";; -*- mode:lisp -*-" asdfconf)
       (print '(:output-translations
                #-clisp :ignore-invalid-entries
                (t (:home ".cache" "common-lisp" :hostname :implementation))
