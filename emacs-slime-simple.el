@@ -599,6 +599,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
+  (setf lisp-indent-function (function common-lisp-indent-function))
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
@@ -647,13 +648,13 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (values))
 
 
-
+(setf lisp-indent-function 'common-lisp-indent-function)
 
 
 
 ;; (load-library "cl")
 ;; (setq indent-region-function (function lisp-indent-function))
-;; (setq lisp-indent-function   (function common-lisp-indent-function))
+(setq lisp-indent-function   (function common-lisp-indent-function))
 ;; (setq lisp-indent-function   (function lisp-indent-function))
 ;; (put 'let  'lisp-indent-function        '(&lambda &body))
 ;; (put 'let* 'lisp-indent-function        '(&lambda &body))

@@ -650,7 +650,7 @@ X-Accept-Language:         fr, es, en
 
 (setf android-filter-function nil)
 (setf android-filter-function
-      (android-filter-or (android-filter-match-tag "ubudu\\|bwin")
+      (android-filter-or (android-filter-match-tag     "ubudu\\|bwin")
                          (android-filter-match-message "ubudu\\|bwin")))
 
 (defun ubudu-reindent-all-java (dirpath)
