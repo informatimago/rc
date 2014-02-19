@@ -6,6 +6,151 @@
 (.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
+
+
+(defvar *femnams*
+  '("aaliyah" "abbey" "abbie" "abbigail" "abby" "abigail" "addison" "adrian"
+    "adriana" "adrianna" "adrienne" "aileen" "aimee" "aisha" "aja"
+    "alaina" "alana" "alanna" "alayna" "aleah" "alecia" "alejandra"
+    "alena" "alesha" "alessandra" "alex" "alexa" "alexandra" "alexandrea"
+    "alexandria" "alexia" "alexis" "alexus" "ali" "alice" "alicia" "alina"
+    "alisa" "alisha" "alison" "alissa" "aliyah" "allie" "allison"
+    "allyson" "allyssa" "alma" "alondra" "alycia" "alysa" "alysha"
+    "alysia" "alyson" "alyssa" "amanda" "amani" "amber" "amelia" "amy"
+    "ana" "anabel" "anais" "anastasia" "andrea" "angel" "angela"
+    "angelica" "angelina" "angelique" "angie" "anika" "anissa" "anita"
+    "anjelica" "ann" "anna" "annamarie" "anne" "annette" "annie" "annika"
+    "annmarie" "antoinette" "antonia" "april" "araceli" "ariana" "arianna"
+    "ariel" "arielle" "arlene" "asha" "ashanti" "ashely" "ashlee"
+    "ashleigh" "ashley" "ashli" "ashlie" "ashly" "ashlyn" "ashlynn"
+    "ashton" "asia" "aspen" "astrid" "athena" "aubree" "aubrey" "audra"
+    "audrey" "aurora" "autumn" "ava" "avery" "ayana" "ayanna" "ayla"
+    "baby" "bailee" "bailey" "barbara" "baylee" "beatrice" "beatriz"
+    "belinda" "berenice" "bernadette" "beth" "bethany" "betsy" "betty"
+    "beverly" "bianca" "billie" "blair" "blanca" "bobbi" "bobbie" "bonnie"
+    "brandi" "brandie" "brandy" "brea" "breana" "breann" "breanna"
+    "breanne" "brenda" "brenna" "breonna" "bria" "briana" "brianna"
+    "brianne" "bridget" "bridgette" "brielle" "britany" "britney" "britni"
+    "brittani" "brittanie" "brittany" "brittney" "brittni" "brook"
+    "brooke" "brooklyn" "bryana" "bryanna" "caitlin" "caitlyn" "callie"
+    "cameron" "camille" "candace" "candice" "cara" "carina" "carissa"
+    "carla" "carlee" "carley" "carli" "carlie" "carly" "carmen" "carol"
+    "carolina" "caroline" "carolyn" "carrie" "carson" "casandra" "casey"
+    "cassandra" "cassidy" "cassie" "catalina" "catherine" "cayla"
+    "cecelia" "cecilia" "celeste" "celia" "celina" "celine" "chandler"
+    "chanel" "chantal" "chantel" "charity" "charlene" "charlotte"
+    "chasity" "chaya" "chelsea" "chelsey" "chelsi" "chelsie" "cheryl"
+    "cheyanne" "cheyenne" "china" "chloe" "christa" "christen" "christian"
+    "christiana" "christie" "christin" "christina" "christine" "christy"
+    "ciara" "ciera" "cierra" "cindy" "claire" "clara" "clare" "clarissa"
+    "claudia" "colleen" "connie" "constance" "cora" "corey" "cori"
+    "corina" "corinne" "cortney" "courtney" "cristal" "cristina" "crystal"
+    "cynthia" "daisy" "dakota" "dalia" "dallas" "damaris" "dana" "danica"
+    "daniela" "daniella" "danielle" "daphne" "dara" "darby" "darcy"
+    "darian" "darlene" "dawn" "dayna" "deana" "deanna" "debbie" "deborah"
+    "debra" "deja" "delaney" "demi" "denise" "desirae" "desiree"
+    "destinee" "destiney" "destini" "destiny" "devan" "devin" "devon"
+    "devyn" "diamond" "diana" "diane" "dianna" "dina" "dominique"
+    "dominque" "domonique" "donna" "doris" "dorothy" "drew" "dulce"
+    "eboni" "ebony" "eden" "edith" "eileen" "elaina" "elaine" "eleanor"
+    "elena" "eliana" "elisa" "elisabeth" "elise" "elisha" "elissa" "eliza"
+    "elizabeth" "ella" "ellen" "ellie" "elsa" "elyse" "elyssa" "emerald"
+    "emilee" "emilia" "emilie" "emily" "emma" "erica" "ericka" "erika"
+    "erin" "esmeralda" "essence" "estefania" "esther" "eunice" "eva"
+    "evelyn" "fabiola" "faith" "fatima" "felicia" "fiona" "frances"
+    "francesca" "franchesca" "francheska" "gabriel" "gabriela" "gabriella"
+    "gabrielle" "genesis" "genevieve" "georgia" "georgina" "gianna"
+    "gillian" "gina" "giovanna" "giselle" "gladys" "gloria" "grace"
+    "graciela" "gretchen" "griselda" "guadalupe" "gwendolyn" "hailee"
+    "hailey" "haleigh" "haley" "hali" "halie" "halle" "hallie" "hanna"
+    "hannah" "harley" "haylee" "hayley" "haylie" "hazel" "heather"
+    "heaven" "heidi" "helen" "helena" "hilary" "hillary" "hollie" "holly"
+    "hope" "hunter" "iesha" "iliana" "imani" "india" "infant" "ingrid"
+    "irene" "iris" "irma" "isabel" "isabella" "isabelle" "isamar" "itzel"
+    "ivette" "ivy" "jackie" "jacklyn" "jaclyn" "jacqueline" "jacquelyn"
+    "jada" "jade" "jaime" "jaimie" "jalisa" "jami" "jamie" "jamila" "jana"
+    "janae" "janay" "jane" "janelle" "janessa" "janet" "janette" "janice"
+    "janie" "janine" "jaqueline" "jasmin" "jasmine" "jayla" "jayme"
+    "jazmin" "jazmine" "jazmyn" "jean" "jeanette" "jena" "jenifer" "jenna"
+    "jennie" "jennifer" "jenny" "jerrica" "jesse" "jessenia" "jessi"
+    "jessica" "jessie" "jessika" "jill" "jillian" "joan" "joana" "joann"
+    "joanna" "joanne" "jocelyn" "jodi" "jodie" "joelle" "johanna" "jolene"
+    "jordan" "jordyn" "joselyn" "josephine" "josie" "joy" "joyce" "juana"
+    "juanita" "judith" "judy" "julia" "juliana" "julianna" "julianne"
+    "julie" "juliet" "julissa" "justice" "justina" "justine" "kacey"
+    "kaci" "kacie" "kaela" "kaila" "kailee" "kailey" "kailyn" "kaitlin"
+    "kaitlyn" "kaitlynn" "kala" "kaleigh" "kaley" "kali" "kalie" "kallie"
+    "kalyn" "kara" "karen" "kari" "karina" "karissa" "karla" "karlee"
+    "karley" "karli" "karlie" "karly" "kasandra" "kasey" "kassandra"
+    "kassidy" "kassie" "katarina" "kate" "katelin" "katelyn" "katelynn"
+    "katerina" "katharine" "katherine" "katheryn" "kathleen" "kathrine"
+    "kathryn" "kathy" "katie" "katlin" "katlyn" "katlynn" "katrina" "katy"
+    "kaycee" "kayla" "kaylee" "kayleigh" "kayley" "kayli" "kaylie"
+    "kaylin" "kaylyn" "kaylynn" "keely" "keila" "keisha" "keishla"
+    "kelcie" "kelley" "kelli" "kellie" "kelly" "kelsea" "kelsey" "kelsi"
+    "kelsie" "kendal" "kendall" "kendra" "kenia" "kennedy" "kenya" "keri"
+    "kerri" "kerry" "khadijah" "kia" "kiana" "kianna" "kiara" "kiera"
+    "kierra" "kiersten" "kiley" "kimberlee" "kimberley" "kimberly" "kira"
+    "kirsten" "kirstie" "kirstin" "kori" "kortney" "kourtney" "krista"
+    "kristal" "kristen" "kristi" "kristian" "kristie" "kristin" "kristina"
+    "kristine" "kristy" "kristyn" "krysta" "krystal" "kyla" "kylee"
+    "kylie" "kyra" "lacey" "lacie" "lacy" "lakeisha" "lana" "lara"
+    "larissa" "latasha" "latisha" "latoya" "laura" "laurel" "lauren"
+    "laurie" "lauryn" "layla" "lea" "leah" "leandra" "leann" "leanna"
+    "leanne" "leeann" "leigh" "leila" "lena" "lesley" "leslie" "lesly"
+    "leticia" "lexi" "lexie" "lexus" "liana" "lidia" "liliana" "lillian"
+    "lily" "linda" "lindsay" "lindsey" "lisa" "liza" "lizbeth" "lizeth"
+    "lizette" "logan" "loren" "lorena" "lori" "lorraine" "lourdes"
+    "lucero" "lucia" "lucy" "luz" "lydia" "lyndsey" "lynette" "lynn"
+    "macey" "macie" "mackenzie" "macy" "madalyn" "maddison" "madeleine"
+    "madeline" "madelyn" "madison" "maegan" "magdalena" "maggie" "maira"
+    "makayla" "makenna" "makenzie" "malia" "mallory" "mandy" "mara"
+    "maranda" "marcella" "margaret" "margarita" "maria" "mariah" "mariam"
+    "mariana" "maribel" "maricela" "marie" "mariel" "mariela" "marilyn"
+    "marina" "marisa" "marisela" "marisol" "marissa" "maritza" "marlee"
+    "marlena" "marlene" "martha" "martina" "mary" "maura" "maureen" "maya"
+    "mayra" "mckayla" "mckenna" "mckenzie" "meagan" "meaghan" "megan"
+    "meghan" "melanie" "melina" "melinda" "melisa" "melissa" "melody"
+    "meranda" "mercedes" "meredith" "mia" "micaela" "micah" "michaela"
+    "michele" "michelle" "mikaela" "mikala" "mikayla" "mindy" "miracle"
+    "miranda" "mireya" "miriam" "misty" "mollie" "molly" "monica" "monika"
+    "monique" "montana" "morgan" "moriah" "mya" "myra" "myranda" "nadia"
+    "nadine" "nancy" "naomi" "natalia" "natalie" "nataly" "natasha"
+    "nathalie" "nayeli" "nia" "nichole" "nicole" "nicolette" "nikita"
+    "nikki" "nikole" "nina" "noel" "noelle" "noemi" "nora" "norma"
+    "octavia" "olga" "olivia" "paige" "paloma" "pamela" "paola" "paris"
+    "patrice" "patricia" "paula" "paulina" "pauline" "payton" "perla"
+    "peyton" "phoebe" "precious" "princess" "priscilla" "rachael"
+    "racheal" "rachel" "rachelle" "randi" "raquel" "raven" "reagan"
+    "rebeca" "rebecca" "rebekah" "regan" "regina" "reina" "renee" "reyna"
+    "rhiannon" "rhonda" "rikki" "riley" "rita" "robin" "robyn" "rochelle"
+    "rocio" "rosa" "rose" "rosemary" "roxana" "roxanne" "ruby" "ruth"
+    "ryan" "rylee" "sabrina" "sade" "sadie" "sage" "salina" "sally"
+    "samantha" "sandra" "sandy" "sara" "sarah" "sarai" "sarina" "sasha"
+    "savanah" "savanna" "savannah" "scarlett" "selena" "selina" "serena"
+    "shaina" "shakira" "shana" "shania" "shanice" "shaniqua" "shanna"
+    "shannon" "shantel" "sharon" "shauna" "shawna" "shayla" "shayna"
+    "shea" "sheena" "sheila" "shelbi" "shelbie" "shelby" "shelly" "sherry"
+    "shirley" "shyanne" "sidney" "sierra" "silvia" "simone" "skye"
+    "skylar" "skyler" "sofia" "sonia" "sonya" "sophia" "sophie" "stacey"
+    "staci" "stacie" "stacy" "stefanie" "stephanie" "stephany" "stevie"
+    "stormy" "summer" "susan" "susana" "susanna" "suzanne" "sydnee"
+    "sydney" "sydnie" "sylvia" "tabatha" "tabitha" "talia" "tamara"
+    "tammy" "tania" "tanisha" "tanya" "tara" "taryn" "tasha" "tatiana"
+    "tatum" "tatyana" "tayler" "taylor" "teresa" "terra" "terri" "tess"
+    "tessa" "thalia" "theresa" "tia" "tiana" "tianna" "tiara" "tiera"
+    "tierra" "tiffani" "tiffanie" "tiffany" "tina" "toni" "tonya" "tori"
+    "tracey" "traci" "tracy" "tricia" "trinity" "trisha" "trista" "tyesha"
+    "tyler" "tyra" "valeria" "valerie" "vanesa" "vanessa" "veronica"
+    "victoria" "virginia" "vivian" "viviana" "wendy" "whitley" "whitney"
+    "xiomara" "yadira" "yajaira" "yaritza" "yasmeen" "yasmin" "yasmine"
+    "yazmin" "yesenia" "yessenia" "yolanda" "yvette" "yvonne" "zoe"
+    "zoey"))
+
+;; (push (cons "#lisp" (format "^%s[0-9]+$" (regexp-opt *femnams*))) erc-ignore-per-channel-alist)
+
+
+
 ;;;----------------------------------------------------------------------------
 ;;; Customization
 ;;;----------------------------------------------------------------------------
@@ -144,8 +289,8 @@
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
- '(display-time-day-and-date t)
- '(display-time-mode t)
+ '(display-time-day-and-date t t)
+ '(display-time-mode t t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -172,8 +317,8 @@
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list (quote nil))
- '(erc-ignore-list (quote ("ad37e918" "173.55.233.24")))
- '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-list (quote ("ad37e918" "173.55.233.24" "Abby26")))
+ '(erc-ignore-per-channel-alist (quote (("#lisp" . "^\\(?:a\\(?:aliyah\\|b\\(?:b\\(?:ey\\|i\\(?:e\\|gail\\)\\|y\\)\\|igail\\)\\|d\\(?:dison\\|ri\\(?:an\\(?:n?a\\)?\\|enne\\)\\)\\|i\\(?:leen\\|mee\\|sha\\)\\|ja\\|l\\(?:a\\(?:[iny]?na\\)\\|e\\(?:ah\\|cia\\|jandra\\|na\\|s\\(?:\\(?:h\\|sandr\\)a\\)\\|x\\(?:a\\(?:ndr\\(?:[ei]?a\\)\\)?\\|i[as]\\|us\\)?\\)\\|i\\(?:c\\(?:e\\|ia\\)\\|na\\|s\\(?:a\\|ha\\|on\\|sa\\)\\|yah\\)?\\|l\\(?:i\\(?:e\\|son\\)\\|ys\\(?:on\\|sa\\)\\)\\|ma\\|ondra\\|y\\(?:cia\\|s\\(?:a\\|ha\\|ia\\|on\\|sa\\)\\)\\)\\|m\\(?:an\\(?:da\\|i\\)\\|ber\\|elia\\|y\\)\\|n\\(?:a\\(?:bel\\|is\\|stasia\\)\\|drea\\|g\\(?:el\\(?:a\\|i\\(?:ca\\|na\\|que\\)\\)?\\|ie\\)\\|i\\(?:\\(?:ss\\|[kt]\\)a\\)\\|jelica\\|n\\(?:amarie\\|ette\\|i\\(?:e\\|ka\\)\\|marie\\|[ae]\\)\\|to\\(?:inette\\|nia\\)\\|[an]\\)\\|pril\\|r\\(?:aceli\\|i\\(?:an\\(?:n?a\\)\\|el\\(?:le\\)?\\)\\|lene\\)\\|s\\(?:h\\(?:a\\(?:nti\\)?\\|ely\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|ie\\|ynn?\\|[iy]\\)\\|ton\\)\\|ia\\|pen\\|trid\\)\\|thena\\|u\\(?:bre[ey]\\|dr\\(?:a\\|ey\\)\\|rora\\|tumn\\)\\|v\\(?:a\\|ery\\)\\|y\\(?:\\(?:ann?\\|l\\)a\\)\\)\\|b\\(?:a\\(?:by\\|ile[ey]\\|rbara\\|ylee\\)\\|e\\(?:atri\\(?:ce\\|z\\)\\|linda\\|r\\(?:\\(?:enic\\|nadett\\)e\\)\\|t\\(?:h\\(?:any\\)?\\|[st]y\\)\\|verly\\)\\|i\\(?:anca\\|llie\\)\\|la\\(?:ir\\|nca\\)\\|o\\(?:bbie?\\|nnie\\)\\|r\\(?:and\\(?:ie\\|[iy]\\)\\|e\\(?:a\\(?:n\\(?:n[ae]\\|[an]\\)\\)?\\|\\(?:n[dn]\\|onn\\)a\\)\\|i\\(?:a\\(?:n\\(?:a\\|n[ae]\\)\\)?\\|dget\\(?:te\\)?\\|elle\\|t\\(?:any\\|n\\(?:ey\\|i\\)\\|t\\(?:an\\(?:ie\\|[iy]\\)\\|n\\(?:ey\\|i\\)\\)\\)\\)\\|ook\\(?:e\\|lyn\\)?\\|yan\\(?:n?a\\)\\)\\)\\|c\\(?:a\\(?:itl\\(?:[iy]n\\)\\|llie\\|m\\(?:eron\\|ille\\)\\|nd\\(?:[ai]ce\\)\\|r\\(?:a\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|men\\|ol\\(?:in[ae]\\|yn\\)?\\|rie\\|son\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:alina\\|herine\\)\\|yla\\)\\|e\\(?:c\\(?:[ei]lia\\)\\|l\\(?:este\\|i\\(?:a\\|n[ae]\\)\\)\\)\\|h\\(?:a\\(?:n\\(?:dler\\|\\(?:e\\|t[ae]\\)l\\)\\|r\\(?:ity\\|l\\(?:\\(?:en\\|ott\\)e\\)\\)\\|sity\\|ya\\)\\|e\\(?:ls\\(?:e[ay]\\|ie?\\)\\|ryl\\|y\\(?:[ae]nne\\)\\)\\|ina\\|loe\\|rist\\(?:en\\|i\\(?:ana?\\|n[ae]\\|[en]\\)\\|[ay]\\)\\)\\|i\\(?:ara\\|er\\(?:r?a\\)\\|ndy\\)\\|la\\(?:ire\\|r\\(?:issa\\|[ae]\\)\\|udia\\)\\|o\\(?:lleen\\|n\\(?:\\(?:ni\\|stanc\\)e\\)\\|r\\(?:ey\\|in\\(?:a\\|ne\\)\\|tney\\|[ai]\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|ina\\)\\|ystal\\)\\|ynthia\\)\\|d\\(?:a\\(?:isy\\|kota\\|l\\(?:ia\\|las\\)\\|maris\\|n\\(?:a\\|i\\(?:ca\\|el\\(?:a\\|l[ae]\\)\\)\\)\\|phne\\|r\\(?:a\\|by\\|cy\\|ian\\|lene\\)\\|wn\\|yna\\)\\|e\\(?:an\\(?:n?a\\)\\|b\\(?:bie\\|orah\\|ra\\)\\|ja\\|laney\\|mi\\|nise\\|s\\(?:ir\\(?:[ae]e\\)\\|tin\\(?:e[ey]\\|[iy]\\)\\)\\|v\\(?:[aioy]n\\)\\)\\|i\\(?:a\\(?:mond\\|n\\(?:na\\|[ae]\\)\\)\\|na\\)\\|o\\(?:m\\(?:\\(?:ini?\\|oni\\)que\\)\\|nna\\|r\\(?:is\\|othy\\)\\)\\|rew\\|ulce\\)\\|e\\(?:bon[iy]\\|d\\(?:en\\|ith\\)\\|ileen\\|l\\(?:ain[ae]\\|e\\(?:anor\\|na\\)\\|i\\(?:ana\\|s\\(?:abeth\\|[hs]a\\|[ae]\\)\\|za\\(?:beth\\)?\\)\\|l\\(?:a\\|en\\|ie\\)\\|sa\\|ys\\(?:e\\|sa\\)\\)\\|m\\(?:erald\\|il\\(?:ee\\|i[ae]\\|y\\)\\|ma\\)\\|ri\\(?:c\\(?:k?a\\)\\|ka\\|n\\)\\|s\\(?:meralda\\|sence\\|t\\(?:efania\\|her\\)\\)\\|unice\\|v\\(?:a\\|elyn\\)\\)\\|f\\(?:a\\(?:biola\\|ith\\|tima\\)\\|elicia\\|iona\\|ranc\\(?:es\\(?:ca\\)?\\|hes\\(?:[ck]a\\)\\)\\)\\|g\\(?:abriel\\(?:a\\|l[ae]\\)?\\|e\\(?:ne\\(?:sis\\|vieve\\)\\|orgi\\(?:n?a\\)\\)\\|i\\(?:anna\\|llian\\|na\\|ovanna\\|selle\\)\\|l\\(?:adys\\|oria\\)\\|r\\(?:ac\\(?:e\\|iela\\)\\|etchen\\|iselda\\)\\|uadalupe\\|wendolyn\\)\\|h\\(?:a\\(?:ile[ey]\\|l\\(?:e\\(?:igh\\|y\\)\\|ie?\\|l\\(?:i?e\\)\\)\\|nnah?\\|rley\\|yl\\(?:e[ey]\\|ie\\)\\|zel\\)\\|e\\(?:a\\(?:ther\\|ven\\)\\|idi\\|lena?\\)\\|il\\(?:l?ary\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|pe\\)\\|unter\\)\\|i\\(?:esha\\|liana\\|mani\\|n\\(?:dia\\|fant\\|grid\\)\\|r\\(?:ene\\|is\\|ma\\)\\|sa\\(?:bel\\(?:l[ae]\\)?\\|mar\\)\\|tzel\\|v\\(?:ette\\|y\\)\\)\\|j\\(?:a\\(?:c\\(?:k\\(?:ie\\|lyn\\)\\|lyn\\|quel\\(?:ine\\|yn\\)\\)\\|d[ae]\\|im\\(?:i?e\\)\\|lisa\\|mi\\(?:e\\|la\\)?\\|n\\(?:a[ey]\\|e\\(?:lle\\|ssa\\|t\\(?:te\\)?\\)\\|i\\(?:[cn]?e\\)\\|[ae]\\)\\|queline\\|smine?\\|y\\(?:la\\|me\\)\\|zm\\(?:ine?\\|yn\\)\\)\\|e\\(?:an\\(?:ette\\)?\\|n\\(?:a\\|ifer\\|n\\(?:i\\(?:e\\|fer\\)\\|[ay]\\)\\)\\|rrica\\|ss\\(?:enia\\|i\\(?:ca\\|e\\|ka\\)\\|[ei]\\)\\)\\|ill\\(?:ian\\)?\\|o\\(?:an\\(?:n[ae]\\|[an]\\)?\\|celyn\\|die?\\|elle\\|hanna\\|lene\\|rd\\(?:[ay]n\\)\\|s\\(?:e\\(?:lyn\\|phine\\)\\|ie\\)\\|y\\(?:ce\\)?\\)\\|u\\(?:an\\(?:\\(?:it\\)?a\\)\\|d\\(?:ith\\|y\\)\\|li\\(?:an\\(?:a\\|n[ae]\\)\\|et\\|ssa\\|[ae]\\)\\|sti\\(?:ce\\|n[ae]\\)\\)\\)\\|k\\(?:a\\(?:c\\(?:ey\\|ie?\\)\\|ela\\|i\\(?:l\\(?:a\\|e[ey]\\|yn\\)\\|tl\\(?:\\(?:yn\\|[iy]\\)n\\)\\)\\|l\\(?:e\\(?:igh\\|y\\)\\|ie\\|lie\\|yn\\|[ai]\\)\\|r\\(?:en\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|[ai]\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:arina\\|e\\(?:l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\)\\|h\\(?:arine\\|er\\(?:ine\\|yn\\)\\|leen\\|r\\(?:ine\\|yn\\)\\|y\\)\\|ie\\|l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\|[ey]\\)\\|y\\(?:cee\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|i[en]\\|ynn?\\|[ai]\\)\\)\\)\\|e\\(?:ely\\|i\\(?:\\(?:l\\|shl?\\)a\\)\\|l\\(?:cie\\|l\\(?:ey\\|ie\\|[iy]\\)\\|s\\(?:e[ay]\\|ie?\\)\\)\\|n\\(?:d\\(?:all?\\|ra\\)\\|ia\\|nedy\\|ya\\)\\|r\\(?:i\\|r[iy]\\)\\)\\|hadijah\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:a\\|ra\\|sten\\)\\|ley\\|mberl\\(?:e[ey]\\|y\\)\\|r\\(?:a\\|st\\(?:en\\|i[en]\\)\\)\\)\\|o\\(?:r\\(?:i\\|tney\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|en\\|i\\(?:an\\|n[ae]\\|[en]\\)\\|yn\\|[aiy]\\)\\|ystal?\\)\\|y\\(?:l\\(?:a\\|[ei]e\\)\\|ra\\)\\)\\|l\\(?:a\\(?:c\\(?:ey\\|ie\\|y\\)\\|keisha\\|na\\|r\\(?:\\(?:iss\\)?a\\)\\|t\\(?:\\(?:ash\\|ish\\|oy\\)a\\)\\|ur\\(?:a\\|e[ln]\\|ie\\|yn\\)\\|yla\\)\\|e\\(?:a\\(?:h\\|n\\(?:dra\\|n[ae]?\\)\\)?\\|eann\\|i\\(?:gh\\|la\\)\\|na\\|sl\\(?:ey\\|ie\\|y\\)\\|ticia\\|x\\(?:ie?\\|us\\)\\)\\|i\\(?:ana\\|dia\\|l\\(?:iana\\|lian\\|y\\)\\|nd\\(?:a\\|s\\(?:[ae]y\\)\\)\\|sa\\|z\\(?:a\\|beth\\|et\\(?:h\\|te\\)\\)\\)\\|o\\(?:gan\\|r\\(?:ena?\\|i\\|raine\\)\\|urdes\\)\\|u\\(?:c\\(?:ero\\|ia\\|y\\)\\|z\\)\\|y\\(?:dia\\|n\\(?:dsey\\|ette\\|n\\)\\)\\)\\|m\\(?:a\\(?:c\\(?:ey\\|ie\\|kenzie\\|y\\)\\|d\\(?:alyn\\|dison\\|el\\(?:eine\\|ine\\|yn\\)\\|ison\\)\\|egan\\|g\\(?:dalena\\|gie\\)\\|ira\\|k\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|l\\(?:ia\\|lory\\)\\|ndy\\|r\\(?:anda\\|cella\\|gar\\(?:et\\|ita\\)\\|i\\(?:a\\(?:na\\|[hm]\\)\\|bel\\|cela\\|ela?\\|lyn\\|na\\|s\\(?:a\\|ela\\|ol\\|sa\\)\\|tza\\|[ae]\\)\\|le\\(?:e\\|n[ae]\\)\\|t\\(?:\\(?:h\\|in\\)a\\)\\|[ay]\\)\\|ur\\(?:a\\|een\\)\\|y\\(?:r?a\\)\\)\\|ck\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|e\\(?:ag\\(?:h?an\\)\\|g\\(?:h?an\\)\\|l\\(?:anie\\|i\\(?:\\(?:nd\\|ss\\|[ns]\\)a\\)\\|ody\\)\\|r\\(?:anda\\|cedes\\|edith\\)\\)\\|i\\(?:a\\|c\\(?:a\\(?:ela\\|h\\)\\|h\\(?:aela\\|el\\(?:l?e\\)\\)\\)\\|ka\\(?:[ey]?la\\)\\|ndy\\|r\\(?:a\\(?:cle\\|nda\\)\\|eya\\|iam\\)\\|sty\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|n\\(?:i\\(?:ca\\|ka\\|que\\)\\|tana\\)\\|r\\(?:gan\\|iah\\)\\)\\|y\\(?:\\(?:r\\(?:and\\)?\\)?a\\)\\)\\|n\\(?:a\\(?:di\\(?:a\\|ne\\)\\|ncy\\|omi\\|t\\(?:a\\(?:l\\(?:i[ae]\\|y\\)\\|sha\\)\\|halie\\)\\|yeli\\)\\|i\\(?:a\\|c\\(?:\\(?:hol\\|ol\\(?:ett\\)?\\)e\\)\\|k\\(?:ita\\|ki\\|ole\\)\\|na\\)\\|o\\(?:e\\(?:l\\(?:le\\)?\\|mi\\)\\|r\\(?:m?a\\)\\)\\)\\|o\\(?:\\(?:ctavi\\|l\\(?:g\\|ivi\\)\\)a\\)\\|p\\(?:a\\(?:ige\\|loma\\|mela\\|ola\\|ris\\|tric\\(?:e\\|ia\\)\\|ul\\(?:a\\|in[ae]\\)\\|yton\\)\\|e\\(?:rla\\|yton\\)\\|hoebe\\|r\\(?:ecious\\|i\\(?:ncess\\|scilla\\)\\)\\)\\|r\\(?:a\\(?:ch\\(?:ael\\|e\\(?:al\\|l\\(?:le\\)?\\)\\)\\|ndi\\|quel\\|ven\\)\\|e\\(?:agan\\|be\\(?:c\\(?:c?a\\)\\|kah\\)\\|g\\(?:an\\|ina\\)\\|ina\\|nee\\|yna\\)\\|h\\(?:iannon\\|onda\\)\\|i\\(?:kki\\|ley\\|ta\\)\\|o\\(?:b\\(?:[iy]n\\)\\|c\\(?:helle\\|io\\)\\|s\\(?:emary\\|[ae]\\)\\|xan\\(?:a\\|ne\\)\\)\\|u\\(?:by\\|th\\)\\|y\\(?:an\\|lee\\)\\)\\|s\\(?:a\\(?:brina\\|d\\(?:i?e\\)\\|ge\\|l\\(?:ina\\|ly\\)\\|mantha\\|nd\\(?:ra\\|y\\)\\|r\\(?:a[hi]?\\|ina\\)\\|sha\\|van\\(?:ah\\|nah?\\)\\)\\|carlett\\|e\\(?:\\(?:l[ei]\\|re\\)na\\)\\|h\\(?:a\\(?:ina\\|kira\\|n\\(?:a\\|i\\(?:a\\|ce\\|qua\\)\\|n\\(?:a\\|on\\)\\|tel\\)\\|ron\\|\\(?:un\\|wn\\|y[ln]\\)a\\)\\|e\\(?:a\\|ena\\|ila\\|l\\(?:b\\(?:ie\\|[iy]\\)\\|ly\\)\\|rry\\)\\|irley\\|yanne\\)\\|i\\(?:dney\\|erra\\|lvia\\|mone\\)\\|ky\\(?:e\\|l\\(?:[ae]r\\)\\)\\|o\\(?:fia\\|n\\(?:[iy]a\\)\\|phi[ae]\\)\\|t\\(?:ac\\(?:ey\\|ie\\|[iy]\\)\\|e\\(?:fanie\\|phan\\(?:ie\\|y\\)\\|vie\\)\\|ormy\\)\\|u\\(?:mmer\\|san\\(?:n?a\\)?\\|zanne\\)\\|y\\(?:dn\\(?:e[ey]\\|ie\\)\\|lvia\\)\\)\\|t\\(?:a\\(?:b\\(?:[ai]tha\\)\\|lia\\|m\\(?:ara\\|my\\)\\|n\\(?:\\(?:ish\\|[iy]\\)a\\)\\|r\\(?:a\\|yn\\)\\|sha\\|t\\(?:iana\\|um\\|yana\\)\\|yl\\(?:[eo]r\\)\\)\\|e\\(?:r\\(?:esa\\|r[ai]\\)\\|ssa?\\)\\|h\\(?:\\(?:ali\\|eres\\)a\\)\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:r?a\\)\\|ffan\\(?:ie\\|[iy]\\)\\|na\\)\\|o\\(?:n\\(?:i\\|ya\\)\\|ri\\)\\|r\\(?:ac\\(?:ey\\|[iy]\\)\\|i\\(?:cia\\|nity\\|s\\(?:[ht]a\\)\\)\\)\\|y\\(?:esha\\|ler\\|ra\\)\\)\\|v\\(?:a\\(?:leri[ae]\\|nes\\(?:s?a\\)\\)\\|eronica\\|i\\(?:ctoria\\|rginia\\|viana?\\)\\)\\|w\\(?:\\(?:end\\|hit\\(?:[ln]e\\)\\)y\\)\\|xiomara\\|y\\(?:a\\(?:dira\\|jaira\\|ritza\\|sm\\(?:een\\|ine?\\)\\|zmin\\)\\|es\\(?:s?enia\\)\\|olanda\\|v\\(?:\\(?:ett\\|onn\\)e\\)\\)\\|zoey?\\)[0-9]+$") ("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-reply-list (quote nil))
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
@@ -369,7 +514,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
- '(tags-table-list (quote nil))
+ '(tags-table-list (quote nil) t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -486,6 +631,9 @@ X-Accept-Language:         fr, es, en
 (defvar w3m-mode-hook '())
 (pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
 ;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
+
+
+
 
 ;;;; THE END ;;;;
 
