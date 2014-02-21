@@ -227,7 +227,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (put 'set-goal-column  'disabled t)
 (put 'erase-buffer     'disabled nil)
 
-
+(display-time-mode 1)
 
 (setf tetris-score-file "~/.tetris-scores")
 
