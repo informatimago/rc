@@ -1,8 +1,85 @@
 -*- mode:org; coding:utf-8 -*-
 
+
+decoding emotions video
+
+
+Top Secret is brilliant. Any of the early National Lampoon's Vacation
+movies are excellent. Mel Brooks' stuff is genius, particularly
+Blazing Saddles, Young Frankenstein and History of the World,
+Part 1. Steve Martin's early films - Dead Men Don't Wear Plaid, The
+Man With Two Brains, and The Lonely Guy are all excellent, but The
+Jerk is just plain brilliant. The first Austin Powers was a classic,
+the others I didn't care for as much personally, but they were very
+popular at the time.
+
+There was also a show in the late '80s called Sledge Hammer that was
+just plain stupid brilliant. Worth seeking it out. 
+
+Hot Shots! (1991) and its Sequel Hot Shots! part Deux (1993) 
+
+Scary Movie or Not Another Teen Movie. 
+
+
+
+http://www.ubudu.com/ où je développe leur produits sur iOS et Android.
+(Ubudu bon plan, SDK uBeacon, uGeofence, pour le marquetage géolocalisé
+en magasin; ce mois-ci, on a développé l'application bwin poker live
+pour les compétitions de poker de http://www.bwin.fr)
+
+sur iOS:
+http://www.appannie.com/apps/ios/app/ubudu-bons-plans-vos-promotions-et-coupons-de-reduction/
+http://www.appannie.com/apps/ios/app/bwin-poker-live/
+
+sur Android:
+http://www.appannie.com/apps/google-play/app/com.ubudu.mobile/
+http://www.appannie.com/apps/google-play/app/com.bwin.pokerlive/
+
+
+
+- Développement et maintenance d'applications Android: ubudu bon plans, de la release 2.0 à 2.4
+
+- Développement de l'application bwin poker live (iOS & Android).
+
+- Développement du SDK ubudu de marketing geolocalisé, comprenant: iBeacons, Geofences, et détecteur de code ultrasons (écriture des spécifications du SDK pour iOS & Android, écriture des test Android), écriture des applications internes de test et demo (iOS, Android).
+
+- Travail avec des collaborateurs étrangers en télétravail (github).
+
+- Développement du prototype d'ubudu presence analytics: collecte d'adresse MAC sur routeur wifi (ddWRT/openWRT wiviz), transmission à un serveur, stockage en base de donnée OpenTSDB, et développement d'un dashboard Rails (Ruby) affichant les statistiques de présence.  Stand Démonstration au MEDEF 2013.
+
+
+
+
+
+
+
+Les productions de la PLume
+1, route des volaillers
+28410 Saint Lubin de la Haye
+
+http://www.youtube.com/watch?v=o4-YnLpLgtk  Demo Genera Symbolics Jan 2013
+
+
+
+
+
+ADA
+=======================
+J-P. Rosen
+Adalog
+2 rue du Docteur Lombard, 92441 Issy-les-Moulineaux CEDEX
+Tel: +33 1 45 29 21 52, Fax: +33 1 45 29 25 00
+http://www.adalog.fr
+
+http://forge.ada-ru.org/matreshka
+
+
+
+
+
+
 http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
 
-TODO: add llrbtree as an implementation for dictionary
 
 6502 lisp
 http://ahefner.livejournal.com/20528.html#
@@ -90,7 +167,6 @@ scan la-construction-de-programmes-structures
 missing: page 132 135 136 
 
 maillists: cmucl*@cmucl.cons.org
-
 
 * NOTES
 http://www.omg.org/spec/index.htm
@@ -471,6 +547,26 @@ https://github.com/abrausch/coursera-downloader
 
 * ACTIONS
 ** AFAIRE, TODO, ENCOURS
+*** Earn retirement money
+----   ---------------  ---------------
+Year   Infl.Corr/Year   Total Remaining
+----   ---------------  ---------------
+2014:        17.150,63       360.421,40
+2015:        18.179,66       343.270,80
+2016:        19.270,44       325.091,12
+2017:        20.426,67       305.820,68
+2018:        21.652,27       285.394,04
+2019:        22.951,40       263.741,76
+2020:        24.328,49       240.790,34
+2021:        25.788,19       216.461,86
+2022:        27.335,48       190.673,68
+2023:        28.975,61       163.338,19
+2024:        30.714,14       134.362,58
+2025:        32.556,99       103.648,43
+2026:        34.510,41        71.091,44
+2027:        36.581,03        36.581,03
+----   ---------------  ---------------
+
 *** DIVERS
 **** TODO check this diff
    DEADLINE: <2012-12-31 -7d>
@@ -532,7 +628,6 @@ create mail list:
 
 
 mailto:${name}@list.ogamita.com
-
 
 
 
@@ -1168,6 +1263,7 @@ Parsers & Generators:
 
 http://www.common-lisp.net/project/cl-objc/
 
+** TODO add llrbtree as an implementation for dictionary             :cl:dev:
 ** TODO add to l-99, eg swap-kth.lisp                                :cl:dev:
 ** TODO clisp *print-readably*
 <18:31:41><maxm> heh clisp *print-readbly* can't be read by other lisps
@@ -1323,25 +1419,6 @@ http://lists.warhead.org.uk/pipermail/iwe/2005-July/000130.html
 
 http://programming.nu/reference lisp-like over Objective-C / http://www.vicoapp.com/
 
-----   ---------------  ---------------
-Year   Infl.Corr/Year   Total Remaining
-----   ---------------  ---------------
-2013:        16.179,84       376.601,24
-2014:        17.150,63       360.421,40
-2015:        18.179,66       343.270,80
-2016:        19.270,44       325.091,12
-2017:        20.426,67       305.820,68
-2018:        21.652,27       285.394,04
-2019:        22.951,40       263.741,76
-2020:        24.328,49       240.790,34
-2021:        25.788,19       216.461,86
-2022:        27.335,48       190.673,68
-2023:        28.975,61       163.338,19
-2024:        30.714,14       134.362,58
-2025:        32.556,99       103.648,43
-2026:        34.510,41        71.091,44
-2027:        36.581,03        36.581,03
-----   ---------------  ---------------
 
 
 http://www.theopensourceway.org/wiki/How_to_tell_if_a_FLOSS_project_is_doomed_to_FAIL
@@ -1613,6 +1690,8 @@ See also reader extension for hierarchical packages, etc.
 ** TODO move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms :cl:dev:
 ** TODO add http://groups.google.com/group/comp.lang.lisp/msg/aa9494a2f0c35f74?hl=en to articles :cl:dev:
 ** TODO [#A] [0/0] ABNotation                      :abnotation:mcclim:cl:dev:
+   DEADLINE: <2014-02-03 14:00:00 Mon>
+
 *** TODO [#A] planifications modules à écrire
 *** TODO [#A] implémentation dessin des notes à barre
 ** TODO [0/3] Patchwork                             :patchwork:macosx:cl:dev:
@@ -1723,6 +1802,10 @@ pjb-c-style.el
 
 *** TODO [#A] objc-edit (like paredit)
 *** TODO [#B] objc-gen (like parenscript), to generate Objective-C code from sexps.
+
+*** Objective-C
+http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
+
 ** TODO [0/0] C/C++/Objective-C code analysis tool                   :cl:dev:
 *** TODO [#B] check gcc-xml, gcc and llvm to get the parse trees.       :dev:
 *** TODO [#B] interface with emacs (wisent, bovinator)            :emacs:dev:
@@ -1762,16 +1845,40 @@ here's an archive off aioe.org going back to around mid-2009 that may
 close your gap between the google archive and eternal-september.
 http://lib.euli.eu/cll-aioe.org.tar.bz2
 
-** TODO [#B] ccl Obj-C reader macros                        :macosx:ipad:dev:
-- ccl objc reader macros.
-/home/pjb/works/abalone-macosx/Abalone-lisp
---> Define nice macros to define classes and methods.
---> Write a little application in lisp.
---> Rewrite Abalone in lisp.
+** TODO [#A] Objective-C CFFI ObjCL                                  :cl:dev:
 
+Develop a portable Objective-C / Common-Lisp bridge over CFFI.
+Targets current gnu objc, cocoa objc, cocotron?
+
+
+*** http://www.common-lisp.net/project/cl-objc/
+
+CL-OBJC is a portable common-lisp/objective-c bridge written using
+CFFI.
+
+The aim is to be able to build Cocoa applications on Mac OS X by using
+InterfaceBuilder to design the GUI and then implement the code in
+common-lisp.
+
+
+*** http://benkard.de/objective-cl
+
+ssh://pjb@git.informatimago.com/srv/git/public/objective-cl 
+~/src/public/objective-cl/
+
+Objective-CL is an Objective-C bridge that strives to be portable both
+across Common Lisp implementations and operating systems. Currently,
+it has been confirmed to work under Mac OS X/Cocoa/PowerPC and
+Linux/GNUstep/x86, but it is expected to work on many more platforms
+without major changes. (Testers welcome!)
+
+--> Uses an old gnu objc API.
+ 
 ** TODO [#B] Implement "Abalone" game                       :macosx:ipad:dev:
 - some work on Abalone-macosx
 /home/pjb/works/abalone-macosx/Abalone
+- Write a little application in lisp.
+- Rewrite Abalone in lisp.
 
 ** TODO [#B] check quicklisp descriptions                            :cl:dev:
     http://www.quicklisp.org/beta/UNOFFICIAL/descriptions.txt
@@ -1814,7 +1921,7 @@ integrate a lisp linux distribution:
 - stumpwm
 etc.
 
-** Developments (Done)
+** Developments (Done TODOs)
 *** DONE [#A] ~/bin/script.lisp message bug                          :cl:dev:
    CLOSED: [2012-12-24 Mon 01:24]
    - CLOSING NOTE [2012-12-24 Mon 01:24] \\
@@ -1840,6 +1947,14 @@ login ayudaparavivir password 5z2csasz
      Updated lispdoc and docstrings.
 - correct URI in package docstring.
 - regenerate & upload documentation.
+*** DONE [#B] ccl Obj-C reader macros                                :cl:dev:
+   CLOSED: [2014-02-07 Fri 00:18]
+   - State "DONE"       from "TODO"       [2014-02-07 Fri 00:18] \\
+     objective-cl done two years ago.
+- ccl objc reader macros.
+/home/pjb/works/abalone-macosx/Abalone-lisp
+--> Define nice macros to define classes and methods.-
+
 ** Programming Log (Done) 
 
 2012-10-04
@@ -2058,6 +2173,34 @@ certificate passwords: IreadYOURemail42
 
 
 
+  * the X509 standard defines certificates, and RSA and DSA are two of
+    the public key algorithms that can be used in those certificates;
+
+  * certificates are used to hold public keys, and never private keys.
+
+  * PKCS#12 is a standard for a container which can hold an X509
+    client certificates and the corresponding private keys, as well as
+    (optionally) the X509 certificates of the CAs that signed the X509
+    client certificate(s).
+
+So, if you're examining a PKCS#12 file (typically .p12 extension), then you already know:
+
+    It contains at least one X509 client certificate, which contains a public key; and
+    It contains the corresponding private keys.
+
+All you don't know is whether those certificate & private key are RSA
+or DSA. You can check this by extracting the certificate(s), and then
+examine them:
+
+openssl pkcs12 -in mycert.p12 -clcerts -nokeys -out mycert.crt
+openssl x509 -in mycert.crt -text
+
+The text output of the openssl x509 command should include a Subject
+Public Key section, which will include fields that let you see if it's
+an RSA or DSA key (along with the key size).
+
+------------------------------------------------------------------------
+
 voyager|awstat|admin|voy!stat
 voyager|linux|lse|fyLxIqmuC
 lassell|cygwin|lse|fyLxIqmuC
@@ -2113,27 +2256,35 @@ Backup kuiper to external hard disks.
 internal disk                            external backup
 ------------------------------           ------------------------------
 
-1 TB
+1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4842302
 /dev/sda1 DEBIAN                         1TERAONE      1TERATWO
 /dev/sda2 GENTOO                         1TERAONE      1TERATWO
 /dev/sda5 domU                           1TERAONE      1TERATWO
 /dev/sda6 LOCAL                          1TERAONE      1TERATWO
 
-300 GB
+
+300 GB    Model=Samsung SSD 840 Series, FwRev=DXT06B0Q, SerialNo=S14GNEACB19797R
 /dev/sdb1 FLASH
 
-1 TB
+1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4744460
 /dev/sdc1 BACKUP-I-DEBIAN
 /dev/sdc2 BACKUP-I-GENTOO
 /dev/sdc5 BACKUP-I-DOMU
 /dev/sdc6 BACKUP-I-LOCAL
 
-1.5 TB
+1.5 TB failing
 /dev/sdd1 MOVIES2                        2TERATWO
 /dev/sdd4 OTHER
 
-2 TB
+2 TB      Model=WDC WD20EARS-00MVWB0, FwRev=51.0AB51, SerialNo=WD-WCAZA3007295
 /dev/sde1 MOVIES1                        2TERAONE      
+
+
+ordered:
+
+4 TB  
+
+4 TB
 ------------------------------           ------------------------------
 
     a 1   TB
@@ -4850,6 +5001,9 @@ http://www.lisphacker.com/projects/sbcl-arm/port-log.txt
 
   <a href=”http://www.quicklisp.org/”>lisp libraries</a>
 
+<redscare> in case anyone is interested, to get gsll to work on mac os x you just need to
+change the file "init/init.lisp", line 66, the format string from "~a/" to "~a/lib/"
+
 
 
 > Where can we read about providing a testsuite adapter for CL Test Grid?
@@ -6715,6 +6869,9 @@ returned for the total of 5 values.
     http://funcall.posterous.com/ecl-on-iphone-redux
 
 ** CLOJURE
+
+    http://swannodette.github.io/2013/12/17/the-future-of-javascript-mvcs/
+    http://adamsolove.com/js/clojure/2014/01/06/om-experience-report.html
 
     http://java.ociweb.com/mark/clojure/article.html
 
