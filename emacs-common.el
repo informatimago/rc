@@ -1517,9 +1517,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
     "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
 
-    )
+    ))
 
-  (defvar *pjb-current-font-index* 0))
+(defvar *pjb-current-font-index* 0)
 
 (defun sign (number)
   (cond ((< number 0) -1)
