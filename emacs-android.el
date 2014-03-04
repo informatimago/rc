@@ -1,6 +1,7 @@
 ;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
 ;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
+;;;; Pascal J. Bourguignon's emacs android startup file.
+;;;;----------------------------------------------------------------------------
 
 (.EMACS "~/rc/emacs-android.el %s" "Android Development Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)

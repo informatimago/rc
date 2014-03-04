@@ -455,13 +455,15 @@ X-Accept-Language:         fr, es, en
 (setq pgp-signer  "0xC5F8B7FC") ;; "pascal.bourguignon@ubudu.com"
 
 ;;;----------------------------------------------------------------------------
-(display-time-mode 1)
-
 (load "~/rc/emacs-package.el")
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
-
-(setf visible-bell t
+(when  (not *pjb-pvs-is-running*)
+  (load "~/rc/emacs-palette.el"))
+;;;----------------------------------------------------------------------------
+(display-time-mode 1)
+(setf visible-bell nil
       ring-bell-function nil)
+;;;----------------------------------------------------------------------------
+(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
 (setf auto-mode-alist
       (sort* (list* '("\\.md$" . text-mode)
