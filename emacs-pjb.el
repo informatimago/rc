@@ -7,7 +7,6 @@
 (require 'cc-mode)
 
 
-
 (defvar *femnams*
   '("aaliyah" "abbey" "abbie" "abbigail" "abby" "abigail" "addison" "adrian"
     "adriana" "adrianna" "adrienne" "aileen" "aimee" "aisha" "aja"
@@ -590,8 +589,14 @@ X-Accept-Language:         fr, es, en
 
 
 ;;;----------------------------------------------------------------------------
+(load "~/rc/emacs-package.el")
+(when  (not *pjb-pvs-is-running*)
+  (load "~/rc/emacs-palette.el"))
 ;;;----------------------------------------------------------------------------
-
+(display-time-mode 1)
+(setf visible-bell nil
+      ring-bell-function nil)
+;;;----------------------------------------------------------------------------
 (add-to-list 'auto-mode-alist '("/Users/pjb/works/abalone/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
 
 (add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
@@ -611,12 +616,6 @@ X-Accept-Language:         fr, es, en
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
-(load "~/rc/emacs-package.el")
-
-(setf visible-bell nil
-      ring-bell-function nil)
-
-
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
 (defun pjb-w3m-mode-meat ()
@@ -633,7 +632,43 @@ X-Accept-Language:         fr, es, en
 ;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
 
 
+;; (setf (getenv "EMACS_USE") "erc")
+;; (setf (getenv "EMACS_USE") "gnus")
+;; (setf (getenv "EMACS_USE") "pgm")
 
+
+(cond
+  (*pjb-pvs-is-running*)
+  ((string= (getenv "EMACS_USE") "erc")
+   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
+   (set-frame-name "ERC")
+   (erc-select))
+  ((string= (getenv "EMACS_USE") "gnus")
+   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
+   (gnus))
+  (t
+   (when (fboundp 'set-palette) (set-palette pal-green))))
+
+
+(cond
+  (*pjb-pvs-is-running*)
+  ((member "(gnus)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 7 60))
+   (setf *activity-tag* "GNUS")
+   (push '(name . "GNUS") default-frame-alist)
+   (set-background-color "#ccccfefeebb7"))
+  ((member "(irc)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 11 60))
+   (setf *activity-tag* "ERC")
+   (push '(name . "ERC") default-frame-alist))
+  (t
+   (setf *activity-tag* "EMACS")
+   (setf uptimes-auto-save-interval (* 13 60))
+   (push '(name . "PGM") default-frame-alist)
+   (server-start)
+   (setf (getenv "CVSEDITOR")  "emacsclient"
+         (getenv "EDITOR")     "emacsclient"
+         (getenv "VISUAL")     "emacsclient")))
 
 ;;;; THE END ;;;;
 
