@@ -597,10 +597,10 @@ X-Accept-Language:         fr, es, en
 (load "~/rc/emacs-slime-simple.el")
 ;; (load "~/rc/emacs-slime.el")
 ;; (load "~/rc/emacs-cl-indent.el")
-(load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-redshank.el")
+(load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-font.el")
-(when  (not *pjb-pvs-is-running*)
+(when (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)

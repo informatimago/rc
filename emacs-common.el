@@ -1563,11 +1563,6 @@ capitalized form."
 
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-slime-simple.el")
-(load "~/rc/emacs-redshank.el")
-;; (load "~/rc/emacs-cl-indent.el")
-(load "~/rc/emacs-hyperspec.el")
-;;;----------------------------------------------------------------------------
 
 
 (appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
