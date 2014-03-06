@@ -68,6 +68,8 @@
                                           "/adt/sdk/platforms/android-17/android.jar"))))
  (add-hook 'gud-mode-hook 'gud-meat))
 
+(require 'android-classes)
+
 (require 'cedet)
 (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
 (require 'jde)
@@ -81,9 +83,14 @@
 
 
 (setf android-filter-function nil)
+
 (setf android-filter-function (android-filter-or
                                 (android-filter-match-tag     "ubudu\\|bwin")
                                 (android-filter-match-message "ubudu\\|bwin")))
+
+(setf android-filter-function (android-filter-or
+                                (android-filter-match-tag     "ubudu")
+                                (android-filter-match-message "ubudu")))
 
 
 ;;;; THE END ;;;;

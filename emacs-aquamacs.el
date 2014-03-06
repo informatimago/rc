@@ -31,7 +31,5 @@
 (add-hook 'lua-mode-hook 'lua-meat)
 
 
-
-
-
 (find-file "~/rc/emacs-aquamacs.el")
+
