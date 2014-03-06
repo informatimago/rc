@@ -1328,352 +1328,18 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;; some more global key map are defined after loading my personal files below.
 
 
+(global-set-key (kbd "H-<up>")    'backward-same-indent)
+(global-set-key (kbd "H-<down>")  'forward-same-indent)
+(global-set-key (kbd "H-`")       'next-error)
+
 ;;;----------------------------------------------------------------------------
 (.EMACS "Loading my personal files -- My own stuff.")
 (unless (load "pjb-loader.el" t)
   (.EMACS "WARNING WARNING WARNING: Could not find and load 'My own stuff'!"))
 ;;;----------------------------------------------------------------------------
 
-(global-set-key (kbd "H-<up>")    'backward-same-indent)
-(global-set-key (kbd "H-<down>")  'forward-same-indent)
-(global-set-key (kbd "H-`")       'next-error)
-
-
-;;;----------------------------------------------------------------------------
-(when (and (not *pjb-pvs-is-running*) (member window-system '(x mac ns)))
-  ;; By default turn on colorization.
-
-  ;; ----------------------------------------
-  (.EMACS "defining palettes")
-  
-  (defvar *palettes* '())
-  (defvar *current-palette* nil)
-
-
-  (defstruct palette
-    name foreground background cursor region mouse)
-
-
-  (defmacro defpalette (name foreground background cursor region mouse)
-    `(progn
-       (defparameter ,name (make-palette :name ',name
-                                         :foreground ,foreground
-                                         :background ,background
-                                         :cursor ,cursor
-                                         :region ,region
-                                         :mouse ,mouse))
-       (pushnew ',name *palettes*)
-       (when (eq ',name *current-palette*)
-         (set-palette ',name))
-       ',name))
-  
-
-  (defun set-palette (palette)
-    (interactive
-     (list (completing-read
-            "Palette: "
-            (mapcar (lambda (pal) (cons (symbol-name pal) pal)) *palettes*)
-            nil  t  nil nil *current-palette*)))
-    (typecase palette
-      (string (set-palette (intern palette)))
-      (symbol (if (boundp palette)
-                  (let ((palval (symbol-value palette)))
-                    (if (and (palette-p palval) (eq palette (palette-name palval)))
-                        (set-palette palval)
-                        (error "%S is not a palette name." palette)))
-                  (error "%S is not a palette name." palette)))
-      (palette
-       (setf *current-palette* (palette-name palette))
-       (when (fboundp 'set-default-frame-parameter)
-	 (set-default-frame-parameter 'foreground-color (palette-foreground palette))
-	 (set-default-frame-parameter 'background-color (palette-background palette))
-	 (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
-	 (set-default-frame-parameter 'mouse-color      (palette-mouse palette)))
-       (set-face-background 'region (palette-region palette))
-       (when (getenv "EMACS_WM")
-         (set-face-background 'border (palette-background palette)))
-       (set-foreground-color (palette-foreground palette))
-       (set-background-color (palette-background palette))
-       (set-face-background 'fringe (palette-background palette))
-       (set-cursor-color     (palette-cursor palette))
-       (when (fboundp 'set-mouse-color)
-         (set-mouse-color     (palette-mouse palette))))
-      (otherwise (error "%S is not a palette" palette))))
-
-
-  (defparameter *turquoise*      "#1abc9c")
-  (defparameter *green-sea*      "#16a085")
-
-  (defparameter *emerland*       "#2ecc71")
-  (defparameter *nephritis*      "#27ae60")
-
-  (defparameter *peter-river*    "#3498db")
-  (defparameter *belize-hole*    "#2980b9")
-
-  (defparameter *amethyst*       "#9b59b6")
-  (defparameter *wisteria*       "#8e44ad")
-
-  (defparameter *wet-asphalt*    "#34495e")
-  (defparameter *midnight-blue*  "#2c3e50")
-
-  (defparameter *sun-flower*     "#f1c40f")
-  (defparameter *orange*         "#f39c12")
-
-  (defparameter *carrot*         "#e67e22")
-  (defparameter *pumpkin*        "#d35400")
-
-  (defparameter *alizarin*       "#e74c3c")
-  (defparameter *pomegranate*    "#c0392b")
-
-  (defparameter *clouds*         "#ecf0f1")
-  (defparameter *silver*         "#bdc3c7")
-
-  (defparameter *concrete*       "#95a5a6")
-  (defparameter *asbestos*       "#7f8c8d")
-
-  ;; (apply 'format "#%02x%02x%02x" (mapcar (lambda (x) (* 0.199219 x)) '( 42 203 243)))
-  
-  ;;          name              foreground     background      cursor   region           mouse
-  (defpalette pal-tg            "Black"        *turquoise*     "Red"     *green-sea*     "#444444")
-  (defpalette pal-en            "Black"        *emerland*      "Red"     *nephritis*     "#444444")
-  (defpalette pal-pb            "Black"        *peter-river*   "Red"     *belize-hole*   "#444444")
-  (defpalette pal-aw            "Black"        *amethyst*      "Red"     *wisteria*      "#444444")
-  (defpalette pal-wm            "Black"        *wet-asphalt*   "Red"     *midnight-blue* "#444444")
-  (defpalette pal-so            "Black"        *sun-flower*    "Red"     *orange*        "#444444")
-  (defpalette pal-cp            "Black"        *carrot*        "Red"     *pumpkin*       "#444444")
-  (defpalette pal-ap            "Black"        *alizarin*      "Red"     *pomegranate*   "#444444")
-  (defpalette pal-cs            "Black"        *clouds*        "Red"     *silver*        "#444444")
-  (defpalette pal-ca            "Black"        *concrete*      "Red"     *asbestos*      "#444444")
-
-  (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
-  (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
-  (defpalette pal-whiteish      "gray20"       "gray90"       "gray30" "gray70"       "#444444")
-  (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff" "#555555"       "#444444")
-  (defpalette pal-dkgray        "#ffffff"      "#555555"       "#000000" "#aaaaaa"       "#444444")
-  (defpalette pal-black         "#ffffff"      "#000000"       "#aaaaaa" "#555555"       "#444444")
-  (defpalette pal-lukhas        "#fff8dc"      "#537182"       "Red"     "#ddd"          "#444444")
-  (defpalette pal-thalassa      "MidnightBlue" "#e0f8ff"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-larissa       "DarkOrchid4"  "#f8e8ff"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-lassell       "green yellow" "#08350F"       "yellow"  "#0f0835"       "#444444")
-  (defpalette pal-triton        "#929982"      "#2d4e4e"       "cyan"    "#336666"       "#444444")
-  (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"   "orchid1"       "#444444")
-  (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-galatea-light "#60c0ff"      "#030828"       "Pink4"   "orchid1"       "#444444")
-  (defpalette pal-green         "green"        "black"         "yellow"  "grey50"        "magenta")
-  (defpalette pal-dark          "White"        "#055045"       "yellow"  "grey40"        "#444444")
-  (defpalette pal-dark-cyan     "#11eef2"      "black"         "yellow"  "grey80"        "#444444")
-  (defpalette pal-dark-blue     "#1199f2"      "black"         "yellow"  "grey80"        "#444444")
-  (defpalette pal-dark-amber    "#e0d010"      "black"         "cyan"    "grey40"        "#444444")
-  (defpalette pal-dark-galatea  "#60f0c0"      "#0c2040"       "green"   "gray60"        "#444444")
-  (defpalette pal-irc           "MidnightBlue" "light yellow"  "blue"    "light green"   "#444444")
-  (defpalette pal-stripe        "#a7feff"      "#0a171b"       "Cyan"    "#082830"       "#446688")
-  (defpalette pal-stripe1       "#a7feff"      "#0a171b"       "Cyan"    "#105060"       "#446688")
-  (defpalette pal-anevia        "white"        "#081040"       "green"   "cadetblue4"    "yellow")
-  (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
-  (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
-  (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
-  
-  (set-palette  pal-default)
-
-
-
-  ;; ----------------------------------------
-  (.EMACS "set-default-frame-alist")
-
-
-  (defun set-default-frame-alist (&optional font)
-    "Sets default-frame-alist depending on the current environment (host, display, etc)."
-    (interactive)
-    (let* (
-           ;; ---------------------
-           (display  (let* ((display (getenv "DISPLAY"))
-                            (colon   (and display (string-match ":" display))))
-                       (if (or (not display) (zerop colon))
-                           system-name
-                           (substring display 0 colon))))
-           ;; --- default values ---
-           (font                 (or font (frame-font)))
-           (width                (frame-width))
-           (height               (frame-height))
-           (top                  1)
-           (left                 1)
-           (cursor-type            'box)
-           (horizontal-scroll-bars 'nil)
-           (vertical-scroll-bars   'nil) ; or left or right
-           (palette              pal-default)
-           (hname                (subseq *hostname* 0 (position (character ".") *hostname*)))
-           ;; (name (format "emacs: %s@%s" (user-real-login-name) host-name))
-           (name "EMACS")
-           ;; ---------------------
-           (fringe-background nil))
-
-      (setf default-cursor-type cursor-type)
-      (string-case hname
-
-                   (("thalassa" "despina" "kuiper")
-                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
-                    (setq palette            pal-thalassa
-                          width              81
-                          height             70))
-
-                   (("triton" "proteus")
-                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
-                    (setq palette            pal-galatea
-                          width              86
-                          height             52))
-
-                   (("galatea")
-                    (forward-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*")
-                    (setq palette            pal-blueprint3
-                          width              81
-                          height             54
-                          font   (let ((fixed (make-font-pattern :foundry "Misc"
-                                                                 :family "Fixed"
-                                                                 :weight "Medium"
-                                                                 :slant "R"
-                                                                 :width "SemiCondensed"
-                                                                 :style ""
-                                                                 :pixel-size "13"
-                                                                 :point-size "120"
-                                                                 :resolution-x "75"
-                                                                 :resolution-y "75"
-                                                                 :spacing "C"
-                                                                 :average-width "60"
-                                                                 :registry "ISO8859"
-                                                                 :encoding "1")))
-                                   (if (and (eq window-system 'x)
-                                            (font-exists-p fixed))
-                                       fixed
-                                       font))))
-                   
-                   (("larissa") 
-                    (setq palette            pal-larissa
-                          Width              81
-                          height             70))
-
-                   (("naiad")
-                    (setq palette            pal-naiad
-                          width              81
-                          height             54))
-
-                   (("lassell")
-                    (setq palette            pal-lassell
-                          width              81
-                          height             54))
-
-                   (("mini")
-                    (setq palette            pal-white
-                          width              86
-                          height             52))
-
-                   (("mdi-development-1" "mdi-development-2")
-                    (setf fringe-background "yellow"))
-
-                   (("simias")
-                    (setq palette            pal-anevia)))
-
-      (if (getenv "EMACS_WM")
-          (progn
-            (setq
-             width    140
-             height   58
-             top      2
-             left     2
-             font     (make-font-pattern :foundry "Adobe"
-                                         :family "Courier"
-                                         :weight "Medium"
-                                         :slant "R"
-                                         :width "Normal"
-                                         :style ""
-                                         :pixel-size "12"
-                                         :point-size "120"
-                                         :resolution-x "75"
-                                         :resolution-y "75"
-                                         :spacing "M"
-                                         :average-width "70"
-                                         :registry "ISO8859"
-                                         :encoding "1"))
-            (set-face-background 'border (palette-background palette))
-            (shell-command (format "xsetroot -solid %s" (palette-background palette))))
-          (setq initial-frame-alist  `((left  . -64))))
-
-      (when (getenv "EMACS_OLD")
-        (setq palette            pal-green)
-        (setq font               (make-font-pattern :foundry "Adobe"
-                                                    :family "Courier"
-                                                    :weight "Bold"
-                                                    :slant "R"
-                                                    :width "Normal"
-                                                    :style ""
-                                                    :pixel-size "12"
-                                                    :point-size "120"
-                                                    :resolution-x "75"
-                                                    :resolution-y "75"
-                                                    :spacing "M"
-                                                    :average-width "70"
-                                                    :registry "ISO8859")
-              background-color "black"
-              foreground-color "green"
-              region-color     "navyblue"
-              cursor-color     "yellow"))
-
-      (when (getenv "EMACS_BG")
-        (setq palette (copy-palette palette))
-        (setf (palette-background palette) (getenv "EMACS_BG")))
-
-      (when (zerop (user-uid))
-        (setq palette (copy-palette palette))
-        (setf (palette-foreground palette) "Red"))
-
-      (when (fboundp 'max-frame-line-number)
-        (setf height (- (max-frame-line-number (car (frame-list))) 2)))
-
-      (setq default-frame-alist
-            `(
-              (tool-bar-lines       . 0)
-              (menu-bar-lines       . 0) ;; window-system 'mac
-              (font                 . ,font)
-              ,@(unless (getenv "RATPOISON")
-                        `((width                . ,width)
-                          (height               . ,height)
-                          (top                  . ,top)
-                          (left                 . ,left)))
-              (cursor-type          . ,cursor-type)
-              (cursor-color         . ,(palette-cursor palette))
-              (mouse-color          . ,(palette-mouse palette))
-              (foreground-color     . ,(palette-foreground palette))
-              (background-color     . ,(palette-background palette))
-              (vertical-scroll-bars . ,vertical-scroll-bars)
-              (name                 . ,name)))
-
-      (when (and (string= "21.3.1" emacs-version)
-                 (not (getenv "EMACS_WM"))
-                 (not (getenv "RATPOISON")))
-        (set-frame-position (car (frame-list)) -64 top)
-        (set-frame-size     (car (frame-list)) width height)
-        (setq frame-initial-frame nil))
-
-      (set-face-background 'region (palette-region palette))
-      (set-palette palette)
-      (unless (fboundp 'mdi)
-        (when (facep 'fringe)
-          (if fringe-background
-              (set-face-background 'fringe fringe-background)
-              (set-face-background 'fringe (palette-background palette)))))
-      (set-frame-name name)
-      (when (zerop (user-uid))
-        (set-foreground-color "Red"))))
-
-  
-  ;; (set-default-frame-alist *default-font*)
-  ;; (.EMACS "set-default-frame-alist done")
-  )
-
-
-;;;----------------------------------------------------------------------------
 (when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
   (elscreen-toggle-display-tab))
-
 
 ;;------------------------------
 (.EMACS "Miscellaneous patches")
@@ -2960,93 +2626,195 @@ License:
 
 ;;;----------------------------------------------------------------------------
 
-(defvar *galatea-frame* nil)
+(defvar *pjb-speak-file-counter* 0)
+
+(defun pjb-speak-file ()
+  (format "%s/speak-%d.txt" *tempdir* (incf *pjb-speak-file-counter*)))
 
 
-(defun open-frame-on-galatea ()
+(defvar *pjb-speak-last-message* nil)
+
+(defun speak (message)
+  (interactive "sMessage: ")
+  (let ((file (pjb-speak-file)))
+    (with-current-buffer (get-buffer-create " *speak text*")
+      (erase-buffer)
+      (insert message)
+      (setf *pjb-speak-last-message* message)
+      (write-region (point-min) (point-max) file))
+    (shell-command (format "speak -f %s" file))))
+
+(defalias 'say 'speak)
+
+(defun speak-repeat ()
   (interactive)
-  (unless *galatea-frame*
-    (setq *galatea-frame*
-          (make-frame-on-display "galatea.informatimago.com:0.0")))
-  (set-frame-size  *galatea-frame* 96 40)
-  (let ((current-frame (selected-frame)))
-    (select-frame *galatea-frame*)
-    (set-background-color "#102040")
-    (set-foreground-color "#80f0f0")
-    ;;(set-face-foreground 'font-lock-comment-face "Green")
-    ;;(set-face-foreground 'font-lock-function-name-face "Yellow")
-    (select-frame current-frame))
-  (setq common-lisp-hyperspec-frame *galatea-frame*))
+  (speak *pjb-speak-last-message*))
 
 
-(defun reopen-frame-on-galatea ()
+
+(defparameter *pjb-erc-spoken-nicks*
+  '(("\\<e1f\\>"          . "elf")
+    ("\\<tali[0-9]+"      . "tali")
+    ("\\<fsbot\\>"        . "F. S. Bot")
+    ("\\<qu1j0t3\\>"      . "quijote")
+    ("\\<chromaticwt\\>"  . "chromatic W. T.")
+    ("\\<jcowan\\>"       . "J. Cowan")
+    ("\\<cky\\>"          . "C. K. Y.")
+    ("\\<pjb\\>"          . "Pascal")
+    ("\\<H4ns\\>"         . "Hans")
+    ("\\<Corman[0-9]+\\>" . "Corman"))
+  "An a-list mapping regexps of nicks to the corresponding text to be read aloud.")
+
+
+(defun pjb-erc-spoken-nick (nick)
+  "
+RETURN:  The text to be read aloud for the `nick' in `*pjb-erc-spoken-nicks*'.
+"
+  (let ((entry (assoc* nick *pjb-erc-spoken-nicks*
+                       :test (lambda (nick ref) (string-match ref nick)))))
+    (if entry
+        (cdr entry)
+        nick)))
+
+
+(defun erc-response.recipient (response)
+  (first (erc-response.command-args response)))
+
+(defun erc-response.sender-nick (response)
+  (let ((sender (erc-response.sender response)))
+   (subseq sender 0 (position ?! sender))))
+
+
+(defparameter *pjb-erc-massage-substitutions*
+  '(("\\<pjb\\>"                 "Pascal")
+    ("\\<CL\\>"                  "See Ell") 
+    ("\\<C-"                     "Control-")
+    ("\\<M-"                     "Meta-")
+    ("\\<A-"                     "Alt-")
+    ("\\<S-"                     "Shift-")
+    ("\\<s-"                     "super-")
+    ("\\<H-"                     "Hyper-")
+    ("\\(:-?)\\|(-?:\\)"         "AhAhAh!")
+    (":-?("                      "BooBooBoo!")
+    (":-/"                       "muek")
+    (":-?[Pp]"                   "bruu")
+    ("\\<\\(ty\\|thx\\)\\>"      "Thank you!")
+    ("\\<LOL\\>"                 "AhAhAh! Laughting Out Loud!") 
+    ("\\<ROFL\\>"                "AhAhAh! Rolling On the Floor!")
+    ("\\<hrm\\>"                 "errrmmm") 
+    ("\\<btw\\>"                 "by the way")
+    ("\\<wtf\\>"                 "what the fuck")
+    ("\\<imo\\>"                 "in my opinion")
+    ("\\<imho\\>"                "in my humble opinion")
+    ("\\<imnsho\\>"              "in my not so humble opinion")))
+
+
+(defun pjb-erc-massage-message (message)
+  (with-current-buffer (get-buffer-create "*pjb massage text*")
+    (erase-buffer)
+    (insert message)
+    (let ((case-fold-search nil))
+      (loop
+         for (reg sub) in *pjb-erc-massage-substitutions*
+         do (progn
+              (goto-char (point-min))
+              (loop
+                 while (re-search-forward reg nil t)
+                 do (progn
+                      (delete-region (match-beginning 0) (match-end 0))
+                      (insert sub))))))
+    (buffer-string)))
+
+
+
+(defvar *pjb-erc-speak-reject-recipient* '()
+  "can be:
+nil   don't reject any channel.
+:all  reject every channel.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to reject (never speak them aloud).
+See: `*pjb-erc-speak-reject-sender*', `*pjb-erc-speak-accept-sender*',
+      and `pjb-erc-privmsg-meat'.
+
+Messages are spoken if the recipient
+")
+
+(defvar *pjb-erc-speak-reject-sender* '()
+  "can be:
+nil   don't reject anybody.
+:all  reject everybody.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to reject (never speak them aloud).
+See: `*pjb-erc-speak-reject-recipient*', `*pjb-erc-speak-accept-sender*',
+      and `pjb-erc-privmsg-meat'.
+")
+
+(defvar *pjb-erc-speak-accept-sender* '()
+  "can be:
+nil   don't accept anything.
+:all  accept everything.
+or a list of nicknames or channel names \"nick\" \"\#chan\"
+to accept (speak them aloud).
+See: `*pjb-erc-speak-reject-recipient*', `*pjb-erc-speak-reject-sender*',
+      and `pjb-erc-privmsg-meat'.
+")
+
+(setf *pjb-erc-speak-reject-recipient* '("#emacs")
+      *pjb-erc-speak-reject-recipient* :all
+      *pjb-erc-speak-reject-sender*    :all
+      *pjb-erc-speak-accept-sender*    '("Posterdati" "pjb-"))
+
+
+(defvar *pjb-erc-speak-last-speaker* nil)
+
+
+(defun pjb-erc-privmsg-meat (process response)
+  "The messages are spoken if the sender is in `*pjb-erc-speak-accept-sender*',
+or the sender is not in `*pjb-erc-speak-reject-sender*',
+or the recipient is not in `*pjb-erc-speak-reject-recipient*',
+"
+  (when (or
+         (case *pjb-erc-speak-accept-sender*
+           ((nil)    nil)
+           ((:all t) t)
+           (otherwise (member* (erc-response.sender-nick response)
+                               *pjb-erc-speak-accept-sender* :test 'string=)))
+         (case *pjb-erc-speak-reject-sender*
+           ((nil)    t)
+           ((:all t) nil)
+           (otherwise (not (member* (erc-response.sender-nick response)
+                                    *pjb-erc-speak-reject-sender* :test 'string=))))
+         (case *pjb-erc-speak-reject-recipient*
+           ((nil)    t)
+           ((:all t) nil)
+           (otherwise (not (member* (erc-response.recipient response)
+                                    *pjb-erc-speak-reject-recipient* :test 'string=)))))
+    (speak (let* ((nick (pjb-erc-spoken-nick (erc-response.sender-nick response)))
+                  (chan (pjb-erc-spoken-nick (remove ?# (erc-response.recipient response))))
+                  (mesg (pjb-erc-massage-message (erc-response.contents response))))
+             (if (equal *pjb-erc-speak-last-speaker*
+                        (cons nick chan))
+                 (format "%s" mesg)
+                 (progn
+                   (setf *pjb-erc-speak-last-speaker* (cons nick chan))
+                   (format "%s said to %s: ... %s" nick chan mesg))))))
+  nil)
+
+
+(defun pjb-erc-speak-on ()
   (interactive)
-  (when *galatea-frame*
-    (delete-frame *galatea-frame*)
-    (setq *galatea-frame* nil))
-  (open-frame-on-galatea))
+  (pushnew 'pjb-erc-privmsg-meat  erc-server-PRIVMSG-functions))
+
+(defun pjb-erc-speak-off  ()
+  (interactive)
+  (setf erc-server-PRIVMSG-functions
+        (remove 'pjb-erc-privmsg-meat  erc-server-PRIVMSG-functions)))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "server")
 
 (setf server-socket-dir *tempdir*
       server-name       (format "server-%d" (emacs-pid)))
-
-
-(defparameter *frame-server-job-ticket* "~/frame-emacs"
-  "Path to the job-ticket file.")
-
-
-(defun frame-server (&optional token-path)
-  (setf token-path (or token-path *frame-server-job-ticket*))
-  (when (file-exists-p token-path)
-    (find-file token-path)
-    (make-frame-on-display
-     (delete ?\n (prog1 (buffer-string)
-                   (kill-buffer (current-buffer))
-                   (delete-file token-path)))
-     (list (cons 'name (format "n%s" (frame-parameter nil 'name)))))))
-
-(defun frame-server-start ()
-  (interactive)
-  (run-at-time nil 5 (function frame-server) nil))
-
-(frame-server-start)
-
-
-
-(cond
-  (*pjb-pvs-is-running*)
-  ((member "(gnus)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 7 60))
-   (setf *activity-tag* "GNUS")
-   (push '(name . "GNUS") default-frame-alist)
-   (set-background-color "#ccccfefeebb7")
-   ;; (when (fboundp 'set-default-frame-alist)
-   ;;   (set-default-frame-alist *default-font*))
-   (setf *frame-server-job-ticket* "~/frame-gnus"))
-  ((member "(irc)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 11 60))
-   (setf *activity-tag* "ERC")
-   (push '(name . "ERC") default-frame-alist)
-   (setf *frame-server-job-ticket* "~/frame-erc")
-   ;; (when (fboundp 'set-default-frame-alist)
-   ;;   (set-default-frame-alist *default-font*))
-   )
-  (t
-   (setf *activity-tag* "EMACS")
-   (setf uptimes-auto-save-interval (* 13 60))
-   (push '(name . "PGM") default-frame-alist)
-
-   (server-start)
-   
-   (setf (getenv "CVSEDITOR")  "emacsclient"
-         (getenv "EDITOR")     "emacsclient"
-         (getenv "VISUAL")     "emacsclient")
-   (setf *frame-server-job-ticket* "~/frame-emacs")
-   ;; (when (fboundp 'set-default-frame-alist)
-   ;;   (set-default-frame-alist *default-font*))
-   ))
 
 ;;;----------------------------------------------------------------------------
 
@@ -3062,7 +2830,6 @@ License:
 
 
 (appendf auto-mode-alist  '(("\\.mc\\'" . c++-mode)))
-
 
 
 ;; (push  '(c . pjb-lineup-C-comments)              c-offsets-alist)
@@ -4202,21 +3969,7 @@ or as \"emacs at <hostname>\"."
 
 (milliways-schedule (lambda () (sfn t)))
 
-;; (setf (getenv "EMACS_USE") "erc")
-;; (setf (getenv "EMACS_USE") "gnus")
-;; (setf (getenv "EMACS_USE") "pgm")
 
-
-(cond
-  ((string= (getenv "EMACS_USE") "erc")
-   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
-   (set-frame-name "ERC")
-   (erc-select))
-  ((string= (getenv "EMACS_USE") "gnus")
-   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
-   (gnus))
-  (t
-   (when (fboundp 'set-palette) (set-palette pal-green))))
 
 
 (defun current-minor-modes (&optional buffer)
