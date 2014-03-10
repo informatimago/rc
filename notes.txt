@@ -1,5 +1,28 @@
 -*- mode:org; coding:utf-8 -*-
 
+* NOTES
+** livre a acheter
+Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.)
+ 
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
+
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+
+** misc
+
+mailbox.org
+
+
+1 ;;DPASTE                                                 
+2 (load "~/.emacs.d/dpaste.el")                            
+3 (require 'dpaste nil)                                    
+4 (global-set-key (kbd "C-c p") 'dpaste-region-or-buffer)  
+5 (setq dpaste-poster "XL04D")                             
+
 
 decoding emotions video
 
@@ -73,7 +96,9 @@ http://www.adalog.fr
 
 http://forge.ada-ru.org/matreshka
 
+> how was the experience of building a website on ada?
 
+http://v2p.fr.eu.org
 
 
 
@@ -106,41 +131,6 @@ Date: 04/12/2013
 Signature identifier: 2d139d94-b9f1-4f78-8089-12fda49854f3
 
 
-* 
-    <ExtraData>
-      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
-
-      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
-      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
-      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
-      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
-
-      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
-      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
-      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
-      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="4"/>
-      <ExtraDataItem name="VBoxInternal2/SmcDeviceKey" value="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"/>
-      <ExtraDataItem name="VBoxInternal2/UgaHorizontalResolution" value="1920"/>
-      <ExtraDataItem name="VBoxInternal2/UgaVerticalResolution" value="1080"/>
-      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
-    </ExtraData>
-
-      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="5"/>
-
-    <ExtraData>
-      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
-      <ExtraDataItem name="GUI/Fullscreen" value="on"/>
-      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
-      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
-      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
-      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
-      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
-      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
-      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
-      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
-    </ExtraData>
-
-
 http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
 
 ;; SFR
@@ -159,9 +149,6 @@ http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
 
 
 http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
-
-vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
-vboxmanage clonehd  /path/to/virtualdisk.vdi  /path/to/copy.vdi
 
 scan la-construction-de-programmes-structures
 missing: page 132 135 136 
@@ -193,7 +180,6 @@ http://www.pharo-project.org/pharo-download/release-2-0
 
 http://act.osdc.fr/osdc2013fr/cfp.html
 
-
 https://github.com/Fuco1/smartparens/
 
 # nameserver 99.199.11.127 
@@ -211,141 +197,11 @@ b. FP invades the mainstream list http://blog.languager.org/2013/06/functional-p
 
 
 
-A computer is like a violin.  You can imagine a novice trying first a
-phonograph and then a violin.  The latter, he says, sounds terrible.
-That is the argument we have heard from our humanists and most of our
-computer scientists.  Computer programs are good, they say, for
-particular purposes, but they aren't flexible.  Neither is a violin,
-or a typewriter, until you learn how to use it.
-
--- Marvin Minsky, "Why programming isa good medium for expressing
-   poorly understood and sloppily-formulated ideas" in "Design and
-   Planning II - Computer in Design and Communication", (Martin
-   Krampen and Peter Seitz, eds), Visual Committee Books, Hastings
-   House Publishers, New York, 1967.
-
 
 
 http://osrc.dfm.io/
-WIFI 00112233445566778899123456
 
-* intermarche
-
-Montant de votre commande : 	349,03 € *
-Numéro de votre commande : 	860600010
- 
-Type de commande : 	Livraison à domicile
-Livraison le : 	Mercredi 25 septembre, entre 10h30 et 12h30
-
-
-
-
-Montant de votre commande : 	178,32 € *
-Numéro de votre commande : 	850865550
- 
-Type de commande : 	Livraison à domicile
-Livraison le : 	Samedi 22 juin, entre 12h30 et 14h30
-
-
-Montant de votre commande : 	177,02 € *
-Numéro de votre commande : 	662473954
- 
-Type de commande : 	Livraison à domicile
-Livraison le : 	Vendredi 10 mai, entre 14h30 et 16h30
-	Suivi de la commande par SMS.
-
-* cajamar 
-
-Ha utilizado por completo su tarjeta personal de claves. Puede seguir realizando operaciones con esta tarjeta, aunque, como medida de seguridad, le recomendamos que solicite una nueva en su oficina.
-
-Introduzca las siguientes coordenadas de su tarjeta personal de claves acabada en 216
-G6 	
-	
-Coordenada recibida por SMS en su móvil acabado en 318
-
-* boursorama
-
-boursorama W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
-
-Boursorama Banque
-
-    * Comment
-      ça marche
-    * Identification
-      vocale
-    * Signature
-      électronique
-    * Pièce
-      justificative
-
-Enregistrement de vos pièces justificatives
-
-Un conseiller vous aide
-à remplir votre dossier
-Ou
-Un conseiller vous rappelle
-immédiatement et gratuitement
-		OK
-Votre conseiller remplit votre convention d'ouverture
-de compte avec vous par téléphone en fonction de
-vos attentes et de vos besoins.
-Vous la recevrez immédiatement par email
-ou par courrier, vous n'aurez qu'à signer et nous la faire parvenir accompagnée des pièces justificatives.
-	  	
-Monsieur Pascal BOURGUIGNON
-
-Votre demande d’ouverture d’un compte Boursorama Essentiel+ nous est bien parvenue. Votre contrat électronique a été déposé, vous pourrez le retrouver avec votre numéro de transaction sur demande à Boursorama Banque.
- 
-NOTEZ BIEN VOTRE NUMÉRO DE TRANSACTION
-W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
-Nous venons de vous envoyer un nouvel email dans lequel vous trouverez un lien vous permettant d’accéder à votre dossier.
-FINALISEZ VOTRE SOUSCRIPTION, JOIGNEZ NOUS VOS PIÈCES JUSTIFICATIVES
-Si vous n'avez pas réuni toutes
-vos pièces justificatives
-
-    * Une copie de pièce d'identité du ou des titulaires en cours de validité
-    * Un justificatif de domicile ou un document fiscal de moins de 6 mois :
-      facture d'électricité, de gaz, d'eau, de téléphone fixe ou internet à l'adresse du client, avis d'imposition, taxe d'habitation, taxe foncière, tiers prévisionnel ou quittances de loyer qui émanent d'institutionnels.
-      Attention, ne sont pas acceptés : les factures de téléphone mobile ou les quittances de loyer qui n'émanent pas d'institutionnels.
-      Les échéanciers sont autorisés pendant toute la durée couverte.
-    * Une relevé d'identité bancaire (R.I.B)
-    * Si vous choisissez de souscrire une carte bancaire :
-      - Salarié : vos 2 derniers bulletins de salaire
-      - Non salarié : votre dernier avis d'imposition
-      Attention : vous ne recevrez pas votre carte bancaire à l'ouverture de votre compte si ces documents ne sont pas joints à votre dossier.
-    * Votre premier versement par chèque à l'ordre de Boursorama d'un montant minimum de 300€, ce montant sera disponible dès l'ouverture de votre compte.
-    * Votre signature manuscrite sur une feuille blanche
-
-(au format électronique), vous pourrez vous reconnecter ultérieurement en utilisant le lien dans l'email que nous venons de vous envoyer.
-
-Les données ci-dessus pourront être utilisées afin de vous faire bénéficier d'offres émanant de nos partenaires. Pour en savoir plus veuillez consulter l'article 2 du contrat d'utilisation. Nous vous rappelons que vous disposez d'un droit d'accès, de rectification et d'opposition au traitement des données vous concernant (articles 38, 39 et 40 de la loi "Informatique et Libertés" modifiée). Nous allons implanter un cookie dans votre ordinateur afin que vous puissiez bénéficier des services personnalisés offerts par Boursorama et d'assurer un bon fonctionnement du site. Pour en savoir plus, veuillez consulter notre contrat d'utilisation.
-------------------------------------------------------------------------
-
-* ubuntu
-
-software-center
-gnome-nm-network-editor
-
-* debian
-
-http://wiki.debian.org/Multiarch/HOWTO
-
-pin the repository and do apt-get install emacs24/sid 
-
-debian versions
-
-    Debian               ("jessie")  — no release date has been set
-    Debian           7.0 ("wheezy")  — current stable release
-    Debian           6.0 ("squeeze") — obsolete stable release
-    Debian GNU/Linux 5.0 ("lenny")   — obsolete stable release
-    Debian GNU/Linux 4.0 ("etch")    — obsolete stable release
-    Debian GNU/Linux 3.1 ("sarge")   — obsolete stable release
-    Debian GNU/Linux 3.0 ("woody")   — obsolete stable release
-    Debian GNU/Linux 2.2 ("potato")  — obsolete stable release
-    Debian GNU/Linux 2.1 ("slink")   — obsolete stable release
-    Debian GNU/Linux 2.0 ("hamm")    — obsolete stable release
-
-* notes
+* NOTES
 
 pascal.bourguignon03@orange.fr|7cxha2v
 bolet75@live.com
@@ -451,20 +307,6 @@ illustrate how to use lisp to solve needs/problems. It's about half done
 
 
 
-(defun djcb-find-file-as-root ()
-  ;; Message-ID: <x1-P3K44F1sw6uh2e47WnVq7veZyok@gwene.org>
-  "Like `ido-find-file, but automatically edit the file with
-root-privileges (using tramp/sudo), if the file is not writable by
-user."
-  (interactive)
-  (let ((file (ido-read-file-name "Edit as root: ")))
-    (unless (file-writable-p file)
-      (setq file (concat "/sudo:root@localhost:" file)))
-    (find-file file)))
-;; or some other keybinding...
-(global-set-key (kbd "C-x F") 'djcb-find-file-as-root)
- 
-
 Genotypage HLAB27
 
 -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
@@ -486,95 +328,363 @@ http://code.google.com/p/aster-math/
 
 CLANG_OPTIONS=-fdiagnostics-show-name
 
-pin reseau 6584                                                                                                                                           
+pin reseau 6584 # free?  sfr data?
 
 https://github.com/abrausch/coursera-downloader
 
-* VENI SANCTE
+* NOTES
+** CNIL
+https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
+** Other notes
+*** La Manga del Mar Menor
 
-  +------------------------------------------------------------------------+
-  |  Veni Sancte Spiritus, reple         Venez Esprit-Saint, remplissez    |
-  |  tuorum corda fidelium, et tui       les coeurs de vos fidèles, et     |
-  |  amoris in eis ignem accende.        allumez en eux le feu de votre    |
-  |                                      amour.                            |
-  |                                                                        |
-  |  (V) Emitte Spiritum tuum et         (V) Envoyez votre Esprit,         |
-  |  creabuntur.                         Seigneur, et il se fera une       |
-  |                                      création nouvelle.                |
-  |                                                                        |
-  |  (R) Et renovabis faciem terrae.     (R) Et vous renouvellerez la      |
-  |                                      face de la terre.                 |
-  |                                                                        |
-  |  Oremus                              Prions                            |
-  |                                                                        |
-  |  Deus, qui corda fidelium            O Dieu, qui avez instruit les     |
-  |  Sancti Spiritus illustratione       coeurs de vos fidèles par la      |
-  |  docuisti, da nobis, in eodem        lumière du Saint-Esprit,          |
-  |  Spiritu recta sapere, et de         donnez-nous, par ce même          |
-  |  eius semper consolatione            Esprit, de comprendre et          |
-  |  gaudere.  Per Christum Dominum      d'aimer ce qui est bien, et de    |
-  |  nostrum.  Amen.                     jouir sans cesse de ses           |
-  |                                      divines consolations.  Par        |
-  |                                      Jésus-Christ Notre Seigneur.      |
-  |                                      Ainsi soit-il.                    |
-  +------------------------------------------------------------------------+
-    PATER NOSTER, qui es in caelis,
-    sanctificetur nomen tuum.
-    Adveniat regnum tuum.
-    Fiat voluntas tua,
-    sicut in caelo et in terra.
-    Panem nostrum tidianum da nobis hodie,
-    et dimitte nobis ta nostra sicut
-    et nos dimittimus debitoribus tris.
-    Et ne nos inducas in tentationem,
-    sed era nos a malo. Amen.                          
+http://lmweb.com/
+http://www.zm101.com/MARMENOR/mangalhis.html
+http://lamangawind.com/LaManga0.html
 
-    IXTUS: Iesus Xristos Teou Uios Soter
-    http://www.aidez-moi.org/parole_du_seigneur/evangile_quotidien.php
-    http://www.vatican.va/archives/fra0013
+*** Valencia
+Seguridad social darse de baja
 
-    FUNDACION DIOCESANA PARA LA DIFUSION DE LA CULTURA CATOLICA
-    Carmen, 17
-    30201 - CARTAGENA
-    MURCIA
-    Tlf: 968 521 709
+Tesorería General de la Seguridad Social
+Avenida del General Avilés, 27
+46015 Valencia, Spain
+963 68 82 20
 
-    Catedral de Murcia
-    wget http://www.ondaregionalmurcia.es/neteye/img/image1.jpg && xv image1.jpg
+TGSS
+VALENCIA
+Direcciones Provinciales
 
-    http://www.ondaregionalmurcia.es/camara2.htm
-    http://www.ondaregionalmurcia.es/neteye/img/image1.jpg
+    Av.Marqués de Sotelo 8 y 10
+    46002 VALENCIA(VALENCIA )
+    Teléfono(s): 963506500
+    Nº de Fax: 963506501 
+
+MURCIA
+Direcciones Provinciales
+
+    C/ Ortega y Gasset, s/n
+    30009 MURCIA(MURCIA )
+    Teléfono(s): 968 395000
+    Nº de Fax: 968 395120
+    Plano de Situación
+
+*** Miscellaneous
+*** MUD, GAMES
+    CLOSED: [2012-12-01 Sat 10:03]
+
+      http://www.aardmud.org
+      http://www.aardwolf.org
+
+      AlternateReality
+          ssh -p 4005 ar.static.net
+              abrazak                 protection
+              judicandus noselacri
+              candusima               refreshed
+              gpuzre                  force field
+
+**** telnet ascii art videos
+
+Telehack:                telnet://telehack.com
+Telehack (web):          http://telehack.com
+
+Star Wars:               telnet://towel.blinkenlights.nl   
+Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
+The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
+
+What CL implementation:  telnet://voyager.informatimago.com:8101
+Nasium LSE:              telnet://voyager.informatimago.com:8115
+
+*** LONG TERM
+
+      http://www.danbricklin.com/200yearsoftware.htm
+
+** others:
+
+http://www.rubinsteyn.com/pl_fall_2011/recitation.html
+
+*** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
+
+> See asm7090-describe-codop.  You could even do that in a
+> post-command-hook, or on mouse or arrow events so that the instructions
+> are always explained.  It would also possible to attach tooltips to the
+> instructions so that you get the description on a mouse over.
+
+The "canonical" way to do that in Emacs is to set
+eldoc-documentation-function buffer-locally.  Then users can choose to
+use this by enabling eldoc-mode.
+
+
+
+
+
+
+
+IN 1934, an Indian math student, S. P. Sundaram, invented a new method
+of sieving primes:
+
+    From a list of integers from 1 to n, remove all integers of the
+    form i + j + 2ij where integers i and j range from 1 ≤ i ≤ j and
+    i + j + 2ij ≤ n. For each remaining integer k, the integer 2k+1 is
+    prime, and the list gives all the odd primes (thus excluding the
+    prime 2).
+
+
+
+
+http://www.agrotic.org/blog/?p=1747
+
+
+
+deglet.com|compra$oro
+
+Biovea pedido 7649486
+
+Cancer --> Beljanski
+
+
+
+https://github.com/elibarzilay/eliemacs/blob/master/extras/special-chars.el
+
+http://www.jibble.org/piespy/
+
++----------------------------------------------------------------------------
+| Transfers
++----------------------------------------------------------------------------
+
+;; 81.13.118.162:9987          CVAT
+;; 63.34.162.240:9102 phoenix  104th
+;; 81.200.8.157:9987           RvAF
+;; 193.106.93.31:9987          RAF
+;; vip1.ts1.cn:8770            3GO
+
+
+;; http://paste.lisp.org/display/127074#1
+
+(defun function-names (fun)
+  "
+RETURN: A list of function names fbound to the function FUN.
+NOTE:   We only scan symbols and (setf symbols).  Functions could also
+        be bound to slots or to various other lisp objects.
+"
+  (let ((names '()))
+    (dolist (pack (list-all-packages) (delete-duplicates names))
+      (do-symbols (sym pack)
+        (when (and (fboundp sym) (eql fun (symbol-function sym)))
+          (push sym names))
+        (let ((setter `(setf ,sym)))
+          (when (and (fboundp setter) (eql fun (fdefinition setter)))
+            (push setter names)))))))
+
+
+
+
+
+Pole Emploi
+188 avenue Jean Lollive 
+Mo Raymond Quenot.
+
+ADIE micro-createur.
+     seine st denis --> St Denis
+                    
+
+
+Van Allen:
+
+  outer belt:  
+      3 to 10 earth-radius-mean
+      electrons 0.1 to 10 MeV
+      ions    
+
+  inner belt:
+      0.01 to 1.5 earth-radius-mean
+      protons    100 MeV    
+      electrons  0.1 MeV
+
+      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
+             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
+
+
+      protons of 0.1 MeV penetrate 0.6 mm of Pb
+      protons of 400 MeV penetrate 143 mm of Pb
+
+radiation:  2500 rem/year
+              25 mS
+
+    apollo astronauts: 5 rem
+
+
+
+
+pole emploi 10 juin annulé déménagement
+convocation telephone 28 juin 11h30 
+
+ 
+IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
+~/jobs/free-lance/aeat/aeat-2008
+
+
+
+IRC RAGE: http://www.vidarholen.net/contents/rage/
+
+https://www.eff.org/torchallenge
+
+
+
+WanderLust http://box.matto.nl/emacsgmail.html
+
+/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
+
+
+Ma coiffeuse est formidable - http://sonia.buvette.org/
+
+- add to lisp-mirror http://wcp.sdf-eu.org/software/
+
+
+http://www.microchoix.com/espace_client.html
+Login : pjb@informatimago.com
+Votre mot de passe : dSqcUixM
+
+http://www.materiel.net
+informatimago
+poporoplo
+
+jobs: http://www.odesk.com
+
+
+Find how to distinguish (in emacs or X) the keys coming from the
+different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
+
+
+
+http://openfarmtech.org/wiki/Crash_Course
+http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
+
+
+Mon Apr 18 12:54:07 CEST 2011
+paquete:       3001/10093263
+transportista: 963461211
+
+
+sourceforge.net
+API key:    fbe5b8d039ce9d46f926
+Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
+
+
+transmission-daemon -w /other/pjb/globcover
+
+
+
+http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
+Pre-industrial workers had a shorter workweek than today's    
+
+
+2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
+
+42 Trillian 2^276709 
+            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
+GURSIXO
+emergency services: +44 (0) 118 999 881 999 119 7253
+
+This message is rot-13 encoded to prevent unwanted viewing.
+Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
+
+Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
+pour professionnalisme.
+
+
+
+
+paredit bug report:
+
+(a b c (^ d e f))
+M-up / M-x paredit-splice-sexp-killing-backward RET 
+(a b c d e f)
+
+This empties the kill ring.
+
+I understand that in the case of
+
+(a b c (d e f ^ g h i))
+M-up
+(a b c g h i)
+
+we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
+saving the empty string to the kill ring, and keep the old one.
+
+
+
+
+
+
+(add-hook 'lisp-mode-hook
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
+         (1 font-lock-keyword-face)
+         (2 font-lock-type-face))))))
+
+(put '$defclass 'common-lisp-indent-function
+     (get 'defclass 'common-lisp-indent-function))
+
+
+
+------------------------------------------------------------------------------
+apache / pound ports
+
+8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
+              joellegymtonic, parroquias-manga, willcom)
+
+8001 sbcl    linking
+8002
+8003 sbcl    films.willcom.fr
+8004 apache2 films.willcom.fr
+8005
+8006 sbcl    claar
+------------------------------------------------------------------------------
+
+
+BlackBerry 
+PIN 259B61F6
+IMEI: 357564.02.644206.5
+
+SIM Cards: 
+Operator Card Number            Phone Num   Date
+Movistar 8934076100032652090    636653318
+Movistar 340761 000326 5209 0   636653318   20110509
+
+http://www.progweb.com/modules/blackberry/index-en.html
+
+** GOLD
+2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
+2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
+2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
+(/ 245.0 145.0) = 69%/3 ans  = 19%/an
+
+2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
+
+
+We may yet see a bubble in the US into 2015.75 if we in fact see the
+dollar RISE as did the yen going into 1989. A rising dollar will
+increase the profits for foreign investors and draw in even more
+capital globally creating massive capital concentration and global
+civil unrest. The Fed will go nuts and be forced to raise interest
+rates fearing a bubble and that will blow out the deficits and the
+entire system will collapse 2016-2020. So hold on to your socks. This
+is likely to be a wild ride.
 
 * ACTIONS
-** AFAIRE, TODO, ENCOURS
-*** Earn retirement money
-----   ---------------  ---------------
-Year   Infl.Corr/Year   Total Remaining
-----   ---------------  ---------------
-2014:        17.150,63       360.421,40
-2015:        18.179,66       343.270,80
-2016:        19.270,44       325.091,12
-2017:        20.426,67       305.820,68
-2018:        21.652,27       285.394,04
-2019:        22.951,40       263.741,76
-2020:        24.328,49       240.790,34
-2021:        25.788,19       216.461,86
-2022:        27.335,48       190.673,68
-2023:        28.975,61       163.338,19
-2024:        30.714,14       134.362,58
-2025:        32.556,99       103.648,43
-2026:        34.510,41        71.091,44
-2027:        36.581,03        36.581,03
-----   ---------------  ---------------
-
-*** DIVERS
-**** TODO check this diff
+** Developments TO DO
+*** TODO [#C] check this diff
    DEADLINE: <2012-12-31 -7d>
 diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp
 1057a1058
 >         (sax:element-declaration (handler *ctx*) element-name content-model)
 
-**** TODO REVIEW AND RENAME THESE FILES:
+*** TODO [#C] REVIEW AND RENAME THESE FILES:
    DEADLINE: <2012-12-31 -7d>
 [pjb@hubble localhost:10.0 ~]$ locate /afaa/|sed -e 's-/afaa/.*-/afaa/-' |sort -u
 /a3/triton/Users/pjb/Library/images/photographies/afaa/
@@ -613,7 +723,6 @@ diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/da
    525M  /a3/save/systems
 51G      total
 
-** Developments to do
 *** TODO [#A] web service to setup private mail-lists with aliases.
 
 http://list.ogamita.com
@@ -629,17 +738,15 @@ create mail list:
 
 mailto:${name}@list.ogamita.com
 
-
-
 *** TODO [#A] mocl test 2 (ios/android).
 *** TODO [#A] enolaba abalone MacOSX
 *** TODO [#A] enolaba abalone iOS
 *** TODO [#A] enolaba abalone Android
 *** TODO lispos (lire eros, prendre notes)
 *** TODO [#B] beyondvoice
-*** TODO Application mobiles (iOS, Android): comptage de manifestation + geolocation.
-*** TODO Application mobiles (iOS, Android): geofamily-like but free.
-*** TODO Copy music to disk for Manon and send it to her.
+*** TODO [#A] Application mobiles (iOS, Android): comptage de manifestation + geolocation.
+*** TODO [#A] Application mobiles (iOS, Android): geofamily-like but free.
+*** TODO [#A] Copy music to disk for Manon and send it to her.
 *** TODO give the CDs to somebody (André or Jean-Philippe).
 *** TODO [0/4] Organize my music files
 **** TODO [ ] group files ~/bin/group-files the-ventures the-surfaris the-surf-coasters the-chantays dario-moreno/compilation-sorted/
@@ -704,7 +811,7 @@ http://feeds.harvardbusiness.org/harvardbusiness/schwartz?format=xml
     :LAST_REPEAT: [2012-12-12 Wed 22:12]
     :END:
 *** TODO [#A] [0/5] Emploi.
-    :DEADLINE: <2013-12-31 -1m>
+    :DEADLINE: <2014-05-31 -1m>
 - [ ] update profile on linkedin.com
 - [ ] update profile on etc…
 - [ ] update CV on pjb.ogamita.org
@@ -741,384 +848,833 @@ ELS2013 Madrid
 - Have all the diapositive digitalized (~ 1000 EUR ?)
 - Vendre  ma part de terrain de Volstroff à Joëlle. (~ 8000 EUR).
 
+** AFAIRE, TODO, ENCOURS
+*** Earn retirement money
+----   ---------------  ---------------
+Year   Infl.Corr/Year   Total Remaining
+----   ---------------  ---------------
+2014:        17.150,63       360.421,40
+2015:        18.179,66       343.270,80
+2016:        19.270,44       325.091,12
+2017:        20.426,67       305.820,68
+2018:        21.652,27       285.394,04
+2019:        22.951,40       263.741,76
+2020:        24.328,49       240.790,34
+2021:        25.788,19       216.461,86
+2022:        27.335,48       190.673,68
+2023:        28.975,61       163.338,19
+2024:        30.714,14       134.362,58
+2025:        32.556,99       103.648,43
+2026:        34.510,41        71.091,44
+2027:        36.581,03        36.581,03
+----   ---------------  ---------------
+
+*** ALIRE, LECTURES
+**** TODO To watch
+
+RailsConf 09|Robert Martin|What Killed Smalltalk Could Kill Ruby
+http://www.youtube.com/watch?feature=endscreen&NR=1&v=YX3iRjKj7C0
+
+http://lispm.dyndns.org/mov/dsl-in-lisp.mov
+normal considered harmful http://www.youtube.com/watch?v=FvmTSpJU-Xc&feature=related
+http://blogs.gnome.org/alexl/2012/08/10/rethinking-the-shell-pipeline/
+http://www.lively-kernel.org/
+http://www.cs.cornell.edu/home/ulfar/cuba/paper/
+
+**** Reading:
+***** TODO [#B] Reading Natural Language Processing in Lisp            :read:
+      Natural Language Processing in Lisp
+      An introduction to computationnal linguistics
+      Gazdar & Mellish,
+      Addison-Wesley,
+
+**** TODO [0/4] To read
+***** TODO http://home.pipeline.com/~hbaker1/Prag-Parse.html
+***** TODO [ ] http://fr.wikipedia.org/wiki/Mati%C3%A8re_plastique
+***** TODO [ ] http://www.danbricklin.com/200yearsoftware.htm
+***** TODO [ ] http://www.w3.org/DesignIssues/Principles.html
+***** TODO [ ] http://www.amazon.com/Elements-Networking-Style-Animadversions-Intercomputer/dp/0595088791/
+***** TODO [ ] http://www.amazon.com/Interconnections-Bridges-Switches-Internetworking-Protocols/dp/0201634481/
+***** TODO [ ] http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
+***** Intentionnal Programming
+      http://localhost/~pascal/others/www.edge.org/documents/archive/edge20.html
+
+***** Informatique
+Periodique:
+
+    Donald Knuth Guide to Visual Basic: http://www.ibiblio.org/Dave/Dr-Fun/df200002/df20000210.jpg
+
+------------------------------------------------------------------------
+AIM READ:
+---------
+
+     AIM-006     Writing and Debugging Programs -- S. Russell
+                 ! Early LISP and IBM 7090 debugging tools
+                 ! Of interest when reading the sources of LISP 1.5
+
+     AIM-007     Notes on The Compiler -- J. McCarthy
+                 ! Implementation Notes for the LISP compiler.
+                 ! Of interest when reading the sources of LISP 1.5
+
+     AIM-008     Recursive Functions of Symbolic Expressions and Their Computation by Machine. -- J. McCarthy
+                 ! The original LISP paper.
+                 ! http://www.informatimago.com/develop/lisp/small-cl-pgms/aim-8/
+
+     AIM-009     Explanation of Big "P" as of March 20, 1959
+                 ! ERROR routine, SAVE and UNSAVE stack, PRINT, READ.
+                 ! Of interest when reading the sources of LISP 1.5
+
+                 
+
+1968 AIM-154     A Budget of Fallacies                       Papert
+     NE          Debunking Dreyfus.
+
+------------------------------------------------------------------------
+AIM TO READ:
+------------
+
+     AIM-010
+
+     AIM-011     Recursive Functions of Symbolic Expressions and Their Computation by Machine. -- J. McCarthy
+                 A continuation of AIM-008
+
+
+AIM-29 CALCULUS OF KNOWLEDGE
+------------------------------------------------------------------------
+
+
+    http://www.boston.com/bostonglobe/photos/photos_galleries/harvard_student_lives_the_homeless_lifestyle/
+
+    CO2, un mythe planétaire.-
+    GERONDEAU, Christian
+    Source bibliographique :
+    Paris : Editions du Toucan, 2009.-, 267 p., tabl., graph., fig.
+    ISBN 978-2-810002-46-7
+
+BOOKS: 
+    http://www.bne.es/BDH/index.htm
+    http://www.cervantesvirtual.com/portal/BNE/
+
+    Survival books: http://www.godlikeproductions.com/forum1/message742541/pg1
+
+    Greg Bear's "noach"  SF Book.
+
+
+    ftp://ftp.ccs.neu.edu/pub/people/will/
+    ftp://rtfm.mit.edu/pub/usenet/news.answers/radio/phonetic-alph/full
+    http://www.cs.ucsd.edu/~varghese/PAPERS/ieeeton2005.pdf
+    http://yuba.stanford.edu/~pankaj/paps/sig99.pdf
+
+
+    mv ~/library/images/photographies/persons/neuro-linguistic-programming ~/books?
+
+    http://www.cs.utexas.edu/users/EWD/index00xx.html
+
+    http://www.alain-lefebvre.com/
+
+    http://opensource.adobe.com
+    http://stepanovpapers.com
+    http://www.stepanovpapers.com/PAM.pdf
+
+    http://www.infoq.com/presentations/fortress-steele
+
+    Comparison of the software specification methods
+    http://www.dmi.usherb.ca/~spec/A3-comparison-v4.pdf
+
+
+    http://okmij.org/ftp/Computation/Subtyping/
+    http://www.pipeline.com/~hbaker1/TInference.html
+    http://citeseer.ist.psu.edu/87589.html
+
+    http://www8.informatik.uni-erlangen.de/html/lisp/histlit1.html
+
+    mplayer -dumpstream -playlist rtsp://video.cpm.jussieu.fr/videocpm/cours/info/queinnec02/queinnec_1/queinnec01-1.smil
+
+
+    http://chaosradio.ccc.de/cre084.html
+
+    http://prospector.ides.com/
+    http://www.gp-field-guide.org.uk
+
+    http://nightschool.near-time.net/news/2007/11/13/oversimplification-is-irritating
+    http://www.treeshark.com/Persptut.html
+
+    http://www.reopen911.info
+    Watch "Oil, smoke & mirrors"
+
+    http://www.genethique.org/  
+    Watch "la vie est en nous"
+
+    http://video.google.co.uk/videoplay?docid=8823663220672823396
+    "A Study In Keith" is a live programming performance by Andrew
+    Sorensen inspired by Keith Jarrett's Sun Bear concerts. All of the
+    music you  hear is generated from the program code that is written and
+    maniulated in real-time during the performance. The work was performed
+    using the Impromptu Scheme software development environment (http://
+    impromptu.moso.com.au). Not Keith, but inspired by Keith :)
+
+
+    http://www.lulu.com/content/1073086
+
+    http://www.franz.com/support/tech_corner/?from=rss#rpc-011607
+    http://www.franz.com/support/tech_corner/?from=rss#usgs-011207
+    http://www.franz.com/support/tech_corner/?from=rss#anynl-011507
+    http://www.ias.ac.in/resonance/May2005/pdf/May2005Classics.pdf
+
+
+    http://www.defmacro.org/ramblings/weblocks-demo.html
+    http://sources.defmacro.org/cl-weblocks
+
+
+    http://www.educalire.net/Francaismemo.htm
+
+    http://www.methodsandtools.com/archive/archive.php?id=56
+    http://disciplined-minds.com/
+    http://www.cio.com/article/108501
+
+    For an interesting talk by Gerald Sussman on the ambiguity of
+    'standard mathematical notation', there is an amusing video from
+    Danfest2004 (http://www.cs.indiana.edu/dfried_celebration.html)
+    about calculus and mechanics, among other things. It was here
+    that I realised that Scheme has implicit currying when defining
+    functions -- (define ((sum x) y) ...)
+
+    http://video.google.com/videoplay?docid=-2726904509434151616&hl=en
+
+
+    Paper: cs.CC/0702053
+    Date: Fri, 9 Feb 2007 03:42:51 GMT   (7kb)
+
+    Title: The DFAs of Finitely Different Languages
+    Authors: Andrew Badr, Ian Shipman
+    Categories: cs.CC
+    Subj-class: Computational Complexity
+    ACM-class: F.1.1; F.4.3
+    \\
+      Two languages are "finitely different" if their symmetric difference is
+    finite. We consider the DFAs of finitely different regular languages and find
+    major structural similarities. We proceed to consider the smallest DFAs that
+    recognize a language finitely different from some given DFA. Such "f-minimal"
+    DFAs are not unique, and this non-uniqueness is characterized. Finally, we
+    offer a solution to the minimization problem of finding such f-minimal DFAs.
+    \\ ( http://arXiv.org/abs/cs/0702053 ,  7kb)
+
+    \\
+    Paper: cs.NE/0702055
+    Date: Fri, 9 Feb 2007 13:16:14 GMT   (2kb)
+
+    Title: On the possibility of making the complete computer model of a human
+      brain
+    Authors: A.V. Paraskevov
+    Categories: cs.NE
+    Subj-class: Neural and Evolutionary Computing
+    \\
+      The development of the algorithm of a neural network building by the
+    corresponding parts of a DNA code is discussed.
+    \\ ( http://arXiv.org/abs/cs/0702055 ,  2kb)
+
+    \\
+    Paper: cs.DB/0701161
+    Date: Thu, 25 Jan 2007 23:51:22 GMT   (280kb)
+
+    Title: Thousands of DebitCredit Transactions-Per-Second: Easy and Inexpensive
+    Authors: Jim Gray, Charles Levine
+    Categories: cs.DB cs.PF
+    Proxy: gray
+    Report-no: MSR-TR-2005-39
+    Subj-class: Databases; Performance
+    \\
+      A $2k computer can execute about 8k transactions per second. This is 80x more
+    than one of the largest US bank's 1970's traffic - it approximates the total US
+    1970's financial transaction volume. Very modest modern computers can easily
+    solve yesterday's problems.
+    \\ ( http://arXiv.org/abs/cs/0701161 ,  280kb)
+
+
+    http://video.google.com/videoplay?docid=-7466666104246770991&q=jetpack&pl=true
+    http://video.google.com/videoplay?docid=-5503582578132361295&q=animusic
+
+
+
+    http://www.dreamsongs.com/CLOS.html
+
+    http://www.calresco.org/sos/sosfaq.htm
+    http://www.calresco.org/
+    http://necsi.org/publications/dcs/index.html
+    http://www.psych.lse.ac.uk/complexity/
+    http://icam.lanl.gov/
+    http://www.comdig.org/archive.php?year=2006
+
+
+
+
+    http://www.archive.org/details/CC1024_artificial_intelligence
+
+    http://weblog.raganwald.com/2007/01/what-ive-learned-from-sales-part-i.html
+    http://www.clubic.com/lancer-le-telechargement-9738-0-net-transport.html
+    http://www.cliki.net/Lisp%20Machine%20Videos
+
+    http://www.dailymotion.com/group/24106/video/xsd0f_conf-jp-petit
+
+
+    http://www.studiodaily.com/main/searchlist/6850.html
+
+
+    http://www.debugmode.com/wink/
+    http://www.franz.com/products/allegrocl/prompt/javatelnet.html
+
+    http://www.biobike.org
+    http://xml.resource.org/
+
+
+    http://tx.downloads.xensource.com/torrents/xen-3.0.2-src.tgz.torrent
+    /local/src/BitTornado-CVS/btdownloadheadless.py  http://tx.downloads.xensource.com/torrents/xen-3.0.2-src.tgz.torrent
+
+
+    http://lamanga.inetcam.com/dynamicindex./cam0vo.html
+    http://www.amigosdelamanga.com/mangalarga/webmanga.html
+
+    http://www.danga.com/mogilefs/
+    http://en.wikipedia.org/wiki/Distributed_file_system
+
+    http://www.freeworldacademy.com/chronique.htm 
+
+    http://asm.sourceforge.net/articles/startup.html
+
+    Convertir des fichiers .WMA et .CDA en fichiers .MP3
+    http://cdexos.sourceforge.net/index.html
+    http://www.framasoft.net/article1038.html
+
+
+
+    http://www.jair.org/media/
+    http://en.wikibooks.org/wiki/Understanding_darcs
+    Making a realease with darcs:
+        darcs tag -m "New version message" x.y.z
+        darcs dist -d name-x.y.z.tar.gz
+
+    http://www.google.com/technology/pigeonrank.html
+    http://www.google.com/maps?f=q&hl=en&q=La+Manga+del+Mar+Menor,+Spain&ie=UTF8&z=7&ll=40.052848,0.32959&spn=5.885887,9.019775&om=1
+
+
+
+
+    http://www.911research.com/wtc/evidence/videos/docs/wtc_7_cbs.mpg
+
+    http://www.timesonline.co.uk/article/0,,8123-1509923_1,00.html
+    http://www.wired.com/wired/archive/7.11/persinger_pr.html
+
+    http://www.spambouncer.org
+    www.goethe-institute.de
+
+    http://www.bath.ac.uk/~masjap/TYL/history.html
+
+    http://friendfinder.com/
+    http://www.oneminutepeoplefinder.com/
+    http://www.das-sind-meine-freunde.de
+    http://www.darwindating.com/
+
+
+    http://www.christjesus.tv/onlinevideos.html
+    http://whywontgodhealamputees.com/
+
+    http://www.brainhz.com/underhanded/
+
+
+
+
+/home/pjb/src/lisp/doc/www.cs.toronto.edu/~hehner/God.pdf
+http://www.rebelscience.org/
+
+    http://home.planetinternet.be/~sopala/chapitre%201.htm
+
+    http://www.mises.org/liberal/isec4.asp
+
+    http://www.webcom.com/cfsc/howwedie.html
+
+    wget --mirror http://www.physics.umd.edu/deptinfo/facilities/lecdem/demolst.htm#k2
+
+    http://dps.sourceforge.net/
+    http://www.peak.org/~luomat/next/
+    http://www.ibiblio.org/pub/Linux/docs/faqs/ (Linux Document Project)
+
+    tmp/security_in_o8i_twp.pdf
+    tmp/kids_criminal_hackers_v07.pdf
+
+    http://localhost/~pascal/others/www.edge.org/documents/archive/edge.index.html
+    http://localhost/developer.apple.com/techpubs/webobjects/System/Documentation/Developer/WebObjects/DevGuide/Methods.html
+
+    http://localhost/linux-manual/xntp3-5.93/
+    http://localhost/users/pascal/others/www.lbbs.org/
+    file:///users/pascal/tmp/a-lire/zonprotocol.rtf:227
+	file:///users/pascal/tmp/a-lire/unix-security-doc.ASCII:1265
+	file:///users/pascal/tmp/a-lire/ummo/d47.html
+
+    http://developer.apple.com/techpubs/enterprise/WebObjects/
+
+**** Read DONE:
+
+      EDW0028 1962 Substitution Process Definition of a recursive stack
+      machine. Algol 60, Lisp, Recursion, M.V.Wukjes, J.McCarthy,
+      M.Woodger.
+
+
+      EDW0030 Some Meditations on Advanced Programming
+      
+
+
+      EDW1298 Under the Spell of Leibnitz Dream
+      Dijkstra biography, Gottfried Wilhelm Leibnitz, Hilbert,
+      Hoftstdter, R.W.Floyd, C.A.R.Hoare, E.T.Bell, George Boole,
+      symbolic proof, symbolic reasoning, University, Computer Science,
+      Computer Industry, Algol 60, Lisp, Recursion.
+
+      
+
+      Basic Lisp Techniques
+      Cooper, Franz Inc.,  2003, 100 pages.
+      file:///srv/books/informatics/languages/lisp/basic-lisp-techniques--cooper--2003.pdf
+      http://www.franz.com/resources/educational_resources/cooper.book.pdf
+      Presentation of Common Lisp, emacs (plus some Allegro specific stuff).
+      Short and clear.
+
+
+
+      Artificial Intelligence as a Positive and Negative Factor in Global Risk
+      Forthcoming in Global Catastrophic Risks, Eds. Nick Bostrom and Milan Cirkovic
+      Elizer Yudkowsky <yudkowsky@singinst.org>, Draft of August 31, 2006, 42 pages.
+      file:///srv/books/informatics/artificial-intelligence/general/artificial-intelligence-as-a-positive-and-negative-factor-in-global-risk.pdf
+      http://singinst.org/upload/artificial-intelligence-risk.pdf 
+      Importance of developing Friendly AI, not just random AI (which
+      could turn out evil or alien).
+
+
+      The Mythical Man.Month, Essay on Software Engineering
+      Anniversary Edition
+      Frederic P. Brooks. Jr,
+      University of North Carolina at Chapel Hill.
+      Addison-Wesley, 1995, 
+      ISBN 0-201-83595-9
+
+**** Economic Freedom
+
+      http://www.freetheworld.com/
+      http://www.heritage.org/        2003 Index of Economic Freedom
+      http://www.heritage.org/research/features/index/
+
+**** Survival
+
+      http://www.alpharubicon.com
+
+**** Science
+
+      National Science Digital Library
+      http://nsdl.org
+
+
+      http://www.newscientist.com/news/news.jsp?id=ns99992066
+
+**** Aerospace
+
+      http://patft.uspto.gov/netahtml/search-adv.htm
+      http://ntrs.nasa.gov/
+      http://library.lanl.gov/catalog/
+      http://www.llnl.gov/library/catalogs.html
+
+      The NACA digital archive can be surprisingly usefull too.
+      Maybe not quite cutting-edge.
+
+**** Chimie
+
+      http://www.mems-exchange.org/
+
+**** Energy
+
+      Uranium & Nuclear Power Information Center Australia
+      http://www.uic.com.au/
+
+      http://www.tinaja.com/h2gas01.asp
+      http://dieoff.com/page168.htm
+      http://www.citizen.org/cmep/Water/articles.cfm?ID=7268
+
+      http://www-formal.stanford.edu/jmc/progress/nuclear-faq.html
+      http://www-formal.stanford.edu/jmc/progress/cohen.html
+
+      http://www.jaeri.go.jp/english/ff/ff43/topics.html
+      http://www.jaeri.go.jp/english/ff/2001.html
+
+      Energy Analysis of Power Systems
+      http://www.uic.com.au/nip57.htm
+
+      http://www.aip.org/tip/INPHFA/vol-8/iss-1/p22.pdf
+
+      http://jnaudin.free.fr/html/farhom.htm
+
+      http://www.josephnewman.com
+      http://www.newphys.se/elektromagnum/physics/JosephNewman/newman.start.html
+      http://www.phact.org/phact/newman.htm
+      http://colossus2.cvl.bcm.tmc.edu/~wje/free_energy/newman/special_report.html
+      http://www.angelfire.com/biz/Newman/
+      http://www.futureworld.dk/tech/el_mag/el_magt.htm
+
+**** Others
+
+     http://www.ucalgary.ca/~rzach/logblog/2007/11/csli-lecture-notes-online-and-free.html
+     http://indexical.blogspot.com/2007/10/this-is-neat.html
+
+      http://www.swiss.ai.mit.edu/tftpdir/scsh/
+
+      You could always use OpenBIOS
+      http://freshmeat.net/projects/openbios/
+
+      http://www.soton.ac.uk/~scp93ch/refer/morseform.html
+      http://www.knowledgehound.com
+      http://openquicktime.sourceforge.net/
+      voir aussi http://www.3ivx.com
+
+
+      http://www.sunless-sea.net/forum
+
+
+      http://osfameron.perlmonk.org/chickenman/asciimation_diary.html
+
+      http://my.netfilter.se/ bandwidth limiting
+
+      ftp://tierra.slhs.udel.edu
+      ftp://life.slhs.udel.edu
+
+      http://www-2.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/
+
+      http://tunes.org/papers/WhyNewOS/WhyNewOS.html
+
+      http://www.piercefuller.com/oldibm-shadow/1401.html
+
+      http://vwei.ifrance.com/vwei/
+
+      http://www.anandtech.com/
+
+      http://members.aol.com/sylvanz/index.htm
+      http://members.aol.com/sylvanz/gvcont.htm
+
+
+      http://www.hanssummers.com/mainpage.htm
+
+      http://www.simulation-argument.com/classic.html
+
+      http://www.linux-france.org/article/these/unix-vs-nt/unix-vs-nt.html
+      http://www.thevenusproject.com/intro_main/whatis_tvp.htm
+
+
+      http://www.samag.com/documents/s=1824/sam0201h/0201h.htm
+
+      http://www.midnightpictures.co.uk (video)
+      http://www.darrylsloan.com        (video)
+
+
+      http://artstkmkt.sourceforge.net/  Swarm John H. Holland
+      http://sourceforge.net/projects/artstkmkt/
+
+      http://www.cyberhaven.com/bookshop/belikebuffet.html
+
+      http://www.beepcore.org/beepcore/home.jsp
+
+      http://www.ietf.org/rfc/rfc3080.txt - base standard
+      http://www.ietf.org/rfc/rfc3081.txt - mapping to tcp
+      http://www.ietf.org/rfc/rfc3117.txt - article about reinventing wheels
+
+
+      http://savannah.gnu.org/support/?func=detailsupport&support_id=100485&group_id=99
+
+      Es: http://cuantosimpuestospago.com
+      Es: http://www.diadelcontribuyente.org/calculadora2.php
+      Mx: http://www.sat.gob.mx/sat/default.htm
+      Vz: http://www.misimpuestos.net/registro.htm
+
+
+
+
+      http://www.lib.utexas.edu/maps/europe.html
+
+      http://redivi.com/~bob/celestia.html
+
+      http://www.think-aboutit.com/underground.html
+      http://www.chris.com/ascii/
+
+      http://pw1.netcom.com/~jna/
+      http://soufron.free.fr/files/gpl.html
+
+      http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=2009756094
+
+
+      http://www.isd.atr.co.jp/~ray/tierra/index.html
+
+      http://www.mexicomexico.to/mxmap.htm
+
+
+      http://www.padrak.com/ine/index.shtml
+      telnet://towel.blinkenlights.nl
+      http://textpix.com
+      http://www.club-decideur.com/index.adml?h=5
+
+**** Webcam Acapulco
+
+      http://www.wetteronline.de/cgi-bin/regframe?3&PRG=citywind&LANG=de&WMO=76805&PROVIDER=anwendung
+
+      http://www.comfm.com/webcam/fiche.html?id=13289 puerto vallarta
+
+      http://www.vialidad.telmex.net/foto.php?NF=22&
+      http://www.vialidad.telmex.net/foto.php?NF=23&
+      http://www.vialidad.telmex.net/foto.php?NF=24&
+      http://www.vialidad.telmex.net/foto.php?NF=25&
+      http://www.vialidad.telmex.net/foto.php?NF=29
+
+      http://www.camscape.com/cam1d.htm
+      http://franck.legallo.free.fr/us/USAAUTRES1.htm
+
+**** Ufo
+      http://disclosureproject.com
+      http://earthfiles.com
+
+
+      firma digital Fabrica de moneda y timbre  http://www.telecable.es/personales/gamo/
+
+      Internation Phonetic Alphabet
+      http://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm
+
+      10 commandements du jeune internaute:
+      http://fac-info.joueb.com/news/11.shtml
+
+      mms://mediaserver.sinectis.com.ar/AmericaTV/AmericaTV.asx
+      mms://mediaserver.sinectis.com.ar/AmericaTV-Large/AmericaTV-Large.asx
+      http://www.americatv.com.pe/station1.asx
+
+      http://www.eskimo.com/~pristine/ftp.html
+      http://www.scps.org/html/body_relationship_to_other_protocol.html
+      http://nondot.org/sabre/os/files/FileSystems/iso9660.pdf
+
+      http://www.amasci.com/freenrg/minto.html
+
+      http://keyholepublishing.com/essays.htm
+      http://www.service-public.fr/
+      http://www.podval.org/~sds/tool.html
+      http://www.recoverylabs.com/webv01/contactanos.htm
+      http://rognerud.com/physics/index.htm
+      http://bel.150m.com/deaquino.htm
+      http://xxx.lanl.gov/abs/physics/0206046
+
+
+      http://www.raum-energie-forschung.de/IREF-home-engl./Theor.htm.
+
+
+      http://www.info.unicaen.fr/bnum/jelec/Solaris/d06/6borde.html
+      http://web.textfiles.com/ezines/PROPHETZINE/prpzn063.txt
+
+      http://www.marxists.org/
+      http://www.geocities.com/archiviste2000/memoire.htm    Bilan communiste
+
+      http://freshmeat.net/redir/securedelete/9377/url_tgz/download.php?t=r&d=secure_delete-2.3.tar.gz
+
+      http://kangzhuang.ucam.org/cgi-bin/access/access.cgi
+      http://www.cl.cam.ac.uk/~ssb22/access.html#download
+      http://www.cus.cam.ac.uk/~ssb22/help.htm
+
+      http://trendsaction.com/books/Harry_Browne/Fail_Safe_Investing/investing.php
+      http://s2.invisionfree.com/de_Pinet_Labs/
+      http://bioinformatics.org/softwaremap/?form_cat=2
+      http://www.libertyfree.com/
+      http://download.info.apple https://store.apple.com/Your/WebObjects/OrderStatusEurope..com/Apple_Support_Area/Apple_Software_Updates/English-North_American/Macintosh/System/Older_System/System_6.0.x/
+
+      http://www.hubbertpeak.com/us/
+      http://www.dieoff.org/
+
+
+
+      http://www.obs-nice.fr/stee/quickcam/quickcam.html
+      http://www.csociety.org/~kearneyd/linux_quickcam.html
+
+
+      Sharp SL-5000D
+      http://www.infosync.no/show.php?id=1063
+
+
+      http://www.cocam.co.uk/CoCamWS/Infrared/INFRARED.HTM
+
+      http://www.cc.gatech.edu/classes/AY2002/cs4470_fall/CMU-CS-94-182.pdf
+      http://www.tls.cena.fr/~jestin/SIG/old/docs/debat/TSI%20an%202000%20mbl.pdf
+      http://www.tls.cena.fr/divisions/PII/Rapports/NR93-830.ps.gz
+      http://www.tls.cena.fr/divisions/PII/Rapports/NR93-829.ps.gz
+
+      http://www-106.ibm.com/developerworks/linux/library/l-hw1/#resources
+      http://www-106.ibm.com/developerworks/linux/library/l-hw1/
+
+      http://www.index-materiel.com/
+
+      http://www.modelingstyle.info/activityDiagram.html
+      http://www.eros-os.org/mailman/listinfo/eros-arch
+      http://www.schnada.de/quotes/contempt.html
+
+      http://laurel.actlab.utexas.edu/~cynbe/muq/muf3_toc.html
+      http://www.idealx.org/fr/doc/intro_preuve_formelle/intro_preuve_formelle.html
+
+      http://www.mathpages.com/rr/s9-08/9-08.htm
+
+
+      http://aduni.org/courses/
+      http://www.securiteam.com/securityreviews/5HP040KB5S.html.
+      http://www.gold-eagle.com/editorials_03/mauldin083103.html
+      http://www.safehaven.com/
+      http://web.archive.org/web/*/http://www-aig.jpl.nasa.gov/public/home/gat/ftp/http.lsp
+      http://www.agora-inc.com/reports/RCH/RackUpProfits/
+
+      http://www.youtube.com/universidadudima
+
+      http://www.coursera.org
+
+      http://ocw.mit.edu/OcwWeb/Global/all-courses.htm#Aeronautics%20and%20Astronautics
+      http://www.geocities.com/mj_17870/waterelectret.html
+      http://www.baen.com/ Editeur livre électroniques
+      http://www.jeanweber.com in PDF, without copy protection.  The
+      eBook versions are substantially cheaper than the paper versions.
+      http://www.antipope.org/charlie/fiction/index.html
+
+
+
+
+      http://personal-homepages.mis.mpg.de/gruening/bg_short.pdf
+      http://www.ling.lu.se/education/homepages/ALS052/handouts/TL4.pdf
+      http://crl.ucsd.edu/pdpnlp/abstract/20020528.html
+      http://l4ka.org/projects/persistence/
+
+      http://www.hpl.hp.com/techreports/2000/HPL-2000-99.html
+      http://www.iecc.com/gclist/GC-faq.html
+      http://www.calresco.org/offline.htm
+      http://public.kitware.com/VTK/
+
+      http://www.arm.linux.org.uk/
+      http://fabrice.bellard.free.fr/qemu/
+      http://arcem.sourceforge.net/
+      http://www.departments.bucknell.edu/russian/language/
+
+      http://www.ee.surrey.ac.uk/Personal/L.Wood/constellations/overview.html
+      http://petef.port5.com/c/portability.txt
+
+      http://www.linuxdevices.com/news/NS6681886148.html
+      http://mes.emuunlim.com/tips/capturing_a_mac_rom_image.htm
+      http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/Programmation-Symbolique/2003-2004/
+      http://digilander.libero.it/chiediloapippo/Engineering/iarchitect/shame.htm
+      http://www.joelonsoftware.com/navLinks/fog0000000247.html
+      http://www.johncon.com/john/
+      http://www.geocities.com/mparker/
+
+      http://www.asciimation.co.nz/
+      http://www.logwatch.org
+
+      http://www.srcf.ucam.org/~dl276/bookmarks.php
+      http://www.nhplace.com/kent/Papers/Large-Systems.html
+      http://www.cse.ucsc.edu/pipermail/rts/2003-October/000014.html
+      http://www.cl.cam.ac.uk/Research/SRG/netos/xen/
+      http://www.toms.net/rb/
+
+      http://www.chkrootkit.org/#related_links
+      http://www.spip.net/fr
+      http://wikipedia.sourceforge.net/
+      flashcard PCMCIA:  http://www.si.org/pcmciamtd/
+
+      http://marcogee.free.fr/news/ej1.htm
+
+
+      http://www.scsh.net/
+      http://www.stud.uni-karlsruhe.de/~unk6/clxman/
+
+      http://media35.fastclick.net/w/click.here?fid=10&cid=2553&mid=13186&sid=5364&m=1&c=6631http://www.quirit.com/quiritmatic/quiritmatic.asp?lang=fr
+      750MB 30GB/mois $25/mois
+
+
+      http://www.squish.net/dnscheck/
+      check DNS reverse informatimago
+
+      ftp://ftp.rediris.es/sites/ftp.es.debian.org/debian-cd/3.0_r1/source/
+      http://www.stat.duke.edu/~sto/bookmarks.html
+
+**** Lifter
+
+      wget --mirror --convert-links --continue http://members.aol.com/jnaudin509/systemg/html/syshexp.htm
+
+      http://www.electricspacecraft.com/index.htm
+      http://www.totse.com/en/fringe/gravity_anti_gravity/grav.html
+
+      http://www.ebv.com/
+      http://www.raypa.es/
+
+      http://moumra.onzenet.com/moumraV12/evolution/zeiplin/powertht/alimuktht01.html
+      http://moumra.onzenet.com/moumraV12/evolution/zeiplin/ukzeipplin.htm
+
+      http://www.ddsp.com/sb/order.cgi        stun gun
+
+      http://membres.lycos.fr/plasmapropulsion/the_lifters_dedicated_page.htm
+      http://www.inria.fr/rapportsactivite/RA96/croap/croap.html
+
+**** Over-Unity Devices that work
+
+      http://www.explorepub.com/articles/beardon/overunity.html [Tom Bearden]
+      http://www.cheniere.org/misc/oulist.htm [Tom Bearden]
+      http://www.cheniere.org/techpapers/Final%20Secret%2013%20May%201994/ [Tom Bearden]
+      http://www.geocities.com/Area51/Shadowlands/9654/bearden/poed.html [Tom Bearden]
+      http://www.cheniere.org/correspondence/052103.htm [Tom Bearden]
+      http://groups.yahoo.com/group/Antigravity/messages/2601?viscount=100
+      http://www.eurobility.com/news/one_news.asp?IDNews=866
+      http://www.rmsg.us/fuel/free.htm Free Energy Devices
+      http://www.geocities.com/theadamsmotor/motordesign.html
+      http://www.stardrivedevice.com/links.html
+      http://www.hbci.com/~wenonah/tommy/td.htm
+      http://www.altenergy.org/3/new_energy/zero_point_and_other/methernitha/methernitha.html
+      http://www.eskimo.com/~bilb/freenrgl/devlist.html
+      http://www.yowusa.com/Archive/May2003/OverunityKit1/overunitykit1.htm
+      http://www.altenergy.org/3/new_energy/zero_point_and_other/grotz/grotz.html
+      http://www.amasci.com/weird/wsci.html
+      http://www.fortunecity.com/greenfield/bp/16/content1.htm
+
+
+      lynx -source http://www.accu.org/access/public/install.sh > install.sh && chmod +x install.sh && ./install.sh
+
+
+      http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
+      http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
+
+      The 1998 paper by Nigam and McCallum "A Comparison of Event Models for
+      Naive Bayes Text Classification"
+      (http://citeseer.nj.nec.com/mccallum98comparison.html)
+      is very useful.
+
+      http://singinst.org/CFAI.html
+      http://www.cc.gatech.edu/classes/AY2003/cs7613_spring/
+      http://www.tomadivx.com
+
 *** Comptabilité.
 **** TODO [#A] fermer compte cajamar valencia
 **** TODO [#A] assigner telephone pour les cles sinon fermer compte openbank -> virement a cajama
-**** TODO [#B] payer loyer                               679 €   :accounting:
-     DEADLINE: <2013-02-04 Mon +1m -12d>
-     - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
-       Fait par virement de la BNP.
-     - CLOSING NOTE [2012-12-04 Wed 22:13] \\
-       Done.
-    - CLOSING NOTE [2010-12-03 Fri 04:46] \\
-      Done on 2010-12-02.
-    - CLOSING NOTE [2010-11-15 Mon 06:25] \\
-      Done.
-    - CLOSING NOTE [2010-10-11 Mon 12:31] \\
-      Done on 2010-10-11.
-    - CLOSING NOTE [2010-06-25 Fri 21:19] \\
-      Done today.
-    :PROPERTIES:
-    :LAST_REPEAT: [2013-06-29 Sat 15:22]
-    :END:
-**** TODO [#B] pagar hetzner
-    DEADLINE: <2012-12-23 Tue +1m -2d>
-    - CLOSING NOTE [2010-11-15 Mon 06:32] \\
-      done
-    - CLOSING NOTE [2010-10-16 Sat 22:16] \\
-      done.
-    :PROPERTIES:
-    :LAST_REPEAT: [2010-11-15 Mon 06:32]
-    :END:
-    Traspasar 50 € a la visa e-shopping para Hetzner.
-
-**** DONE [#A] payer ono par carte bleu de Paris.
-     CLOSED: [2013-06]
-     - CLOSING NOTE [2013-06] \\
-       Done.
-**** DONE [#A] fermer compte cajamar cabo de palos
-     CLOSED: [2013-08-11 Sun 19:50]
-     - CLOSING NOTE [2013-08-11 Sun 19:50]
-**** DONE [#B] pagar andre                               400 €   :accounting:
-     CLOSED: [2013-03-15 Fri 23:04] DEADLINE: <2013-01-01 -12d>
-     - CLOSING NOTE [2013-03-15 Fri 23:04] \\
-       Did that.
-**** DONE [#B] Hacer transferencia  Celestino Conesa     600 €   :accounting:
-     DEADLINE: <2013-04-01 Mon +1m>
-     - CLOSING NOTE [2013-04-28 Sun 13:19] \\
-       Completed last month.
-     - CLOSING NOTE [2012-12-29 Sat 20:04] \\
-       Transferencia 450 euro done.
-     - CLOSING NOTE [2012-12-12 Wed 22:10] \\
-       Transferencia  50 euro done.
-     :PROPERTIES:
-     :LAST_REPEAT: [2013-04-28 Sun 13:19]
-     :END:
-
-20121229 450 € facturas 201201-201209
-20130131 600 € facturas 2011
-20130303 600 € facturas 2010
-20130404 600 € facturas 2009
-         
-At maturity, please credit our account as follows
-Payment Bank.......................:     CAJAMAR
-Branch Name.........................:    LOS BELONES MURCIA
-Account Number (IBAN).........:          ES19 3058 0370 6927 2000 0258
-Beneficiary............................: CELESTINO CONESA
-BIC / SWIFT Code..................:      CCRIES2A
-
-**** DONE [#B] Annuler assurance.
-    DEADLINE: <2010-09-07 Tue +1m -7d>
-    - CLOSING NOTE [2012-11-26 Mon 21:11] \\
-      note done :-(
-    :PROPERTIES:
-    :LAST_REPEAT: [2012-11-26 Mon 21:12]
-    :END:
-     kelassur.com|1131673|poporoplo
-     1 64 03 57 306 155 53
-     1640357306155 53
-
-**** DONE [#B] pagar alquiler valencia                  ~870 €   :accounting:
-     CLOSED: [2012-12-12 Wed 22:12] DEADLINE: <2012-12-04 -8d>
-     - CLOSING NOTE [2012-12-12 Wed 22:12] \\
-       Done.
-**** CANCELED [#A] contabilidad: enviar las últimas facturas     :accounting:
-     CLOSED: [2012-12-29 Sat 20:26] DEADLINE: <2012-12-01>
-     - CLOSING NOTE [2012-12-29 Sat 20:26]
-     - CLOSING NOTE [2012-12-29 Sat 20:25] \\
-       Canceled.
-    - CLOSING NOTE [2010-10-11 Mon 12:23] \\
-      Done.
-    :PROPERTIES:
-    :LAST_REPEAT: [2010-10-11 Mon 12:23]
-    :END:
-
-       Asesoria de Empresas
-       Celestino Conesa Garcia
-       c/ Mayor, 24
-       30385 Los Belones
-       tel: +34 968 569 225
-       fax: +34 968 569 127
-       tel? +34 968 137 391
-
 *** Achats
-
-budget
-
-(- 
-  1600     ; avoir
-   500     ; impots
-   690     ; loyer
-   
-)
-410
-
-
 **** TODO [#A] produits netoyage écrans                                 :buy:
 **** TODO [#A] tapis souris pour souris optiques.                       :buy:
-
 **** TODO [#B] cable usb sata                                           :buy:
-**** TODO [#B] chaise de bureau poid-lourd 200 kg                       :buy:
 **** TODO [#B] Track IR 3D                                              :buy:
 **** TODO [#B] warthog hotas                                            :buy:
-
 **** TODO [#A] jazz partition for Nicoleta                              :buy:
 **** TODO [#C] HIFI (ampli optical S/PDIF, 8 channels alta voces)       :buy:
-**** TODO [#C] basquettes, vêtements                                    :buy:
 ** FAIT, DONE
-*** DONE Magnificat
-
-------------------------------------------------------------------------
-MAGNIFICAT
-
-Su transacción ha sido registrada.
-Fecha de la transacción 	02 Abril 2012 03:39:09 (UTC/GMT)
-URL 	www.magnificat.net
-Identificador comercial 	095750004400079
-Referencia de la transacción 	053705
-Importe de la transacción 	39,90 €
-Número de Tarjeta 	4150 #### #### ##51   06/13
-Autorización 	587193
-Certificado de pago 	f6d49b7eb971
-
-Conserva la referencia de la transacción.
-
-Según como esté configurado tu navegador, es posible que aparezca una ventana informativa que te indique la vuelta a un modo no seguro. Esto no tiene consecuencias sobre la confidencialidad de los datos intercambiados previamente.
-
-
-Propiedad intelectual © 2012, todos los derechos reservados
-------------------------------------------------------------------------
-Estimado suscriptor,
-
-Su pago ha sido realizado.
-
-Su suscripción surtirá efectiva con el n°103 - 06/2012.
-
-Su número de suscriptor es él: 2300828
-
-El n° de la transacción bancaria es la siguiente: 053705
-
-Muy atentamente,
-
-Magnificat
-------------------------------------------------------------------------
-
-
-Me suscribo:  2 años : 24 números (España)
-por 79.00 €
-1 ejemplar(es)
-
-Por favor tenga en cuenta su número: 2300828
-
-SR. PASCAL BOURGUIGNON
-PLZA VINCENTE AÑÓN MARCO, 13
-APARTAMENTO 6
-46025   VALENCIA
-ESPANA
-E-mail: pjb@informatimago.com
-Teléfono: 636653318
-
-Tu transacción ha sido registrada.
-Fecha de la transacción 	05 Abril 2010 12:50:47 (UTC/GMT)
-URL 	www.magnificat.net
-Identificador comercial 	095750004400079
-Referencia de la transacción 	144749
-Importe de la transacción 	79,00 €
-Número de Tarjeta 	4150 #### #### ##88   10/11
-Autorización 	406589
-Certificado de pago 	53c3462646f3
-
-
-
-==============================================================================
-*** DONE Install a local DNS (cache) at home.
-     CLOSED: [2010-06-25 Fri 21:30]
-     - CLOSING NOTE [2010-06-25 Fri 21:30] \\
-       Done.
-*** DONE [#B] Ir a cajamar para activar la firma SMS    
-    CLOSED: [2010-06-25 Fri 21:15]    
-    - CLOSING NOTE [2010-06-25 Fri 14:45] \\
-      Done.
-    :PROPERTIES:
-    :END:
-*** Clone git to gitorious. 
-*** Install gitorious on git.informatimago.com
-git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
-**** DONE [#B] Update web site.
-     CLOSED: [2012-11-26 Mon 21:47]
-     - CLOSING NOTE [2012-11-26 Mon 21:47] \\
-       Done.
-**** DONE [#B] Clone git to gitorious
-
-https://gitorious.org/com-informatimago
-http://git.gitorious.org/com-informatimago/com-informatimago
-http://gitorious.org/com-informatimago/com-informatimago/trees/master
-*** Déménagement de Valencia à Paris
-**** Ameli
-***** DONE [#B] preparer lettre pour ameli
-     CLOSED: [2012-12-12 Wed 22:13] DEADLINE: <2012-12-08 -10d>
-     - CLOSING NOTE [2012-12-12 Wed 22:13] \\
-       Done at DxO.
-
-ASSURANCE MALADIE DE LA SEINE-SAINT-DENIS
-BP 60300
-93018 BOBIGNY CEDEX
-
-
-
-- Copie de contrat de travail.
-- Copie de notification de fin de droits.
-
-Bonjour,
-
-
-En réponse à votre demande du 21.11.2012, je vous informe que des
-informations complémentaires nous sont nécessaires pour examiner le
-maintien de vos droits à l'Assurance Maladie.
-
-Je vous remercie de bien vouloir nous adresser, selon votre situation,
-les photocopies des documents suivants :
-
-- Si vous êtes salarié :
-Vos trois derniers bulletins de salaires.
-
-- Si vous êtes chômeur indemnisé :
-Votre notification d'admission et le dernier avis de versement délivré
-par le Pôle Emploi (ou autre organisme).
-
-- Si vous êtes chômeur non indemnisé :
-Votre notification de fin de droits du Pôle Emploi (ou autre organisme),
-accompagnée d'une attestation sur l'honneur certifiant votre recherche
-d'emploi - formulaire S3137. Ce formulaire est accessible sur votre site
-www.ameli.fr, Vous êtes assuré - Rechercher un formulaire.
-
-- Si vous êtes bénéficiaire d'une allocation versée par la CAF (Caisse
-d'Allocations Familiales)
-Votre notification d'attribution d'adulte handicapé ou d'allocation
-parentale d'éducation.
-
-- Si vous êtes titulaire d'une pension (retraite, invalidité ou rente
-servie par un autre organisme)
-Vos titres ou notifications de chaque avantage à l'exception des
-retraites complémentaires.
-
-Si vous êtes dans une autre situation, je vous remercie de nous donner
-toutes les informations utiles à l'étude de votre dossier.
-
-Ces documents sont à adresser à votre caisse d'Assurance Maladie .
-
-Avec toute notre attention,
-
-HUSSAIN RASHEEL
-
-Rappel de votre question :
-
-Bonjour, J'essaye de télécharger une attestation de droit, mais à
-chaque fois, juste après le message: Télécharger mon attestation de
-droits à l'Assurance Maladie Votre attestation est en cours d'édition
-au format PDF, cette opération peut prendre plusieurs secondes, merci
-de votre compréhension. ça repasse à la page: Echec de votre demande
-Votre demande n'a pu aboutir. Nous vous invitons à recommencer
-ultérieurement. Je viens de signer un nouveau contrat de travail, et
-mon employeur a besoin d'une attestation. Pourriez vous me l'envoyer
-par la poste?
-
-**** Emporter à Paris
-***** DONE [#B] phone Lluis
-***** DONE [#B] email Alexis: done
-***** DONE [#B] email comptable: done
-
-
-> BBVA
-> 0182.1562.17.0201508622
->
-> Cajamar
-> 3058.0370.69.2720000258
->
-> Saludos
-> Celestino Conesa
-
-***** DONE [#B] dossier location (au moins telephone llorena).
-***** DONE [#B] copie de ~/works/patchwork/
-***** DONE [#B] copie de ~/src/pjb/nasium-lse/ debugger LIRE.
-***** DONE [#B] copie de ~/src/public/lisp/    of course.
-
-**** A Paris
-***** DONE [#A] Changement d'adresse
-      CLOSED: [2013-09-28 Sat 01:25] :DEADLINE: <2013-01-04 -7d>
-      - State "DONE"       from "IN-PROGRESS" [2013-09-28 Sat 01:25] \\
-        done.
-      - State "IN-PROGRESS" from "TODO"       [2012-12-30 Sun 03:11] \\
-        Done; waiting for code from La Poste to complete it.
-
-- faire réexpédier le courier de Pantin à Issy les Moulineaux La Poste.
-
-- site web changement d'adresse gouv.fr
-mon.service-public.fr
-
-La référence de votre dossier est le : A-2-ZN4CEROI6. Vous le recevrez
-dans les prochaines minutes par courriel.  Cette référence doit être
-conservée. 
-
-- inscription liste électorale
-
-Nous avons bien transmis votre demande d'inscription sur les listes électorales
-
-La référence de votre démarche est le : A-2-QFXH95NGY
-Cette référence doit être conservée.
-Elle vous sera utile lors de vos éventuels échanges pour le suivi de votre demande avec l'(les) organisme(s) concerné(s).
-
-
-http://boutiqueducourier.laposte.fr|pjb@informatimago.com|poporoplo1
-http://reexpedition.laposte.fr|pjb@informatimago.com|poporoplo1
-
-Date de la commande 30/12/2012
-Raison Sociale Laposte.fr
-Numéro du contrat 302719163
-Numéro de commande 2804202
-Type du contrat Réexpédition définitive nationale
-Date de début du contrat 02/01/2013
-Date de fin du contrat 31/01/2014
-Référence de votre transaction 959189
-Somme payée 41.0 euros
-
-Date de la transaction 	30 Décembre 2012 02:03:21 (UTC/GMT)
-Adresse du web commerçant 	www.laposte.fr
-Identifiant commerçant 	035600000000052
-Référence de la transaction 	959189
-Montant de la transaction 	41,00 €
-Numéro de la carte 	4970 #### #### ##28   12/13
-Autorisation 	294686
-Certificat de la transaction 	10ca2236c090
-
-***** DONE [#B] trouver un emploi
-      CLOSED: [2012-10-29 Mon 21:08]
-      - CLOSING NOTE [2012-10-29 Mon 21:08] \\
-        Found a job at DxO Consumers.
-      
-**** A Valencia
-***** DONE [#B] phone to llorena
-      CLOSED: [2012-11-26 Mon 21:07]
-      - CLOSING NOTE [2012-11-26 Mon 21:07] \\
-        done
-***** DONE [#B] phone limpieza
-      CLOSED: [2012-11-26 Mon 21:07]
-      - CLOSING NOTE [2012-11-26 Mon 21:07] \\
-        not done
-***** DONE [#B] phone vaciapiso
-      CLOSED: [2012-11-26 Mon 21:07]
-      - CLOSING NOTE [2012-11-26 Mon 21:07] \\
-        done
-***** DONE [#B] billet vueling.
-      CLOSED: [2012-11-26 Mon 21:07]
-      - CLOSING NOTE [2012-11-26 Mon 21:08] \\
-        done
-***** DONE [#B] trouver une chambre
-      CLOSED: [2012-11-26 Mon 21:08]
-      - CLOSING NOTE [2012-11-26 Mon 21:08] \\
-        done
-
 *** Achats Achetés
+**** DONE [#B] chaise de bureau poid-lourd 200 kg                       :buy:
+     CLOSED: [2014-02-17 Mon 03:33]
+     - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
+       150 kg only :-(
+**** DONE [#C] basquettes, vêtements                                    :buy:
+     CLOSED: [2014-02-17 Mon 03:33]
+     - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
+       Capel.
+**** DONE [#B] 2 x 4 TB HD                                              :buy:
+     CLOSED: [2014-02-17 Mon 03:34]
+     - State "DONE"       from "TODO"       [2014-02-17 Mon 03:34] \\
+       Done last week.
 **** DONE [#A] azerty keyboard for André                                :buy:
      CLOSED: [2013-04-28 Sun 13:23]
      - CLOSING NOTE [2013-04-28 Sun 13:23] \\
@@ -1209,31 +1765,196 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
 
     Copyright © 1999-2010 PayPal. Todos los derechos reservados.
 
-**** DONE [#A] Samedi 9 Mars 12:30 - 14:30
-    CLOSED: [2013-03-15 Fri 23:05]
-    - CLOSING NOTE [2013-03-15 Fri 23:05] \\
-      Got it.
-
-Félicitations, votre commande vient d'être enregistrée.
-Toute l'équipe de votre Intermarché CHATILLON vous remercie de votre confiance.
-
-Un email récapitulatif de votre commande vient de vous être envoyé.
-Montant de votre commande : 	122,74 € *
-Numéro de votre commande : 	722082567
- 
-Type de commande : 	Livraison à domicile
-Livraison le : 	Samedi 9 mars, entre 12h30 et 14h30
-	Suivi de la commande par SMS.
-
- 
-
-Vous avez choisi de payer votre commande lors de la réception de celle-ci
-
 **** DONE [#B] iPad                                                     :buy:
      CLOSED: [2010-11-29 Mon 22:04]
      - CLOSING NOTE [2010-11-29 Mon 22:04] \\
        Bought.
 
+*** Comptabilité
+**** DONE [#B] payer loyer                               679 €   :accounting:
+     DEADLINE: <2013-03-04 Mon +1m -12d>
+     - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
+       Fait par virement de la BNP.
+     - CLOSING NOTE [2012-12-04 Wed 22:13] \\
+       Done.
+    - CLOSING NOTE [2010-12-03 Fri 04:46] \\
+      Done on 2010-12-02.
+    - CLOSING NOTE [2010-11-15 Mon 06:25] \\
+      Done.
+    - CLOSING NOTE [2010-10-11 Mon 12:31] \\
+      Done on 2010-10-11.
+    - CLOSING NOTE [2010-06-25 Fri 21:19] \\
+      Done today.
+    :PROPERTIES:
+    :LAST_REPEAT: [2014-02-17 Mon 03:35]
+    :END:
+**** DONE [#B] pagar hetzner
+    DEADLINE: <2012-12-23 Tue +1m -2d>
+    - CLOSING NOTE [2010-11-15 Mon 06:32] \\
+      done
+    - CLOSING NOTE [2010-10-16 Sat 22:16] \\
+      done.
+    :PROPERTIES:
+    :LAST_REPEAT: [2010-11-15 Mon 06:32]
+    :END:
+    Traspasar 50 € a la visa e-shopping para Hetzner.
+
+**** DONE [#A] payer ono par carte bleu de Paris.
+     CLOSED: [2013-06]
+     - CLOSING NOTE [2013-06] \\
+       Done.
+**** DONE [#A] fermer compte cajamar cabo de palos
+     CLOSED: [2013-08-11 Sun 19:50]
+     - CLOSING NOTE [2013-08-11 Sun 19:50]
+**** DONE [#B] pagar andre                               400 €   :accounting:
+     CLOSED: [2013-03-15 Fri 23:04] DEADLINE: <2013-01-01 -12d>
+     - CLOSING NOTE [2013-03-15 Fri 23:04] \\
+       Did that.
+**** DONE [#B] Hacer transferencia  Celestino Conesa     600 €   :accounting:
+     DEADLINE: <2013-04-01 Mon +1m>
+     - CLOSING NOTE [2013-04-28 Sun 13:19] \\
+       Completed last month.
+     - CLOSING NOTE [2012-12-29 Sat 20:04] \\
+       Transferencia 450 euro done.
+     - CLOSING NOTE [2012-12-12 Wed 22:10] \\
+       Transferencia  50 euro done.
+     :PROPERTIES:
+     :LAST_REPEAT: [2013-04-28 Sun 13:19]
+     :END:
+
+20121229 450 € facturas 201201-201209
+20130131 600 € facturas 2011
+20130303 600 € facturas 2010
+20130404 600 € facturas 2009
+         
+At maturity, please credit our account as follows
+Payment Bank.......................:     CAJAMAR
+Branch Name.........................:    LOS BELONES MURCIA
+Account Number (IBAN).........:          ES19 3058 0370 6927 2000 0258
+Beneficiary............................: CELESTINO CONESA
+BIC / SWIFT Code..................:      CCRIES2A
+
+**** DONE [#B] Annuler assurance.
+    DEADLINE: <2010-09-07 Tue +1m -7d>
+    - CLOSING NOTE [2012-11-26 Mon 21:11] \\
+      note done :-(
+    :PROPERTIES:
+    :LAST_REPEAT: [2012-11-26 Mon 21:12]
+    :END:
+     kelassur.com|1131673|poporoplo
+     1 64 03 57 306 155 53
+     1640357306155 53
+
+**** DONE [#B] pagar alquiler valencia                  ~870 €   :accounting:
+     CLOSED: [2012-12-12 Wed 22:12] DEADLINE: <2012-12-04 -8d>
+     - CLOSING NOTE [2012-12-12 Wed 22:12] \\
+       Done.
+**** CANCELED [#A] contabilidad: enviar las últimas facturas     :accounting:
+     CLOSED: [2012-12-29 Sat 20:26] DEADLINE: <2012-12-01>
+     - CLOSING NOTE [2012-12-29 Sat 20:26]
+     - CLOSING NOTE [2012-12-29 Sat 20:25] \\
+       Canceled.
+    - CLOSING NOTE [2010-10-11 Mon 12:23] \\
+      Done.
+    :PROPERTIES:
+    :LAST_REPEAT: [2010-10-11 Mon 12:23]
+    :END:
+
+       Asesoria de Empresas
+       Celestino Conesa Garcia
+       c/ Mayor, 24
+       30385 Los Belones
+       tel: +34 968 569 225
+       fax: +34 968 569 127
+       tel? +34 968 137 391
+
+*** DONE Magnificat
+
+------------------------------------------------------------------------
+MAGNIFICAT
+
+Su transacción ha sido registrada.
+Fecha de la transacción 	02 Abril 2012 03:39:09 (UTC/GMT)
+URL 	www.magnificat.net
+Identificador comercial 	095750004400079
+Referencia de la transacción 	053705
+Importe de la transacción 	39,90 €
+Número de Tarjeta 	4150 #### #### ##51   06/13
+Autorización 	587193
+Certificado de pago 	f6d49b7eb971
+
+Conserva la referencia de la transacción.
+
+Según como esté configurado tu navegador, es posible que aparezca una ventana informativa que te indique la vuelta a un modo no seguro. Esto no tiene consecuencias sobre la confidencialidad de los datos intercambiados previamente.
+
+
+Propiedad intelectual © 2012, todos los derechos reservados
+------------------------------------------------------------------------
+Estimado suscriptor,
+
+Su pago ha sido realizado.
+
+Su suscripción surtirá efectiva con el n°103 - 06/2012.
+
+Su número de suscriptor es él: 2300828
+
+El n° de la transacción bancaria es la siguiente: 053705
+
+Muy atentamente,
+
+Magnificat
+------------------------------------------------------------------------
+
+
+Me suscribo:  2 años : 24 números (España)
+por 79.00 €
+1 ejemplar(es)
+
+Por favor tenga en cuenta su número: 2300828
+
+SR. PASCAL BOURGUIGNON
+PLZA VINCENTE AÑÓN MARCO, 13
+APARTAMENTO 6
+46025   VALENCIA
+ESPANA
+E-mail: pjb@informatimago.com
+Teléfono: 636653318
+
+Tu transacción ha sido registrada.
+Fecha de la transacción 	05 Abril 2010 12:50:47 (UTC/GMT)
+URL 	www.magnificat.net
+Identificador comercial 	095750004400079
+Referencia de la transacción 	144749
+Importe de la transacción 	79,00 €
+Número de Tarjeta 	4150 #### #### ##88   10/11
+Autorización 	406589
+Certificado de pago 	53c3462646f3
+
+
+
+==============================================================================
+*** DONE Install a local DNS (cache) at home.
+     CLOSED: [2010-06-25 Fri 21:30]
+     - CLOSING NOTE [2010-06-25 Fri 21:30] \\
+       Done.
+*** DONE [#B] Ir a cajamar para activar la firma SMS    
+    CLOSED: [2010-06-25 Fri 21:15]    
+    - CLOSING NOTE [2010-06-25 Fri 14:45] \\
+      Done.
+    :PROPERTIES:
+    :END:
+*** Clone git to gitorious. 
+*** Install gitorious on git.informatimago.com
+git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
+**** DONE [#B] Update web site.
+     CLOSED: [2012-11-26 Mon 21:47]
+     - CLOSING NOTE [2012-11-26 Mon 21:47] \\
+       Done.
+**** DONE [#B] Clone git to gitorious
+
+https://gitorious.org/com-informatimago
+http://git.gitorious.org/com-informatimago/com-informatimago
+http://gitorious.org/com-informatimago/com-informatimago/trees/master
 * DEVELOPMENTS
 
 https://github.com/nikodemus/sb-cga 
@@ -2146,1299 +2867,60 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 2009-07-25
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
-* INFORMATIMAGO COMPUTERS
-** voyager.informatimago.com
-
-Linux voyager.informatimago.com 2.6.18-6-k7 #1 SMP Mon Oct 13 16:52:47 UTC 2008 i686 GNU/Linux
-GNU/Linux debian 6.0.6
-
-
-The following servers use the same ssl certificate and private key for
-voyager.informatimago.com
-Notice that it's pound that's listening on 443.
-
-pound   /usr/local/etc/pound.conf
-apache  /etc/apache2/site-available/default-ssl
-postfix /etc/postfix/main.cf
-imap    /etc/courier/imapd{,-ssl,.cnf}
-pop3d   /etc/courier/pop3d{,-ssl,.cnf}
-
-ssl     /etc/ssl/certs /etc/ssl/private
-        /etc/ssl/certs/starcom-com.informatimago.voyager.pem
-        /etc/ssl/certs/starcom-com.informatimago.voyager.ssl.cert
-        /etc/ssl/private/starcom-com.informatimago.voyager.private-key.ssl.key
-
-starcom
-certificate passwords: IreadYOURemail42
-
-
-
-  * the X509 standard defines certificates, and RSA and DSA are two of
-    the public key algorithms that can be used in those certificates;
-
-  * certificates are used to hold public keys, and never private keys.
-
-  * PKCS#12 is a standard for a container which can hold an X509
-    client certificates and the corresponding private keys, as well as
-    (optionally) the X509 certificates of the CAs that signed the X509
-    client certificate(s).
-
-So, if you're examining a PKCS#12 file (typically .p12 extension), then you already know:
-
-    It contains at least one X509 client certificate, which contains a public key; and
-    It contains the corresponding private keys.
-
-All you don't know is whether those certificate & private key are RSA
-or DSA. You can check this by extracting the certificate(s), and then
-examine them:
-
-openssl pkcs12 -in mycert.p12 -clcerts -nokeys -out mycert.crt
-openssl x509 -in mycert.crt -text
-
-The text output of the openssl x509 command should include a Subject
-Public Key section, which will include fields that let you see if it's
-an RSA or DSA key (along with the key size).
-
-------------------------------------------------------------------------
-
-voyager|awstat|admin|voy!stat
-voyager|linux|lse|fyLxIqmuC
-lassell|cygwin|lse|fyLxIqmuC
-lassell|cygwin|cyg_server|VYwJali9
-
-telnet voyager 8105 
-
-voyager postgresql-8.4
-voyager|linux|trac|su/CAs&Ze
-voyager|postgresql|trac|nE9zuTiJ
-
-voyager|nasium-lse.fossil|project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
-voyager|nasium-lse.fossil|server-id:  4faf1e63ce049b8165d027fd0e52e22a67df82b5
-voyager|nasium-lse.fossil|admin-user: pjb (password is "bfd622")
-http://www.cliki.net/Programming%20language
-
-
-voyager|patchwork.fossil|admin-user: pjb (initial password is "fe564e")
-fossil init patchwork.fossil
-project-id: 8da4fbae771061b0d45af1a298df4c4439092371
-server-id:  e22aca008c3639340f2081887a9f2ef462f054b8
-admin-user: pjb (initial password is "fe564e")
-
-http://fossil.informatimago.com:8002/patchwork/timeline
-
-~/src/pjb/nasium-lse.fossil
-project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
-server-id:  4f108d173b909c86d7ca90659ca5e1991b156c9c
-admin-user: pjb (password is "67eb63")
-
-
-
-** Nvidia:
-
-NVIDIA GeForce GTX 460
-
-** lassell MSWindows
-
-Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
-
-** backups
-*** TODO [#A] sauvegardes                                             :admin:
-    DEADLINE: <2012-12-15 Sat +1w>
-    - State "TODO"       from "DONE"       [2012-12-13 Thu 00:47]
-    CLOSED: [2012-12-13 Thu 00:47] 
-    - State "DONE"       from "TODO"       [2012-12-13 Thu 00:47]
-Backup kuiper to external hard disks.  
-*** TODO [#B] Implement an incremental backup for voyager             :admin:
-    DEADLINE: <2013-01-01 Sun +1w -7> 
-*** Internal disks
-
-------------------------------           ------------------------------
-internal disk                            external backup
-------------------------------           ------------------------------
-
-1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4842302
-/dev/sda1 DEBIAN                         1TERAONE      1TERATWO
-/dev/sda2 GENTOO                         1TERAONE      1TERATWO
-/dev/sda5 domU                           1TERAONE      1TERATWO
-/dev/sda6 LOCAL                          1TERAONE      1TERATWO
-
-
-300 GB    Model=Samsung SSD 840 Series, FwRev=DXT06B0Q, SerialNo=S14GNEACB19797R
-/dev/sdb1 FLASH
-
-1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4744460
-/dev/sdc1 BACKUP-I-DEBIAN
-/dev/sdc2 BACKUP-I-GENTOO
-/dev/sdc5 BACKUP-I-DOMU
-/dev/sdc6 BACKUP-I-LOCAL
-
-1.5 TB failing
-/dev/sdd1 MOVIES2                        2TERATWO
-/dev/sdd4 OTHER
-
-2 TB      Model=WDC WD20EARS-00MVWB0, FwRev=51.0AB51, SerialNo=WD-WCAZA3007295
-/dev/sde1 MOVIES1                        2TERAONE      
-
-
-ordered:
-
-4 TB  
-
-4 TB
-------------------------------           ------------------------------
-
-    a 1   TB
-    b 300 GB
-    c 1   TB
-    d 1.5 TB
-    e 2   TB
-
-*** External disks
-
-    - 2 TB external hard disk             EXT3  2TERAONE  (movies1)
-    - 1 TB external hard disk             EXT3  1TERAONE  (root+domU+local) seems HS
-    - 2 TB external hard disk             EXT3  2TERATWO  (movies2)
-    - 1 TB external hard disk             EXT3  1TERATWO  (root+domU+local)
-
-    - 200 GB external hard disk number 1  HFS+  galatea-backup  
-      DOES NOT SEEM TO WORK ANYMORE
-
-    - 200 GB external hard disk number 2  HFS+  triton-backup   
-      TimeMachine BackupBackup triton 
-      TimeMachine BackupBackup galatea
-
-    - 200 GB external hard disk number 4  NTFS                  
-      Backup galle
-
-    - 200 GB external hard disk number 5  HFS+  backup5         
-      TimeMachine Backup galatea
-      Copy of newton.medicalis.es before upgrade to 10.5.
-      --> full galatea backup
-
-* ALIRE, LECTURES
-** TODO To watch
-
-RailsConf 09|Robert Martin|What Killed Smalltalk Could Kill Ruby
-http://www.youtube.com/watch?feature=endscreen&NR=1&v=YX3iRjKj7C0
-
-http://lispm.dyndns.org/mov/dsl-in-lisp.mov
-normal considered harmful http://www.youtube.com/watch?v=FvmTSpJU-Xc&feature=related
-http://blogs.gnome.org/alexl/2012/08/10/rethinking-the-shell-pipeline/
-http://www.lively-kernel.org/
-http://www.cs.cornell.edu/home/ulfar/cuba/paper/
-
-** Reading:
-*** TODO [#B] Reading Natural Language Processing in Lisp              :read:
-    Natural Language Processing in Lisp
-    An introduction to computationnal linguistics
-    Gazdar & Mellish,
-    Addison-Wesley,
-
-** TODO [0/4] To read
-*** TODO http://home.pipeline.com/~hbaker1/Prag-Parse.html
-*** TODO [ ] http://fr.wikipedia.org/wiki/Mati%C3%A8re_plastique
-*** TODO [ ] http://www.danbricklin.com/200yearsoftware.htm
-*** TODO [ ] http://www.w3.org/DesignIssues/Principles.html
-*** TODO [ ] http://www.amazon.com/Elements-Networking-Style-Animadversions-Intercomputer/dp/0595088791/
-*** TODO [ ] http://www.amazon.com/Interconnections-Bridges-Switches-Internetworking-Protocols/dp/0201634481/
-*** TODO [ ] http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
-*** Intentionnal Programming
-    http://localhost/~pascal/others/www.edge.org/documents/archive/edge20.html
-
-*** Informatique
-Periodique:
-
-    Donald Knuth Guide to Visual Basic: http://www.ibiblio.org/Dave/Dr-Fun/df200002/df20000210.jpg
-
-------------------------------------------------------------------------
-AIM READ:
----------
-
-     AIM-006     Writing and Debugging Programs -- S. Russell
-                 ! Early LISP and IBM 7090 debugging tools
-                 ! Of interest when reading the sources of LISP 1.5
-
-     AIM-007     Notes on The Compiler -- J. McCarthy
-                 ! Implementation Notes for the LISP compiler.
-                 ! Of interest when reading the sources of LISP 1.5
-
-     AIM-008     Recursive Functions of Symbolic Expressions and Their Computation by Machine. -- J. McCarthy
-                 ! The original LISP paper.
-                 ! http://www.informatimago.com/develop/lisp/small-cl-pgms/aim-8/
-
-     AIM-009     Explanation of Big "P" as of March 20, 1959
-                 ! ERROR routine, SAVE and UNSAVE stack, PRINT, READ.
-                 ! Of interest when reading the sources of LISP 1.5
-
-                 
-
-1968 AIM-154     A Budget of Fallacies                       Papert
-     NE          Debunking Dreyfus.
-
-------------------------------------------------------------------------
-AIM TO READ:
-------------
-
-     AIM-010
-
-     AIM-011     Recursive Functions of Symbolic Expressions and Their Computation by Machine. -- J. McCarthy
-                 A continuation of AIM-008
-
-
-AIM-29 CALCULUS OF KNOWLEDGE
-------------------------------------------------------------------------
-
-
-    http://www.boston.com/bostonglobe/photos/photos_galleries/harvard_student_lives_the_homeless_lifestyle/
-
-    CO2, un mythe planétaire.-
-    GERONDEAU, Christian
-    Source bibliographique :
-    Paris : Editions du Toucan, 2009.-, 267 p., tabl., graph., fig.
-    ISBN 978-2-810002-46-7
-
-BOOKS: 
-    http://www.bne.es/BDH/index.htm
-    http://www.cervantesvirtual.com/portal/BNE/
-
-    Survival books: http://www.godlikeproductions.com/forum1/message742541/pg1
-
-    Greg Bear's "noach"  SF Book.
-
-
-    ftp://ftp.ccs.neu.edu/pub/people/will/
-    ftp://rtfm.mit.edu/pub/usenet/news.answers/radio/phonetic-alph/full
-    http://www.cs.ucsd.edu/~varghese/PAPERS/ieeeton2005.pdf
-    http://yuba.stanford.edu/~pankaj/paps/sig99.pdf
-
-
-    mv ~/library/images/photographies/persons/neuro-linguistic-programming ~/books?
-
-    http://www.cs.utexas.edu/users/EWD/index00xx.html
-
-    http://www.alain-lefebvre.com/
-
-    http://opensource.adobe.com
-    http://stepanovpapers.com
-    http://www.stepanovpapers.com/PAM.pdf
-
-    http://www.infoq.com/presentations/fortress-steele
-
-    Comparison of the software specification methods
-    http://www.dmi.usherb.ca/~spec/A3-comparison-v4.pdf
-
-
-    http://okmij.org/ftp/Computation/Subtyping/
-    http://www.pipeline.com/~hbaker1/TInference.html
-    http://citeseer.ist.psu.edu/87589.html
-
-    http://www8.informatik.uni-erlangen.de/html/lisp/histlit1.html
-
-    mplayer -dumpstream -playlist rtsp://video.cpm.jussieu.fr/videocpm/cours/info/queinnec02/queinnec_1/queinnec01-1.smil
-
-
-    http://chaosradio.ccc.de/cre084.html
-
-    http://prospector.ides.com/
-    http://www.gp-field-guide.org.uk
-
-    http://nightschool.near-time.net/news/2007/11/13/oversimplification-is-irritating
-    http://www.treeshark.com/Persptut.html
-
-    http://www.reopen911.info
-    Watch "Oil, smoke & mirrors"
-
-    http://www.genethique.org/  
-    Watch "la vie est en nous"
-
-    http://video.google.co.uk/videoplay?docid=8823663220672823396
-    "A Study In Keith" is a live programming performance by Andrew
-    Sorensen inspired by Keith Jarrett's Sun Bear concerts. All of the
-    music you  hear is generated from the program code that is written and
-    maniulated in real-time during the performance. The work was performed
-    using the Impromptu Scheme software development environment (http://
-    impromptu.moso.com.au). Not Keith, but inspired by Keith :)
-
-
-    http://www.lulu.com/content/1073086
-
-    http://www.franz.com/support/tech_corner/?from=rss#rpc-011607
-    http://www.franz.com/support/tech_corner/?from=rss#usgs-011207
-    http://www.franz.com/support/tech_corner/?from=rss#anynl-011507
-    http://www.ias.ac.in/resonance/May2005/pdf/May2005Classics.pdf
-
-
-    http://www.defmacro.org/ramblings/weblocks-demo.html
-    http://sources.defmacro.org/cl-weblocks
-
-
-    http://www.educalire.net/Francaismemo.htm
-
-    http://www.methodsandtools.com/archive/archive.php?id=56
-    http://disciplined-minds.com/
-    http://www.cio.com/article/108501
-
-    For an interesting talk by Gerald Sussman on the ambiguity of
-    'standard mathematical notation', there is an amusing video from
-    Danfest2004 (http://www.cs.indiana.edu/dfried_celebration.html)
-    about calculus and mechanics, among other things. It was here
-    that I realised that Scheme has implicit currying when defining
-    functions -- (define ((sum x) y) ...)
-
-    http://video.google.com/videoplay?docid=-2726904509434151616&hl=en
-
-
-    Paper: cs.CC/0702053
-    Date: Fri, 9 Feb 2007 03:42:51 GMT   (7kb)
-
-    Title: The DFAs of Finitely Different Languages
-    Authors: Andrew Badr, Ian Shipman
-    Categories: cs.CC
-    Subj-class: Computational Complexity
-    ACM-class: F.1.1; F.4.3
-    \\
-      Two languages are "finitely different" if their symmetric difference is
-    finite. We consider the DFAs of finitely different regular languages and find
-    major structural similarities. We proceed to consider the smallest DFAs that
-    recognize a language finitely different from some given DFA. Such "f-minimal"
-    DFAs are not unique, and this non-uniqueness is characterized. Finally, we
-    offer a solution to the minimization problem of finding such f-minimal DFAs.
-    \\ ( http://arXiv.org/abs/cs/0702053 ,  7kb)
-
-    \\
-    Paper: cs.NE/0702055
-    Date: Fri, 9 Feb 2007 13:16:14 GMT   (2kb)
-
-    Title: On the possibility of making the complete computer model of a human
-      brain
-    Authors: A.V. Paraskevov
-    Categories: cs.NE
-    Subj-class: Neural and Evolutionary Computing
-    \\
-      The development of the algorithm of a neural network building by the
-    corresponding parts of a DNA code is discussed.
-    \\ ( http://arXiv.org/abs/cs/0702055 ,  2kb)
-
-    \\
-    Paper: cs.DB/0701161
-    Date: Thu, 25 Jan 2007 23:51:22 GMT   (280kb)
-
-    Title: Thousands of DebitCredit Transactions-Per-Second: Easy and Inexpensive
-    Authors: Jim Gray, Charles Levine
-    Categories: cs.DB cs.PF
-    Proxy: gray
-    Report-no: MSR-TR-2005-39
-    Subj-class: Databases; Performance
-    \\
-      A $2k computer can execute about 8k transactions per second. This is 80x more
-    than one of the largest US bank's 1970's traffic - it approximates the total US
-    1970's financial transaction volume. Very modest modern computers can easily
-    solve yesterday's problems.
-    \\ ( http://arXiv.org/abs/cs/0701161 ,  280kb)
-
-
-    http://video.google.com/videoplay?docid=-7466666104246770991&q=jetpack&pl=true
-    http://video.google.com/videoplay?docid=-5503582578132361295&q=animusic
-
-
-
-    http://www.dreamsongs.com/CLOS.html
-
-    http://www.calresco.org/sos/sosfaq.htm
-    http://www.calresco.org/
-    http://necsi.org/publications/dcs/index.html
-    http://www.psych.lse.ac.uk/complexity/
-    http://icam.lanl.gov/
-    http://www.comdig.org/archive.php?year=2006
-
-
-
-
-    http://www.archive.org/details/CC1024_artificial_intelligence
-
-    http://weblog.raganwald.com/2007/01/what-ive-learned-from-sales-part-i.html
-    http://www.clubic.com/lancer-le-telechargement-9738-0-net-transport.html
-    http://www.cliki.net/Lisp%20Machine%20Videos
-
-    http://www.dailymotion.com/group/24106/video/xsd0f_conf-jp-petit
-
-
-    http://www.studiodaily.com/main/searchlist/6850.html
-
-
-    http://www.debugmode.com/wink/
-    http://www.franz.com/products/allegrocl/prompt/javatelnet.html
-
-    http://www.biobike.org
-    http://xml.resource.org/
-
-
-    http://tx.downloads.xensource.com/torrents/xen-3.0.2-src.tgz.torrent
-    /local/src/BitTornado-CVS/btdownloadheadless.py  http://tx.downloads.xensource.com/torrents/xen-3.0.2-src.tgz.torrent
-
-
-    http://lamanga.inetcam.com/dynamicindex./cam0vo.html
-    http://www.amigosdelamanga.com/mangalarga/webmanga.html
-
-    http://www.danga.com/mogilefs/
-    http://en.wikipedia.org/wiki/Distributed_file_system
-
-    http://www.freeworldacademy.com/chronique.htm 
-
-    http://asm.sourceforge.net/articles/startup.html
-
-    Convertir des fichiers .WMA et .CDA en fichiers .MP3
-    http://cdexos.sourceforge.net/index.html
-    http://www.framasoft.net/article1038.html
-
-
-
-    http://www.jair.org/media/
-    http://en.wikibooks.org/wiki/Understanding_darcs
-    Making a realease with darcs:
-        darcs tag -m "New version message" x.y.z
-        darcs dist -d name-x.y.z.tar.gz
-
-    http://www.google.com/technology/pigeonrank.html
-    http://www.google.com/maps?f=q&hl=en&q=La+Manga+del+Mar+Menor,+Spain&ie=UTF8&z=7&ll=40.052848,0.32959&spn=5.885887,9.019775&om=1
-
-
-
-
-    http://www.911research.com/wtc/evidence/videos/docs/wtc_7_cbs.mpg
-
-    http://www.timesonline.co.uk/article/0,,8123-1509923_1,00.html
-    http://www.wired.com/wired/archive/7.11/persinger_pr.html
-
-    http://www.spambouncer.org
-    www.goethe-institute.de
-
-    http://www.bath.ac.uk/~masjap/TYL/history.html
-
-    http://friendfinder.com/
-    http://www.oneminutepeoplefinder.com/
-    http://www.das-sind-meine-freunde.de
-    http://www.darwindating.com/
-
-
-    http://www.christjesus.tv/onlinevideos.html
-    http://whywontgodhealamputees.com/
-
-    http://www.brainhz.com/underhanded/
-
-
-
-
-/home/pjb/src/lisp/doc/www.cs.toronto.edu/~hehner/God.pdf
-http://www.rebelscience.org/
-
-    http://home.planetinternet.be/~sopala/chapitre%201.htm
-
-    http://www.mises.org/liberal/isec4.asp
-
-    http://www.webcom.com/cfsc/howwedie.html
-
-    wget --mirror http://www.physics.umd.edu/deptinfo/facilities/lecdem/demolst.htm#k2
-
-    http://dps.sourceforge.net/
-    http://www.peak.org/~luomat/next/
-    http://www.ibiblio.org/pub/Linux/docs/faqs/ (Linux Document Project)
-
-    tmp/security_in_o8i_twp.pdf
-    tmp/kids_criminal_hackers_v07.pdf
-
-    http://localhost/~pascal/others/www.edge.org/documents/archive/edge.index.html
-    http://localhost/developer.apple.com/techpubs/webobjects/System/Documentation/Developer/WebObjects/DevGuide/Methods.html
-
-    http://localhost/linux-manual/xntp3-5.93/
-    http://localhost/users/pascal/others/www.lbbs.org/
-    file:///users/pascal/tmp/a-lire/zonprotocol.rtf:227
-	file:///users/pascal/tmp/a-lire/unix-security-doc.ASCII:1265
-	file:///users/pascal/tmp/a-lire/ummo/d47.html
-
-    http://developer.apple.com/techpubs/enterprise/WebObjects/
-
-** Read Done:
-
-    EDW0028 1962 Substitution Process Definition of a recursive stack
-    machine. Algol 60, Lisp, Recursion, M.V.Wukjes, J.McCarthy,
-    M.Woodger.
-
-
-    EDW0030 Some Meditations on Advanced Programming
-    
-
-
-    EDW1298 Under the Spell of Leibnitz Dream
-    Dijkstra biography, Gottfried Wilhelm Leibnitz, Hilbert,
-    Hoftstdter, R.W.Floyd, C.A.R.Hoare, E.T.Bell, George Boole,
-    symbolic proof, symbolic reasoning, University, Computer Science,
-    Computer Industry, Algol 60, Lisp, Recursion.
-
-    
-
-    Basic Lisp Techniques
-    Cooper, Franz Inc.,  2003, 100 pages.
-    file:///srv/books/informatics/languages/lisp/basic-lisp-techniques--cooper--2003.pdf
-    http://www.franz.com/resources/educational_resources/cooper.book.pdf
-    Presentation of Common Lisp, emacs (plus some Allegro specific stuff).
-    Short and clear.
-
-
-
-    Artificial Intelligence as a Positive and Negative Factor in Global Risk
-    Forthcoming in Global Catastrophic Risks, Eds. Nick Bostrom and Milan Cirkovic
-    Elizer Yudkowsky <yudkowsky@singinst.org>, Draft of August 31, 2006, 42 pages.
-    file:///srv/books/informatics/artificial-intelligence/general/artificial-intelligence-as-a-positive-and-negative-factor-in-global-risk.pdf
-    http://singinst.org/upload/artificial-intelligence-risk.pdf 
-    Importance of developing Friendly AI, not just random AI (which
-    could turn out evil or alien).
-
-
-    The Mythical Man.Month, Essay on Software Engineering
-    Anniversary Edition
-    Frederic P. Brooks. Jr,
-    University of North Carolina at Chapel Hill.
-    Addison-Wesley, 1995, 
-    ISBN 0-201-83595-9
-
-** Economic Freedom
-
-    http://www.freetheworld.com/
-    http://www.heritage.org/        2003 Index of Economic Freedom
-    http://www.heritage.org/research/features/index/
-
-** Survival
-
-    http://www.alpharubicon.com
-
-** Science
-
-    National Science Digital Library
-    http://nsdl.org
-
-
-    http://www.newscientist.com/news/news.jsp?id=ns99992066
-
-** Aerospace
-
-    http://patft.uspto.gov/netahtml/search-adv.htm
-    http://ntrs.nasa.gov/
-    http://library.lanl.gov/catalog/
-    http://www.llnl.gov/library/catalogs.html
-
-    The NACA digital archive can be surprisingly usefull too.
-    Maybe not quite cutting-edge.
-
-** Chimie
-
-    http://www.mems-exchange.org/
-
-** Energy
-
-    Uranium & Nuclear Power Information Center Australia
-    http://www.uic.com.au/
-
-    http://www.tinaja.com/h2gas01.asp
-    http://dieoff.com/page168.htm
-    http://www.citizen.org/cmep/Water/articles.cfm?ID=7268
-
-    http://www-formal.stanford.edu/jmc/progress/nuclear-faq.html
-    http://www-formal.stanford.edu/jmc/progress/cohen.html
-
-    http://www.jaeri.go.jp/english/ff/ff43/topics.html
-    http://www.jaeri.go.jp/english/ff/2001.html
-
-    Energy Analysis of Power Systems
-    http://www.uic.com.au/nip57.htm
-
-    http://www.aip.org/tip/INPHFA/vol-8/iss-1/p22.pdf
-
-    http://jnaudin.free.fr/html/farhom.htm
-
-    http://www.josephnewman.com
-    http://www.newphys.se/elektromagnum/physics/JosephNewman/newman.start.html
-    http://www.phact.org/phact/newman.htm
-    http://colossus2.cvl.bcm.tmc.edu/~wje/free_energy/newman/special_report.html
-    http://www.angelfire.com/biz/Newman/
-    http://www.futureworld.dk/tech/el_mag/el_magt.htm
-
-** Others
-
-   http://www.ucalgary.ca/~rzach/logblog/2007/11/csli-lecture-notes-online-and-free.html
-   http://indexical.blogspot.com/2007/10/this-is-neat.html
-
-    http://www.swiss.ai.mit.edu/tftpdir/scsh/
-
-    You could always use OpenBIOS
-    http://freshmeat.net/projects/openbios/
-
-    http://www.soton.ac.uk/~scp93ch/refer/morseform.html
-    http://www.knowledgehound.com
-    http://openquicktime.sourceforge.net/
-    voir aussi http://www.3ivx.com
-
-
-    http://www.sunless-sea.net/forum
-
-
-    http://osfameron.perlmonk.org/chickenman/asciimation_diary.html
-
-    http://my.netfilter.se/ bandwidth limiting
-
-    ftp://tierra.slhs.udel.edu
-    ftp://life.slhs.udel.edu
-
-    http://www-2.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/
-
-    http://tunes.org/papers/WhyNewOS/WhyNewOS.html
-
-    http://www.piercefuller.com/oldibm-shadow/1401.html
-
-    http://vwei.ifrance.com/vwei/
-
-    http://www.anandtech.com/
-
-    http://members.aol.com/sylvanz/index.htm
-    http://members.aol.com/sylvanz/gvcont.htm
-
-
-    http://www.hanssummers.com/mainpage.htm
-
-    http://www.simulation-argument.com/classic.html
-
-    http://www.linux-france.org/article/these/unix-vs-nt/unix-vs-nt.html
-    http://www.thevenusproject.com/intro_main/whatis_tvp.htm
-
-
-    http://www.samag.com/documents/s=1824/sam0201h/0201h.htm
-
-    http://www.midnightpictures.co.uk (video)
-    http://www.darrylsloan.com        (video)
-
-
-    http://artstkmkt.sourceforge.net/  Swarm John H. Holland
-    http://sourceforge.net/projects/artstkmkt/
-
-    http://www.cyberhaven.com/bookshop/belikebuffet.html
-
-    http://www.beepcore.org/beepcore/home.jsp
-
-    http://www.ietf.org/rfc/rfc3080.txt - base standard
-    http://www.ietf.org/rfc/rfc3081.txt - mapping to tcp
-    http://www.ietf.org/rfc/rfc3117.txt - article about reinventing wheels
-
-
-    http://savannah.gnu.org/support/?func=detailsupport&support_id=100485&group_id=99
-
-    Es: http://cuantosimpuestospago.com
-    Es: http://www.diadelcontribuyente.org/calculadora2.php
-    Mx: http://www.sat.gob.mx/sat/default.htm
-    Vz: http://www.misimpuestos.net/registro.htm
-
-
-
-
-    http://www.lib.utexas.edu/maps/europe.html
-
-    http://redivi.com/~bob/celestia.html
-
-    http://www.think-aboutit.com/underground.html
-    http://www.chris.com/ascii/
-
-    http://pw1.netcom.com/~jna/
-    http://soufron.free.fr/files/gpl.html
-
-    http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=2009756094
-
-
-    http://www.isd.atr.co.jp/~ray/tierra/index.html
-
-    http://www.mexicomexico.to/mxmap.htm
-
-
-    http://www.padrak.com/ine/index.shtml
-    telnet://towel.blinkenlights.nl
-    http://textpix.com
-    http://www.club-decideur.com/index.adml?h=5
-
-** Webcam Acapulco
-
-    http://www.wetteronline.de/cgi-bin/regframe?3&PRG=citywind&LANG=de&WMO=76805&PROVIDER=anwendung
-
-    http://www.comfm.com/webcam/fiche.html?id=13289 puerto vallarta
-
-    http://www.vialidad.telmex.net/foto.php?NF=22&
-    http://www.vialidad.telmex.net/foto.php?NF=23&
-    http://www.vialidad.telmex.net/foto.php?NF=24&
-    http://www.vialidad.telmex.net/foto.php?NF=25&
-    http://www.vialidad.telmex.net/foto.php?NF=29
-
-    http://www.camscape.com/cam1d.htm
-    http://franck.legallo.free.fr/us/USAAUTRES1.htm
-
-** Ufo
-    http://disclosureproject.com
-    http://earthfiles.com
-
-
-    firma digital Fabrica de moneda y timbre  http://www.telecable.es/personales/gamo/
-
-    Internation Phonetic Alphabet
-    http://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm
-
-    10 commandements du jeune internaute:
-    http://fac-info.joueb.com/news/11.shtml
-
-    mms://mediaserver.sinectis.com.ar/AmericaTV/AmericaTV.asx
-    mms://mediaserver.sinectis.com.ar/AmericaTV-Large/AmericaTV-Large.asx
-    http://www.americatv.com.pe/station1.asx
-
-    http://www.eskimo.com/~pristine/ftp.html
-    http://www.scps.org/html/body_relationship_to_other_protocol.html
-    http://nondot.org/sabre/os/files/FileSystems/iso9660.pdf
-
-    http://www.amasci.com/freenrg/minto.html
-
-    http://keyholepublishing.com/essays.htm
-    http://www.service-public.fr/
-    http://www.podval.org/~sds/tool.html
-    http://www.recoverylabs.com/webv01/contactanos.htm
-    http://rognerud.com/physics/index.htm
-    http://bel.150m.com/deaquino.htm
-    http://xxx.lanl.gov/abs/physics/0206046
-
-
-    http://www.raum-energie-forschung.de/IREF-home-engl./Theor.htm.
-
-
-    http://www.info.unicaen.fr/bnum/jelec/Solaris/d06/6borde.html
-    http://web.textfiles.com/ezines/PROPHETZINE/prpzn063.txt
-
-    http://www.marxists.org/
-    http://www.geocities.com/archiviste2000/memoire.htm    Bilan communiste
-
-    http://freshmeat.net/redir/securedelete/9377/url_tgz/download.php?t=r&d=secure_delete-2.3.tar.gz
-
-    http://kangzhuang.ucam.org/cgi-bin/access/access.cgi
-    http://www.cl.cam.ac.uk/~ssb22/access.html#download
-    http://www.cus.cam.ac.uk/~ssb22/help.htm
-
-    http://trendsaction.com/books/Harry_Browne/Fail_Safe_Investing/investing.php
-    http://s2.invisionfree.com/de_Pinet_Labs/
-    http://bioinformatics.org/softwaremap/?form_cat=2
-    http://www.libertyfree.com/
-    http://download.info.apple https://store.apple.com/Your/WebObjects/OrderStatusEurope..com/Apple_Support_Area/Apple_Software_Updates/English-North_American/Macintosh/System/Older_System/System_6.0.x/
-
-    http://www.hubbertpeak.com/us/
-    http://www.dieoff.org/
-
-
-
-    http://www.obs-nice.fr/stee/quickcam/quickcam.html
-    http://www.csociety.org/~kearneyd/linux_quickcam.html
-
-
-    Sharp SL-5000D
-    http://www.infosync.no/show.php?id=1063
-
-
-    http://www.cocam.co.uk/CoCamWS/Infrared/INFRARED.HTM
-
-    http://www.cc.gatech.edu/classes/AY2002/cs4470_fall/CMU-CS-94-182.pdf
-    http://www.tls.cena.fr/~jestin/SIG/old/docs/debat/TSI%20an%202000%20mbl.pdf
-    http://www.tls.cena.fr/divisions/PII/Rapports/NR93-830.ps.gz
-    http://www.tls.cena.fr/divisions/PII/Rapports/NR93-829.ps.gz
-
-    http://www-106.ibm.com/developerworks/linux/library/l-hw1/#resources
-    http://www-106.ibm.com/developerworks/linux/library/l-hw1/
-
-    http://www.index-materiel.com/
-
-    http://www.modelingstyle.info/activityDiagram.html
-    http://www.eros-os.org/mailman/listinfo/eros-arch
-    http://www.schnada.de/quotes/contempt.html
-
-    http://laurel.actlab.utexas.edu/~cynbe/muq/muf3_toc.html
-    http://www.idealx.org/fr/doc/intro_preuve_formelle/intro_preuve_formelle.html
-
-    http://www.mathpages.com/rr/s9-08/9-08.htm
-
-
-    http://aduni.org/courses/
-    http://www.securiteam.com/securityreviews/5HP040KB5S.html.
-    http://www.gold-eagle.com/editorials_03/mauldin083103.html
-    http://www.safehaven.com/
-    http://web.archive.org/web/*/http://www-aig.jpl.nasa.gov/public/home/gat/ftp/http.lsp
-    http://www.agora-inc.com/reports/RCH/RackUpProfits/
-
-    http://www.youtube.com/universidadudima
-
-    http://www.coursera.org
-
-    http://ocw.mit.edu/OcwWeb/Global/all-courses.htm#Aeronautics%20and%20Astronautics
-    http://www.geocities.com/mj_17870/waterelectret.html
-    http://www.baen.com/ Editeur livre électroniques
-    http://www.jeanweber.com in PDF, without copy protection.  The
-    eBook versions are substantially cheaper than the paper versions.
-    http://www.antipope.org/charlie/fiction/index.html
-
-
-
-
-    http://personal-homepages.mis.mpg.de/gruening/bg_short.pdf
-    http://www.ling.lu.se/education/homepages/ALS052/handouts/TL4.pdf
-    http://crl.ucsd.edu/pdpnlp/abstract/20020528.html
-    http://l4ka.org/projects/persistence/
-
-    http://www.hpl.hp.com/techreports/2000/HPL-2000-99.html
-    http://www.iecc.com/gclist/GC-faq.html
-    http://www.calresco.org/offline.htm
-    http://public.kitware.com/VTK/
-
-    http://www.arm.linux.org.uk/
-    http://fabrice.bellard.free.fr/qemu/
-    http://arcem.sourceforge.net/
-    http://www.departments.bucknell.edu/russian/language/
-
-    http://www.ee.surrey.ac.uk/Personal/L.Wood/constellations/overview.html
-    http://petef.port5.com/c/portability.txt
-
-    http://www.linuxdevices.com/news/NS6681886148.html
-    http://mes.emuunlim.com/tips/capturing_a_mac_rom_image.htm
-    http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/Programmation-Symbolique/2003-2004/
-    http://digilander.libero.it/chiediloapippo/Engineering/iarchitect/shame.htm
-    http://www.joelonsoftware.com/navLinks/fog0000000247.html
-    http://www.johncon.com/john/
-    http://www.geocities.com/mparker/
-
-    http://www.asciimation.co.nz/
-    http://www.logwatch.org
-
-    http://www.srcf.ucam.org/~dl276/bookmarks.php
-    http://www.nhplace.com/kent/Papers/Large-Systems.html
-    http://www.cse.ucsc.edu/pipermail/rts/2003-October/000014.html
-    http://www.cl.cam.ac.uk/Research/SRG/netos/xen/
-    http://www.toms.net/rb/
-
-    http://www.chkrootkit.org/#related_links
-    http://www.spip.net/fr
-    http://wikipedia.sourceforge.net/
-    flashcard PCMCIA:  http://www.si.org/pcmciamtd/
-
-    http://marcogee.free.fr/news/ej1.htm
-
-
-    http://www.scsh.net/
-    http://www.stud.uni-karlsruhe.de/~unk6/clxman/
-
-    http://media35.fastclick.net/w/click.here?fid=10&cid=2553&mid=13186&sid=5364&m=1&c=6631http://www.quirit.com/quiritmatic/quiritmatic.asp?lang=fr
-    750MB 30GB/mois $25/mois
-
-
-    http://www.squish.net/dnscheck/
-    check DNS reverse informatimago
-
-    ftp://ftp.rediris.es/sites/ftp.es.debian.org/debian-cd/3.0_r1/source/
-    http://www.stat.duke.edu/~sto/bookmarks.html
-
-** Lifter
-
-    wget --mirror --convert-links --continue http://members.aol.com/jnaudin509/systemg/html/syshexp.htm
-
-    http://www.electricspacecraft.com/index.htm
-    http://www.totse.com/en/fringe/gravity_anti_gravity/grav.html
-
-    http://www.ebv.com/
-    http://www.raypa.es/
-
-    http://moumra.onzenet.com/moumraV12/evolution/zeiplin/powertht/alimuktht01.html
-    http://moumra.onzenet.com/moumraV12/evolution/zeiplin/ukzeipplin.htm
-
-    http://www.ddsp.com/sb/order.cgi        stun gun
-
-    http://membres.lycos.fr/plasmapropulsion/the_lifters_dedicated_page.htm
-    http://www.inria.fr/rapportsactivite/RA96/croap/croap.html
-
-** Over-Unity Devices that work
-
-    http://www.explorepub.com/articles/beardon/overunity.html [Tom Bearden]
-    http://www.cheniere.org/misc/oulist.htm [Tom Bearden]
-    http://www.cheniere.org/techpapers/Final%20Secret%2013%20May%201994/ [Tom Bearden]
-    http://www.geocities.com/Area51/Shadowlands/9654/bearden/poed.html [Tom Bearden]
-    http://www.cheniere.org/correspondence/052103.htm [Tom Bearden]
-    http://groups.yahoo.com/group/Antigravity/messages/2601?viscount=100
-    http://www.eurobility.com/news/one_news.asp?IDNews=866
-    http://www.rmsg.us/fuel/free.htm Free Energy Devices
-    http://www.geocities.com/theadamsmotor/motordesign.html
-    http://www.stardrivedevice.com/links.html
-    http://www.hbci.com/~wenonah/tommy/td.htm
-    http://www.altenergy.org/3/new_energy/zero_point_and_other/methernitha/methernitha.html
-    http://www.eskimo.com/~bilb/freenrgl/devlist.html
-    http://www.yowusa.com/Archive/May2003/OverunityKit1/overunitykit1.htm
-    http://www.altenergy.org/3/new_energy/zero_point_and_other/grotz/grotz.html
-    http://www.amasci.com/weird/wsci.html
-    http://www.fortunecity.com/greenfield/bp/16/content1.htm
-
-
-    lynx -source http://www.accu.org/access/public/install.sh > install.sh && chmod +x install.sh && ./install.sh
-
-
-    http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
-    http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
-
-    The 1998 paper by Nigam and McCallum "A Comparison of Event Models for
-    Naive Bayes Text Classification"
-    (http://citeseer.nj.nec.com/mccallum98comparison.html)
-    is very useful.
-
-    http://singinst.org/CFAI.html
-    http://www.cc.gatech.edu/classes/AY2003/cs7613_spring/
-    http://www.tomadivx.com
-
-* NOTES
-** CNIL
-https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
-** Other notes
-*** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
-
-*** Valencia
-Seguridad social darse de baja
-
-Tesorería General de la Seguridad Social
-Avenida del General Avilés, 27
-46015 Valencia, Spain
-963 68 82 20
-
-TGSS
-VALENCIA
-Direcciones Provinciales
-
-    Av.Marqués de Sotelo 8 y 10
-    46002 VALENCIA(VALENCIA )
-    Teléfono(s): 963506500
-    Nº de Fax: 963506501 
-
-MURCIA
-Direcciones Provinciales
-
-    C/ Ortega y Gasset, s/n
-    30009 MURCIA(MURCIA )
-    Teléfono(s): 968 395000
-    Nº de Fax: 968 395120
-    Plano de Situación
-
-*** Miscellaneous
-*** MUD, GAMES
-    CLOSED: [2012-12-01 Sat 10:03]
-
-      http://www.aardmud.org
-      http://www.aardwolf.org
-
-      AlternateReality
-          ssh -p 4005 ar.static.net
-              abrazak                 protection
-              judicandus noselacri
-              candusima               refreshed
-              gpuzre                  force field
-
-**** telnet ascii art videos
-
-Telehack:                telnet://telehack.com
-Telehack (web):          http://telehack.com
-
-Star Wars:               telnet://towel.blinkenlights.nl   
-Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
-The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
-
-What CL implementation:  telnet://voyager.informatimago.com:8101
-Nasium LSE:              telnet://voyager.informatimago.com:8115
-
-*** LONG TERM
-
-      http://www.danbricklin.com/200yearsoftware.htm
-
-** others:
-
-http://www.rubinsteyn.com/pl_fall_2011/recitation.html
-
-*** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
-
-
-> See asm7090-describe-codop.  You could even do that in a
-> post-command-hook, or on mouse or arrow events so that the instructions
-> are always explained.  It would also possible to attach tooltips to the
-> instructions so that you get the description on a mouse over.
-
-The "canonical" way to do that in Emacs is to set
-eldoc-documentation-function buffer-locally.  Then users can choose to
-use this by enabling eldoc-mode.
-
-
-
-
-
-
-
-IN 1934, an Indian math student, S. P. Sundaram, invented a new method
-of sieving primes:
-
-    From a list of integers from 1 to n, remove all integers of the
-    form i + j + 2ij where integers i and j range from 1 ≤ i ≤ j and
-    i + j + 2ij ≤ n. For each remaining integer k, the integer 2k+1 is
-    prime, and the list gives all the odd primes (thus excluding the
-    prime 2).
-
-
-
-
-http://www.agrotic.org/blog/?p=1747
-
-
-
-deglet.com|compra$oro
-
-Biovea pedido 7649486
-
-Cancer --> Beljanski
-
-
-
-https://github.com/elibarzilay/eliemacs/blob/master/extras/special-chars.el
-
-http://www.jibble.org/piespy/
-
-+----------------------------------------------------------------------------
-| Transfers
-+----------------------------------------------------------------------------
-
-;; 81.13.118.162:9987          CVAT
-;; 63.34.162.240:9102 phoenix  104th
-;; 81.200.8.157:9987           RvAF
-;; 193.106.93.31:9987          RAF
-;; vip1.ts1.cn:8770            3GO
-
-
-;; http://paste.lisp.org/display/127074#1
-
-(defun function-names (fun)
-  "
-RETURN: A list of function names fbound to the function FUN.
-NOTE:   We only scan symbols and (setf symbols).  Functions could also
-        be bound to slots or to various other lisp objects.
-"
-  (let ((names '()))
-    (dolist (pack (list-all-packages) (delete-duplicates names))
-      (do-symbols (sym pack)
-        (when (and (fboundp sym) (eql fun (symbol-function sym)))
-          (push sym names))
-        (let ((setter `(setf ,sym)))
-          (when (and (fboundp setter) (eql fun (fdefinition setter)))
-            (push setter names)))))))
-
-
-
-
-
-Pole Emploi
-188 avenue Jean Lollive 
-Mo Raymond Quenot.
-
-ADIE micro-createur.
-     seine st denis --> St Denis
-                    
-
-
-Van Allen:
-
-  outer belt:  
-      3 to 10 earth-radius-mean
-      electrons 0.1 to 10 MeV
-      ions    
-
-  inner belt:
-      0.01 to 1.5 earth-radius-mean
-      protons    100 MeV    
-      electrons  0.1 MeV
-
-      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
-             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
-
-
-      protons of 0.1 MeV penetrate 0.6 mm of Pb
-      protons of 400 MeV penetrate 143 mm of Pb
-
-radiation:  2500 rem/year
-              25 mS
-
-    apollo astronauts: 5 rem
-
-
-
-
-pole emploi 10 juin annulé déménagement
-convocation telephone 28 juin 11h30 
-
- 
-IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
-~/jobs/free-lance/aeat/aeat-2008
-
-
-
-IRC RAGE: http://www.vidarholen.net/contents/rage/
-
-https://www.eff.org/torchallenge
-
-
-
-WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-
-Ma coiffeuse est formidable - http://sonia.buvette.org/
-
-- add to lisp-mirror http://wcp.sdf-eu.org/software/
-
-
-http://www.microchoix.com/espace_client.html
-Login : pjb@informatimago.com
-Votre mot de passe : dSqcUixM
-
-http://www.materiel.net
-informatimago
-poporoplo
-
-jobs: http://www.odesk.com
-
-
-Find how to distinguish (in emacs or X) the keys coming from the
-different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
-
-
-
-http://openfarmtech.org/wiki/Crash_Course
-http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
-
-
-Mon Apr 18 12:54:07 CEST 2011
-paquete:       3001/10093263
-transportista: 963461211
-
-
-sourceforge.net
-API key:    fbe5b8d039ce9d46f926
-Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
-
-
-transmission-daemon -w /other/pjb/globcover
-
-
-
-http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
-Pre-industrial workers had a shorter workweek than today's    
-
-
-2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
-
-42 Trillian 2^276709 
-            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
-GURSIXO
-emergency services: +44 (0) 118 999 881 999 119 7253
-
-This message is rot-13 encoded to prevent unwanted viewing.
-Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
-
-Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
-pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET 
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
-
-(add-hook 'lisp-mode-hook
-  (lambda ()
-    (font-lock-add-keywords nil
-      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
-         (1 font-lock-keyword-face)
-         (2 font-lock-type-face))))))
-
-(put '$defclass 'common-lisp-indent-function
-     (get 'defclass 'common-lisp-indent-function))
-
-
-
-------------------------------------------------------------------------------
-apache / pound ports
-
-8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
-              joellegymtonic, parroquias-manga, willcom)
-
-8001 sbcl    linking
-8002
-8003 sbcl    films.willcom.fr
-8004 apache2 films.willcom.fr
-8005
-8006 sbcl    claar
-------------------------------------------------------------------------------
-
-
-BlackBerry 
-PIN 259B61F6
-IMEI: 357564.02.644206.5
-
-SIM Cards: 
-Operator Card Number            Phone Num   Date
-Movistar 8934076100032652090    636653318
-Movistar 340761 000326 5209 0   636653318   20110509
-
-http://www.progweb.com/modules/blackberry/index-en.html
-
-** GOLD
-2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
-2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
-2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
-(/ 245.0 145.0) = 69%/3 ans  = 19%/an
-
-2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
-
-
-We may yet see a bubble in the US into 2015.75 if we in fact see the
-dollar RISE as did the yen going into 1989. A rising dollar will
-increase the profits for foreign investors and draw in even more
-capital globally creating massive capital concentration and global
-civil unrest. The Fed will go nuts and be forced to raise interest
-rates fearing a bubble and that will blow out the deficits and the
-entire system will collapse 2016-2020. So hold on to your socks. This
-is likely to be a wild ride.
+* VENI SANCTE
+
+  +------------------------------------------------------------------------+
+  |  Veni Sancte Spiritus, reple         Venez Esprit-Saint, remplissez    |
+  |  tuorum corda fidelium, et tui       les coeurs de vos fidèles, et     |
+  |  amoris in eis ignem accende.        allumez en eux le feu de votre    |
+  |                                      amour.                            |
+  |                                                                        |
+  |  (V) Emitte Spiritum tuum et         (V) Envoyez votre Esprit,         |
+  |  creabuntur.                         Seigneur, et il se fera une       |
+  |                                      création nouvelle.                |
+  |                                                                        |
+  |  (R) Et renovabis faciem terrae.     (R) Et vous renouvellerez la      |
+  |                                      face de la terre.                 |
+  |                                                                        |
+  |  Oremus                              Prions                            |
+  |                                                                        |
+  |  Deus, qui corda fidelium            O Dieu, qui avez instruit les     |
+  |  Sancti Spiritus illustratione       coeurs de vos fidèles par la      |
+  |  docuisti, da nobis, in eodem        lumière du Saint-Esprit,          |
+  |  Spiritu recta sapere, et de         donnez-nous, par ce même          |
+  |  eius semper consolatione            Esprit, de comprendre et          |
+  |  gaudere.  Per Christum Dominum      d'aimer ce qui est bien, et de    |
+  |  nostrum.  Amen.                     jouir sans cesse de ses           |
+  |                                      divines consolations.  Par        |
+  |                                      Jésus-Christ Notre Seigneur.      |
+  |                                      Ainsi soit-il.                    |
+  +------------------------------------------------------------------------+
+    PATER NOSTER, qui es in caelis,
+    sanctificetur nomen tuum.
+    Adveniat regnum tuum.
+    Fiat voluntas tua,
+    sicut in caelo et in terra.
+    Panem nostrum tidianum da nobis hodie,
+    et dimitte nobis ta nostra sicut
+    et nos dimittimus debitoribus tris.
+    Et ne nos inducas in tentationem,
+    sed era nos a malo. Amen.                          
+
+    IXTUS: Iesus Xristos Teou Uios Soter
+    http://www.aidez-moi.org/parole_du_seigneur/evangile_quotidien.php
+    http://www.vatican.va/archives/fra0013
+
+    FUNDACION DIOCESANA PARA LA DIFUSION DE LA CULTURA CATOLICA
+    Carmen, 17
+    30201 - CARTAGENA
+    MURCIA
+    Tlf: 968 521 709
+
+    Catedral de Murcia
+    wget http://www.ondaregionalmurcia.es/neteye/img/image1.jpg && xv image1.jpg
+
+    http://www.ondaregionalmurcia.es/camara2.htm
+    http://www.ondaregionalmurcia.es/neteye/img/image1.jpg
 
 * SAYINGS, QUOTES
 
@@ -3447,6 +2929,7 @@ DON'T FEED THE TROLL
 http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
 
 ** Test Driven Development -- Writing Tests
+
 Don’t aim for 100% coverage.
 Code-to-test ratios above 1:2 is a smell, above 1:3 is a stink.
 You’re probably doing it wrong if testing is taking more than 1/3 of your time. You’re definitely doing it wrong if it’s taking up more than half.
@@ -3456,6 +2939,23 @@ Don’t use Cucumber unless you live in the magic kingdom of non-programmers-wri
 Don’t force yourself to test-first every controller, model, and view (my ratio is typically 20% test-first, 80% test-after).
 
 ** Others
+
++----------------------------------------------------------------------------
+| A computer is like a violin.  You can imagine a novice trying first a
+| phonograph and then a violin.  The latter, he says, sounds terrible.
+| That is the argument we have heard from our humanists and most of our
+| computer scientists.  Computer programs are good, they say, for
+| particular purposes, but they aren't flexible.  Neither is a violin,
+| or a typewriter, until you learn how to use it.
+| 
+| -- Marvin Minsky, "Why programming is a good medium for expressing
+|    poorly understood and sloppily-formulated ideas" in "Design and
+|    Planning II - Computer in Design and Communication", (Martin
+|    Krampen and Peter Seitz, eds), Visual Committee Books, Hastings
+|    House Publishers, New York, 1967.
+| 
++----------------------------------------------------------------------------
+
 
 +----------------------------------------------------------------------------
 | The official laws of stupidity. Written by Professor Carlo M Cipolla in 1976.
@@ -4088,14 +3588,71 @@ SOS Maman
 BP 70114
 95210 Saint Gracien
 
-* INTERGRUAS
-** TODO [#C] neuron.intergruas.com  mail logs              :intergruas:admin:
-Check the mail logs using my lisp programs.  Make it automatic.
-** TODO [#C] awstats                                       :intergruas:admin:
-** DONE cambio isp intergruas: 912670121
-   CLOSED: [2012-12-12 Wed 23:59]
-   - State "DONE"       from "TODO"       [2012-12-12 Wed 23:59]
 * PROVIDERS
+** intermarche
+
+Montant de votre commande : 	349,03 € *
+Numéro de votre commande : 	860600010
+ 
+Type de commande : 	Livraison à domicile
+Livraison le : 	Mercredi 25 septembre, entre 10h30 et 12h30
+
+
+
+
+Montant de votre commande : 	178,32 € *
+Numéro de votre commande : 	850865550
+ 
+Type de commande : 	Livraison à domicile
+Livraison le : 	Samedi 22 juin, entre 12h30 et 14h30
+
+
+Montant de votre commande : 	177,02 € *
+Numéro de votre commande : 	662473954
+ 
+Type de commande : 	Livraison à domicile
+Livraison le : 	Vendredi 10 mai, entre 14h30 et 16h30
+	Suivi de la commande par SMS.
+
+*** DONE [#A] Samedi 9 Mars 12:30 - 14:30
+    CLOSED: [2013-03-15 Fri 23:05]
+    - CLOSING NOTE [2013-03-15 Fri 23:05] \\
+      Got it.
+
+Félicitations, votre commande vient d'être enregistrée.
+Toute l'équipe de votre Intermarché CHATILLON vous remercie de votre confiance.
+
+Un email récapitulatif de votre commande vient de vous être envoyé.
+Montant de votre commande : 	122,74 € *
+Numéro de votre commande : 	722082567
+ 
+Type de commande : 	Livraison à domicile
+Livraison le : 	Samedi 9 mars, entre 12h30 et 14h30
+	Suivi de la commande par SMS.
+
+ 
+
+Vous avez choisi de payer votre commande lors de la réception de celle-ci
+
+** eFax
+
+    Your Personal eFax Number is
+    faxto:+447053450164
+    PIN: 6714
+    All received eFaxes will be sent to informatimag@free.fr
+    http://www.efax.com/
+    To setup your password visit:
+    http://mx2.efax.com/redir3/4PAr0MJDB!http://www.efax.com/login
+    http://mx2.efax.com/survey3/4PAr0MJDB!10
+
+------------------------------------------------------------------------
+assurance barclay 902930065 stone bridge
+barclaycard cobros : 917497522
+Barclay Card: contraseña telefóno: JMCRMSSJ
+134062/rf91esym
+bestfriend/bestfriend/internet/lisp
+------------------------------------------------------------------------
+
 ** Domains Domain Names
     
 http://www.afnic.fr/outils/whois
@@ -4450,7 +4007,282 @@ http://science.ksc.nasa.gov/cgi-bin/rr.pl?nasatv.ra             audio
     716518
     MHRJ228075
 
+** boursorama
+
+boursorama W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
+
+Boursorama Banque
+
+    * Comment
+      ça marche
+    * Identification
+      vocale
+    * Signature
+      électronique
+    * Pièce
+      justificative
+
+Enregistrement de vos pièces justificatives
+
+Un conseiller vous aide
+à remplir votre dossier
+Ou
+Un conseiller vous rappelle
+immédiatement et gratuitement
+		OK
+Votre conseiller remplit votre convention d'ouverture
+de compte avec vous par téléphone en fonction de
+vos attentes et de vos besoins.
+Vous la recevrez immédiatement par email
+ou par courrier, vous n'aurez qu'à signer et nous la faire parvenir accompagnée des pièces justificatives.
+	  	
+Monsieur Pascal BOURGUIGNON
+
+Votre demande d’ouverture d’un compte Boursorama Essentiel+ nous est bien parvenue. Votre contrat électronique a été déposé, vous pourrez le retrouver avec votre numéro de transaction sur demande à Boursorama Banque.
+ 
+NOTEZ BIEN VOTRE NUMÉRO DE TRANSACTION
+W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
+Nous venons de vous envoyer un nouvel email dans lequel vous trouverez un lien vous permettant d’accéder à votre dossier.
+FINALISEZ VOTRE SOUSCRIPTION, JOIGNEZ NOUS VOS PIÈCES JUSTIFICATIVES
+Si vous n'avez pas réuni toutes
+vos pièces justificatives
+
+    * Une copie de pièce d'identité du ou des titulaires en cours de validité
+    * Un justificatif de domicile ou un document fiscal de moins de 6 mois :
+      facture d'électricité, de gaz, d'eau, de téléphone fixe ou internet à l'adresse du client, avis d'imposition, taxe d'habitation, taxe foncière, tiers prévisionnel ou quittances de loyer qui émanent d'institutionnels.
+      Attention, ne sont pas acceptés : les factures de téléphone mobile ou les quittances de loyer qui n'émanent pas d'institutionnels.
+      Les échéanciers sont autorisés pendant toute la durée couverte.
+    * Une relevé d'identité bancaire (R.I.B)
+    * Si vous choisissez de souscrire une carte bancaire :
+      - Salarié : vos 2 derniers bulletins de salaire
+      - Non salarié : votre dernier avis d'imposition
+      Attention : vous ne recevrez pas votre carte bancaire à l'ouverture de votre compte si ces documents ne sont pas joints à votre dossier.
+    * Votre premier versement par chèque à l'ordre de Boursorama d'un montant minimum de 300€, ce montant sera disponible dès l'ouverture de votre compte.
+    * Votre signature manuscrite sur une feuille blanche
+
+(au format électronique), vous pourrez vous reconnecter ultérieurement en utilisant le lien dans l'email que nous venons de vous envoyer.
+
+Les données ci-dessus pourront être utilisées afin de vous faire bénéficier d'offres émanant de nos partenaires. Pour en savoir plus veuillez consulter l'article 2 du contrat d'utilisation. Nous vous rappelons que vous disposez d'un droit d'accès, de rectification et d'opposition au traitement des données vous concernant (articles 38, 39 et 40 de la loi "Informatique et Libertés" modifiée). Nous allons implanter un cookie dans votre ordinateur afin que vous puissiez bénéficier des services personnalisés offerts par Boursorama et d'assurer un bon fonctionnement du site. Pour en savoir plus, veuillez consulter notre contrat d'utilisation.
+------------------------------------------------------------------------
+
+** cajamar 
+
+Ha utilizado por completo su tarjeta personal de claves. Puede seguir
+realizando operaciones con esta tarjeta, aunque, como medida de
+seguridad, le recomendamos que solicite una nueva en su oficina.
+
+Introduzca las siguientes coordenadas de su tarjeta personal de claves
+acabada en 216 G6 	
+	
+Coordenada recibida por SMS en su móvil acabado en 318
+
+* INFORMATIMAGO COMPUTERS
+** voyager.informatimago.com
+
+Linux voyager.informatimago.com 2.6.18-6-k7 #1 SMP Mon Oct 13 16:52:47 UTC 2008 i686 GNU/Linux
+GNU/Linux debian 6.0.6
+
+
+The following servers use the same ssl certificate and private key for
+voyager.informatimago.com
+Notice that it's pound that's listening on 443.
+
+pound   /usr/local/etc/pound.conf
+apache  /etc/apache2/site-available/default-ssl
+postfix /etc/postfix/main.cf
+imap    /etc/courier/imapd{,-ssl,.cnf}
+pop3d   /etc/courier/pop3d{,-ssl,.cnf}
+
+ssl     /etc/ssl/certs /etc/ssl/private
+        /etc/ssl/certs/starcom-com.informatimago.voyager.pem
+        /etc/ssl/certs/starcom-com.informatimago.voyager.ssl.cert
+        /etc/ssl/private/starcom-com.informatimago.voyager.private-key.ssl.key
+
+starcom
+certificate passwords: IreadYOURemail42
+
+
+
+  * the X509 standard defines certificates, and RSA and DSA are two of
+    the public key algorithms that can be used in those certificates;
+
+  * certificates are used to hold public keys, and never private keys.
+
+  * PKCS#12 is a standard for a container which can hold an X509
+    client certificates and the corresponding private keys, as well as
+    (optionally) the X509 certificates of the CAs that signed the X509
+    client certificate(s).
+
+So, if you're examining a PKCS#12 file (typically .p12 extension), then you already know:
+
+    It contains at least one X509 client certificate, which contains a public key; and
+    It contains the corresponding private keys.
+
+All you don't know is whether those certificate & private key are RSA
+or DSA. You can check this by extracting the certificate(s), and then
+examine them:
+
+openssl pkcs12 -in mycert.p12 -clcerts -nokeys -out mycert.crt
+openssl x509 -in mycert.crt -text
+
+The text output of the openssl x509 command should include a Subject
+Public Key section, which will include fields that let you see if it's
+an RSA or DSA key (along with the key size).
+
+------------------------------------------------------------------------
+
+voyager|awstat|admin|voy!stat
+voyager|linux|lse|fyLxIqmuC
+lassell|cygwin|lse|fyLxIqmuC
+lassell|cygwin|cyg_server|VYwJali9
+
+telnet voyager 8105 
+
+voyager postgresql-8.4
+voyager|linux|trac|su/CAs&Ze
+voyager|postgresql|trac|nE9zuTiJ
+
+voyager|nasium-lse.fossil|project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
+voyager|nasium-lse.fossil|server-id:  4faf1e63ce049b8165d027fd0e52e22a67df82b5
+voyager|nasium-lse.fossil|admin-user: pjb (password is "bfd622")
+http://www.cliki.net/Programming%20language
+
+
+voyager|patchwork.fossil|admin-user: pjb (initial password is "fe564e")
+fossil init patchwork.fossil
+project-id: 8da4fbae771061b0d45af1a298df4c4439092371
+server-id:  e22aca008c3639340f2081887a9f2ef462f054b8
+admin-user: pjb (initial password is "fe564e")
+
+http://fossil.informatimago.com:8002/patchwork/timeline
+
+~/src/pjb/nasium-lse.fossil
+project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
+server-id:  4f108d173b909c86d7ca90659ca5e1991b156c9c
+admin-user: pjb (password is "67eb63")
+
+** Nvidia:
+
+NVIDIA GeForce GTX 460
+
+** lassell MSWindows
+
+Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
+
+** backups
+*** TODO [#A] sauvegardes                                             :admin:
+    DEADLINE: <2012-12-15 Sat +1w>
+    - State "TODO"       from "DONE"       [2012-12-13 Thu 00:47]
+    CLOSED: [2012-12-13 Thu 00:47] 
+    - State "DONE"       from "TODO"       [2012-12-13 Thu 00:47]
+Backup kuiper to external hard disks.  
+*** TODO [#B] Implement an incremental backup for voyager             :admin:
+    DEADLINE: <2013-01-01 Sun +1w -7> 
+*** Internal disks
+
+------------------------------           ------------------------------
+internal disk                            external backup
+------------------------------           ------------------------------
+
+1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4842302
+/dev/sda1 DEBIAN                         1TERAONE      1TERATWO
+/dev/sda2 GENTOO                         1TERAONE      1TERATWO
+/dev/sda5 domU                           1TERAONE      1TERATWO
+/dev/sda6 LOCAL                          1TERAONE      1TERATWO
+
+
+300 GB    Model=Samsung SSD 840 Series, FwRev=DXT06B0Q, SerialNo=S14GNEACB19797R
+/dev/sdb1 FLASH
+
+1 TB      Model=WDC WD1001FALS-00J7B0, FwRev=05.00K05, SerialNo=WD-WMATV4744460
+/dev/sdc1 BACKUP-I-DEBIAN
+/dev/sdc2 BACKUP-I-GENTOO
+/dev/sdc5 BACKUP-I-DOMU
+/dev/sdc6 BACKUP-I-LOCAL
+
+1.5 TB failing
+/dev/sdd1 MOVIES2                        2TERATWO
+/dev/sdd4 OTHER
+
+2 TB      Model=WDC WD20EARS-00MVWB0, FwRev=51.0AB51, SerialNo=WD-WCAZA3007295
+/dev/sde1 MOVIES1                        2TERAONE      
+
+
+ordered:
+
+4 TB  
+
+4 TB
+------------------------------           ------------------------------
+
+    a 1   TB
+    b 300 GB
+    c 1   TB
+    d 1.5 TB
+    e 2   TB
+
+*** External disks
+
+    - 2 TB external hard disk             EXT3  2TERAONE  (movies1)
+    - 1 TB external hard disk             EXT3  1TERAONE  (root+domU+local) seems HS
+    - 2 TB external hard disk             EXT3  2TERATWO  (movies2)
+    - 1 TB external hard disk             EXT3  1TERATWO  (root+domU+local)
+
+    - 200 GB external hard disk number 1  HFS+  galatea-backup  
+      DOES NOT SEEM TO WORK ANYMORE
+
+    - 200 GB external hard disk number 2  HFS+  triton-backup   
+      TimeMachine BackupBackup triton 
+      TimeMachine BackupBackup galatea
+
+    - 200 GB external hard disk number 4  NTFS                  
+      Backup galle
+
+    - 200 GB external hard disk number 5  HFS+  backup5         
+      TimeMachine Backup galatea
+      Copy of newton.medicalis.es before upgrade to 10.5.
+      --> full galatea backup
+
 * INFORMATICS
+** virtualbox
+    <ExtraData>
+      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
+
+      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
+      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
+      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
+
+      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
+      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
+      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
+      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="4"/>
+      <ExtraDataItem name="VBoxInternal2/SmcDeviceKey" value="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"/>
+      <ExtraDataItem name="VBoxInternal2/UgaHorizontalResolution" value="1920"/>
+      <ExtraDataItem name="VBoxInternal2/UgaVerticalResolution" value="1080"/>
+      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
+    </ExtraData>
+
+      <ExtraDataItem name="VBoxInternal2/EfiGopMode" value="5"/>
+
+    <ExtraData>
+      <ExtraDataItem name="CustomVideoMode1" value="1920x1080x32"/>
+      <ExtraDataItem name="GUI/Fullscreen" value="on"/>
+      <ExtraDataItem name="GUI/InfoDlgState" value="1920,1080,normal"/>
+      <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
+      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1920,1080"/>
+      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/LastScaleWindowPosition" value="0,0,1920,1080"/>
+      <ExtraDataItem name="GUI/MiniToolBarAlignment" value="bottom"/>
+      <ExtraDataItem name="GUI/SaveMountedAtRuntime" value="yes"/>
+      <ExtraDataItem name="GUI/ShowMiniToolBar" value="yes"/>
+    </ExtraData>
+
+
+
+vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
+vboxmanage clonehd  /path/to/virtualdisk.vdi  /path/to/copy.vdi
+
 ** ANDROID
 
 http://source.android.com/source/downloading.html
@@ -7989,6 +7821,15 @@ http://www.roaringpenguin.com/mimedefang/
 
 ** ANTISPAM
 
+
+-Queue ID- --Size-- ----Arrival Time---- -Sender/Recipient-------
+9EA2A43C5D3      570 Mon Feb 17 11:47:19  root@informatimago.com
+(host mx4.hanmail.net[180.70.93.98] refused to talk to me: 554 5.7.1 CCRX 88.198.62.69: Connection refused. Your IP address is blocked(anti-spam). If you need, please contact stamp@daumcorp.com.)
+                                         whatsung76@hanmail.net
+-- 1 Kbytes in 1 Request.
+
+
+
     http://MultiRBL.Valli.org
     http://JustSpam.org
 
@@ -8945,7 +8786,31 @@ If not, add "info locals" before continue. And use "finish" instead of "continue
         cygwin
         http://www.multimania.com/cdc/backorifice.html
 
+** Linux ubuntu
+
+software-center
+gnome-nm-network-editor
+
 ** Linux Debian
+
+http://wiki.debian.org/Multiarch/HOWTO
+
+pin the repository and do apt-get install emacs24/sid 
+
+debian versions
+
+    Debian               ("jessie")  — no release date has been set
+    Debian           7.0 ("wheezy")  — current stable release
+    Debian           6.0 ("squeeze") — obsolete stable release
+    Debian GNU/Linux 5.0 ("lenny")   — obsolete stable release
+    Debian GNU/Linux 4.0 ("etch")    — obsolete stable release
+    Debian GNU/Linux 3.1 ("sarge")   — obsolete stable release
+    Debian GNU/Linux 3.0 ("woody")   — obsolete stable release
+    Debian GNU/Linux 2.2 ("potato")  — obsolete stable release
+    Debian GNU/Linux 2.1 ("slink")   — obsolete stable release
+    Debian GNU/Linux 2.0 ("hamm")    — obsolete stable release
+
+
 
     List of available packages:
     apt-cache search $PATTERN
@@ -10752,25 +10617,6 @@ rfc2700  Internet Official Protocol Standards
                                   .
 
 * DATA, DONNEES, DATOS
-
-
-FAX:
-    Your Personal eFax Number is
-    faxto:+447053450164
-    PIN: 6714
-    All received eFaxes will be sent to informatimago@terra.es
-    http://www.efax.com/
-    To setup your password visit:
-    http://mx2.efax.com/redir3/4PAr0MJDB!http://www.efax.com/login
-    http://mx2.efax.com/survey3/4PAr0MJDB!10
-------------------------------------------------------------------------
-assurance barclay 902930065 stone bridge
-barclaycard cobros : 917497522
-Barclay Card: contraseña telefóno: JMCRMSSJ
-134062/rf91esym
-bestfriend/bestfriend/internet/lisp
-------------------------------------------------------------------------
-
 ** Paleodiet
 
     http://homodiet.netfirms.com/index.html
@@ -11017,24 +10863,6 @@ KING BARCELONA S.L.
 info@kingbarcelona.com
 00 34 93 192 97 78
 
-** Mensa
-    http://www.mensa.org/workout.html
-    http://www.majon.com/cgi-bin/majon/IQ?A=tough
-    (show (/ (+ 118.837 126.210 110.412 120.541 ) 4))
-      ==> 119
-      ==> 117
-      ==> 124 (Antena3)
-
-
-
-
-------------------------------------------------------------------------
-Photo Aerienne Alsace: http://www.cigal.fr/BD_ORTHO_2002/index_ortho_2002.htm
-regarga movistar: +34 901 123 609
-telecommande télévision:   RMW3-6T  Siera SG1498
-Silicium Organique G5   Loic Le Ribault llr-g5@anu.ie
-http://www.beljanski.com
-
 ** Light
    700 nm  rouge; 580 nm  jaune; 550 nm  vert; 475 nm  bleu
 
@@ -11248,7 +11076,6 @@ Neptune	360.0	283.000	2.1746e-02	117.192	1342.3	301.495	84.98
 Titan	94.0	1.500	5.5026e-03	20.074	194.3	58.887	89.99
 
 * PHYSICS
-
 ** Matter Energy Information
 
     http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
