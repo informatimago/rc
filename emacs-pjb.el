@@ -680,5 +680,14 @@ X-Accept-Language:         fr, es, en
          (getenv "EDITOR")     "emacsclient"
          (getenv "VISUAL")     "emacsclient")))
 
+(global-set-key (kbd "<f25>")
+                (lambda ()
+                  (interactive)
+                  (let ((file  (ffap-file-at-point)))
+                    (unless (endp (rest (window-list)))
+                      (other-window 1))
+                    (find-file file))))
+
+
 ;;;; THE END ;;;;
 
