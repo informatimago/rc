@@ -292,8 +292,8 @@
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
- '(display-time-day-and-date t t)
- '(display-time-mode t t)
+ '(display-time-day-and-date t)
+ '(display-time-mode t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
@@ -495,7 +495,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . GUI) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -517,7 +517,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
- '(tags-table-list (quote nil) t)
+ '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
@@ -593,15 +593,15 @@ X-Accept-Language:         fr, es, en
 
 ;;;----------------------------------------------------------------------------
 (load "~/rc/emacs-package.el")
-(load "~/rc/emacs-android.el")
+(load "~/rc/emacs-font.el")
+(when (not *pjb-pvs-is-running*)
+  (load "~/rc/emacs-palette.el"))
 (load "~/rc/emacs-slime-simple.el")
 ;; (load "~/rc/emacs-slime.el")
 ;; (load "~/rc/emacs-cl-indent.el")
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-hyperspec.el")
-(load "~/rc/emacs-font.el")
-(when (not *pjb-pvs-is-running*)
-  (load "~/rc/emacs-palette.el"))
+(load "~/rc/emacs-android.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
@@ -627,6 +627,10 @@ X-Accept-Language:         fr, es, en
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+
+(dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
+                  c-mode-hook c++-mode-hook))
+  (add-hook hooks 'sexp-movement))
 
 (defun pjb-w3m-mode-meat ()
   (interactive)
