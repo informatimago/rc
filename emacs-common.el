@@ -2924,10 +2924,6 @@ or the recipient is not in `*pjb-erc-speak-reject-recipient*',
 (when (fboundp 'common-lisp-font-lock-hook)
   (add-hook 'lisp-mode-hook 'common-lisp-font-lock-hook))
 
-(dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
-                  c-mode-hook c++-mode-hook))
-  (add-hook hooks 'sexp-movement))
-
 
 ;;(setq emacs-lisp-mode-hook nil lisp-mode-hook nil)
 

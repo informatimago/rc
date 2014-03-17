@@ -58,18 +58,21 @@
 ;; (require 'ubudu) ; c-style
 
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
-(when (require 'android nil t)
- (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
- (require 'android-mode)
 
- (defun gud-meat ()
-   (interactive)
-   (add-to-list 'gud-jdb-classpath
-                (expand-file-name (concat *android-tools-directory*
-                                          "/adt/sdk/platforms/android-17/android.jar"))))
- (add-hook 'gud-mode-hook 'gud-meat))
-
+(require 'android nil t)
+(setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+(require 'android-mode)
 (require 'android-classes)
+
+
+
+(defun gud-meat ()
+  (interactive)
+  (add-to-list 'gud-jdb-classpath
+               (expand-file-name (concat *android-tools-directory*
+                                         "/adt/sdk/platforms/android-17/android.jar"))))
+(add-hook 'gud-mode-hook 'gud-meat)
+
 
 (require 'cedet)
 (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
@@ -86,12 +89,12 @@
 (setf android-filter-function nil)
 
 (setf android-filter-function (android-filter-or
-                                (android-filter-match-tag     "ubudu\\|bwin")
-                                (android-filter-match-message "ubudu\\|bwin")))
+                               (android-filter-match-tag     "ubudu\\|bwin")
+                               (android-filter-match-message "ubudu\\|bwin")))
 
 (setf android-filter-function (android-filter-or
-                                (android-filter-match-tag     "ubudu")
-                                (android-filter-match-message "ubudu")))
+                               (android-filter-match-tag     "ubudu")
+                               (android-filter-match-message "ubudu")))
 
 
 ;;;; THE END ;;;;
