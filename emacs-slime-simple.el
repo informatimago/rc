@@ -198,9 +198,9 @@
      iso-8859-1)
 
    (define-lisp-implementation ccl
-       '("/data/languages/ccl/bin/ccl"
+       '("/opt/local/bin/ccl"
+         "/data/languages/ccl/bin/ccl"
          "/usr/local/bin/ccl"
-         "/opt/local/bin/ccl"
          "/usr/bin/ccl")
      "^? "
      utf-8)
@@ -623,6 +623,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "C-M-N")       'paredit-end-of-toplevel-form)
   (local-set-key (kbd "C-M-<backspace>") 'backwards-kill-sexp)
   (local-set-key (kbd "C-x C-r g")   'redshank-make-defgeneric-from-defmethod)
+  (local-set-key (kbd "H-g")         'redshank-make-defgeneric-for-defmethod)
+  (local-set-key (kbd "<f27>")       'redshank-make-defgeneric-from-defmethod)
+  (local-set-key (kbd "<f28>")       'redshank-make-defgeneric-for-defmethod)
+  (local-set-key (kbd "<f29>")       'redshank-split-defgeneric-to-defmethod)
   (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
   
