@@ -1,4 +1,41 @@
-
+;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
+;;;;**************************************************************************
+;;;;FILE:               emacs-redshank.el
+;;;;LANGUAGE:           emacs lisp
+;;;;SYSTEM:             POSIX
+;;;;USER-INTERFACE:     NONE
+;;;;DESCRIPTION
+;;;;    
+;;;;    Redshank extensions: transforming CL sources.
+;;;;
+;;;;    The parsing functions return redshank-source structures
+;;;;    refering to the source position and source substring, so that
+;;;;    transformation commands may modify the buffer and bring along
+;;;;    comments.
+;;;;    
+;;;;AUTHORS
+;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
+;;;;MODIFICATIONS
+;;;;    2014-03-09 <PJB> Added this header.
+;;;;BUGS
+;;;;LEGAL
+;;;;    AGPL3
+;;;;    
+;;;;    Copyright Pascal J. Bourguignon 2012 - 2014
+;;;;    
+;;;;    This program is free software: you can redistribute it and/or modify
+;;;;    it under the terms of the GNU Affero General Public License as published by
+;;;;    the Free Software Foundation, either version 3 of the License, or
+;;;;    (at your option) any later version.
+;;;;    
+;;;;    This program is distributed in the hope that it will be useful,
+;;;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;;    GNU Affero General Public License for more details.
+;;;;    
+;;;;    You should have received a copy of the GNU Affero General Public License
+;;;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;;;**************************************************************************
 (.EMACS "emacs-redshank.el")
 
 (when (require 'redshank-loader "redshank/redshank-loader" t)
@@ -6,48 +43,21 @@
     `(redshank-setup '(lisp-mode-hook
                        slime-repl-mode-hook) t)))
 
-
-(defun redshank-looking-at-symbol (sym)
-  (forward-sexp)
-  (backward-sexp)
-  (string-equal* sym (symbol-at-point)))
-
-(defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
-  (paredit-wrap-sexp)
-  (insert (format "defgeneric %S %S" fname gf-lambda-list))
-  (when docstring (insert (format "\n  (:documentation %S)" docstring))))
-
-(defun redshank-generalize-lambda-list (specialized-lambda-list)
-  (let ((end (position '&aux specialized-lambda-list)))
-    (mapcar (lambda (item)
-              (if (atom item)
-                  item
-                  (let ((kv (first item)))
-                    (if (atom kv)
-                        kv
-                        (second kv)))))
-            (if end
-                (subseq specialized-lambda-list 0 end)
-                specialized-lambda-list))))
-
-(defun redshank-current-sexp ()
-  (forward-sexp)
-  (backward-sexp)
-  (sexp-at-point))
-
-(defun redshank-next-sexp ()
-  (forward-sexp 2)
-  (backward-sexp)
-  (sexp-at-point))
-
+;;; --------------------------------------------------------------------
+;;; Utilities.
+;;; --------------------------------------------------------------------
 
 (defun pjb-cl-equal-cl-symbol (cl-symbol item)
-  (and  (char/= ?: (aref (prin1-to-string item) 0))
-   (or (string-equal* item cl-symbol)
-       (string-equal* item (format "CL:%s"           cl-symbol))
-       (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
-       (string-equal* item (format "CL::%s"          cl-symbol))
-       (string-equal* item (format "COMMON-LISP::%s" cl-symbol)))))
+  (let ((cl-name (symbol-name cl-symbol)))
+    (if (char= ?: (aref cl-name 0))
+        (let ((item-name (symbol-name item)))
+          (and (char= ?: (aref item-name 0))
+               (string-equal* item cl-symbol)))
+        (or (string-equal* item cl-symbol)
+            (string-equal* item (format "CL:%s"           cl-symbol))
+            (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
+            (string-equal* item (format "CL::%s"          cl-symbol))
+            (string-equal* item (format "COMMON-LISP::%s" cl-symbol))))))
 
 
 (defun pjb-cl-equal-cl-keyword (cl-keyword item)
@@ -55,75 +65,320 @@
        (string-equal* "KEYWORD" (symbol-package item))))
 
 
+(defvar *redshank-lambda-list-keywords*
+  '((&optional 0-*)
+    (&rest 1)
+    (&aux 0-*)
+    (&key 0-*)
+    (&allow-other-keys 0)
+    (&body 0-*)
+    (&environment 1)
+    (&whole 1)))
 
-(defun parse-body (where body)
+(defun redshank-lambda-list-keyword-p (item)
+  (let ((fold-case-search t))
+    (second (assoc* item *redshank-lambda-list-keywords*
+                    :test (lambda (a b) (string= (string-upcase a) (string-upcase b)))))))
+
+
+;; (remove-if (lambda (x) (member x '(&optional &rest &aux &key &allow-other-keys &body &environment &whole))) lambda-list)
+
+(defun redshank-generalize-lambda-list (specialized-lambda-list)
+  ;; quick-and-dirty stuff. We should port com.informatimago.common-lisp.lisp-sexp stuff.
+  (let ((end (position '&aux specialized-lambda-list)))
+    (mapcar (lambda (item)
+                         (if (atom item)
+                             item
+                             (let ((kv (first item)))
+                               (if (atom kv)
+                                   kv
+                                   (second kv)))))
+                       (if end
+                           (subseq specialized-lambda-list 0 end)
+                           specialized-lambda-list))))
+
+;;; --------------------------------------------------------------------
+;;; Generation functions
+;;; --------------------------------------------------------------------
+
+(defun redshank-insert-defgeneric (fname gf-lambda-list docstring)
+  "Generate a defgeneric form."
+  (insert (format "(defgeneric %S %S" fname gf-lambda-list))
+  (when docstring (insert (format "\n  (:documentation %S)" docstring)))
+  (insert ")"))
+
+(defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
+  "Wrap a defgeneric form around the current :method form."
+  (paredit-wrap-sexp)
+  (insert (format "defgeneric %S %S" fname gf-lambda-list))
+  (when docstring (insert (format "\n  (:documentation %S)" docstring))))
+
+
+
+
+;;; --------------------------------------------------------------------
+;;; Parsing functions
+;;; --------------------------------------------------------------------
+
+(defun redshank-top-level (&optional arg)
   "
-WHERE:          (member :lambda :locally :progn) specifies where the
+Move forward out of all the levels of parentheses.
+With ARG, do this that many times.
+A negative argument means move backward but still to a less deep spot.
+This command assumes point is not in a string or comment.
+"
+  (while (ignore-errors (not (up-list (or arg 1))))))
+
+
+(defun redshank-looking-at-symbol (sym)
+  "Wether the current thing is the symbol `sym'."
+  (forward-sexp)
+  (backward-sexp)
+  (string-equal* sym (symbol-at-point)))
+
+(defun redshank-current-sexp ()
+  "The sexp just after the point."
+  (forward-sexp)
+  (backward-sexp)
+  (sexp-at-point))
+
+(defun redshank-next-sexp ()
+  "The sexp following the sexp just after the point."
+  (forward-sexp 2)
+  (backward-sexp)
+  (sexp-at-point))
+
+
+(defstruct redshank-source
+  sexp
+  startpt
+  endpt
+  text)
+
+
+(defun redshank-current-source-sexp ()
+  "The redshank-source of the sexp just after the point."
+  (ignore-errors
+   (forward-sexp)
+   (let ((endpt (point)))
+     (backward-sexp)
+     (let ((startpt (point))
+           (sexp    (sexp-at-point)))
+       (make-redshank-source :sexp sexp
+                             :startpt startpt
+                             :endpt endpt
+                             :text (buffer-substring startpt endpt))))))
+
+
+(defun redshank-next-source-sexp ()
+  "The redshank-source of the sexp following the sexp just after the point."
+  (forward-sexp)
+  (redshank-current-source-sexp))
+
+
+(defun redshank-remaining-source-sexps ()
+  "The redshank-source of all the sexps following the point, till the end of buffer or the next closing parenthesis."
+  (loop
+    for sexp = (redshank-current-source-sexp) then (redshank-next-source-sexp)
+    while sexp
+    collect sexp))
+
+
+(defun redshank-source-operator (reshank-source)
+  "The operator of the `redshank-source', or nil if it's an atom."
+  (let ((sexp (redshank-source-sexp reshank-source)))
+    (if (atom sexp)
+        nil
+        (first sexp))))
+
+
+(defun redshank-source-declarationp (redshank-source)
+  "Whether the `redshank-source' is a CL declaration form."
+  (let ((operator (redshank-source-operator redshank-source)))
+    (and (symbolp operator)
+         (pjb-cl-equal-cl-symbol 'declare operator))))
+
+(defun redshank-source-stringp (redshank-source)
+  "Whether the `redshank-source' is a CL string literal."
+  (stringp (redshank-source-sexp redshank-source)))
+
+(defun redshank-source-symbolp (redshank-source)
+  "Whether the `redshank-source' is a symbol (including nil = ())."
+  (symbolp (redshank-source-sexp redshank-source)))
+
+
+(defun redshank-parse-body (kind)
+  "
+Parses the following sexps as a CL body.
+
+KIND:           (member :lambda :locally :progn) specifies the kind of
                 body is found, that is whether it may contains
                 docstrings and declarations, or just declarations, or
                 none.
 
-BODY:           A list of forms.
-
-RETURN:         Three values: a docstring or nil, a list of declarations, a list of forms.
+RETURN:         A list of three redshank-source values: a docstring
+                or nil, a list of declarations, a list of body forms.
 "
-  (flet ((progn-body (body)
-           (if (some (lambda (form) (and (consp form) (eq 'declare (first form))))
-                     body)
-             (error "Found a declaration in the a progn body: ~S" body)
-             body)))
-    (ecase where
-      ((:lambda)
-       ;; {declaration} [docstring declaration {declaration}] {form}
-       ;; {declaration} [docstring] form {form}
-       (loop
-          with docstring    = nil
-          with declarations = '()
-          with actual-body  = '()
-          with state        = :opt-decl
-          for form in body
-          do (ecase state
-               (:opt-decl
-                (cond
-                  ((declarationp form) (push form declarations))
-                  ((stringp form)      (setf docstring form
-                                             state :seen-string))
-                  (t                   (push form actual-body)
-                                       (setf state :body))))
-               ((:seen-string :after-decl)
-                (if (declarationp form)
-                  (progn (push form declarations)
-                         (setf state :after-decl))
-                  (progn (push form actual-body)
-                         (setf state :body))))
-               (:body
-                 (if (declarationp form)
-                   (error "Found a declaration ~S in the body ~S" form body)
-                   (push form actual-body))))
-          finally (return (ecase state
-                            (:opt-decl
-                             (values docstring declarations (nreverse actual-body)))
-                            (:seen-string
-                             (if actual-body
-                               (values docstring declarations (nreverse actual-body))
-                               (values nil declarations (list docstring))))
-                            ((:after-decl :body)
-                             (values docstring declarations (nreverse actual-body)))))))
-      ((:locally)
-       ;; {declaration} {form}
-       (loop
-          for current on body
-          for form = (car current)
-          while (declarationp form)
-          collect form into declarations
-          finally (return  (values nil
-                                   declarations
-                                   (progn-body current)))))
-      ((:progn)
-       ;; {form}
-       (values nil
-               nil
-               (progn-body body))))))
+  (let ((body (redshank-remaining-source-sexps)))
+    (flet ((progn-body (body)
+             (if (some (function redshank-source-declarationp) body)
+                 (error "Found a declaration in the a progn body: ~S" body)
+                 body)))
+      (ecase kind
+        ((:lambda)
+         ;; {declaration} [docstring declaration {declaration}] {form}
+         ;; {declaration} [docstring] form {form}
+         (loop
+           with docstring    = nil
+           with declarations = '()
+           with actual-body  = '()
+           with state        = :opt-decl
+           for form in body
+           do (ecase state
+                (:opt-decl
+                 (cond
+                   ((redshank-source-declarationp form) (push form declarations))
+                   ((redshank-source-stringp form)      (setf docstring form
+                                                              state :seen-string))
+                   (t                                   (push form actual-body)
+                                                        (setf state :body))))
+                ((:seen-string :after-decl)
+                 (if (redshank-source-declarationp form)
+                     (progn (push form declarations)
+                            (setf state :after-decl))
+                     (progn (push form actual-body)
+                            (setf state :body))))
+                (:body
+                    (if (redshank-source-declarationp form)
+                        (error "Found a declaration ~S in the body ~S" form body)
+                        (push form actual-body))))
+           finally (return (ecase state
+                             (:opt-decl
+                              (list docstring declarations (nreverse actual-body)))
+                             (:seen-string
+                              (if actual-body
+                                  (list docstring declarations (nreverse actual-body))
+                                  (list nil declarations (list docstring))))
+                             ((:after-decl :body)
+                              (list docstring declarations (nreverse actual-body)))))))
+        ((:locally)
+         ;; {declaration} {form}
+         (loop
+           for current on body
+           for form = (car current)
+           while (redshank-source-declarationp form)
+           collect form into declarations
+           finally (return (list nil
+                                 declarations
+                                 (progn-body current)))))
+        ((:progn)
+         ;; {form}
+         (values nil
+                 nil
+                 (progn-body body)))))))
+
+
+(defun redshank-goto-toplevel-form (&optional redshank-source)
+  "Move point to the start of redshank-source or to the toplevel of the current sexp."
+  (if redshank-source
+      (goto-char (redshank-source-startpt redshank-source))
+      (progn
+        (redshank-top-level -1)
+        (forward-sexp)
+        (backward-sexp))))
+
+(defun redshank-parse-defgeneric (&optional defgeneric)
+  "Parses a defgeneric form specified as the redshank-source parameter `defgeneric' or at the point.
+This doesn't parse the clauses inside the defgeneric.
+Call the corresponding parse function on each one.
+RETURN: (defgeneric operator fname lambda-list (clause…)),
+        each item a redshank-source structure.
+"
+  (redshank-goto-toplevel-form defgeneric)
+  (let ((defgeneric (redshank-current-source-sexp)))
+    (when (looking-at "(")
+      (forward-char)
+      (let ((operator (redshank-current-source-sexp)))
+        (when (pjb-cl-equal-cl-symbol 'defgeneric (redshank-source-sexp operator))
+          (let ((fname       (redshank-next-source-sexp))
+                (lambda-list (redshank-next-source-sexp))
+                (clauses     (progn (forward-sexp)
+                                    (redshank-remaining-source-sexps))))
+            (list defgeneric operator fname lambda-list clauses)))))))
+
+
+(defun redshank-parse-defgeneric-method (method)
+  "Parses the :method defgeneric clause specied by the redshank-source parameter `method'.
+RETURN: (method operator lambda-list docstring (declaration…) (body…)),
+        each item a redshank-source structure."
+  (goto-char (redshank-source-startpt method))
+  (when (looking-at "(")
+    (forward-char)
+    (let ((operator (redshank-current-source-sexp)))
+      (when (pjb-cl-equal-cl-symbol ':method (redshank-source-sexp operator))
+        (let ((lambda-list (redshank-next-source-sexp))
+              (body        (progn (forward-sexp)
+                                  (redshank-parse-body :lambda))))
+          (list* method operator lambda-list body))))))
+
+
+
+(defun redshank-parse-defmethod (&optional defmethod)
+  "Parses a defmethod form specified as the redshank-source parameter `defmethod' or at the point.
+RETURN: (defmethod operator fname qualifier lambda-list docstring (declaration…) (body…)),
+        each item a redshank-source structure."
+  (redshank-goto-toplevel-form defmethod)
+  (let ((defmethod (redshank-current-source-sexp)))
+    (when (looking-at "(")
+      (forward-char)
+      (let ((operator (redshank-current-source-sexp)))
+        (when (pjb-cl-equal-cl-symbol 'defmethod (redshank-source-sexp operator))
+          (let* ((fname       (redshank-next-source-sexp))
+                 (qorll       (redshank-next-source-sexp))
+                 (qualifier   (when (redshank-source-symbolp qorll)
+                                qorll))
+                 (lambda-list (if (redshank-source-symbolp qorll)
+                                  (redshank-next-source-sexp)
+                                  qorll))
+                 (body        (progn (forward-sexp)
+                                     (redshank-parse-body :lambda))))
+            (list* defmethod operator fname qualifier lambda-list body)))))))
+
+
+;;; --------------------------------------------------------------------
+;;; Transformation commands.
+;;; --------------------------------------------------------------------
+
+(defun redshank-source-delete (redshank-source)
+  "Delete from the buffer the text of the `redshank-source'."
+  (when redshank-source
+    (delete-region (redshank-source-startpt redshank-source)
+                   (redshank-source-endpt   redshank-source))))
+
+
+(defun redshank-make-defgeneric-for-defmethod ()
+  "
+The point must be before the defmethod form.
+A new defgeneric form is inserted before the defmethod.
+
+   (defmethod name ((pname class))
+     body)
+   ----
+   (defgeneric name (pname))
+   (defmethod name ((pname class))
+     body)
+"
+  (interactive)
+  (destructuring-bind (defmethod operator fname qualifier lambda-list docstring declarations body)
+      (redshank-parse-defmethod)
+    (let ((gf-lambda-list (redshank-generalize-lambda-list (redshank-source-sexp lambda-list))))
+      ;; insert the defgeneric
+      (goto-char (redshank-source-startpt defmethod))
+      (redshank-insert-defgeneric (redshank-source-sexp fname)
+                                  gf-lambda-list
+                                  nil)
+      (insert "\n")
+      (paredit-reindent-defun))))
 
 
 (defun redshank-make-defgeneric-from-defmethod ()
@@ -132,59 +387,117 @@ The point must be before the defmethod form.
 The method is then wrapped in a defgeneric form.
 If there's a docstring, it's moved to the :documentation option of the
 defgeneric.
+
+   (defmethod name ((pname class))
+     \"docstring\"
+     body)
+   ----
+   (defgeneric name (pname)
+      (:documentation \"docstring\")
+      (:method ((pname class))
+        body))
 "
   (interactive)
-  (forward-sexp) (backward-sexp)
-  (let ((outerpt (point)))
-    (when (looking-at "(")
-      (forward-char)
-      (let ((startpt (point)))
-        (when (pjb-cl-equal-cl-symbol 'defmethod (redshank-current-sexp))
-          (let* ((fname          (redshank-next-sexp))
-                 (qualifier      (redshank-next-sexp))
-                 (endpt          (point))
-                 (gf-lambda-list (redshank-generalize-lambda-list
-                                  (if (symbolp qualifier)
-                                      (redshank-next-sexp)
-                                      qualifier)))
-                 ;; Note: this docstring stuff is bad. We should
-                 ;; implement the algorithm for CL bodies. See
-                 ;; parse-body above.
-                 (docstring      (let ((str (redshank-next-sexp)))
-                                   (when (stringp str)
-                                     str)))
-                 (doc-start      (when docstring
-                                   (point)))
-                 (doc-end        (when docstring
-                                   (redshank-next-sexp)
-                                   (point))))
-            (when doc-end
-              ;; check if there's something after the docstring. If
-              ;; not, it's not a docstring.
-              (goto-char doc-end)
-              (ignore-errors (forward-sexp))
-              (when (= (point) doc-end)
-                (setf docstring nil
-                      doc-start nil
-                      doc-end nil)))
-            ;; first delete the method docstring
-            (when (and doc-start doc-end)
-              (delete-region doc-start doc-end))
-            ;; then delete defmethod and fname
-            (delete-region startpt endpt)
-            ;; and insert :method instead
-            (goto-char startpt)
-            (insert ":method ")
-            ;; finally wrap the defgeneric
-            (goto-char outerpt)
-            (redshank-wrap-defgeneric fname
-                                      gf-lambda-list
-                                      docstring)
-            (insert "\n")
-            (paredit-reindent-defun)))))))
+  (destructuring-bind (defmethod operator fname qualifier lambda-list docstring declarations body)
+      (redshank-parse-defmethod)
+    (let ((gf-lambda-list (redshank-generalize-lambda-list (redshank-source-sexp lambda-list))))
+      ;; first delete the method docstring
+      (redshank-source-delete docstring)
+      ;; then delete defmethod and fname
+      (redshank-source-delete fname)
+      (redshank-source-delete operator)
+      ;; and insert :method instead
+      (goto-char (redshank-source-startpt operator))
+      (insert ":method ")
+      ;; finally wrap the defgeneric
+      (goto-char (redshank-source-startpt defmethod))
+      (redshank-wrap-defgeneric (redshank-source-sexp fname)
+                                gf-lambda-list
+                                (when docstring (redshank-source-sexp docstring)))
+      (insert "\n")
+      (paredit-reindent-defun)
+      (up-list))))
+
+(defun redshank-marker (pt)
+  (let ((marker (make-marker)))
+    (set-marker marker pt)
+    marker))
+
+(defun redshank-split-defgeneric-to-defmethod ()
+  "A defgeneric form with :method clauses is split into defmethod forms.
+
+   (defgeneric name (pname)
+      (:documentation \"docstring\")
+      (:method ((pname class))
+        body))
+   ----
+   (defgeneric name (pname))
+   (defmethod name ((pname class))
+     \"docstring\"
+     body)
+"
+  (interactive)
+  (destructuring-bind (defgeneric operator fname lambda-list clauses)
+      (redshank-parse-defgeneric)
+    (let* ((docstring (find :documentation clauses
+                            :key (function redshank-source-operator)
+                            :test (function pjb-cl-equal-cl-symbol)))
+           (dsstart   (when docstring (redshank-marker (redshank-source-startpt docstring))))
+           (dsend     (when docstring (redshank-marker (redshank-source-endpt   docstring))))
+           (methods   (remove* :method clauses
+                               :key (function redshank-source-operator)
+                               :test-not (function pjb-cl-equal-cl-symbol))))
+      (dolist (method (reverse methods))
+        (destructuring-bind (method operator lambda-list docstring declarations body)
+            (redshank-parse-defgeneric-method method)
+          (goto-char (redshank-source-endpt operator))
+          (insert " " (redshank-source-text fname))
+          (goto-char (redshank-source-startpt operator))
+          (delete-char 1) (insert "def")))
+      (when docstring
+        (delete-region dsstart dsend)
+        (set-marker dsstart nil)
+        (set-marker dsend   nil))
+      (goto-char (redshank-source-endpt lambda-list))
+      (when docstring
+        (insert (format "\n%s" (redshank-source-text docstring))))
+      (paredit-split-sexp)
+      (down-list)
+      (paredit-splice-sexp-killing-backward))))
+
+
+'(defgeneric fname (a b c)
+  (:method ((a a) (b b) (c c))
+    (declare (ignore c))
+    "docstring"
+    (declare (ignore a))
+    b)
+  (:method ((a a) (b b) (c c))
+    (declare (ignore c))
+    (declare (ignore a))
+    "docstring"
+    b)
+  (:documentation "gf docstring")
+  (:method ((a a) (b b) (c c))
+    (declare (ignore c))
+    (declare (ignore a))
+    "result")
+  (:method ((a a) (b b) (c c))
+    (declare (ignore c))
+    (declare (ignore a))
+    b)
+  (:method ((a a) (b b) (c c))
+    "docstring"
+    "result")
+  (:method ((a a) (b b) (c c))
+    "result")
+  (:method ((a e) (b f) (c g))))
 
 
 
+;;; --------------------------------------------------------------------
+;;; defpackage: updating export lists
+;;; --------------------------------------------------------------------
 
 (defun pjb-cl-find-defpackage-form (package-name)
   "Find the defpackage form for the given `package-name' in the current buffer.
@@ -475,3 +788,22 @@ RETURN: (path point)
     (goto-char marker)))
 
 
+;;; --------------------------------------------------------------------
+;;; Miscellaneous
+;;; --------------------------------------------------------------------
+
+(defun pjb-insert-niy-method ()
+  (interactive)
+  (let ((pt (point)))
+    (destructuring-bind ((outerpt defmethodpt fnamept qualifierpt lambda-list-pt docstringpt bodypt endpt)
+                         defmethod fname qualifier lambda-list docstring body)
+        (redshank-parse-defmethod)
+      (let ((gf-lambda-list (redshank-generalize-lambda-list lambda-list)))
+        (goto-char pt)
+        (insert (format "%S\n" (append (list 'niy fname) gf-lambda-list)))
+        (paredit-reindent-defun)
+        (up-list)))))
+
+;; (global-set-key (kbd "<f13>")'pjb-insert-niy-method)
+
+;;;; THE END ;;;;
