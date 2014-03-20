@@ -50,20 +50,3 @@
 (load "~/rc/emacs-epilog.el")
 
 ;;;; THE END ;;;;
-<<<<<<< HEAD
-
-(put 'erase-buffer 'disabled nil)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((lexical-binding . t)))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-=======
->>>>>>> 72609b4dec29f5e2bd3e0698b1b359b891a0e022
