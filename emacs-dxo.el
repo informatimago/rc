@@ -277,9 +277,9 @@
 ;; (setf eval-expression-print-length nil)
 ;;----------------------------------------------------------------------------
 
-(require 'auto-complete)
-(dolist (mode '(python-mode-hook ruby-mode-hook lisp-mode-hook emacs-lisp-mode-hook))
-  (add-hook mode 'auto-complete-mode))
+(when (require 'auto-complete nil t)
+ (dolist (mode '(python-mode-hook ruby-mode-hook lisp-mode-hook emacs-lisp-mode-hook))
+   (add-hook mode 'auto-complete-mode)))
 
 ;; (setf (getenv "PYTHONPATH") "/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/mercurial/2.4.2/libexec")
 (autoload 'jedi:setup "jedi" nil t)

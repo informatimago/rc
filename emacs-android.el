@@ -22,11 +22,12 @@
   (yas-global-mode 1))
 
 
-(require 'auto-complete)
+(require 'auto-complete nil t)
 
 (defun java-meat ()
   (interactive)
-  (auto-complete-mode 1)
+  (when (fboundp 'auto-complete-mode)
+    (auto-complete-mode 1))
   (setf tab-stop 2
         tab-width 2
         c-indent-level 2
@@ -59,43 +60,43 @@
 
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
 
-(require 'android nil t)
-(setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
-(require 'android-mode)
-(require 'android-classes)
+(when (require 'android nil t)
+  (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+  (require 'android-mode nil t)
+  (require 'android-classes)
 
 
 
-(defun gud-meat ()
-  (interactive)
-  (add-to-list 'gud-jdb-classpath
-               (expand-file-name (concat *android-tools-directory*
-                                         "/adt/sdk/platforms/android-17/android.jar"))))
-(add-hook 'gud-mode-hook 'gud-meat)
+  (defun gud-meat ()
+    (interactive)
+    (add-to-list 'gud-jdb-classpath
+                 (expand-file-name (concat *android-tools-directory*
+                                           "/adt/sdk/platforms/android-17/android.jar"))))
+  (add-hook 'gud-mode-hook 'gud-meat)
 
 
-(require 'cedet)
-(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
-(require 'jde)
+  (require 'cedet)
+  (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+  (require 'jde)
 
 
-;; eclipse has a hard time dealing with backup files.
-(let ((temporary-file-directory "~/.backups"))
-  (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+  ;; eclipse has a hard time dealing with backup files.
+  (let ((temporary-file-directory "~/.backups"))
+    (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
+    (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
 
 
-(setf android-filter-function nil)
+  (setf android-filter-function nil)
 
-(setf android-filter-function (android-filter-or
-                               (android-filter-match-tag     "ubudu\\|bwin")
-                               (android-filter-match-message "ubudu\\|bwin")))
+  (setf android-filter-function (android-filter-or
+                                 (android-filter-match-tag     "ubudu\\|bwin")
+                                 (android-filter-match-message "ubudu\\|bwin")))
 
-(setf android-filter-function (android-filter-or
-                               (android-filter-match-tag     "ubudu")
-                               (android-filter-match-message "ubudu")))
+  (setf android-filter-function (android-filter-or
+                                 (android-filter-match-tag     "ubudu")
+                                 (android-filter-match-message "ubudu")))
 
-
+  )
 ;;;; THE END ;;;;
 

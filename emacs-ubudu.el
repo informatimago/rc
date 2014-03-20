@@ -480,10 +480,11 @@ X-Accept-Language:         fr, es, en
   (yas-global-mode 1))
 
 
-(require 'auto-complete)
+(require 'auto-complete nil t)
 (defun java-meat ()
   (interactive)
-  (auto-complete-mode 1)
+  (when (fboundp 'auto-complete-mode)
+    (auto-complete-mode 1))
   (setf tab-stop 2
         tab-width 2
         c-indent-level 2
@@ -520,7 +521,7 @@ X-Accept-Language:         fr, es, en
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
 (when (require 'android nil t)
  (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
- (require 'android-mode)
+ (require 'android-mode nil t)
 
  (defun gud-meat ()
    (interactive)

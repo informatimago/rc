@@ -233,9 +233,8 @@ License:
       (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
 
 
-
+(push #P"~/src/public/lisp/" ql:*local-project-directories*)
 (ql:quickload "com.informatimago.tools.pathname")
-
 (ql:quickload "com.informatimago.tools.quicklisp")
 (ql:quickload "com.informatimago.common-lisp")
 (ql:quickload "com.informatimago.clmisc")
