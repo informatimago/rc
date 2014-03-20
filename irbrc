@@ -1,5 +1,10 @@
 # -*- mode:ruby -*-
 
+require 'irb/ext/save-history'
+IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
+
+
 def ri(*args) 
   doc=IO.popen("ri "+args.join(" "),"w+");
   doc.each_line{|line| puts line;};
@@ -43,6 +48,7 @@ require 'ruby-debug'
 #   conf.return_format = leader + " ==> %s\n\n"
 #   puts "Welcome!"
 # end
+
 
 
 ####         ####

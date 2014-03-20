@@ -3,8 +3,156 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-
+(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
+
+
+
+(defparameter *femnams*
+  '("aaliyah" "abbey" "abbie" "abbigail" "abby" "abigail" "addison" "adrian"
+    "adriana" "adrianna" "adrienne" "aileen" "aimee" "aisha" "aja"
+    "agathe" "agatha"
+    "alaina" "alana" "alanna" "alayna" "aleah" "alecia" "alejandra"
+    "alena" "alesha" "alessandra" "alex" "alexa" "alexandra" "alexandrea"
+    "alexandria" "alexia" "alexis" "alexus" "ali" "alice" "alicia" "alina"
+    "alisa" "alisha" "alison" "alissa" "aliyah" "allie" "allison"
+    "allyson" "allyssa" "alma" "alondra" "alycia" "alysa" "alysha"
+    "alysia" "alyson" "alyssa" "amanda" "amani" "amber" "amelia" "amy"
+    "ana" "anabel" "anais" "anastasia" "andrea" "angel" "angela"
+    "angelica" "angelina" "angelique" "angie" "anika" "anissa" "anita"
+    "anjelica" "ann" "anna" "annamarie" "anne" "annette" "annie" "annika"
+    "annmarie" "antoinette" "antonia" "april" "araceli" "ariana" "arianna"
+    "ariel" "arielle" "arlene" "asha" "ashanti" "ashely" "ashlee"
+    "ashleigh" "ashley" "ashli" "ashlie" "ashly" "ashlyn" "ashlynn"
+    "ashton" "asia" "aspen" "astrid" "athena" "aubree" "aubrey" "audra"
+    "audrey" "aurora" "autumn" "ava" "avery" "ayana" "ayanna" "ayla"
+    "baby" "bailee" "bailey" "barbara" "baylee" "beatrice" "beatriz"
+    "belinda" "berenice" "bernadette" "beth" "bethany" "betsy" "betty"
+    "beverly" "bianca" "billie" "blair" "blanca" "bobbi" "bobbie" "bonnie"
+    "brandi" "brandie" "brandy" "brea" "breana" "breann" "breanna"
+    "breanne" "brenda" "brenna" "breonna" "bria" "briana" "brianna"
+    "brianne" "bridget" "bridgette" "brielle" "britany" "britney" "britni"
+    "brittani" "brittanie" "brittany" "brittney" "brittni" "brook"
+    "brooke" "brooklyn" "bryana" "bryanna" "caitlin" "caitlyn" "callie"
+    "cameron" "camille" "candace" "candice" "cara" "carina" "carissa"
+    "carla" "carlee" "carley" "carli" "carlie" "carly" "carmen" "carol"
+    "carolina" "caroline" "carolyn" "carrie" "carson" "casandra" "casey"
+    "cassandra" "cassidy" "cassie" "catalina" "catherine" "cayla"
+    "cecelia" "cecilia" "celeste" "celia" "celina" "celine" "chandler"
+    "chanel" "chantal" "chantel" "charity" "charlene" "charlotte"
+    "chasity" "chaya" "chelsea" "chelsey" "chelsi" "chelsie" "cheryl"
+    "cheyanne" "cheyenne" "china" "chloe" "christa" "christen" "christian"
+    "christiana" "christie" "christin" "christina" "christine" "christy"
+    "ciara" "ciera" "cierra" "cindy" "claire" "clara" "clare" "clarissa"
+    "claudia" "colleen" "connie" "constance" "cora" "corey" "cori"
+    "corina" "corinne" "cortney" "courtney" "cristal" "cristina" "crystal"
+    "cynthia" "daisy" "dakota" "dalia" "dallas" "damaris" "dana" "danica"
+    "daniela" "daniella" "danielle" "daphne" "dara" "darby" "darcy"
+    "darian" "darlene" "dawn" "dayna" "deana" "deanna" "debbie" "deborah"
+    "debra" "deja" "delaney" "demi" "denise" "desirae" "desiree"
+    "destinee" "destiney" "destini" "destiny" "devan" "devin" "devon"
+    "devyn" "diamond" "diana" "diane" "dianna" "dina" "dominique"
+    "dominque" "domonique" "donna" "doris" "dorothy" "drew" "dulce"
+    "eboni" "ebony" "eden" "edith" "eileen" "elaina" "elaine" "eleanor"
+    "elena" "eliana" "elisa" "elisabeth" "elise" "elisha" "elissa" "eliza"
+    "elizabeth" "ella" "ellen" "ellie" "elsa" "elyse" "elyssa" "emerald"
+    "emilee" "emilia" "emilie" "emily" "emma" "erica" "ericka" "erika"
+    "erin" "esmeralda" "essence" "estefania" "esther" "eunice" "eva"
+    "evelyn" "fabiola" "faith" "fatima" "felicia" "fiona" "frances"
+    "francesca" "franchesca" "francheska" "gabriel" "gabriela" "gabriella"
+    "gabrielle" "genesis" "genevieve" "georgia" "georgina" "gianna"
+    "gillian" "gina" "giovanna" "giselle" "gladys" "gloria" "grace"
+    "graciela" "gretchen" "griselda" "guadalupe" "gwendolyn" "hailee"
+    "hailey" "haleigh" "haley" "hali" "halie" "halle" "hallie" "hanna"
+    "hannah" "harley" "haylee" "hayley" "haylie" "hazel" "heather"
+    "heaven" "heidi" "helen" "helena" "hilary" "hillary" "hollie" "holly"
+    "hope" "hunter" "iesha" "iliana" "imani" "india" "infant" "ingrid"
+    "irene" "iris" "irma" "isabel" "isabella" "isabelle" "isamar" "itzel"
+    "ivette" "ivy" "jackie" "jacklyn" "jaclyn" "jacqueline" "jacquelyn"
+    "jada" "jade" "jaime" "jaimie" "jalisa" "jami" "jamie" "jamila" "jana"
+    "janae" "janay" "jane" "janelle" "janessa" "janet" "janette" "janice"
+    "janie" "janine" "jaqueline" "jasmin" "jasmine" "jayla" "jayme"
+    "jazmin" "jazmine" "jazmyn" "jean" "jeanette" "jena" "jenifer" "jenna"
+    "jennie" "jennifer" "jenny" "jerrica" "jesse" "jessenia" "jessi"
+    "jessica" "jessie" "jessika" "jill" "jillian" "joan" "joana" "joann"
+    "joanna" "joanne" "jocelyn" "jodi" "jodie" "joelle" "johanna" "jolene"
+    "jordan" "jordyn" "joselyn" "josephine" "josie" "joy" "joyce" "juana"
+    "juanita" "judith" "judy" "julia" "juliana" "julianna" "julianne"
+    "julie" "juliet" "julissa" "justice" "justina" "justine" "kacey"
+    "kaci" "kacie" "kaela" "kaila" "kailee" "kailey" "kailyn" "kaitlin"
+    "kaitlyn" "kaitlynn" "kala" "kaleigh" "kaley" "kali" "kalie" "kallie"
+    "kalyn" "kara" "karen" "kari" "karina" "karissa" "karla" "karlee"
+    "karley" "karli" "karlie" "karly" "kasandra" "kasey" "kassandra"
+    "kassidy" "kassie" "katarina" "kate" "katelin" "katelyn" "katelynn"
+    "katerina" "katharine" "katherine" "katheryn" "kathleen" "kathrine"
+    "kathryn" "kathy" "katie" "katlin" "katlyn" "katlynn" "katrina" "katy"
+    "kaycee" "kayla" "kaylee" "kayleigh" "kayley" "kayli" "kaylie"
+    "kaylin" "kaylyn" "kaylynn" "keely" "keila" "keisha" "keishla"
+    "kelcie" "kelley" "kelli" "kellie" "kelly" "kelsea" "kelsey" "kelsi"
+    "kelsie" "kendal" "kendall" "kendra" "kenia" "kennedy" "kenya" "keri"
+    "kerri" "kerry" "khadijah" "kia" "kiana" "kianna" "kiara" "kiera"
+    "kierra" "kiersten" "kiley" "kimberlee" "kimberley" "kimberly" "kira"
+    "kirsten" "kirstie" "kirstin" "kori" "kortney" "kourtney" "krista"
+    "kristal" "kristen" "kristi" "kristian" "kristie" "kristin" "kristina"
+    "kristine" "kristy" "kristyn" "krysta" "krystal" "kyla" "kylee"
+    "kylie" "kyra" "lacey" "lacie" "lacy" "lakeisha" "lana" "lara"
+    "larissa" "latasha" "latisha" "latoya" "laura" "laurel" "lauren"
+    "laurie" "lauryn" "layla" "lea" "leah" "leandra" "leann" "leanna"
+    "leanne" "leeann" "leigh" "leila" "lena" "lesley" "leslie" "lesly"
+    "leticia" "lexi" "lexie" "lexus" "liana" "lidia" "liliana" "lillian"
+    "lily" "linda" "lindsay" "lindsey" "lisa" "liza" "lizbeth" "lizeth"
+    "lizette" "logan" "loren" "lorena" "lori" "lorraine" "lourdes"
+    "lucero" "lucia" "lucy" "luz" "lydia" "lyndsey" "lynette" "lynn"
+    "macey" "macie" "mackenzie" "macy" "madalyn" "maddison" "madeleine"
+    "madeline" "madelyn" "madison" "maegan" "magdalena" "maggie" "maira"
+    "makayla" "makenna" "makenzie" "malia" "mallory" "mandy" "mara"
+    "maranda" "marcella" "margaret" "margarita" "maria" "mariah" "mariam"
+    "mariana" "maribel" "maricela" "marie" "mariel" "mariela" "marilyn"
+    "marina" "marisa" "marisela" "marisol" "marissa" "maritza" "marlee"
+    "marlena" "marlene" "martha" "martina" "mary" "maura" "maureen" "maya"
+    "mayra" "mckayla" "mckenna" "mckenzie" "meagan" "meaghan" "megan"
+    "meghan" "melanie" "melina" "melinda" "melisa" "melissa" "melody"
+    "meranda" "mercedes" "meredith" "mia" "micaela" "micah" "michaela"
+    "michele" "michelle" "mikaela" "mikala" "mikayla" "mindy" "miracle"
+    "miranda" "mireya" "miriam" "misty" "mollie" "molly" "monica" "monika"
+    "monique" "montana" "morgan" "moriah" "mya" "myra" "myranda" "nadia"
+    "nadine" "nancy" "naomi" "natalia" "natalie" "nataly" "natasha"
+    "nathalie" "nayeli" "nia" "nichole" "nicole" "nicolette" "nikita"
+    "nikki" "nikole" "nina" "noel" "noelle" "noemi" "nora" "norma"
+    "octavia" "olga" "olivia" "paige" "paloma" "pamela" "paola" "paris"
+    "patrice" "patricia" "paula" "paulina" "pauline" "payton" "perla"
+    "peyton" "phoebe" "precious" "princess" "priscilla" "rachael"
+    "racheal" "rachel" "rachelle" "randi" "raquel" "raven" "reagan"
+    "rebeca" "rebecca" "rebekah" "regan" "regina" "reina" "renee" "reyna"
+    "rhiannon" "rhonda" "rikki" "riley" "rita" "robin" "robyn" "rochelle"
+    "rocio" "rosa" "rose" "rosemary" "roxana" "roxanne" "ruby" "ruth"
+    "ryan" "rylee" "sabrina" "sade" "sadie" "sage" "salina" "sally"
+    "samantha" "sandra" "sandy" "sara" "sarah" "sarai" "sarina" "sasha"
+    "savanah" "savanna" "savannah" "scarlett" "selena" "selina" "serena"
+    "shaina" "shakira" "shana" "shania" "shanice" "shaniqua" "shanna"
+    "shannon" "shantel" "sharon" "shauna" "shawna" "shayla" "shayna"
+    "shea" "sheena" "sheila" "shelbi" "shelbie" "shelby" "shelly" "sherry"
+    "shirley" "shyanne" "sidney" "sierra" "silvia" "simone" "skye"
+    "skylar" "skyler" "sofia" "sonia" "sonya" "sophia" "sophie" "stacey"
+    "staci" "stacie" "stacy" "stefanie" "stephanie" "stephany" "stevie"
+    "stormy" "summer" "susan" "susana" "susanna" "suzanne" "sydnee"
+    "sydney" "sydnie" "sylvia" "tabatha" "tabitha" "talia" "tamara"
+    "tammy" "tania" "tanisha" "tanya" "tara" "taryn" "tasha" "tatiana"
+    "tatum" "tatyana" "tayler" "taylor" "teresa" "terra" "terri" "tess"
+    "tessa" "thalia" "theresa" "tia" "tiana" "tianna" "tiara" "tiera"
+    "tierra" "tiffani" "tiffanie" "tiffany" "tina" "toni" "tonya" "tori"
+    "tracey" "traci" "tracy" "tricia" "trinity" "trisha" "trista" "tyesha"
+    "tyler" "tyra" "valeria" "valerie" "vanesa" "vanessa" "veronica"
+    "victoria" "virginia" "vivian" "viviana" "wendy" "whitley" "whitney"
+    "xiomara" "yadira" "yajaira" "yaritza" "yasmeen" "yasmin" "yasmine"
+    "yazmin" "yesenia" "yessenia" "yolanda" "yvette" "yvonne" "zoe"
+    "zoey"))
+
+;; (push (cons "#lisp" (format "^%s[0-9]+$" (regexp-opt *femnams*))) erc-ignore-per-channel-alist)
+;; (progn (string-match (format "^%s[0-9]+$" (mapcar 'capitalize (regexp-opt *femnams*))) "Mya29") (match-data))(0 5)
+;;  (format "^%s[0-9]+$"  (regexp-opt (mapcar 'capitalize *femnams*)))
+
+
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -13,24 +161,36 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
+<<<<<<< HEAD
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+=======
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
+>>>>>>> 72609b4dec29f5e2bd3e0698b1b359b891a0e022
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan"))))
- '(erc-notice-face ((t (:foreground "gray70"))))
- '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
+ '(erc-input-face ((t (:foreground "cyan2"))))
+ '(erc-notice-face ((t (:foreground "gray50"))))
+ '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
- '(font-lock-comment-face ((nil (:foreground "red"))))
+ '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
  '(font-lock-string-face ((t (:foreground "Orchid"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
@@ -46,6 +206,9 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
+ '(match ((t (:background "#3a3a3e"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -151,7 +314,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#ccl" "#lisp" "#lispweb" "#lisp-lab" "#lispcafe" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#lisp" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -177,14 +340,16 @@
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
- '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
+ '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ("bolet.*" "dmiles")))
+ '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
  '(erc-quit-reason-various-alist nil)
+ '(erc-scrolltobottom-mode nil)
  '(erc-server "irc.freenode.org")
  '(erc-server-coding-system (quote (utf-8 . undecided)))
  '(erc-server-reconnect-attempts 100)
@@ -245,14 +410,7 @@
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
- '(mail-default-headers "Organization: InformatiMago.
-X-PGP-Key-ID:      0xEF5E9966
-X-PGP-fingerprint: 00 F5 7B DB CA 51 8A AD 04 5B 6C DE 32 60 16 8E EF 5E 99 66
-X-PGP-Public-Key:  http://www.informatimago.com/pgpkey.asc
-X-URL:             http://www.informatimago.com/index
-X-Face: \":yO)Vk=vFU3)FL&2#7gT_G=KUuNv*BEOo+Shubl.V4Whu&;A.>.+&yEVB5I5vrpZIJ{yOW
- >CgV%jD]GHL6rp:.OCM~_YO&aY34]|`{yNq79\\x=g:7XSboBUj]1ULpA;v>-bS3veufw-rB!N0kZW!
- @A4i?z|
+ '(mail-default-headers "Organization: Informatimago
 X-Accept-Language:         fr, es, en
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -308,6 +466,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -343,20 +502,29 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
+<<<<<<< HEAD
  '(safe-local-variable-values (quote ((Package . CCL) (lexical-binding . t))))
  '(send-mail-function (quote sendmail-send-it))
+=======
+ '(safe-local-variable-values (quote ((Package . SYSTEM) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(send-mail-function (quote smtpmail-send-it))
+>>>>>>> 72609b4dec29f5e2bd3e0698b1b359b891a0e022
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
  '(sh-indent-for-case-label 0)
  '(show-paren-mode t)
- '(show-paren-ring-bell-on-mismatch t)
+ '(show-paren-ring-bell-on-mismatch nil)
  '(slime-autodoc-use-multiline-p t)
  '(slime-compilation-finished-hook (quote (slime-maybe-show-xrefs-for-notes)))
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smtpmail-local-domain "lan.informatimago.com")
+ '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
+ '(speedbar-show-unknown-files t)
  '(stack-trace-on-error nil)
  '(tab-stop 4 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
@@ -434,41 +602,23 @@ X-Accept-Language:         fr, es, en
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
-;; (setf gnus-secondary-select-methods '())
-
-
- ;; (push '(x . …) frame-creation-function-alist)
- ;; (push `(x . ,(lambda (&optional parameters) (selected-frame))) frame-creation-function-alist)
- ;; (pop frame-creation-function-alist)
- ;; '(gnus-secondary-servers (quote ("news.gmane.org")))
- ;; '(gnus-select-method (quote))
- ;; '(gnus-spam-process-newsgroups (quote (("nnml:*" ((spam spam-use-stat))))))
-
-
-;; nnarchive / gnus
-;; (setq gnus-message-archive-group 
-;;       '((if (message-news-p) "nnml:news.posted" "nnml:mail.sent")))
-;; (setq gnus-message-archive-group "sent-mail")
-
-
-;; '(org-agenda-files (quote ("~/notes.txt" "~/firms/client/notes.txt")))
-
-;; '(vm-spool-files '(("~/INBOX"
-;;                     "/var/spool/mail/pjb"
-;;                     "~/INBOX.local.crash")
-;;                    ;; pop-ssl (nad pop) don't work, they merge emails.
-;;                    ("~/INBOX"
-;;                     "pop-ssl:voyager.informatimago.com:995:pass:pjb:g1ekquar"
-;;                     "~/INBOX-voyager.crash")
-;;                    ("~/INBOX"
-;;                     "pop-ssl:correo.client-d.com:995:pass:pjb:a-los-bel"
-;;                     "~/INBOX-client-d.crash")
-;;                    ))
-
 
 ;;;----------------------------------------------------------------------------
+(load "~/rc/emacs-package.el")
+(load "~/rc/emacs-font.el")
+(when (not *pjb-pvs-is-running*)
+  (load "~/rc/emacs-palette.el"))
+(load "~/rc/emacs-slime-simple.el")
+;; (load "~/rc/emacs-slime.el")
+;; (load "~/rc/emacs-cl-indent.el")
+(load "~/rc/emacs-redshank.el")
+(load "~/rc/emacs-hyperspec.el")
+(load "~/rc/emacs-android.el")
 ;;;----------------------------------------------------------------------------
-
+(display-time-mode 1)
+(setf visible-bell nil
+      ring-bell-function nil)
+;;;----------------------------------------------------------------------------
 (add-to-list 'auto-mode-alist '("/Users/pjb/works/abalone/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
 
 (add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
@@ -479,7 +629,6 @@ X-Accept-Language:         fr, es, en
 
 (set-sources "/home/pjb/works/patchwork/patchwork/")
 
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 ;;;----------------------------------------------------------------------------
 
 ;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
@@ -489,9 +638,72 @@ X-Accept-Language:         fr, es, en
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
-(setf visible-bell nil
-      ring-bell-function nil)
+(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
-(load "~/rc/emacs-epilog.el")
+(dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
+                  c-mode-hook c++-mode-hook))
+  (add-hook hooks 'sexp-movement))
+
+(defun pjb-w3m-mode-meat ()
+  (interactive)
+  (local-set-key (kbd "<up>") 'previous-line)
+  (local-set-key (kbd "<down>") 'next-line)
+  (local-set-key (kbd "<left>") 'backward-char)
+  (local-set-key (kbd "<right>") 'forward-char)
+  (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
+  (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
+
+(defvar w3m-mode-hook '())
+(pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
+;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
+
+
+;; (setf (getenv "EMACS_USE") "erc")
+;; (setf (getenv "EMACS_USE") "gnus")
+;; (setf (getenv "EMACS_USE") "pgm")
+
+
+(cond
+  (*pjb-pvs-is-running*)
+  ((string= (getenv "EMACS_USE") "erc")
+   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
+   (set-frame-name "ERC")
+   (erc-select))
+  ((string= (getenv "EMACS_USE") "gnus")
+   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
+   (gnus))
+  (t
+   (when (fboundp 'set-palette) (set-palette pal-green))))
+
+
+(cond
+  (*pjb-pvs-is-running*)
+  ((member "(gnus)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 7 60))
+   (setf *activity-tag* "GNUS")
+   (push '(name . "GNUS") default-frame-alist)
+   (set-background-color "#ccccfefeebb7"))
+  ((member "(irc)"  command-line-args)
+   (setf uptimes-auto-save-interval (* 11 60))
+   (setf *activity-tag* "ERC")
+   (push '(name . "ERC") default-frame-alist))
+  (t
+   (setf *activity-tag* "EMACS")
+   (setf uptimes-auto-save-interval (* 13 60))
+   (push '(name . "PGM") default-frame-alist)
+   (server-start)
+   (setf (getenv "CVSEDITOR")  "emacsclient"
+         (getenv "EDITOR")     "emacsclient"
+         (getenv "VISUAL")     "emacsclient")))
+
+(global-set-key (kbd "<f25>")
+                (lambda ()
+                  (interactive)
+                  (let ((file  (ffap-file-at-point)))
+                    (unless (endp (rest (window-list)))
+                      (other-window 1))
+                    (find-file file))))
+
+
 ;;;; THE END ;;;;
 

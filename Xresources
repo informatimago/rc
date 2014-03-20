@@ -94,7 +94,7 @@ xterm*sunFunctionKeys:          false
 !! VT Options Menu:
 !! -----------------------------
 xterm*scrollBar:                false
-xterm*scrollBarBorder:		    1
+xterm*scrollBarBorder:              1
 xterm*jumpScroll:               true
 xterm*reverseVideo:             false
 xterm*autoWrap:                 true
@@ -103,7 +103,7 @@ xterm*appcursorDefault:         false
 xterm*appkeypadDefault:         false
 xterm*scrollKey:                true
 xterm*scrollTtyOutput:          false
-xterm*c132:         	        true
+xterm*c132:                     true
 xterm*selectToClipboard:        true
 xterm*visualBell:               false
 xterm*popOnBell:                false
@@ -115,7 +115,7 @@ xterm*activeIcon:               false
 !! -----------------------------
 !! VT Font Menu:
 !! -----------------------------
-xterm*Font:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+!xterm*Font:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
 
 ! xterm*font1:   -*-lucidatypewriter-medium-r-normal-*-8-*-*-*-m-*-*-*
 ! xterm*font2:   -*-lucidatypewriter-medium-r-normal-*-10-*-*-*-m-*-*-*
@@ -123,26 +123,66 @@ xterm*Font:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
 ! xterm*font4:   -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
 ! xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
 ! xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
-! xterm*font1.Label: lycidatypewriter-8
-! xterm*font2.Label: lycidatypewriter-10
-! xterm*font3.Label: lycidatypewriter-12
-! xterm*font4.Label: lycidatypewriter-14
-! xterm*font5.Label: lycidatypewriter-16
-! xterm*font6.Label: lycidatypewriter-18
 
-xterm*font1:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
-xterm*font2:    -*-smoothansi-medium-r-*-*-13-*-*-*-m-*-*-*
-xterm*font3:    -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
-xterm*font4:    -*-dejavu sans mono-medium-r-*-*-17-*-*-*-m-*-*-*
-xterm*font5:    -*-droid sans mono-*-*-*-*-17-120-*-*-m-*-*-*
-xterm*font6:    -*-courier-medium-r-normal-*-18-*-*-*-*-*-*-*
-xterm*font1.Label: lycidatypewriter 12
-xterm*font2.Label: smoothansi 13
-xterm*font3.Label: lycidatypewriter 14
-xterm*font4.Label: dejavu sans mono 17
-xterm*font5.Label: droid sans mono 17
-xterm*font6.Label: courier 18
+! xterm*font1.Label: lycidatypewriter-14
+! xterm*font2.Label: lycidatypewriter-16
+! xterm*font3.Label: lycidatypewriter-17
+! xterm*font4.Label: lycidatypewriter-19
+! xterm*font5.Label: lycidatypewriter-21
+! xterm*font6.Label: lycidatypewriter-24
 
+
+
+
+
+
+
+
+
+
+
+
+
+xterm*font1.Label: -adobe-courier-medium-r-normal--11-80-100-100-m-60-iso8859-1  
+xterm*font2.Label: -adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1 
+xterm*font3.Label: -adobe-courier-medium-r-normal--17-120-100-100-m-100-iso8859-1
+xterm*font4.Label: -adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1
+xterm*font5.Label: -adobe-courier-medium-r-normal--25-180-100-100-m-150-iso8859-1
+xterm*font6.Label: -adobe-courier-medium-r-normal--34-240-100-100-m-200-iso8859-1
+
+xterm*font1.Label: Very Small
+xterm*font2.Label: Small
+xterm*font3.Label: Normal
+xterm*font4.Label: Big
+xterm*font5.Label: Very Big
+xterm*font6.Label: Really Very Big
+
+! xterm*font1:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
+! xterm*font2:    -*-smoothansi-medium-r-*-*-13-*-*-*-m-*-*-*
+! xterm*font3:    -*-lucidatypewriter-medium-r-normal-*-14-*-*-*-m-*-*-*
+! xterm*font4:    -*-dejavu sans mono-medium-r-*-*-17-*-*-*-m-*-*-*
+! xterm*font5:    -*-droid sans mono-*-*-*-*-17-120-*-*-m-*-*-*
+! xterm*font6:    -*-courier-medium-r-normal-*-18-*-*-*-*-*-*-*
+! xterm*font1.Label: lycidatypewriter 12
+! xterm*font2.Label: smoothansi 13
+! xterm*font3.Label: lycidatypewriter 14
+! xterm*font4.Label: dejavu sans mono 17
+! xterm*font5.Label: droid sans mono 17
+! xterm*font6.Label: courier 18
+
+! xterm*Font:        -B&H-LucidaTypewriter-normal-normal-normal-Sans-25-*-*-*-m-180-iso10646-1
+! xterm*font1:       -bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1
+! xterm*font2:       -bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1
+! xterm*font3:       -Bitstream-Terminal-normal-normal-normal-*-18-*-*-*-c-110-iso10646-1
+! xterm*font4:       -B&H-LucidaTypewriter-normal-normal-normal-Sans-19-*-*-*-m-110-iso10646-1
+! xterm*font5:       -B&H-LucidaTypewriter-normal-normal-normal-Sans-25-*-*-*-m-180-iso10646-1
+! xterm*font6:       -B&H-LucidaTypewriter-normal-normal-normal-Sans-34-*-*-*-m-200-iso10646-1
+! xterm*font1.Label: vera sans mono 17
+! xterm*font2.Label: vera sans mono 19
+! xterm*font3.Label: terminal 18
+! xterm*font4.Label: lucida typewriter 19
+! xterm*font5.Label: lucida typewriter 25
+! xterm*font6.Label: lucida typewriter 34
 
 
 ! xterm*font1.Label: courier-10
@@ -169,8 +209,8 @@ xterm*highlightSelection:       true
 xterm*ptyInitialErase:          false
 xterm*background:               black
 xterm*foreground:               green
-xterm*SimpleMenu.background:	#333333
-xterm*SimpleMenu.foreground:	green
+xterm*SimpleMenu.background:    #333333
+xterm*SimpleMenu.foreground:    green
 
 
 
@@ -184,10 +224,10 @@ xterm.VT100*colorUL:            magenta
 
 
 xterm*vt100.translations: #override\n\
-	Mod2 <Key>Prior:      scroll-back(1,page) \n\
-	Mod2 <Key>Next:       scroll-forw(1,page) \n\
-	Mod2<KeyPress>Prior:  scroll-back(1,page) \n\
-	Mod2<KeyPress>Next:   scroll-forw(1,page)
+        Mod2 <Key>Prior:      scroll-back(1,page) \n\
+        Mod2 <Key>Next:       scroll-forw(1,page) \n\
+        Mod2<KeyPress>Prior:  scroll-back(1,page) \n\
+        Mod2<KeyPress>Next:   scroll-forw(1,page)
 
 !xterm*vt100.translations: #override \
 !        <Key>Home:      string("ESC[1~") \n\
@@ -196,14 +236,14 @@ xterm*vt100.translations: #override\n\
 !        <Key>End:       string("ESC[4~")
 
 ! xterm*vt100.translations: #override\n\
-! 	<Key>Prior:           scroll-back(1,page) \n\
-! 	<Key>Next:            scroll-forw(1,page) \n\
-! 	Mod2 <Key>Prior:      scroll-back(1,page) \n\
-! 	Mod2 <Key>Next:       scroll-forw(1,page) \n\
-! 	<KeyPress>Prior:      scroll-back(1,page) \n\
-! 	<KeyPress>Next:       scroll-forw(1,page) \n\
-! 	Mod2 <KeyPress>Prior: scroll-back(1,page) \n\
-! 	Mod2 <KeyPress>Next:  scroll-forw(1,page)
+!       <Key>Prior:           scroll-back(1,page) \n\
+!       <Key>Next:            scroll-forw(1,page) \n\
+!       Mod2 <Key>Prior:      scroll-back(1,page) \n\
+!       Mod2 <Key>Next:       scroll-forw(1,page) \n\
+!       <KeyPress>Prior:      scroll-back(1,page) \n\
+!       <KeyPress>Next:       scroll-forw(1,page) \n\
+!       Mod2 <KeyPress>Prior: scroll-back(1,page) \n\
+!       Mod2 <KeyPress>Next:  scroll-forw(1,page)
 
 
 
@@ -224,15 +264,15 @@ XConsole*text.scrollHorizontal: Always
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! GVim great Colors.
-Vim*background:	black
-Vim*foreground:	lightyellow
-Vim*font:		-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-15-*5
-Vim*geometry:	88x35
+Vim*background: black
+Vim*foreground: lightyellow
+Vim*font:               -misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-15-*5
+Vim*geometry:   88x35
 Vim*menuBackground: black
 Vim*menuForeground: moccasin
 ! set for BLACK_BG_XTERMS
-*VT100*colorBD: 	white
-*VT100*colorUL: 	yellow
+*VT100*colorBD:         white
+*VT100*colorUL:         yellow
 
 
 
@@ -380,13 +420,13 @@ lavaps*checkInterval:   1000
 
 ! Generic athena widget font selection
 
-*Text.Font:		    	-*-lucidatypewriter-medium-r-*-*-12-*-*-*-*-*-iso8859-1
-*Label.Font:			-*-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-1
-*Command.Font:			-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*SimpleMenu.Font:		-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*SmeBSB.Font:			-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*MenuButton.Font:		-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*List.Font:		    	-*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*Text.Font:                     -*-lucidatypewriter-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+*Label.Font:                    -*-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+*Command.Font:                  -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*SimpleMenu.Font:               -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*SmeBSB.Font:                   -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*MenuButton.Font:               -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*List.Font:                     -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
 
 
 !/*
@@ -492,7 +532,7 @@ pcb.printFile:             %f.output
 pcb.raiseLogWindow:         On
 pcb.resetAfterElement:      On
 pcb.ringBellWhenFinished:   Off
-pcb.routeStyles:	    Signal,10,40,20:Power,25,60,35:Fat,40,60,35:Skinny,8,36,20
+pcb.routeStyles:            Signal,10,40,20:Power,25,60,35:Fat,40,60,35:Skinny,8,36,20
 pcb.saveCommand:            cat - > '%f'
 pcb.saveInTMP:              Off
 pcb.saveLastCommand:        Off
@@ -506,8 +546,8 @@ pcb.viaThickness:           60
 pcb.viaDrillingHole:        28
 pcb.volume:                 100
 pcb.zoom:                   3
-pcb.Bloat:		    7
-pcb.Shrink:		    5
+pcb.Bloat:                  7
+pcb.Shrink:                 5
 
 !---------------------------------------------------------------------------
 ! resources that are common to all 'subwindows'
@@ -575,7 +615,7 @@ pcb*header.foreground:    red
 !---------------------------------------------------------------------------
 ! resources of the library window
 !
-pcb*library.iconic:		true
+pcb*library.iconic:             true
 pcb.library.geometry:         750x250
 pcb.library*type*foreground:  red
 pcb.library.baseTranslations: #override \
@@ -684,15 +724,15 @@ pcb.masterForm.viewport.horizontal.accelerators: #override \
   !Mod1 Ctrl<Key>Left:    StartScroll(Backward) \
                             NotifyScroll(FullLength) \
                             EndScroll() \n\
-  None<Key>KP_4:	    StartScroll(Backward) \
-			    NotifyScroll(FullLength) \
-			    EndScroll() \n\
+  None<Key>KP_4:            StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
   !Mod1 Ctrl<Key>Right:   StartScroll(Forward) \
                             NotifyScroll(FullLength) \
                             EndScroll() \n\
-  None<Key>KP_6:	    StartScroll(Forward) \
-			    NotifyScroll(FullLength) \
-			    EndScroll() \n
+  None<Key>KP_6:            StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n
 
 pcb.masterForm.viewport.horizontal.baseTranslations: #override \
   <Btn2Down>:               StartScroll(Continuos) MoveThumb() \n\
@@ -703,15 +743,15 @@ pcb.masterForm.viewport.vertical.accelerators: #override \
   !Mod1 Ctrl<Key>Up:      StartScroll(Backward) \
                             NotifyScroll(FullLength) \
                             EndScroll() \n\
-  None<Key>KP_8:	    StartScroll(Backward) \
-			    NotifyScroll(FullLength) \
-			    EndScroll() \n\
+  None<Key>KP_8:            StartScroll(Backward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n\
   !Mod1 Ctrl<Key>Down:    StartScroll(Forward) \
                             NotifyScroll(FullLength) \
                             EndScroll() \n\
-  None<Key>KP_2:	    StartScroll(Forward) \
-			    NotifyScroll(FullLength) \
-			    EndScroll() \n
+  None<Key>KP_2:            StartScroll(Forward) \
+                            NotifyScroll(FullLength) \
+                            EndScroll() \n
 
 pcb.masterForm.viewport.vertical.baseTranslations: #override \
   <Btn2Down>:             StartScroll(Continuos) \
@@ -727,43 +767,43 @@ pcb.masterForm*output.baseTranslations:   #override \
   <Key>space:           Mode(Cycle) \n\
   <Key>colon:           Command() \n\
   !Shift<Key>BackSpace: Atomic(Save) \
-			Connection(Reset) \
-			Atomic(Restore) \
+                        Connection(Reset) \
+                        Atomic(Restore) \
                         Unselect(All) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
                         Connection(Find) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
                         Select(Connection) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
                         RemoveSelected() \
-			Atomic(Restore) \
-			Connection(Reset) \
-			Atomic(Restore) \
-			Unselect(All) \
-			Atomic(Block) \n\
-  !Shift<Key>Delete:	Atomic(Save) \
-			Connection(Reset) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
+                        Connection(Reset) \
+                        Atomic(Restore) \
                         Unselect(All) \
-			Atomic(Restore) \
+                        Atomic(Block) \n\
+  !Shift<Key>Delete:    Atomic(Save) \
+                        Connection(Reset) \
+                        Atomic(Restore) \
+                        Unselect(All) \
+                        Atomic(Restore) \
                         Connection(Find) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
                         Select(Connection) \
-			Atomic(Restore) \
+                        Atomic(Restore) \
                         RemoveSelected() \
-			Atomic(Restore) \
-			Connection(Reset) \
-			Atomic(Restore) \
-			Unselect(All) \
-			Atomic(Block) \n\
+                        Atomic(Restore) \
+                        Connection(Reset) \
+                        Atomic(Restore) \
+                        Unselect(All) \
+                        Atomic(Block) \n\
   None<Key>BackSpace:   Mode(Save) \
                         Mode(Remove) \
                         Mode(Notify) \
                         Mode(Restore) \n\
-  None<Key>Delete:	Mode(Save) \
-			Mode(Remove) \
-			Mode(Notify) \
-			Mode(Restore) \n\
+  None<Key>Delete:      Mode(Save) \
+                        Mode(Remove) \
+                        Mode(Notify) \
+                        Mode(Restore) \n\
   None<Key>Insert:      Mode(InsertPoint) \n\
   None<Key>Tab:         SwapSides() \n\
   \
@@ -781,8 +821,8 @@ pcb.masterForm*output.baseTranslations:   #override \
   !Ctrl<Key>3: RouteStyle(3) \n\
   !Ctrl<Key>4: RouteStyle(4) \n\
   \
-  !Mod1<Key>a:	Select(All) \n\
-  !Shift Mod1<Key>a:	Unselect(All) \n\
+  !Mod1<Key>a:  Select(All) \n\
+  !Shift Mod1<Key>a:    Unselect(All) \n\
   None<Key>c:          Display(Center) \n\
   !Mod1<Key>c:       PasteBuffer(Clear) \
                        PasteBuffer(AddSelected) \
@@ -805,15 +845,15 @@ pcb.masterForm*output.baseTranslations:   #override \
   !Ctrl<Key>m:         MarkCrosshair() \n\
   None<Key>n:          ChangeName(Object) \n\
   None<Key>o:          Atomic(Save) \
-		       DeleteRats(AllRats) \
-		       Atomic(Restore) \
+                       DeleteRats(AllRats) \
+                       Atomic(Restore) \
                        AddRats(AllRats) \
-		       Atomic(Block) \n\
+                       Atomic(Block) \n\
   !Shift<Key>o:        Atomic(Save) \
-		       DeleteRats(AllRats) \
-		       Atomic(Restore) \
+                       DeleteRats(AllRats) \
+                       Atomic(Restore) \
                        AddRats(SelectedRats) \
-		       Atomic(Block) \n\
+                       Atomic(Block) \n\
   !Ctrl<Key>o:         ChangeOctagon(Object) \n\
   None<Key>p:          Polygon(PreviousPoint) \n\
   !Shift<Key>p:        Polygon(Close) \n\
@@ -873,36 +913,36 @@ pcb.masterForm*output.baseTranslations:   #override \
   None<Key>F6:   Mode(Polygon) \n\
   None<Key>F7:   Mode(Thermal) \n\
   None<Key>F8:   Mode(Arc) \n\
-  None<Key>F9:	Mode(Rotate) \n\
+  None<Key>F9:  Mode(Rotate) \n\
   \
-  None<Key>[:	Mode(Save) \
-		Mode(Move) \
-		Mode(Notify) \n\
-  None<Key>]:	Mode(Notify) \
-		Mode(Restore) \n\
+  None<Key>[:   Mode(Save) \
+                Mode(Move) \
+                Mode(Notify) \n\
+  None<Key>]:   Mode(Notify) \
+                Mode(Restore) \n\
   \
   None<Btn1Down>:        Mode(Notify) \n\
   !Shift<Btn1Down>:      Mode(Notify) \n\
   !Ctrl<Btn1Down>:       Mode(Save) \
-			 Mode(None) \
-		         Mode(Restore) \
-		         Mode(Notify) \n\
+                         Mode(None) \
+                         Mode(Restore) \
+                         Mode(Notify) \n\
   !Shift Ctrl<Btn1Down>: Mode(Save) \
                          Mode(Remove) \
                          Mode(Notify) \
                          Mode(Restore) \n\
   \
-  !Shift<Btn2Down>:	Atomic(Save) \
-			Mode(Save) \
-  			PasteBuffer(Clear) \
-			PasteBuffer(AddSelected) \
+  !Shift<Btn2Down>:     Atomic(Save) \
+                        Mode(Save) \
+                        PasteBuffer(Clear) \
+                        PasteBuffer(AddSelected) \
                         RemoveSelected() \
-			Atomic(Restore) \
-			Mode(PasteBuffer) \n\
+                        Atomic(Restore) \
+                        Mode(PasteBuffer) \n\
   !Shift<Btn2Up>:       Mode(Notify) \
-			Atomic(Block) \
-			PasteBuffer(Clear) \
-			Mode(Restore) \n\
+                        Atomic(Block) \
+                        PasteBuffer(Clear) \
+                        Mode(Restore) \n\
   None<Btn2Down>:          Mode(Save) \
                            Mode(Move) \
                            Mode(Notify) \n\
@@ -920,27 +960,27 @@ pcb.masterForm*output.baseTranslations:   #override \
                            Mode(Restore) \n\
   \
   None<Btn3Down>:          Atomic(Save) \
-			   Select(ToggleObject) \n\
+                           Select(ToggleObject) \n\
   None<Btn3Down>,None<Btn3Motion>: Atomic(Close) \
-			   Undo() \
-			   Mode(Save) \
-			   Mode(None) \
-			   Atomic(Save) \
-			   Unselect(All) \
-			   Atomic(Restore) \
-			   Select(Block) \n\
-  None<Btn3Up>:		   Select(Block) \
-			   Atomic(Block) \
-			   Mode(None) \
-			   Mode(Restore) \n\
-  !Shift <Btn3Down>:	   Mode(Save) \
+                           Undo() \
+                           Mode(Save) \
+                           Mode(None) \
+                           Atomic(Save) \
+                           Unselect(All) \
+                           Atomic(Restore) \
+                           Select(Block) \n\
+  None<Btn3Up>:            Select(Block) \
+                           Atomic(Block) \
+                           Mode(None) \
+                           Mode(Restore) \n\
+  !Shift <Btn3Down>:       Mode(Save) \
                            Mode(None) \
                            Unselect(Block) \n\
-  !Shift <Btn3Up>:	   Unselect(Block) \
+  !Shift <Btn3Up>:         Unselect(Block) \
                            Mode(Restore) \n\
-  !Mod1<Btn3Down>:	Mode(Save) \
-			Mode(None) \
-			Select(Block) \n\
-  !Mod1<Btn3Up>:	Select(Block) \
-			Mode(Restore) \n
+  !Mod1<Btn3Down>:      Mode(Save) \
+                        Mode(None) \
+                        Select(Block) \n\
+  !Mod1<Btn3Up>:        Select(Block) \
+                        Mode(Restore) \n
 
