@@ -3,156 +3,8 @@
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
 (load "~/rc/emacs-common.el")
-(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
+(.EMACS "~/rc/emacs-ubudu.el %s" "At UBUDU Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)
-
-
-
-(defparameter *femnams*
-  '("aaliyah" "abbey" "abbie" "abbigail" "abby" "abigail" "addison" "adrian"
-    "adriana" "adrianna" "adrienne" "aileen" "aimee" "aisha" "aja"
-    "agathe" "agatha"
-    "alaina" "alana" "alanna" "alayna" "aleah" "alecia" "alejandra"
-    "alena" "alesha" "alessandra" "alex" "alexa" "alexandra" "alexandrea"
-    "alexandria" "alexia" "alexis" "alexus" "ali" "alice" "alicia" "alina"
-    "alisa" "alisha" "alison" "alissa" "aliyah" "allie" "allison"
-    "allyson" "allyssa" "alma" "alondra" "alycia" "alysa" "alysha"
-    "alysia" "alyson" "alyssa" "amanda" "amani" "amber" "amelia" "amy"
-    "ana" "anabel" "anais" "anastasia" "andrea" "angel" "angela"
-    "angelica" "angelina" "angelique" "angie" "anika" "anissa" "anita"
-    "anjelica" "ann" "anna" "annamarie" "anne" "annette" "annie" "annika"
-    "annmarie" "antoinette" "antonia" "april" "araceli" "ariana" "arianna"
-    "ariel" "arielle" "arlene" "asha" "ashanti" "ashely" "ashlee"
-    "ashleigh" "ashley" "ashli" "ashlie" "ashly" "ashlyn" "ashlynn"
-    "ashton" "asia" "aspen" "astrid" "athena" "aubree" "aubrey" "audra"
-    "audrey" "aurora" "autumn" "ava" "avery" "ayana" "ayanna" "ayla"
-    "baby" "bailee" "bailey" "barbara" "baylee" "beatrice" "beatriz"
-    "belinda" "berenice" "bernadette" "beth" "bethany" "betsy" "betty"
-    "beverly" "bianca" "billie" "blair" "blanca" "bobbi" "bobbie" "bonnie"
-    "brandi" "brandie" "brandy" "brea" "breana" "breann" "breanna"
-    "breanne" "brenda" "brenna" "breonna" "bria" "briana" "brianna"
-    "brianne" "bridget" "bridgette" "brielle" "britany" "britney" "britni"
-    "brittani" "brittanie" "brittany" "brittney" "brittni" "brook"
-    "brooke" "brooklyn" "bryana" "bryanna" "caitlin" "caitlyn" "callie"
-    "cameron" "camille" "candace" "candice" "cara" "carina" "carissa"
-    "carla" "carlee" "carley" "carli" "carlie" "carly" "carmen" "carol"
-    "carolina" "caroline" "carolyn" "carrie" "carson" "casandra" "casey"
-    "cassandra" "cassidy" "cassie" "catalina" "catherine" "cayla"
-    "cecelia" "cecilia" "celeste" "celia" "celina" "celine" "chandler"
-    "chanel" "chantal" "chantel" "charity" "charlene" "charlotte"
-    "chasity" "chaya" "chelsea" "chelsey" "chelsi" "chelsie" "cheryl"
-    "cheyanne" "cheyenne" "china" "chloe" "christa" "christen" "christian"
-    "christiana" "christie" "christin" "christina" "christine" "christy"
-    "ciara" "ciera" "cierra" "cindy" "claire" "clara" "clare" "clarissa"
-    "claudia" "colleen" "connie" "constance" "cora" "corey" "cori"
-    "corina" "corinne" "cortney" "courtney" "cristal" "cristina" "crystal"
-    "cynthia" "daisy" "dakota" "dalia" "dallas" "damaris" "dana" "danica"
-    "daniela" "daniella" "danielle" "daphne" "dara" "darby" "darcy"
-    "darian" "darlene" "dawn" "dayna" "deana" "deanna" "debbie" "deborah"
-    "debra" "deja" "delaney" "demi" "denise" "desirae" "desiree"
-    "destinee" "destiney" "destini" "destiny" "devan" "devin" "devon"
-    "devyn" "diamond" "diana" "diane" "dianna" "dina" "dominique"
-    "dominque" "domonique" "donna" "doris" "dorothy" "drew" "dulce"
-    "eboni" "ebony" "eden" "edith" "eileen" "elaina" "elaine" "eleanor"
-    "elena" "eliana" "elisa" "elisabeth" "elise" "elisha" "elissa" "eliza"
-    "elizabeth" "ella" "ellen" "ellie" "elsa" "elyse" "elyssa" "emerald"
-    "emilee" "emilia" "emilie" "emily" "emma" "erica" "ericka" "erika"
-    "erin" "esmeralda" "essence" "estefania" "esther" "eunice" "eva"
-    "evelyn" "fabiola" "faith" "fatima" "felicia" "fiona" "frances"
-    "francesca" "franchesca" "francheska" "gabriel" "gabriela" "gabriella"
-    "gabrielle" "genesis" "genevieve" "georgia" "georgina" "gianna"
-    "gillian" "gina" "giovanna" "giselle" "gladys" "gloria" "grace"
-    "graciela" "gretchen" "griselda" "guadalupe" "gwendolyn" "hailee"
-    "hailey" "haleigh" "haley" "hali" "halie" "halle" "hallie" "hanna"
-    "hannah" "harley" "haylee" "hayley" "haylie" "hazel" "heather"
-    "heaven" "heidi" "helen" "helena" "hilary" "hillary" "hollie" "holly"
-    "hope" "hunter" "iesha" "iliana" "imani" "india" "infant" "ingrid"
-    "irene" "iris" "irma" "isabel" "isabella" "isabelle" "isamar" "itzel"
-    "ivette" "ivy" "jackie" "jacklyn" "jaclyn" "jacqueline" "jacquelyn"
-    "jada" "jade" "jaime" "jaimie" "jalisa" "jami" "jamie" "jamila" "jana"
-    "janae" "janay" "jane" "janelle" "janessa" "janet" "janette" "janice"
-    "janie" "janine" "jaqueline" "jasmin" "jasmine" "jayla" "jayme"
-    "jazmin" "jazmine" "jazmyn" "jean" "jeanette" "jena" "jenifer" "jenna"
-    "jennie" "jennifer" "jenny" "jerrica" "jesse" "jessenia" "jessi"
-    "jessica" "jessie" "jessika" "jill" "jillian" "joan" "joana" "joann"
-    "joanna" "joanne" "jocelyn" "jodi" "jodie" "joelle" "johanna" "jolene"
-    "jordan" "jordyn" "joselyn" "josephine" "josie" "joy" "joyce" "juana"
-    "juanita" "judith" "judy" "julia" "juliana" "julianna" "julianne"
-    "julie" "juliet" "julissa" "justice" "justina" "justine" "kacey"
-    "kaci" "kacie" "kaela" "kaila" "kailee" "kailey" "kailyn" "kaitlin"
-    "kaitlyn" "kaitlynn" "kala" "kaleigh" "kaley" "kali" "kalie" "kallie"
-    "kalyn" "kara" "karen" "kari" "karina" "karissa" "karla" "karlee"
-    "karley" "karli" "karlie" "karly" "kasandra" "kasey" "kassandra"
-    "kassidy" "kassie" "katarina" "kate" "katelin" "katelyn" "katelynn"
-    "katerina" "katharine" "katherine" "katheryn" "kathleen" "kathrine"
-    "kathryn" "kathy" "katie" "katlin" "katlyn" "katlynn" "katrina" "katy"
-    "kaycee" "kayla" "kaylee" "kayleigh" "kayley" "kayli" "kaylie"
-    "kaylin" "kaylyn" "kaylynn" "keely" "keila" "keisha" "keishla"
-    "kelcie" "kelley" "kelli" "kellie" "kelly" "kelsea" "kelsey" "kelsi"
-    "kelsie" "kendal" "kendall" "kendra" "kenia" "kennedy" "kenya" "keri"
-    "kerri" "kerry" "khadijah" "kia" "kiana" "kianna" "kiara" "kiera"
-    "kierra" "kiersten" "kiley" "kimberlee" "kimberley" "kimberly" "kira"
-    "kirsten" "kirstie" "kirstin" "kori" "kortney" "kourtney" "krista"
-    "kristal" "kristen" "kristi" "kristian" "kristie" "kristin" "kristina"
-    "kristine" "kristy" "kristyn" "krysta" "krystal" "kyla" "kylee"
-    "kylie" "kyra" "lacey" "lacie" "lacy" "lakeisha" "lana" "lara"
-    "larissa" "latasha" "latisha" "latoya" "laura" "laurel" "lauren"
-    "laurie" "lauryn" "layla" "lea" "leah" "leandra" "leann" "leanna"
-    "leanne" "leeann" "leigh" "leila" "lena" "lesley" "leslie" "lesly"
-    "leticia" "lexi" "lexie" "lexus" "liana" "lidia" "liliana" "lillian"
-    "lily" "linda" "lindsay" "lindsey" "lisa" "liza" "lizbeth" "lizeth"
-    "lizette" "logan" "loren" "lorena" "lori" "lorraine" "lourdes"
-    "lucero" "lucia" "lucy" "luz" "lydia" "lyndsey" "lynette" "lynn"
-    "macey" "macie" "mackenzie" "macy" "madalyn" "maddison" "madeleine"
-    "madeline" "madelyn" "madison" "maegan" "magdalena" "maggie" "maira"
-    "makayla" "makenna" "makenzie" "malia" "mallory" "mandy" "mara"
-    "maranda" "marcella" "margaret" "margarita" "maria" "mariah" "mariam"
-    "mariana" "maribel" "maricela" "marie" "mariel" "mariela" "marilyn"
-    "marina" "marisa" "marisela" "marisol" "marissa" "maritza" "marlee"
-    "marlena" "marlene" "martha" "martina" "mary" "maura" "maureen" "maya"
-    "mayra" "mckayla" "mckenna" "mckenzie" "meagan" "meaghan" "megan"
-    "meghan" "melanie" "melina" "melinda" "melisa" "melissa" "melody"
-    "meranda" "mercedes" "meredith" "mia" "micaela" "micah" "michaela"
-    "michele" "michelle" "mikaela" "mikala" "mikayla" "mindy" "miracle"
-    "miranda" "mireya" "miriam" "misty" "mollie" "molly" "monica" "monika"
-    "monique" "montana" "morgan" "moriah" "mya" "myra" "myranda" "nadia"
-    "nadine" "nancy" "naomi" "natalia" "natalie" "nataly" "natasha"
-    "nathalie" "nayeli" "nia" "nichole" "nicole" "nicolette" "nikita"
-    "nikki" "nikole" "nina" "noel" "noelle" "noemi" "nora" "norma"
-    "octavia" "olga" "olivia" "paige" "paloma" "pamela" "paola" "paris"
-    "patrice" "patricia" "paula" "paulina" "pauline" "payton" "perla"
-    "peyton" "phoebe" "precious" "princess" "priscilla" "rachael"
-    "racheal" "rachel" "rachelle" "randi" "raquel" "raven" "reagan"
-    "rebeca" "rebecca" "rebekah" "regan" "regina" "reina" "renee" "reyna"
-    "rhiannon" "rhonda" "rikki" "riley" "rita" "robin" "robyn" "rochelle"
-    "rocio" "rosa" "rose" "rosemary" "roxana" "roxanne" "ruby" "ruth"
-    "ryan" "rylee" "sabrina" "sade" "sadie" "sage" "salina" "sally"
-    "samantha" "sandra" "sandy" "sara" "sarah" "sarai" "sarina" "sasha"
-    "savanah" "savanna" "savannah" "scarlett" "selena" "selina" "serena"
-    "shaina" "shakira" "shana" "shania" "shanice" "shaniqua" "shanna"
-    "shannon" "shantel" "sharon" "shauna" "shawna" "shayla" "shayna"
-    "shea" "sheena" "sheila" "shelbi" "shelbie" "shelby" "shelly" "sherry"
-    "shirley" "shyanne" "sidney" "sierra" "silvia" "simone" "skye"
-    "skylar" "skyler" "sofia" "sonia" "sonya" "sophia" "sophie" "stacey"
-    "staci" "stacie" "stacy" "stefanie" "stephanie" "stephany" "stevie"
-    "stormy" "summer" "susan" "susana" "susanna" "suzanne" "sydnee"
-    "sydney" "sydnie" "sylvia" "tabatha" "tabitha" "talia" "tamara"
-    "tammy" "tania" "tanisha" "tanya" "tara" "taryn" "tasha" "tatiana"
-    "tatum" "tatyana" "tayler" "taylor" "teresa" "terra" "terri" "tess"
-    "tessa" "thalia" "theresa" "tia" "tiana" "tianna" "tiara" "tiera"
-    "tierra" "tiffani" "tiffanie" "tiffany" "tina" "toni" "tonya" "tori"
-    "tracey" "traci" "tracy" "tricia" "trinity" "trisha" "trista" "tyesha"
-    "tyler" "tyra" "valeria" "valerie" "vanesa" "vanessa" "veronica"
-    "victoria" "virginia" "vivian" "viviana" "wendy" "whitley" "whitney"
-    "xiomara" "yadira" "yajaira" "yaritza" "yasmeen" "yasmin" "yasmine"
-    "yazmin" "yesenia" "yessenia" "yolanda" "yvette" "yvonne" "zoe"
-    "zoey"))
-
-;; (push (cons "#lisp" (format "^%s[0-9]+$" (regexp-opt *femnams*))) erc-ignore-per-channel-alist)
-;; (progn (string-match (format "^%s[0-9]+$" (mapcar 'capitalize (regexp-opt *femnams*))) "Mya29") (match-data))(0 5)
-;;  (format "^%s[0-9]+$"  (regexp-opt (mapcar 'capitalize *femnams*)))
-
-
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -161,12 +13,6 @@
 
 (.EMACS "custom faces")
 (custom-set-faces
-<<<<<<< HEAD
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-=======
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -175,24 +21,23 @@
  '(android-mode-info-face ((t (:foreground "chartreuse"))))
  '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
  '(android-mode-warning-face ((t (:foreground "pink"))))
->>>>>>> 72609b4dec29f5e2bd3e0698b1b359b891a0e022
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan2"))))
- '(erc-notice-face ((t (:foreground "gray50"))))
- '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
- '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
+ '(erc-input-face ((t (:foreground "cyan"))))
+ '(erc-notice-face ((t (:foreground "gray70"))))
+ '(erc-pal-face ((t (:foreground "cadetblue1" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "gold" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
- '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
+ '(font-lock-comment-face ((nil (:foreground "red"))))
  '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
- '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(font-lock-string-face ((t (:foreground "#ccdd33"))))
  '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
  '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
  '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
@@ -206,9 +51,11 @@
  '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
  '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
  '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(hi-green ((t (:inherit nil :background "#223311"))))
+ '(hi-yellow ((t (:background "#223311"))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
- '(match ((t (:background "#3a3a3e"))))
+ '(match ((t (:background "#434355"))))
  '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
@@ -218,12 +65,12 @@
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(read-only-face ((t (:background "gray30"))) t)
- '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
- '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
- '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
- '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
- '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
- '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
+ '(rst-level-1-face ((t (:background "grey33" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey33" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey33" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey33" :height 1.2))) t)
+ '(rst-level-5-face ((t (:background "grey33" :height 1.1 :weight bold))) t)
+ '(rst-level-6-face ((t (:background "grey33" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
 
@@ -240,12 +87,13 @@
  '(backup-by-copying-when-linked t)
  '(backup-by-copying-when-mismatch t)
  '(backup-by-copying-when-privileged-mismatch 1000)
- '(bcc-user-mail-address "pjb@informatimago.com" t)
+ '(bcc-user-mail-address "pascal.bourguignon@ubudu.com" t)
  '(blink-matching-paren t)
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
  '(browse-url-browser-function (quote w3m-browse-url))
+ '(browse-url-generic-program "open")
  '(browse-url-new-window-flag nil)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
@@ -283,7 +131,7 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
  '(calendar-view-holidays-initially-flag t)
- '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
+ '(canlock-password "5e246e4d5cef0837ff91dbfe0ac2933cda8ee140")
  '(case-fold-search t)
  '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)) t)
  '(chess-images-directory "/usr/share/pixmaps/chess/xboard" t)
@@ -300,6 +148,7 @@
  '(dired-kept-versions 4)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
+ '(display-time-format "%Y%m%dT%H%M%S")
  '(display-time-mode t)
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
@@ -310,11 +159,11 @@
  '(emms-lyrics-display-on-minibuffer t)
  '(emms-player-started-hook (quote (emms-show)))
  '(emms-show-format "NP %s")
- '(emms-source-file-default-directory "/d5/music/")
+ '(emms-source-file-default-directory "~/Music/")
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#lisp" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#android-dev" "##java" "#emacs" "#ccl" "#lispweb" "#lisp-lab" "#lispgames" "#scheme" "#clnoobs") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -328,7 +177,7 @@
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list (quote nil))
  '(erc-ignore-list (quote ("ad37e918" "173.55.233.24")))
- '(erc-ignore-per-channel-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
+ '(erc-ignore-per-channel-alist (quote ('(erc-ignore-per-channel-alist (quote (("#lisp" . "^\\(?:a\\(?:aliyah\\|b\\(?:b\\(?:ey\\|i\\(?:e\\|gail\\)\\|y\\)\\|igail\\)\\|d\\(?:dison\\|ri\\(?:an\\(?:n?a\\)?\\|enne\\)\\)\\|i\\(?:leen\\|mee\\|sha\\)\\|ja\\|l\\(?:a\\(?:[iny]?na\\)\\|e\\(?:ah\\|cia\\|jandra\\|na\\|s\\(?:\\(?:h\\|sandr\\)a\\)\\|x\\(?:a\\(?:ndr\\(?:[ei]?a\\)\\)?\\|i[as]\\|us\\)?\\)\\|i\\(?:c\\(?:e\\|ia\\)\\|na\\|s\\(?:a\\|ha\\|on\\|sa\\)\\|yah\\)?\\|l\\(?:i\\(?:e\\|son\\)\\|ys\\(?:on\\|sa\\)\\)\\|ma\\|ondra\\|y\\(?:cia\\|s\\(?:a\\|ha\\|ia\\|on\\|sa\\)\\)\\)\\|m\\(?:an\\(?:da\\|i\\)\\|ber\\|elia\\|y\\)\\|n\\(?:a\\(?:bel\\|is\\|stasia\\)\\|drea\\|g\\(?:el\\(?:a\\|i\\(?:ca\\|na\\|que\\)\\)?\\|ie\\)\\|i\\(?:\\(?:ss\\|[kt]\\)a\\)\\|jelica\\|n\\(?:amarie\\|ette\\|i\\(?:e\\|ka\\)\\|marie\\|[ae]\\)\\|to\\(?:inette\\|nia\\)\\|[an]\\)\\|pril\\|r\\(?:aceli\\|i\\(?:an\\(?:n?a\\)\\|el\\(?:le\\)?\\)\\|lene\\)\\|s\\(?:h\\(?:a\\(?:nti\\)?\\|ely\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|ie\\|ynn?\\|[iy]\\)\\|ton\\)\\|ia\\|pen\\|trid\\)\\|thena\\|u\\(?:bre[ey]\\|dr\\(?:a\\|ey\\)\\|rora\\|tumn\\)\\|v\\(?:a\\|ery\\)\\|y\\(?:\\(?:ann?\\|l\\)a\\)\\)\\|b\\(?:a\\(?:by\\|ile[ey]\\|rbara\\|ylee\\)\\|e\\(?:atri\\(?:ce\\|z\\)\\|linda\\|r\\(?:\\(?:enic\\|nadett\\)e\\)\\|t\\(?:h\\(?:any\\)?\\|[st]y\\)\\|verly\\)\\|i\\(?:anca\\|llie\\)\\|la\\(?:ir\\|nca\\)\\|o\\(?:bbie?\\|nnie\\)\\|r\\(?:and\\(?:ie\\|[iy]\\)\\|e\\(?:a\\(?:n\\(?:n[ae]\\|[an]\\)\\)?\\|\\(?:n[dn]\\|onn\\)a\\)\\|i\\(?:a\\(?:n\\(?:a\\|n[ae]\\)\\)?\\|dget\\(?:te\\)?\\|elle\\|t\\(?:any\\|n\\(?:ey\\|i\\)\\|t\\(?:an\\(?:ie\\|[iy]\\)\\|n\\(?:ey\\|i\\)\\)\\)\\)\\|ook\\(?:e\\|lyn\\)?\\|yan\\(?:n?a\\)\\)\\)\\|c\\(?:a\\(?:itl\\(?:[iy]n\\)\\|llie\\|m\\(?:eron\\|ille\\)\\|nd\\(?:[ai]ce\\)\\|r\\(?:a\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|men\\|ol\\(?:in[ae]\\|yn\\)?\\|rie\\|son\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:alina\\|herine\\)\\|yla\\)\\|e\\(?:c\\(?:[ei]lia\\)\\|l\\(?:este\\|i\\(?:a\\|n[ae]\\)\\)\\)\\|h\\(?:a\\(?:n\\(?:dler\\|\\(?:e\\|t[ae]\\)l\\)\\|r\\(?:ity\\|l\\(?:\\(?:en\\|ott\\)e\\)\\)\\|sity\\|ya\\)\\|e\\(?:ls\\(?:e[ay]\\|ie?\\)\\|ryl\\|y\\(?:[ae]nne\\)\\)\\|ina\\|loe\\|rist\\(?:en\\|i\\(?:ana?\\|n[ae]\\|[en]\\)\\|[ay]\\)\\)\\|i\\(?:ara\\|er\\(?:r?a\\)\\|ndy\\)\\|la\\(?:ire\\|r\\(?:issa\\|[ae]\\)\\|udia\\)\\|o\\(?:lleen\\|n\\(?:\\(?:ni\\|stanc\\)e\\)\\|r\\(?:ey\\|in\\(?:a\\|ne\\)\\|tney\\|[ai]\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|ina\\)\\|ystal\\)\\|ynthia\\)\\|d\\(?:a\\(?:isy\\|kota\\|l\\(?:ia\\|las\\)\\|maris\\|n\\(?:a\\|i\\(?:ca\\|el\\(?:a\\|l[ae]\\)\\)\\)\\|phne\\|r\\(?:a\\|by\\|cy\\|ian\\|lene\\)\\|wn\\|yna\\)\\|e\\(?:an\\(?:n?a\\)\\|b\\(?:bie\\|orah\\|ra\\)\\|ja\\|laney\\|mi\\|nise\\|s\\(?:ir\\(?:[ae]e\\)\\|tin\\(?:e[ey]\\|[iy]\\)\\)\\|v\\(?:[aioy]n\\)\\)\\|i\\(?:a\\(?:mond\\|n\\(?:na\\|[ae]\\)\\)\\|na\\)\\|o\\(?:m\\(?:\\(?:ini?\\|oni\\)que\\)\\|nna\\|r\\(?:is\\|othy\\)\\)\\|rew\\|ulce\\)\\|e\\(?:bon[iy]\\|d\\(?:en\\|ith\\)\\|ileen\\|l\\(?:ain[ae]\\|e\\(?:anor\\|na\\)\\|i\\(?:ana\\|s\\(?:abeth\\|[hs]a\\|[ae]\\)\\|za\\(?:beth\\)?\\)\\|l\\(?:a\\|en\\|ie\\)\\|sa\\|ys\\(?:e\\|sa\\)\\)\\|m\\(?:erald\\|il\\(?:ee\\|i[ae]\\|y\\)\\|ma\\)\\|ri\\(?:c\\(?:k?a\\)\\|ka\\|n\\)\\|s\\(?:meralda\\|sence\\|t\\(?:efania\\|her\\)\\)\\|unice\\|v\\(?:a\\|elyn\\)\\)\\|f\\(?:a\\(?:biola\\|ith\\|tima\\)\\|elicia\\|iona\\|ranc\\(?:es\\(?:ca\\)?\\|hes\\(?:[ck]a\\)\\)\\)\\|g\\(?:abriel\\(?:a\\|l[ae]\\)?\\|e\\(?:ne\\(?:sis\\|vieve\\)\\|orgi\\(?:n?a\\)\\)\\|i\\(?:anna\\|llian\\|na\\|ovanna\\|selle\\)\\|l\\(?:adys\\|oria\\)\\|r\\(?:ac\\(?:e\\|iela\\)\\|etchen\\|iselda\\)\\|uadalupe\\|wendolyn\\)\\|h\\(?:a\\(?:ile[ey]\\|l\\(?:e\\(?:igh\\|y\\)\\|ie?\\|l\\(?:i?e\\)\\)\\|nnah?\\|rley\\|yl\\(?:e[ey]\\|ie\\)\\|zel\\)\\|e\\(?:a\\(?:ther\\|ven\\)\\|idi\\|lena?\\)\\|il\\(?:l?ary\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|pe\\)\\|unter\\)\\|i\\(?:esha\\|liana\\|mani\\|n\\(?:dia\\|fant\\|grid\\)\\|r\\(?:ene\\|is\\|ma\\)\\|sa\\(?:bel\\(?:l[ae]\\)?\\|mar\\)\\|tzel\\|v\\(?:ette\\|y\\)\\)\\|j\\(?:a\\(?:c\\(?:k\\(?:ie\\|lyn\\)\\|lyn\\|quel\\(?:ine\\|yn\\)\\)\\|d[ae]\\|im\\(?:i?e\\)\\|lisa\\|mi\\(?:e\\|la\\)?\\|n\\(?:a[ey]\\|e\\(?:lle\\|ssa\\|t\\(?:te\\)?\\)\\|i\\(?:[cn]?e\\)\\|[ae]\\)\\|queline\\|smine?\\|y\\(?:la\\|me\\)\\|zm\\(?:ine?\\|yn\\)\\)\\|e\\(?:an\\(?:ette\\)?\\|n\\(?:a\\|ifer\\|n\\(?:i\\(?:e\\|fer\\)\\|[ay]\\)\\)\\|rrica\\|ss\\(?:enia\\|i\\(?:ca\\|e\\|ka\\)\\|[ei]\\)\\)\\|ill\\(?:ian\\)?\\|o\\(?:an\\(?:n[ae]\\|[an]\\)?\\|celyn\\|die?\\|elle\\|hanna\\|lene\\|rd\\(?:[ay]n\\)\\|s\\(?:e\\(?:lyn\\|phine\\)\\|ie\\)\\|y\\(?:ce\\)?\\)\\|u\\(?:an\\(?:\\(?:it\\)?a\\)\\|d\\(?:ith\\|y\\)\\|li\\(?:an\\(?:a\\|n[ae]\\)\\|et\\|ssa\\|[ae]\\)\\|sti\\(?:ce\\|n[ae]\\)\\)\\)\\|k\\(?:a\\(?:c\\(?:ey\\|ie?\\)\\|ela\\|i\\(?:l\\(?:a\\|e[ey]\\|yn\\)\\|tl\\(?:\\(?:yn\\|[iy]\\)n\\)\\)\\|l\\(?:e\\(?:igh\\|y\\)\\|ie\\|lie\\|yn\\|[ai]\\)\\|r\\(?:en\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|[ai]\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:arina\\|e\\(?:l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\)\\|h\\(?:arine\\|er\\(?:ine\\|yn\\)\\|leen\\|r\\(?:ine\\|yn\\)\\|y\\)\\|ie\\|l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\|[ey]\\)\\|y\\(?:cee\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|i[en]\\|ynn?\\|[ai]\\)\\)\\)\\|e\\(?:ely\\|i\\(?:\\(?:l\\|shl?\\)a\\)\\|l\\(?:cie\\|l\\(?:ey\\|ie\\|[iy]\\)\\|s\\(?:e[ay]\\|ie?\\)\\)\\|n\\(?:d\\(?:all?\\|ra\\)\\|ia\\|nedy\\|ya\\)\\|r\\(?:i\\|r[iy]\\)\\)\\|hadijah\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:a\\|ra\\|sten\\)\\|ley\\|mberl\\(?:e[ey]\\|y\\)\\|r\\(?:a\\|st\\(?:en\\|i[en]\\)\\)\\)\\|o\\(?:r\\(?:i\\|tney\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|en\\|i\\(?:an\\|n[ae]\\|[en]\\)\\|yn\\|[aiy]\\)\\|ystal?\\)\\|y\\(?:l\\(?:a\\|[ei]e\\)\\|ra\\)\\)\\|l\\(?:a\\(?:c\\(?:ey\\|ie\\|y\\)\\|keisha\\|na\\|r\\(?:\\(?:iss\\)?a\\)\\|t\\(?:\\(?:ash\\|ish\\|oy\\)a\\)\\|ur\\(?:a\\|e[ln]\\|ie\\|yn\\)\\|yla\\)\\|e\\(?:a\\(?:h\\|n\\(?:dra\\|n[ae]?\\)\\)?\\|eann\\|i\\(?:gh\\|la\\)\\|na\\|sl\\(?:ey\\|ie\\|y\\)\\|ticia\\|x\\(?:ie?\\|us\\)\\)\\|i\\(?:ana\\|dia\\|l\\(?:iana\\|lian\\|y\\)\\|nd\\(?:a\\|s\\(?:[ae]y\\)\\)\\|sa\\|z\\(?:a\\|beth\\|et\\(?:h\\|te\\)\\)\\)\\|o\\(?:gan\\|r\\(?:ena?\\|i\\|raine\\)\\|urdes\\)\\|u\\(?:c\\(?:ero\\|ia\\|y\\)\\|z\\)\\|y\\(?:dia\\|n\\(?:dsey\\|ette\\|n\\)\\)\\)\\|m\\(?:a\\(?:c\\(?:ey\\|ie\\|kenzie\\|y\\)\\|d\\(?:alyn\\|dison\\|el\\(?:eine\\|ine\\|yn\\)\\|ison\\)\\|egan\\|g\\(?:dalena\\|gie\\)\\|ira\\|k\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|l\\(?:ia\\|lory\\)\\|ndy\\|r\\(?:anda\\|cella\\|gar\\(?:et\\|ita\\)\\|i\\(?:a\\(?:na\\|[hm]\\)\\|bel\\|cela\\|ela?\\|lyn\\|na\\|s\\(?:a\\|ela\\|ol\\|sa\\)\\|tza\\|[ae]\\)\\|le\\(?:e\\|n[ae]\\)\\|t\\(?:\\(?:h\\|in\\)a\\)\\|[ay]\\)\\|ur\\(?:a\\|een\\)\\|y\\(?:r?a\\)\\)\\|ck\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|e\\(?:ag\\(?:h?an\\)\\|g\\(?:h?an\\)\\|l\\(?:anie\\|i\\(?:\\(?:nd\\|ss\\|[ns]\\)a\\)\\|ody\\)\\|r\\(?:anda\\|cedes\\|edith\\)\\)\\|i\\(?:a\\|c\\(?:a\\(?:ela\\|h\\)\\|h\\(?:aela\\|el\\(?:l?e\\)\\)\\)\\|ka\\(?:[ey]?la\\)\\|ndy\\|r\\(?:a\\(?:cle\\|nda\\)\\|eya\\|iam\\)\\|sty\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|n\\(?:i\\(?:ca\\|ka\\|que\\)\\|tana\\)\\|r\\(?:gan\\|iah\\)\\)\\|y\\(?:\\(?:r\\(?:and\\)?\\)?a\\)\\)\\|n\\(?:a\\(?:di\\(?:a\\|ne\\)\\|ncy\\|omi\\|t\\(?:a\\(?:l\\(?:i[ae]\\|y\\)\\|sha\\)\\|halie\\)\\|yeli\\)\\|i\\(?:a\\|c\\(?:\\(?:hol\\|ol\\(?:ett\\)?\\)e\\)\\|k\\(?:ita\\|ki\\|ole\\)\\|na\\)\\|o\\(?:e\\(?:l\\(?:le\\)?\\|mi\\)\\|r\\(?:m?a\\)\\)\\)\\|o\\(?:\\(?:ctavi\\|l\\(?:g\\|ivi\\)\\)a\\)\\|p\\(?:a\\(?:ige\\|loma\\|mela\\|ola\\|ris\\|tric\\(?:e\\|ia\\)\\|ul\\(?:a\\|in[ae]\\)\\|yton\\)\\|e\\(?:rla\\|yton\\)\\|hoebe\\|r\\(?:ecious\\|i\\(?:ncess\\|scilla\\)\\)\\)\\|r\\(?:a\\(?:ch\\(?:ael\\|e\\(?:al\\|l\\(?:le\\)?\\)\\)\\|ndi\\|quel\\|ven\\)\\|e\\(?:agan\\|be\\(?:c\\(?:c?a\\)\\|kah\\)\\|g\\(?:an\\|ina\\)\\|ina\\|nee\\|yna\\)\\|h\\(?:iannon\\|onda\\)\\|i\\(?:kki\\|ley\\|ta\\)\\|o\\(?:b\\(?:[iy]n\\)\\|c\\(?:helle\\|io\\)\\|s\\(?:emary\\|[ae]\\)\\|xan\\(?:a\\|ne\\)\\)\\|u\\(?:by\\|th\\)\\|y\\(?:an\\|lee\\)\\)\\|s\\(?:a\\(?:brina\\|d\\(?:i?e\\)\\|ge\\|l\\(?:ina\\|ly\\)\\|mantha\\|nd\\(?:ra\\|y\\)\\|r\\(?:a[hi]?\\|ina\\)\\|sha\\|van\\(?:ah\\|nah?\\)\\)\\|carlett\\|e\\(?:\\(?:l[ei]\\|re\\)na\\)\\|h\\(?:a\\(?:ina\\|kira\\|n\\(?:a\\|i\\(?:a\\|ce\\|qua\\)\\|n\\(?:a\\|on\\)\\|tel\\)\\|ron\\|\\(?:un\\|wn\\|y[ln]\\)a\\)\\|e\\(?:a\\|ena\\|ila\\|l\\(?:b\\(?:ie\\|[iy]\\)\\|ly\\)\\|rry\\)\\|irley\\|yanne\\)\\|i\\(?:dney\\|erra\\|lvia\\|mone\\)\\|ky\\(?:e\\|l\\(?:[ae]r\\)\\)\\|o\\(?:fia\\|n\\(?:[iy]a\\)\\|phi[ae]\\)\\|t\\(?:ac\\(?:ey\\|ie\\|[iy]\\)\\|e\\(?:fanie\\|phan\\(?:ie\\|y\\)\\|vie\\)\\|ormy\\)\\|u\\(?:mmer\\|san\\(?:n?a\\)?\\|zanne\\)\\|y\\(?:dn\\(?:e[ey]\\|ie\\)\\|lvia\\)\\)\\|t\\(?:a\\(?:b\\(?:[ai]tha\\)\\|lia\\|m\\(?:ara\\|my\\)\\|n\\(?:\\(?:ish\\|[iy]\\)a\\)\\|r\\(?:a\\|yn\\)\\|sha\\|t\\(?:iana\\|um\\|yana\\)\\|yl\\(?:[eo]r\\)\\)\\|e\\(?:r\\(?:esa\\|r[ai]\\)\\|ssa?\\)\\|h\\(?:\\(?:ali\\|eres\\)a\\)\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:r?a\\)\\|ffan\\(?:ie\\|[iy]\\)\\|na\\)\\|o\\(?:n\\(?:i\\|ya\\)\\|ri\\)\\|r\\(?:ac\\(?:ey\\|[iy]\\)\\|i\\(?:cia\\|nity\\|s\\(?:[ht]a\\)\\)\\)\\|y\\(?:esha\\|ler\\|ra\\)\\)\\|v\\(?:a\\(?:leri[ae]\\|nes\\(?:s?a\\)\\)\\|eronica\\|i\\(?:ctoria\\|rginia\\|viana?\\)\\)\\|w\\(?:\\(?:end\\|hit\\(?:[ln]e\\)\\)y\\)\\|xiomara\\|y\\(?:a\\(?:dira\\|jaira\\|ritza\\|sm\\(?:een\\|ine?\\)\\|zmin\\)\\|es\\(?:s?enia\\)\\|olanda\\|v\\(?:\\(?:ett\\|onn\\)e\\)\\)\\|zoey?\\)[0-9]+$") ("#scheme" . "rudybot") ("#emacs" . "rudybot")))) ("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-per-channel-reply-alist (quote (("#scheme" . "rudybot") ("#emacs" . "rudybot"))))
  '(erc-ignore-reply-list (quote nil))
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
@@ -342,7 +191,6 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
- '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
  '(erc-port 6667)
@@ -370,17 +218,18 @@
  '(gnus-article-loose-mime t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
  '(gnus-cacheable-groups "*")
- '(gnus-carpal nil)
+ '(gnus-carpal nil t)
  '(gnus-default-charset (quote iso-8859-15))
  '(gnus-default-posting-charset (quote utf-8) t)
  '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
 ]*\\(no\\|fr\\)\\.[^,]*\\)*$" iso-8859-15 (iso-8859-15)) ("^\\(fido7\\|relcom\\)\\.[^,]*\\(,[ 	
 ]*\\(fido7\\|relcom\\)\\.[^,]*\\)*$" koi8-r (koi8-r)) (message-this-is-mail nil nil) (message-this-is-news iso-8859-15 (iso-8859-15)))))
  '(gnus-ignored-headers (quote ("^Path:" "^Expires:" "^Date-Received:" "^References:" "^Xref:" "^Lines:" "^Relay-Version:" "^Approved:" "^Sender:" "^Received:" "^X-UIDL:" "^MIME-Version:" "^Return-Path:" "^In-Reply-To:" "^Content-Type:" "^Content-Transfer-Encoding:" "^X-WebTV-Signature:" "^X-MimeOLE:" "^X-MSMail-Priority:" "^X-Priority:" "^X-Loop:" "^X-Authentication-Warning:" "^X-MIME-Autoconverted:" "^X-Face:" "^X-Attribution:" "^X-Originating-IP:" "^Delivered-To:" "^NNTP-[-A-Za-z]+:" "^Distribution:" "^X-no-archive:" "^X-Trace:" "^X-Complaints-To:" "^X-NNTP-Posting-Host:" "^X-Orig.*:" "^Abuse-Reports-To:" "^Cache-Post-Path:" "^X-Article-Creation-Date:" "^X-Poster:" "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:" "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:" "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:" "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:" "^Autoforwarded:" "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:" "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:" "^Content-length:" "^X-precedence:" "^X-Authenticated-User:" "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:" "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:" "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:" "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:" "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:" "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:" "^X-Received-Date:" "^X-Hashcash:" "^Face:" "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:")))
+ '(gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com") (nnimap "mail.intergruas.com"))))
+ '(gnus-secondary-select-methods (quote ((nnimap "googlemail" (nnimap-address "imap.googlemail.com") (nnimap-server-port 993) (nnimap-stream ssl)) (nntp "news.gmane.org"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-summary-line-format "%U%R%z%o %B%(%[%4L: %-23,23f%]%) %s
@@ -410,17 +259,17 @@
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
- '(mail-default-headers "Organization: Informatimago
+ '(mail-default-headers "Organization: Ubudu SAS
 X-Accept-Language:         fr, es, en
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Bcc: pjb@informatimago.com
+Bcc: pascal.bourguignon@ubudu.com
 ")
- '(mail-default-reply-to "pjb@informatimago.com")
+ '(mail-default-reply-to "pascal.bourguignon@ubudu.com")
  '(mail-dont-reply-to-names "info-\\|\\(pjb\\|pascal\\)@triton.afaa.asso.fr\\|\\(pjb\\|pascal\\)@thalassa.afaa.asso.fr\\|669155386@correo.movistar.net\\|pjb@imaginet.fr\\|\\(pjb\\|pascal\\).bourguignon@afaa.asso.fr\\|\\(pjb\\|pascal\\)@afaa.asso.fr\\|pjb@afaa.asso.fr\\|pbourguignon@jazzfree.com\\|pbourguignon@jazzcyber.com\\|pajabou@worldonline.fr\\|pbo21957@worldonline.fr\\|\\(pjb\\|pascal\\)@informatimago.com\\|pjb@informatimago.com\\|informatimago@yahoo.es\\|informatimago@terra.es\\|informatimago@free.fr\\|pjb@larural.es\\|tradymago@etrademail.com\\|informatimago@users.sourceforge.net\\|pbourgui@afaa.asso.fr\\|grozilla@offcampus.es\\|latymer@jazzcyber.com\\|latymer_designs@yahoo.com\\|latymer@afaa.asso.fr\\|latymer.designs@afaa.asso.fr\\|latymer.designs@worldonline.fr\\|dla68836@worldonline.fr\\|latymer@worldonline.fr\\|idrv8338@worldonline.fr\\|\\(pjb\\|pascal\\|pascal.bourguignon\\)@informatimago.com")
  '(mail-from-style (quote angle))
- '(mail-host-address "informatimago.com")
+ '(mail-host-address "ubudu.com")
  '(mail-interactive t)
  '(mail-mode-hook (quote (mail-abbrevs-setup (lambda nil (set-buffer-file-coding-system (quote utf-8) t t) (set-input-method default-input-method) (local-set-key "	" (quote expand-mail-aliases))))))
  '(mail-self-blind t)
@@ -445,7 +294,8 @@ X-Accept-Language:         fr, es, en
  '(message-from-style (quote angles))
  '(message-log-max 5000)
  '(message-required-news-headers (quote (From Newsgroups Subject Date Message-ID (optional . Organization) (optional . User-Agent) (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm")))))
- '(message-user-organization "Informatimago")
+ '(message-send-mail-function (quote smtpmail-send-it))
+ '(message-user-organization "Ubudu SAS")
  '(mew-conf-path "~/.new")
  '(mew-mail-path "~/mail")
  '(mew-pop-auth (quote pass))
@@ -465,7 +315,7 @@ X-Accept-Language:         fr, es, en
  '(nntp-authinfo-file "~/.authinfo")
  '(org-agenda-files (quote ("~/notes.txt")))
  '(org-fontify-done-headline t)
- '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "IN-REVIEW(r@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
@@ -502,13 +352,8 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
-<<<<<<< HEAD
- '(safe-local-variable-values (quote ((Package . CCL) (lexical-binding . t))))
- '(send-mail-function (quote sendmail-send-it))
-=======
- '(safe-local-variable-values (quote ((Package . SYSTEM) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . HUNCHENTOOT) (Package . CL-USER) (Syntax . COMMON-LISP) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
->>>>>>> 72609b4dec29f5e2bd3e0698b1b359b891a0e022
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -520,15 +365,17 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
- '(smtpmail-local-domain "lan.informatimago.com")
- '(smtpmail-smtp-server "voyager.informatimago.com")
- '(smtpmail-smtp-service 2525)
+ '(smtpmail-auth-credentials (quote (("smtp.googlemail.com" 587 "pascal.bourguignon@ubudu.com" nil))))
+ '(smtpmail-default-smtp-server "smtp.googlemail.com")
+ '(smtpmail-local-domain "ubudu.com")
+ '(smtpmail-smtp-server "smtp.googlemail.com")
+ '(smtpmail-smtp-service 587)
+ '(smtpmail-starttls-credentials (quote (("smtp.googlemail.com" 465 nil nil))))
  '(spam-autodetect-recheck-messages t)
- '(speedbar-show-unknown-files t)
  '(stack-trace-on-error nil)
- '(tab-stop 4 t)
+ '(tab-stop 2 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
- '(tab-width 4)
+ '(tab-width 2)
  '(tags-table-list (quote nil))
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
@@ -537,7 +384,7 @@ X-Accept-Language:         fr, es, en
  '(url-be-asynchronous t)
  '(url-honor-refresh-requests nil)
  '(user-full-name "Pascal J. Bourguignon")
- '(user-mail-address "pjb@informatimago.com")
+ '(user-mail-address "pascal.bourguignon@ubudu.com")
  '(vc-annotate-background "snow1")
  '(vc-annotate-color-map (quote ((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010"))))
  '(vc-annotate-very-old-color "#000000")
@@ -602,32 +449,48 @@ X-Accept-Language:         fr, es, en
  '(x-select-enable-clipboard t)
  '(x-select-enable-primary t))
 
+;; 587 is the Outgoing server (SMTP) port for IMAP. It uses a TLS encryption connection.
+;; 465 is the Outgoing server (SMTP) port for pop. It uses an SSL encryption connection. 
+
+(setq pgp-signer  "0xC5F8B7FC") ;; "pascal.bourguignon@ubudu.com"
 
 ;;;----------------------------------------------------------------------------
 (load "~/rc/emacs-package.el")
-(load "~/rc/emacs-font.el")
-(when (not *pjb-pvs-is-running*)
+(when  (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
-(load "~/rc/emacs-slime-simple.el")
-;; (load "~/rc/emacs-slime.el")
-;; (load "~/rc/emacs-cl-indent.el")
-(load "~/rc/emacs-redshank.el")
-(load "~/rc/emacs-hyperspec.el")
-(load "~/rc/emacs-android.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
-(add-to-list 'auto-mode-alist '("/Users/pjb/works/abalone/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
+(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
-(add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
+(setf auto-mode-alist
+      (sort* (list* '("\\.md$" . text-mode)
+                    '("/ubudu-sdk/documentation/ios/.*\\.h$". objc-mode)
+                    '("/src/bwin_tournament_ios/.*\\.h$". objc-mode)
+                    '("/src/\\(IOS-SDK\\|audio\\|uscdtest\\)/.*\\.[hm]$" . objc-mode)
+                    (remove* 'modula-2-mode auto-mode-alist
+                             :key (function cdr)))
+             (function string<)
+             :key (function car)))
 
-(setf auto-mode-alist  (sort* auto-mode-alist
-                              (function string<)
-                              :key (function car)))
 
-(set-sources "/home/pjb/works/patchwork/patchwork/")
+(when (require 'yasnippet nil t)
+  (yas-global-mode 1))
+
+
+(require 'auto-complete)
+(defun java-meat ()
+  (interactive)
+  (auto-complete-mode 1)
+  (setf tab-stop 2
+        tab-width 2
+        c-indent-level 2
+        c-basic-offset 2
+        c-tab-always-indent t))
+
+(add-hook 'java-mode-hook 'java-meat)
 
 ;;;----------------------------------------------------------------------------
 
@@ -638,72 +501,169 @@ X-Accept-Language:         fr, es, en
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+(global-set-key (kbd "C-h 1") 'android-search-region)
+(add-hook 'java-mode 'pjb-java-edit-meat)
 
-(dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
-                  c-mode-hook c++-mode-hook))
-  (add-hook hooks 'sexp-movement))
 
-(defun pjb-w3m-mode-meat ()
+(defparameter *android-tools-directory*
+  (if (string= (hostname) "kuiper")
+      "~/firms/ubudu/tools"
+      "~/opt"))
+
+(defparameter *ubudu-sources*
+  (if (string= (hostname) "kuiper")
+      "~/firms/ubudu/src/ubudu-android"
+      "~/src/ubudu-android"))
+
+(require 'ubudu) ; c-style
+(set-sources (expand-file-name *ubudu-sources*))
+(push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
+(when (require 'android nil t)
+ (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
+ (require 'android-mode)
+
+ (defun gud-meat ()
+   (interactive)
+   (add-to-list 'gud-jdb-classpath
+                (expand-file-name (concat *android-tools-directory*
+                                          "/adt/sdk/platforms/android-17/android.jar"))))
+ (add-hook 'gud-mode-hook 'gud-meat))
+
+(require 'cedet)
+(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+(require 'jde)
+
+(require 'twittering-mode)
+(setf twittering-username "ogamita")
+(setf (getenv "XMODIFIERS") nil)
+
+(let ((temporary-file-directory "~/.backups"))
+  (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+
+
+
+(defun ubudu-process-assert-methods ()
   (interactive)
-  (local-set-key (kbd "<up>") 'previous-line)
-  (local-set-key (kbd "<down>") 'next-line)
-  (local-set-key (kbd "<left>") 'backward-char)
-  (local-set-key (kbd "<right>") 'forward-char)
-  (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
-  (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
+  (while (re-search-forward "\\(static void \\([a-zA-Z]*\\)(\\(.*\\))\\)" nil t)
+    (let* ((end    (match-end 0))
+           (header (match-string 1))
+           (name   (match-string 2))
+           (args   (match-string 3))
+           (args   (mapcar (lambda (arg) (split-string arg " +" t))
+                           (split-string (match-string 3) ", *" t))))
+      (goto-char end)
+      (insert "{" "\n")
+      (insert "  if(expected!=actual){" "\n")
+      (if args
+        (insert (format "    Log.e(TAG,String.format(\"Assertion failed: %s\",%s));"
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "String")
+                                            (format "(%s \\\"%%s\\\")" name))
+                                           ((or (string= type "Object")
+                                                (string= type "boolean")
+                                                (string= type "char"))
+                                            (format "(%s %%s)" name))
+                                           ((or (string= type "float")
+                                                (string= type "double"))
+                                            (format "(%s %%f)" name))
+                                           ((or (string= type "byte")
+                                                (string= type "short")
+                                                (string= type "int")
+                                                (string= type "long"))
+                                            (format "(%s %%d)" name))
+                                           (t (format "(%s %%s)" name)))))
+                                      args)
+                              " ")
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "boolean")
+                                            (format "(%s?\"true\":\"false\")" name))
+                                           (t name))))
+                                      args)
+                              ","))
+                "\n")
+        (insert "    Log.e(TAG,String.format(\"Assertion failed\"));" "\n"))
+      (insert "  }" "\n")
+      (insert (format "  super.%s(%s);\n"
+                      name
+                      (join (mapcar (function second) args) ","))
+              "\n")
+      (insert "}" "\n"))))
 
-(defvar w3m-mode-hook '())
-(pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
-;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
+(defun ubudu-process-log-methods ()
+  (interactive)
+  (while (re-search-forward "\\(static int \\([a-zA-Z]*\\)(\\(.*\\))\\)" nil t)
+    (let* ((end    (match-end 0))
+           (header (match-string 1))
+           (name   (match-string 2))
+           (args   (match-string 3))
+           (args   (mapcar (lambda (arg) (split-string arg " +" t))
+                           (split-string (match-string 3) ", *" t))))
+      (goto-char end)
+      (insert "{" "\n")
+      (insert "  android.util.Log.%s(){" "\n")
+      (if args
+        (insert (format "    Log.e(TAG,String.format(\"Assertion failed: %s\",%s));"
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "String")
+                                            (format "(%s \\\"%%s\\\")" name))
+                                           ((or (string= type "Object")
+                                                (string= type "boolean")
+                                                (string= type "char"))
+                                            (format "(%s %%s)" name))
+                                           ((or (string= type "float")
+                                                (string= type "double"))
+                                            (format "(%s %%f)" name))
+                                           ((or (string= type "byte")
+                                                (string= type "short")
+                                                (string= type "int")
+                                                (string= type "long"))
+                                            (format "(%s %%d)" name))
+                                           (t (format "(%s %%s)" name)))))
+                                      args)
+                              " ")
+                        (join (mapcar (lambda (arg)
+                                        (let ((type (first arg))
+                                              (name (second arg)))
+                                          (cond
+                                           ((string= type "boolean")
+                                            (format "(%s?\"true\":\"false\")" name))
+                                           (t name))))
+                                      args)
+                              ","))
+                "\n")
+        (insert "    Log.e(TAG,String.format(\"Assertion failed\"));" "\n"))
+      (insert "  }" "\n")
+      (insert (format "  super.%s(%s);\n"
+                      name
+                      (join (mapcar (function second) args) ","))
+              "\n")
+      (insert "}" "\n"))))
 
 
-;; (setf (getenv "EMACS_USE") "erc")
-;; (setf (getenv "EMACS_USE") "gnus")
-;; (setf (getenv "EMACS_USE") "pgm")
+(setf android-filter-function nil)
+(setf android-filter-function
+      (android-filter-or (android-filter-match-tag     "ubudu\\|bwin")
+                         (android-filter-match-message "ubudu\\|bwin")))
 
+(defun ubudu-reindent-all-java (dirpath)
+  (with-files (file dirpath  'recursive)
+              (when (string-match "\.java$" file )
+                (with-file (file :save t :kill t :literal nil)
+                           (untabify (point-min) (point-max))
+                           (indent-region (point-min) (point-max))))))
 
-(cond
-  (*pjb-pvs-is-running*)
-  ((string= (getenv "EMACS_USE") "erc")
-   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
-   (set-frame-name "ERC")
-   (erc-select))
-  ((string= (getenv "EMACS_USE") "gnus")
-   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
-   (gnus))
-  (t
-   (when (fboundp 'set-palette) (set-palette pal-green))))
+;; (ubudu-reindent-all-java "~/src/Android-SDK/")
 
-
-(cond
-  (*pjb-pvs-is-running*)
-  ((member "(gnus)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 7 60))
-   (setf *activity-tag* "GNUS")
-   (push '(name . "GNUS") default-frame-alist)
-   (set-background-color "#ccccfefeebb7"))
-  ((member "(irc)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 11 60))
-   (setf *activity-tag* "ERC")
-   (push '(name . "ERC") default-frame-alist))
-  (t
-   (setf *activity-tag* "EMACS")
-   (setf uptimes-auto-save-interval (* 13 60))
-   (push '(name . "PGM") default-frame-alist)
-   (server-start)
-   (setf (getenv "CVSEDITOR")  "emacsclient"
-         (getenv "EDITOR")     "emacsclient"
-         (getenv "VISUAL")     "emacsclient")))
-
-(global-set-key (kbd "<f25>")
-                (lambda ()
-                  (interactive)
-                  (let ((file  (ffap-file-at-point)))
-                    (unless (endp (rest (window-list)))
-                      (other-window 1))
-                    (find-file file))))
-
-
+(load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

@@ -134,6 +134,7 @@
   #-(and ccl (not swank)) (declare (ignore encoding))
   #+(and ccl (not swank))
   (mapc (lambda (stream)
+
           (setf (ccl::stream-external-format stream)
                 (ccl:make-external-format :domain nil
                                           :character-encoding encoding
@@ -175,27 +176,26 @@
 ;; editor-name is redefined in config.lisp to be:
 ;; (defun editor-name () (or (getenv "EDITOR") *editor*))
 
-(DEFUN GET-FIRST-WORD (STRING)
+(defun get-first-word (string)
   "
 RETURN:     The first word of the string, or the empty string.
 "
-  (DO ((I 0)
-       (J 0)
-       (FOUND NIL)
-       (DONE NIL))
-      (DONE (IF FOUND (SUBSEQ STRING I  J) ""))
-    (IF  (<= (LENGTH STRING) I)
-      (SETQ DONE T FOUND NIL)
-      (IF (<= J I)
-        (IF (ALPHA-CHAR-P (CHAR STRING I))
-          (SETQ J (1+ I))
-          (INCF I))
-        (IF (<= (LENGTH STRING) J)
-          (SETQ DONE T FOUND T)
-          (IF (ALPHA-CHAR-P (CHAR STRING J))
-            (INCF J)
-            (SETQ DONE T FOUND T))))))
-  );;GET-FIRST-WORD
+  (do ((i 0)
+       (j 0)
+       (found nil)
+       (done nil))
+      (done (if found (subseq string i  j) ""))
+    (if  (<= (length string) i)
+      (setq done t found nil)
+      (if (<= j i)
+        (if (alpha-char-p (char string i))
+          (setq j (1+ i))
+          (incf i))
+        (if (<= (length string) j)
+          (setq done t found t)
+          (if (alpha-char-p (char string j))
+            (incf j)
+            (setq done t found t)))))))
 
 
 (defun edit (&optional (x nil x-p))
@@ -204,25 +204,26 @@ RETURN:     The first word of the string, or the empty string.
 (defun quit ()                      (ccl:quit))
 (defun really-quit () (#_kill (ccl::getpid) 9))
 
-;;; (setf (current-directory) ...)
-
-
+(defun ccl-cl (directory)
+  (setf (ccl:current-directory) directory))
+(push 'ccl-cl com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
+(cd (ccl:current-directory))
 
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
-
-
-
-
-(ql:quickload :swank)
-(when (string= (com.informatimago.pjb:hostname) "galatea.local")
-  (let ((swank::*loopback-interface* "192.168.7.4")
-        (port (+ 4005 (random 123))))
-    (swank:create-server :port port)))
-
 (setf *print-right-margin* 110)
+
+
+;; Temporarily, while developping from kuiper for galatea:
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (ql:quickload :swank))
+#+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
+(let ((swank::*loopback-interface* "192.168.7.4")
+      (port (+ 4005 (random 123))))
+  (swank:create-server :port port))
+
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
 ;;----------------------------------------------------------------------
-;;;; openmcl-init.lisp                --                     --          ;;;;
+;;;; THE END ;;;;

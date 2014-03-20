@@ -137,8 +137,7 @@ RETURN:     The first word of the string, or the empty string.
           (SETQ DONE T FOUND T)
           (IF (ALPHA-CHAR-P (CHAR STRING J))
             (INCF J)
-            (SETQ DONE T FOUND T))))))
-  );;GET-FIRST-WORD
+            (SETQ DONE T FOUND T)))))))
 
 
 (defun edit (&optional (x nil x-p))
@@ -154,4 +153,4 @@ RETURN:     The first word of the string, or the empty string.
 (in-package "COMMON-LISP-USER")
 (use-package "COM.INFORMATIMAGO.PJB")
 
-;;;; openmcl-init.lisp                --                     --          ;;;;
+;;;; THE END ;;;;
