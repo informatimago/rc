@@ -197,6 +197,7 @@ function be_generate(){
         # $HOME/bin-$(hostname|sed -e 's/\..*//')
         $HOME/bin 
         /usr/local/bin  /usr/local/sbin /usr/local/opt
+        /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
         /opt/*/bin      /opt/*/sbin 
         /opt/bin        /opt/sbin
