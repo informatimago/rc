@@ -17,7 +17,7 @@
 #-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
 
 (defparameter swank::*sldb-initial-frames* 40)
-(defparameter swank:*globally-redirect-io* t)
+(defparameter swank:*globally-redirect-io* nil)
 (defparameter swank::*auto-abbreviate-dotted-packages* t)
 
 (defvar *swank-bindings* `((*PRINT-PRETTY* . nil)
