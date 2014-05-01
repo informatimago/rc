@@ -909,9 +909,12 @@ quote(){
     printf "\n"
 }
 
-for script in radio fpm newpassword religion ; do
-    eval $( $script --bash-completion-function )
-done
+
+if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
+    for script in radio fpm newpassword religion ; do
+	eval $( $script --bash-completion-function )
+    done
+fi
 
 
 # ----------------------------------------
