@@ -217,7 +217,7 @@
  '(gnus-article-loose-mime t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-score)))
  '(gnus-cacheable-groups "*")
- '(gnus-carpal nil)
+ '(gnus-carpal nil t)
  '(gnus-default-charset (quote iso-8859-15))
  '(gnus-default-posting-charset (quote utf-8) t)
  '(gnus-group-posting-charset-alist (quote (("^\\(no\\|fr\\)\\.[^,]*\\(,[ 	
@@ -349,7 +349,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . Hemlock) (Package . Hemlock-Internals) (Log . hemlock\.log) (Package . GUI) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values  '((Package . COMMON-LISP-USER) (Package . FLEXI-STREAMS) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Base . 10) (Package . CCL) (Package . CL-PPCRE) (Package . CL-USER) (Package . CLEVER-LOAD) (Package . GUI) (Package . HUNCHENTOOT) (Package . PS) (Package . REVISED^4-SCHEME) (Package . SCHEME-TRANSLATOR) (Package . SERROR) (Package . SYSTEM) (Package DATABASE :USE LISP) (Package X8664 :use CL) (Syntax . ANSI-Common-Lisp) (Syntax . COMMON-LISP) (Syntax . Common-Lisp) (Syntax . Common-lisp) (base . 10) (eval cl-indent (quote dolist/separator) 1) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (lexical-binding . t) (log . hemlock\.log) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . WILBUR) (package . ccl) (package . cl-ppcre) (package . cl-user) (package . clever-load) (package . common-lisp-user) (package . flexi-streams) (package . gui) (package . hemlock) (package . hemlock-internals) (package . hunchentoot) (package . ps) (package . revised^4-scheme) (package . scheme-translator) (package . serror) (package . system) (package . wilbur) (package database :use lisp) (package x8664 :use cl) (syntax . ansi-common-lisp) (syntax . common-lisp) (tab-always-indent) (tab-stop . 4)))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)

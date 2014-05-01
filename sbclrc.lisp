@@ -109,6 +109,8 @@
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
 
+;; (sb-ext:set-sbcl-source-location "/path/to/sbcl/source/")
+
 #-(and)
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")
       '(("" "/local/src/sbcl/sbcl/src/")))
