@@ -4,7 +4,6 @@
 ;; swank:*configure-emacs-indentation*  boolean t
 ;; swank:*globally-redirect-io*         boolean nil
 ;; swank:*global-debugger*              boolean t
-;; swank:*sldb-printer-bindings*        list
 ;; swank:*macroexpand-printer-bindings* list
 ;; swank:*swank-pprint-bindings*        list
 ;; swank:*use-dedicated-output-stream*  boolean t
