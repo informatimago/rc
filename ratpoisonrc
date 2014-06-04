@@ -43,6 +43,8 @@ bind M-x       colon
 bind M-colon   colon
 bind o         focus
 bind c         xterm
+bind N         nextscreen
+bind P         prevscreen
 
 
 rudeness 15 

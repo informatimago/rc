@@ -496,6 +496,41 @@ defgeneric.
 
 
 ;;; --------------------------------------------------------------------
+;;; extract to defun or defmethod
+;;; --------------------------------------------------------------------
+
+(defun pjb-redshank-extract-to-defun (start end name &optional package)
+  "Extracts region from START to END as new defun NAME.
+The marked region is replaced with a call, the actual function
+definition is placed on the toplevel before the current form.
+
+A best effort is made to determine free variables in the marked
+region and make them parameters of the extracted function.  This
+involves macro-expanding code, and as such might have side effects."
+  (interactive "*r\nsName for extracted function: ")
+  (flet ((princ-to-string (o)
+             (with-output-to-string
+               (princ (if (null o) "()" o)))))
+    (let* ((form-string (buffer-substring-no-properties start end))
+           (free-vars (slime-eval `(redshank:free-vars-for-emacs
+                                    ,(concat "(locally " form-string ")")
+                                    ,(or package (slime-pretty-package-name
+                                                  (slime-current-package))))
+                                  package))
+           (defun (with-temp-buffer
+                      (lisp-mode)              ; for proper indentation
+                    (insert "(defun " name " " (princ-to-string free-vars) "\n")
+                    (insert form-string ")\n")
+                    (goto-char (point-min))
+                    (indent-sexp)
+                    (buffer-substring  (point-min) (point-max)))))
+      (delete-region start end)
+      (princ (list* name free-vars) (current-buffer))
+      (save-excursion
+       (beginning-of-defun)
+       (insert defun "\n")))))
+
+;;; --------------------------------------------------------------------
 ;;; defpackage: updating export lists
 ;;; --------------------------------------------------------------------
 
