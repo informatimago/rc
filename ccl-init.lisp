@@ -223,6 +223,16 @@ RETURN:     The first word of the string, or the empty string.
   (swank:create-server :port port))
 
 
+(defun optimization ()
+   (list 'optimize
+         (list 'safety   ccl::*nx-safety*)
+         (list 'debug    ccl::*nx-debug*)
+         (list 'speed    ccl::*nx-speed*)
+         (list 'space    ccl::*nx-space*)
+         (list 'compilation-speed ccl::*nx-cspeed*)))
+
+(format t "~&~S~%" (optimization))
+
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")
 ;;----------------------------------------------------------------------
