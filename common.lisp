@@ -505,15 +505,18 @@ The HOST is added to the list of logical hosts defined.
 (fmakunbound 'hostname)
 (defun hostname ()
   "RETURN: The FQDN of the local host."
-  (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
-    (unwind-protect
-         (progn
-           (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                   outpath)
-           (with-open-file (hostname outpath)
-             (read-line hostname)))
-      (delete-file outpath))))
-
+  (handler-case
+      (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
+        (unwind-protect
+             (progn
+               (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
+                                       outpath)
+               (with-open-file (hostname outpath)
+                 (read-line hostname)))
+          (delete-file outpath)))
+    (error ()
+      (warn "Cannot find hostname.")
+      "localhost")))
 
 ;;;----------------------------------------------------------------------
 ;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
