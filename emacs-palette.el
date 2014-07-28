@@ -49,6 +49,16 @@
        (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
        (set-default-frame-parameter 'mouse-color      (palette-mouse palette)))
      (set-face-background 'region (palette-region palette))
+     (set-face-background 'mode-line (palette-foreground palette))
+     (set-face-foreground 'mode-line (palette-background palette))
+     (set-face-attribute  'mode-line (selected-frame) :box (list :line-width -1
+                                                                 :color (palette-foreground palette)
+                                                                 :style 'released-button))
+     (set-face-background 'mode-line-inactive (palette-background palette))
+     (set-face-foreground 'mode-line-inactive (palette-foreground palette))
+     (set-face-attribute  'mode-line-inactive (selected-frame) :box (list :line-width -1
+                                                                          :color (palette-foreground palette)
+                                                                          :style 'released-button))
      (when (getenv "EMACS_WM")
        (set-face-background 'border (palette-background palette)))
      (set-foreground-color (palette-foreground palette))
