@@ -229,6 +229,7 @@
     "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
     "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
     "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
+    "-artwiz-glisp-medium-r-normal--13-130-75-75-p-90-*-*"
 
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -261,8 +262,14 @@
 
 ;; ------------------------------------------------------------------------
 
-(global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
-(global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
+
+(case window-system
+  ((ns)
+   (global-set-key (kbd "A-<next>")   (lambda () (interactive) (forward-font +1)))
+   (global-set-key (kbd "A-<prior>")  (lambda () (interactive) (forward-font -1))))
+  (otherwise
+   (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
+   (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))))
 
 (ignore-errors (set-frame-font (first *pjb-font-list*)))
 
