@@ -517,7 +517,10 @@ X-Accept-Language:         fr, es, en
    (when (fboundp 'set-palette) (set-palette pal-dark-amber))
    (gnus))
   (t
-   (when (fboundp 'set-palette) (set-palette pal-green))))
+   (when (fboundp 'set-palette)
+     (if (string= (hostname) "larissa.local")
+         (set-palette pal-stripe1)
+         (set-palette pal-green)))))
 
 
 (cond

@@ -218,7 +218,7 @@ RETURN:     The first word of the string, or the empty string.
 (when (string= (com.informatimago.pjb:hostname) "galatea.local")
   (ql:quickload :swank))
 #+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
-(let ((swank::*loopback-interface* "192.168.7.4")
+(let ((swank::*loopback-interface* (ccl::primary-ip-interface-address))
       (port (+ 4005 (random 123))))
   (swank:create-server :port port))
 
