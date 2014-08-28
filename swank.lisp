@@ -36,6 +36,23 @@
                            (*SLDB-BITVECTOR-LENGTH* . nil)
                            (*SLDB-STRING-LENGTH* . nil)))
 
+(defvar *swank-bindings-short* `((*PRINT-PRETTY* . nil)
+                                 (*PRINT-LEVEL* . 4)
+                                 (*PRINT-LENGTH* . 20)
+                                 (*PRINT-CIRCLE* . T)
+                                 (*PRINT-CASE* . :downcase)
+                                 (*PRINT-READABLY*)
+                                 (*PRINT-GENSYM* . T)
+                                 (*PRINT-BASE* . 10.)
+                                 (*PRINT-RADIX* . nil)
+                                 (*PRINT-ARRAY* . T)
+                                 (*PRINT-LINES* . nil)
+                                 (*PRINT-ESCAPE* . T)
+                                 (*PRINT-RIGHT-MARGIN* . 110)
+                                 (*random-state* . ,(make-random-state t))
+                                 (*SLDB-BITVECTOR-LENGTH* . 64)
+                                 (*SLDB-STRING-LENGTH* . 64)))
+
 (defun set-swank-binding (variable value)
   (let ((bindings (copy-tree *swank-bindings*)))
     (setf (cdr (assoc variable bindings)) value)
@@ -54,6 +71,8 @@
       (set var *swank-bindings*))))
 
 (set-swank-bindings)
+
+;; (set-swank-bindings *swank-bindings-short*)
 
 ;; (swank::set-swank-binding '*print-circle* nil)
 
