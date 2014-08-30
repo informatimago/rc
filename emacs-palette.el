@@ -49,6 +49,7 @@
        (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
        (set-default-frame-parameter 'mouse-color      (palette-mouse palette)))
      (set-face-background 'region (palette-region palette))
+     
      (set-face-background 'mode-line (palette-foreground palette))
      (set-face-foreground 'mode-line (palette-background palette))
      (set-face-attribute  'mode-line (selected-frame) :box (list :line-width -1
