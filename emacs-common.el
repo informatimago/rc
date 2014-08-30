@@ -2421,15 +2421,6 @@ URL in a new window."
         (erc-restore-text-properties)))))
 
 
-(defun pjb/erc-meat ()
-  (interactive)
-  (reset-movement-keypad)
-  (setf erc-insert-timestamp-function 'pjb/erc-insert-timestamp-left
-        erc-fill-function 'pjb/erc-fill-static)
-  (remove-hook 'erc-insert-modify-hook 'erc-unmorse))
-
-
-(add-hook 'erc-insert-post-hook 'pjb/erc-meat)
 
 ;; (add-hook 'erc-join-hook 'pjb-erc-join-meat)  
 ;; (pjb-set-erc-nickserv-passwords)

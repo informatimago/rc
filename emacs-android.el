@@ -90,12 +90,12 @@
   (setf android-filter-function nil)
 
   (setf android-filter-function (android-filter-or
-                                 (android-filter-match-tag     "ubudu\\|bwin")
-                                 (android-filter-match-message "ubudu\\|bwin")))
+                                 (android-filter-match-tag     "ubudu\\|bwin\\|AndroidRuntime")
+                                 (android-filter-match-message "ubudu\\|bwin\\|AndroidRuntime")))
 
   (setf android-filter-function (android-filter-or
-                                 (android-filter-match-tag     "ubudu")
-                                 (android-filter-match-message "ubudu")))
+                                 (android-filter-match-tag     "ubudu\\|AndroidRuntime")
+                                 (android-filter-match-message "ubudu\\|AndroidRuntime\\|Exception")))
 
   )
 ;;;; THE END ;;;;
