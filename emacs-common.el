@@ -4217,5 +4217,6 @@ list or vector, the length of the sequence."
           (message "length: %d" length))))))
 
 
+;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
 
 ;;;; THE END ;;;;
