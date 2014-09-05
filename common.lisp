@@ -234,11 +234,10 @@ License:
 
 
 (push #P"~/src/public/lisp/" ql:*local-project-directories*)
-(ql:quickload "com.informatimago.tools.pathname")
-(ql:quickload "com.informatimago.tools.quicklisp")
 (ql:quickload "com.informatimago.common-lisp")
 (ql:quickload "com.informatimago.common-lisp.lisp.stepper")
 (ql:quickload "com.informatimago.clmisc")
+(ql:quickload "com.informatimago.tools")
 
 #-(or ccl cmu ecl sbcl)
 (ql:quickload "com.informatimago.clext")
