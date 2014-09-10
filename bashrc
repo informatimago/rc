@@ -528,9 +528,9 @@ function ds () {
 
 
 # bash specific aliases:
-alias rmerge='rsync -HSWacvxz --progress -e ssh '
-alias rsynch='rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
-alias rcopy='rsync -HSWavx --progress'
+alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
+alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
+alias rcopy='echo "rcopy  src/ dst" ; rsync -HSWavx --progress'
 alias rehash='hash -r'
 alias which='type -path'
 alias mplayer='mplayer -quiet'
