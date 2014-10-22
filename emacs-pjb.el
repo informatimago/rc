@@ -19,6 +19,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(3dbutton ((t (:background "grey33" :foreground "black" :box (:line-width 2 :color "white" :style released-button)))))
+ '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "black" :box (:line-width 2 :color "grey75" :style pressed-button)))))
  '(android-mode-debug-face ((t (:foreground "cyan"))))
  '(android-mode-info-face ((t (:foreground "chartreuse"))))
  '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
@@ -29,7 +31,7 @@
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "cyan2"))))
- '(erc-notice-face ((t (:foreground "gray50"))))
+ '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
  '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
@@ -351,7 +353,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . hemlock-internals) (Package . GUI) (Package . Hemlock) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
