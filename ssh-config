@@ -15,15 +15,10 @@ Host gitorious.org
     ForwardAgent            no
     ForwardX11              no
 
-# Host github.com
-#     HostName                github.com
-#     User                    git
-#     IdentityFile            ~/.ssh/id_rsa
-
 Host github.com
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/id_dsa
+    IdentityFile            ~/.ssh/id_rsa
     ForwardAgent            no
     ForwardX11              no
 
