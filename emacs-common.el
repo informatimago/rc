@@ -35,7 +35,7 @@
 ;;; Message Log
 ;;;----------------------------------------------------------------------------
 (setq-default lexical-binding t)
-
+(setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
 
 (defvar *pjb-load-noerror*       t)
@@ -2476,7 +2476,9 @@ URL in a new window."
 ;;;----------------------------------------------------------------------------
 
 (defparameter *pjb-erc-answers*
-  '((lisp-1-vs-lisp-2-technical-issues  
+  '((geb
+     . "the most important book of the XX century: \"Gödel, Escher and Bach: An Eternal Golden Braid\" http://www.amazon.com/G%C3%B6del-Escher-Bach-Eternal-Golden/dp/0465026567")
+    (lisp-1-vs-lisp-2-technical-issues  
      . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
     (equal         
      . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
