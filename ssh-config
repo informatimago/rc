@@ -11,14 +11,19 @@
 # configuration file, and defaults at the end.
 
 
-Host github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/id_rsa
+Host gitorious.org
     ForwardAgent            no
     ForwardX11              no
 
-Host gitorious.org
+# Host github.com
+#     HostName                github.com
+#     User                    git
+#     IdentityFile            ~/.ssh/id_rsa
+
+Host github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/id_dsa
     ForwardAgent            no
     ForwardX11              no
 
@@ -28,6 +33,7 @@ Host ubudu+github.com
     IdentityFile            ~/.ssh/ubudu+id_rsa
     ForwardAgent            no
     ForwardX11              no
+
 
 # ----------------------------------------
 # informatimago.com:
