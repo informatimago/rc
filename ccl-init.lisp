@@ -37,6 +37,7 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+;; (setq ccl:*quit-on-eof* t) in your init file and it will exit on ^D.
 
 #-ccl-1.6 (defun ccl::delete-directory (path)
             (ccl::recursive-delete-directory path))
