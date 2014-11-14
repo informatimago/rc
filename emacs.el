@@ -46,7 +46,4 @@
         (setq custom-file (or file custom-file)))
       (message "Found no configuration to load for %s" (hostname))))
 
-;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-epilog.el")
-
 ;;;; THE END ;;;;

@@ -15,7 +15,7 @@
     ((file-readable-p "/tmp/no-internet")
      nil)
     (t
-     (zerop (parse-integer
+     (zerop (cl:parse-integer
              (shell-command-to-string
               (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
                       url)))))))

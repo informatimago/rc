@@ -30,7 +30,7 @@
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan2"))))
+ '(erc-input-face ((t (:foreground "cyan"))))
  '(erc-notice-face ((t (:foreground "gray70"))))
  '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
  '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
@@ -74,7 +74,7 @@
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "lawn green")))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "dark green")))))
 
 
 
@@ -165,7 +165,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#scheme" "#lisp" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "##lisp" "#scheme" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -323,17 +323,15 @@ X-Accept-Language:         fr, es, en
  '(pop-up-frames nil)
  '(pop-up-windows t)
  '(pr-faces-p t)
- '(pr-ps-printer-alist (quote ((default "lpr" nil "-P" "Samsung_M2020_Series__SEC30CDA7116AD9_"))))
- '(pr-txt-printer-alist (quote ((default "lpr" nil "Samsung_M2020_Series__SEC30CDA7116AD9_"))))
  '(print-gensym t t)
- '(printer-name "Samsung_M2020_Series__SEC30CDA7116AD9_")
+ '(printer-name "normal_gray" t)
  '(prolog-program-name "/usr/bin/swipl")
  '(ps-header-lines 0)
  '(ps-left-header nil)
- '(ps-paper-type (quote a4))
+ '(ps-paper-type (quote a4) t)
  '(ps-print-header nil)
  '(ps-print-header-frame nil)
- '(ps-printer-name "Samsung_M2020_Series__SEC30CDA7116AD9_")
+ '(ps-printer-name "normal_gray")
  '(ps-right-header nil)
  '(ps-show-n-of-n nil)
  '(read-mail-command (quote vm))
@@ -355,11 +353,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
-<<<<<<< HEAD
  '(safe-local-variable-values (quote ((Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
-=======
- '(safe-local-variable-values (quote ((Package . monitor) (eval cl-indent (quote defbf) 2) (Package . hemlock-internals) (Package . GUI) (Package . Hemlock) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
->>>>>>> b60b5ed58369c18c4a8ff08d8779693ef7a334a0
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -479,7 +473,7 @@ X-Accept-Language:         fr, es, en
                               (function string<)
                               :key (function car)))
 
-(set-sources "/home/pjb/works/patchwork/patchwork/")
+(ignore-errors (set-sources "/home/pjb/works/patchwork/src/patchwork/"))
 
 ;;;----------------------------------------------------------------------------
 
@@ -560,5 +554,6 @@ X-Accept-Language:         fr, es, en
                     (find-file file))))
 
 
+(load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

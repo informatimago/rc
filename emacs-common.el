@@ -45,7 +45,12 @@
                                       (string-equal x-resource-name "pvs")))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
-(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
+(if (string= emacs-version "25.0.50.1")
+    (setq source-directory
+          ;; "/usr/local/src/emacs/src"
+          "~/works/emacs/src")
+    (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version)))
+
 
 (defvar *lac-functions* '()
   "A list of functions to be called after elpa is loaded.
@@ -453,13 +458,52 @@ Returns a string described by x; specifically:
 ;;; File access rights
 ;;;----------------------------------------------------------------------------
 
+(defun* cl:digit-char-p (char &optional (radix 10))
+  (let ((value (position (upcase char) "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")))
+    (and value (< value radix) value)))
+
+(defun* cl:parse-integer (string &key (start 0) end (radix 10) junk-allowed)
+  (let ((end    (or end (length string)))
+        (n      0)
+        (sign   1)
+        (plus   (character "+"))
+        (minus  (character "-"))
+        (space  (character " ")))
+    (labels ((parse-integer-error ()
+               (error "Not an integer string %S (:start %d :end %d :radix %d)"
+                      string start end radix))
+             (check-range ()
+               (unless (< start end)
+                 (parse-integer-error)))
+             (eat-spaces (i)
+               (loop
+                 while (and (< i end) (char= space (aref string i)))
+                 do (incf i)
+                 finally (return i))))
+      (setf start (eat-spaces start))
+      (check-range)
+      (cond
+        ((char= plus  (aref string start)) (setf sign +1) (incf start) (check-range))
+        ((char= minus (aref string start)) (setf sign -1) (incf start) (check-range)))
+      (loop
+        for i from start below end
+        for digit = (cl:digit-char-p (aref string i) radix)
+        while digit
+        do (setf n (+ (* n radix) digit))
+        finally (when (< i end)
+                  (setf i (eat-spaces i)))
+                (when (and (not junk-allowed) (< i end))
+                  (parse-integer-error))
+                (return (values (* sign n) i))))))
+
+
 (defun octal (n)
   "N is a decimal numbers whose digits are taken as octal digits
 and converted as such."
   (let ((digits (format "%d" n))
         (r 0))
     (dotimes (i (length digits))
-      (setf r (+ (* 8 r) (digit-char-p (aref digits i)))))
+      (setf r (+ (* 8 r) (cl:digit-char-p (aref digits i)))))
     r))
 
 
@@ -631,8 +675,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
   "Set up my load-path."
   (let ((new-paths '())
         (base-load-path (copy-list load-path)))
-    (flet ((add-if-good
-               (site-lisp)
+    (flet ((add-if-good (site-lisp)
              (let ((site-lisp (expand-file-name site-lisp)))
                (when (file-exists-p site-lisp)
                  (pushnew site-lisp new-paths)
@@ -641,9 +684,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
                            (when (file-exists-p file)
                              (let ((default-directory site-lisp))
                                (.EMACS "%s FOUND" file)
-                               (.EMACS "load file = %s " (load file))
-                               (.EMACS "load pjb file = %s " (load file *pjb-load-noerror*  *pjb-load-silent*))
-                               ))))
+                               (load file)))))
                        '("site-start.el" "site-gentoo.el" "subdirs.el"))
                  t))))
       (dolist (directories (append
@@ -666,6 +707,8 @@ NOTE:   ~/directories.txt is cached in *directories*.
                                '("/usr/local/share/emacs/site-lisp"))
                               ((24)
                                '("/opt/share/emacs/site-lisp/w3m/"))
+                              ((25)
+                               '())
                               (otherwise
                                (.EMACS "WARNING: No load-paths for emacs version %d"
                                        emacs-major-version)
@@ -1193,7 +1236,7 @@ SIDE must be the symbol `left' or `right'."
   (let* ((c-key  (this-command-keys))
          (name   (symbol-name (aref c-key (if ask-for-a-command 1 0))))
          (key    (intern (subseq name 2)))
-         (number (parse-integer name (- (length name) 2)))
+         (number (cl:parse-integer name :start (- (length name) 2)))
          (entry  (assoc key *pjb-function-key-commands*)))
     (unless entry
       (push (setf entry (cons key nil)) *pjb-function-key-commands*))
@@ -1438,19 +1481,19 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (add-hook 'ielm-mode-hook (lambda () (setf standard-output (current-buffer))))
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "eshell")
-(unless (featurep 'eshell-auto)
-  (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
-(defun pjb-eshell-load-meat ()
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-  ;; (defun string (&rest chars)
-  ;;   (do ((s (make-string (length chars) 0))
-  ;;        (ch chars (cdr ch))
-  ;;        (i 0 (1+ i)))
-  ;;       ((null ch) s)
-  ;;     (setf (aref s i) (car ch))))
-  )
-(add-hook 'eshell-load-hook (function pjb-eshell-load-meat))
+;; (.EMACS "eshell")
+;; (unless (featurep 'eshell-auto)
+;;   (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
+;; (defun pjb-eshell-load-meat ()
+;;   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+;;   ;; (defun string (&rest chars)
+;;   ;;   (do ((s (make-string (length chars) 0))
+;;   ;;        (ch chars (cdr ch))
+;;   ;;        (i 0 (1+ i)))
+;;   ;;       ((null ch) s)
+;;   ;;     (setf (aref s i) (car ch))))
+;;   )
+;; (add-hook 'eshell-load-hook (function pjb-eshell-load-meat))
 
 
 
@@ -2454,7 +2497,7 @@ URL in a new window."
 ;; (setf word "qu1j0t3")
 ;; 
 ;; (defun used-digits-for-letters-p (word)
-;;   (let ((d (map 'vector 'digit-char-p word))
+;;   (let ((d (map 'vector 'cl:digit-char-p word))
 ;;         (v (map 'vector 'vowelp word)))
 ;;     (and (some 'identity d)
 ;;          (loop
@@ -3905,7 +3948,7 @@ Attribution: ?"
                     (forward-sexp) (backward-sexp)
                     (thing-at-point-no-properties 'symbol)))))
    (find-grep
-    (format "find ~/works/patchwork/patchwork/src/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
+    (format "find ~/works/patchwork/src/patchwork/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
 (global-set-key (kbd "H-/") 'pwfind)
 
 (defun next-day (date)
