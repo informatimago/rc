@@ -52,14 +52,19 @@
      
      (set-face-background 'mode-line (palette-foreground palette))
      (set-face-foreground 'mode-line (palette-background palette))
-     (set-face-attribute  'mode-line (selected-frame) :box (list :line-width -1
-                                                                 :color (palette-foreground palette)
-                                                                 :style 'released-button))
+     (let ((box  (list :line-width -1
+                       :color (palette-foreground palette)
+                       :style 'released-button)))
+       (set-face-attribute  'mode-line (selected-frame) :box box)
+       (set-face-attribute  'mode-line t                :box box))
      (set-face-background 'mode-line-inactive (palette-background palette))
      (set-face-foreground 'mode-line-inactive (palette-foreground palette))
-     (set-face-attribute  'mode-line-inactive (selected-frame) :box (list :line-width -1
-                                                                          :color (palette-foreground palette)
-                                                                          :style 'released-button))
+     (let ((box (list :line-width -1
+                      :color (palette-foreground palette)
+                      :style 'released-button)))
+       (set-face-attribute  'mode-line-inactive (selected-frame) :box box)
+       (set-face-attribute  'mode-line-inactive t                :box box))
+     
      (when (getenv "EMACS_WM")
        (set-face-background 'border (palette-background palette)))
      (set-foreground-color (palette-foreground palette))
@@ -336,3 +341,4 @@
 ;; (set-default-frame-alist *default-font*)
 ;; (.EMACS "set-default-frame-alist done")
 
+;;;; THE END ;;;;
