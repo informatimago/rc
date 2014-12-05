@@ -165,7 +165,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "##lisp" "#scheme" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#lisp-fr" "##lisp" "#scheme" "#lispcafe" "#emacs" "#clnoobs" "#quicklisp" "#ccl" "#lispweb" "#lispgames") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
