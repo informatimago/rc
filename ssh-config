@@ -16,18 +16,19 @@ Host gitorious.org
     ForwardX11              no
 
 Host github.com
-    ForwardAgent            no
-    ForwardX11              no
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/id_dsa
-
-Host ubudu+github.com
+    IdentityFile            ~/.ssh/id_rsa
     ForwardAgent            no
     ForwardX11              no
+
+Host ubudu+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
+    ForwardAgent            no
+    ForwardX11              no
+
 
 # ----------------------------------------
 # informatimago.com:

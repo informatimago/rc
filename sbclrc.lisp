@@ -110,6 +110,7 @@
 ;; -----------------------------------
 
 ;; (sb-ext:set-sbcl-source-location "/path/to/sbcl/source/")
+(sb-ext:set-sbcl-source-location "/usr/share/sbcl-source/")
 
 #-(and)
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")

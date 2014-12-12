@@ -470,6 +470,7 @@ else
 fi
 source $BASH_ENV
 
+SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
 
 # GNUstep environment:

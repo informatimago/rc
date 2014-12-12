@@ -478,5 +478,6 @@
 
 (find-library "outline-mode-easy-bindings") 
 
+(load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
