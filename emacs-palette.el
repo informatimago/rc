@@ -335,7 +335,7 @@
           (set-face-background 'fringe (palette-background palette)))))
     (set-frame-name name)
     (when (zerop (user-uid))
-      (set-foreground-color "Red"))));;set-default-frame-alist
+      (set-foreground-color "Red"))))
 
 
 ;; (set-default-frame-alist *default-font*)
