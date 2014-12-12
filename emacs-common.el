@@ -3998,6 +3998,11 @@ or as \"emacs at <hostname>\"."
                                (string-upcase use))))
       (select-frame c))))
 
+(defun after-make-frame/set-frame-name (&optional frame)
+  (let ((frame (or frame (selected-frame))))
+    (sfn t)))
+
+(pushnew (quote after-make-frame/set-frame-name) after-make-frame-functions)
 (milliways-schedule (lambda () (sfn t)))
 
 
