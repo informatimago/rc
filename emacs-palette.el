@@ -13,6 +13,7 @@
   name foreground background cursor region mouse)
 
 
+
 (defmacro defpalette (name foreground background cursor region mouse)
   `(progn
      (defparameter ,name (make-palette :name ',name
@@ -148,8 +149,6 @@
 (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
 (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
 (defpalette pal-blueprint4    "white"        "#010635"       "yellow"  "cadetblue4"    "yellow")
-
-(set-palette  pal-default)
 
 
 ;; ----------------------------------------
@@ -337,8 +336,11 @@
     (when (zerop (user-uid))
       (set-foreground-color "Red"))))
 
-
-;; (set-default-frame-alist *default-font*)
 ;; (.EMACS "set-default-frame-alist done")
+
+;;; ---------------------------------------
+
+(set-palette  pal-default)
+;; (set-default-frame-alist *default-font*)
 
 ;;;; THE END ;;;;
