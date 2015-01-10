@@ -741,7 +741,10 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 
 (map-existing-files (lambda (dir) (pushnew dir exec-path))
-                    '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin"))
+                    (cons (expand-file-name "~/bin/")
+                          '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin")))
+
+(setf (getenv "PATH") (mapconcat (function identity) exec-path ":"))
 
 (require 'highlight-flet nil t)
 
@@ -2669,7 +2672,7 @@ License:
 
 (defvar *pjb-speak-last-message* nil)
 
-(defun speak (message)
+(defun* speak (message &key voice language)
   (interactive "sMessage: ")
   (let ((file (pjb-speak-file)))
     (with-current-buffer (get-buffer-create " *speak text*")
@@ -2677,7 +2680,12 @@ License:
       (insert message)
       (setf *pjb-speak-last-message* message)
       (write-region (point-min) (point-max) file))
-    (shell-command (format "speak -f %s" file))))
+    (let ((command  (format "speak %s %s -f %s"
+                            (if voice    (format "-v %s" voice)    "")
+                            (if language (format "-l %s" language) "")
+                            file)))
+      (message "%S" command)
+      (shell-command command))))
 
 (defalias 'say 'speak)
 
