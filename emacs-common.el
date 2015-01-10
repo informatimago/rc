@@ -21,6 +21,7 @@
 ;; Hemlock Emacs Made Laughically Overly Capably Kidding.
 ;; Climacs Common Lisp Interface Manager Application Creating Sources.
 ;; Mince   Is Not Complete Emacs.
+;; FRED    Resembles Emacs Deliberately
 
 ;;(when (= (user-uid) 0)
 ;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
@@ -2469,7 +2470,6 @@ URL in a new window."
 ;; (pjb-set-erc-nickserv-passwords)
 ;; (setf erc-timestamp-format "%Y-%m-%d %H:%M\n")
 ;; (erc-match-mode 1)
-;; (global-set-key (kbd "C-y") 'erc-yank)
 
 
 ;;(erc-select :server "localhost" :nick "pjb")
