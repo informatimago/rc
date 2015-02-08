@@ -55,12 +55,21 @@
 If you copy the HyperSpec to your local system, set this variable to
 something like \"file:/usr/local/doc/HyperSpec/\".")
 
+(defparameter *hyperspec-path*
+  (cond ((prefixp "file://" common-lisp-hyperspec-root)
+         (subseq common-lisp-hyperspec-root (length "file://")))
+        ((boundp '*hyperspec-path*)
+         *hyperspec-path*)))
+
 (defparameter common-lisp-hyperspec-browser (function ignore))
 (defparameter common-lisp-hyperspec-frame   (selected-frame))
 (defvar common-lisp-hyperspec-history nil
   "History of symbols looked up in the Common Lisp HyperSpec.")
 
-;; (setf common-lisp-hyperspec-browser 'w3m-browse-url
+(when (eq system-type 'darwin)
+  (setf browse-url-browser-function 'browse-url-default-macosx-browser))
+;; (setf common-lisp-hyperspec-browser 'browse-url-default-macosx-browser)
+;; (setf common-lisp-hyperspec-browser 'browse-url)
 ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
 
 (defparameter common-lisp-hyperspec-symbols
