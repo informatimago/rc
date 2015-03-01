@@ -121,8 +121,12 @@
         (when (probe-file path)
           (return (make-pathname :name nil :type nil :version nil :defaults path)))))))
 
-;; "/usr/share/sbcl-source/"
-(sb-ext:set-sbcl-source-location (sbcl-source-location))
+(let ((sources  (sbcl-source-location)))
+  (if sources
+      (sb-ext:set-sbcl-source-location sources)
+      (warn "No sources for ~A ~A~%"
+            (lisp-implementation-type)
+            (lisp-implementation-version))))
 
 #-(and)
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")
