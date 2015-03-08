@@ -109,7 +109,8 @@
 
 
   (setf android-filter-function nil)
-
+  (setf android-filter-function (android-filter-match-tag     "Listeria"))
+  
   (setf android-filter-function (android-filter-or
                                  (android-filter-match-tag     "ubudu\\|bwin\\|AndroidRuntime")
                                  (android-filter-match-message "ubudu\\|bwin\\|AndroidRuntime")))
