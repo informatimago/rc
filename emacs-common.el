@@ -1110,6 +1110,22 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[21~"  'disabled)  ; <f10>
   (global-set-key "[23~"  'disabled)  ; <f11>
   (global-set-key "[24~"  'disabled)  ; <f12>
+
+  (define-key input-decode-map "\M-[1;5A" [C-up])
+  (define-key input-decode-map "\M-[1;5B" [C-down])
+  (define-key input-decode-map "\M-[1;5C" [C-right])
+  (define-key input-decode-map "\M-[1;5D" [C-left])
+
+  (define-key input-decode-map "\M-[1;3A" [M-up])
+  (define-key input-decode-map "\M-[1;3B" [M-down])
+  (define-key input-decode-map "\M-[1;3C" [M-right])
+  (define-key input-decode-map "\M-[1;3D" [M-left])
+
+  (define-key input-decode-map "\M-[1;9A" [M-up])
+  (define-key input-decode-map "\M-[1;9B" [M-down])
+  (define-key input-decode-map "\M-[1;9C" [M-right])
+  (define-key input-decode-map "\M-[1;9D" [M-left])
+  
   nil)
 
 
@@ -2202,6 +2218,8 @@ URL in a new window."
    (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
    (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
    (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
+   (global-set-key (kbd "<f9>") 'emms-pause)
+   (global-set-key (kbd "<f10>") 'emms-seek-backward)
    ;; (setq emms-repeat-playlist 1)
    ;; (emms-standard)
 
@@ -2240,7 +2258,8 @@ URL in a new window."
 
    (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
   
-   (defalias 'np 'emms-show)))
+   (defalias 'np 'emms-show)
+   'lac-emms))
 
 (add-lac 'lac-emms)
 (lac-emms)
