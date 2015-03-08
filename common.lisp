@@ -22,7 +22,7 @@
 ;;;;LEGAL
 ;;;;    GPL
 ;;;;
-;;;;    Copyright Pascal Bourguignon 2003 - 2006
+;;;;    Copyright Pascal Bourguignon 2003 - 2015
 ;;;;    mailto:pjb@informatimago.com
 ;;;;
 ;;;;    This program is free software; you can redistribute it and/or
@@ -237,9 +237,18 @@ License:
 (ql:quickload "com.informatimago.common-lisp")
 (ql:quickload "com.informatimago.common-lisp.lisp.stepper")
 (ql:quickload "com.informatimago.clmisc")
-(ql:quickload "com.informatimago.tools")
-#+abcl (ql:quickload "com.informatimago.tools.pathname")
-#+abcl (ql:quickload "com.informatimago.tools.quicklisp")
+
+;; (ql:quickload "com.informatimago.tools")
+(ql:quickload '("com.informatimago.tools.pathname"
+                "com.informatimago.tools.manifest"
+                "com.informatimago.tools.symbol"
+                "com.informatimago.tools.source"
+                "com.informatimago.tools.summary"
+                "com.informatimago.tools.thread"
+                "com.informatimago.tools.quicklisp"
+                "com.informatimago.tools.make-depends"
+                "com.informatimago.tools.script"
+                "com.informatimago.tools.check-asdf"))
 
 #-(or ccl cmu ecl sbcl)
 (ql:quickload "com.informatimago.clext")
@@ -265,7 +274,8 @@ License:
 
 (dolist (pname '("COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"
                  "COM.INFORMATIMAGO.TOOLS.QUICKLISP"
-                 "COM.INFORMATIMAGO.TOOLS.ASDF"))
+                 "COM.INFORMATIMAGO.TOOLS.ASDF"
+                 "COM.INFORMATIMAGO.TOOLS.THREAD"))
   (use-package pname)
   (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols pname)))
                  

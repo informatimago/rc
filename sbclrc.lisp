@@ -102,15 +102,31 @@
 (defun rt-version<= (a b) (if (version<= a b) '(and) '(or)))
 
 
-
-
 (in-package "COMMON-LISP-USER")
 ;;----------------------------------------------------------------------
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
 
-;; (sb-ext:set-sbcl-source-location "/path/to/sbcl/source/")
-(sb-ext:set-sbcl-source-location "/usr/share/sbcl-source/")
+(defun sbcl-source-location ()
+  (let ((sbcl-file (make-pathname
+                    :directory (list :relative
+                                     (format nil "sbcl-~A" (lisp-implementation-version)))
+                    :name "version"
+                    :type "lisp-expr"))
+        (src-dirs '(#P"/usr/local/src/"
+                    #P"/opt/local/src/"
+                    #P"/data/src/languages/sbcl/")))
+    (dolist (src-dir src-dirs nil)
+      (let ((path (merge-pathnames sbcl-file src-dir nil)))
+        (when (probe-file path)
+          (return (make-pathname :name nil :type nil :version nil :defaults path)))))))
+
+(let ((sources  (sbcl-source-location)))
+  (if sources
+      (sb-ext:set-sbcl-source-location sources)
+      (warn "No sources for ~A ~A~%"
+            (lisp-implementation-type)
+            (lisp-implementation-version))))
 
 #-(and)
 (SETF (LOGICAL-PATHNAME-TRANSLATIONS "target")
