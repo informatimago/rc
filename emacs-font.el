@@ -133,7 +133,8 @@
   (interactive "p")
   (forward-font (- increment)))
 
-
+(global-set-key (kbd "C-c C-f +") 'forward-font)
+(global-set-key (kbd "C-c C-f -") 'backward-font)
 
 ;; ------------------------------------------------------------------------
 
