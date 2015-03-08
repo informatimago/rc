@@ -238,6 +238,8 @@ License:
 (ql:quickload "com.informatimago.common-lisp.lisp.stepper")
 (ql:quickload "com.informatimago.clmisc")
 (ql:quickload "com.informatimago.tools")
+#+abcl (ql:quickload "com.informatimago.tools.pathname")
+#+abcl (ql:quickload "com.informatimago.tools.quicklisp")
 
 #-(or ccl cmu ecl sbcl)
 (ql:quickload "com.informatimago.clext")
@@ -252,14 +254,14 @@ License:
 (ql:quickload "alexandria" :verbose nil)
 
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (mapcar (function unintern) '(make-pathname
-                                translate-logical-pathname
-                                user-homedir-pathname)))
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (shadowing-import '(com.informatimago.tools.pathname:make-pathname
-                      com.informatimago.tools.pathname:translate-logical-pathname
-                      com.informatimago.tools.pathname:user-homedir-pathname)))
+;; (eval-when (:compile-toplevel :load-toplevel :execute))
+(mapcar (function unintern) '(make-pathname
+                              translate-logical-pathname
+                              user-homedir-pathname))
+
+(shadowing-import '(com.informatimago.tools.pathname:make-pathname
+                    com.informatimago.tools.pathname:translate-logical-pathname
+                    com.informatimago.tools.pathname:user-homedir-pathname))
 
 (dolist (pname '("COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"
                  "COM.INFORMATIMAGO.TOOLS.QUICKLISP"

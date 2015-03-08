@@ -22,6 +22,7 @@
 #
 export BASH_ENV=""
 
+set-xterm-title "$(hostname) xterm"
 printf "\n"
 cookie
 printf "\n"

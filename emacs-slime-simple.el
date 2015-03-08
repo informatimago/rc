@@ -60,6 +60,7 @@
 (load-library "slime")
 (slime-setup '(slime-fancy
                slime-asdf
+               slime-presentations
                slime-sprof
                slime-compiler-notes-tree
                slime-hyperdoc

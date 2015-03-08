@@ -3,11 +3,17 @@
 # compilation cache 
 export USE_CCACHE=1
 export CCACHE_DIR="$HOME/.cache/ccache"
-
+export CCACHE_DIR=/movies/android/ccache
 
 # android:
 #  prebuilts/misc/linux-x86/ccache/ccache -M 50G
+#  prebuilts/misc/linux-x86/ccache/ccache -M 100G
 export OUT_DIR_COMMON_BASE=/data/src/systems/android/out
+export OUT_DIR_COMMON_BASE=/movies/android/out
+
+
+
+
 
 export "PATH=/home/pjb/opt/jdk/bin:$PATH"
 
