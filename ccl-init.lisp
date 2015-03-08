@@ -223,6 +223,17 @@ RETURN:     The first word of the string, or the empty string.
       (port (+ 4005 (random 123))))
   (swank:create-server :port port))
 
+(defun start-swank-server (&key (port 4006))
+  "Starts a swank-server on the localhost interface."
+  (unless (find-package "SWANK")
+    (ql:quickload :swank))
+  (funcall (intern "CREATE-SERVER" "SWANK") :port port)
+  (values))
+
+(defun cls ()
+  "Clears the terminal screen."
+  (princ "c")
+  (values))
 
 (defun optimization ()
    (list 'optimize
