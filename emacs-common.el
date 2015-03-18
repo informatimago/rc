@@ -2383,8 +2383,8 @@ URL in a new window."
 
 ;; (local-set-key (kbd "e") 'gnus-summary-mark-as-expirable)
 
-(setf *pjb-gnus-trash-mailbox* "nnimap+voyager.informatimago.com:INBOX.Trash")
-(setf *pjb-gnus-junk-mailbox*  "nnimap+voyager.informatimago.com:INBOX.Junk")
+(setf *pjb-gnus-trash-mailbox* "nnimap+hubble.informatimago.com:INBOX.Trash")
+(setf *pjb-gnus-junk-mailbox*  "nnimap+hubble.informatimago.com:INBOX.Junk")
 
 
 
@@ -2552,7 +2552,7 @@ URL in a new window."
     (ambitious-eval
      . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
     (what-implementation  
-     . "To get help choosing a CL implementation, connect to telnet://voyager.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
+     . "To get help choosing a CL implementation, connect to telnet://hubble.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
     (clhs          
      . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
     (intersection  
