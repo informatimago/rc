@@ -232,7 +232,7 @@
  '(gnus-message-setup-hook (quote (pjb-gnus-message-setup-meat)))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
- '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "voyager.informatimago.com"))))
+ '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "hubble.informatimago.com"))))
  '(gnus-select-method (quote (nntp "news.individual.net")))
  '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-zombies))
  '(gnus-summary-line-format "%U%R%z%o %B%(%[%4L: %-23,23f%]%) %s
@@ -368,7 +368,7 @@ X-Accept-Language:         fr, es, en
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
  '(smtpmail-local-domain "lan.informatimago.com")
- '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 2525)
  '(spam-autodetect-recheck-messages t)
  '(speedbar-show-unknown-files t)

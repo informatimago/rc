@@ -104,7 +104,7 @@
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
  '(safe-local-variable-values (quote ((encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "voyager.informatimago.com")
+ '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pbourguignon@dxo.com")
