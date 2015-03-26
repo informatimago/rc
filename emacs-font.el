@@ -97,6 +97,14 @@
 ;; (set-face-attribute 'default nil :height 200)
 
 
+(defun set-current-font ()
+  (case window-system
+    ((ns)
+     (set-frame-font (font-spec :family (elt *pjb-font-list* *pjb-current-font-index*)
+                                :size 17)))
+    (otherwise
+     (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*)))))
+
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
   (typecase increment 
@@ -115,12 +123,7 @@
      do (ignore-errors
           (return
             (progn
-              (case window-system
-                ((ns)
-                 (set-frame-font (font-spec :family (elt *pjb-font-list* *pjb-current-font-index*)
-                                            :size 17)))
-                (otherwise
-                 (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))))
+              (set-current-font)
               (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
@@ -135,6 +138,13 @@
 
 (global-set-key (kbd "C-c C-f +") 'forward-font)
 (global-set-key (kbd "C-c C-f -") 'backward-font)
+
+(defun after-make-frame/set-current-font (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (set-current-font)))
+
+(pushnew 'after-make-frame/set-current-font after-make-frame-functions)
+
 
 ;; ------------------------------------------------------------------------
 
