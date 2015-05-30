@@ -1,3 +1,4 @@
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;; PJB's Aquamacs rc file.
 (.EMACS "~/rc/emacs-aquamacs.el PJB's Aquamacs rc file.")
 

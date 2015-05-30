@@ -1,3 +1,4 @@
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 
 ;; (push (cons "#lisp" (format "^%s[0-9]+$" (regexp-opt *femnams*))) erc-ignore-per-channel-alist)
 ;; (progn (string-match (format "^%s[0-9]+$" (mapcar 'capitalize (regexp-opt *femnams*))) "Mya29") (match-data))(0 5)
