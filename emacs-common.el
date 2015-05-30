@@ -1,4 +1,4 @@
-;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file.
 ;;;;
@@ -183,7 +183,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
   (when (boundp 'aquamacs-version)
     (.EMACS "aquamacs-version     = %S" aquamacs-version)))
 
-
+;; (window-system system-type system-configuration system-name)
+;; (emacs-major-version emacs-minor-version emacs-version)
 ;; system-type          darwin   gnu/linux  cygwin windows-nt
 ;; system-name          "naiad.informatimago.com" "hermes.afaa.asso.fr"
 ;; system-configuration "i686-pc-linux-gnu" "i686-pc-cygwin" "i386-apple-darwin9.8.0"

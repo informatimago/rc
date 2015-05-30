@@ -1,4 +1,4 @@
-;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-slime.el
 ;;;;LANGUAGE:           emacs lisp

@@ -196,8 +196,10 @@ License:
       (common-path *load-truename*))
   (when (or (not (ignore-errors (probe-file asdf-conf-path)))
             (null (file-write-date asdf-conf-path))
-            (null (file-write-date common-path))
-            (< (file-write-date asdf-conf-path) (file-write-date common-path)))
+            (and common-path
+                 (or (null (file-write-date common-path))
+                     (< (file-write-date asdf-conf-path)
+                        (file-write-date common-path)))))
     (ensure-directories-exist asdf-conf-path)
     (with-open-file (asdfconf asdf-conf-path
                               :direction :output

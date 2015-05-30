@@ -1,4 +1,4 @@
-;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file.
 

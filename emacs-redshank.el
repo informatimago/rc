@@ -1,4 +1,4 @@
-;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-redshank.el
 ;;;;LANGUAGE:           emacs lisp
