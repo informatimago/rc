@@ -755,17 +755,41 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 (load "paredit")
 
-(defun pjb-paredit-space-for-delimiter-p/sharp-plus-minus (endp delimiter)
-  (not (and (not endp)
-            (let ((two-before  (- (point) 2)))
-              (and (<= (point-min) two-before)
-                   (let ((previous (buffer-substring two-before (point))))
-                     (and (or (string= previous "#+")  (string= previous "#-"))
-                          (or (= (point-min) two-before)
-                              (not (memq (char-syntax (aref (buffer-substring two-before (1+ two-before)) 0))
-                                         (list ?w ?_)))))))))))
 
-(push 'pjb-paredit-space-for-delimiter-p/sharp-plus-minus paredit-space-for-delimiter-predicates)
+(defvar pjb-paredit-space-for-delimiter-predicates '()
+  "A list of predicates taking a buffer start end range indicating
+whether no space should be inserted at the end before an opening
+parenthesis.
+The disjonction of all predicates is used.")
+
+(defun pjb-dispatching-reader-macros-p (start end)
+  "Whether there is a dispatching reader macro instance from `start' to `end'."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (goto-char start)
+  (and (looking-at "#[0-9]*[^0-9]")
+       (= end (match-end 0))))
+
+(defun pjb-paredit-space-for-delimiter-p/predicates (endp delimiter)
+  (not (and (not endp)
+            (save-excursion
+             (let ((end (point))
+                   (start (progn (backward-sexp) (point))))
+               (some (lambda (predicate)
+                       (funcall predicate start end))
+                     pjb-paredit-space-for-delimiter-predicates)))
+            t)))
+
+(push 'pjb-dispatching-reader-macros-p pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-paredit-space-for-delimiter-p/predicates paredit-space-for-delimiter-predicates)
+;; (setf  paredit-space-for-delimiter-predicates '(pjb-paredit-space-for-delimiter-p/predicates))
+
+;; (defun bagger-lambda-p (start end)
+;;   (goto-char start)
+;;   (and (looking-at "λ")
+;;        (= end (match-end 0))))
+;; (push 'bagger-lambda-p pjb-paredit-space-for-delimiter-predicates)
+
+
 
 ;;;----------------------------------------------------------------------------
 ;;; CEDET / EIEIO
