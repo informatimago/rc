@@ -200,8 +200,8 @@
 
    (define-lisp-implementation ccl
        '("/opt/local/bin/ccl"
-         "/data/languages/ccl/bin/ccl"
          "/usr/local/bin/ccl"
+         "/data/languages/ccl/bin/ccl"
          "/usr/bin/ccl")
      "^? "
      utf-8)
