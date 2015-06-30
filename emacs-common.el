@@ -2520,6 +2520,21 @@ URL in a new window."
         (erc-restore-text-properties)))))
 
 
+(defcustom erc-foolish-content '("nigger")
+  "Regular expressions to identify foolish content.
+    Usually what happens is that you add the bots to
+    `erc-ignore-list' and the bot commands to this list."
+  :group 'erc
+  :type '(repeat regexp))
+
+(defun erc-foolish-content (msg)
+  "Check whether MSG is foolish."
+  (erc-list-match erc-foolish-content msg))
+
+(add-hook 'erc-insert-pre-hook
+	      (lambda (s)
+            (when (erc-foolish-content s)
+              (setq erc-insert-this nil))))
 
 ;; (add-hook 'erc-join-hook 'pjb-erc-join-meat)  
 ;; (pjb-set-erc-nickserv-passwords)
