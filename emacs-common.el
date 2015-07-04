@@ -766,7 +766,7 @@ The disjonction of all predicates is used.")
   "Whether there is a dispatching reader macro instance from `start' to `end'."
   (message "previous: %S" (buffer-substring-no-properties start end))
   (goto-char start)
-  (and (looking-at "#[0-9]*[^0-9]\\)")
+  (and (looking-at "\\(#[0-9]*[^0-9]\\)")
        (= end (match-end 0))))
 
 (defun pjb-comma-at-p (start end)
