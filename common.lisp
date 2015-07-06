@@ -236,9 +236,9 @@ License:
 
 
 (push #P"~/src/public/lisp/" ql:*local-project-directories*)
-(ql:quickload "com.informatimago.common-lisp")
-(ql:quickload "com.informatimago.common-lisp.lisp.stepper")
-(ql:quickload "com.informatimago.clmisc")
+(ql:quickload "com.informatimago.common-lisp" :verbose nil)
+(ql:quickload "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
+(ql:quickload "com.informatimago.clmisc" :verbose nil)
 
 ;; (ql:quickload "com.informatimago.tools")
 (ql:quickload '("com.informatimago.tools.pathname"
@@ -250,7 +250,8 @@ License:
                 "com.informatimago.tools.quicklisp"
                 "com.informatimago.tools.make-depends"
                 "com.informatimago.tools.script"
-                "com.informatimago.tools.check-asdf"))
+                "com.informatimago.tools.check-asdf")
+              :verbose nil)
 
 #-(or ccl cmu ecl sbcl)
 (ql:quickload "com.informatimago.clext")
