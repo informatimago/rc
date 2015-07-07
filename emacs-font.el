@@ -147,7 +147,6 @@
 
 
 ;; ------------------------------------------------------------------------
-
 (defparameter *pjb-font-list*
   (case window-system
     ((ns)
@@ -155,6 +154,7 @@
        "Courier"
        "Courier New"
        "Menlo"
+       "Monoid"
        "Monaco"
        "PCmyungjo"
        "PT Mono"))
