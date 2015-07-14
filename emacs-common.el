@@ -2594,6 +2594,9 @@ URL in a new window."
 (defparameter *pjb-erc-answers*
   '((geb
      . "the most important book of the XX century: \"Gödel, Escher and Bach: An Eternal Golden Braid\" http://www.amazon.com/G%C3%B6del-Escher-Bach-Eternal-Golden/dp/0465026567")
+    (lisp-applications
+     . "“Please don't assume Lisp is only useful for Animation and Graphics, AI, Bioinformatics, B2B and Ecommerce, Data Mining, EDA/Semiconductor applications, Expert Systems, Finance, Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and Simulation, Natural Language, Optimization, Research, Risk Analysis, Scheduling, Telecom, and Web Authoring just because these are the only things they happened to list.”")
+    (haskell-road . "\"The Haskell Road to Logic, Math and Programming\" http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.137.9312&rep=rep1&type=pdf")
     (lisp-1-vs-lisp-2-technical-issues  
      . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
     (equal         
