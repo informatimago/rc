@@ -2650,6 +2650,8 @@ URL in a new window."
     ;; http://eli.thegreenplace.net/category/programming/lisp/sicp/
     ;; http://www.neilvandyke.org/sicp-plt/
     ;; http://www.youtube.com/watch?v=rdj6deraQ6k
+    (the-little-lisper  . "http://kysmykseka.net/koti/wizardry/Programming/Lisp/Scheme/The%2520Little%2520Schemer%25204th%2520Ed.pdf")
+    (the-schemer-lisper . "http://kysmykseka.net/koti/wizardry/Programming/Lisp/Scheme/The%2520Little%2520Schemer%25204th%2520Ed.pdf")
     (r5rs     
      . "http://www.schemers.org/Documents/Standards/R5RS/HTML/")
     (how-to-design-programs     
@@ -2673,10 +2675,10 @@ URL in a new window."
     (floating-point
      . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/") 
     ;; --
-    (gitorious-lisp 
-     . "https://gitorious.org/com-informatimago/com-informatimago/trees/master")
-    (gitorious-emacs
-     . "https://gitorious.org/com-informatimago/emacs/trees/master")
+    (gitlab-lisp 
+     . "https://gitlab.com/com-informatimago/com-informatimago/")
+    (gitlab-emacs
+     . "https://gitlab.com/com-informatimago/emacs/")
     (rc       
      . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
     (bin      
