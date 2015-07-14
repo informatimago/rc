@@ -2683,8 +2683,6 @@ URL in a new window."
      . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
     (bin      
      . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/bin")
-    (idiots   
-     . "There, there, we know there are idiots on the Internet.  Lisp will make it all better.")
     (maintained-illustration
      . "http://tinyurl.com/last-commit-six-month-ago http://tinyurl.com/monthly-commits http://tinyurl.com/last-commit-yesterday http://tinyurl.com/last-commit-before-VCS-existed")
     (ibcl
