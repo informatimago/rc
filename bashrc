@@ -34,7 +34,8 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
-case $(uname -s) in 
+uname="$(uname -s)"
+case "$uname" in 
 Darwin)
     ulimit -s 32768
     stty erase  >/dev/null 2>&1
@@ -538,16 +539,18 @@ alias which='type -path'
 alias mplayer='mplayer -quiet'
 # general aliases:
 alias more=less
-#alias ec='/usr/local/emacs-multitty/bin/emacsclient -c --no-wait'
-alias ec='emacsclient --no-wait'
 alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
-case $(uname -s) in 
+case "$uname" in 
     Darwin)
         alias df='df -h'
+        socket=(/tmp/emacs${UID}/server-*)
+        alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
         ;;
     *)
         alias df='df -ah'
+        alias ec='emacsclient --no-wait'
+        #alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
         ;;
 esac
 alias du='du -h'
