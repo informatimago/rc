@@ -281,7 +281,7 @@ License:
                  "COM.INFORMATIMAGO.TOOLS.THREAD"))
   (use-package pname)
   (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols pname)))
-                 
+(initialize)
 
 ;;;----------------------------------------------------------------------
 
