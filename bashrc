@@ -233,7 +233,7 @@ function be_generate(){
         /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
     )
 
-    editors=( 
+    editors=(
 	    /Applications/Emacs.app/Contents/MacOS/bin/emacsclient
         /opt/emacs-23.4/bin/emacsclient 
         /opt/emacs-23.3/bin/emacsclient 
@@ -270,14 +270,17 @@ function be_generate(){
     be_variable TARGET   $(uname)
 
 
-    for e in "${editors[@]}" ; do
-        if [ -x "$e" ] ; then
-            be_variable EDITOR    "$e"
-            be_variable VISUAL    "$e"
-            be_variable CVSEDITOR "$e"
-            break
-        fi
-    done
+    be_variable EDITOR    "ec"
+    be_variable VISUAL    "ec"
+    be_variable CVSEDITOR "ec"
+    # for e in "${editors[@]}" ; do
+    #     if [ -x "$e" ] ; then
+    #         be_variable EDITOR    "$e"
+    #         be_variable VISUAL    "$e"
+    #         be_variable CVSEDITOR "$e"
+    #         break
+    #     fi
+    # done
 
 
     be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
