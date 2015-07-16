@@ -234,13 +234,6 @@ function be_generate(){
     )
 
     editors=(
-	    /Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-        /opt/emacs-23.4/bin/emacsclient 
-        /opt/emacs-23.3/bin/emacsclient 
-        /opt/emacs-23.2/bin/emacsclient 
-        /opt/emacs-23.1/bin/emacsclient 
-        /opt/emacs-22.1/bin/emacsclient 
-        /opt/emacs-21.3/bin/emacsclient 
         /opt/local/bin/emacsclient 
         /usr/local/bin/emacsclient 
         /usr/bin/emacsclient 
@@ -269,18 +262,27 @@ function be_generate(){
     be_variable MAKEDIR "$COMMON/makedir"
     be_variable TARGET   $(uname)
 
-
-    be_variable EDITOR    "ec"
-    be_variable VISUAL    "ec"
-    be_variable CVSEDITOR "ec"
-    # for e in "${editors[@]}" ; do
-    #     if [ -x "$e" ] ; then
-    #         be_variable EDITOR    "$e"
-    #         be_variable VISUAL    "$e"
-    #         be_variable CVSEDITOR "$e"
-    #         break
-    #     fi
-    # done
+    case "$uname" in 
+    Darwin)
+        socket=(/tmp/emacs${UID}/server-*)
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=${socket[@]}"
+        alias ec="$e --no-wait"
+        be_variable EDITOR    "$e"
+        be_variable VISUAL    "$e"
+        be_variable CVSEDITOR "$e"
+        ;;
+    *)
+        for e in "${editors[@]}" ; do
+            if [ -x "$e" ] ; then
+                alias ec="$e --no-wait"
+                be_variable EDITOR    "$e"
+                be_variable VISUAL    "$e"
+                be_variable CVSEDITOR "$e"
+                break
+            fi
+        done
+        ;;
+    esac
 
 
     be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
