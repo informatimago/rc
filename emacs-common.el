@@ -2724,6 +2724,7 @@ License:
 
 (defvar *pjb-erc-last-answer* nil)
 
+;; TODO reimplement pjb-erc-answer using define-global-abbrev ?
 (defun pjb-erc-answer (key)
   (interactive (list 
                 (intern (completing-read 
