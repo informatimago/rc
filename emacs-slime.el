@@ -35,66 +35,61 @@
 (.EMACS "emacs-slime.el")
 
 (when (require 'slime nil t)
+
+  (defparameter *pjb-slime-contribs* '(slime-fancy
+                                 slime-xref-browser
+                                 slime-asdf
+                                 slime-banner
+                                 slime-repl
+                                 slime-indentation
+                                 slime-fuzzy
+                                 slime-autodoc
+                                 slime-presentations
+                                 slime-presentation-streams))
   
   (defun slime-eval-print (string)
-    "Eval STRING in Lisp; insert any output and the result at point."
+    "Eval STRING in Lisp; insert any output and the result 
+at point."
     (message "current-prefix-arg = %S" current-prefix-arg)
     (let ((commentp (and (listp current-prefix-arg)
                          (integerp (first current-prefix-arg))
                          (< 4 (first current-prefix-arg)))))
       (slime-eval-async `(swank:eval-and-grab-output ,string)
-        `(lambda (result)
-           (destructuring-bind (output value) result
-             (push-mark)
-             (if ,commentp
-                 (progn
-                   (insert output)
-                   (let ((lines (split-string value "\n")))
-                     (insert "\n;; --> " (pop lines) "\n")
-                     (dolist (line lines)
-                       (insert ";;     " line "\n"))))
-                 (insert output value)))))))
+                        `(lambda (result)
+                           (destructuring-bind (output value) result
+                             (push-mark)
+                             (if ,commentp
+                                 (progn
+                                   (insert output)
+                                   (let ((lines (split-string value "\n")))
+                                     (insert "\n;; --> " (pop lines) "\n")
+                                     (dolist (line lines)
+                                       (insert ";;     " line "\n"))))
+                                 (insert output value)))))))
 
   
   (or (ignore-errors
-        (progn (slime-setup '(slime-fancy
-                              slime-xref-browser
-                              slime-asdf
-                              slime-banner
-                              slime-repl
-                              slime-indentation
-                              slime-fuzzy
-                              slime-autodoc
-                              slime-presentations
-                              slime-presentation-streams))
-               (setf slime-complete-symbol*-fancy   t
-                     slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-                     slime-load-failed-fasl         'never)
-               t))
+       (progn (slime-setup *pjb-slime-contribs*)
+              (setf slime-complete-symbol*-fancy   t
+                    slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+                    slime-load-failed-fasl         'never)
+              t))
       (ignore-errors
-        (progn (slime-setup '(slime-fancy slime-indentation))
-               t))
+       (progn (slime-setup '(slime-fancy slime-indentation))
+              t))
       (ignore-errors
-        (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
-               t))
+       (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
+              t))
       (ignore-errors
-        (progn (slime-setup)
-               t))
+       (progn (slime-setup)
+              t))
       (error ".EMACS: Cannot setup slime :-("))
 
   (defun reload-swank ()
     (interactive)
     (load (expand-file-name "~/quicklisp/slime-helper.el") t)
     (load-library "slime")
-    (slime-setup '(slime-fancy
-                   slime-asdf
-                   slime-sprof
-                   slime-compiler-notes-tree
-                   slime-hyperdoc
-                   slime-mrepl
-                   slime-indentation
-                   slime-repl
-                   slime-media)))
+    (slime-setup *pjb-slime-contribs*))
 
   (reload-swank)
 
@@ -250,7 +245,7 @@
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q";"-m""32M""-I""-K""full"
+             "-ansi""-q"                ;"-m""32M""-I""-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "UTF-8"
@@ -374,11 +369,11 @@
   ;;                 (set-default-lisp-implementation 'clisp)))
 
   (loop
-     for impl in '(ccl clisp sbcl ecl abcl)
-     when (set-default-lisp-implementation impl)
-     do (progn
-          (message "Default Lisp implementations is %s" impl)
-          (return impl)))
+    for impl in '(ccl clisp sbcl ecl abcl)
+    when (set-default-lisp-implementation impl)
+      do (progn
+           (message "Default Lisp implementations is %s" impl)
+           (return impl)))
   
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
@@ -392,15 +387,15 @@
                (mapcar (function buffer-name) (buffer-list))))
   (defun %lisp-buffer-next-number ()
     (loop
-       with i = 0
-       with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-                                    (inferior-lisp-buffers-list))
-                            (function <=))
-       while numbers
-       do (if (= i (car numbers))
-              (progn (incf i) (pop numbers))
-              (return i))
-       finally (return i)))
+      with i = 0
+      with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+                                   (inferior-lisp-buffers-list))
+                           (function <=))
+      while numbers
+      do (if (= i (car numbers))
+             (progn (incf i) (pop numbers))
+             (return i))
+      finally (return i)))
 
   (defvar *lisp-command-history* '())
 
@@ -428,14 +423,14 @@ of `inferior-lisp-program').  Runs the hooks from
     "Create a new inferior-lisp buffer."
     (interactive "P")
     (let* ((impl-or-cmd
-            (if ask-command
-                (read-from-minibuffer
-                 "Lisp implementation or command: "
+             (if ask-command
+                 (read-from-minibuffer
+                  "Lisp implementation or command: "
+                  (format "%s" (lisp-implementation-name
+                                *default-lisp-implementation*))
+                  nil nil '*lisp-command-history*)
                  (format "%s" (lisp-implementation-name
-                               *default-lisp-implementation*))
-                 nil nil '*lisp-command-history*)
-                (format "%s" (lisp-implementation-name
-                              *default-lisp-implementation*))))
+                               *default-lisp-implementation*))))
            (impl  (unless (position (character " ") impl-or-cmd
                                     :test (function char=))
                     (intern-soft impl-or-cmd)))
