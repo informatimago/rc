@@ -678,6 +678,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "C-x C-r g")   'redshank-make-defgeneric-from-defmethod)
   (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
+  (local-set-key (kbd "A-e")         'pjb-cl-export-definition-at-point)
+  (local-set-key (kbd "C-A-s")       'pjb-cl-export-symbol-at-point)
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
