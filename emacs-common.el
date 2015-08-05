@@ -116,7 +116,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
       '((scroll-bar-mode     -1)
         (menu-bar-mode       -1)
         (tool-bar-mode       -1)
-        (transient-mark-mode +1)))
+        (transient-mark-mode +1)
+        (goto-address-mode   +1)))
 
 ;; (progn (scroll-bar-mode -1) (menu-bar-mode -1) (tool-bar-mode -1) (transient-mark-mode +1))
 
