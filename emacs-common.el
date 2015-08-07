@@ -2735,6 +2735,7 @@ License:
 
 ;; (add-hook 'erc-join-hook (lambda () (local-set-key (kbd "H-a") 'pjb-erc-answer)))
 (global-set-key (kbd "H-a") 'pjb-erc-answer)
+(global-set-key (kbd "A-a") 'pjb-erc-answer)
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "server")
