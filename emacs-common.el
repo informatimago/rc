@@ -116,7 +116,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
       '((scroll-bar-mode     -1)
         (menu-bar-mode       -1)
         (tool-bar-mode       -1)
-        (transient-mark-mode +1)))
+        (transient-mark-mode +1)
+        (goto-address-mode   +1)))
 
 ;; (progn (scroll-bar-mode -1) (menu-bar-mode -1) (tool-bar-mode -1) (transient-mark-mode +1))
 
@@ -4159,6 +4160,15 @@ list or vector, the length of the sequence."
         (unless (minusp length)
           (message "length: %d" length))))))
 
+
+(defun merge-customization-variable (a b)
+  (assert (eql (car a) (car b)))
+  (assert (eql 'quote (car (second a))))
+  (assert (eql 'quote (car (second b))))
+  (let ((var (car a))
+        (a (second (second a)))
+        (b (second (second b))))
+    `'(,var ',(remove-duplicates (append a b) :test (function equal)))))
 
 ;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
 
