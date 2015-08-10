@@ -575,6 +575,7 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias ..='cd ..'
 alias ...='cd ../..'
 
+alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
 
 export CVSEDITOR=emacsclient
