@@ -108,19 +108,30 @@
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
 
+(defun clean-version (version)
+  (loop :with i := (1- (length version))
+        :while (and (<= 0 i) (alpha-char-p (aref version i)))
+        :do (decf i)
+        :finally (return (subseq version 0 i))))
+
+
 (defun sbcl-source-location ()
   (let ((sbcl-file (make-pathname
                     :directory (list :relative
-                                     (format nil "sbcl-~A" (lisp-implementation-version)))
+                                     (format nil "sbcl-~A"
+                                             (clean-version
+                                              (lisp-implementation-version))))
                     :name "version"
                     :type "lisp-expr"))
-        (src-dirs '(#P"/usr/local/src/"
+        (src-dirs '(#P"/usr/src/"
+                    #P"/usr/local/src/"
                     #P"/opt/local/src/"
                     #P"/data/src/languages/sbcl/")))
     (dolist (src-dir src-dirs nil)
       (let ((path (merge-pathnames sbcl-file src-dir nil)))
         (when (probe-file path)
           (return (make-pathname :name nil :type nil :version nil :defaults path)))))))
+
 
 (let ((sources  (sbcl-source-location)))
   (if sources
