@@ -2725,6 +2725,7 @@ License:
 
 (defvar *pjb-erc-last-answer* nil)
 
+;; TODO reimplement pjb-erc-answer using define-global-abbrev ?
 (defun pjb-erc-answer (key)
   (interactive (list 
                 (intern (completing-read 
@@ -2735,6 +2736,7 @@ License:
 
 ;; (add-hook 'erc-join-hook (lambda () (local-set-key (kbd "H-a") 'pjb-erc-answer)))
 (global-set-key (kbd "H-a") 'pjb-erc-answer)
+(global-set-key (kbd "A-a") 'pjb-erc-answer)
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "server")
@@ -4158,6 +4160,15 @@ list or vector, the length of the sequence."
         (unless (minusp length)
           (message "length: %d" length))))))
 
+
+(defun merge-customization-variable (a b)
+  (assert (eql (car a) (car b)))
+  (assert (eql 'quote (car (second a))))
+  (assert (eql 'quote (car (second b))))
+  (let ((var (car a))
+        (a (second (second a)))
+        (b (second (second b))))
+    `'(,var ',(remove-duplicates (append a b) :test (function equal)))))
 
 ;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
 
