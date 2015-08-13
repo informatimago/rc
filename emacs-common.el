@@ -520,51 +520,6 @@ and converted as such."
 ;;; File and directory stuff
 ;;;----------------------------------------------------------------------------
 
-(defun first-existing-file (list-of-files)
-  "Finds the first file in LIST-OF-FILES that exists.
-"
-  (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
-
-(defun map-existing-files (function list-of-files)
-  "Calls FUNCTION on each file in LIST-OF-FILES that exists, and returns the list of results.
-"
-  (let ((result '()))
-    (dolist (file list-of-files (nreverse result))
-      (when (file-exists-p file)
-        (push (funcall function file) result)))))
-
-
-(defun remove-non-existing-files (list-of-files)
-  "Returns the LIST-OF-FILES with non-existing files removed.
-"
-  (remove-if-not (function file-exists-p) list-of-files))
-
-
-(defmacro* with-file (file-and-options &body body)
-  "Processes BODY with a buffer on the given file.
-DO:              find-file or find-file-literally, process body, and
-                 optionally save the buffer and kill it.
-                 save is not done if body exits exceptionnaly.
-                 kill is always done as specified.
-FILE-AND-OPTION: either an atom evaluated to a path,
-                 or (path &key (save t) (kill t) (literal nil))
-"
-  (if (atom file-and-options)
-      `(with-file (,file-and-options) ,@body)
-      ;; destructuring-bind is broken, we cannot give anything else than nil
-      ;; as default values:
-      (destructuring-bind (path &key (save nil savep) (kill nil killp)
-                                (literal nil literalp))
-          file-and-options
-        (unless savep (setf save t))
-        (unless killp (setf kill t))
-        `(unwind-protect
-              (progn
-                (,(if literal 'find-file-literally 'find-file) ,path)
-                (prog1 (save-excursion ,@body)
-                  ,(when save `(save-buffer 1))))
-           ,(when kill
-                  `(kill-buffer (current-buffer)))))))
 
 
 (defvar *directories* '() "A cache for the ~/directories.txt dictionary.")
@@ -2865,16 +2820,17 @@ License:
 (setq print-circle t)
 
 
-(autoload 'd-mode "/usr/local/src/languages/clisp/clisp-cvs/clisp/emacs/d-mode"
-  "Mode to edit clisp sources." t)
+;; (autoload 'd-mode "/usr/local/src/languages/clisp/clisp-cvs/clisp/emacs/d-mode"
+;;   "Mode to edit clisp sources." t)
 
+(deletef auto-mode-alist 'd-mode :key (function cdr))
 ;; (setq auto-mode-alist (append '(("\\.c\\'" . c-mode)) auto-mode-alist))
 (appendf auto-mode-alist  '(("\\.pp\\'"                     . pascal-mode)
                             ("\\.\\(m[id]\\|mod\\|def\\)$"  . modula-2-mode)
                             ("-MIB$\\|-SMI$"                . snmp-mode)
                             ("\\.bison\\'"                  . c-mode)
                             ("\\.lex\\'"                    . c-mode)
-                            ("\\.d\\'"                      . d-mode)))
+                            ("\\.d\\'"                      . makefile-mode)))
 
 
 ;;;----------------------------------------------------------------------------
@@ -4171,5 +4127,7 @@ list or vector, the length of the sequence."
     `'(,var ',(remove-duplicates (append a b) :test (function equal)))))
 
 ;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
+
+(defun viper-mode () (interactive) (message "I want more life, fucker!"))
 
 ;;;; THE END ;;;;
