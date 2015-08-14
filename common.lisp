@@ -63,6 +63,7 @@
       *print-lines*  nil
       *print-right-margin* 110)
 
+
 #+swank
 (setq *debugger-hook* (let ((old-debugger-hook *debugger-hook*))
                         (defun trace-error-debugger-hook (condition me-or-my-encapsulation)
@@ -593,6 +594,31 @@ The HOST is added to the list of logical hosts defined.
 ;;;----------------------------------------------------------------------
 (in-package "CL-USER")
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
+
+(defun print-variables ()
+  "Prints the *print-…* and *read-…* variables."
+  (com.informatimago.common-lisp.interactive.interactive:show
+    *print-array*
+    *print-base*
+    *print-case*
+    *print-circle*
+    *print-escape*
+    *print-gensym*
+    *print-length*
+    *print-level*
+    *print-lines*
+    *print-miser-width*
+    *print-pprint-dispatch*
+    *print-pretty*
+    *print-radix*
+    *print-readably*
+    *print-right-margin*
+    *read-base*
+    *read-default-float-format*
+    *read-eval*
+    *read-suppress*
+    (readtable-case *readtable*)))
+
 
 ;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
 ;; (in-package :ibcl-user)
