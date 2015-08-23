@@ -1255,7 +1255,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;            (slime-eval-last-expression)
 ;;            (let ((str  (slime-last-expression)))
 ;;              ;; (.EMACS "A DEF? %S" (STRING-EQUAL "(DEF"  str :end2 4))
-;;              (if (string-equal* "(DEF"  str :end2 4)
+;;              (if (cl:string-equal "(DEF"  str :end2 4)
 ;;                  (slime-interactive-eval str)
 ;;                  (slime-eval-print-last-expression str)))))
 ;; 

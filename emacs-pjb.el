@@ -555,7 +555,8 @@ X-Accept-Language:         fr, es, en
                       (other-window 1))
                     (find-file file))))
 
-
+(cd (user-homedir-pathname))
+(slime)
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 
