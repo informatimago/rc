@@ -52,17 +52,17 @@
     (if (char= ?: (aref cl-name 0))
         (let ((item-name (symbol-name item)))
           (and (char= ?: (aref item-name 0))
-               (string-equal* item cl-symbol)))
-        (or (string-equal* item cl-symbol)
-            (string-equal* item (format "CL:%s"           cl-symbol))
-            (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
-            (string-equal* item (format "CL::%s"          cl-symbol))
-            (string-equal* item (format "COMMON-LISP::%s" cl-symbol))))))
+               (cl:string-equal item cl-symbol)))
+        (or (cl:string-equal item cl-symbol)
+            (cl:string-equal item (format "CL:%s"           cl-symbol))
+            (cl:string-equal item (format "COMMON-LISP:%s"  cl-symbol))
+            (cl:string-equal item (format "CL::%s"          cl-symbol))
+            (cl:string-equal item (format "COMMON-LISP::%s" cl-symbol))))))
 
 
 (defun pjb-cl-equal-cl-keyword (cl-keyword item)
-  (and (string-equal* cl-keyword item)
-       (string-equal* "KEYWORD" (symbol-package item))))
+  (and (cl:string-equal cl-keyword item)
+       (cl:string-equal "KEYWORD" (symbol-package item))))
 
 
 (defvar *redshank-lambda-list-keywords*
@@ -134,7 +134,7 @@ This command assumes point is not in a string or comment.
   "Wether the current thing is the symbol `sym'."
   (forward-sexp)
   (backward-sexp)
-  (string-equal* sym (symbol-at-point)))
+  (cl:string-equal sym (symbol-at-point)))
 
 (defun redshank-current-sexp ()
   "The sexp just after the point."
@@ -546,7 +546,7 @@ NOTE:    Excursion is saved.
        do (let ((form (progn (backward-sexp) (redshank-current-sexp))))
             (when (and (listp form)
                        (pjb-cl-equal-cl-symbol 'defpackage (car form))
-                       (string-equal* (second form) package-name))
+                       (cl:string-equal (second form) package-name))
               (return  (point)))
             (forward-sexp 2))
        while (< (point) (point-max))
@@ -673,7 +673,7 @@ RETURN: (path point)
               (forward-sexp)
               (loop
                  for sexp = (redshank-next-sexp)
-                 until (string-equal* (car sexp) :export))
+                 until (cl:string-equal (car sexp) :export))
               (let ((start (prog1 (point) (forward-sexp)))
                     (end   (prog1 (point) (backward-sexp))))
                 (forward-char)
@@ -813,7 +813,7 @@ RETURN: (path point)
                          (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
                      (<= 2 (length form)))
                 (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
-               ((and (string-equal* "def" (first form)
+               ((and (cl:string-equal "def" (first form)
                                     :end2 (min 3 (length (prin1-to-string (first form)))))
                      (<= 2 (length form))
                      (symbolp (second form)))
