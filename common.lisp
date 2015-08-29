@@ -678,6 +678,10 @@ The HOST is added to the list of logical hosts defined.
 ;;;----------------------------------------------------------------------
 (in-package "CL-USER")
 (shadow 'ed)
+(let ((v (find-symbol "VERSION")))
+  (when v
+    (format t "~&~S is present in ~A where does it come from?" v (package-name *package*))
+    (unintern v)))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
 
 (defun print-variables ()
