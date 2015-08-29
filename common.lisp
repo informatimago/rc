@@ -678,9 +678,11 @@ The HOST is added to the list of logical hosts defined.
 ;;;----------------------------------------------------------------------
 (in-package "CL-USER")
 (shadow 'ed)
-(let ((v (find-symbol "VERSION")))
+(let ((v (find-symbol "VERSION"))
+      (p (package-name *package*)))
   (when v
-    (format t "~&~S is present in ~A where does it come from?" v (package-name *package*))
+    (let ((*package* (load-time-value (find-package "KEYWORD"))))
+      (format t "~&~S is present in ~A where does it come from?" v p))
     (unintern v)))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
 
