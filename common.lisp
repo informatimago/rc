@@ -682,7 +682,7 @@ The HOST is added to the list of logical hosts defined.
       (p (package-name *package*)))
   (when v
     (let ((*package* (load-time-value (find-package "KEYWORD"))))
-      (format t "~&~S is present in ~A where does it come from?" v p))
+      (format t "~&~S is present in ~A where does it come from?~%" v p))
     (unintern v)))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
 
