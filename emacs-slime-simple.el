@@ -630,6 +630,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "<f29>")       'redshank-split-defgeneric-to-defmethod)
   (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
+  (local-set-key (kbd "A-e")         'pjb-cl-export-definition-at-point)
+  (local-set-key (kbd "A-s")         'pjb-cl-export-symbol-at-point)
   
   ;; (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp)
   
