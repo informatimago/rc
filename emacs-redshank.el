@@ -545,7 +545,9 @@ NOTE:    Excursion is saved.
     (loop
        do (let ((form (progn (backward-sexp) (redshank-current-sexp))))
             (when (and (listp form)
-                       (pjb-cl-equal-cl-symbol 'defpackage (car form))
+                       (atom (first form))
+                       (pjb-cl-equal-cl-symbol 'defpackage (first form))
+                       (atom (second form))
                        (cl:string-equal (second form) package-name))
               (return  (point)))
             (forward-sexp 2))
