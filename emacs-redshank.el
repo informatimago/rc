@@ -62,7 +62,7 @@
 
 (defun pjb-cl-equal-cl-keyword (cl-keyword item)
   (and (cl:string-equal cl-keyword item)
-       (cl:string-equal "KEYWORD" (symbol-package item))))
+       (cl:string-equal "KEYWORD" (cl:symbol-package item))))
 
 
 (defvar *redshank-lambda-list-keywords*
