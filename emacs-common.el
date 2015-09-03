@@ -856,7 +856,12 @@ SIDE must be the symbol `left' or `right'."
   ;; (global-set-key "\M-]"                'move-past-close-and-reindent)
 
   (global-set-key (kbd "C-<f9>")  (lambda()(interactive)(set-input-method 'chinese-py-b5)))
-  (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-yawerty)))
+  (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-jis-russian))) ;'cyrillic-yawerty
+  (global-set-key (kbd "C-<f10>") (lambda(&optional alternate)
+                                    (interactive "P")
+                                    (set-input-method (if alternate
+                                                          'russian-typewriter
+                                                          'russian-computer))))
   (global-set-key (kbd "C-<f11>") (lambda()(interactive)(set-input-method 'greek)))
   (global-set-key (kbd "C-<f12>") (lambda()(interactive)(set-input-method 'hebrew)))
   ;; (autoload 'hebr-switch  "hebwork"  "Toggle Hebrew mode.")
