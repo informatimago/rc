@@ -561,8 +561,7 @@
 ;;;
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (defparameter *user-command-groups* (make-hash-table :test (function equal)))
-  (defun ensure-list (item) (if (listp item) item (list item))))
+  (defparameter *user-command-groups* (make-hash-table :test (function equal))))
 
 ;;(setf custom:*user-commands* nil)
 
