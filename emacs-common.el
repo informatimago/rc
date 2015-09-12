@@ -574,6 +574,14 @@ The disjonction of all predicates is used.")
     (goto-char (- end 3))
     (looking-at " ,@")))
 
+(defun pjb-at-p (start end)
+  "Whether there is `@' just before `end'.
+Useful for Objective-CL reader macros."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (when (<= (point-min) (- end 3))
+    (goto-char (- end 1))
+    (looking-at "@")))
+
 (defun pjb-paredit-space-for-delimiter-p/predicates (endp delimiter)
   (not (and (not endp)
             (save-excursion
@@ -586,6 +594,7 @@ The disjonction of all predicates is used.")
 
 (push 'pjb-dispatching-reader-macros-p          pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-comma-at-p                           pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-at-p                                 pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-paredit-space-for-delimiter-p/predicates paredit-space-for-delimiter-predicates)
 ;; (setf  paredit-space-for-delimiter-predicates '(pjb-paredit-space-for-delimiter-p/predicates))
 
