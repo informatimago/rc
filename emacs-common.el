@@ -582,6 +582,15 @@ Useful for Objective-CL reader macros."
     (goto-char (- end 1))
     (looking-at "@")))
 
+(defun pjb-colon-p (start end)
+  "Whether there is `:' just before `end'.
+Useful for Objective-CL reader macros."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (when (<= (point-min) (- end 3))
+    (goto-char (- end 1))
+    (looking-at ":")))
+
+
 (defun pjb-paredit-space-for-delimiter-p/predicates (endp delimiter)
   (not (and (not endp)
             (save-excursion
@@ -595,6 +604,7 @@ Useful for Objective-CL reader macros."
 (push 'pjb-dispatching-reader-macros-p          pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-comma-at-p                           pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-at-p                                 pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-colon-p                              pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-paredit-space-for-delimiter-p/predicates paredit-space-for-delimiter-predicates)
 ;; (setf  paredit-space-for-delimiter-predicates '(pjb-paredit-space-for-delimiter-p/predicates))
 
