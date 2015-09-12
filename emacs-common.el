@@ -2728,7 +2728,9 @@ list or vector, the length of the sequence."
 
 (defun viper-mode () (interactive) (message "I want more life, fucker!"))
 
-
+;; (set-frame-parameter (selected-frame) 'alpha 0)
+;; (set-frame-parameter (selected-frame) 'alpha 96)
+;; (set-frame-parameter (selected-frame) 'alpha 100)
 ;;;----------------------------------------------------------------------------
 (.EMACS "emacs-common complete.")
 ;;;; THE END ;;;;
