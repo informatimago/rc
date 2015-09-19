@@ -555,6 +555,7 @@ X-Accept-Language:         fr, es, en
                       (other-window 1))
                     (find-file file))))
 
+;;  irc://artigue.org.es
 (cd (user-homedir-pathname))
 (slime)
 (load "~/rc/emacs-epilog.el")
