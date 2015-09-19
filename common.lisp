@@ -55,7 +55,6 @@
                     (find-package "COMMON-LISP")
                     (find-package "IMAGE-BASED-COMMON-LISP")))))
 
-
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
@@ -303,11 +302,14 @@ License:
                             "COM.INFORMATIMAGO.COMMON-LISP.REGEXP.REGEXP-")
                      :test (function prefixp))
              (member name '("COM.INFORMATIMAGO.COMMON-LISP.CESARUM.JULIAN-CALENDAR"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GREGORIAN-CALENDAR"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.DATE"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.SET"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.INDEX-SET"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BSET"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BRELATION"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GRAPH"
+                            "COM.INFORMATIMAGO.COMMON-LISP.DATA.CONSTANT"
                             "COM.INFORMATIMAGO.COMMON-LISP.UNIX.OPTION"
                             "COM.INFORMATIMAGO.COMMON-LISP.ED.ED" )
                      :test (function string=))))))
@@ -356,7 +358,9 @@ License:
 
 (dolist (package (informatimago-packages))
   (format *trace-output* "~&;; Using package ~A~%" (package-name package))
-  (use-package package))
+  (handler-case (use-package package)
+    (error (err)
+      (princ err) (terpri))))
 (shadowing-import '(com.informatimago.common-lisp.cesarum.ecma048:ed))
 (dolist (package (informatimago-packages))
   (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package)))
@@ -676,6 +680,14 @@ The HOST is added to the list of logical hosts defined.
 ;;;----------------------------------------------------------------------
 (push :com.informatimago.pjb *features*)
 ;;;----------------------------------------------------------------------
+(defun clean-up-package (package)
+  (mapc (lambda (used-package) (unuse-package used-package package))
+        (package-use-list package))
+  (do-symbols (s package)
+    (unintern s package))
+  (use-package "COMMON-LISP" package)
+  package)
+(clean-up-package "CL-USER")
 (in-package "CL-USER")
 (shadow 'ed)
 (let ((v (find-symbol "VERSION"))
