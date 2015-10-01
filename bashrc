@@ -264,8 +264,11 @@ function be_generate(){
 
     case "$uname" in 
     Darwin)
-        socket=(/tmp/emacs${UID}/server-*)
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=${socket[@]}"
+        if [ 1 = $(mfod -l|wc -l) ] ; then
+            mfod -s 1
+        fi
+        socket=()
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
         alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
