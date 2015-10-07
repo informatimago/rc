@@ -370,6 +370,10 @@ function be_generate(){
         fi
     fi
 
+    if [ -d /opt/local/share/java/gradle ] ; then
+        be_variable GRADLE_HOME /opt/local/share/java/gradle
+    fi
+    
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Madrid
 
