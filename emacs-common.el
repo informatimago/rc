@@ -2514,7 +2514,7 @@ or as \"emacs at <hostname>\"."
     (unwind-protect
          (progn
            (goto-char start)
-           (when (search-forward "http://www.google.com/url?url=")
+           (when (re-search-forward "https?://www.google.[a-z]+/url\\?\\(url=\\|.*&url=\\)")
              (delete-region start (match-end 0)))
            (goto-char start)
            (when (search-forward "&")
