@@ -4000,58 +4000,50 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 +---------------------------------------------------------------------------+
 
 
-
+#
 The important point, and the one vital to constructing bugfree
 programs, is that one wants to think about the control structures
 of a system as control structures, not as individual branch
 statements. This way of thinking is a major step forward.
     -- The Mythical Man Month
-
-
+#
 If I have seen farther than others, it is because I was standing on the
 shoulders of giants.
      -- Isaac Newton
-
-
+#
 In the sciences, we are now uniquely priviledged to sit side by side with
 the giants on whose shoulders we stand.
      -- Gerald Holton
-
-
+#
 If I have not seen as far as others, it is because giants were standing on
 my shoulders.
      -- Hal Abelson
-
-
+#
 Mathematicians stand on each other's shoulders.
      -- Gauss
-
-
+#
 Mathemeticians stand on each other's shoulders while computer scientists
 stand on each other's toes.
      -- Richard Hamming
-
-
+#
 It has been said that physicists stand on one another's shoulders.  If
 this is the case, then programmers stand on one another's toes, and
 software engineers dig each other's graves.
      -- Unknown
-
-
+#
 The  meta-Turing test counts  a thing  as intelligent  if it  seeks to
 devise and apply Turing tests to objects of its own creation.
      -- Lew Mammel, Jr.
-
-
+#
 Capitalization is the difference between "I had to help my uncle Jack
 off a horse." and "I had to help my uncle jack off a horse."
-
+#
 La vecina se atormenta: se avecina la tormenta. 
-
+#
 "As memory is becoming cheaper, even microcomputers could be built
 having these primitives, so that the prospect of controlling one's
 kitchen stove with LISP is not so far-fetched." H. Baker, 1977
-
+#
 
 +------------------------------------------------------------------------
 |=========================================================================
@@ -4329,7 +4321,7 @@ Support: ESJ-00000714020016000-098W01284-A
 ** Acer
 
 Acer Aspire One 
-núºmero de registro STDREG.9306446
+número de registro STDREG.9306446
 
 ** Mountain Systems
 
@@ -5400,21 +5392,7 @@ Files used in configuring a software package:
 
 .bash_profile
 
- ( cat 1>&2 & echo 'GET /index' ) <>/dev/tcp/localhost/80 1>&0
-
-
-MTVDAT file format
-$DATA=CURVE2D        | x y
-$DATA=CURVE3D        | x y z
-$DATA=COLUMN         | x y1 y2 y3 ...
-$DATA=CONTCURVE      | x y z          (on a 3D-surface)
-$DATA=CONTOUR        | z              (on a rectangular xy-mesh)
-$DATA=GRID4D         | f              (on a rectangular xyz-mesh)
-$DATA=VECTOR         | x y z vx vy vz
-$DATA=END
-# Comments
-%<arg>=<value>
-@
+( cat 1>&2 & echo 'GET /index' ) <>/dev/tcp/localhost/80 1>&0
 
 ** COMMANDS: CSH
 	${v:r} ${v:e} ${v:h} ${v:t} : r.e h/t
@@ -5776,8 +5754,10 @@ current             hold
 output
 
 ** COMMANDS: ssh
-
+#+BEGIN(src)
 ssh -L 6667:irc.freenode.org:6667 -L 119:news.individual.net:119 voyager.informatimago.com
+sudo ssh -L 119:news.free.fr:119 root@free.informatimago.com
+#+END(src)
 
 
 Yes.  You'll also want to build an EGD or PRNGD to provide random numbers in
@@ -11066,6 +11046,11 @@ sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
     Create a custom build rule:
     http://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/XcodeBuildSystem/200-Build_Phases/bs_build_phases.html#//apple_ref/doc/uid/TP40002690-BBCCFEDJ
 
+#+BEGIN(src)
+sudo nvram boot-args='-v'
+dscl . -list /Users
+dscl . -read /Users/pjb
+#-END(src)
 
 *** Licenses
 
@@ -11159,7 +11144,6 @@ open /Applications/MacPorts/KDE4/kdeinit4.app
 #  replacing $USER with your username.              
 ######################################################
 
---->  Creating launchd control script
 ###########################################################
 # A startup item has been generated that will aid in
 # starting postfix with launchd. It is disabled
@@ -11168,10 +11152,6 @@ open /Applications/MacPorts/KDE4/kdeinit4.app
 #
 # sudo port load postfix
 ###########################################################
---->  Computing dependencies for postfix
---->  Installing postfix @2.7.1_1
---->  Deactivating postfix @2.6.2_0
---->  Activating postfix @2.7.1_1
 
 To get postfix working, you need to edit the configuration
 files (/opt/local/etc/postfix/*).  You may also
@@ -11179,30 +11159,8 @@ want to turn off Apple's built-in MTA.  For example:
 
 sudo launchctl unload -w /System/Library/LaunchDaemons/org.postfix.master.plist
 
---->  Cleaning postfix
---->  Computing dependencies for postgresql83
---->  Fetching postgresql83
---->  Attempting to fetch postgresql-8.3.12.tar.bz2 from http://ftp7.de.postgresql.org/ftp.postgresql.org/source/v8.3.12/
---->  Verifying checksum(s) for postgresql83
---->  Extracting postgresql83
---->  Configuring postgresql83
---->  Building postgresql83
---->  Staging postgresql83 into destroot
---->  Computing dependencies for postgresql83
---->  Installing postgresql83 @8.3.12_0
 
 To use the postgresql server, install the postgresql83-server port
---->  Deactivating postgresql83 @8.3.11_0
---->  Activating postgresql83 @8.3.12_0
---->  Cleaning postgresql83
---->  Computing dependencies for postgresql83-server
---->  Fetching postgresql83-server
---->  Verifying checksum(s) for postgresql83-server
---->  Extracting postgresql83-server
---->  Configuring postgresql83-server
---->  Building postgresql83-server
---->  Staging postgresql83-server into destroot
---->  Creating launchd control script
 ###########################################################
 # A startup item has been generated that will aid in
 # starting postgresql83-server with launchd. It is disabled
@@ -11211,8 +11169,6 @@ To use the postgresql server, install the postgresql83-server port
 #
 # sudo port load postgresql83-server
 ###########################################################
---->  Computing dependencies for postgresql83-server
---->  Installing postgresql83-server @8.3.12_0
 
 To create a database instance, after install do
  sudo mkdir -p /opt/local/var/db/postgresql83/defaultdb
@@ -11220,17 +11176,6 @@ To create a database instance, after install do
  sudo su postgres -c '/opt/local/lib/postgresql83/bin/initdb -D /opt/local/var/db/postgresql83/defaultdb'
 
 To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
---->  Deactivating postgresql83-server @8.3.11_0
---->  Activating postgresql83-server @8.3.12_0
---->  Cleaning postgresql83-server
---->  Computing dependencies for postgresql84-server
---->  Fetching postgresql84-server
---->  Verifying checksum(s) for postgresql84-server
---->  Extracting postgresql84-server
---->  Configuring postgresql84-server
---->  Building postgresql84-server
---->  Staging postgresql84-server into destroot
---->  Creating launchd control script
 ###########################################################
 # A startup item has been generated that will aid in
 # starting postgresql84-server with launchd. It is disabled
@@ -11239,8 +11184,6 @@ To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased 
 #
 # sudo port load postgresql84-server
 ###########################################################
---->  Computing dependencies for postgresql84-server
---->  Installing postgresql84-server @8.4.5_0
 
 To create a database instance, after install do
  sudo mkdir -p /opt/local/var/db/postgresql84/defaultdb
@@ -11276,8 +11219,10 @@ and edit /opt/local/etc/bitlbee/bitlbee.conf to taste
 #+END(src)
 
 *** Postgres
-
- sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql84-server.plist
+#+BEGIN(src)
+sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql83-server.plist
+sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql84-server.plist
+#+END(src)
 
 To create a database instance, after install do
  export POSTGRESQL84DATA=/opt/database/defaultdb/
