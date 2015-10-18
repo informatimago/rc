@@ -1,14 +1,5 @@
--*- mode:org; coding:utf-8 -*
+-*- mode:org; coding:utf-8 -*-
 
-    const cl_env_ptr l_env = ecl_process_env();
-    CL_CATCH_ALL_BEGIN(l_env) {
-        CL_UNWIND_PROTECT_BEGIN(l_env) {
-            cl_funcall(1, (cl_object)function);
-        }
-        CL_UNWIND_PROTECT_EXIT {}
-        CL_UNWIND_PROTECT_END;
-    }
-    CL_CATCH_ALL_END;
 
 
 ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
@@ -19,6 +10,32 @@ TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
 coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
 
 http://www.digitalcombatsimulator.com/|pjb@informatimago.com|FUKekij2solryj
+
+
+http://www.artinfo-musinfo.org/en/issues/index.html
+
+
+http://allopetitdejeuner.com
+http://chaussettesclub.com
+
+http://changement-adresse.gouv.fr
+http://actes-etat-civil.fr
+http://telepoint.info               (demande préalable en prefecture)
+http://mon.service-public.fr
+https://www.amendes.gouv.fr        (amende minorée dans les trois jours, sauf stationnement et >= 750 euro)
+http://montimbreamoi.com            (imprimer un timbre personnalisé)
+http://montimbreenligne.laposte.fr  (imprimer un timbre)
+http://lettreenligne.laposte.fr     (envoyer un PDF en recommendé)
+http://amelie.fr
+
+http://fdj.fr
+http://pmu.fr
+
+http://chauddevant.com
+http://voirunfilm.com
+http://books.google.fr
+http://gutenberg.org
+http://livrespourtous.com
 
 
 
@@ -314,7 +331,8 @@ MAC ARM Version 1.0
 
 rpn lisp: http://paste.lisp.org/display/144513
 
-kuiper.lan.informatimago.com|mysql|quickdocs|Ny5ZUzUka
+mysql|medicalis|pjb|mygalatea
+mysql||root|
 
 Alan Kay "Programming and Scaling" 2011
 http://www.tele-task.de/archive/video/flash/14029/
@@ -626,12 +644,6 @@ http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
 http://ahefner.livejournal.com/20528.html#
 https://github.com/ahefner/asm6502
 
-ecl android
-../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
-https://github.com/pasky/pachi/blob/master/ANDROID.txt
-https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
-http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
-https://github.com/ageneau/ecl-android
 
 
 GBOM
@@ -2642,14 +2654,6 @@ c to cl compiler: https://github.com/vsedach/Vacietis
 http://www.youtube.com/universidadudima
 
 
-ccl bug slime
-http://trac.clozure.com/ccl/ticket/954
-
-macros for non standard special operators
-https://bugs.launchpad.net/sbcl/+bug/1032643
-http://sourceforge.net/p/ecls/bugs/198/
-http://sourceforge.net/tracker/?func=detail&aid=3554023&group_id=1355&atid=101355
-http://trac.clozure.com/ccl/ticket/1001
 
 VIA APC 8750 Android Mini PC $49
 
@@ -5737,9 +5741,15 @@ rsynch src/dir/   dst/dir
     screen -r -x
 
 ** COMMANDS: screensaver
+#+BEGIN(src)
+setterm -blank $delay  (console)
+xset s off             (X window)
+#+END(src)
 
-    setterm -blank $delay  (console)
-    xset s off             (X window)
+** COMMANDS: fontserver
+#+BEGIN(src)
+xset +fp tcp/fontserver:7100
+#+END(src)
 
 ** COMMANDS: sed
 sed 'N;P;/\n$/d;D'
@@ -7664,6 +7674,7 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
     http://jng.imagine27.com/index.php/2009-08-19-011225_clojure_the_false_lisp.html
 
 ** LANGUAGES: COMMON LISP:
+*** EVAL-WHEN
 
  eval-when -+---+---> :compile-toplevel -+---> read-time       #.
             |   |                         \
@@ -7682,7 +7693,7 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
                                            --> eval-time       defun 
 
 
-
+*** URLS
 
     L subset of Common Lisp for embedded
     http://www.cs.cmu.edu/~chuck/pubpg/luv95.pdf
@@ -7753,6 +7764,51 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
     MAPC     MAPL       function &rest lists+ => first list
     MAPCAR   MAPLIST    function &rest lists+ => result-list
     MAPCAN   MAPCON     function &rest lists+ => concatenated-results
+
+*** Other
+
+        TAO, Ikuo Takeuchi, practical expirience, runs on ELIS Lisp machine,
+        (namespace problems - symbol packages)
+
+        MacELIS, Ken-ichiro Murakami 
+
+        Mul-T, David Kranz, Robert Halstead, Eric Mohr (optimizing compiler
+        generating code for Encore Multimax) 
+
+        Utilisp, (University of Tokyo Interactive Lisp), Hideya Iwasaki,
+        (mUtilisp, implementation, simulat parallelism by time-slicing)
+
+        PM!, PMLisp, Taiichi Yuasa, Takafumi Kawana, (8-bit Z80, first prototype
+        of "P-machine"), Scheme-like 
+
+        EVLIS, Hiroshi Yasui, Tashikazu Sakaguchi, Kohichi Kudo, Nobuyuki
+        Hironishi, (multiport mem-sys)
+
+        TOP-1, Norihisa Suzuki, ongoing project of parallel Common Lisp 
+
+        GHC (guarded-Horn-clause), Kazunori Ueda (comments: Akikazu Takeuchi),
+        (variables in p-languages) 
+
+        OPS-5, Hiroshi Okuno, (parallelizing 2 large AI systems) 
+
+        ...
+
+        Yes, there are many many more papers, articles, running systems,
+        experiments, ... out there. A small list is sent to you, taken from
+        Parallel Lisp: Languages and Systems, US/Japan Workshop on Parallel
+        Lisp, Sendai, Japan, June 1989 (1989! <-- thats Lisp).
+
+
+    SIMD:
+        > Does anyone know of a SIMD library for SBCL (code for any Lisp would
+        > be OK: I could hopefully port it) that allows writing code to take
+        > advantage of MMX/SSE/3DNow/Altivec type stuff?
+        > It would be really cool to have a lispy front-end that allows
+        > programming for any SIMD support the host CPU has.
+        There is http://common-lisp.net/project/sb-simd/ for SBCL
+        Also this example of how to access AltiVec through OpenMCL's LAP:
+        http://lemonodor.com/archives/000913.html
+
 *** ABCL, An Object-Oriented Concurrent System, Akinori Yonezawa (workshop),
         Etsuya Shibanyama and Yonezawa (book)
 
@@ -7834,126 +7890,6 @@ If you want your testsuites to be added to testgrid, contact me
 at the cl-test-grid mailing list, explain where are the testsuites
 in your code and I think we will find a workaround.
 
-*** LANGUAGES: COMMON LISP: CONDITION HANDLER RESTART
-
-  HANDLER-BIND:
-
-   A handler can DECLINE (return)
-   the condition is passed to next handler, 
-   and eventually ERROR or CERROR enter the debugger,
-   or SIGNAL or WARN return NIL.
-
-   A handler can HANDLE (non-local exit) the condition, 
-   using GO, THROW, RETURN-FROM, ABORT, INVOKE-RESTART, etc.
-
-   A handler can DEFER the condition,
-   by signaling another condition, resignaling the same condition or
-   invoking the debugger.
-
-
-      (block :test
-         (handler-bind ((error (lambda (err)
-                                 (terpri)(princ "Handling ") (princ err)
-                                 (return-from :test)))) ; handle
-           (handler-bind ((error (lambda (err) 
-                                   (terpri)(princ "Defering ") (princ err)
-                                   (error err)))) ; defer
-             (handler-bind ((error (lambda (err) 
-                                     (terpri)(princ "Declining ") (princ err)
-                                     nil))) ; decline
-               (error "Test")))))
-
-        Declining Test
-        Defering Test
-        Handling Test
-        NIL
-
-
-  HANDLER-CASE, the clauses cannot decline:
-
-        (handler-case
-            (handler-case (error "Test")
-              (error (err) 
-                (terpri)(princ "Inside ") (princ err)
-                (error err)))                   ; defer
-          (error (err)
-            (terpri) (princ "Outside ") (princ err) nil)) ; handle
-
-
-Location: http://random-state.net/log/3453016738.html                        
-random-state.net
-
-Nikodemus Siivola
-
-<< next | top | previous >>
-
-Condition Style Guide #
-hacking, June 3rd 2009
-
-I don't claim this to be authoritative, but I'd be very interested in
-hearing any opposing views. So: a quick style guide for using the Common
-Lisp condition system — I'm eliding restarts for now, though.
-
-Signalling Conditions
-
-Use #'ERROR to signal conditions inheriting from SERIOUS-CONDITION. This
-includes all subclasses or ERROR. SERIOUS-CONDITION is a convention that
-means "this will land you in the debugger if not handled", which is what #
-'ERROR ensures.
-
-  • Inherit from ERROR if unwinding from the error leaves the system in a
-    consistent state. Subclasses of ERROR mean "oops, we have a problem, but
-    it's OK to unwind."
-  • Inherit from SERIOUS-CONDITION, not ERROR, if the system is messed up
-    somehow, and/or requires either human intervention or special knowledge
-    about the situation to resolve: SERIOUS-CONDITIONs that are not ERRORs
-    mean that "something is deeply wrong and you should know what you are
-    doing if you are going to resolve this."
-
-Use #'WARN to signal conditions inheriting from WARNING. This includes all
-subclasses of STYLE-WARNING. WARNING is a convention that means "this will
-print out a warning if not muffled, and you can muffle this with the
-MUFFLE-WARNING restart", which is what #'WARN ensures.
-
-  • Inherit from STYLE-WARNING if muffling the warning should be fine pretty
-    much whenever.
-  • Inherit from WARNING, not STYLE-WARNING, if muffling the warning is OK
-    only if the muffler knows how to deal with the specific warning:
-    otherwise someone should be made aware of the situation, which is what
-    warnings are for.
-
-Otherwise use #'SIGNAL, and don't expect others to handle your conditions
-unless you document them as part of your API.
-
-Handling Conditions
-
-Learn the difference between HANDLER-BIND and HANDLER-CASE. Short version:
-HANDLER-CASE always unwinds, with HANDLER-BIND you can eg. log the condition
-without handling it, or decide whether to unwind or not after inspecting the
-condition in more detail.
-
-Don't handle arbitrary conditions: a lower layer using #'SIGNAL as a
-communication mechanism will break if you do that.
-
-Don't muffle arbitary WARNINGs that are not STYLE-WARNINGS. A full warning
-can still be muffled, but only if it's one you know to be harmless in your
-case. Otherwise, a full warning should either result in a fail-stop, or
-logging the condition somewhere — depending on the kind of application you
-are developing.
-
-Don't handle arbitary SERIOUS-CONDITIONs that are not ERRORs: if you cannot
-pop up a debugger and don't know exactly how to deal with this specific
-condition, the right answer is to crash — of course preferably with an error
-message, but don't expect that to work properly: maybe the serious condition
-was about corruption in the IO system...
-
-If you just want to ensure the application doesn't enter the debugger, bind
-*DEBUGGER-HOOK* appropriately — but be aware that #'BREAK circumvents
-*DEBUGGER-HOOK*: if that's a danger, refer to the documentation of the
-implementation you are using — most provide a way to hook into #'BREAK.
-
-Happy hacking.
-
 *** Common Lisp Directory
     http://www.cl-user.net/asp/html-docs/process-file-snippset
 
@@ -8003,227 +7939,7 @@ Happy hacking.
 *** Runnable pseudo-code
     http://groups.google.com/group/comp.lang.lisp/msg/a827235ce7466a92?hl=en
 
-** LANGUAGES: COMMON LISP:
-
-    +----------------------------------------------------------------------------
-    | (defun jetteur-des-gazongues ()
-    |   (throw 'les-grandes-gazongues gazonga)) 
-    | ;;  is in e_basic_.list, as is a:
-    | 
-    | (catch (charlisten) gazonga)
-    | 
-    | ;; command-quit invokes:
-    | (throw 'les-petites-gazongues pgazonga) 
-    | ;; in e_interact_.list
-    +----------------------------------------------------------------------------
-
-
-    genera date:  10 1990 1:49pm
-    + local NTP server
-    + old X windows < 6.8
-
-    debug X11: http://www.kev.pulo.com.au/xlibtrace/
-
-    http://video.google.com/videoplay?docid=8612534856516244040
-    explaining a TV logo animation done for Playboy.
-
-    Allegro: .clinit.cl or clinit.cl
-    Clisp: .clisprc.lisp
-    Clozure: ccl-init.lisp or openmcl-init.lisp
-    CMUCL: .cmucl-init.lisp or init.lisp
-    ECL: .eclrc or .ecl
-    LispWorks: .lispworks
-    SBCL: .sbclrc
-
-
-    Generally, learning lisp is fun and the language is very well thought
-    out, which is a result of the fact that a large number of very smart
-    people have designed it over a very long period of time.  that makes
-    writing lisp programs much more pleasant than writing programs in
-    other languages, which tend to support one or two paradigms well, but
-    quickly show that they have had fewer brains in their design.  That is
-    not to say other languages are generally bad.  it is just that lisp is
-    very well thought out and i have not yet found another language that
-    would match.
-        -- Hans Huebner
-
-
-    From: "Marc Battyani" <Marc.Battyani@fractalconcept.com>
-    Subject: High Perfomance Computing and Low Latency using Common Lisp
-    Newsgroups: comp.lang.lisp
-    Date: Fri, 2 May 2008 01:58:45 +0200
-    Message-ID: <2omdnSwvVY6rxIfVnZ2dnUVZ8sWhnZ2d@giganews.com>
-
-    Here is the result of what I presented (or tried to present ;) at the ECLM 
-    2008.
-    http://www.hpcplatform.com
-
-    The short story: Domain Specific Languages in Common Lisp.
-    The result: 100 to 1000 times faster than optimized C++ programs running on 
-    current high-end N cores serveurs.
-
-    Marc 
-
-
-
-
-    SecondLife:
-    If you plan to look at some Second Life code, you can find it here: 
-    http://bitbucket.org/lindenlab/
-    Otherwise, if you prefer Lisp code, that would be here instead: 
-    http://bitbucket.org/S11001001/weblocks-dev/
-
-
-    Javascript implementation in CL.
-    http://marijnhaverbeke.nl/cl-javascript/
-
-    Jnil is a Java to Lisp translation tool. Its major goal is to be an
-    effective aid in translating Java source code to pragmatically correct
-    Lisp code. Jnil currently supports JLS2 and two backends: Linj and
-    Common Lisp.
-    http://common-lisp.net/project/jnil/
-    https://github.com/francogrex/jnil
-
-    Guy Steele is not a Java guy: See
-    http://www.ai.mit.edu/projects/dynlangs/wizards-panels.html and
-    especially
-    http://www.ai.mit.edu/projects/dynlangs/dynlang-wizards-10may01.mov
-
-    http://www2.parc.com/csl/groups/sda/publications/papers/Kiczales-MOPs-for-Lisp/
-    http://www2.parc.com/csl/groups/sda/publications/papers/Kiczales-Macros91/
-
-    Harald Weitz's PHENARETE system.
-    http://portal.acm.org/citation.cfm?id=802950
-    http://portal.acm.org/citation.cfm?id=1411798.1411808
-    http://www.ai.univ-paris8.fr/~hw/bvlispExample.pdf
-
-
-
-    http://rondam.blogspot.com/2009/08/global-variables-done-right.html
-    http://img264.imageshack.us/i/lispnd7.png/
-
-
-    Kent Pitman once wrote: "Please don't assume Lisp is only useful for
-    Animation and Graphics, AI, Bioinformatics, B2B and E-Commerce, Data
-    Mining, EDA/Semiconductor applications, Expert Systems, Finance,
-    Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and
-    Simulation, Natural Language, Optimization, Research, Risk Analysis,
-    Scheduling, Telecom, and Web Authoring just because these are the only
-    things they happened to list."
-
-
-
-    http://img264.imageshack.us/img264/1397/lispnd7.png
-
-    Dependency graph from clbuild systems
-    http://github.com/bhyde/clbuild2dot/tree/master
-
-
-   #+cmu
-   (defun simple-debugger-stub (c hook)
-	(declare (ignore hook))
-	(when (find-restart 'abort c)
-	  (format *error-output*
-		  "~&~a~%[Condition of type ~a]~%" c (type-of c))
-	  (abort c)))
-     (setf *debugger-hook* #'simple-debugger-stub)
-
-LiCE: emacs in CL:  http://www.emmett.ca/~sabetts/
-
-In a profession plagued by, "when all you have is a hammer, everything
-looks like a nail," we get really excited when someone is able to come
-along and prove that everything really *is* a nail if lambda is the
-hammer.
-               B.R.Lewis (comp.lang.scheme)
-
-    A Short Ballad Dedicated to the Growth of Programs
-    http://people.cs.uchicago.edu/~wiseman/humor/large-programs.html             
-
-
-    http://dept-info.labri.u-bordeaux.fr/~idurand/SLS/
-    http://dept-info.labri.u-bordeaux.fr/~idurand/
-
-    http://common-lisp.net/project/claw/docs/claw.pdf
-
-
-    This has been done with EuLisp to some extend. Check out the EuLisp spec.
-    It has a level-0 language and a level-0 library.
-    Level-1 then specifies reflective functionality and
-    some control structures and low-level functionality.
-    The Germans tried to define a DIN Kernel Lisp
-    (An approach to the DIN Kernel Lisp definition,
-    http://www.brics.dk/~hosc/vol04/04-cengarle-al.html ). There
-    is critique by Baker about that attempt:
-    http://home.pipeline.com/~hbaker1/CritLisp.html
-    I guess some of that work then went into ISLisp.
-    http://www.open-std.org/JTC1/SC22/WG16/
-    OpenLisp, an implementation of ISLisp, btw., seems
-    to run on small devices, too:
-    http://openlisp.free.fr/forum/viewtopic.php?f=2&t=28
-
-
-
-(remove-if (lambda (w) (find w "ILLITERATE")) "BULLSHIT")
---> "BUSH"
-
-    PPRINT SPECS:
-    ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-1102a.pdf
-
-    For more info on SFAs, see documentation in
-      http://www.maclisp.info/pitmanual/sfa.html
-    and a sample of coding one at the bottom of that file.
-
-    http://pierre-mai.de/2007/12/kent-m-pitman-the-revised-macl.html
-    http://www.nhplace.com/kent/
-    http://www.maclisp.info/pitmanual/
-    http://common-lisp.net/project/bknr/static/lmman/frontpage.html
-    http://exploring-lisp.blogspot.com/2007/12/revised-maclisp-manual.html
-
-
-    The modern "equivalent" of SFAs would be things like:
-      * Gray streams 
-        http://www.nhplace.com/kent/CL/Issues/stream-definition-by-user.html
-      * Simple Streams
-        http://www.franz.com/support/documentation/6.2/doc/streams.htm
-    Gray streams were a much earlier design and are pretty widely distributed.
-    Simple streams are more elaborated and more recent, but I haven't checked
-    lately to know how many vendors do and don't implement them.
-
-    http://www.dreamsongs.com/NewFiles/HOPL2-Uncut.pdf
-
-    1 kLOC SBCL continuation-based web package.
-    http://discontinuity.info/~pkhuong/common-cold.tar.gz
-
-    Lisp web browser; html parser
-    http://common-lisp.net/project/closure/closure-html
-    http://lichteblau.blogspot.com/2007/10/ten-years-of-closure-html.html
-
-
-    [1] to use the overlay, emerge dev-util/git(you need a version >=1.5),
-    then download it executing:
-    git clone git://repo.or.cz/gentoo-lisp-overlay.git
-    finally, add the full path of the downloaded directory to the variable
-    PORTDIR_OVERLAY in /etc/make.conf
-
-    Centers of community involvement:
-
-        * http://www.cl-user.net/
-        * http://common-lisp.net/
-        * http://planet.lisp.org/
-        * http://www.cliki.net/
-        * IRC channels: http://www.cliki.net/IRC
-        * Mailing lists (like this one)
-
-    The MrEd virtual machine serves both as the implementation
-    platform for the DrScheme programming environment, and as the
-    underlying Scheme engine for executing expressions and programs
-    entered into DrScheme's read-eval-print loop. We describe the key
-    elements of the MrEd virtual machine for building a programming
-    environment, and we step through the implementation of a miniature
-    version of DrScheme in MrEd. More generally, we show how MrEd defines
-    a high-level operating system for graphical programs.
-
-    http://www.cs.brown.edu/~sk/Publications/Papers/Published/ffkf-mred/paper.ps
+http://rondam.blogspot.com/2009/08/global-variables-done-right.html
 
 *** Snippets
 
@@ -8291,50 +8007,6 @@ hammer.
         seperat domains 
 
         the Boyer benchmark, W.Ludwell Harrison, (compiler-notes)
-
-*** Other
-
-        TAO, Ikuo Takeuchi, practical expirience, runs on ELIS Lisp machine,
-        (namespace problems - symbol packages)
-
-        MacELIS, Ken-ichiro Murakami 
-
-        Mul-T, David Kranz, Robert Halstead, Eric Mohr (optimizing compiler
-        generating code for Encore Multimax) 
-
-        Utilisp, (University of Tokyo Interactive Lisp), Hideya Iwasaki,
-        (mUtilisp, implementation, simulat parallelism by time-slicing)
-
-        PM!, PMLisp, Taiichi Yuasa, Takafumi Kawana, (8-bit Z80, first prototype
-        of "P-machine"), Scheme-like 
-
-        EVLIS, Hiroshi Yasui, Tashikazu Sakaguchi, Kohichi Kudo, Nobuyuki
-        Hironishi, (multiport mem-sys)
-
-        TOP-1, Norihisa Suzuki, ongoing project of parallel Common Lisp 
-
-        GHC (guarded-Horn-clause), Kazunori Ueda (comments: Akikazu Takeuchi),
-        (variables in p-languages) 
-
-        OPS-5, Hiroshi Okuno, (parallelizing 2 large AI systems) 
-
-        ...
-
-        Yes, there are many many more papers, articles, running systems,
-        experiments, ... out there. A small list is sent to you, taken from
-        Parallel Lisp: Languages and Systems, US/Japan Workshop on Parallel
-        Lisp, Sendai, Japan, June 1989 (1989! <-- thats Lisp).
-
-
-    SIMD:
-        > Does anyone know of a SIMD library for SBCL (code for any Lisp would
-        > be OK: I could hopefully port it) that allows writing code to take
-        > advantage of MMX/SSE/3DNow/Altivec type stuff?
-        > It would be really cool to have a lispy front-end that allows
-        > programming for any SIMD support the host CPU has.
-        There is http://common-lisp.net/project/sb-simd/ for SBCL
-        Also this example of how to access AltiVec through OpenMCL's LAP:
-        http://lemonodor.com/archives/000913.html
 
 *** LISP COMPILERS,  LISP IMPLEMENTATIONS
 
@@ -9193,7 +8865,359 @@ http://www.sebity.com/the_infected/index.php
 
 I don't know of any commercial Common Lisp RPGs.
 
+*** LANGUAGES: COMMON LISP: CONDITION HANDLER RESTART
+
+  HANDLER-BIND:
+
+   A handler can DECLINE (return)
+   the condition is passed to next handler, 
+   and eventually ERROR or CERROR enter the debugger,
+   or SIGNAL or WARN return NIL.
+
+   A handler can HANDLE (non-local exit) the condition, 
+   using GO, THROW, RETURN-FROM, ABORT, INVOKE-RESTART, etc.
+
+   A handler can DEFER the condition,
+   by signaling another condition, resignaling the same condition or
+   invoking the debugger.
+
+
+      (block :test
+         (handler-bind ((error (lambda (err)
+                                 (terpri)(princ "Handling ") (princ err)
+                                 (return-from :test)))) ; handle
+           (handler-bind ((error (lambda (err) 
+                                   (terpri)(princ "Defering ") (princ err)
+                                   (error err)))) ; defer
+             (handler-bind ((error (lambda (err) 
+                                     (terpri)(princ "Declining ") (princ err)
+                                     nil))) ; decline
+               (error "Test")))))
+
+        Declining Test
+        Defering Test
+        Handling Test
+        NIL
+
+
+  HANDLER-CASE, the clauses cannot decline:
+
+        (handler-case
+            (handler-case (error "Test")
+              (error (err) 
+                (terpri)(princ "Inside ") (princ err)
+                (error err)))                   ; defer
+          (error (err)
+            (terpri) (princ "Outside ") (princ err) nil)) ; handle
+
+
+Location: http://random-state.net/log/3453016738.html                        
+random-state.net
+
+Nikodemus Siivola
+
+<< next | top | previous >>
+
+Condition Style Guide #
+hacking, June 3rd 2009
+
+I don't claim this to be authoritative, but I'd be very interested in
+hearing any opposing views. So: a quick style guide for using the Common
+Lisp condition system — I'm eliding restarts for now, though.
+
+Signalling Conditions
+
+Use #'ERROR to signal conditions inheriting from SERIOUS-CONDITION. This
+includes all subclasses or ERROR. SERIOUS-CONDITION is a convention that
+means "this will land you in the debugger if not handled", which is what #
+'ERROR ensures.
+
+  • Inherit from ERROR if unwinding from the error leaves the system in a
+    consistent state. Subclasses of ERROR mean "oops, we have a problem, but
+    it's OK to unwind."
+  • Inherit from SERIOUS-CONDITION, not ERROR, if the system is messed up
+    somehow, and/or requires either human intervention or special knowledge
+    about the situation to resolve: SERIOUS-CONDITIONs that are not ERRORs
+    mean that "something is deeply wrong and you should know what you are
+    doing if you are going to resolve this."
+
+Use #'WARN to signal conditions inheriting from WARNING. This includes all
+subclasses of STYLE-WARNING. WARNING is a convention that means "this will
+print out a warning if not muffled, and you can muffle this with the
+MUFFLE-WARNING restart", which is what #'WARN ensures.
+
+  • Inherit from STYLE-WARNING if muffling the warning should be fine pretty
+    much whenever.
+  • Inherit from WARNING, not STYLE-WARNING, if muffling the warning is OK
+    only if the muffler knows how to deal with the specific warning:
+    otherwise someone should be made aware of the situation, which is what
+    warnings are for.
+
+Otherwise use #'SIGNAL, and don't expect others to handle your conditions
+unless you document them as part of your API.
+
+Handling Conditions
+
+Learn the difference between HANDLER-BIND and HANDLER-CASE. Short version:
+HANDLER-CASE always unwinds, with HANDLER-BIND you can eg. log the condition
+without handling it, or decide whether to unwind or not after inspecting the
+condition in more detail.
+
+Don't handle arbitrary conditions: a lower layer using #'SIGNAL as a
+communication mechanism will break if you do that.
+
+Don't muffle arbitary WARNINGs that are not STYLE-WARNINGS. A full warning
+can still be muffled, but only if it's one you know to be harmless in your
+case. Otherwise, a full warning should either result in a fail-stop, or
+logging the condition somewhere — depending on the kind of application you
+are developing.
+
+Don't handle arbitary SERIOUS-CONDITIONs that are not ERRORs: if you cannot
+pop up a debugger and don't know exactly how to deal with this specific
+condition, the right answer is to crash — of course preferably with an error
+message, but don't expect that to work properly: maybe the serious condition
+was about corruption in the IO system...
+
+If you just want to ensure the application doesn't enter the debugger, bind
+*DEBUGGER-HOOK* appropriately — but be aware that #'BREAK circumvents
+*DEBUGGER-HOOK*: if that's a danger, refer to the documentation of the
+implementation you are using — most provide a way to hook into #'BREAK.
+
+Happy hacking.
+
+*** LANGUAGES: COMMON LISP: misc
+
+    +----------------------------------------------------------------------------
+    | (defun jetteur-des-gazongues ()
+    |   (throw 'les-grandes-gazongues gazonga)) 
+    | ;;  is in e_basic_.list, as is a:
+    | 
+    | (catch (charlisten) gazonga)
+    | 
+    | ;; command-quit invokes:
+    | (throw 'les-petites-gazongues pgazonga) 
+    | ;; in e_interact_.list
+    +----------------------------------------------------------------------------
+
+
+    genera date:  10 1990 1:49pm
+    + local NTP server
+    + old X windows < 6.8
+
+    debug X11: http://www.kev.pulo.com.au/xlibtrace/
+
+    http://video.google.com/videoplay?docid=8612534856516244040
+    explaining a TV logo animation done for Playboy.
+
+    Allegro: .clinit.cl or clinit.cl
+    Clisp: .clisprc.lisp
+    Clozure: ccl-init.lisp or openmcl-init.lisp
+    CMUCL: .cmucl-init.lisp or init.lisp
+    ECL: .eclrc or .ecl
+    LispWorks: .lispworks
+    SBCL: .sbclrc
+
+
+    Generally, learning lisp is fun and the language is very well thought
+    out, which is a result of the fact that a large number of very smart
+    people have designed it over a very long period of time.  that makes
+    writing lisp programs much more pleasant than writing programs in
+    other languages, which tend to support one or two paradigms well, but
+    quickly show that they have had fewer brains in their design.  That is
+    not to say other languages are generally bad.  it is just that lisp is
+    very well thought out and i have not yet found another language that
+    would match.
+        -- Hans Huebner
+
+
+    From: "Marc Battyani" <Marc.Battyani@fractalconcept.com>
+    Subject: High Perfomance Computing and Low Latency using Common Lisp
+    Newsgroups: comp.lang.lisp
+    Date: Fri, 2 May 2008 01:58:45 +0200
+    Message-ID: <2omdnSwvVY6rxIfVnZ2dnUVZ8sWhnZ2d@giganews.com>
+
+    Here is the result of what I presented (or tried to present ;) at the ECLM 
+    2008.
+    http://www.hpcplatform.com
+
+    The short story: Domain Specific Languages in Common Lisp.
+    The result: 100 to 1000 times faster than optimized C++ programs running on 
+    current high-end N cores serveurs.
+
+    Marc 
+
+
+
+
+    SecondLife:
+    If you plan to look at some Second Life code, you can find it here: 
+    http://bitbucket.org/lindenlab/
+    Otherwise, if you prefer Lisp code, that would be here instead: 
+    http://bitbucket.org/S11001001/weblocks-dev/
+
+
+    Javascript implementation in CL.
+    http://marijnhaverbeke.nl/cl-javascript/
+
+    Jnil is a Java to Lisp translation tool. Its major goal is to be an
+    effective aid in translating Java source code to pragmatically correct
+    Lisp code. Jnil currently supports JLS2 and two backends: Linj and
+    Common Lisp.
+    http://common-lisp.net/project/jnil/
+    https://github.com/francogrex/jnil
+
+    Guy Steele is not a Java guy: See
+    http://www.ai.mit.edu/projects/dynlangs/wizards-panels.html and
+    especially
+    http://www.ai.mit.edu/projects/dynlangs/dynlang-wizards-10may01.mov
+
+    http://www2.parc.com/csl/groups/sda/publications/papers/Kiczales-MOPs-for-Lisp/
+    http://www2.parc.com/csl/groups/sda/publications/papers/Kiczales-Macros91/
+
+    Harald Weitz's PHENARETE system.
+    http://portal.acm.org/citation.cfm?id=802950
+    http://portal.acm.org/citation.cfm?id=1411798.1411808
+    http://www.ai.univ-paris8.fr/~hw/bvlispExample.pdf
+
+
+
+    http://rondam.blogspot.com/2009/08/global-variables-done-right.html
+    http://img264.imageshack.us/i/lispnd7.png/
+
+
+    Kent Pitman once wrote: "Please don't assume Lisp is only useful for
+    Animation and Graphics, AI, Bioinformatics, B2B and E-Commerce, Data
+    Mining, EDA/Semiconductor applications, Expert Systems, Finance,
+    Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and
+    Simulation, Natural Language, Optimization, Research, Risk Analysis,
+    Scheduling, Telecom, and Web Authoring just because these are the only
+    things they happened to list."
+
+
+
+    http://img264.imageshack.us/img264/1397/lispnd7.png
+
+    Dependency graph from clbuild systems
+    http://github.com/bhyde/clbuild2dot/tree/master
+
+
+   #+cmu
+   (defun simple-debugger-stub (c hook)
+	(declare (ignore hook))
+	(when (find-restart 'abort c)
+	  (format *error-output*
+		  "~&~a~%[Condition of type ~a]~%" c (type-of c))
+	  (abort c)))
+     (setf *debugger-hook* #'simple-debugger-stub)
+
+LiCE: emacs in CL:  http://www.emmett.ca/~sabetts/
+
+In a profession plagued by, "when all you have is a hammer, everything
+looks like a nail," we get really excited when someone is able to come
+along and prove that everything really *is* a nail if lambda is the
+hammer.
+               B.R.Lewis (comp.lang.scheme)
+
+    A Short Ballad Dedicated to the Growth of Programs
+    http://people.cs.uchicago.edu/~wiseman/humor/large-programs.html             
+
+
+    http://dept-info.labri.u-bordeaux.fr/~idurand/SLS/
+    http://dept-info.labri.u-bordeaux.fr/~idurand/
+
+    http://common-lisp.net/project/claw/docs/claw.pdf
+
+
+    This has been done with EuLisp to some extend. Check out the EuLisp spec.
+    It has a level-0 language and a level-0 library.
+    Level-1 then specifies reflective functionality and
+    some control structures and low-level functionality.
+    The Germans tried to define a DIN Kernel Lisp
+    (An approach to the DIN Kernel Lisp definition,
+    http://www.brics.dk/~hosc/vol04/04-cengarle-al.html ). There
+    is critique by Baker about that attempt:
+    http://home.pipeline.com/~hbaker1/CritLisp.html
+    I guess some of that work then went into ISLisp.
+    http://www.open-std.org/JTC1/SC22/WG16/
+    OpenLisp, an implementation of ISLisp, btw., seems
+    to run on small devices, too:
+    http://openlisp.free.fr/forum/viewtopic.php?f=2&t=28
+
+
+
+(remove-if (lambda (w) (find w "ILLITERATE")) "BULLSHIT")
+--> "BUSH"
+
+    PPRINT SPECS:
+    ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-1102a.pdf
+
+    For more info on SFAs, see documentation in
+      http://www.maclisp.info/pitmanual/sfa.html
+    and a sample of coding one at the bottom of that file.
+
+    http://pierre-mai.de/2007/12/kent-m-pitman-the-revised-macl.html
+    http://www.nhplace.com/kent/
+    http://www.maclisp.info/pitmanual/
+    http://common-lisp.net/project/bknr/static/lmman/frontpage.html
+    http://exploring-lisp.blogspot.com/2007/12/revised-maclisp-manual.html
+
+
+    The modern "equivalent" of SFAs would be things like:
+      * Gray streams 
+        http://www.nhplace.com/kent/CL/Issues/stream-definition-by-user.html
+      * Simple Streams
+        http://www.franz.com/support/documentation/6.2/doc/streams.htm
+    Gray streams were a much earlier design and are pretty widely distributed.
+    Simple streams are more elaborated and more recent, but I haven't checked
+    lately to know how many vendors do and don't implement them.
+
+    http://www.dreamsongs.com/NewFiles/HOPL2-Uncut.pdf
+
+    1 kLOC SBCL continuation-based web package.
+    http://discontinuity.info/~pkhuong/common-cold.tar.gz
+
+    Lisp web browser; html parser
+    http://common-lisp.net/project/closure/closure-html
+    http://lichteblau.blogspot.com/2007/10/ten-years-of-closure-html.html
+
+
+    [1] to use the overlay, emerge dev-util/git(you need a version >=1.5),
+    then download it executing:
+    git clone git://repo.or.cz/gentoo-lisp-overlay.git
+    finally, add the full path of the downloaded directory to the variable
+    PORTDIR_OVERLAY in /etc/make.conf
+
+    Centers of community involvement:
+
+        * http://www.cl-user.net/
+        * http://common-lisp.net/
+        * http://planet.lisp.org/
+        * http://www.cliki.net/
+        * IRC channels: http://www.cliki.net/IRC
+        * Mailing lists (like this one)
+
+    The MrEd virtual machine serves both as the implementation
+    platform for the DrScheme programming environment, and as the
+    underlying Scheme engine for executing expressions and programs
+    entered into DrScheme's read-eval-print loop. We describe the key
+    elements of the MrEd virtual machine for building a programming
+    environment, and we step through the implementation of a miniature
+    version of DrScheme in MrEd. More generally, we show how MrEd defines
+    a high-level operating system for graphical programs.
+
+    http://www.cs.brown.edu/~sk/Publications/Papers/Published/ffkf-mred/paper.ps
+
+** LANGUAGES: COMMON LISP: macros for non standard special operators
+https://bugs.launchpad.net/sbcl/+bug/1032643
+http://sourceforge.net/p/ecls/bugs/198/
+http://sourceforge.net/tracker/?func=detail&aid=3554023&group_id=1355&atid=101355
+http://trac.clozure.com/ccl/ticket/1001
+
 ** LANGUAGES: COMMON LISP: CCL:
+
+ccl bug slime
+http://trac.clozure.com/ccl/ticket/954
+
 
 <00:21:09><ruricolist> Does Clozure have a way to print Lisp backtraces from GDB?
 <00:22:04><rme> you can try call plbt_sp($rbp)
@@ -9469,8 +9493,29 @@ returned for the total of 5 values.
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
 
-    ECL on iPhone/iPad
-    http://funcall.posterous.com/ecl-on-iphone-redux
+
+*** ECL on iPhone/iPad
+http://funcall.posterous.com/ecl-on-iphone-redux
+
+*** ecl android
+../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
+https://github.com/pasky/pachi/blob/master/ANDROID.txt
+https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
+http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
+https://github.com/ageneau/ecl-android
+
+*** ECL funcall from C with unwind-protect
+#+BEGIN(src)
+    const cl_env_ptr l_env = ecl_process_env();
+    CL_CATCH_ALL_BEGIN(l_env) {
+        CL_UNWIND_PROTECT_BEGIN(l_env) {
+            cl_funcall(1, (cl_object)function);
+        }
+        CL_UNWIND_PROTECT_EXIT {}
+        CL_UNWIND_PROTECT_END;
+    }
+    CL_CATCH_ALL_END;
+#+END(src)
 
 ** LANGUAGES: COMMON LISP: FORMAT SPECIFIERS
 
@@ -10978,6 +11023,11 @@ gnome-nm-network-editor
 
 ** SYSTEMS: MacOSX
 
+dscacheutil -flushcache
+
+sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
+
+
     Disable the quarantine bit:
     cd Documents/HyperSpec
     sudo xattr -d -r com.apple.quarantine .
@@ -11017,6 +11067,7 @@ gnome-nm-network-editor
     http://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/XcodeBuildSystem/200-Build_Phases/bs_build_phases.html#//apple_ref/doc/uid/TP40002690-BBCCFEDJ
 
 
+*** Licenses
 
     From: marc <marc@a9ff.com>
 
@@ -11045,6 +11096,225 @@ gnome-nm-network-editor
     Smart Scroll
     License name: Pascal Bourguignon
     License code: GDAL
+
+*** port
+
+#+BEGIN(src)
+##########################################################
+# Don't forget that dbus needs to be started as the local
+# user (not with sudo) before any KDE programs will launch
+# To start it run the following command:
+launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+##########################################################
+
+######################################################
+#  Programs will not start until you run the command
+sudo chown -R $USER ~/Library/Preferences/KDE
+open /Applications/MacPorts/KDE4/kdeinit4.app
+######################################################
+
+##########################################################
+# Don't forget that dbus needs to be started as the local 
+# user (not with sudo) before any KDE programs will launch
+# To start it run the following command:                  
+# launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+##########################################################
+ 
+######################################################
+#  Programs will not start until you run the command 
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
+#  replacing $USER with your username, followed by  
+#  'open /Applications/MacPorts/KDE4/kdeinit4.app'      
+#  in a Terminal.                                    
+######################################################
+
+###########################################################
+# A startup item has been generated that will aid in
+# starting apache with launchd. It is disabled
+# by default. Execute the following command to start it,
+# and to cause it to launch at startup:
+#
+# sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache.plist
+###########################################################
+
+###########################################################
+# A startup item has been generated that will aid in
+# starting apache2 with launchd. It is disabled
+# by default. Execute the following command to start it,
+# and to cause it to launch at startup:
+#
+# sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache2.plist
+###########################################################
+
+##########################################################
+# Don't forget that dbus needs to be started as the local 
+# user (not with sudo) before any KDE programs will launch
+# To start it run the following command:                  
+# launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+##########################################################
+ 
+######################################################
+#  Programs will not start until you run the command 
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
+#  replacing $USER with your username.              
+######################################################
+
+--->  Creating launchd control script
+###########################################################
+# A startup item has been generated that will aid in
+# starting postfix with launchd. It is disabled
+# by default. Execute the following command to start it,
+# and to cause it to launch at startup:
+#
+# sudo port load postfix
+###########################################################
+--->  Computing dependencies for postfix
+--->  Installing postfix @2.7.1_1
+--->  Deactivating postfix @2.6.2_0
+--->  Activating postfix @2.7.1_1
+
+To get postfix working, you need to edit the configuration
+files (/opt/local/etc/postfix/*).  You may also
+want to turn off Apple's built-in MTA.  For example:
+
+sudo launchctl unload -w /System/Library/LaunchDaemons/org.postfix.master.plist
+
+--->  Cleaning postfix
+--->  Computing dependencies for postgresql83
+--->  Fetching postgresql83
+--->  Attempting to fetch postgresql-8.3.12.tar.bz2 from http://ftp7.de.postgresql.org/ftp.postgresql.org/source/v8.3.12/
+--->  Verifying checksum(s) for postgresql83
+--->  Extracting postgresql83
+--->  Configuring postgresql83
+--->  Building postgresql83
+--->  Staging postgresql83 into destroot
+--->  Computing dependencies for postgresql83
+--->  Installing postgresql83 @8.3.12_0
+
+To use the postgresql server, install the postgresql83-server port
+--->  Deactivating postgresql83 @8.3.11_0
+--->  Activating postgresql83 @8.3.12_0
+--->  Cleaning postgresql83
+--->  Computing dependencies for postgresql83-server
+--->  Fetching postgresql83-server
+--->  Verifying checksum(s) for postgresql83-server
+--->  Extracting postgresql83-server
+--->  Configuring postgresql83-server
+--->  Building postgresql83-server
+--->  Staging postgresql83-server into destroot
+--->  Creating launchd control script
+###########################################################
+# A startup item has been generated that will aid in
+# starting postgresql83-server with launchd. It is disabled
+# by default. Execute the following command to start it,
+# and to cause it to launch at startup:
+#
+# sudo port load postgresql83-server
+###########################################################
+--->  Computing dependencies for postgresql83-server
+--->  Installing postgresql83-server @8.3.12_0
+
+To create a database instance, after install do
+ sudo mkdir -p /opt/local/var/db/postgresql83/defaultdb
+ sudo chown postgres:postgres /opt/local/var/db/postgresql83/defaultdb
+ sudo su postgres -c '/opt/local/lib/postgresql83/bin/initdb -D /opt/local/var/db/postgresql83/defaultdb'
+
+To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
+--->  Deactivating postgresql83-server @8.3.11_0
+--->  Activating postgresql83-server @8.3.12_0
+--->  Cleaning postgresql83-server
+--->  Computing dependencies for postgresql84-server
+--->  Fetching postgresql84-server
+--->  Verifying checksum(s) for postgresql84-server
+--->  Extracting postgresql84-server
+--->  Configuring postgresql84-server
+--->  Building postgresql84-server
+--->  Staging postgresql84-server into destroot
+--->  Creating launchd control script
+###########################################################
+# A startup item has been generated that will aid in
+# starting postgresql84-server with launchd. It is disabled
+# by default. Execute the following command to start it,
+# and to cause it to launch at startup:
+#
+# sudo port load postgresql84-server
+###########################################################
+--->  Computing dependencies for postgresql84-server
+--->  Installing postgresql84-server @8.4.5_0
+
+To create a database instance, after install do
+ sudo mkdir -p /opt/local/var/db/postgresql84/defaultdb
+ sudo chown postgres:postgres /opt/local/var/db/postgresql84/defaultdb
+ sudo su postgres -c '/opt/local/lib/postgresql84/bin/initdb -D /opt/local/var/db/postgresql84/defaultdb'
+
+To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
+
+##########################################################
+# Don't forget that dbus needs to be started as the local 
+# user (not with sudo) before any KDE programs will launch
+# To start it run the following command:                  
+# launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+##########################################################
+ 
+######################################################
+#  Programs will not start until you run the command 
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
+#  replacing $USER with your username.              
+######################################################
+
+
+Before using qt3 (qmake),
+please make sure to set environment variable QTDIR.
+
+  QTDIR=/opt/local/lib/qt3; export QTDIR
+
+
+
+sudo cp /opt/local/etc/bitlbee/bitlbee.conf.sample /opt/local/etc/bitlbee/bitlbee.conf
+and edit /opt/local/etc/bitlbee/bitlbee.conf to taste
+
+#+END(src)
+
+*** Postgres
+
+ sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql84-server.plist
+
+To create a database instance, after install do
+ export POSTGRESQL84DATA=/opt/database/defaultdb/
+ sudo mkdir -p ${POSTGRESQL84DATA}
+ sudo chown postgres:postgres  ${POSTGRESQL84DATA}
+ sudo su postgres -c '/opt/local/lib/postgresql84/bin/initdb -D ${POSTGRESQL84DATA}'
+
+
+sudo su postgres -c 'createuser  -d -l -r -s  pjb'
+createdb -O pjb test
+createuser -D -l -R -S -P mantis
+createdb -O mantis mantis
+
+postgresql84-server|pjb|
+postgresql84-server|mantis|4mantis
+
+postgresql85-server|mantis|administrator|4mantis
+postgresql85-server|mantis|informatimago|4mantis
+
+
+
+createuser -D -l -R -S -P siam
+createdb -O siam siam
+
+
+
+Modified /opt/local/etc/LaunchDaemons/org.macports.postgresql84-server/postgresql84-server.wrapper
+prefix=/opt/local
+PGCTL=${prefix}/lib/postgresql84/bin/pg_ctl
+. ${prefix}/etc/postgresql84-server.rc
+
+----(/opt/local/etc/postgresql84-server.rc)-------------------------
+if [ -d /opt/database/defaultdb ] ; then
+    export POSTGRESQL84DATA=/opt/database/defaultdb
+fi
+---------------------------------------------------------------------
+
 
 ** SYSTEMS: Microsoft Windows
 
