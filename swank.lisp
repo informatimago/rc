@@ -12,6 +12,8 @@
 ;; When there's a NAT: (setf swank:*use-dedicated-output-stream* nil)
 ;; (or with clisp).
 
+(defparameter *dont-close* t)
+
 #+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
 #-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
 
