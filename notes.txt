@@ -1,4 +1,221 @@
--*- mode:org; coding:utf-8 -*-
+-*- mode:org; coding:utf-8 -*
+
+    const cl_env_ptr l_env = ecl_process_env();
+    CL_CATCH_ALL_BEGIN(l_env) {
+        CL_UNWIND_PROTECT_BEGIN(l_env) {
+            cl_funcall(1, (cl_object)function);
+        }
+        CL_UNWIND_PROTECT_EXIT {}
+        CL_UNWIND_PROTECT_END;
+    }
+    CL_CATCH_ALL_END;
+
+
+ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
+TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
+
+(alexandria:hash-table-alist asdf/source-registry::*source-registry*)
+
+coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
+
+http://www.digitalcombatsimulator.com/|pjb@informatimago.com|FUKekij2solryj
+
+
+
+https://www.youtube.com/watch?v=QJ475rdA3sU  Effraction 1982
+
+https://en.wikipedia.org/wiki/Igor_Engraver
+
+https://github.com/GitoriousLispBackup/lisp-1-5
+https://github.com/informatimago/lisp-1-5
+
+http://ubuntuparty.org.za
+
+(asdf:already-loaded-systems)
+
+http://www.cnx-software.com/2015/02/02/oneboard-pro-plus-android-keyboard/
+
+http://www.techrepublic.com/article/an-app-that-passively-records-your-life-so-you-always-have-a-witness/
+
+hello kitty: http://tinyurl.com/oh7laeh
+
+http://asciiwwdc.com 
+http://dspace.mit.edu/handle/1721.1/41992
+http://home.pipeline.com/~hbaker1/ShallowBinding.html
+http://www.interstellarmovie.com/adventure/
+http://www.maclisp.info/pitmanual/master-index-s.html
+
+* phone
+
+Agathe De Robert|+34679451950
+Alain Bourguignon|+33296703498
+Alain Bourguignon|+33620255649
+Alain Bourguignon|+33661765866
+Alberto Sole|+33961318677
+Alberto Sole|+34661645897
+Alberto Sole|+34961318677
+Alberto Sole|961318677
+Alexander Nazarenko|+3752926322002
+Alexis Bosch|+33652247248
+Alexis Bosch|+33950261348
+Alexis Bosch|+33951870196
+Alexis Bosch|0950261348
+Alexis Bosch|0951870196
+Alexis Delattre|+33699089245
+Alexis de Lattre|+33699089245
+Ali Alsaleh|+966506814613
+Anaïs Nouvet|+336463407101
+André Reinald|+33177695665
+André Reinald|+33652452554
+André Reinald|+33950669403
+André Thieme|+4915117897070
+André Thieme|+491717008954
+Anevia|+33141983240
+Angelo Rossi|+393293516963
+Antoine Engster|+447921801319
+Antoine Engster|00447921801319
+Arnaud Decherf|+33148241482
+Arnaud Decherf|0148241482
+BNP|+33141460409
+BNP|0141460409
+Bastien Guerry|+33666683436
+Bastien Guerry|0666683436
+Benzaquen|+33141927190
+Bernard Bourguignon|+33296701636
+Bettina Barth|+34616439816
+Bnp Issy Ouest|+33141460404
+Bnp Issy Ouest|0141460404
+Brieuc Jeunhomme|+33630768196
+Bruno Bawol|+33602223522
+Bruno Bawol|+33674881116
+Bruno Bawol|0602223522
+Bruno Bawol|0674881116
+Bus ALSA|+34902422242
+Bus ALSA|5567
+Bus Cartagena|+34968505656
+Bus Gg|+34968291911
+Bus Murcia|+34968292211
+Cajamar Tarjeta|+34901511000
+Camille Saubot|+34625983508
+Camille Saubot|+34646240085
+Camille Saubot|+34968556691
+Camille Saubot|0034625983508
+Camille Saubot|0034968556691
+Carlos|+34968337046
+Celestino Conesa|+34968569225
+Chloe Scheuber|0121631587507833050284
+Christiane Chilkowy|+33329665297
+Christiane Chilkowy|+33785017461
+Colin Carr, CSM|9193356889
+Dan Lentz|6092025797
+Dany CHAN|+33633297776
+Dave Azria|+33611080810
+David Boukari|+33661223446
+David Braquart|+33139143477
+De Robert|+34968146250
+Dr Karen Choukroun|+33146422562
+Dr Karen Choukroun|0146422562
+Eric Gharbi|+33658365309
+Eric Gharbi|0658365309
+Erman Kaya|+905413232784
+Famille De Robert|+34968146250
+Fernando Rodriguez|+34610965332
+Florent Xuereb|+33683728168
+Florent Xuereb|0683728168
+Franck Poullain|+33631789378
+François Alter|+33153442252
+François Kruta|+33614519206
+François Kruta|+33659098436
+Frédéric Colomina|+33672569797
+Frédérique Saubot|+33145030179
+Frédérique Saubot|+33145049621
+Frédérique Saubot|+33682948109
+Gabriel De Robert|+34646111756
+Gharbi Eric|+33658365309
+Gharbi Eric|0658365309
+Grégoire Saubot|+33674915872
+Guillaume De Robert|+34626540903
+Guillaume De Robert|+34649357740
+Guillaume De Robert|+34968137376
+Gábor Melis|+36303076507
+Henry Saubot|+33682316575
+Ilker Yenice|+905305172121
+Impot|+33820326326
+Info services|7000
+Info. Internac|11825
+Info. Nacional|11822
+Isabel Aznar Acosta|+34649509902
+JAIME FIOL SANS|+33610799801
+JAIME FIOL SANS|+33669269760
+JAIME FIOL SANS|610799801
+JAIME FIOL SANS|669269760
+Jason Cornez|+34607217161
+Jean-Baptiste Quesney|+33676671665
+Jean-Philippe Capy|+33604016157
+Jean-Philippe Capy|+33950666678
+Jerome Goubier|+971508831129
+Jimmy Nimo|00353000000000
+Jonathan Bouaziz|+33782480616
+Jonathan Bouaziz|0782480616
+Jose Luis Cruz Cañete|+34655666353
+Jose Luis Cruz Cañete|0034655666353
+Jose Manual Urtasun|+34699370494
+Jose Manual Urtasun|+34968563054
+Joseph Reinald|+33613291911
+José Manuel Sánchez Ruiz|+33639650090
+José Manuel Sánchez Ruiz|639650090
+Joëlle Bourguignon|+33672415839
+Levente Mészáros|+36205413889
+Lionel Bringuier|+15032008809
+Lionel Bringuier|+33603611970
+Lionel Thevenard|+33616774371
+Malik Jamali|+33616678471
+Malik Jamali|0616678471
+Mano Sadeghi|+33603234411
+Mano Sadeghi|0603234411
+Mariusz Saramak|+33792016612
+Mariusz Saramak|792016612
+Martin LUTTON|+33175435370
+Martin LUTTON|0175435370
+Martin Lutton|+33678414402
+Martin Lutton|0678414402
+Misha Tavkhelidze|+995599000313
+Mon Compte|963
+Mélanie Rousseau|+33778511321
+Nicoleta Reinald|+33627194908
+Olivier Revon|+33689638439
+Pascal J. Bourguignon|+33623171770
+Pascal J. Bourguignon|+33781556432
+Patricia Guitard|+33663712299
+Patricia Guitard|0663712299
+Patrick MIMOUN|+33760485614
+Patrick MIMOUN|0760485614
+Paul Le Merrer|+33668542601
+Pierpaolo Bernardi|+393924459291
+Pierre-Yves Reynaert|+33619190274
+Ramón Burgueńo|+34676087136
+Recruteur Ios|+33659640699
+Recruteur Ios|0659640699
+Rogelio Serrano|+447624429872
+Répondeur|123
+Slobodan Blazeski|+38971281646
+Séverine Verriez|+33670803977
+Thomas Chauchard|+33619984611
+Thomas Haas|+436641140862
+Thomas M. Hermann|3162850120
+Thomas Saphir|+33616885760
+Tommy Lee Zet|+33604506105
+Tommy Lee Zet|604506105
+Ubudu Project Beacon|+33178090351
+Vicyor Minuesa Cuenca|+34629402487
+Vincente De Robert|+34690010607
+
+* samba linux -> macosx
+
+The trick is not to give a path to mount, but the name of a "share":
+mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
+
+* hemlock
 
 <phf> akkad: i have two dwim functions in my config, one is "Indent and Expand" that i
 bind to <tab>. might be handy re "any tab completion for function
@@ -18,7 +235,6 @@ http://common-lisp.net/project/cmucl/doc/hemlock-cim.ps.gz
    *** monod (~monod@host52-6-dynamic.40-79-r.retail.telecomitalia.it) has joined channel #lispcafe
 <|3b|> pjb: documentation/comments on that function say not to use it, use
 uiop:run-program instead
-
 
 * Ploncard d'Assac
 
@@ -106,6 +322,7 @@ https://www.youtube.com/watch?v=gZmcmdsoAXU
 https://www.youtube.com/watch?v=-UOmItPa4iA
 https://www.youtube.com/watch?v=QlPavndhYxQ
 https://www.youtube.com/watch?v=y9xLi0iJg1g
+https://vimeo.com/82301919
 
 
 Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
@@ -971,6 +1188,26 @@ is likely to be a wild ride.
 
 * ACTIONS
 ** Miscellaenous TO DO
+*** TODO edit cliki.net
+
+create pages for those *(Common Lisp Implementations).
+
+> b
+
+Butterfly (BBN)
+
+> d
+
+DEC CL
+DG CL
+
+> f
+Freelisp (Harlequin)
+
+> h
+HILISP (Hitachi Interactive Lisp)
+Harlequin Common Lisp (LispWorks was the IDE)
+
 *** TODO [#A] move voyager to a newest host
 *** TODO [#B] move domain names to another DNS
 *** TODO [#B] move parroquias-manga.org to a Spanish host
@@ -2658,6 +2895,9 @@ asdf/lisp-build:*uninteresting-conditions*
 
 (asdf/plan:plan-actions (asdf:make-plan asdf/plan:*default-plan-class* 'asdf:load-op system))
 
+  (mapcar 'asdf:component-pathname
+      (asdf::required-components :cleavir :keep-component 'asdf:cl-source-file))
+
 
 https://github.com/jdz/brians-brain/blob/master/display.lisp
 
@@ -3847,7 +4087,9 @@ kitchen stove with LISP is not so far-fetched." H. Baker, 1977
 | (Yukihiro Matsumoto aka matz is the creator of Ruby).
 +------------------------------------------------------------------------
 
-* KEYBOARD MAP
+* KEYBOARD LAYOUT MAP
+
+http://invisible-island.net/xterm/xterm.faq.html
 
 ! x, S-x, g-x, g-S-x
 !
@@ -3868,16 +4110,22 @@ kitchen stove with LISP is not so far-fetched." H. Baker, 1977
 !  Left ←⊂    Down ↓∪    Right →⊃     Insert 0              Delete .    er
 
 
+ℬℰℱℋℐℒℳ℘ℛ
+
 "─═┌╔┬╦┐╗├╠┼╬┤╣│║└╚┴╩┘╝"
 
 ┌────────────────────────┬────────┬──────┐
-│                                          │              │          │
+│                        │        │      │
 ├────────────────────────┼────────┼──────┤
-│                                          │              │          │
-│                                          │              │          │
+│                        │        │      │
 └────────────────────────┴────────┴──────┘
 
 box drawing
+╭──────────────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
 
 ==============================================================================
 See dasher below.
@@ -6481,6 +6729,9 @@ A-< A->	begin/end text
     http://sdf.lonestar.org 7x3hcsth
     ssh pjb@sdf.org 7x3hcsth
 
+    http://telehack.com/
+
+
     http://anapnea.net/
 
     http://cyberspace.org/shell.xhtml
@@ -7414,6 +7665,25 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
 
 ** LANGUAGES: COMMON LISP:
 
+ eval-when -+---+---> :compile-toplevel -+---> read-time       #.
+            |   |                         \
+            |   |                          --> macro-time      defmacro
+            |   |
+            |    ---> :load-toplevel ----+---> load-time       load-time-value
+            |                             \
+            |                              --> eval-time       defun
+            \
+             -------> :execute ----------+---> read-time       #.
+                                         |
+                                         +---> macro-time      defmacro
+                                         |
+                                         +---> load-time       load-time-value
+                                          \
+                                           --> eval-time       defun 
+
+
+
+
     L subset of Common Lisp for embedded
     http://www.cs.cmu.edu/~chuck/pubpg/luv95.pdf
     http://kremer.cpsc.ucalgary.ca/courses/AC/F2012/gettingCASA.html
@@ -7812,6 +8082,7 @@ Happy hacking.
     Lisp code. Jnil currently supports JLS2 and two backends: Linj and
     Common Lisp.
     http://common-lisp.net/project/jnil/
+    https://github.com/francogrex/jnil
 
     Guy Steele is not a Java guy: See
     http://www.ai.mit.edu/projects/dynlangs/wizards-panels.html and
@@ -9384,6 +9655,9 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
          ;;                     ^^^ put it here.
          '("mv" "/some/really/long/path/seriously/it/is/really/long" 
  	      "/to/some/other/really/long/path"))
+| # Shell Command:
+|   mv /some/really/long/path/seriously/it/is/really/long \
+|          /to/some/other/really/long/path
 
 ** LANGUAGES: COMMON LISP: GCL
 
