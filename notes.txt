@@ -1,5 +1,8 @@
 -*- mode:org; coding:utf-8 -*-
 * NOTES
+** New Notes
+
+
 ** Economy: Économie:
 
 Capital productif:
@@ -31,6 +34,132 @@ Disorder:
 
 uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
 (same as Krystof)
+
+** Interesting programs
+Social network from irc traffic:
+http://www.jibble.org/piespy/
+
+** TeamSpeak (DCS World):
+;; 81.13.118.162:9987          CVAT
+;; 63.34.162.240:9102 phoenix  104th
+;; 81.200.8.157:9987           RvAF
+;; 193.106.93.31:9987          RAF
+;; vip1.ts1.cn:8770            3GO
+
+** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
+
+> See asm7090-describe-codop.  You could even do that in a
+> post-command-hook, or on mouse or arrow events so that the instructions
+> are always explained.  It would also possible to attach tooltips to the
+> instructions so that you get the description on a mouse over.
+
+The "canonical" way to do that in Emacs is to set
+eldoc-documentation-function buffer-locally.  Then users can choose to
+use this by enabling eldoc-mode.
+
+
+WanderLust http://box.matto.nl/emacsgmail.html
+
+/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
+
+transmission-daemon -w /other/pjb/globcover
+
+
+Find how to distinguish (in emacs or X) the keys coming from the
+different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
+
+http://openfarmtech.org/wiki/Crash_Course
+http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
+
+
+sourceforge.net
+API key:    fbe5b8d039ce9d46f926
+Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
+
+
+http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
+Pre-industrial workers had a shorter workweek than today's    
+
+
+2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
+
+42 Trillian 2^276709 
+            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
+GURSIXO
+emergency services: +44 (0) 118 999 881 999 119 7253
+
+This message is rot-13 encoded to prevent unwanted viewing.
+Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
+
+Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
+pour professionnalisme.
+
+
+
+
+paredit bug report:
+
+(a b c (^ d e f))
+M-up / M-x paredit-splice-sexp-killing-backward RET 
+(a b c d e f)
+
+This empties the kill ring.
+
+I understand that in the case of
+
+(a b c (d e f ^ g h i))
+M-up
+(a b c g h i)
+
+we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
+saving the empty string to the kill ring, and keep the old one.
+
+
+
+
+
+
+(add-hook 'lisp-mode-hook
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
+         (1 font-lock-keyword-face)
+         (2 font-lock-type-face))))))
+
+(put '$defclass 'common-lisp-indent-function
+     (get 'defclass 'common-lisp-indent-function))
+
+
+
+------------------------------------------------------------------------------
+apache / pound ports
+
+8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
+              joellegymtonic, parroquias-manga, willcom)
+
+8001 sbcl    linking
+8002
+8003 sbcl    films.willcom.fr
+8004 apache2 films.willcom.fr
+8005
+8006 sbcl    claar
+------------------------------------------------------------------------------
+
+
+BlackBerry 
+PIN 259B61F6
+IMEI: 357564.02.644206.5
+
+SIM Cards: 
+Operator Card Number            Phone Num   Date
+Movistar 8934076100032652090    636653318
+Movistar 340761 000326 5209 0   636653318   20110509
+
+http://www.progweb.com/modules/blackberry/index-en.html
 
 ** Livres à acheter
 **** Petite histoire de l'expérimentation démocratique                  :buy:
@@ -75,6 +204,10 @@ http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-e
 ** CNIL
 https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
 ** GOLD
+
+deglet.com|compra$oro
+
+
 2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
 2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
 2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
@@ -118,6 +251,7 @@ présentez à ce rendez-vous obligatoire)
 93310
 
 ** Notes 1
+
 - test and compare, expansion of all CL macros in all implementation for all optimization levels.
   find if expansions use implementation specific features.
 
@@ -161,24 +295,49 @@ Software Assurance Technology Center
 MAC ARM Version 1.0
 
 
-
-
 rpn lisp: http://paste.lisp.org/display/144513
 
 mysql|medicalis|pjb|mygalatea
 mysql||root|
 
-Alan Kay "Programming and Scaling" 2011
-http://www.tele-task.de/archive/video/flash/14029/
-https://www.youtube.com/watch?v=gZmcmdsoAXU
-https://www.youtube.com/watch?v=-UOmItPa4iA
-https://www.youtube.com/watch?v=QlPavndhYxQ
-https://www.youtube.com/watch?v=y9xLi0iJg1g
-https://vimeo.com/82301919
-
 
 Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
 "La Révolution Européenne"
+
+** La Manga del Mar Menor
+
+http://lmweb.com/
+http://www.zm101.com/MARMENOR/mangalhis.html
+http://lamangawind.com/LaManga0.html
+
+** MUD, GAMES
+   CLOSED: [2012-12-01 Sat 10:03]
+
+     http://www.aardmud.org
+     http://www.aardwolf.org
+
+     AlternateReality
+         ssh -p 4005 ar.static.net
+             abrazak                 protection
+             judicandus noselacri
+             candusima               refreshed
+             gpuzre                  force field
+
+*** telnet ascii art videos
+
+Telehack:                telnet://telehack.com
+Telehack (web):          http://telehack.com
+
+Star Wars:               telnet://towel.blinkenlights.nl   
+Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
+The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
+
+What CL implementation:  telnet://voyager.informatimago.com:8101
+Nasium LSE:              telnet://voyager.informatimago.com:8115
+
+** LONG TERM
+
+     http://www.danbricklin.com/200yearsoftware.htm
 
 ** NOTES 2
 
@@ -615,319 +774,9 @@ pin reseau 6584 # free?  sfr data?
 
 https://github.com/abrausch/coursera-downloader
 
-** NOTES 6
-** Other notes
-*** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
-
-*** Valencia
-Seguridad social darse de baja
-
-Tesorería General de la Seguridad Social
-Avenida del General Avilés, 27
-46015 Valencia, Spain
-963 68 82 20
-
-TGSS
-VALENCIA
-Direcciones Provinciales
-
-    Av.Marqués de Sotelo 8 y 10
-    46002 VALENCIA(VALENCIA )
-    Teléfono(s): 963506500
-    Nº de Fax: 963506501 
-
-MURCIA
-Direcciones Provinciales
-
-    C/ Ortega y Gasset, s/n
-    30009 MURCIA(MURCIA )
-    Teléfono(s): 968 395000
-    Nº de Fax: 968 395120
-    Plano de Situación
-
-*** Miscellaneous
-*** MUD, GAMES
-    CLOSED: [2012-12-01 Sat 10:03]
-
-      http://www.aardmud.org
-      http://www.aardwolf.org
-
-      AlternateReality
-          ssh -p 4005 ar.static.net
-              abrazak                 protection
-              judicandus noselacri
-              candusima               refreshed
-              gpuzre                  force field
-
-**** telnet ascii art videos
-
-Telehack:                telnet://telehack.com
-Telehack (web):          http://telehack.com
-
-Star Wars:               telnet://towel.blinkenlights.nl   
-Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
-The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
-
-What CL implementation:  telnet://voyager.informatimago.com:8101
-Nasium LSE:              telnet://voyager.informatimago.com:8115
-
-*** LONG TERM
-
-      http://www.danbricklin.com/200yearsoftware.htm
-
-** others:
+** NOTES 7
 
 http://www.rubinsteyn.com/pl_fall_2011/recitation.html
-
-*** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
-
-
-> See asm7090-describe-codop.  You could even do that in a
-> post-command-hook, or on mouse or arrow events so that the instructions
-> are always explained.  It would also possible to attach tooltips to the
-> instructions so that you get the description on a mouse over.
-
-The "canonical" way to do that in Emacs is to set
-eldoc-documentation-function buffer-locally.  Then users can choose to
-use this by enabling eldoc-mode.
-
-
-
-
-
-
-
-IN 1934, an Indian math student, S. P. Sundaram, invented a new method
-of sieving primes:
-
-    From a list of integers from 1 to n, remove all integers of the
-    form i + j + 2ij where integers i and j range from 1 ≤ i ≤ j and
-    i + j + 2ij ≤ n. For each remaining integer k, the integer 2k+1 is
-    prime, and the list gives all the odd primes (thus excluding the
-    prime 2).
-
-
-
-
-http://www.agrotic.org/blog/?p=1747
-
-
-
-deglet.com|compra$oro
-
-Biovea pedido 7649486
-
-Cancer --> Beljanski
-
-
-
-https://github.com/elibarzilay/eliemacs/blob/master/extras/special-chars.el
-
-http://www.jibble.org/piespy/
-
-+----------------------------------------------------------------------------
-| Transfers
-+----------------------------------------------------------------------------
-
-;; 81.13.118.162:9987          CVAT
-;; 63.34.162.240:9102 phoenix  104th
-;; 81.200.8.157:9987           RvAF
-;; 193.106.93.31:9987          RAF
-;; vip1.ts1.cn:8770            3GO
-
-
-;; http://paste.lisp.org/display/127074#1
-
-(defun function-names (fun)
-  "
-RETURN: A list of function names fbound to the function FUN.
-NOTE:   We only scan symbols and (setf symbols).  Functions could also
-        be bound to slots or to various other lisp objects.
-"
-  (let ((names '()))
-    (dolist (pack (list-all-packages) (delete-duplicates names))
-      (do-symbols (sym pack)
-        (when (and (fboundp sym) (eql fun (symbol-function sym)))
-          (push sym names))
-        (let ((setter `(setf ,sym)))
-          (when (and (fboundp setter) (eql fun (fdefinition setter)))
-            (push setter names)))))))
-
-
-
-
-
-
-Van Allen:
-
-  outer belt:  
-      3 to 10 earth-radius-mean
-      electrons 0.1 to 10 MeV
-      ions    
-
-  inner belt:
-      0.01 to 1.5 earth-radius-mean
-      protons    100 MeV    
-      electrons  0.1 MeV
-
-      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
-             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
-
-
-      protons of 0.1 MeV penetrate 0.6 mm of Pb
-      protons of 400 MeV penetrate 143 mm of Pb
-
-radiation:  2500 rem/year
-              25 mS
-
-    apollo astronauts: 5 rem
-
-
-
-
-IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
-~/jobs/free-lance/aeat/aeat-2008
-
-
-
-IRC RAGE: http://www.vidarholen.net/contents/rage/
-
-https://www.eff.org/torchallenge
-
-
-
-WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-
-Ma coiffeuse est formidable - http://sonia.buvette.org/
-
-- add to lisp-mirror http://wcp.sdf-eu.org/software/
-
-
-http://www.microchoix.com/espace_client.html
-Login : pjb@informatimago.com
-Votre mot de passe : dSqcUixM
-
-http://www.materiel.net
-informatimago
-poporoplo
-
-jobs: http://www.odesk.com
-
-
-Find how to distinguish (in emacs or X) the keys coming from the
-different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
-
-
-
-http://openfarmtech.org/wiki/Crash_Course
-http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
-
-
-Mon Apr 18 12:54:07 CEST 2011
-paquete:       3001/10093263
-transportista: 963461211
-
-
-sourceforge.net
-API key:    fbe5b8d039ce9d46f926
-Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
-
-
-transmission-daemon -w /other/pjb/globcover
-
-
-
-http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
-Pre-industrial workers had a shorter workweek than today's    
-
-
-2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
-
-42 Trillian 2^276709 
-            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
-GURSIXO
-emergency services: +44 (0) 118 999 881 999 119 7253
-
-This message is rot-13 encoded to prevent unwanted viewing.
-Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
-
-Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
-pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET 
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
-
-(add-hook 'lisp-mode-hook
-  (lambda ()
-    (font-lock-add-keywords nil
-      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
-         (1 font-lock-keyword-face)
-         (2 font-lock-type-face))))))
-
-(put '$defclass 'common-lisp-indent-function
-     (get 'defclass 'common-lisp-indent-function))
-
-
-
-------------------------------------------------------------------------------
-apache / pound ports
-
-8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
-              joellegymtonic, parroquias-manga, willcom)
-
-8001 sbcl    linking
-8002
-8003 sbcl    films.willcom.fr
-8004 apache2 films.willcom.fr
-8005
-8006 sbcl    claar
-------------------------------------------------------------------------------
-
-
-BlackBerry 
-PIN 259B61F6
-IMEI: 357564.02.644206.5
-
-SIM Cards: 
-Operator Card Number            Phone Num   Date
-Movistar 8934076100032652090    636653318
-Movistar 340761 000326 5209 0   636653318   20110509
-
-http://www.progweb.com/modules/blackberry/index-en.html
-
-** NOTES 7
 
 http://kukuruku.co/hub/programming/do-not-wake-the-programmer
 http://theanarchistlibrary.org/library/l-susan-brown-does-work-really-work
@@ -967,8 +816,6 @@ http://webtubes.free.fr/ortf/articles.php?pg=art58
 IPv6: RFC3177 RFC4193
 
 
-code des impots 1346 article 78
-msa.fr -> cotisant de solidarité
 
 
 
@@ -1114,6 +961,15 @@ delphine.capy@malix.univ-paris1.fr
 1413040195Dc
 Paris 1 Interactif
 
+
+http://www.microchoix.com/espace_client.html
+Login : pjb@informatimago.com
+Votre mot de passe : dSqcUixM
+
+http://www.materiel.net
+informatimago
+poporoplo
+
 ** NOTES 9
 
 ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
@@ -1170,6 +1026,7 @@ http://www.techrepublic.com/article/an-app-that-passively-records-your-life-so-y
 
 hello kitty:           http://tinyurl.com/oh7laeh
 DON'T FEED THE TROLL:  http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
+IRC RAGE:              http://www.vidarholen.net/contents/rage/
 
 http://asciiwwdc.com 
 http://dspace.mit.edu/handle/1721.1/41992
@@ -1204,6 +1061,9 @@ Harlequin Common Lisp (LispWorks was the IDE)
 *** TODO [#B] move parroquias-manga.org to a Spanish host
 *** TODO [#A] [0/6] Emploi.
     :DEADLINE: <2014-07-31 -1m>
+
+jobs: http://www.odesk.com
+
 **** TODO [#A] update profile on linkedin.com
 **** TODO [#A] update profile on etc…
 **** TODO [#A] update CV on pjb.ogamita.org
@@ -1292,6 +1152,7 @@ platinum $5,188,803.00 @shoebox.
 
 *** TODO [#A] mocl test 2 (ios/android).
 *** TODO [#A] Application mobiles (iOS, Android): comptage de manifestation + geolocation.
+*** TODO [#B] add to lisp-mirror http://wcp.sdf-eu.org/software/      :admin:
 *** TODO [#B] Application mobiles (iOS, Android): geofamily-like but free.
 *** TODO [#B] enolaba abalone MacOSX
 *** TODO [#B] enolaba abalone iOS
@@ -1411,6 +1272,7 @@ create mail list:
 
 mailto:${name}@list.ogamita.com
 
+*** -------------------------
 *** APPLICATION IDEAS:
     - dev: agloo
     - dev: cdb
@@ -2518,6 +2380,12 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
        Bought.
 
 *** Comptabilité
+**** Impots
+code des impots 1346 article 78
+msa.fr -> cotisant de solidarité
+IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
+~/jobs/free-lance/aeat/aeat-2008
+
 **** DONE [#B] payer loyer                               679 €   :accounting:
      DEADLINE: <2013-03-04 Mon +1m -12d>
      - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
@@ -6967,6 +6835,7 @@ time the lack of elpa?
 
 *** emacs libraries
 https://github.com/Fuco1/smartparens/wiki/How-to-use-structural-functions-in-my-own-code
+https://github.com/elibarzilay/eliemacs/blob/master/extras/special-chars.el
 
 *** nice functions
 
@@ -12818,6 +12687,32 @@ Fukushima inside plant             = 8e0  Sievert/hour
 
 33 hours on Moon surface = 3e-3 Sievert = 
 16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
+
+
+
+Van Allen:
+
+  outer belt:  
+      3 to 10 earth-radius-mean
+      electrons 0.1 to 10 MeV
+      ions    
+
+  inner belt:
+      0.01 to 1.5 earth-radius-mean
+      protons    100 MeV    
+      electrons  0.1 MeV
+
+      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
+             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
+
+
+      protons of 0.1 MeV penetrate 0.6 mm of Pb
+      protons of 400 MeV penetrate 143 mm of Pb
+
+radiation:  2500 rem/year
+              25 mS
+
+    apollo astronauts: 5 rem
 
 ** Matter Energy Information
 
