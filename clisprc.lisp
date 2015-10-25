@@ -393,8 +393,6 @@
 ;;----------------------------------------------------------------------
 ;; Awfull trick for com.informatimago.clisp.script:is-running:
 
-(defun executable-reader (a b c) (sys::unix-executable-reader a b c))
-(set-dispatch-macro-character #\# #\! (function executable-reader))
 
 
 ;; (EXT:WITHOUT-PACKAGE-LOCK ("EXT")
