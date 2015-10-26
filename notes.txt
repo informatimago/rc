@@ -10167,6 +10167,9 @@ http://groups.google.com/group/comp.lang.lisp/browse_frm/thread/ba809b621e88da2b
       11|  12|  13|  14|  15|
       16
 
+    (format nil "~{~30<~%~A~;~A~;~A~>~}~%" '(foo bar baz quux toto titi tata tutu foo))
+    (format nil "~%|~{~<~%|~1,30:;~8A~>~^|~}|~%" '(foo bar baz quux toto titi tata tutu))
+
 Print ten times something:    (format t "~10@{ ~a~:* ~}" something)
 Print n times something:      (format t "~V@{~S~%~:*~}" n something")
 
