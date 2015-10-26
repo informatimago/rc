@@ -601,7 +601,15 @@ The HOST is added to the list of logical hosts defined.
 
 ;; (start-dribble)
 
+;;;----------------------------------------------------------------------
 
+(defun executable-reader (stream ch subch)
+  #+clisp (sys::unix-executable-reader stream ch subch)
+  #-clisp (progn
+            (read-line stream)
+            (values)))
+
+(set-dispatch-macro-character #\# #\! (function executable-reader))
 
 ;;;----------------------------------------------------------------------
 
