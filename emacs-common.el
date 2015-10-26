@@ -1878,6 +1878,7 @@ URL in a new window."
     ;; --
     (see-defpackage
      . ";;;;    See defpackage documentation string.\n")
+    (ring . "One Lisp to rule them all, One Lisp to find them, One Lisp to bring them all, And in the darkness bind them.")
     (agpl3         
      . "
 License:
