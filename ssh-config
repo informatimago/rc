@@ -15,6 +15,10 @@ Host gitlab.com
     ForwardAgent            no
     ForwardX11              no
 
+Host git.framasoft.org
+    ForwardAgent            no
+    ForwardX11              no
+
 Host gitorious.org
     ForwardAgent            no
     ForwardX11              no
