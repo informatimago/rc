@@ -2,6 +2,11 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 * NOTES
 ** New Notes
+
+- application mobile pour échanger des articles de loi ou de constitution et les commenter.
+
+
+
 ** Economy: Économie:
 
 Capital productif:
@@ -161,6 +166,14 @@ Movistar 340761 000326 5209 0   636653318   20110509
 http://www.progweb.com/modules/blackberry/index-en.html
 
 ** Livres à acheter
+
+Au coeur du pouvoir : Enquête sur le club le plus puissant de France
+Émmanuel Ratier
+
+La guerre secrête contre les peuples
+Claire Séverac
+
+
 **** Petite histoire de l'expérimentation démocratique                  :buy:
 Yves Sintomer
 Petite histoire de l'expérimentation démocratique
@@ -1035,6 +1048,8 @@ http://www.maclisp.info/pitmanual/master-index-s.html
 
 * ACTIONS
 ** AFAIRE, TODO, ENCOURS
+*** TODO [#A] OGAMITA.NET renewal 
+    :DEADLINE: <2015-11-15 -15d>
 *** TODO [#A] digitize movie DVDs.
     :DEADLINE: <2015-11-31 -1m>
 *** TODO [#B] sell the CDs and DVDs to Gibert Jeune.
@@ -2387,6 +2402,9 @@ https://github.com/nikodemus/sb-cga
 Project Number: 444610959287
 
 ** Developments TO DO
+*** TODO [#A] Write  proposal for vitale                                :dev:
+    :DEADLINE: <2015-11-02 Mon -1w>
+
 *** TODO [0/6] Patchwork                            :patchwork:macosx:cl:dev:
     :DEADLINE: <2015-11-01 -15d>
 
@@ -2414,7 +2432,7 @@ Patchwork menus, but Clozure CL menus.
      - State "IN-PROGRESS" from "TODO"       [2012-12-12 Wed 23:43] \\
        Let's start working on it.
 **** TODO [#A] Patchwork: Rest of port.         :bug:patchwork:macosx:cl:dev:
-*** TODO [#A] OPS                                                :ops:cl:dev:
+**** TODO [#A] OPS                                               :ops:cl:dev:
     :DEADLINE: <2015-12-01 -45d>
 **** TODO [#B] the Server                                        :ops:cl:dev:
 **** TODO [#B] the Customer web app                              :ops:cl:dev:
