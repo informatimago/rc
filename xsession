@@ -7,6 +7,7 @@ echo PJB .xsession > /tmp/pjb.log
 
 xset s on
 xset s 400
+xsetroot -solid '#031218'
 
 #
 # If ssh is configured and ssh-agent is wanted set "yes"
@@ -127,14 +128,17 @@ if test -f $HOME/.xinitrc ; then
     fi
 else
     test -n "$WINDOWMANAGER" && WINDOWMANAGER=`type -p $WINDOWMANAGER`
-    wms=( \
-        /usr/bin/ratpoison \
-        /usr/bin/sawfish \
-        /usr/X11R6/bin/kde \
-        /usr/X11R6/bin/startkde \
-        /usr/X11R6/bin/fvwm2 \
-        $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true ) \
-        )
+    wms=( 
+        /usr/bin/ratpoison 
+        /opt/local/bin/ratpoison 
+        /opt/X11/bin/quartz-wm
+        /usr/X11/bin/quartz-wm
+        /usr/bin/sawfish 
+        /usr/X11R6/bin/kde 
+        /usr/X11R6/bin/startkde 
+        /usr/X11R6/bin/fvwm2 
+        $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true ) 
+    )
     for wm in "${wms[@]}" ; do
         if test -x "$wm" ; then
             WINDOWMANAGER="$(type -p "$wm")"
@@ -149,7 +153,7 @@ else
 		Exit for now.                                             -
 		EOF
     else
-	# Start the XIM server:
+	    # Start the XIM server:
 	    test -r $HOME/.xim && source $HOME/.xim
 	    if test "$sshagent" = "yes" ; then
 	        test -x "$SSH_ASKPASS" && export SSH_ASKPASS
