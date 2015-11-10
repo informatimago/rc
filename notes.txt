@@ -3711,6 +3711,18 @@ La vecina se atormenta: se avecina la tormenta.
 having these primitives, so that the prospect of controlling one's
 kitchen stove with LISP is not so far-fetched." H. Baker, 1977
 * Citations
+
+Dijkstra spoke to Joel Aron (not Eyles), "head of IBM's Federal
+Systems Division which had been responsible for the software of the
+moonshot". It wasn't specifically in the lunar module, but somewhere
+in the 40,000 LoC. However, the bug was that the moon was repelling;
+and it was found by accident, 5 days before launch.
+
+See Dijkstra say it in person, at 15:00 in this interview (context
+starts at 13:40): http://www.cs.utexas.edu/users/EWD/video.html (I
+haven't linked directly to the 300MB download). Great interview BTW
+(dutch with subtitles).
+
 #
 Un pays qui se construit un mur dans son millieu, est ce que vous
 imaginez qu'il est possible qu'à un moment où à un autre, il ne se
