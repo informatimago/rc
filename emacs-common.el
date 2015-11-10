@@ -1814,6 +1814,7 @@ URL in a new window."
      . "http://www.catb.org/~esr/faqs/hacker-howto.html")
     (the-craft-of-text-editing    
      . "The Craft of Text Editing   http://www.finseth.com/craft/")
+    (craft . the-craft-of-text-editing)
     (essentials-of-programming-languages     
      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
     (practical-common-lisp      
@@ -1917,7 +1918,14 @@ License:
                          "What? " (mapcar (lambda (x) (cons x nil)) (pjb-erc-get-answers))
                          (lambda (answer) (setq *pjb-erc-last-answer* (car answer)))
                          t))))
-  (insert (format "%s" (cdr (assoc key *pjb-erc-answers*)))))
+  (let ((walked '())
+        (answer key))
+    (loop while (and (symbolp answer)
+                     (not (member answer walked)))
+          do (push answer walked)
+             (setf answer (cdr (assoc answer *pjb-erc-answers*))))
+    (insert (format "%s" answer))))
+
 
 ;; (add-hook 'erc-join-hook (lambda () (local-set-key (kbd "H-a") 'pjb-erc-answer)))
 (global-set-key (kbd "H-a") 'pjb-erc-answer)
