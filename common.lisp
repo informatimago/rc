@@ -377,7 +377,6 @@ License:
 
 
 
-
 ;;;----------------------------------------------------------------------
 ;;;
 
@@ -706,17 +705,21 @@ The HOST is added to the list of logical hosts defined.
   (use-package "COMMON-LISP" package)
   package)
 (clean-up-package "CL-USER")
+
 (in-package "CL-USER")
-(shadow '(ed
-          apropos
-          apropos-list))
+
 (let ((v (find-symbol "VERSION"))
       (p (package-name *package*)))
   (when v
     (let ((*package* (load-time-value (find-package "KEYWORD"))))
       (format t "~&~S is present in ~A where does it come from?~%" v p))
     (unintern v)))
+
+(shadow '("ED" "APROPOS" "APROPOS-LIST"))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
+(shadowing-import '(com.informatimago.common-lisp.ed.ed:ed
+                    com.informatimago.tools.symbol:apropos
+                    com.informatimago.tools.symbol:apropos-list))
 
 (defun print-variables ()
   "Prints the *print-…* and *read-…* variables."
