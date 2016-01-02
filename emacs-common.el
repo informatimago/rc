@@ -1724,7 +1724,7 @@ capitalized form."
             (push item result))
      finally (return (nreverse result))))
 
-
+(defvar comint-last-prompt-overlay nil)
 (defun comint-output-filter (process string)
   (let ((oprocbuf (process-buffer process)))
     ;; First check for killed buffer or no input.
