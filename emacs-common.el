@@ -33,53 +33,34 @@
 
 
 ;;;----------------------------------------------------------------------------
-;;; Message Log
+;;; Start up.
 ;;;----------------------------------------------------------------------------
 (setq-default lexical-binding t)
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
-
-(defvar *pjb-load-noerror*       t)
-(defvar *pjb-load-silent*        nil)
-(defvar *pjb-light-emacs*        nil "pjb-loader will load the minimum.")
-(defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
-                                      (string-equal x-resource-name "pvs")))
-(defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
-
 (if (string= emacs-version "25.0.50.1")
     (setq source-directory
           ;; "/usr/local/src/emacs/src"
           "~/works/emacs/src")
     (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version)))
 
-
-(defvar *lac-functions* '()
-  "A list of functions to be called after elpa is loaded.
-please, use `add-lac' and `remove-lac' instead of accessing this list directly.")
-(defun add-lac (&rest lac-functions)
-  (setf *lac-functions* (union lac-functions *lac-functions*)))
-(defun remove-lac (&rest lac-functions)
-  (setf *lac-functions* (set-difference *lac-functions* lac-functions)))
-(defun run-lac-functions ()
-  "Runs each lac function in *lac-functions*."
-  (interactive)
-  (dolist (lac *lac-functions*)
-    (ignore-errors (funcall lac))))
-
-(defvar shell-file-name "/bin/bash")
-(defvar *tempdir*  (format "/tmp/emacs%d" (user-uid)))
-
-(defvar *hostname*
-  (or (and (boundp 'system-name) system-name)
-      (and (fboundp 'system-name) (system-name))
-      (ignore-errors
-        (shell-command-to-string
-         "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )")
-        "localhost")))
+;;;----------------------------------------------------------------------------
+;;; Message Log
+;;;----------------------------------------------------------------------------
+(defvar *pjb-load-noerror*       t)
+(defvar *pjb-load-silent*        nil)
+(defvar *pjb-light-emacs*        nil "pjb-loader will load the minimum.")
+(defvar *pjb-pvs-is-running*     (and (boundp 'x-resource-name)
+                                      (string-equal x-resource-name "pvs")))
 
 
+(defvar shell-file-name          "/bin/bash")
+(defvar *tempdir*                (format "/tmp/emacs%d" (user-uid)))
+(defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
+  (if (file-exists-p "--version.lock")
+	(error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -94,6 +75,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;;;----------------------------------------------------------------------------
 ;;; Life saver
 ;;;----------------------------------------------------------------------------
+;;; Essential configuration I want to have even when .emacs breaks.
+;;;
 (.EMACS "REQUIRE CL...")
 (require 'cl)
 (require 'parse-time)
@@ -116,9 +99,16 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
       '((scroll-bar-mode     -1)
         (menu-bar-mode       -1)
         (tool-bar-mode       -1)
-        (transient-mark-mode +1)))
+        (transient-mark-mode +1)
+        (goto-address-mode   +1)))
 
 ;; (progn (scroll-bar-mode -1) (menu-bar-mode -1) (tool-bar-mode -1) (transient-mark-mode +1))
+
+(defun mac-adjust-full-screen ()
+  (interactive)
+  (tool-bar-mode +1)
+  (tool-bar-mode -1)
+  (ff -1))
 
 (defun mac-vnc-keys ()
   (interactive)
@@ -128,29 +118,6 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
   (setf mac-command-key-is-meta nil  ; which emacs?
         mac-reverse-ctrl-meta   nil))
 
-(defun mac-adjust-full-screen ()
-  (interactive)
-  (tool-bar-mode +1)
-  (tool-bar-mode -1)
-  (ff -1))
-
-;; (defun mac-vanilla-keys (&optional prefix)
-;;   (interactive "P")
-;;   (if prefix
-;;    (setf mac-command-key-is-meta t     ; which emacs?
-;;          mac-reverse-ctrl-meta   nil)
-;;    (setf mac-command-modifier    'meta  ; emacsformacosx
-;;          mac-option-modifier     'alt
-;;          one-buffer-one-frame    nil)))
-
-;; MacOSX Modifiers:
-;; C-
-;; S-                     S-
-;; C- A- M- SPC M- A- C-p C-
-
-;; (global-set-key (kbd "C") 'self-insert-command)
-;; (local-set-key (kbd "C") 'self-insert-command)
-
 (defun mac-vanilla-keys ()
   (interactive)
   (setf mac-command-modifier    'meta ; emacsformacosx
@@ -158,6 +125,11 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
         one-buffer-one-frame    nil)
   (setf mac-command-key-is-meta t     ; which emacs?
         mac-reverse-ctrl-meta   nil))
+
+;; MacOSX Modifiers:
+;; C-
+;; S-                     S-
+;; C- A- M- SPC M- A- C-p C-
 
 
 (when (or (boundp 'aquamacs-version) (eq window-system 'ns))
@@ -170,6 +142,21 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (when (boundp 'x-toolkit-scroll-bars)
   (setf x-toolkit-scroll-bars nil))
 
+
+;;;----------------------------------------------------------------------------
+
+(defvar *lac-functions* '()
+  "A list of functions to be called after elpa is loaded.
+please, use `add-lac' and `remove-lac' instead of accessing this list directly.")
+(defun add-lac (&rest lac-functions)
+  (setf *lac-functions* (union lac-functions *lac-functions*)))
+(defun remove-lac (&rest lac-functions)
+  (setf *lac-functions* (set-difference *lac-functions* lac-functions)))
+(defun run-lac-functions ()
+  "Runs each lac function in *lac-functions*."
+  (interactive)
+  (dolist (lac *lac-functions*)
+    (ignore-errors (funcall lac))))
 
 ;;;----------------------------------------------------------------------------
 (when t
@@ -197,31 +184,13 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;; window-system ==> (display-multi-frame-p)
 ;; xterm-mouse-mode ;; To use the mouse inside xterm!
 
-(mouse-avoidance-mode 'cat-and-mouse)
-
-(require 'rst nil t)
-(require 'rst-mode nil t)
-
-
-
-
-;; Unfortunately, custom only updates toplevel forms, so we need to do the same.
-(defun reset-faces ()
-  "Search in ~/.emacs for a custom-set-faces toplevel form, and evaluates it."
-  (interactive)
-  (when (or custom-file init-file-user)
-    (save-window-excursion
-      (find-file (or custom-file user-init-file))
-      (goto-char (point-min))
-      (forward-sexp) 
-      (while (and (< (point) (point-max))
-                  (not
-                   (let ((form (progn (backward-sexp) (sexp-at-point))))
-                     (when (and (listp form)
-                                (eq 'custom-set-faces (first form)))
-                       (eval form)
-                       t))))
-        (forward-sexp 2)))))
+(defvar *hostname*
+  (or (and (boundp 'system-name) system-name)
+      (and (fboundp 'system-name) (system-name))
+      (ignore-errors
+        (shell-command-to-string
+         "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )")
+        "localhost")))
 
 
 (.EMACS "enabling features")
@@ -236,18 +205,26 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 (display-time-mode 1)
 
+(set-default-file-modes #o755)
+
+
+(setf open-paren-in-column-0-is-defun-start nil)
+(setf minibuffer-max-depth nil)
+(setf print-circle t)
+(setf server-socket-dir *tempdir*
+      server-name       (format "server-%d" (emacs-pid)))
+
 (setf tetris-score-file "~/.tetris-scores")
 
-(setf fancy-splash-text
-      '(
-        (:face (variable-pitch :weight bold) "
+(setf fancy-splash-text  '(
+                           (:face (variable-pitch :weight bold) "
 WELCOME TO EMACS!
 "
-         ;; :face variable-pitch "Text"
-         ;; :face (variable-pitch :weight bold :slant oblique) "Text"
-         ;; :face variable-pitch function
-         )
-        (:face (variable-pitch :weight bold) "
+                            ;; :face variable-pitch "Text"
+                            ;; :face (variable-pitch :weight bold :slant oblique) "Text"
+                            ;; :face variable-pitch function
+                            )
+                           (:face (variable-pitch :weight bold) "
 -%- WELCOME TO EMACS -%-
 ")))
 (setf fancy-splash-text nil)
@@ -261,644 +238,11 @@ WELCOME TO EMACS!
          browse-url-firefox-program  "/usr/bin/firefox")))
 
 
-
-;;;----------------------------------------------------------------------------
-;; (spam-initialize)
-;; (gnus-registry-initialize)
-;; (setq spam-split-group "mail.spamgate"
-;;       spam-use-spamassassin-headers t
-;;       spam-use-bogofilter t
-;; 
-;;       gnus-spam-process-newsgroups
-;;       '(("mail\\.*" ((spam spam-use-bogofilter))))
-;; 
-;;       gnus-spam-newsgroup-contents
-;;       '(("mail.spamgate" gnus-group-spam-classification-spam))
-;; 
-;;       spam-mark-only-unseen-as-spam t
-;;       spam-mark-ham-unread-before-move-spam-from-group t
-;;       gnus-ham-process-destinations '(("mail\\.spamgate"
-;; "mail.inbox"))
-;;       gnus-spam-process-destinations '(("mail\\..*"
-;; "mail.spam.expired"))
-;;       spam-log-to-registry t
-;;       gnus-registry-max-entries 4000)
-
-
-;; (setf spam-use-stat t
-;;       spam-use-spamoracle nil
-;;       spam-split-group "mail.junk"
-;;       spam-log-to-registry nil
-;;       gnus-registry-max-entries 4000
-;;       gnus-spam-process-newsgroups '(("mail\\.*" ((spam spam-use-stat)))))
-;; (spam-initialize)
-
-
-;;;----------------------------------------------------------------------------
-;;; emacs lisp functions
-;;;----------------------------------------------------------------------------
-
-(defun symbol-value-in-buffer (symbol buffer)
-  (save-excursion
-    (set-buffer buffer)
-    (when (boundp symbol)
-      (symbol-value symbol))))
-
-(defun set-symbol-value-in-buffer (symbol buffer value)
-  (save-excursion
-    (set-buffer buffer)
-    (make-local-variable symbol)
-    (setf (symbol-value symbol) value)))
-
-(defsetf symbol-value-in-buffer set-symbol-value-in-buffer)
-
-;;;----------------------------------------------------------------------------
-;;; cl-like functions
-;;;----------------------------------------------------------------------------
-;;; TODO: we should just load pjb-cl!
-
-(define-modify-macro appendf (&rest args) append "Append onto list")
-
-(defun delete-from-sequence (sequence-place item &rest keywords)
-  (apply (function delete*) item sequence-place keywords))
-(define-modify-macro deletef (&rest args) delete-from-sequence "Delete from sequence")
-
-
-(defmacro defconstant (symbol initvalue &optional docstring)
-  `(defconst ,symbol ,initvalue ,docstring))
-
-(defmacro defparameter (symbol &optional initvalue docstring)
-  `(progn
-     (defvar ,symbol nil ,docstring)
-     (setq   ,symbol ,initvalue)))
-
-
-
-
-
-(defun symbol-name* (sym)
-  (let* ((name (symbol-name sym))
-         (colon (position (character ":") name)))
-    (cond 
-      ((and colon (char= (character ":") (char name (1+ colon))))
-       (subseq name (+ 2 colon)))
-      (colon
-       (subseq name (+ 1 colon)))
-      (t name))))
-
-(defun string* (x)
-  "Common-Lisp: If X is a string, then X, else if it's a symbol, then (symbol-name* X)
-X---a string, a symbol, or a character.
-
-Returns a string described by x; specifically:
-
-    * If X is a string, it is returned.
-    * If X is a symbol, its name is returned.
-    * If X is a character, then a string containing that one character is returned.
-    * string might perform additional, implementation-defined conversions.
-"
-  (cond
-    ((stringp x) x)
-    ((symbolp x) (symbol-name* x))
-    ((characterp x) (make-string* 1 :initial-element x))
-    (t (signal 'type-error "Expected a string, a symbol or a character."))))
-(defun string-downcase (x) (downcase (string* x)))
-(defun string-upcase   (x) (upcase   (string* x)))
-
-(unless (fboundp 'string<=)
-  (defun string>  (a b) (string< b a))
-  (defun string<= (a b) (not (string> a b)))
-  (defun string>= (a b) (not (string< a b)))
-  (defun string/= (a b) (not (string= a b))))
-
-(defun character (x) (etypecase x
-                       (integer x)
-                       (string (aref x 0))
-                       (symbol (aref (symbol-name x) 0))))
-(defun char= (x y) (= x y))
-(defun* string-equal* (str1 str2 &key (start1 0) (end1) (start2 0) (end2))
-  (string= (string-upcase
-            (if (and (= 0 start1) (or (null end1) (= end1 (length str1))))
-                str1
-                (subseq str1 start1 (or end1 (length str1)))))
-           (string-upcase
-            (if (and (= 0 start2) (or (null end2) (= end2 (length str2))))
-                str2
-                (subseq str2 start2 (or end2 (length str2)))))))
-
-
-(defun string-right-trim (character-bag string-designator)
-  "Common-Lisp: returns a substring of string, with all characters in \
-`character-bag' stripped off the end.
-
-"
-  (unless (sequencep character-bag)
-    (signal 'type-error  "Expected a sequence for `character-bag'."))
-  (let* ((string (string* string-designator))
-         (margin (format "[%s]*" (regexp-quote
-                                  (if (stringp character-bag)
-                                      character-bag
-                                      (map 'string 'identity character-bag)))))
-         (trimer (format "\\`\\(\\(.\\|\n\\)*?\\)%s\\'" margin)))
-    (replace-regexp-in-string  trimer "\\1" string)))
-
-
-(defun user-homedir-pathname ()
-  (if user-init-file
-      (dirname user-init-file)
-      (dirname (first (file-expand-wildcards "~/.emacs")))))
-(defun namestring (path) path)
-(defun pathname-name (path)
-  (let ((path (basename path)))
-    (if (string-match "^\\(.*\\)\\.[^.]*$" path)
-        (match-string 1 path)
-        path)))
-;; (mapcar (lambda (x) (list (dirname x) (basename x) (pathname-name x)))
-;;         '("abc" "abc.def" "abc.def.ghi"
-;;           "/abc" "/abc.def" "/abc.def.ghi"
-;;           "./abc" "./abc.def" "./abc.def.ghi"
-;;           "ddd/abc" "ddd/abc.def" "ddd/abc.def.ghi"
-;;           "eee/ddd/abc" "eee/ddd/abc.def" "eee/ddd/abc.def.ghi"
-;;           "/eee/ddd/abc" "/eee/ddd/abc.def" "/eee/ddd/abc.def.ghi"))
-
-
-
-;;; Some other utility.
-
-(defun ensure-list (x) (if (listp x) x (list x)))
-
-(defmacro* string-case (string-expression &body clauses)
-  "Like case, but for strings, compared with string-equal*"
-  (let ((value (gensym)))
-    `(let ((,value ,string-expression))
-       (cond
-         ,@(mapcar (lambda (clause)
-                     (destructuring-bind (constants &rest body) clause
-                       (if (member* constants '(t otherwise) :test (function eql))
-                           `(t ,@body)
-                           `((member* ,value ',(ensure-list constants)
-                                      :test (function string-equal*))
-                             ,@body))))
-                   clauses)))))
-
-
-(defun dirname (path)
-  (if (string-match "^\\(.*/\\)\\([^/]*\\)$" path)
-      (match-string 1 path)
-      "./"))
-(defun basename (path &optional extension)
-  (let ((extension (or extension "")))
-    (if (string-match (format "^\\(.*/\\)\\([^/]*\\)%s$" (regexp-quote extension)) path)
-        (match-string 2 path)
-        path)))
-
-
-
-
-;;;----------------------------------------------------------------------------
-;;; File access rights
-;;;----------------------------------------------------------------------------
-
-(defun* cl:digit-char-p (char &optional (radix 10))
-  (let ((value (position (upcase char) "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")))
-    (and value (< value radix) value)))
-
-(defun* cl:parse-integer (string &key (start 0) end (radix 10) junk-allowed)
-  (let ((end    (or end (length string)))
-        (n      0)
-        (sign   1)
-        (plus   (character "+"))
-        (minus  (character "-"))
-        (space  (character " ")))
-    (labels ((parse-integer-error ()
-               (error "Not an integer string %S (:start %d :end %d :radix %d)"
-                      string start end radix))
-             (check-range ()
-               (unless (< start end)
-                 (parse-integer-error)))
-             (eat-spaces (i)
-               (loop
-                 while (and (< i end) (char= space (aref string i)))
-                 do (incf i)
-                 finally (return i))))
-      (setf start (eat-spaces start))
-      (check-range)
-      (cond
-        ((char= plus  (aref string start)) (setf sign +1) (incf start) (check-range))
-        ((char= minus (aref string start)) (setf sign -1) (incf start) (check-range)))
-      (loop
-        for i from start below end
-        for digit = (cl:digit-char-p (aref string i) radix)
-        while digit
-        do (setf n (+ (* n radix) digit))
-        finally (when (< i end)
-                  (setf i (eat-spaces i)))
-                (when (and (not junk-allowed) (< i end))
-                  (parse-integer-error))
-                (return (values (* sign n) i))))))
-
-
-(defun octal (n)
-  "N is a decimal numbers whose digits are taken as octal digits
-and converted as such."
-  (let ((digits (format "%d" n))
-        (r 0))
-    (dotimes (i (length digits))
-      (setf r (+ (* 8 r) (cl:digit-char-p (aref digits i)))))
-    r))
-
-
-(defun chmod (file mode)
-  (interactive "fFile path: \nXMode: ")
-  (set-file-modes file mode))
-
-(set-default-file-modes (octal 755))
-
-
-;;;----------------------------------------------------------------------------
-;;; File and directory stuff
-;;;----------------------------------------------------------------------------
-
-(defun first-existing-file (list-of-files)
-  "Finds the first file in LIST-OF-FILES that exists.
-"
-  (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
-
-(defun map-existing-files (function list-of-files)
-  "Calls FUNCTION on each file in LIST-OF-FILES that exists, and returns the list of results.
-"
-  (let ((result '()))
-    (dolist (file list-of-files (nreverse result))
-      (when (file-exists-p file)
-        (push (funcall function file) result)))))
-
-
-(defun remove-non-existing-files (list-of-files)
-  "Returns the LIST-OF-FILES with non-existing files removed.
-"
-  (remove-if-not (function file-exists-p) list-of-files))
-
-
-(defmacro* with-file (file-and-options &body body)
-  "Processes BODY with a buffer on the given file.
-DO:              find-file or find-file-literally, process body, and
-                 optionally save the buffer and kill it.
-                 save is not done if body exits exceptionnaly.
-                 kill is always done as specified.
-FILE-AND-OPTION: either an atom evaluated to a path,
-                 or (path &key (save t) (kill t) (literal nil))
-"
-  (if (atom file-and-options)
-      `(with-file (,file-and-options) ,@body)
-      ;; destructuring-bind is broken, we cannot give anything else than nil
-      ;; as default values:
-      (destructuring-bind (path &key (save nil savep) (kill nil killp)
-                                (literal nil literalp))
-          file-and-options
-        (unless savep (setf save t))
-        (unless killp (setf kill t))
-        `(unwind-protect
-              (progn
-                (,(if literal 'find-file-literally 'find-file) ,path)
-                (prog1 (save-excursion ,@body)
-                  ,(when save `(save-buffer 1))))
-           ,(when kill
-                  `(kill-buffer (current-buffer)))))))
-
-
-(defvar *directories* '() "A cache for the ~/directories.txt dictionary.")
-;; (setf  *directories* '())
-
-
-(defun load-directories (&optional directories-file)
-  "Loads ~/directories.txt (or the given DIRECTORIES-FILE),
-and stores it in `*directories*'.
-"
-  (let ((directories-file (or directories-file "~/directories.txt")))
-    (setf *directories*
-          (progn
-            (find-file directories-file)
-            (prog1
-                (loop
-                   for (k v)
-                   on (split-string (buffer-substring-no-properties
-                                     (point-min) (point-max)))
-                   by (function cddr)
-                   nconc (list (intern (format ":%s" (substitute ?- ?_ (downcase k))))
-                               v))
-              (kill-buffer (current-buffer)))))))
-
-
-(defun get-directory (key &optional subpath)
-  "
-RETURN: The directory in ~/directories.txt for the key, concatenated with the subpath.
-NOTE:   ~/directories.txt is cached in *directories*.
-"
-  (unless *directories*
-    (load-directories))
-  (when  (getf *directories* key)
-    (let ((dir (getf *directories* key)))
-      (if (or (null subpath) (string= "" subpath))
-          dir
-          (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-                 (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-                 (xor (a b) (or (and a (not b)) (and (not a) b))))
-            (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-                (concat dir subpath)
-                (concat dir "/" subpath)))))))
-
-
-;;;----------------------------------------------------------------------------
-;;; Setting up load-path
-;;;----------------------------------------------------------------------------
-;;
-;;
-;; When we start, emacs has already filled load-path with
-;; installation-local directories.
-;;
-;; So we only need to add the directories of specific packages (that
-;; could be used in the various emacs installations).  It also means
-;; that installing an emacs package must occur either in an emacs
-;; specific installation (notably if .elc are compiled for this
-;; specific version), or in  the package specific directory.
-;;
-;; If any of these directories contain one of the site or subdir el
-;; files, then it is loaded too.
-;;
-
-
-
-(defun print-load-path ()
-  "Insert the paths in load-path one per line."
-  (interactive)
-  (dolist (x load-path)
-    (princ x)
-    (terpri)))
-(defalias 'dump-load-path 'print-load-path)
-
-
-(defun clean-load-path ()
-  "Remove slashes at the end of the path in load-path."
-  (setf load-path
-        (remove-duplicates
-         (mapcar (lambda (path) (string-right-trim "/" path)) load-path)
-         :test (function string=))))
-
-
-(defun load-pathname (file &optional nosuffix must-suffix)
-  "Return the pathname of the file that would be loaded by (load file)."
-  (let* ((file (substitute-in-file-name file))
-         (size (length file)))
-    (unless (zerop size)
-      (when (and must-suffix
-                 (or (and (< 3 size) (string= ".el" (substring file (- size 3))))
-                     (and (< 4 size) (string= ".elc" (substring file (- size 4))))
-                     (file-name-directory file)))
-        (setf must-suffix nil))
-      (if (fboundp 'locate-file-internal)
-          (locate-file-internal file
-                                load-path
-                                (cond (nosuffix    '())
-                                      (must-suffix (get-load-suffixes))
-                                      (t           (append (get-load-suffixes)
-                                                           load-file-rep-suffixes)))
-                                nil)
-          (error "Missing locate-file-internal in version %s" emacs-version)
-          ;; (let ((suffixes (append (get-load-suffixes) "")))
-          ;;   (dolist (dir load-path)
-          ;;     (dolist (suffix suffixes)
-          ;;       (format "%s/%s%s" dir file suffix))))
-          ))))
-
-
-
-(defun setup-load-path ()
-  "Set up my load-path."
-  (let ((new-paths '())
-        (base-load-path (copy-list load-path)))
-    (flet ((add-if-good (site-lisp)
-             (let ((site-lisp (expand-file-name site-lisp)))
-               (when (file-exists-p site-lisp)
-                 (pushnew site-lisp new-paths)
-                 (mapc (lambda (file)
-                         (let ((file (concat site-lisp "/" file)))
-                           (when (file-exists-p file)
-                             (let ((default-directory site-lisp))
-                               (.EMACS "%s FOUND" file)
-                               (load file)))))
-                       '("site-start.el" "site-gentoo.el" "subdirs.el"))
-                 t))))
-      (dolist (directories (append
-                            ;; When several directories are listed in a sublist, only
-                            ;; the first found directory will be added.
-                            (case emacs-major-version
-                              ((20 21 22)
-                               (append '("/opt/lisp/emacs"
-                                         "/opt/local/share/emacs/site-lisp"
-                                         "/usr/local/share/emacs/site-lisp")
-                                       '("/opt/clisp-2.48/share/emacs/site-lisp"
-                                         "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                                         "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                                         "/opt/clisp-2.47/share/emacs/site-lisp"
-                                         "/opt/clisp-2.46/share/emacs/site-lisp"
-                                         "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                                       '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                                       ))
-                              ((23)
-                               '("/usr/local/share/emacs/site-lisp"))
-                              ((24)
-                               '("/opt/share/emacs/site-lisp/w3m/"))
-                              ((25)
-                               '())
-                              (otherwise
-                               (.EMACS "WARNING: No load-paths for emacs version %d"
-                                       emacs-major-version)
-                               '()))
-                            (list
-                             ;; -----------------
-                             ;; PJB emacs sources
-                             ;; -----------------
-                             ;; Since we may have several emacs version running
-                             ;; on the same system, for now we will avoid
-                             ;; compiling pjb sources, and we will load them
-                             ;; directly from ~/src/public/emacs/.  Later we
-                             ;; will see how we can install elc in version
-                             ;; specific directories, but keeping references to
-                             ;; the same source directory.
-                             ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
-                             '("~/src/public/emacs")
-                             '("~/emacs"))))
-        (if (listp directories)
-            (find-if (function add-if-good) directories)
-            (add-if-good directories)))
-      
-      (setf load-path (append new-paths
-                              (set-difference load-path base-load-path :test (function equal))
-                              base-load-path)))))
-
-(message "old load-path = %S" (with-output-to-string (dump-load-path)))
-(setup-load-path)
-(message "new load-path = %S" (with-output-to-string (dump-load-path)))
-
-
-(map-existing-files (lambda (dir) (pushnew dir exec-path))
-                    (cons (expand-file-name "~/bin/")
-                          '("/sw/sbin/" "/sw/bin/" "/usr/local/sbin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin")))
-
-(setf (getenv "PATH") (mapconcat (function identity) exec-path ":"))
-
-(require 'highlight-flet nil t)
-
-;;;----------------------------------------------------------------------------
-;;; PAREDIT: essential!
-;;;----------------------------------------------------------------------------
-
-(load "paredit")
-
-
-(defvar pjb-paredit-space-for-delimiter-predicates '()
-  "A list of predicates taking a buffer start end range indicating
-whether no space should be inserted at the end before an opening
-parenthesis.
-The disjonction of all predicates is used.")
-
-(defun pjb-dispatching-reader-macros-p (start end)
-  "Whether there is a dispatching reader macro instance from `start' to `end'."
-  (message "previous: %S" (buffer-substring-no-properties start end))
-  (goto-char start)
-  (and (looking-at "\\(#[0-9]*[^0-9]\\)")
-       (= end (match-end 0))))
-
-(defun pjb-comma-at-p (start end)
-  "Whether there is ` ,@' just before `end'."
-  (message "previous: %S" (buffer-substring-no-properties start end))
-  (when (<= (point-min) (- end 3))
-    (goto-char (- end 3))
-    (looking-at " ,@")))
-
-(defun pjb-paredit-space-for-delimiter-p/predicates (endp delimiter)
-  (not (and (not endp)
-            (save-excursion
-             (let ((end (point))
-                   (start (progn (backward-sexp) (point))))
-               (some (lambda (predicate)
-                       (funcall predicate start end))
-                     pjb-paredit-space-for-delimiter-predicates)))
-            t)))
-
-(push 'pjb-dispatching-reader-macros-p pjb-paredit-space-for-delimiter-predicates)
-(push 'pjb-comma-at-p                  pjb-paredit-space-for-delimiter-predicates)
-(push 'pjb-paredit-space-for-delimiter-p/predicates paredit-space-for-delimiter-predicates)
-;; (setf  paredit-space-for-delimiter-predicates '(pjb-paredit-space-for-delimiter-p/predicates))
-
-;; (defun bagger-lambda-p (start end)
-;;   (goto-char start)
-;;   (and (looking-at "λ")
-;;        (= end (match-end 0))))
-;; (push 'bagger-lambda-p pjb-paredit-space-for-delimiter-predicates)
-
-
-
-;;;----------------------------------------------------------------------------
-;;; CEDET / EIEIO
-;;;----------------------------------------------------------------------------
-(when (and (require 'eieio nil t)
-           (require 'cedet nil t))
-  ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
-  ;; Select one of the following:
-
-  ;; * This enables the database and idle reparse engines
-  ;;(semantic-load-enable-minimum-features)
-
-  ;; * This enables some tools useful for coding, such as summary mode
-  ;;   imenu support, and the semantic navigator
-  ;; (semantic-load-enable-code-helpers)
-
-  ;; * This enables even more coding tools such as the nascent intellisense mode
-  ;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-  ;; (semantic-load-enable-guady-code-helpers)
-
-  ;; * This turns on which-func support (Plus all other code helpers)
-  ;; (semantic-load-enable-excessive-code-helpers)
-
-  ;; This turns on modes that aid in grammar writing and semantic tool
-  ;; development.  It does not enable any other features such as code
-  ;; helpers above.
-  ;; (semantic-load-enable-semantic-debugging-helpers)
-  (setf eieio-skip-typecheck t))
-
-
-;;;----------------------------------------------------------------------------
-;;; Emacs-CL
-;;;----------------------------------------------------------------------------
-(defvar *pjb-emacs-cl-present-p* nil)
-
-
-;; We cannot load old emacs-cl in emacs-24 with lexical-binding, since
-;; it overrides new emacs functions.
-
-;; (when (load "load-cl" t)
-;;   (setf *pjb-emacs-cl-present-p* t)
-;;   (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*  
-;;                                           *STANDARD-OUTPUT* 
-;;                                           *TERMINAL-IO*))
-;;   (let ((stream (make-buffer-output-stream "*scratch*")))
-;;     (setf *STANDARD-INPUT*  stream
-;;           *STANDARD-OUTPUT* stream
-;;           *TERMINAL-IO*     stream)))
-
-
-;;;----------------------------------------------------------------------------
-(defparameter *milliways* '())
-
-
-(defun milliways-run ()
-  (interactive)
-  (while *milliways*
-    (ignore-errors (funcall (pop *milliways*)))))
-
-(defun milliways-activate (&optional delay)
-  "Called at the end of ~/.emacs"
-  (run-at-time (or delay 5)
-               1
-               'milliways-run))
-
-(defun milliways-schedule (function)
-  "Schedule the function to be called after emacs started."
-  (push function *milliways*))
-
-(milliways-schedule
- (lambda ()
-   (speak   "Welcome to the Restaurant at the End of the Universe!")
-   (message "Welcome to the Restaurant at the End of the Universe!")))
-
-
-
-(defun emacs-time-to-universal-time (emacs-time)
-  (+ (* (first emacs-time) 65536.0)
-     (second emacs-time)
-     (/ (third emacs-time) 1000000.0)))
-
-(defun timer-emacs-time (timer)
-  (list (timer--high-seconds timer)
-        (timer--low-seconds timer)
-        (timer--usecs timer)))
-
-
-(defun timer-delete-function (function)
-  (cancel-timer (find function (append timer-list timer-idle-list)
-                      :key (function timer--function))))
-
-;; (timer-delete-function 'milliways-run)
-;; (milliways-activate)
-
-
-;; (mapcar (lambda (timer)
-;;           (list
-;;            (timer--function timer)
-;;            (- (emacs-time-to-universal-time (timer-emacs-time timer))
-;;               (emacs-time-to-universal-time (current-time)))))
-;;         timer-list)
+(setf visible-bell nil)
+(when (eq window-system 'x)
+  (setf ring-bell-function 
+        (lambda ()
+          (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil))))
 
 
 
@@ -1006,6 +350,336 @@ The disjonction of all predicates is used.")
 
 
 
+(standard-display-ascii #o200 (vector (decode-char 'ucs #x253c)))
+(standard-display-ascii #o201 (vector (decode-char 'ucs #x251c)))
+(standard-display-ascii #o202 (vector (decode-char 'ucs #x252c)))
+(standard-display-ascii #o203 (vector (decode-char 'ucs #x250c)))
+(standard-display-ascii #o204 (vector (decode-char 'ucs #x2524)))
+(standard-display-ascii #o205 (vector (decode-char 'ucs #x2502)))
+(standard-display-ascii #o206 (vector (decode-char 'ucs #x2510)))
+(standard-display-ascii #o210 (vector (decode-char 'ucs #x2534)))
+(standard-display-ascii #o211 (vector (decode-char 'ucs #x2514)))
+(standard-display-ascii #o212 (vector (decode-char 'ucs #x2500)))
+(standard-display-ascii #o214 (vector (decode-char 'ucs #x2518)))
+(standard-display-ascii #o220 [? ])
+(standard-display-ascii #o221 [?\` ])
+(standard-display-ascii #o222 [?\'])
+(standard-display-ascii #o223 [?\"])
+(standard-display-ascii #o224 [?\"])
+(standard-display-ascii #o225 "* ")
+(standard-display-ascii #o226 "--")
+(standard-display-ascii #o227 " -- ")
+
+
+
+;;;----------------------------------------------------------------------------
+;;; Setting up load-path & exec-path
+;;;----------------------------------------------------------------------------
+;;;
+;;; When we start, emacs has already filled load-path with
+;;; installation-local directories.
+;;;
+;;; So we only need to add the directories of specific packages (that
+;;; could be used in the various emacs installations).  It also means
+;;; that installing an emacs package must occur either in an emacs
+;;; specific installation (notably if .elc are compiled for this
+;;; specific version), or in  the package specific directory.
+;;;
+;;; If any of these directories contain one of the site or subdir el
+;;; files, then it is loaded too.
+;;;
+
+
+(defun print-load-path ()
+  "Insert the paths in load-path one per line."
+  (interactive)
+  (dolist (x load-path)
+    (princ x)
+    (terpri)))
+(defalias 'dump-load-path 'print-load-path)
+
+
+(defun clean-load-path ()
+  "Remove slashes at the end of the path in load-path."
+  (setf load-path
+        (remove-duplicates
+         (mapcar (lambda (path)
+                   (if (string-match "^\\(.*[^/]\\)/*$" path)
+                       (match-string 1 path)
+                       path))
+                 load-path)
+         :test (function string=))))
+
+
+(defun load-pathname (file &optional nosuffix must-suffix)
+  "Return the pathname of the file that would be loaded by (load file)."
+  (let* ((file (substitute-in-file-name file))
+         (size (length file)))
+    (unless (zerop size)
+      (when (and must-suffix
+                 (or (and (< 3 size) (string= ".el"  (substring file (- size 3))))
+                     (and (< 4 size) (string= ".elc" (substring file (- size 4))))
+                     (file-name-directory file)))
+        (setf must-suffix nil))
+      (if (fboundp 'locate-file-internal)
+          (locate-file-internal file
+                                load-path
+                                (cond (nosuffix    '())
+                                      (must-suffix (get-load-suffixes))
+                                      (t           (append (get-load-suffixes)
+                                                           load-file-rep-suffixes)))
+                                nil)
+          (error "Missing locate-file-internal in version %s" emacs-version)
+          ;; (let ((suffixes (append (get-load-suffixes) "")))
+          ;;   (dolist (dir load-path)
+          ;;     (dolist (suffix suffixes)
+          ;;       (format "%s/%s%s" dir file suffix))))
+          ))))
+
+
+
+
+(defun pjb-setup-load-path ()
+  "Set up my load-path."
+  (let ((new-paths '())
+        (base-load-path (copy-list load-path)))
+    (flet ((add-if-good (site-lisp)
+             (let ((site-lisp (expand-file-name site-lisp)))
+               (when (file-exists-p site-lisp)
+                 (pushnew site-lisp new-paths)
+                 (mapc (lambda (file)
+                         (let ((file (concat site-lisp "/" file)))
+                           (when (file-exists-p file)
+                             (let ((default-directory site-lisp))
+                               (.EMACS "%s FOUND" file)
+                               (load file)))))
+                       '("site-start.el" "site-gentoo.el" "subdirs.el"))
+                 t))))
+      (dolist (directories (append
+                            ;; When several directories are listed in a sublist, only
+                            ;; the first found directory will be added.
+                            (case emacs-major-version
+                              ((20 21 22)
+                               (append '("/opt/lisp/emacs"
+                                         "/opt/local/share/emacs/site-lisp"
+                                         "/usr/local/share/emacs/site-lisp")
+                                       '("/opt/clisp-2.48/share/emacs/site-lisp"
+                                         "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
+                                         "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
+                                         "/opt/clisp-2.47/share/emacs/site-lisp"
+                                         "/opt/clisp-2.46/share/emacs/site-lisp"
+                                         "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
+                                       '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
+                                       ))
+                              ((23)
+                               '("/usr/local/share/emacs/site-lisp"))
+                              ((24)
+                               '("/opt/share/emacs/site-lisp/w3m/"))
+                              ((25)
+                               '())
+                              (otherwise
+                               (.EMACS "WARNING: No load-paths for emacs version %d"
+                                       emacs-major-version)
+                               '()))
+                            (list
+                             ;; -----------------
+                             ;; PJB emacs sources
+                             ;; -----------------
+                             ;; Since we may have several emacs version running
+                             ;; on the same system, for now we will avoid
+                             ;; compiling pjb sources, and we will load them
+                             ;; directly from ~/src/public/emacs/.  Later we
+                             ;; will see how we can install elc in version
+                             ;; specific directories, but keeping references to
+                             ;; the same source directory.
+                             ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                             '("~/src/public/emacs")
+                             '("~/emacs"))))
+        (if (listp directories)
+            (find-if (function add-if-good) directories)
+            (add-if-good directories)))
+      
+      (setf load-path (append new-paths
+                              (set-difference load-path base-load-path :test (function equal))
+                              base-load-path)))))
+
+
+
+(.EMACS "Loading my personal files -- My own stuff.")
+(pjb-setup-load-path)
+(unless (load "pjb-loader.el" t) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
+(load "~/rc/emacs-directories")
+
+
+(defun pjb-setup-exec-path ()
+  (map-existing-files (lambda (dir) (pushnew dir exec-path))
+                      (cons (expand-file-name "~/bin/")
+                            '("/sw/sbin/"       "/sw/bin/"
+                              "/usr/local/sbin" "/usr/local/bin"
+                              "/opt/local/sbin" "/opt/local/bin")))
+  (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
+
+
+(pjb-setup-exec-path)
+
+
+
+;; (message "old load-path = %S" (with-output-to-string (dump-load-path)))
+;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
+
+
+
+;; (autoload 'd-mode "/usr/local/src/languages/clisp/clisp-cvs/clisp/emacs/d-mode"
+;;   "Mode to edit clisp sources." t)
+
+(deletef auto-mode-alist 'd-mode :key (function cdr))
+;; (setq auto-mode-alist (append '(("\\.c\\'" . c-mode)) auto-mode-alist))
+(appendf auto-mode-alist  '(("\\.pp\\'"                     . pascal-mode)
+                            ("\\.\\(m[id]\\|mod\\|def\\)$"  . modula-2-mode)
+                            ("-MIB$\\|-SMI$"                . snmp-mode)
+                            ("\\.bison\\'"                  . c-mode)
+                            ("\\.lex\\'"                    . c-mode)
+                            ("\\.d\\'"                      . makefile-mode)))
+
+
+(appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
+                           ("\\.j$"      . java-mode)))
+
+(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
+
+(appendf auto-mode-alist '(("\\.html\\.in$"  . html-mode)))
+
+;;;----------------------------------------------------------------------------
+;;; PAREDIT: essential!
+;;;----------------------------------------------------------------------------
+(load "paredit")
+
+(defvar pjb-paredit-space-for-delimiter-predicates '()
+  "A list of predicates taking a buffer start end range indicating
+whether no space should be inserted at the end before an opening
+parenthesis.
+The disjonction of all predicates is used.")
+
+(defun pjb-dispatching-reader-macros-p (start end)
+  "Whether there is a dispatching reader macro instance from `start' to `end'."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (goto-char start)
+  (and (looking-at "\\(#[0-9]*[^0-9]\\)")
+       (= end (match-end 0))))
+
+(defun pjb-comma-at-p (start end)
+  "Whether there is ` ,@' just before `end'."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (when (<= (point-min) (- end 3))
+    (goto-char (- end 3))
+    (looking-at " ,@")))
+
+(defun pjb-at-p (start end)
+  "Whether there is `@' just before `end'.
+Useful for Objective-CL reader macros."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (when (<= (point-min) (- end 3))
+    (goto-char (- end 1))
+    (looking-at "@")))
+
+(defun pjb-colon-p (start end)
+  "Whether there is `:' just before `end'.
+Useful for Objective-CL reader macros."
+  (message "previous: %S" (buffer-substring-no-properties start end))
+  (when (<= (point-min) (- end 3))
+    (goto-char (- end 1))
+    (looking-at ":")))
+
+
+(defun pjb-paredit-space-for-delimiter-p/predicates (endp delimiter)
+  (not (and (not endp)
+            (save-excursion
+             (let ((end (point))
+                   (start (progn (backward-sexp) (point))))
+               (some (lambda (predicate)
+                       (funcall predicate start end))
+                     pjb-paredit-space-for-delimiter-predicates)))
+            t)))
+
+(push 'pjb-dispatching-reader-macros-p          pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-comma-at-p                           pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-at-p                                 pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-colon-p                              pjb-paredit-space-for-delimiter-predicates)
+(push 'pjb-paredit-space-for-delimiter-p/predicates paredit-space-for-delimiter-predicates)
+;; (setf  paredit-space-for-delimiter-predicates '(pjb-paredit-space-for-delimiter-p/predicates))
+
+;; (defun bagger-lambda-p (start end)
+;;   (goto-char start)
+;;   (and (looking-at "λ")
+;;        (= end (match-end 0))))
+;; (push 'bagger-lambda-p pjb-paredit-space-for-delimiter-predicates)
+
+
+
+;;;----------------------------------------------------------------------------
+;;; Other packages.
+;;;----------------------------------------------------------------------------
+
+
+(require 'highlight-flet nil t)
+(require 'rst nil t)
+(require 'rst-mode nil t)
+(mouse-avoidance-mode 'cat-and-mouse)
+
+
+
+;;;----------------------------------------------------------------------------
+;;; CEDET / EIEIO
+;;;----------------------------------------------------------------------------
+(when (and (require 'eieio nil t)
+           (require 'cedet nil t))
+  ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
+  ;; Select one of the following:
+
+  ;; * This enables the database and idle reparse engines
+  ;;(semantic-load-enable-minimum-features)
+
+  ;; * This enables some tools useful for coding, such as summary mode
+  ;;   imenu support, and the semantic navigator
+  ;; (semantic-load-enable-code-helpers)
+
+  ;; * This enables even more coding tools such as the nascent intellisense mode
+  ;;   decoration mode, and stickyfunc mode (plus regular code helpers)
+  ;; (semantic-load-enable-guady-code-helpers)
+
+  ;; * This turns on which-func support (Plus all other code helpers)
+  ;; (semantic-load-enable-excessive-code-helpers)
+
+  ;; This turns on modes that aid in grammar writing and semantic tool
+  ;; development.  It does not enable any other features such as code
+  ;; helpers above.
+  ;; (semantic-load-enable-semantic-debugging-helpers)
+  (setf eieio-skip-typecheck t))
+
+
+
+;;;----------------------------------------------------------------------------
+;;; Emacs-CL
+;;;----------------------------------------------------------------------------
+(defvar *pjb-emacs-cl-present-p* nil)
+
+
+;; We cannot load old emacs-cl in emacs-24 with lexical-binding, since
+;; it overrides new emacs functions.
+
+;; (when (load "load-cl" t)
+;;   (setf *pjb-emacs-cl-present-p* t)
+;;   (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*  
+;;                                           *STANDARD-OUTPUT* 
+;;                                           *TERMINAL-IO*))
+;;   (let ((stream (make-buffer-output-stream "*scratch*")))
+;;     (setf *STANDARD-INPUT*  stream
+;;           *STANDARD-OUTPUT* stream
+;;           *TERMINAL-IO*     stream)))
+
+
+
+
 ;;;----------------------------------------------------------------------------
 ;;; On Macintosh
 ;;;----------------------------------------------------------------------------
@@ -1048,10 +722,12 @@ SIDE must be the symbol `left' or `right'."
 (.EMACS "Setting global key map")
 
 
-;; feature simple is not provided on emacs < 22, so we use load-library:
-(load-library "simple") (define-key ctl-x-map              "." nil)
-(require 'iso-transl)   (define-key iso-transl-ctl-x-8-map "E" [342604])
-
+(when (< emacs-major-version 22)
+  ;; feature simple is not provided on emacs < 22, so we use load-library:
+  (load-library "simple"))
+(require 'iso-transl)
+(define-key ctl-x-map     "." nil)
+(define-key iso-transl-ctl-x-8-map "E" [342604])
 
 
 ;; For control, there's no distinction between shift and plain!
@@ -1069,13 +745,6 @@ SIDE must be the symbol `left' or `right'."
 ;; C-z is used now by elscreen.
 
 
-
-(setf visible-bell t)
-(when (eq window-system 'x)
-  (setf ring-bell-function 
-        (lambda ()
-          (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil))))
-
 (defun disabled ()
   (interactive)
   (beep))
@@ -1088,10 +757,10 @@ SIDE must be the symbol `left' or `right'."
 (defun reset-movement-keypad ()
   "Locally set the keys <insert>, <suppr>, <home>, <end>, <prior> and <next>."
   (interactive)
-  (local-set-key (kbd "<home>")        'beginning-of-buffer)
-  (local-set-key (kbd "<end>")         'end-of-buffer)
-  (local-set-key (kbd "<prior>")       'scroll-down)
-  (local-set-key (kbd "<next>")        'scroll-up)
+  (local-set-key  (kbd "<home>")        'beginning-of-buffer)
+  (local-set-key  (kbd "<end>")         'end-of-buffer)
+  (local-set-key  (kbd "<prior>")       'scroll-down)
+  (local-set-key  (kbd "<next>")        'scroll-up)
   (global-set-key (kbd "<home>")        'beginning-of-buffer)
   (global-set-key (kbd "<end>")         'end-of-buffer)
   (global-set-key (kbd "<prior>")       'scroll-down)
@@ -1206,7 +875,12 @@ SIDE must be the symbol `left' or `right'."
   ;; (global-set-key "\M-]"                'move-past-close-and-reindent)
 
   (global-set-key (kbd "C-<f9>")  (lambda()(interactive)(set-input-method 'chinese-py-b5)))
-  (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-yawerty)))
+  (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-jis-russian))) ;'cyrillic-yawerty
+  (global-set-key (kbd "C-<f10>") (lambda(&optional alternate)
+                                    (interactive "P")
+                                    (set-input-method (if alternate
+                                                          'russian-typewriter
+                                                          'russian-computer))))
   (global-set-key (kbd "C-<f11>") (lambda()(interactive)(set-input-method 'greek)))
   (global-set-key (kbd "C-<f12>") (lambda()(interactive)(set-input-method 'hebrew)))
   ;; (autoload 'hebr-switch  "hebwork"  "Toggle Hebrew mode.")
@@ -1252,11 +926,12 @@ SIDE must be the symbol `left' or `right'."
      (setq *window-manager-y-offset* (+ 24 24))
      (set-keyboard-coding-system 'mac-roman)
      (translate-powerbook-keyboard)))
+
+  (global-set-key (kbd "H-<up>")    'backward-same-indent)
+  (global-set-key (kbd "H-<down>")  'forward-same-indent)
+  (global-set-key (kbd "H-`")       'next-error)
+
   nil)
-
-
-(pjb-global-key-bindings)
-
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "PJB FUNCTION KEYS")
@@ -1325,188 +1000,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
        (global-set-key (read-kbd-macro cf)  'pjb-define-function-key)
        (global-set-key (read-kbd-macro cmf) 'pjb-define-function-key)))
 
-(pjb-function-keys)
+
 
 ;;------------------------------------------------------------------------
-
-
-(defvar scroll-page-delimiter "")
-(make-local-variable 'scroll-page-delimiter)
-(setf scroll-page-delimiter "Software Design Notes")
-
-(defun scroll-page-up ()
-  (interactive)
-  (if (re-search-forward scroll-page-delimiter nil t)
-      (progn
-        (goto-char (match-beginning 0))
-        (recenter 0)
-        (forward-line 1))
-      (message ".EMACS: Last page")))
-
-(defun scroll-page-down ()
-  (interactive)
-  (if (re-search-backward scroll-page-delimiter nil t 2)
-      (progn
-        (goto-char (match-beginning 0))
-        (recenter 0)
-        (forward-line 1))
-      (message ".EMACS: First page")))
-
-(defvar scroll-page-mode nil)
-(make-local-variable 'scroll-page-mode)
-
-(defun scroll-page-mode ()
-  (interactive)
-  (if scroll-page-mode
-      (progn
-        (local-set-key (kbd "<next>")  'scroll-up)
-        (local-set-key (kbd "<prior>") 'scroll-down)
-        (setf scroll-page-mode nil))
-      (progn
-        (local-set-key (kbd "<next>")  'scroll-page-up)
-        (local-set-key (kbd "<prior>") 'scroll-page-down)
-        (setf scroll-page-mode t))))
-
-
-
-
-(defun indentation ()
-  "returns the indentation of the line at point."
-  (back-to-indentation)
-  (let ((indentation (current-column)))
-    (if (= indentation (save-excursion (end-of-line) (current-column)))
-        0
-        indentation)))
-
-(defun forward-same-indent ()
-  (interactive)
-  (let ((current (point))
-        (indentation (indentation)))
-    (while (and (< (point) (point-max))
-                (progn
-                  (forward-line)
-                  (/= indentation (indentation)))))
-    (unless (= indentation (indentation))
-      (goto-char current))))
-
-(defun backward-same-indent ()
-  (interactive)
-  (let ((current (point))
-        (indentation (indentation)))
-    (while (and (< (point-min) (point))
-                (progn
-                  (forward-line -1)
-                  (/= indentation (indentation)))))
-    (unless (= indentation (indentation))
-      (goto-char current))))
-
-
-(standard-display-ascii #o200 (vector (decode-char 'ucs #x253c)))
-(standard-display-ascii #o201 (vector (decode-char 'ucs #x251c)))
-(standard-display-ascii #o202 (vector (decode-char 'ucs #x252c)))
-(standard-display-ascii #o203 (vector (decode-char 'ucs #x250c)))
-(standard-display-ascii #o204 (vector (decode-char 'ucs #x2524)))
-(standard-display-ascii #o205 (vector (decode-char 'ucs #x2502)))
-(standard-display-ascii #o206 (vector (decode-char 'ucs #x2510)))
-(standard-display-ascii #o210 (vector (decode-char 'ucs #x2534)))
-(standard-display-ascii #o211 (vector (decode-char 'ucs #x2514)))
-(standard-display-ascii #o212 (vector (decode-char 'ucs #x2500)))
-(standard-display-ascii #o214 (vector (decode-char 'ucs #x2518)))
-(standard-display-ascii #o220 [? ])
-(standard-display-ascii #o221 [?\` ])
-(standard-display-ascii #o222 [?\'])
-(standard-display-ascii #o223 [?\"])
-(standard-display-ascii #o224 [?\"])
-(standard-display-ascii #o225 "* ")
-(standard-display-ascii #o226 "--")
-(standard-display-ascii #o227 " -- ")
-
+(pjb-terminal-key-bindings)
+(pjb-global-key-bindings)
+(pjb-function-keys)
+;;------------------------------------------------------------------------
 
 ;; some more global key map are defined after loading my personal files below.
 
 
-(global-set-key (kbd "H-<up>")    'backward-same-indent)
-(global-set-key (kbd "H-<down>")  'forward-same-indent)
-(global-set-key (kbd "H-`")       'next-error)
-
-;;;----------------------------------------------------------------------------
-(.EMACS "Loading my personal files -- My own stuff.")
-(unless (load "pjb-loader.el" t)
-  (.EMACS "WARNING WARNING WARNING: Could not find and load 'My own stuff'!"))
-;;;----------------------------------------------------------------------------
-
-(when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
-  (elscreen-toggle-display-tab))
-
-;;------------------------------
-(.EMACS "Miscellaneous patches")
-
-(when (< emacs-major-version 22)
-  (unless (fboundp 'called-interactively-p)
-    (defun called-interactively-p () (interactive-p))))
-
-
-(when (string= emacs-version "24.3.1")
-  (require 'minibuffer)
-  
-  (defun completion--twq-all (string ustring completions boundary
-                              unquote requote)
-    (when completions
-      (pcase-let*
-          ((prefix
-            (let ((completion-regexp-list nil))
-              (try-completion "" (cons (substring ustring boundary)
-                                       completions))))
-           (`(,qfullpos . ,qfun)
-             (funcall requote (+ boundary (length prefix)) string))
-           (qfullprefix (substring string 0 qfullpos))
-           ;; FIXME: This assertion can be wrong, e.g. in Cygwin, where
-           ;; (unquote "c:\bin") => "/usr/bin" but (unquote "c:\") => "/".
-           ;;(cl-assert (completion--string-equal-p
-           ;;            (funcall unquote qfullprefix)
-           ;;            (concat (substring ustring 0 boundary) prefix))
-           ;;           t))
-           (qboundary (car (funcall requote boundary string)))
-           ;; (_ (cl-assert (<= qboundary qfullpos)))
-           ;; FIXME: this split/quote/concat business messes up the carefully
-           ;; placed completions-common-part and completions-first-difference
-           ;; faces.  We could try within the mapcar loop to search for the
-           ;; boundaries of those faces, pass them to `requote' to find their
-           ;; equivalent positions in the quoted output and re-add the faces:
-           ;; this might actually lead to correct results but would be
-           ;; pretty expensive.
-           ;; The better solution is to not quote the *Completions* display,
-           ;; which nicely circumvents the problem.  The solution I used here
-           ;; instead is to hope that `qfun' preserves the text-properties and
-           ;; presume that the `first-difference' is not within the `prefix';
-           ;; this presumption is not always true, but at least in practice it is
-           ;; true in most cases.
-           (qprefix (propertize (substring qfullprefix qboundary)
-                                'face 'completions-common-part)))
-
-        ;; Here we choose to quote all elements returned, but a better option
-        ;; would be to return unquoted elements together with a function to
-        ;; requote them, so that *Completions* can show nicer unquoted values
-        ;; which only get quoted when needed by choose-completion.
-        (nconc
-         (mapcar (lambda (completion)
-                   ;; (cl-assert (string-prefix-p prefix completion 'ignore-case) t)
-                   (let* ((new (substring completion (length prefix)))
-                          (qnew (funcall qfun new))
-                          (qcompletion (concat qprefix qnew)))
-                     ;; FIXME: Similarly here, Cygwin's mapping trips this
-                     ;; assertion.
-                     ;;(cl-assert
-                     ;; (completion--string-equal-p
-                     ;;  (funcall unquote
-                     ;;           (concat (substring string 0 qboundary)
-                     ;;                   qcompletion))
-                     ;;  (concat (substring ustring 0 boundary)
-                     ;;          completion))
-                     ;; t)
-                     qcompletion))
-                 completions)
-         qboundary)))))
 
 
 ;;;----------------------------------------------------------------------------
@@ -1584,44 +1088,14 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;; (setf (getenv "ESHELL") "/bin/bash")
 
 
+
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "ido-mode")
 ;; (ido-mode 'both) ; 'file 'buffer  -1
 ;; See also smex for M-x enhancements.
 
-;;;----------------------------------------------------------------------------
-(.EMACS "caps-mode")
-;;;(autoload 'caps-mode "caps-mode" "Toggle caps mode." t)
-
-(defun caps-mode-self-insert-command (&optional n)
-  "Like `self-insert-command', but uppercase the the typed character."
-  (interactive "p")
-  (insert-char (upcase last-command-event) n))
-
-(defvar caps-mode-map nil)
-
-(when (fboundp 'define-minor-mode)
-  (define-minor-mode caps-mode
-      "Toggle caps mode.
-With no argument, this command toggles the mode.
-Non-null prefix argument turns on the mode.
-Null prefix argument turns off the mode.
-
-When caps mode is enabled, all letters are inserted in their
-capitalized form."
-    :init-value nil
-    :lighter " Caps"
-    (setq caps-mode-map
-          (let ((map (make-sparse-keymap)))
-            (substitute-key-definition 'self-insert-command
-                                       'caps-mode-self-insert-command
-                                       map global-map)
-            map))
-    (if caps-mode
-        (add-to-list 'minor-mode-map-alist (cons 'caps-mode caps-mode-map))
-        (setq minor-mode-map-alist
-              (delete (assoc 'caps-mode minor-mode-map-alist)
-                      minor-mode-map-alist)))))
+(when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
+  (elscreen-toggle-display-tab))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "AUTO-COMPLETE-MODE")
@@ -1660,57 +1134,41 @@ capitalized form."
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 
 
+;;;----------------------------------------------------------------------------
+(when (require 'vc-fossil nil t)
+  (.EMACS "vc")
+  (require 'vc-hooks)
+  (defadvice vc-registered (around vc-registered/bug-on-empty-string-filename
+				   first (file) activate)
+    (unless (and (stringp file) (string= "" file))
+      ad-do-it))
+  (add-to-list 'vc-handled-backends 'Fossil))
 
 ;;;----------------------------------------------------------------------------
+(.EMACS "darcs")
+(load "vc-darcs" t nil)
+
+(defun jump-to-real-file-from-darcs ()
+  (interactive)
+  (let* ((f (buffer-file-name (current-buffer)))
+         (match (string-match "_darcs/current" f)))
+    (and f match
+         (find-alternate-file
+          (concat (substring f 0 (match-beginning 0))
+                  (substring f (match-end 0)))))))
+
+(defun warn-if-darcs-file ()
+  (let ((f (buffer-file-name (current-buffer))))
+    (and f (string-match "_darcs" f)
+         (if (y-or-n-p "This is a _darcs file, open the real file? ")
+             (jump-to-real-file-from-darcs)
+             (push '(:propertize "_DARCS-FILE:" face font-lock-warning-face)
+                   mode-line-buffer-identification)))))
+
+(add-hook 'find-file-hooks 'warn-if-darcs-file)
 
 
-(appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
-                           ("\\.j$"      . java-mode)))
-
-(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
-
-(appendf auto-mode-alist '(("\\.html\\.in$"  . html-mode)))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
-;;;;**************************************************************************
-;;;;FILE:               insert-image.el
-;;;;LANGUAGE:           emacs lisp
-;;;;SYSTEM:             POSIX
-;;;;USER-INTERFACE:     NONE
-;;;;DESCRIPTION
-;;;;    
-;;;;    A patch to emacs to be able to insert images in a comint buffer
-;;;;    such as inferior-lisp REPL.
-;;;;    
-;;;;AUTHORS
-;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
-;;;;MODIFICATIONS
-;;;;    2010-04-29 <PJB> Created.
-;;;;BUGS
-;;;;LEGAL
-;;;;    GPL
-;;;;    
-;;;;    Copyright Pascal J. Bourguignon 2010 - 2010
-;;;;    
-;;;;    This program is free software; you can redistribute it and/or
-;;;;    modify it under the terms of the GNU General Public License
-;;;;    as published by the Free Software Foundation; either version
-;;;;    2 of the License, or (at your option) any later version.
-;;;;    
-;;;;    This program is distributed in the hope that it will be
-;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
-;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;    
-;;;;    You should have received a copy of the GNU General Public
-;;;;    License along with this program; if not, write to the Free
-;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
-;;;;    Boston, MA 02111-1307 USA
-;;;;**************************************************************************
-(require 'cl)
+;;;----------------------------------------------------------------------------
 
 (defun splice (new-list old list)
   "Like substitute but replace the old by the elements in the new-list."
@@ -1838,8 +1296,6 @@ capitalized form."
             (setf string after))
        finally (push string result) (return (nreverse result)))))
 
-;;;; THE END ;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
@@ -2039,82 +1495,14 @@ URL in a new window."
   ) ;;when
 
 
-
-
-
-
-
+;;;----------------------------------------------------------------------------
+(when (require 'column-marker nil t)
+  (.EMACS "columnmarker")
+  (column-marker-1 80))
 
 ;;;----------------------------------------------------------------------------
-(defstruct location buffer file-name line-number line-contents)
-
-(defmacro ignore-errors* (&rest body)
-  `(handler-case
-       (progn ,@body)
-     (error (err)
-       (message "ignore-errors* %S" err)
-       (values nil err))))
-
-
-(defun %find-tag-locations-in-order ()
-  (message "%%find-tag-locations-in-order enters tagname=%S next-p=%S regexp-p=%S"
-           tagname next-p regexp-p)
-  (loop
-     with locations = '()
-     for (buffer err) = (ignore-errors* (find-tag-noselect tagname nil regexp-p))
-     then (ignore-errors* (find-tag-noselect tagname t regexp-p))
-     initially  (message "%%find-tag-locations-in-order initially")
-     do (message "buffer = %S" buffer)
-     while buffer
-     collect (with-current-buffer buffer
-               (make-location
-                :buffer (current-buffer)
-                :file-name (buffer-file-name (current-buffer))
-                :line-number (count-lines (point-min) (point-at-bol))
-                :line-contents (buffer-substring-no-properties
-                                (point-at-bol) (point-at-eol))))
-     finally (message "%%find-tag-locations-in-order exists %S" locations) (return (values locations err))))
-
-
-(defun pjb-find-tag-meat ()
-  (message "pjb-find-tag-meat enters")
-  (unless next-p
-    (message "pjb-find-tag-meat 1")
-    (multiple-value-bind (locations error) (%find-tag-locations-in-order)
-      (message  " locations (2) = %S" locations)
-      (if locations
-          (progn
-            (message "pjb-find-tag-meat 2")
-            (save-excursion
-              (message "pjb-find-tag-meat 3")
-              (switch-to-buffer-other-window (get-buffer-create
-                                              (format "*tags on %s*" tagname))) 
-              (erase-buffer)
-              (compilation-mode 1)
-              (message "pjb-find-tag-meat 4")
-              (dolist (loc locations)
-                (insert (format "%s:%s %s\n"
-                                (location-file-name loc)
-                                (location-line-number loc)
-                                (location-line-contents loc))))
-              (message "pjb-find-tag-meat 5"))
-            (message "pjb-find-tag-meat 6")
-            (message "pjb-find-tag-meat exits %S" (location-buffer (first locations)))
-            (location-buffer (first locations)))
-          (when error
-            (signal (car error) (cdr error)))))
-    (error (err)
-           (message "pjb-find-tag-meat 7")
-           (message "%s" err))))
-
-
-;; (add-hook 'find-tag-hook (function pjb-find-tag-meat))
-;; (setq find-tag-hook nil)
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "bee for bigloo")
 (when (file-exists-p "/usr/local/share/emacs/bigloo/")
+  (.EMACS "bee for bigloo")
   (setf load-path (cons (expand-file-name "/usr/local/share/emacs/bigloo/") load-path))
   (when (require 'bmacs nil t)
     (push '("\\.scm\\'" . bee-mode) auto-mode-alist)
@@ -2126,7 +1514,6 @@ URL in a new window."
 (autoload 'matlab-mode "matlab.el" "Enter Matlab mode." t)
 ;; (setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
 (autoload 'matlab-shell "matlab.el" "Interactive Matlab mode." t)
-
 
 
 ;;;----------------------------------------------------------------------------
@@ -2182,12 +1569,6 @@ URL in a new window."
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "css mode")
-(autoload 'css-mode "css-mode" "Major mode for editing CSS" t)
-(appendf auto-mode-alist '(("\\.css\\'" . css-mode)))
-(setf cssm-indent-function (function cssm-c-style-indenter))
-
-;;;----------------------------------------------------------------------------
 (.EMACS "Postscript mode")
 (autoload 'ps-mode "ps-mode" "Major mode for editing PostScript" t)
 (appendf auto-mode-alist '(("\\.[eE]?[pP][sS]$" . ps-mode)))
@@ -2207,16 +1588,6 @@ URL in a new window."
 (unless (fboundp 'run-mode-hooks) (defun run-mode-hooks (&rest args)))
 
 
-
-;;;----------------------------------------------------------------------------
-;; (.EMACS "remem")
-;; (when (require 'remem nil t)
-;;   (setq remem-scopes-list
-;;         (file-expand-wildcards "~/RA-indexes/*")
-;;         '(("my-email" 6 5 500)
-;;           ("my-notes" 2 10 500))))
-
-
 ;;;----------------------------------------------------------------------------
 (.EMACS "psgml mode")
 (when (require 'psgml nil t)
@@ -2224,87 +1595,22 @@ URL in a new window."
   (appendf auto-mode-alist '(("\\.html$"   . html-mode)
                              ("\\.htm$"    . html-mode))))
 
+(defun pjb-make-hyperlink (start end)
+  (interactive "r")
+  (let ((url (buffer-substring start end)))
+    (delete-region start end)
+    (insert (format (if prefix-arg
+                        "<a href=\"%s\">%s</a>"
+                        "<a href=\\\"%s\\\">%s</a>") url url))))
 
-(global-set-key (kbd "H-h a")
-                (lambda (start end)
-                  (interactive "r")
-                  (let ((url (buffer-substring start end)))
-                    (delete-region start end)
-                    (insert (format (if prefix-arg
-                                        "<a href=\"%s\">%s</a>"
-                                        "<a href=\\\"%s\\\">%s</a>") url url)))))
-
-;; ------------------------------------------------------------------------
-;; AIM client for emacs:
-;; (load"tnt") ;; Doesn't work good.
-
-;; ------------------------------------------------------------------------
-(defun lac-emms ()
-  "Load and configure emms"
- (when (require 'emms-setup nil t)
-   (require 'emms-player-simple)
-   (require 'emms-source-file)
-   (require 'emms-source-playlist)
-   ;; save playlist and load at emacs start
-   (require 'emms-history)
-   (emms-history-load)
-   (require 'emms-volume)
-   (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
-   (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
-   (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
-   (global-set-key (kbd "<f9>") 'emms-pause)
-   (global-set-key (kbd "<f10>") 'emms-seek-backward)
-   ;; (setq emms-repeat-playlist 1)
-   ;; (emms-standard)
-
-   (when (require 'emms-info-id3v2 nil t)
-     (add-to-list 'emms-info-functions 'emms-info-id3v2))
-
-
-   (emms-all)
-   (emms-default-players)
-   (setq emms-playlist-default-major-mode 'emms-playlist-mode)
-
-
-   (defvar emms-browser-mode-hook '()
-     "Hook for meat called after emms-browser-mode is activated.")
-  
-   (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
-     "Add an emms-browser-mode-hook feature."
-     (interactive)
-     (run-mode-hooks 'emms-browser-mode-hook)
-     (when (null delay-mode-hooks)
-       (run-mode-hooks 'after-change-major-mode-hook)))
-
-   (defun pjb-emms-save-file-path ()
-     (interactive)
-     (let* ((bdata (emms-browser-bdata-at-point))
-            (data  (cdr (assoc 'data    bdata)))
-            (track (cdr (assoc '*track* data)))
-            (name  (cdr (assoc 'name    track))))
-       (kill-new name nil nil)
-       (message "%s" name)))
-  
-   (defun pjb-emms-browser-mode-meat ()
-     (interactive)
-     (local-set-key (kbd "u") 'pjb-emms-save-file-path)
-     (local-set-key (kbd "U") 'pjb-emms-save-file-path))
-
-   (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
-  
-   (defalias 'np 'emms-show)
-   'lac-emms))
-
-(add-lac 'lac-emms)
-(lac-emms)
-
-
+(global-set-key (kbd "H-h a") 'pjb-make-hyperlink)
 
 
 ;;;----------------------------------------------------------------------------
-(when (require 'column-marker nil t)
-  (.EMACS "columnmarker")
-  (column-marker-1 80))
+(.EMACS "css mode")
+(autoload 'css-mode "css-mode" "Major mode for editing CSS" t)
+(appendf auto-mode-alist '(("\\.css\\'" . css-mode)))
+(setf cssm-indent-function (function cssm-c-style-indenter))
 
 
 ;;;----------------------------------------------------------------------------
@@ -2320,50 +1626,90 @@ URL in a new window."
   ;;   "Major mode for editing documents in Wikipedia markup." t)
   )
 
-;;;----------------------------------------------------------------------------
-;; Rmime:
-;;(load "rmime"  *pjb-load-noerror* *pjb-load-silent*)
-;;(when (fboundp 'rmime-format)
-;; (add-hook 'rmail-show-message-hook 'rmime-format))
-;;(when (fboundp 'rmime-cancel)
-;;  (add-hook 'rmail-edit-mode-hook    'rmime-cancel))
-;;(remove-hook 'rmail-show-message-hook 'rmime-format)
-;;(remove-hook 'rmail-edit-mode-hook    'rmime-cancel)
+
+;; ------------------------------------------------------------------------
+(.EMACS "emms")
+(defun lac-emms ()
+  "Load and configure emms"
+  (.EMACS "Load and configure emms")
+  (when (require 'emms-setup nil t)
+    (require 'emms-player-simple)
+    (require 'emms-source-file)
+    (require 'emms-source-playlist)
+    (require 'emms-volume)
+    ;; (require 'emms-history) ;; save playlist and load at emacs start
+    (when (require 'emms-info-id3v2 nil t)
+      (add-to-list 'emms-info-functions 'emms-info-id3v2))
+
+    ;; (emms-standard)
+    (emms-all)
+    (emms-default-players)
+    ;; (emms-history-load)
+    (setq emms-playlist-default-major-mode 'emms-playlist-mode)
+    ;; (setq emms-repeat-playlist 1)
+
+    (global-set-key (kbd "C-c =") 'emms-volume-mode-plus)
+    (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
+    (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
+    (global-set-key (kbd "<f9>")  'emms-pause)
+    (global-set-key (kbd "<f10>") 'emms-seek-backward)
+
+    (defvar emms-browser-mode-hook '()
+      "Hook for meat called after emms-browser-mode is activated.")
+    
+    (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
+      "Add an emms-browser-mode-hook feature."
+      (interactive)
+      (run-mode-hooks 'emms-browser-mode-hook)
+      (when (null delay-mode-hooks)
+        (run-mode-hooks 'after-change-major-mode-hook)))
+
+    (defun pjb-emms-save-file-path ()
+      (interactive)
+      (let* ((bdata (emms-browser-bdata-at-point))
+             (data  (cdr (assoc 'data    bdata)))
+             (track (cdr (assoc '*track* data)))
+             (name  (cdr (assoc 'name    track))))
+        (kill-new name nil nil)
+        (message "%s" name)))
+    
+    (defun pjb-emms-browser-mode-meat ()
+      (interactive)
+      (local-set-key (kbd "u") 'pjb-emms-save-file-path)
+      (local-set-key (kbd "U") 'pjb-emms-save-file-path))
+
+    (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
+    
+    (defalias 'np 'emms-show)
+    
+    'lac-emms)
+  (.EMACS "Load and configure emms complete."))
+
+(add-lac 'lac-emms)
+(lac-emms)
+
 
 ;;;----------------------------------------------------------------------------
-;; (.EMACS "mailcrypt")
-;; ;; (load-library "mailcrypt")
-;; ;; (mc-setversion "gpg")
-;; (autoload 'mc-install-write-mode "mailcrypt" nil t)
-;; (autoload 'mc-install-read-mode  "mailcrypt" nil t)
-;; (add-hook 'mail-mode-hook 'mc-install-write-mode)
-;;
-;; (setf mc-default-scheme 'mc-scheme-gpg
-;;       mc-gpg-user-id     "E9350DE9")
-
-;; (when (string-lessp "23" emacs-version)
-;;   (require 'epa-file)
-;;   (epa-file-enable)
-;;   (setf epa-armor t))
-
-;; Distribution installs crypt++...
-(setf find-file-hook (remove 'crypt-find-file-hook find-file-hook))
+;;; Distribution installs crypt++...
+;;;
+(deletef find-file-hook 'crypt-find-file-hook)
 
 (defun find-file-read-args (prompt mustmatch)
   (list (read-file-name prompt nil default-directory mustmatch nil
                         (lambda (name) (not (string-match "~$" name))))
-	t))
+        t))
 
-;;;----------------------------------------------------------------------------
-(.EMACS "mew")
 
-(autoload 'mew      "mew" "Start Mew." t)
-(autoload 'mew-send "mew" "Compose a new message." t)
-;;(defalias 'mail 'mew-send)
-
-(setq mew-mailbox-type 'mbox)
-(setq mew-mbox-command "incm")
-(setq mew-mbox-command-arg "-d /var/spool/mail/pjb")
+;; ;;;----------------------------------------------------------------------------
+;; (.EMACS "mew")
+;; 
+;; (autoload 'mew      "mew" "Start Mew." t)
+;; (autoload 'mew-send "mew" "Compose a new message." t)
+;; ;;(defalias 'mail 'mew-send)
+;; 
+;; (setq mew-mailbox-type 'mbox)
+;; (setq mew-mbox-command "incm")
+;; (setq mew-mbox-command-arg "-d /var/spool/mail/pjb")
 
 
 ;; (autoload 'x-face-decode-message-header "x-face-e21")
@@ -2390,8 +1736,8 @@ URL in a new window."
 ;;     (before nnmail-process-unix-mail-format/log (func artnum-func) activate)
 ;;   (message "Found a UNIX mailbox!"))
 
-;;;----------------------------------------------------------------------------
 
+;;;----------------------------------------------------------------------------
 (defun pjb-mail-mode-meat ()
   (message "mail-mode-meat")
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
@@ -2403,10 +1749,10 @@ URL in a new window."
 
 
 
-
 ;;;----------------------------------------------------------------------------
 ;;; GNUS
-
+;;;
+(.EMACS "gnus")
 (require 'gnus)
 
 ;; (defadvice gnus-summary-mark-as-expirable
@@ -2419,8 +1765,6 @@ URL in a new window."
 
 (setf *pjb-gnus-trash-mailbox* "nnimap+hubble.informatimago.com:INBOX.Trash")
 (setf *pjb-gnus-junk-mailbox*  "nnimap+hubble.informatimago.com:INBOX.Junk")
-
-
 
 (when (boundp 'gnus-summary-mode-map)
  (define-key gnus-summary-mode-map (kbd "v DEL") 'pjb-gnus-summary-move-article-to-trash)
@@ -2445,43 +1789,10 @@ URL in a new window."
 
 
 
-;;;----------------------------------------------------------------------------
-;;; pjb
-
-(setq pgp-command 'pgp-gpg-command)
-(setq pgp-signer  "0xEF5E9966") ;; "pjb@informatimago.com"
-(setq *pjb-sources-initials* "PJB")
-
-(require 'message)
-(defalias 'rot13-region 'message-caesar-region)
-
-(defalias 'scratch      'pjb-scratch)
-(defalias 'eurotunnel   'pjb-eurotunnel)
-(defalias 'address      'pjb-address)
-(defalias 'attach-file  'pjb-mail-attach-file)
-(defalias 'ff           'full-frame)
-(defalias 'make         'compile)
-
-(remove-hook 'mail-send-hook 'mime-edit-maybe-translate)
-
-
-;; Server for emacsclient:
-(setf mm-content-transfer-encoding-defaults '(("text/.*" 8bit)
-                                              ("message/rfc822" 8bit)
-                                              ("application/emacs-lisp" 8bit)
-                                              ("application/x-emacs-lisp" 8bit)
-                                              ("application/x-patch" 8bit)
-                                              (".*" base64))
-      mm-body-charset-encoding-alist '((iso-8859-1  . 8bit)
-                                       (iso-8859-15 . 8bit)))
-;;(add-to-list 'mm-charset-synonym-alist '(iso8859-15 . iso-8859-15))
-;;(add-to-list 'mm-charset-synonym-alist '(iso885915 . iso-8859-15))
-
-
 ;;;---------------------------------------------------------------------
 ;;; erc
 ;;;---------------------------------------------------------------------
-
+(.EMACS "erc")
 (when (require 'erc-highlight-nicknames nil t)
   (erc-highlight-nicknames-enable))
 
@@ -2585,7 +1896,6 @@ URL in a new window."
 
 ;;;----------------------------------------------------------------------------
 
-;;;----------------------------------------------------------------------------
 (require 'pjb-speak)
 (require 'pjb-erc-speak)
 
@@ -2629,6 +1939,7 @@ URL in a new window."
      . "http://www.catb.org/~esr/faqs/hacker-howto.html")
     (the-craft-of-text-editing    
      . "The Craft of Text Editing   http://www.finseth.com/craft/")
+    (craft . the-craft-of-text-editing)
     (essentials-of-programming-languages     
      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
     (practical-common-lisp      
@@ -2693,6 +2004,7 @@ URL in a new window."
     ;; --
     (see-defpackage
      . ";;;;    See defpackage documentation string.\n")
+    (ring . "One Lisp to rule them all, One Lisp to find them, One Lisp to bring them all, And in the darkness bind them.")
     (agpl3         
      . "
 License:
@@ -2724,27 +2036,31 @@ License:
 
 (defvar *pjb-erc-last-answer* nil)
 
+;; TODO reimplement pjb-erc-answer using define-global-abbrev ?
 (defun pjb-erc-answer (key)
   (interactive (list 
                 (intern (completing-read 
                          "What? " (mapcar (lambda (x) (cons x nil)) (pjb-erc-get-answers))
                          (lambda (answer) (setq *pjb-erc-last-answer* (car answer)))
                          t))))
-  (insert (format "%s" (cdr (assoc key *pjb-erc-answers*)))))
+  (let ((walked '())
+        (answer key))
+    (loop while (and (symbolp answer)
+                     (not (member answer walked)))
+          do (push answer walked)
+             (setf answer (cdr (assoc answer *pjb-erc-answers*))))
+    (insert (format "%s" answer))))
+
 
 ;; (add-hook 'erc-join-hook (lambda () (local-set-key (kbd "H-a") 'pjb-erc-answer)))
 (global-set-key (kbd "H-a") 'pjb-erc-answer)
+(global-set-key (kbd "A-a") 'pjb-erc-answer)
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "server")
+;;; C modes
+;;;
 
-(setf server-socket-dir *tempdir*
-      server-name       (format "server-%d" (emacs-pid)))
-
-;;;----------------------------------------------------------------------------
-
-
-;; c modes
+(.EMACS "c modes")
 
 (when (fboundp 'pjb-c-todo-hook)
   (mapc (lambda (hook) (add-hook hook 'pjb-c-todo-hook))
@@ -2857,22 +2173,6 @@ License:
 
 ;;(setq emacs-lisp-mode-hook nil lisp-mode-hook nil)
 
-(setq open-paren-in-column-0-is-defun-start nil)
-(setq minibuffer-max-depth nil)
-(setq print-circle t)
-
-
-(autoload 'd-mode "/usr/local/src/languages/clisp/clisp-cvs/clisp/emacs/d-mode"
-  "Mode to edit clisp sources." t)
-
-;; (setq auto-mode-alist (append '(("\\.c\\'" . c-mode)) auto-mode-alist))
-(appendf auto-mode-alist  '(("\\.pp\\'"                     . pascal-mode)
-                            ("\\.\\(m[id]\\|mod\\|def\\)$"  . modula-2-mode)
-                            ("-MIB$\\|-SMI$"                . snmp-mode)
-                            ("\\.bison\\'"                  . c-mode)
-                            ("\\.lex\\'"                    . c-mode)
-                            ("\\.d\\'"                      . d-mode)))
-
 
 ;;;----------------------------------------------------------------------------
 ;; X-GPG-Key-ID: 0xAC23A821
@@ -2964,6 +2264,37 @@ License:
 ;;;----------------------------------------------------------------------------
 (.EMACS "Miscellaneous commands")
 
+(setf pgp-command 'pgp-gpg-command)
+(setf pgp-signer  "0xEF5E9966") ;; "pjb@informatimago.com"
+(setf *pjb-sources-initials* "PJB")
+
+(require 'message)
+(defalias 'rot13-region 'message-caesar-region)
+
+(defalias 'scratch      'pjb-scratch)
+(defalias 'eurotunnel   'pjb-eurotunnel)
+(defalias 'address      'pjb-address)
+(defalias 'attach-file  'pjb-mail-attach-file)
+(defalias 'ff           'full-frame)
+(defalias 'make         'compile)
+(defalias 'uptime       'emacs-uptime)
+
+(remove-hook 'mail-send-hook 'mime-edit-maybe-translate)
+
+
+;; Server for emacsclient:
+(setf mm-content-transfer-encoding-defaults '(("text/.*" 8bit)
+                                              ("message/rfc822" 8bit)
+                                              ("application/emacs-lisp" 8bit)
+                                              ("application/x-emacs-lisp" 8bit)
+                                              ("application/x-patch" 8bit)
+                                              (".*" base64))
+      mm-body-charset-encoding-alist '((iso-8859-1  . 8bit)
+                                       (iso-8859-15 . 8bit)))
+;;(add-to-list 'mm-charset-synonym-alist '(iso8859-15 . iso-8859-15))
+;;(add-to-list 'mm-charset-synonym-alist '(iso885915 . iso-8859-15))
+
+
 
 (defun* notes ()
   (interactive)
@@ -2987,6 +2318,7 @@ License:
     (when (string-match "^thalassa" system-name)
       (vm-visit-folder "~/mail/todo.mbox"))))
 
+
 (defun acheter ()
   "Jump to my TODO list."
   (interactive)
@@ -2994,15 +2326,6 @@ License:
   (goto-char (point-min))
   (search-forward "ACHETER:" nil t 2)
   (recenter 1))
-
-
-(when t
-  (milliways-schedule (lambda ()
-			(unless (intersection
-				 '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
-				   "--execute" "-insert" "--insert") command-line-args
-				   :test (function string=))
-			  (afaire)))))
 
 
 (defun doing (what)
@@ -3014,6 +2337,15 @@ License:
   (bury-buffer))
 
 
+(defun emacs-cli-mode-p ()
+  (intersection
+   '("-f" "-funcall" "--funcall" "-e" "-eval" "--eval" "-execute"
+     "--execute" "-insert" "--insert") command-line-args
+     :test (function string=)))
+
+(unless (emacs-cli-mode-p)
+  (milliways-schedule 'afaire))
+
 ;;;----------------------------------------------------------------------------
 
 (defun informatimago ()
@@ -3023,374 +2355,8 @@ License:
 
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "Web Searches")
+(.EMACS "indent buffer on find-file")
 
-;; (require 'google)
-;; (setq google-license-key "dF18sc1QFHLPxvBVqwv/WxCbYR18GHbp")
-;; ;; Then M-x google-search RET
-;; ;; or M-x google-search-region RET
-;; (defalias 'url-retrieve-synchronously 'url-retrieve)
-
-(defun %search-region (start end thing search-function)
-  (when start
-    (cond
-      ((null end)
-       (let ((bounds (bounds-of-thing-at-point thing)))
-         (if bounds
-             (%search-region (car bounds) (cdr bounds) thing search-function)
-             (call-interactively search-function))))
-      ((= start end)
-       (call-interactively search-function))
-      (t
-       (funcall search-function (buffer-substring-no-properties start end))))))
-
-;; (if (or (not mark-active) (eql (point) (mark)))
-;;     "string"
-;;     (buffer-substring-no-properties (min (point) (mark))
-;;                                     (max (point) (mark))))
-
-
-(defparameter *whitespaces* '(32 9 10 13))
-
-(defmacro with-browser-for-apple-documentation (&rest body)
-  `(let ((browse-url-browser-function (if (and (eq window-system 'ns)
-                                              (eq system-type 'darwin))
-                                         'browse-url-generic
-                                         'browse-url-firefox2)))
-    ,@body))
-
-(defun osx-search (search-string)
-  "Search a string with Apple."
-  (interactive "sApple Developer Documentation Search: ")
-  (with-browser-for-apple-documentation
-   (browse-url
-    (format "https://developer.apple.com/library/mac/search/?q=%s"
-            (browse-url-url-encode-chars
-             (string-trim *whitespaces* search-string)
-             "[^A-Za-z0-9]")))))
-
-(defun osx-search-region (start end)
-  "Search the text in the region with Apple."
-  (interactive "r")
-  (%search-region start end 'symbol 'osx-search))
-
-;; (debug-on-entry 'browse-url)
-(defun ios-search (search-string)
-  "Search a string with Apple."
-  (interactive "sApple Developer Documentation Search: ")
-  (with-browser-for-apple-documentation
-      (browse-url
-       (format "https://developer.apple.com/library/ios/search/?q=%s"
-               (browse-url-url-encode-chars
-                (string-trim *whitespaces* search-string)
-                "[^A-Za-z0-9]")))))
-
-(defun ios-search-region (start end)
-  "Search the text in the region with Apple."
-  (interactive "r")
-  (%search-region start end 'symbol 'ios-search))
-
-
-(defun android-search (search-string)
-  "Search a string with Android."
-  (interactive "sAndroid Developer Documentation Search: ")
-  (browse-url (or (when (and (search "." search-string) (not (search ".." search-string)))
-                    (let ((words (split-string search-string "\\.")))
-                      (when (and (<= 3 (length words))
-                                 (every (lambda (word)
-                                          (and (alpha-char-p (aref word 0))
-                                               (every (function alphanumericp) word)))
-                                        
-                                        words))
-                        (format "http://developer.android.com/reference/%s.html"
-                                (mapconcat (function identity) words "/")))))
-                  (format "http://developer.android.com/reference/index.html?q=%s"
-                          (browse-url-url-encode-chars
-                           (string-trim *whitespaces* search-string)
-                           "[^A-Za-z0-9]")))))
-
-(defun android-search-region (start end)
-  "Search the text in the region with Android."
-  (interactive "r")
-  (%search-region start end 'symbol 'android-search))
-
-(defun project-search (search-string)
-  "Search a regex in the current project (with `find-grep' and `grep-find-command')."
-  (interactive "sSearch Project Regexp: ")
-  (find-grep (concat grep-find-command " " (shell-quote-argument search-string))))
-
-(defun project-search-region (start end)
-  "Search the text in the region in the current project (with `find-grep' and `grep-find-command')."
-  (interactive "r")
-  (%search-region start end 'symbol 'project-search))
-
-
-(defun google-search (search-string)
-  "Search a string with Google."
-  (interactive "sGoogle Search: ")
-  (browse-url
-   (format "http://www.google.com/search?as_q=%s&num=50&hl=en&ie=ISO8869-1&btnG=Google+Search&as_epq=&as_oq=&as_eq=&lr=&as_ft=i&as_filetype=&as_qdr=all&as_nlo=&as_nhi=&as_occt=any&as_dt=i&as_s
-itesearch=&safe=images"
-	   (browse-url-url-encode-chars
-	    (string-trim *whitespaces* search-string)
-	    "[^A-Za-z0-9]")))) 
-
-(defun google-search-region (start end)
-  (interactive "r")
-  (%search-region start end 'symbol 'google-search))
-
-
-(defparameter *acronym-search-url* "http://www.acronymfinder.com/%s.html")
-;;  "http://www.cygwin.com/acronyms/#%s"
-(defun acronym-search (acronym-string)
-  (interactive "sAcronym Search: ")
-  (browse-url (format *acronym-search-url* acronym-string)))
-
-(defun acronym-search-region (start end)
-  (interactive "r")
-  (%search-region start end 'symbol 'acronym-search))
-
-
-
-(defun includes-search (string)
-  (interactive "sIncludes Search: ")
-  (find-grep (format "find /usr/include/ /usr/local/include/ -type f -exec grep -n -i %s {} /dev/null \\; #" (shell-quote-argument string))))
-
-(defun includes-search-region (start end)
-  (interactive "r")
-  (%search-region start end 'symbol 'includes-search))
-
-(defalias 'grep-includes 'includes-search)
-
-
-(defun hyperspec-search (string)
-  (interactive "sHyperspec Search: ")
-  (find-grep (format "find '%s' -type f -print|while read f ; do lynx -dump -nolist \"$f\" | grep -i '%s' && echo \"$f:1:-\" ; done #" (shell-quote-argument *hyperspec-path*) string)))
-
-(defun hyperspec-search-region (start end)
-  (interactive "r")
-  (%search-region start end 'symbol 'hyperspec-search))
-
-(defalias 'grep-hyperspec 'hyperspec-search)
-
-
-(defun here-search (pattern)
-  "Does an egrep  in the current directory just asking for a pattern."
-  (interactive (list (read-from-minibuffer (format "In %s egrep pattern: " (shell-quote-argument default-directory)))))
-  (check-type pattern string)
-  (if (string-equal "" pattern)
-      (error "The empty string matches everything. Are you happy?")
-      (grep (format "egrep -n -e '%s' `find . -type f -print` /dev/null" pattern))))
-
-(defun here-search-region (start end)
-  (interactive "r")
-  (%search-region start end 'symbol 'here-search))
-
-
-(global-set-key (kbd "C-h 0")
-                (lambda ()
-                  (interactive)
-                  (message (format "C-h 1 %s  C-h 2 google  C-h 3 acronym  C-h 4 project  C-h 5 includes  C-h 6 hyperspec  C-h 7 this directory"
-                                   (let* ((search (format "%s" (local-key-binding (kbd "C-h 1") t)))
-                                          (dash   (search "-" search)))
-                                     (if dash
-                                         (subseq search 0 dash)
-                                         search))))))
-
-;;(global-set-key (kbd "C-h 1") 'android-search-region)
-;;(global-set-key (kbd "C-h 1") 'osx-search-region)
-(global-set-key (kbd "C-h 1") 'ios-search-region)
-(global-set-key (kbd "C-h 2") 'google-search-region)
-(global-set-key (kbd "C-h 3") 'acronym-search-region)
-(global-set-key (kbd "C-h 4") 'project-search-region)
-(global-set-key (kbd "C-h 5") 'includes-search-region)
-(global-set-key (kbd "C-h 6") 'hyperspec-search-region)
-(global-set-key (kbd "C-h 7") 'here-search-region)
-(global-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point)
-
-(defun set-osx-search-region-function ()
-  (interactive)
-  (local-set-key (kbd "C-h 1") 'osx-search-region))
-(defun set-ios-search-region-function ()
-  (interactive)
-  (local-set-key (kbd "C-h 1") 'ios-search-region))
-(defun set-android-search-region-function ()
-  (interactive)
-  (local-set-key (kbd "C-h 1") 'android-search-region)
-  (local-set-key (kbd "C-h 0") 'android-browse-documentation-of-class-at-point))
-
-
-(add-hook 'objc-mode-hook 'set-osx-search-region-function)
-(add-hook 'objc-mode-hook 'set-ios-search-region-function)
-(add-hook 'java-mode-hook 'set-android-search-region-function)
-
-
-;;;----------------------------------------------------------------------------
-
-
-
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "emacs-uptime")
-
-;;;----------------------------------------------------------------------------
-;;; emacs-uptime.el
-;;;
-;;; Copyright (C) 1998, 2000, 2002, 2004, 2007, 2008 Thien-Thi Nguyen
-;;;
-;;; This file is part of ttn's personal elisp library, released under
-;;; the terms of the GNU General Public License as published by the
-;;; Free Software Foundation; either version 3, or (at your option) any
-;;; later version.  There is NO WARRANTY.  See file COPYING for details.
-
-;;; Description: Give Emacs' uptime and some other stats in the modeline.
-
-(defvar *emacs-start-time*   (current-time) "For (emacs-uptime);")
-
-;;;###autoload
-(defun emacs-uptime ()
-  "Gives Emacs' uptime, based on global var `*emacs-start-time*'."
-  (interactive)
-  (let* ((st *emacs-start-time*)                ; set in do-it-now.el
-         (cur (current-time))
-         (hi-diff (- (car cur) (car st)))
-         (tot-sec (+ (ash hi-diff 16) (- (cadr cur) (cadr st))))
-         (days (/ tot-sec (* 60 60 24)))
-         (hrs  (/ (- tot-sec (* days 60 60 24)) (* 60 60)))
-         (mins (/ (- tot-sec (* days 60 60 24) (* hrs 60 60)) 60))
-         (secs (/ (- tot-sec (* days 60 60 24) (* hrs 60 60) (* mins 60)) 1)))
-    (message "Up %dd %dh %dm %ds (%s), %d buffers, %d files"
-             days hrs mins secs
-             (format-time-string "%a %Y-%m-%d %T" st)
-             (length (buffer-list))
-             (count t (buffer-list)
-                    :test-not
-                    (lambda (ignore buf)
-                      (null (cdr (assoc 'buffer-file-truename
-                                        (buffer-local-variables buf)))))))))
-
-(provide 'emacs-uptime)
-
-;;; emacs-uptime.el ends here
-;;;----------------------------------------------------------------------------
-
-(defalias 'uptime 'emacs-uptime)
-
-(when (require 'uptimes nil t)
-  (defun uptimes-read-uptimes ()
-    "Read the uptimes database into `uptimes-last-n' and `uptimes-top-n'."
-    (when (file-exists-p uptimes-database) ; doesn't mean the file contains anything
-      (with-temp-buffer
-        (let ((inhibit-clash-detection t)) ; For the benefit of XEmacs.
-          ;; we don't want to visit the file, to avoid locking the file.
-          (insert-file-contents uptimes-database nil))
-        (setq uptimes-last-n 
-              (ignore-errors            ; eat end-of-file errors
-                (read (current-buffer))))
-        (setq uptimes-top-n
-              (or (ignore-errors        ; eat end-of-file errors
-                    (read (current-buffer)))
-                  uptimes-last-n))))))
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "Other patches")
-(ignore-errors
-  (require 'newcomment)
-  (defun comment-region-internal (beg end cs ce
-                                  &optional ccs cce block lines indent)
-    "Comment region BEG..END.
-CS and CE are the comment start resp end string.
-CCS and CCE are the comment continuation strings for the start resp end
-of lines (default to CS and CE).
-BLOCK indicates that end of lines should be marked with either CCE, CE or CS
-\(if CE is empty) and that those markers should be aligned.
-LINES indicates that an extra lines will be used at the beginning and end
-of the region for CE and CS.
-INDENT indicates to put CS and CCS at the current indentation of the region
-rather than at left margin."
-    ;;(assert (< beg end))
-    (let ((no-empty nil ; PJB: always no-empty.
-            ;;  (not (or (eq comment-empty-lines t)
-            ;;           (and comment-empty-lines (zerop (length ce)))))
-            ))
-      ;; Sanitize CE and CCE.
-      (if (and (stringp ce) (string= "" ce)) (setq ce nil))
-      (if (and (stringp cce) (string= "" cce)) (setq cce nil))
-      ;; If CE is empty, multiline cannot be used.
-      (unless ce (setq ccs nil cce nil))
-      ;; Should we mark empty lines as well ?
-      (if (or ccs block lines) (setq no-empty nil))
-      ;; Make sure we have end-markers for BLOCK mode.
-      (when block (unless ce (setq ce (comment-string-reverse cs))))
-      ;; If BLOCK is not requested, we don't need CCE.
-      (unless block (setq cce nil))
-      ;; Continuation defaults to the same as CS and CE.
-      (unless ccs (setq ccs cs cce ce))
-
-      (save-excursion
-        (goto-char end)
-        ;; If the end is not at the end of a line and the comment-end
-        ;; is implicit (i.e. a newline), explicitly insert a newline.
-        (unless (or ce (eolp)) (insert "\n") (indent-according-to-mode))
-        (comment-with-narrowing
-            beg end
-          (let ((min-indent (point-max))
-                (max-indent 0))
-            (goto-char (point-min))
-            ;; Quote any nested comment marker
-            (comment-quote-nested comment-start comment-end nil)
-            
-            ;; Loop over all lines to find the needed indentations.
-            (goto-char (point-min))
-            (while
-                (progn
-                  (unless (looking-at "[ \t]*$")
-                    (setq min-indent (min min-indent (current-indentation))))
-                  (end-of-line)
-                  (setq max-indent (max max-indent (current-column)))
-                  (not (or (eobp) (progn (forward-line) nil)))))
-
-            (setq max-indent
-                  (+ max-indent (max (length cs) (length ccs))
-                     ;; Inserting ccs can change max-indent by (1- tab-width)
-                     ;; but only if there are TABs in the boxed text, of course.
-                     (if (save-excursion (goto-char beg)
-                                         (search-forward "\t" end t))
-                         (1- tab-width) 0)))
-            ;; ;; Inserting ccs can change max-indent by (1- tab-width).
-            ;; (setq max-indent
-            ;;   (+ max-indent (max (length cs) (length ccs)) tab-width -1))
-            (unless indent (setq min-indent 0))
-            
-            ;; make the leading and trailing lines if requested
-            (when lines
-              (let ((csce
-                     (comment-make-extra-lines
-                      cs ce ccs cce min-indent max-indent block)))
-                (setq cs (car csce))
-                (setq ce (cdr csce))))
-
-            (goto-char (point-min))
-            ;; Loop over all lines from BEG to END.
-            (while
-                (progn
-                  (unless (and no-empty (looking-at "[ \t]*$"))
-                    (move-to-column min-indent t)
-                    (insert cs) (setq cs ccs) ;switch to CCS after the first line
-                    (end-of-line)
-                    (if (eobp) (setq cce ce))
-                    (when cce
-                      (when block (move-to-column max-indent t))
-                      (insert cce)))
-                  (end-of-line)
-                  (not (or (eobp) (progn (forward-line) nil))))))))))
-  );;patch
-
-
-;;;----------------------------------------------------------------------------
-;; (.EMACS "indent buffer on find-file")
 (defun pjb-indent-meat ()
   ;; If pjb-indent-meat is not in last position,
   ;; then move it over to last position.
@@ -3414,284 +2380,12 @@ rather than at left margin."
                (pop-mark)))
     (.EMACS "indenting %S done" (buffer-name))
     (set-buffer-modified-p nil)))
+
 ;; (setf find-file-hook
 ;;       (append (remove (function pjb-indent-meat) find-file-hook)
 ;;               (list (function pjb-indent-meat))))
 
 ;; (setf find-file-hook  (remove (function pjb-indent-meat) find-file-hook))
-
-
-;;;----------------------------------------------------------------------------
-(when (require 'vc-fossil nil t)
-  (.EMACS "vc")
-  (require 'vc-hooks)
-  (defadvice vc-registered (around vc-registered/bug-on-empty-string-filename
-				   first (file) activate)
-    (unless (and (stringp file) (string= "" file))
-      ad-do-it))
-  (add-to-list 'vc-handled-backends 'Fossil))
-
-;;;----------------------------------------------------------------------------
-(.EMACS "darcs")
-(load "vc-darcs" t nil)
-
-(defun jump-to-real-file-from-darcs ()
-  (interactive)
-  (let* ((f (buffer-file-name (current-buffer)))
-         (match (string-match "_darcs/current" f)))
-    (and f match
-         (find-alternate-file
-          (concat (substring f 0 (match-beginning 0))
-                  (substring f (match-end 0)))))))
-
-(defun warn-if-darcs-file ()
-  (let ((f (buffer-file-name (current-buffer))))
-    (and f (string-match "_darcs" f)
-         (if (y-or-n-p "This is a _darcs file, open the real file? ")
-             (jump-to-real-file-from-darcs)
-             (push '(:propertize "_DARCS-FILE:" face font-lock-warning-face)
-                   mode-line-buffer-identification)))))
-
-(add-hook 'find-file-hooks 'warn-if-darcs-file)
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "balance windows")
-
-(defun horizontal-offset ()
-  "Number of columns taken by the fringe and vertical scroll bar"
-  ;; TODO: Implement in function of the effective fringe and vertical scroll bar.
-  5)
-
-(defun pjb-balance-windows-vertically ()
-  "Make all visible windows the same width (approximately)."
-  (interactive)
-  (let ((count -1) levels newsizes level-size
-        (last-window (previous-window (frame-first-window (selected-frame))))
-        ;; Don't count the columns that are past the lowest main window.
-        total)
-    ;; Rightmost edge of last window determines what size we have to work with.
-    (setq total
-          (+ (window-width last-window) (horizontal-offset)
-             (nth 0 (window-edges last-window))))
-    ;; Find all the different hpos's at which windows start,
-    ;; then count them.  But ignore levels that differ by only 1.
-    (let (lefts (prev-left -2))
-      (walk-windows (function (lambda (w)
-                      (setq lefts (cons (nth 0 (window-edges w))
-                                        lefts))))
-                    'nomini)
-      (setq lefts (sort lefts '<))
-      (while lefts
-        (if (> (car lefts) (1+ prev-left))
-            (setq prev-left (car lefts)
-                  count (1+ count)))
-        (setq levels (cons (cons (car lefts) count) levels))
-        (setq lefts (cdr lefts)))
-      (setq count (1+ count)))
-    ;; Subdivide the frame into desired number of vertical levels.
-    (setq level-size (/ total count))
-    (.EMACS "levels=%S" levels)
-    (.EMACS "level-size=%S" level-size)
-    (save-selected-window
-      ;; Set up NEWSIZES to map windows to their desired sizes.
-      ;; If a window ends at the rightmost level, don't include
-      ;; it in NEWSIZES.  Those windows get the right sizes
-      ;; by adjusting the ones above them.
-      (walk-windows (function
-                     (lambda (w)
-                      (let ((newleft (cdr (assq (nth 0 (window-edges w))
-                                                levels)))
-                            (newright (cdr (assq (+ (window-width w)
-                                                    (horizontal-offset)
-                                                    (nth 0 (window-edges w)))
-                                                 levels))))
-                        (message ".EMACS: newleft=%S newright=%S"
-                                 newleft newright)
-                        (if newright
-                            (setq newsizes
-                                  (cons (cons w (* level-size
-                                                   (- newright newleft)))
-                                        newsizes))))))
-                    'nomini)
-      (.EMACS "newsizes=%S" newsizes)
-      ;; Make walk-windows start with the leftmost window.
-      (select-window (previous-window (frame-first-window (selected-frame))))
-      (let (done (count 0))
-        ;; Give each window its precomputed size, or at least try.
-        ;; Keep trying until they all get the intended sizes,
-        ;; but not more than 3 times (to prevent infinite loop).
-        (while (and (not done) (< count 3))
-          (setq done t)
-          (setq count (1+ count))
-          (walk-windows (function (lambda (w)
-                          (select-window w)
-                          (let ((newsize (cdr (assq w newsizes))))
-                            (when newsize
-                              (apply (function enlarge-window)
-                                     (- newsize
-                                        (horizontal-offset)
-                                        (window-width))
-                                     t
-                                     (if (= 2 (cdr (function-argument-counts
-                                                    (function enlarge-window))))
-                                         '()
-                                         '(preserve)))
-                              (unless (= (window-width)
-                                         (- newsize (horizontal-offset)))
-                                (setq done nil))))))
-                        'nomini))))))
-
-
-
-(defun pjb-balance-windows (&optional horizontally)
-  "Make all visible windows on the current frame the same size (approximately).
-If optional prefix arg is not given, \"same size\" is same height.
-When prefix arg is given,  \"same size\" is same width."
-  (interactive "P")
-  (let* (count size w cmjr resize
-               (edge (if horizontally 0 1)) ;; Minor field to sort by 0=LEFT, 1=TOP
-               (mjr (- 1 edge))             ;; Major field to sort
-               (far (+ 2 edge)) ;; far edge (right/bottom) - for current size
-               (windows nil)    ;; list of windows
-               (ix 0)
-               nwin                   ;; number of windows
-               (curw (selected-window)) ;; selected window (to return to)
-               )
-    ;; Build and sort list of all windows on frame
-    (save-window-excursion
-      (walk-windows (function (lambda (w)
-                      (let ((ltrb (window-edges w)))
-                        (setq windows (cons (list
-                                             (nth mjr  ltrb)
-                                             (nth edge ltrb)
-                                             (nth far  ltrb)
-                                             w) windows)))))
-                    'nomini)
-      (setq windows (sort windows (lambda (e1 e2)
-                                    (if (< (nth 0 e1) (nth 0 e2))
-                                        t
-                                        (if (= (nth 0 e1) (nth 0 e2))
-                                            (if (< (nth 1 e1) (nth 1 e2))
-                                                t)))))))
-    (setq nwin (length windows))
-    ;; add 1 extra entry (for while check)
-    (appendf windows '((-1 -1 -1 nil)))
-
-    (while (< ix nwin)                  ; walk on all (sorted) windows
-      (setq count ix)         ; count the windows in 1 column (or row)
-      (setq cmjr (car (nth ix windows))) ; column / raw identification
-      (while (= cmjr (car (nth ix windows)))   ; same column / row
-        (setq ix (1+ ix)))                     ; next window
-      (setq count (- ix count))
-      (if (/= count 1) ; do only if more than one window in this column/row
-          (let ((gix (- ix count)))
-            (setq size (- (nth far (window-edges (nth 3 (nth (1- ix) windows))))
-                          (nth edge (window-edges
-                                     (nth 3 (nth (- ix count) windows))))))
-            (setq size (/ (+ size count -1) count)) ; average window size
-
-            ;; (.EMACS "Size=%d" size)
-
-            (while (< gix ix)
-              (setq w (nth 3 (nth gix windows)))
-              (setq resize (- size (- (nth far (window-edges w))
-                                      (nth edge (window-edges w)))))
-
-              ;; (.EMACS "Window=%s  resize=%d" w resize)
-                                        ; don't resize by 1 character/line
-              (if (or (> resize 1)
-                      (< resize -1))
-                  (progn
-
-                    ;; (sit-for 2)
-
-                    (select-window w)   ; window to work on
-                    (apply (function enlarge-window)
-                           resize horizontally
-                           (if (= 2 (cdr (function-argument-counts
-                                          (function enlarge-window))))
-                               '()
-                               '(preserve)))
-                    ;; (sit-for 2)
-                    ))
-              (setq gix (1+ gix))))))
-
-    ;; (.EMACS "")
-    (select-window curw)))
-
-
-(defun align-cols (start end max-cols)
-  "Align text between point and mark as columns.
-Columns are separated by whitespace characters.
-Prefix arg means align that many columns. (default is all)
-Attribution: ?"
-  (interactive "r\nP")
-  (save-excursion
-    (let ((p start)
-          pos
-          end-of-line
-          word
-          count
-          (max-cols (if (numberp max-cols) (max 0 (1- max-cols)) nil))
-          (pos-list nil)
-          (ref-list nil))
-      ;; find the positions
-      (goto-char start)
-      (while (< p end)
-        (beginning-of-line)
-        (setq count 0)
-        (setq end-of-line (save-excursion (end-of-line) (point)))
-        (re-search-forward "^\\s-*" end-of-line t)
-        (setq pos (current-column))     ;start of first word
-        (if (null (car ref-list))
-            (setq pos-list (list pos))
-            (setq pos-list (list (max pos (car ref-list))))
-            (setq ref-list (cdr ref-list)))
-        (while (and (if max-cols (< count max-cols) t)
-                    (re-search-forward "\\s-+" end-of-line t))
-          (setq count (1+ count))
-          (setq word (- (current-column) pos))
-          ;; length of next word including following whitespaces
-          (setq pos (current-column))
-          (if (null (car ref-list))
-              (setq pos-list (cons word pos-list))
-              (setq pos-list (cons (max word (car ref-list)) pos-list))
-              (setq ref-list (cdr ref-list))))
-        (while ref-list
-          (setq pos-list (cons (car ref-list) pos-list))
-          (setq ref-list (cdr ref-list)))
-        (setq ref-list (nreverse pos-list))
-        (forward-line)
-        (setq p (point)))
-      ;; align the cols starting with last row
-      (setq pos-list (copy-sequence ref-list))
-      (setq start
-            (save-excursion (goto-char start) (beginning-of-line) (point)))
-      (goto-char end)
-      (beginning-of-line)
-      (while (>= p start)
-        (beginning-of-line)
-        (setq count 0)
-        (setq end-of-line (save-excursion (end-of-line) (point)))
-        (re-search-forward "^\\s-*" end-of-line t)
-        (goto-char (match-end 0))
-        (setq pos (nth count pos-list))
-        (while (< (current-column) pos)
-          (insert-char ?\040 1))
-        (setq end-of-line (save-excursion (end-of-line) (point)))
-        (while (and (if max-cols (< count max-cols) t)
-                    (re-search-forward "\\s-+" end-of-line t))
-          (setq count (1+ count))
-          (setq pos   (+  pos (nth count pos-list)))
-          (goto-char (match-end 0))
-          (while (< (current-column) pos)
-            (insert-char ?\040 1))
-          (setq end-of-line (save-excursion (end-of-line) (point))))
-        (forward-line -1)
-        (if (= p (point-min)) (setq p (1- p))
-            (setq p (point))))))) ;;align-cols
-
 
 
 ;;;----------------------------------------------------------------------------
@@ -3766,6 +2460,8 @@ p")
   (compile-and-run-file (buffer-file-name (current-buffer)) mode))
 
 ;;;----------------------------------------------------------------------------
+(.EMACS "psql mode")
+
 (when (require 'psql-mode nil t)
   (modify-syntax-entry ?/   "<14>" psql-mode-syntax-table)
   (modify-syntax-entry ?*   "<23>" psql-mode-syntax-table)
@@ -3778,13 +2474,7 @@ p")
 (defun canlock-sha1 (message)
   "Make a SHA-1 digest of MESSAGE as a unibyte string of length 20 bytes."
   (let (sha1-maximum-internal-length)
-    (sha1 message nil nil )))
-
-
-(defun alert ()
-  (interactive)
-  (delete-other-windows)
-  (switch-to-buffer "*compilation*"))
+    (sha1 message nil nil)))
 
 (setf (getenv "ANT_ARGS") "")
 
@@ -3823,6 +2513,7 @@ p")
                                         ("\\.m[4c]\\'" . m4-mode))
                       :test (function equalp)))
 
+;; put objc auto-mode
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
                            ("\\.mm$" . objc-mode)))
 
@@ -3921,6 +2612,7 @@ or as \"emacs at <hostname>\"."
 ;;;----------------------------------------------------------------------------
 ;;; Google Maps
 ;;;----------------------------------------------------------------------------
+(.EMACS "Google Maps")
 (let ((gomapel  (get-directory :share-lisp  "packages/org/naquadah/google-maps/google-maps.el")))
   (when (and gomapel (file-exists-p gomapel))
     (push (get-directory :share-lisp  "packages/org/naquadah/google-maps/") load-path)
@@ -3956,7 +2648,7 @@ or as \"emacs at <hostname>\"."
     (unwind-protect
          (progn
            (goto-char start)
-           (when (search-forward "http://www.google.com/url?url=")
+           (when (re-search-forward "https?://www.google.[a-z]+/url\\?\\(url=\\|.*&url=\\)")
              (delete-region start (match-end 0)))
            (goto-char start)
            (when (search-forward "&")
@@ -4099,8 +2791,7 @@ or as \"emacs at <hostname>\"."
 
 
 ;;;----------------------------------------------------------------------------
-
-;;;----------------------------------------------------------------------------
+(.EMACS "semantic mode")
 (require 'semantic)
 (semantic-mode 1)
 (push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
@@ -4158,6 +2849,22 @@ list or vector, the length of the sequence."
           (message "length: %d" length))))))
 
 
+(defun merge-customization-variable (a b)
+  (assert (eql (car a) (car b)))
+  (assert (eql 'quote (car (second a))))
+  (assert (eql 'quote (car (second b))))
+  (let ((var (car a))
+        (a (second (second a)))
+        (b (second (second b))))
+    `'(,var ',(remove-duplicates (append a b) :test (function equal)))))
+
 ;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
 
+(defun viper-mode () (interactive) (message "I want more life, fucker!"))
+
+;; (set-frame-parameter (selected-frame) 'alpha 0)
+;; (set-frame-parameter (selected-frame) 'alpha 96)
+;; (set-frame-parameter (selected-frame) 'alpha 100)
+;;;----------------------------------------------------------------------------
+(.EMACS "emacs-common complete.")
 ;;;; THE END ;;;;
