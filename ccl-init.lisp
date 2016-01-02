@@ -63,6 +63,8 @@
 
 (setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 ;; (setf ccl:*save-definitions*  t) ; for function-lambda-expression
+(setq ccl::*BACKTRACE-PRINT-LENGTH* nil
+      ccl::*BACKTRACE-PRINT-LEVEL* nil)
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --

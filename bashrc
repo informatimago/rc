@@ -264,8 +264,11 @@ function be_generate(){
 
     case "$uname" in 
     Darwin)
-        socket=(/tmp/emacs${UID}/server-*)
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=${socket[@]}"
+        if [ 1 = $(mfod -l|wc -l) ] ; then
+            mfod -s 1
+        fi
+        socket=()
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
         alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
@@ -367,6 +370,10 @@ function be_generate(){
         fi
     fi
 
+    if [ -d /opt/local/share/java/gradle ] ; then
+        be_variable GRADLE_HOME /opt/local/share/java/gradle
+    fi
+    
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Madrid
 
@@ -575,6 +582,7 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias ..='cd ..'
 alias ...='cd ../..'
 
+alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
 
 export CVSEDITOR=emacsclient
