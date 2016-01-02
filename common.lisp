@@ -48,7 +48,6 @@
 ;;; Clean the packages imported into COMMON-LISP-USER:
 ;;;
 
-
 (mapc (lambda (package) (unuse-package package "COMMON-LISP-USER"))
       (set-difference
        (copy-seq (package-use-list "COMMON-LISP-USER"))
@@ -56,12 +55,12 @@
                     (find-package "COMMON-LISP")
                     (find-package "IMAGE-BASED-COMMON-LISP")))))
 
-
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
       *print-lines*  nil
       *print-right-margin* 110)
+
 
 #+swank
 (setq *debugger-hook* (let ((old-debugger-hook *debugger-hook*))
@@ -74,16 +73,50 @@
 (declaim (optimize (safety 3) (debug 3) (space 0) (speed 0)))
 
 
-
 ;;;----------------------------------------------------------------------
 ;;;
 ;;; COM.INFORMATIMAGO.PJB
 ;;;
 
-(defpackage "COM.INFORMATIMAGO.PJB"
-  (:nicknames "PJB")
+
+(defpackage "COM.INFORMATIMAGO.PJB.UTILITY"
   (:use "COMMON-LISP")
   (:shadow "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
+  (:export "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME"
+           "ASDF-CONFIGURATION" "LOAD-QUICKLISP" "INFORMATIMAGO-PACKAGES")
+  (:documentation "
+
+Utilities for the com.informatimago.pjb package.
+
+License:
+
+    AGPL3
+    
+    Copyright Pascal J. Bourguignon 2003 - 2015
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+    
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.
+    If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
+
+"))
+
+(defpackage "COM.INFORMATIMAGO.PJB"
+  (:nicknames "PJB")
+  (:use "COMMON-LISP"
+        "COM.INFORMATIMAGO.PJB.UTILITY")
+  (:shadow "ED")
+  (:shadowing-import-from "COM.INFORMATIMAGO.PJB.UTILITY"
+                          "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
   (:export "LIST-DIRECTORIES"   "GET-DIRECTORY"
            "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
            "START-DRIBBLE"
@@ -109,7 +142,7 @@ License:
 
     AGPL3
     
-    Copyright Pascal J. Bourguignon 2003 - 2012
+    Copyright Pascal J. Bourguignon 2003 - 2015
     
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -126,7 +159,13 @@ License:
     If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
 
 "))
-(in-package "COM.INFORMATIMAGO.PJB")
+
+
+
+;;;----------------------------------------------------------------------
+;;;
+
+(in-package "COM.INFORMATIMAGO.PJB.UTILITY")
 
 
 ;;;----------------------------------------------------------------------
@@ -186,34 +225,36 @@ License:
 ;;; ASDF-CONFIGURATION
 ;;;
 
-(let ((asdf-conf-path (merge-pathnames
-                       (make-pathname :directory '(:relative ".config" "common-lisp")
-                                      :name "asdf-output-translations"
-                                      :type "conf"
-                                      :case :local
-                                      :defaults (user-homedir-pathname))
-                       (user-homedir-pathname) nil))
-      (common-path *load-truename*))
-  (when (or (not (ignore-errors (probe-file asdf-conf-path)))
-            (null (file-write-date asdf-conf-path))
-            (and common-path
-                 (or (null (file-write-date common-path))
-                     (< (file-write-date asdf-conf-path)
-                        (file-write-date common-path)))))
-    (ensure-directories-exist asdf-conf-path)
-    (with-open-file (asdfconf asdf-conf-path
-                              :direction :output
-                              :if-does-not-exist :create
-                              :if-exists nil
-                              :external-format :default)
-      (write-string ";; -*- mode:lisp -*-" asdfconf)
-      (print '(:output-translations
-               #-clisp :ignore-invalid-entries
-               (t (:home ".cache" "common-lisp" :hostname :implementation))
-               (t (:home ".cache" "common-lisp" :implementation))
-               :inherit-configuration)
-             asdfconf)
-      (terpri asdfconf))))
+(defun asdf-configuration ()
+  "Creates the ~/.config/common-lisp/asdf-output-translations.conf file."
+ (let ((asdf-conf-path (merge-pathnames
+                        (make-pathname :directory '(:relative ".config" "common-lisp")
+                                       :name "asdf-output-translations"
+                                       :type "conf"
+                                       :case :local
+                                       :defaults (user-homedir-pathname))
+                        (user-homedir-pathname) nil))
+       (common-path *load-truename*))
+   (when (or (not (ignore-errors (probe-file asdf-conf-path)))
+             (null (file-write-date asdf-conf-path))
+             (and common-path
+                  (or (null (file-write-date common-path))
+                      (< (file-write-date asdf-conf-path)
+                         (file-write-date common-path)))))
+     (ensure-directories-exist asdf-conf-path)
+     (with-open-file (asdfconf asdf-conf-path
+                               :direction :output
+                               :if-does-not-exist :create
+                               :if-exists nil
+                               :external-format :default)
+       (write-string ";; -*- mode:lisp -*-" asdfconf)
+       (print '(:output-translations
+                #-clisp :ignore-invalid-entries
+                (t (:home ".cache" "common-lisp" :hostname :implementation))
+                (t (:home ".cache" "common-lisp" :implementation))
+                :inherit-configuration)
+              asdfconf)
+       (terpri asdfconf)))))
 
 
 ;;;----------------------------------------------------------------------
@@ -221,24 +262,70 @@ License:
 ;;; QuickLisp
 ;;;
 
-(let ((quicklisp (merge-pathnames
-                  (make-pathname :directory '(:relative "QUICKLISP")
-                                  :name "SETUP"
-                                  :type "LISP"
-                                  :version :newest
-                                  :case :common
-                                  :defaults (user-homedir-pathname))
-                  (user-homedir-pathname)
-                  nil)))
-  (if (probe-file quicklisp)
-      (load quicklisp)
-      (error "Please install quicklisp.  I expect it in ~S" quicklisp)))
+(defun load-quicklisp ()
+  "Loads quicklisp."
+  (let ((quicklisp (merge-pathnames
+                    (make-pathname :directory '(:relative "QUICKLISP")
+                                   :name "SETUP"
+                                   :type "LISP"
+                                   :version :newest
+                                   :case :common
+                                   :defaults (user-homedir-pathname))
+                    (user-homedir-pathname)
+                    nil)))
+    (if (probe-file quicklisp)
+        (load quicklisp)
+        (error "Please install quicklisp.  I expect it in ~S" quicklisp))))
 
 
+;;;----------------------------------------------------------------------
+;;;
+
+(defun informatimago-packages ()
+  "Returns a list of interesting informatimago packages."
+  (remove-if
+   (lambda (package)
+     (flet ((prefixp (string prefix)
+              (and (<= (length prefix) (length string))
+                   (string= prefix string :end2 (length prefix)))))
+       (let ((name (package-name package)))
+         (or (not (or (prefixp name "COM.INFORMATIMAGO.COMMON-LISP.")
+                      (member name '("COM.INFORMATIMAGO.TOOLS.QUICKLISP"
+                                     "COM.INFORMATIMAGO.TOOLS.ASDF"
+                                     "COM.INFORMATIMAGO.TOOLS.THREAD")
+                              :test (function string=))))
+             (member name '("COM.INFORMATIMAGO.COMMON-LISP.PARSER."
+                            "COM.INFORMATIMAGO.COMMON-LISP.HTML-GENERATOR."
+                            "COM.INFORMATIMAGO.COMMON-LISP.LISP-READER."
+                            "COM.INFORMATIMAGO.COMMON-LISP.LISP.STEPPER"
+                            "COM.INFORMATIMAGO.COMMON-LISP.HEAP"
+                            "COM.INFORMATIMAGO.COMMON-LISP.REGEXP.REGEXP-")
+                     :test (function prefixp))
+             (member name '("COM.INFORMATIMAGO.COMMON-LISP.CESARUM.JULIAN-CALENDAR"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GREGORIAN-CALENDAR"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.DATE"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.SET"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.INDEX-SET"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BSET"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BRELATION"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GRAPH"
+                            "COM.INFORMATIMAGO.COMMON-LISP.DATA.CONSTANT"
+                            "COM.INFORMATIMAGO.COMMON-LISP.UNIX.OPTION"
+                            "COM.INFORMATIMAGO.COMMON-LISP.ED.ED" )
+                     :test (function string=))))))
+   (list-all-packages)))
+
+;;;
+;;;----------------------------------------------------------------------
+
+(in-package "COM.INFORMATIMAGO.PJB")
+
+(asdf-configuration)
+(load-quicklisp)
 (push #P"~/src/public/lisp/" ql:*local-project-directories*)
-(ql:quickload "com.informatimago.common-lisp" :verbose nil)
+(ql:quickload "com.informatimago.common-lisp"              :verbose nil)
 (ql:quickload "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
-(ql:quickload "com.informatimago.clmisc" :verbose nil)
+(ql:quickload "com.informatimago.clmisc"                   :verbose nil)
 
 ;; (ql:quickload "com.informatimago.tools")
 (ql:quickload '("com.informatimago.tools.pathname"
@@ -265,25 +352,27 @@ License:
 
 (ql:quickload "alexandria" :verbose nil)
 
-
-;; (eval-when (:compile-toplevel :load-toplevel :execute))
-(mapcar (function unintern) '(make-pathname
-                              translate-logical-pathname
-                              user-homedir-pathname))
-
 (shadowing-import '(com.informatimago.tools.pathname:make-pathname
                     com.informatimago.tools.pathname:translate-logical-pathname
                     com.informatimago.tools.pathname:user-homedir-pathname))
 
-(dolist (pname '("COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"
-                 "COM.INFORMATIMAGO.TOOLS.QUICKLISP"
-                 "COM.INFORMATIMAGO.TOOLS.ASDF"
-                 "COM.INFORMATIMAGO.TOOLS.THREAD"))
-  (use-package pname)
-  (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols pname)))
+(dolist (package (informatimago-packages))
+  (format *trace-output* "~&;; Using package ~A~%" (package-name package))
+  (handler-case (use-package package)
+    (error (err)
+      (princ err) (terpri))))
+(shadowing-import '(com.informatimago.common-lisp.cesarum.ecma048:ed))
+(dolist (package (informatimago-packages))
+  (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package)))
+
+
 (initialize)
 
+
+
+
 ;;;----------------------------------------------------------------------
+;;;
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (flet ((fundefine (fname)
@@ -343,7 +432,7 @@ selected by KEY, and the given SUBPATH.
 
 ;;;----------------------------------------------------------------------
 ;;;
-;;; Logical hosts -- the Common-Lisp way to PATH 
+;;; Logical hosts -- the Common-Lisp way to paths. 
 ;;;
 
 
@@ -512,7 +601,16 @@ The HOST is added to the list of logical hosts defined.
 
 ;; (start-dribble)
 
+;;;----------------------------------------------------------------------
 
+(defun executable-reader (stream ch subch)
+  (declare (ignorable ch subch))
+  #+clisp (sys::unix-executable-reader stream ch subch)
+  #-clisp (progn
+            (read-line stream)
+            (values)))
+
+(set-dispatch-macro-character #\# #\! (function executable-reader))
 
 ;;;----------------------------------------------------------------------
 
@@ -591,8 +689,48 @@ The HOST is added to the list of logical hosts defined.
 ;;;----------------------------------------------------------------------
 (push :com.informatimago.pjb *features*)
 ;;;----------------------------------------------------------------------
+(defun clean-up-package (package)
+  (mapc (lambda (used-package) (unuse-package used-package package))
+        (package-use-list package))
+  (do-symbols (s package)
+    (unintern s package))
+  (use-package "COMMON-LISP" package)
+  package)
+(clean-up-package "CL-USER")
 (in-package "CL-USER")
+(shadow 'ed)
+(let ((v (find-symbol "VERSION"))
+      (p (package-name *package*)))
+  (when v
+    (let ((*package* (load-time-value (find-package "KEYWORD"))))
+      (format t "~&~S is present in ~A where does it come from?~%" v p))
+    (unintern v)))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
+
+(defun print-variables ()
+  "Prints the *print-…* and *read-…* variables."
+  (com.informatimago.common-lisp.interactive.interactive:show
+    *print-array*
+    *print-base*
+    *print-case*
+    *print-circle*
+    *print-escape*
+    *print-gensym*
+    *print-length*
+    *print-level*
+    *print-lines*
+    *print-miser-width*
+    *print-pprint-dispatch*
+    *print-pretty*
+    *print-radix*
+    *print-readably*
+    *print-right-margin*
+    *read-base*
+    *read-default-float-format*
+    *read-eval*
+    *read-suppress*
+    (readtable-case *readtable*)))
+
 
 ;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
 ;; (in-package :ibcl-user)
