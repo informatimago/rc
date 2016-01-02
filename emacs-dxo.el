@@ -397,7 +397,7 @@
        " "))
 
 
-(setf c-macro-cppflags "-I. -framework /Applications/Xcode.app//Contents/Developer/Library/Frameworks/SenTestingKit.framework/Versions/A/Headers/")
+(setf c-macro-cppflags "-I. -framework /Applications/Xcode.app/Contents/Developer/Library/Frameworks/SenTestingKit.framework/Versions/A/Headers/")
 
 (require 'pjb-xcode)
 (ignore-errors (load-faces-from-xcode-dvtcolortheme "~/Library/Developer/Xcode/UserData/FontAndColorThemes/PJB Midnight.dvtcolortheme"))

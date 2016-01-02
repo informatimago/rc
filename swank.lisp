@@ -12,6 +12,8 @@
 ;; When there's a NAT: (setf swank:*use-dedicated-output-stream* nil)
 ;; (or with clisp).
 
+(defparameter *dont-close* t)
+
 #+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
 #-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
 
@@ -32,7 +34,7 @@
     (*PRINT-ARRAY* . T)
     (*PRINT-LINES* . nil)
     (*PRINT-ESCAPE* . T)
-    (*PRINT-RIGHT-MARGIN* . 80)
+    (*PRINT-RIGHT-MARGIN* . 120)
     (*random-state* . ,(make-random-state t))
     (*SLDB-BITVECTOR-LENGTH* . nil)
     (*SLDB-STRING-LENGTH* . nil)))
@@ -51,7 +53,7 @@
     (*PRINT-ARRAY* . T)
     (*PRINT-LINES* . nil)
     (*PRINT-ESCAPE* . T)
-    (*PRINT-RIGHT-MARGIN* . 110)
+    (*PRINT-RIGHT-MARGIN* . 120)
     (*random-state* . ,(make-random-state t))
     (*SLDB-BITVECTOR-LENGTH* . nil)
     (*SLDB-STRING-LENGTH* . nil)))
@@ -105,5 +107,19 @@
 ;; Before saving a core with swank, if slime uses options:
 ;; (swank:swank-require '(swank-repl swank-asdf swank-fuzzy swank-indentation swank-media))
 ;; otherwise swank tries to load them from source files after launching the core.
+
+
+(defslimefun eval-and-grab-output-and-error (string)
+  (with-buffer-syntax ()
+    (let* ((s (make-string-output-stream))
+           (*standard-output* s)
+           (values (handler-case
+                       (multiple-value-list (eval (from-string string)))
+                     (error (err)
+                       (format t "~&ERROR: ~A" err)
+                       (values)))))
+      (list (get-output-stream-string s) 
+            (format nil "~{~S~^~%~}" values)))))
+
 
 ;;;; THE END ;;;;

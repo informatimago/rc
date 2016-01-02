@@ -393,8 +393,6 @@
 ;;----------------------------------------------------------------------
 ;; Awfull trick for com.informatimago.clisp.script:is-running:
 
-(defun executable-reader (a b c) (sys::unix-executable-reader a b c))
-(set-dispatch-macro-character #\# #\! (function executable-reader))
 
 
 ;; (EXT:WITHOUT-PACKAGE-LOCK ("EXT")
@@ -561,8 +559,7 @@
 ;;;
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (defparameter *user-command-groups* (make-hash-table :test (function equal)))
-  (defun ensure-list (item) (if (listp item) item (list item))))
+  (defparameter *user-command-groups* (make-hash-table :test (function equal))))
 
 ;;(setf custom:*user-commands* nil)
 
