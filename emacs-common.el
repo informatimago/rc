@@ -60,7 +60,7 @@
 
 (defun .EMACS (fctl &rest args)
   (if (file-exists-p "--version.lock")
-	(error "version lock"))
+    (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -83,7 +83,8 @@
 (require 'tramp nil t)
 (require 'cc-mode)
 (require 'bytecomp)
-(byte-compile-disable-warning 'cl-functions)
+(when (fboundp 'byte-compile-disable-warning)
+  (byte-compile-disable-warning 'cl-functions))
 
 (when (boundp 'byte-compile-warning-types)
   (setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types)))
@@ -334,19 +335,19 @@ WELCOME TO EMACS!
 ;; revert-buffer-with-coding-system.
 
 
-;; 	(set-language-environment		'German)
-;; 	(setq default-file-name-coding-system	'utf-8)
-;; 	(setq file-name-coding-system		'utf-8)
-;; 	(setq default-buffer-file-coding-system 'iso-latin-9-unix))
-;; 	(set-default-coding-systems		'mac-roman-unix)
-;; 	;(setq mac-keyboard-text-encoding	 kTextEncodingISOLatin1)
-;; 	(set-keyboard-coding-system		'sjis-mac)
-;; 	(set-clipboard-coding-system		'sjis-mac)
-;; 	(prefer-coding-system			'mac-roman-unix)
-;; 	(modify-coding-system-alist	 'file "\\.tex\\'" 'iso-latin-9-unix)
-;; 	(modify-coding-system-alist	 'process
+;;  (set-language-environment       'German)
+;;  (setq default-file-name-coding-system   'utf-8)
+;;  (setq file-name-coding-system       'utf-8)
+;;  (setq default-buffer-file-coding-system 'iso-latin-9-unix))
+;;  (set-default-coding-systems     'mac-roman-unix)
+;;  ;(setq mac-keyboard-text-encoding    kTextEncodingISOLatin1)
+;;  (set-keyboard-coding-system     'sjis-mac)
+;;  (set-clipboard-coding-system        'sjis-mac)
+;;  (prefer-coding-system           'mac-roman-unix)
+;;  (modify-coding-system-alist  'file "\\.tex\\'" 'iso-latin-9-unix)
+;;  (modify-coding-system-alist  'process
 ;; "\\*[Ss][Hh][Ee][Ll][Ll].*\\'"  'utf-8-unix)
-;; 	;(set-buffer-process-coding-system	'utf-8 'utf8)
+;;  ;(set-buffer-process-coding-system  'utf-8 'utf8)
 
 
 
@@ -1139,7 +1140,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (.EMACS "vc")
   (require 'vc-hooks)
   (defadvice vc-registered (around vc-registered/bug-on-empty-string-filename
-				   first (file) activate)
+                   first (file) activate)
     (unless (and (stringp file) (string= "" file))
       ad-do-it))
   (add-to-list 'vc-handled-backends 'Fossil))
@@ -1718,7 +1719,7 @@ URL in a new window."
   (erc-list-match erc-foolish-content msg))
 
 (add-hook 'erc-insert-pre-hook
-	      (lambda (s)
+          (lambda (s)
             (when (erc-foolish-content s)
               (setq erc-insert-this nil))))
 
@@ -2068,6 +2069,10 @@ License:
 ;; http://www.cpqd.com.br/~vinicius/emacs/Emacs.html
 
 
+;; (add-hook 'write-file-hooks 
+;;           (lambda ()
+;;             (unless indent-tabs-mode
+;;               (untabify (point-min) (point-max)))))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "Info-directory-list")
@@ -2629,16 +2634,15 @@ or as \"emacs at <hostname>\"."
         (get-pair-of-random-colors)
         (mapcar (lambda (rgb)
                   (apply (function color-rgb-to-hex)
-                         (mapcar (lambda (x) (min (max 0.0 x) 1.0)) rgb)))
+                         (mapcar (function color-clamp) rgb)))
                 (let* ((fh (apply (function color-rgb-to-hsl) f))
                        (bh (apply (function color-rgb-to-hsl) b)))
                   (flet ((spread (l d)
                            (list (color-lighten-hsl (first l) (second l) (third l) 80)
-                                 (color-darken-hsl  (first d) (second d) (third d) 50))))
+                                 (color-darken-hsl  (first d) (second d) (third d) -50))))
                     (if (< (third fh) (third bh))
                         (reverse (spread bh fh))
                         (spread fh bh))))))))
-
 
 (defun set-random-colors ()
   (interactive)
