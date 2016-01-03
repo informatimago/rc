@@ -145,8 +145,7 @@
 
  custom:*load-compiling*        nil
  custom:*load-echo*             custom:*load-echo*
- custom:*load-logical-pathname-translations-database*
- (list (merge-pathnames #p "LOGHOSTS/" (user-homedir-pathname) nil))
+ custom:*load-logical-pathname-translations-database* (list #P"LOGHOSTS:")
  custom:*load-paths*           '(#p"")
  custom:*load-obsolete-action*  nil
  custom:*compile-warnings*      t
