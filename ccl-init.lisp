@@ -58,6 +58,8 @@
        NIL))
 
 
+(setf ccl::*pathname-translations-pathname* #P"LOGHOSTS:")
+
 (in-package "COM.INFORMATIMAGO.PJB")
 (export '(EDIT QUIT))
 
