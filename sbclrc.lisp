@@ -155,13 +155,6 @@
 
 
 
-(defvar *LOGHOSTS-DIRECTORY*
-  (merge-pathnames (make-pathname :directory '(:relative "LOGHOSTS-SBCL")
-                                  :case :common)
-                   (user-homedir-pathname) nil)
-  "The directory where logical host descriptions are stored.")
-
-
 (defun logical-pathname-namestring (logical-pathname)
   (format nil "~A:~{~A;~}~:[~;~:*~A~:[~;.~:*~A~:[~;.~:*~A~]~]~]"
           (SB-IMPL::LOGICAL-HOST-NAME (pathname-host logical-pathname))
@@ -219,6 +212,9 @@
                       :CASE :COMMON)
        (USER-HOMEDIR-PATHNAME)
        NIL))
+
+(defvar *LOGHOSTS-DIRECTORY* #P"LOGHOSTS:"
+  "The directory where logical host descriptions are stored.")
 
 (IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
