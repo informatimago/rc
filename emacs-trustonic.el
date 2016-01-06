@@ -3,7 +3,7 @@
 ;;;; Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.
 
 (load "~/rc/emacs-common.el")
-(.EMACS "~/rc/emacs-dxo.el %s" "Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.")
+(.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -54,7 +54,7 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("irc.trustonic.internal"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -79,16 +79,16 @@
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
- '(erc-nick (quote ("pjb-d")))
+ '(erc-nick (quote ("Pascal")))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote nil))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
- '(erc-prompt-for-password t)
+ '(erc-prompt-for-password nil)
  '(erc-quit-reason-various-alist nil)
  '(erc-save-buffer-on-part nil)
  '(erc-save-queries-on-quit nil)
- '(erc-server "irc.freenode.org")
+ '(erc-server "irc.trustonic.internal")
  '(erc-server-coding-system (quote (utf-8 . undecided)))
  '(erc-server-reconnect-attempts 100)
  '(erc-server-reconnect-timeout 60)
@@ -107,7 +107,7 @@
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
- '(user-mail-address "pbourguignon@dxo.com")
+ '(user-mail-address "pascal.bourguignon@trustonic.com")
  '(visible-bell t)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
@@ -115,12 +115,8 @@
 
 
 ;;;----------------------------------------------------------------------------
-;;; DxO specific stuff
+;;; Trustonic specific stuff
 ;;;----------------------------------------------------------------------------
-(push (lambda ()
-        (when (string-match "^/usr/local/Cellar/" (buffer-file-name (current-buffer)))
-          (view-mode 1)))
-      find-file-hook)
 
 (deletef auto-mode-alist "\\.m$"  :test (function equal) :key (function car))
 (deletef auto-mode-alist "\\.mm$" :test (function equal) :key (function car))
@@ -128,7 +124,6 @@
 (appendf auto-mode-alist '(("\\.m$"  . objc-mode)
                            ("\\.mm$" . objc-mode)
                            ("\\.md$" . text-mode)))
-(push '("/src/OpticsPro-Mac.*\\.[hm]" . objc-mode)  auto-mode-alist)
 
 
 (require 'vc-svn)
@@ -139,7 +134,7 @@
                     "gnutls-cli --insecure -p %p %h --protocols ssl3"))
 
 (require 'org-jira)
-(setf jiralib-url "https://jira:8443/")
+(setf jiralib-url "http://jira.trustonic.internal")
 
 (when (require 'semantic nil t) 
   (semantic-mode 1))
@@ -147,36 +142,13 @@
 (require 'pjb-c-style)
 (require 'pjb-objc-edit)
 (require 'pjb-objc-ide)
-(require 'dxo)
-
-
-(defun dxo-objc-ide--dxo-class-type-p (type)
-  ;; TODO: It would be better to collect the exact list of OPM classes…
-  (and (listp type)
-       (eq (second type) '*)
-       (null (cddr type))
-       (symbolp (first type))
-       (member* (substring (symbol-name (first type)) 0 3) '("DOP" "DXF")
-                :test (function string=))))
-
-
-(defun dxo-objc-ide-settings ()
-  (interactive)
-  (setf *pjb-objc-ide--nslog-function* "DXFLogDebug"
-        *pjb-objc-ide--entry-log-tag*  "PJB-DEBUG")
-  (pushnew '((ZoomMode) . "%d")  *pjb-objc-ide--type-formatter-map*
-           :test (function equal))
-  (pushnew '(dxo-objc-ide--dxo-class-type-p . "%@") *pjb-objc-ide--type-formatter-map*
-           :test (function equal)))
-
-(dxo-objc-ide-settings)
 
 
 (let ((tags-add-tables t))
   (setf tags-table-list '()) 
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
   ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
-  (ignore-errors (visit-tags-table "~/src/OpticsPro.etags")))
+  ;; (ignore-errors (visit-tags-table "~/src/tbase.etags")))
 
 
 
@@ -259,12 +231,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(val\\|hel\\)grind$" . valgrind-mode))
 
-
-
-(defun dxo-bell ()
+(defun dummy-bell ()
   (message "bell"))
 
-(setf ring-bell-function 'dxo-bell)
+(setf ring-bell-function 'dummy-bell)
 
 
 (dolist (key (list (kbd "<C-wheel-down>")
@@ -289,26 +259,20 @@
 
 
 (require 'confluence)
-(setq confluence-url "https://confluence:8453/rpc/xmlrpc")
+(setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
 ;;----------------------------------------------------------------------------
 
 (require 'erc-notify)
-(desktop-read)
+;; (desktop-read)
 
 ;;----------------------------------------------------------------------------
 
-(defparameter *opticspro-branch* "OpticsPro-Mac-branches-filmstripRefactor")
-(defparameter *opticspro-branch* "OpticsPro-Mac-branches-filmstripRefactor-BCCollectionView")
-(defparameter *opticspro-branch* "OpticsPro-Mac-trunk")
-(set-sources (file-truename (format "~/src/%s" *opticspro-branch*)))
-
-
 (require 'pjb-thi)
-(set-shadow-map '(("~/src/OpticsPro-Mac-trunk/"                                               . "~/src/OpticsPro-Mac-shadow/")
-                  ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-trunk/"                      . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")
-                  ("~/src/OpticsPro-Mac-branches-filmstripRefactor/"                          . "~/src/OpticsPro-Mac-shadow/")
-                  ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-branches-filmstripRefactor/" . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")))
+;; (set-shadow-map '(("~/src/OpticsPro-Mac-trunk/"                                               . "~/src/OpticsPro-Mac-shadow/")
+;;                   ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-trunk/"                      . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")
+;;                   ("~/src/OpticsPro-Mac-branches-filmstripRefactor/"                          . "~/src/OpticsPro-Mac-shadow/")
+;;                   ("/Volumes/Data/pbourguignon/src/OpticsPro-Mac-branches-filmstripRefactor/" . "/Volumes/Data/pbourguignon/src/OpticsPro-Mac-shadow/")))
 
 (setf c-macro-preprocessor
       (join
@@ -422,12 +386,12 @@
               (goto-char end)))))
     (widen)))
 
-(defun dxo-log-clean ()
-  (interactive)
-  (delete-matching-lines "not doing caf matching on unsupported image" (point-min) (point-max))
-  (re-delete-lines-between (point-min) (point-max)
-                           "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
-                           "^\t}\\()\\| error: \\)"))
+;; (defun dxo-log-clean ()
+;;   (interactive)
+;;   (delete-matching-lines "not doing caf matching on unsupported image" (point-min) (point-max))
+;;   (re-delete-lines-between (point-min) (point-max)
+;;                            "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
+;;                            "^\t}\\()\\| error: \\)"))
 
 (load "~/rc/emacs-package.el")
 

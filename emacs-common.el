@@ -964,7 +964,7 @@ SIDE must be the symbol `left' or `right'."
   (let* ((c-key  (this-command-keys))
          (name   (symbol-name (aref c-key (if ask-for-a-command 1 0))))
          (key    (intern (subseq name 2)))
-         (number (cl:parse-integer name :start (- (length name) 2)))
+         (number (first (cl:parse-integer name :start (- (length name) 2))))
          (entry  (assoc key *pjb-function-key-commands*)))
     (unless entry
       (push (setf entry (cons key nil)) *pjb-function-key-commands*))

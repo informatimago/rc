@@ -560,6 +560,8 @@ X-Accept-Language:         fr, es, en
                       (other-window 1))
                     (find-file file))))
 
+(setf *pjb-intervention-firm* '((trustonic thp)))
+
 ;;  irc://artigue.org.es
 (cd (user-homedir-pathname))
 (slime)
