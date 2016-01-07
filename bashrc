@@ -1160,12 +1160,8 @@ else
 fi
 
 case "$host" in
-macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
-mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
-mercure)            source ~/rc/bashrc-ubudu ;;
-dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
-mdi-development-*)  source  /usr/local/env.sh  ;;
-*)                  source ~/rc/bashrc-pjb ;;
+trustonics-MacBook-Pro.local)  source ~/rc/bashrc-trustonic ;;
+*)                             source ~/rc/bashrc-pjb ;;
 esac
 
 export "PATH=$HOME/opt/jdk/bin:$PATH"
