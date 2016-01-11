@@ -1,4 +1,4 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;;; -*- Mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.
 
@@ -15,6 +15,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(erc-input-face ((t (:foreground "dark blue"))))
+ '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
@@ -54,7 +56,7 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("irc.trustonic.internal"))))
+ '(erc-autojoin-channels-alist (quote (("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -114,6 +116,29 @@
 (put 'erase-buffer 'disabled nil)
 
 
+
+;;;----------------------------------------------------------------------------
+(load "~/rc/emacs-package.el")
+(load "~/rc/emacs-font.el")
+(load "~/rc/emacs-palette.el")
+(load "~/rc/emacs-slime-simple.el")
+(load "~/rc/emacs-redshank.el")
+(load "~/rc/emacs-hyperspec.el")
+(load "~/rc/emacs-android.el")
+;;;----------------------------------------------------------------------------
+(display-time-mode 1)
+(defun dummy-bell () (message "bell"))
+(setf ring-bell-function 'dummy-bell)
+(setf visible-bell nil)
+
+(setq backup-by-copying       t                      ; don't clobber symlinks
+      backup-directory-alist '(("." . "~/.backups")) ; don't litter my fs tree
+      delete-old-versions     t   
+      kept-new-versions       5
+      kept-old-versions       3
+      version-control         t)
+
+
 ;;;----------------------------------------------------------------------------
 ;;; Trustonic specific stuff
 ;;;----------------------------------------------------------------------------
@@ -133,8 +158,14 @@
                     "gnutls-cli --insecure -p %p %h"
                     "gnutls-cli --insecure -p %p %h --protocols ssl3"))
 
+
+
+(push "~/emacs/org-jira" load-path)
 (require 'org-jira)
 (setf jiralib-url "http://jira.trustonic.internal")
+
+;; (require 'confluence)
+;; (setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
 (when (require 'semantic nil t) 
   (semantic-mode 1))
@@ -148,7 +179,8 @@
   (setf tags-table-list '()) 
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
   ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
-  ;; (ignore-errors (visit-tags-table "~/src/tbase.etags")))
+  ;; (ignore-errors (visit-tags-table "~/src/tbase.etags"))
+  )
 
 
 
@@ -231,10 +263,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(val\\|hel\\)grind$" . valgrind-mode))
 
-(defun dummy-bell ()
-  (message "bell"))
-
-(setf ring-bell-function 'dummy-bell)
 
 
 (dolist (key (list (kbd "<C-wheel-down>")
@@ -257,9 +285,6 @@
 (setf jedi:setup-keys t
       jedi:complete-on-dot t)
 
-
-(require 'confluence)
-(setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
 ;;----------------------------------------------------------------------------
 
@@ -440,7 +465,7 @@
 
 (add-hook 'lua-mode-hook 'lua-mode-meat)
 
-(find-library "outline-mode-easy-bindings") 
+;; (find-library "outline-mode-easy-bindings") 
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
