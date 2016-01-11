@@ -1478,6 +1478,7 @@ URL in a new window."
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
+(require 'w3m-load)
 (when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))

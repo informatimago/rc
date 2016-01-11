@@ -1,0 +1,34 @@
+# -*- mode:shell-script -*-
+
+K=/Users/pjb/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components
+alias k='cd $K'
+
+alias c='mvn compile'
+
+
+CYAN_BACK=""
+MAGENTA_BACK=""
+BLUE_BACK=""
+YELLOW_BACK=""
+GREEN_BACK=""
+RED_BACK=""
+BLACK_BACK=""
+WHITE_BACK=""
+WHITE=""
+CYAN=""
+MAGENTA=""
+BLUE=""
+YELLOW=""
+GREEN=""
+RED=""
+BLACK=""
+NO_INVERT=""
+NO_BLINK=""
+NO_UNDERLINE=""
+NO_BOLD=""
+INVERT=""
+BLINK=""
+UNDERLINE=""
+BOLD=""
+
+#### THE END ####
