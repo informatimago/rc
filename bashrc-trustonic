@@ -1,9 +1,9 @@
 # -*- mode:shell-script -*-
 
-K=/Users/pjb/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components
-alias k='cd $K'
-
 alias c='mvn compile'
+alias cx='mvn -X -e compile'
+alias kb='cd $HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
+alias ki='cd $HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
 
 
 CYAN_BACK=""
