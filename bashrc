@@ -12,6 +12,12 @@ else
     umask 022 # rwxr-xr-x And we'll set the access rights of the directories...
 fi
 
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname -f)
+fi
+
 
 # Read first /etc/inputrc if the variable is not defined, and after 
 # the /etc/inputrc include the ~/.inputrc
@@ -484,31 +490,35 @@ else
 fi
 source $BASH_ENV
 
-SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
+case "$host" in
+    *macbook?trustonic.local)
+        true ;;
+    *)      
+        wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
 
-# GNUstep environment:
-if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
-    . /usr/share/GNUstep/Makefiles/GNUstep.sh
-fi
-if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-    for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
-            #echo "$gsr/System/Makefiles"
-        if [ -d $gsr/System/Makefiles ] ; then
-            gsr=$gsr/System
-            break
+        SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
+
+        # GNUstep environment:
+        if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
+            . /usr/share/GNUstep/Makefiles/GNUstep.sh
         fi
-        [ -d $gsr/Makefiles ] && break
-    done
-    [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
-fi
-if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
-fi
-
-
-
-wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
+        if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+            for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+                #echo "$gsr/System/Makefiles"
+                if [ -d $gsr/System/Makefiles ] ; then
+                    gsr=$gsr/System
+                    break
+                fi
+                [ -d $gsr/Makefiles ] && break
+            done
+            [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+        fi
+        if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+        fi
+        ;;
+esac
 
 
 # Moved to rc/xsession. Perhaps there's an even better place for this?
@@ -1152,19 +1162,14 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       startup behavior is the same, but the effective user id is
 #       not reset.
 
-
-if [ -r ~/.config/host ] ; then
-    host=$(cat ~/.config/host)
-else
-    host=$(hostname)
-fi
-
 case "$host" in
-trustonics-MacBook-Pro.local)  source ~/rc/bashrc-trustonic ;;
+*macbook?trustonic.local)      source ~/rc/bashrc-trustonic ;;
 *)                             source ~/rc/bashrc-pjb ;;
 esac
 
-export "PATH=$HOME/opt/jdk/bin:$PATH"
+if [ -d $HOME/opt/jdk/bin ] ; then
+    export "PATH=$HOME/opt/jdk/bin:$PATH"
+fi
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
