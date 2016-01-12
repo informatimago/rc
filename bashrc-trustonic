@@ -1,7 +1,75 @@
 # -*- mode:shell-script -*-
 
+good_env=(COLUMNS
+          DBUS_SESSION_BUS_ADDRESS
+          DESKTOP_SESSION
+          DISPLAY
+          EDITOR
+          HOME
+          INPUTRC
+          LC_ALL
+          LC_CTYPE
+          LD_LIBRARY_PATH
+          LIBRARY_COMBO
+          LOGNAME
+          PAGER
+          PATH
+          PS1
+          PWD
+          PYTHONPATH
+          QT_XFT
+          REPLYTO
+          SESSION_MANAGER
+          SHELL
+          SHLVL
+          TERM
+          TZ
+          USER
+          USERNAME
+          VISUAL
+          XAUTHORITY
+          XDG_CURRENT_DESKTOP
+          XDG_DATA_DIRS
+          XDG_MENU_PREFIX
+          XDG_RUNTIME_DIR
+          XDG_SEAT
+          XDG_SESSION_DESKTOP
+          XDG_SESSION_ID
+          XDG_VTNR
+          GOTO_HOME
+          CLEAR_HOME
+          CLEAR_SCREEN)
+
+
+function smallEnvironment(){
+    env | sort | while read varval ; do
+                     var=${varval/=*}
+                     if member $var ${good_env[@]} >/dev/null  2>&1 ; then
+                         echo ${var}=\'${varval/*=}\'
+                     fi
+                 done
+}
+
+function badEnvironment(){
+    env | sort | while read varval ; do
+                     var=${varval/=*}
+                     if member $var ${good_env[@]} >/dev/null  2>&1 ; then
+                         true
+                     else
+                         echo ${var}
+                     fi
+                 done
+}
+
+function cleanEnvironment(){
+    badEnvironment | while read var ; do unset ${var} ; done
+}
+
+grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" < ~/.bash_env > ~/.bash_env_small
+mv ~/.bash_env_small ~/.bash_env
+
 alias c='mvn compile'
-alias cx='mvn -X -e compile'
+alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
 alias kb='cd $HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
 alias ki='cd $HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
 
