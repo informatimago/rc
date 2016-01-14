@@ -41,6 +41,10 @@ Host ubudu+github.com
 # ----------------------------------------
 # informatimago.com:
 
+Host hubble.informatimago.com
+    ForwardAgent            no
+    ForwardX11              no
+
 Host cvs.informatimago.com
     ForwardAgent            no
     ForwardX11              no
@@ -48,15 +52,6 @@ Host cvs.informatimago.com
 Host git.informatimago.com
     ForwardAgent            no
     ForwardX11              no
-
-Host despina
-    HostName                despina.informatimago.com
-    ForwardX11              no
-    ForwardAgent            no
-
-Host despina.informatimago.com
-    ForwardX11              no
-    ForwardAgent            no
 
 
 # ----------------------------------------
@@ -69,13 +64,6 @@ Host anonix.net
     ForwardX11              no
     # No need for X11 forwarding since there's no X11 on anonix.
 
-
-# ----------------------------------------
-# Hyacinte:
-Host hyacinte.dyndns.org
-    StrictHostKeyChecking	no
-    CheckHostIP             no
-
     
 # ----------------------------------------
 # Andre Reinald:
@@ -85,56 +73,6 @@ Host bolet.no-ip.com
     ForwardX11              no
     StrictHostKeyChecking	no
     CheckHostIP             no
-
-Host pinaud
-    HostKeyAlias            bolet.no-ip.com
-    HostName                pinaud.culturesfrance.com
-    Port                    45122
-    Protocol                1,2
-    User                    pascal
-    ForwardAgent            no
-    ForwardX11              no
-    StrictHostKeyChecking	no
-    CheckHostIP             no
-
-Host pinaud.culturesfrance.com
-    HostKeyAlias            bolet.no-ip.com
-    Port                    45122
-    Protocol                1,2
-    User                    pascal
-    ForwardAgent            no
-    ForwardX11              no
-    StrictHostKeyChecking	no
-    CheckHostIP             no
-
-
-# ----------------------------------------
-# AFAA:
-
-Host cvs.culturesfrance.com
-    ForwardAgent            no
-    ForwardX11              no
-
-Host janus-1.janus.culturesfrance.com
-    ForwardAgent            no
-
-Host janus-2.janus.culturesfrance.com
-    ForwardAgent            no
-
-Host janus-3.janus.culturesfrance.com
-    ForwardAgent            no
-
-Host janus-4.janus.culturesfrance.com
-    ForwardAgent            no
-
-Host sirius
-    HostName   sirius.intra.culturesfrance.com
-    ForwardX11              no
-    ForwardAgent            no
-
-Host sirius.intra.culturesfrance.com
-    ForwardX11              no
-    ForwardAgent            no
 
 # ----------------------------------------
 # Default:

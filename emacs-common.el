@@ -964,7 +964,7 @@ SIDE must be the symbol `left' or `right'."
   (let* ((c-key  (this-command-keys))
          (name   (symbol-name (aref c-key (if ask-for-a-command 1 0))))
          (key    (intern (subseq name 2)))
-         (number (cl:parse-integer name :start (- (length name) 2)))
+         (number (first (cl:parse-integer name :start (- (length name) 2))))
          (entry  (assoc key *pjb-function-key-commands*)))
     (unless entry
       (push (setf entry (cons key nil)) *pjb-function-key-commands*))
@@ -1478,6 +1478,7 @@ URL in a new window."
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
+(require 'w3m-load)
 (when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
