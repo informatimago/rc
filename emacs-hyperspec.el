@@ -15,10 +15,10 @@
     ((file-readable-p "/tmp/no-internet")
      nil)
     (t
-     (zerop (cl:parse-integer
-             (shell-command-to-string
-              (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
-                      url)))))))
+     (zerop (first (cl:parse-integer
+                    (shell-command-to-string
+                     (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
+                             url))))))))
 
 (defun pjb-get-resource-at-url (url)
   "Fetches a resource at URL, and returns it."
