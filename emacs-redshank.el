@@ -1,4 +1,4 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-redshank.el
 ;;;;LANGUAGE:           emacs lisp
@@ -40,8 +40,7 @@
 
 (when (require 'redshank-loader "redshank/redshank-loader" t)
   (eval-after-load "redshank-loader"
-    `(redshank-setup '(lisp-mode-hook
-                       slime-repl-mode-hook) t)))
+    `(redshank-setup '(lisp-mode-hook slime-repl-mode-hook) t)))
 
 ;;; --------------------------------------------------------------------
 ;;; Utilities.
