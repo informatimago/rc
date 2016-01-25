@@ -380,7 +380,7 @@ at point."
     (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
   (defun %lisp-buffer-name-number (buffer-name)
     (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
-      (cl:parse-integer (match-string 1 buffer-name))))
+      (first (cl:parse-integer (match-string 1 buffer-name))))) 
   (defun inferior-lisp-buffers-list ()
     "RETURN: a list of the inferior-lisp buffers."
     (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))

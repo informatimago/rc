@@ -1,10 +1,12 @@
 ;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 (.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
 (when (require 'package nil t)
-  ;; Any add to list for package-archives (to add marmalade or melpa) goes here
-  (setq package-archives (append package-archives
-                                 '(("marmalade" . "http://marmalade-repo.org/packages/")
-                                   ("melpa" . "http://melpa.milkbox.net/packages/"))))
+  ;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                           ("marmalade" . "https://marmalade-repo.org/packages/")
+                           ("melpa" . "https://melpa.org/packages/")
+                           ("org" . "http://orgmode.org/elpa/")))
+
   (package-initialize)
 
   (defun package-update-load-path ()
@@ -28,7 +30,7 @@
 
 
   (when (fboundp 'run-lac-functions)
-    (run-lac-functions))
-  )
+    (run-lac-functions)))
+
 ;;;; The End ;;;;
 

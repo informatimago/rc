@@ -12,6 +12,12 @@ else
     umask 022 # rwxr-xr-x And we'll set the access rights of the directories...
 fi
 
+if [ -r ~/.config/host ] ; then
+    host=$(cat ~/.config/host)
+else
+    host=$(hostname -f)
+fi
+
 
 # Read first /etc/inputrc if the variable is not defined, and after 
 # the /etc/inputrc include the ~/.inputrc
@@ -28,6 +34,8 @@ XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+
 unset LS_COLORS
 if [ $UID -eq 0 ] ; then
     export PS1='[\u@\h $DISPLAY \W]# '
+elif [ "$TERM" = "emacs" ] ; then
+    export PS1="\n\\w\n[\\u@\\h $DISPLAY]\\$ "
 elif type -path period-cookie >/dev/null 2>&1 ; then
     export PS1='`period-cookie`[\u@\h $DISPLAY \W]\$ '
 else
@@ -479,30 +487,34 @@ else
 fi
 source $BASH_ENV
 
+case "$host" in
+    *macbook?trustonic.local)
+        true ;;
+    *)      
+        wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
 
+        SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
-# GNUstep environment:
-if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
-    . /usr/share/GNUstep/Makefiles/GNUstep.sh
-fi
-if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-    for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
-            #echo "$gsr/System/Makefiles"
-        if [ -d $gsr/System/Makefiles ] ; then
-            gsr=$gsr/System
-            break
+        # GNUstep environment:
+        if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
+            . /usr/share/GNUstep/Makefiles/GNUstep.sh
         fi
-        [ -d $gsr/Makefiles ] && break
-    done
-    [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
-fi
-if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
-fi
-
-
-
-wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
+        if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+            for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+                #echo "$gsr/System/Makefiles"
+                if [ -d $gsr/System/Makefiles ] ; then
+                    gsr=$gsr/System
+                    break
+                fi
+                [ -d $gsr/Makefiles ] && break
+            done
+            [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+        fi
+        if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+        fi
+        ;;
+esac
 
 
 # Moved to rc/xsession. Perhaps there's an even better place for this?
@@ -563,7 +575,7 @@ alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle'
+alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
 
 alias basilisk=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
@@ -1151,16 +1163,10 @@ else
     host=$(hostname)
 fi
 
-# case "$host" in
-# macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
-# mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
-# mercure)            source ~/rc/bashrc-ubudu ;;
-# dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
-# mdi-development-*)  source  /usr/local/env.sh  ;;
-# *)                  source ~/rc/bashrc-pjb ;;
-# esac
-
-source "$HOME/rc/bashrc-pjb"
+case "$host" in
+*macbook?trustonic.local)      source ~/rc/bashrc-trustonic ;;
+*)                             source ~/rc/bashrc-pjb ;;
+esac
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
