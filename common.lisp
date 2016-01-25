@@ -114,9 +114,11 @@ License:
   (:nicknames "PJB")
   (:use "COMMON-LISP"
         "COM.INFORMATIMAGO.PJB.UTILITY")
-  (:shadow "ED")
+  (:shadow "ED")                       ; from com.informatimago.common-lisp.cesarum.ecma048
+  (:shadow "APROPOS" "APROPOS-LIST")   ; from com.informatimago.tools.symbol
   (:shadowing-import-from "COM.INFORMATIMAGO.PJB.UTILITY"
-                          "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
+                          "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME"
+                          "TRANSLATE-LOGICAL-PATHNAME")
   (:export "LIST-DIRECTORIES"   "GET-DIRECTORY"
            "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
            "START-DRIBBLE"
@@ -292,7 +294,8 @@ License:
          (or (not (or (prefixp name "COM.INFORMATIMAGO.COMMON-LISP.")
                       (member name '("COM.INFORMATIMAGO.TOOLS.QUICKLISP"
                                      "COM.INFORMATIMAGO.TOOLS.ASDF"
-                                     "COM.INFORMATIMAGO.TOOLS.THREAD")
+                                     "COM.INFORMATIMAGO.TOOLS.THREAD"
+                                     "COM.INFORMATIMAGO.TOOLS.SYMBOL")
                               :test (function string=))))
              (member name '("COM.INFORMATIMAGO.COMMON-LISP.PARSER."
                             "COM.INFORMATIMAGO.COMMON-LISP.HTML-GENERATOR."
@@ -352,22 +355,25 @@ License:
 
 (ql:quickload "alexandria" :verbose nil)
 
-(shadowing-import '(com.informatimago.tools.pathname:make-pathname
-                    com.informatimago.tools.pathname:translate-logical-pathname
-                    com.informatimago.tools.pathname:user-homedir-pathname))
 
-(dolist (package (informatimago-packages))
-  (format *trace-output* "~&;; Using package ~A~%" (package-name package))
-  (handler-case (use-package package)
-    (error (err)
-      (princ err) (terpri))))
-(shadowing-import '(com.informatimago.common-lisp.cesarum.ecma048:ed))
-(dolist (package (informatimago-packages))
-  (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package)))
+(defun informatimago-import-export ()
+  (shadowing-import '(com.informatimago.tools.pathname:make-pathname
+                      com.informatimago.tools.pathname:translate-logical-pathname
+                      com.informatimago.tools.pathname:user-homedir-pathname))
+  (dolist (package (informatimago-packages))
+    (format *trace-output* "~&;; Using package ~A~%" (package-name package))
+    (handler-case (use-package package)
+      (error (err)
+        (princ err) (terpri))))
+  (shadowing-import '(com.informatimago.common-lisp.cesarum.ecma048:ed))
+  (shadowing-import '(com.informatimago.tools.symbol:apropos
+                      com.informatimago.tools.symbol:apropos-list))
+  (dolist (package (informatimago-packages))
+    (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package))))
 
+(informatimago-import-export)
 
 (initialize)
-
 
 
 
@@ -536,6 +542,8 @@ The HOST is added to the list of logical hosts defined.
 (define-logical-pathname-translations "NORVIG"   #p"/home/pjb/src/lisp/ai/"    "norvig-paip-pjb/")
 
 
+(define-logical-pathname-translations "LOGHOSTS" (user-homedir-pathname) "LOGHOSTS/")
+
 ;;;------------------------------------------------------------------------
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -697,15 +705,21 @@ The HOST is added to the list of logical hosts defined.
   (use-package "COMMON-LISP" package)
   package)
 (clean-up-package "CL-USER")
+
 (in-package "CL-USER")
-(shadow 'ed)
+
 (let ((v (find-symbol "VERSION"))
       (p (package-name *package*)))
   (when v
     (let ((*package* (load-time-value (find-package "KEYWORD"))))
       (format t "~&~S is present in ~A where does it come from?~%" v p))
     (unintern v)))
+
+(shadow '("ED" "APROPOS" "APROPOS-LIST"))
 (use-package "COM.INFORMATIMAGO.PJB" "CL-USER")
+(shadowing-import '(com.informatimago.common-lisp.ed.ed:ed
+                    com.informatimago.tools.symbol:apropos
+                    com.informatimago.tools.symbol:apropos-list))
 
 (defun print-variables ()
   "Prints the *print-…* and *read-…* variables."

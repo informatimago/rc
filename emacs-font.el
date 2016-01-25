@@ -98,12 +98,15 @@
 
 
 (defun set-current-font ()
-  (case window-system
-    ((ns)
-     (set-frame-font (font-spec :family (elt *pjb-font-list* *pjb-current-font-index*)
-                                :size 17)))
-    (otherwise
-     (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*)))))
+  (let ((font (case window-system
+                ((ns)
+                 (font-spec :family (elt *pjb-font-list* *pjb-current-font-index*)
+                            :size 17))
+                (otherwise
+                 (elt *pjb-font-list* *pjb-current-font-index*)))))
+    (set-frame-font font)
+    (message "set frame font to %S"
+              (elt *pjb-font-list* *pjb-current-font-index*))))
 
 (defun* forward-font (&optional (increment 1))
   (interactive "p")
