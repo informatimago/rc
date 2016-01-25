@@ -3020,6 +3020,13 @@ joelle: http://online.wsj.com/article/SB1000142405297020347100457714090038872837
 209.247.83.121:9229
 pass 1210479
 
+*** TODO [#C] install windows-number-mode                             :emacs:
+
+<myrkraverk> ,window-number-mode
+<fsbot> [g]  http://emacswiki.org/emacs/window-number.el
+<fsbot> http://www.emacswiki.org/emacs/WindowNumberingMode
+https://melpa.org/#/window-number
+
 *** TODO [#B] update nodes.el                                     :admin:dev:
 *** TODO [#B] CDR lisp reader                                        :cl:dev:
 Write a CDR to specify extension parse-token hook to the lisp reader.
