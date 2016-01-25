@@ -2,6 +2,11 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 * NOTES
 ** New Notes
+
+http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
+http://wisee.cs.washington.edu/wisee_paper.pdf
+
+
 ℤ
 - application mobile pour échanger des articles de loi ou de constitution et les commenter.
 
@@ -9,7 +14,6 @@
 #+BEGIN_SRC lisp :results scalar
 (list 1 2 3)
 #+END_SRC
-
 
 ** Economy: Économie:
 
