@@ -277,7 +277,7 @@
 (defun quit () (sb-ext:quit))
 
 (push 'SB-POSIX:CHDIR com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
-(cd (SB-POSIX:GETCWD))     
+(cd (SB-POSIX:GETCWD))
 
 ;;----------------------------------------------------------------------
 
