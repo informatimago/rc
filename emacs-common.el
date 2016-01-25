@@ -1081,7 +1081,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   ;;    (process-send-string (get-buffer-process (current-buffer))
   ;;                      "alias less=cat ; alias more=cat ; ")))
   )
-(add-hook 'shell-mode-hook (function pjb-shell-mode-meat))
+(add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
+
+;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
+
+(add-hook 'shell-mode-hook 'shell-dirtrack-mode)
+
+
 
 
 ;; (setf (getenv "ESHELL") (concatenate 'string  (USER-HOMEDIR-PATHNAME)
@@ -2394,21 +2400,6 @@ License:
 ;; (setf find-file-hook  (remove (function pjb-indent-meat) find-file-hook))
 
 
-;;;----------------------------------------------------------------------------
-(defun remove-meat-from-all-hook (meat)
-  (let ((c 0))
-    (do-symbols (s)
-      (when (and (boundp s)
-                 (listp (symbol-value s))
-                 (< 5 (length (symbol-name s)))
-                 (string= (subseq (symbol-name s) (- (length (symbol-name s)) 5))
-                          "-hook"))
-        (set s (remove meat (symbol-value s)))
-        (incf c)))
-    c))
-(remove-meat-from-all-hook 'semantic-default-elisp-setup)
-(remove-meat-from-all-hook 'semantic-default-c-setup)
-(remove-meat-from-all-hook 'semantic-make)
 
 ;;;----------------------------------------------------------------------------
 ;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/gst-mode.el") 
@@ -2796,10 +2787,25 @@ or as \"emacs at <hostname>\"."
 
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "semantic mode")
-(require 'semantic)
-(semantic-mode 1)
-(push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
+(defun remove-meat-from-all-hooks (meat)
+  (let ((c 0))
+    (do-symbols (s)
+      (when (and (boundp s)
+                 (listp (symbol-value s))
+                 (< 5 (length (symbol-name s)))
+                 (string= (subseq (symbol-name s) (- (length (symbol-name s)) 5))
+                          "-hook"))
+        (set s (remove meat (symbol-value s)))
+        (incf c)))
+    c))
+;;;----------------------------------------------------------------------------
+;; (.EMACS "semantic mode")
+;; (require 'semantic)
+;; (semantic-mode 1)
+;; (push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
+(remove-meat-from-all-hooks 'semantic-default-elisp-setup)
+(remove-meat-from-all-hooks 'semantic-default-c-setup)
+(remove-meat-from-all-hooks 'semantic-make)
 ;;;----------------------------------------------------------------------------
 
 ;; (setf inhibit-splash-screen t)

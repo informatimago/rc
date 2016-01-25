@@ -68,10 +68,6 @@ function cleanEnvironment(){
 grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" < ~/.bash_env > ~/.bash_env_small
 mv ~/.bash_env_small ~/.bash_env
 
-alias c='mvn compile'
-alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
-alias kb='cd $HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
-alias ki='cd $HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk'
 
 
 CYAN_BACK=""
@@ -98,5 +94,45 @@ INVERT=""
 BLINK=""
 UNDERLINE=""
 BOLD=""
+
+
+export LANG=en_US.UTF-8
+export ANDROID_SDK="$HOME/Library/Android/sdk"
+export ANDROID_HOME="$ANDROID_SDK"
+export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
+export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
+
+function connect-adb-device(){
+    adb devices
+    adb tcpip ${ANDROID_SERIAL/.*:/}
+    sleep 2
+    adb connect ${ANDROID_SERIAL}
+    adb devices
+}
+
+function connect-nereid(){
+    export ANDROID_SERIAL=192.168.2.182:5555
+    connect-adb-device
+}
+
+alias c='mvn compile'
+alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
+
+sb=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+si=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+x=$HOME/src/xabber-android
+
+a=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat
+i=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
+l=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat/Pods/Magnet-XMPPFramework/Vendor/libidn
+
+function see-trust(){
+    for alias in c cx ; do
+        alias $alias
+    done
+    for var in sb si x a i l ; do
+        printf "variable %-3s = %s\n" "${var}" "${!var}"
+    done
+}
 
 #### THE END ####

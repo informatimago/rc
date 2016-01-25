@@ -56,7 +56,8 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
+ '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
+ '(erc-autojoin-delay 10)
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -80,7 +81,7 @@
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
- '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-modules (quote (autoaway button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
  '(erc-nick (quote ("Pascal")))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote nil))
@@ -102,7 +103,9 @@
  '(indent-tabs-mode nil)
  '(mail-host-address nil)
  '(message-log-max 5000)
+ '(org-agenda-files nil)
  '(org-fontify-done-headline t)
+ '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
  '(safe-local-variable-values (quote ((encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
@@ -167,8 +170,8 @@
 ;; (require 'confluence)
 ;; (setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
-(when (require 'semantic nil t) 
-  (semantic-mode 1))
+;; (when (require 'semantic nil t) 
+;;   (semantic-mode 1))
 
 (require 'pjb-c-style)
 (require 'pjb-objc-edit)
@@ -467,6 +470,86 @@
 
 ;; (find-library "outline-mode-easy-bindings") 
 
+
+(defvar *c-comment-regexp*)
+
+(defun looking-at-c-comment ()
+  (looking-at "[ \n\t]*/[*/]"))
+
+(defun c-comment-block-to-line (comment)
+  (if (and (string= "/*" (subseq comment 0 2))
+           (string= "*/" (subseq comment (- (length comment) 2))))
+      (concat "// " (mapconcat (function identity)
+                               (split-string (subseq comment 2 (- (length comment) 2)) "\n")
+                               "\n// "))
+      comment))
+
+(defvar *default-method-with-log-tag* "")
+
+(defun objc-signatures-to-methods-with-log (start end &optional tag)
+  (interactive "r")
+  (goto-char start)
+  (let ((tag (or tag *default-method-with-log-tag*)))
+    (loop
+      (let (comment signature)
+        (if (looking-at-c-comment)
+            (progn
+              (forward-comment 1)
+              (let ((endc (point)))
+                (forward-comment -1)
+                (let* ((startc (point)))
+                  (goto-char endc)
+                  (unless (setf signature (ignore-errors (pjb-objc-parser--parse-method-signature)))
+                    (return))
+                  (setf comment (c-comment-block-to-line
+                                 (prog1 (buffer-substring startc endc)
+                                   (delete-region startc endc)))))))
+            (unless (setf signature (ignore-errors (pjb-objc-parser--parse-method-signature)))
+              (return)))
+        (when (looking-at " *;")
+          (delete-region (match-beginning 0) (match-end 0)))
+        (insert "{\n")
+        (when comment (insert comment "\n"))
+        (insert "#ifdef DEBUG\n")
+        (insert (format "NSLog(@\"%s" tag))
+        (loop with parameters = (pjb-objc-method-signature-parameters signature)
+              for component in (pjb-objc-selector-components
+                                (pjb-objc-method-signature-selector signature))
+              for parameter = (pop parameters)
+              do (insert (prin1-to-string component))
+                 (when parameter (insert " %@ "))
+              when parameter
+                collect (pjb-objc-parameter-name parameter) into arguments
+              finally (insert "\"")
+                      (when arguments
+                        (insert "," (mapconcat (function prin1-to-string)
+                                               arguments
+                                               ","))))
+        (insert ");\n")
+        (insert "#endif\n")
+        (insert "}\n")
+        (let ((end (point)))
+          (backward-sexp)
+          (indent-region (point) end)
+          (forward-sexp))))))
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
+
+(defun extract-c-comment (source)
+  (string-match *c-comment-regexp* source)
+  (match-string 1 source))
+
+(setf *c-comment-regexp* "\\(/\\*\\([^*]\\|*[^*/]\\*\\*??\\)*\\*/\\)")
+
+(assert (equal "/*/*/" (extract-c-comment "a/*/*/b*/")))
+(assert (equal "/**/" (extract-c-comment "a/**/*/b*/")))
+
+(assert (equal "/***/" (extract-c-comment "a/***/*/b*/")))
+(assert (equal "/****/" (extract-c-comment "a/****/*/b*/")))
+
+(extract-c-comment "a/***/*/b*/")
+(extract-c-comment "a/****/*/b*/")
+"/*/b*/"
+"/*/b*/"
 
