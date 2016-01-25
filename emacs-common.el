@@ -60,7 +60,7 @@
 
 (defun .EMACS (fctl &rest args)
   (if (file-exists-p "--version.lock")
-	(error "version lock"))
+    (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -83,7 +83,8 @@
 (require 'tramp nil t)
 (require 'cc-mode)
 (require 'bytecomp)
-(byte-compile-disable-warning 'cl-functions)
+(when (fboundp 'byte-compile-disable-warning)
+  (byte-compile-disable-warning 'cl-functions))
 
 (when (boundp 'byte-compile-warning-types)
   (setq byte-compile-warning-types (remove 'cl-functions byte-compile-warning-types)))
@@ -334,19 +335,19 @@ WELCOME TO EMACS!
 ;; revert-buffer-with-coding-system.
 
 
-;; 	(set-language-environment		'German)
-;; 	(setq default-file-name-coding-system	'utf-8)
-;; 	(setq file-name-coding-system		'utf-8)
-;; 	(setq default-buffer-file-coding-system 'iso-latin-9-unix))
-;; 	(set-default-coding-systems		'mac-roman-unix)
-;; 	;(setq mac-keyboard-text-encoding	 kTextEncodingISOLatin1)
-;; 	(set-keyboard-coding-system		'sjis-mac)
-;; 	(set-clipboard-coding-system		'sjis-mac)
-;; 	(prefer-coding-system			'mac-roman-unix)
-;; 	(modify-coding-system-alist	 'file "\\.tex\\'" 'iso-latin-9-unix)
-;; 	(modify-coding-system-alist	 'process
+;;  (set-language-environment       'German)
+;;  (setq default-file-name-coding-system   'utf-8)
+;;  (setq file-name-coding-system       'utf-8)
+;;  (setq default-buffer-file-coding-system 'iso-latin-9-unix))
+;;  (set-default-coding-systems     'mac-roman-unix)
+;;  ;(setq mac-keyboard-text-encoding    kTextEncodingISOLatin1)
+;;  (set-keyboard-coding-system     'sjis-mac)
+;;  (set-clipboard-coding-system        'sjis-mac)
+;;  (prefer-coding-system           'mac-roman-unix)
+;;  (modify-coding-system-alist  'file "\\.tex\\'" 'iso-latin-9-unix)
+;;  (modify-coding-system-alist  'process
 ;; "\\*[Ss][Hh][Ee][Ll][Ll].*\\'"  'utf-8-unix)
-;; 	;(set-buffer-process-coding-system	'utf-8 'utf8)
+;;  ;(set-buffer-process-coding-system  'utf-8 'utf8)
 
 
 
@@ -964,7 +965,7 @@ SIDE must be the symbol `left' or `right'."
   (let* ((c-key  (this-command-keys))
          (name   (symbol-name (aref c-key (if ask-for-a-command 1 0))))
          (key    (intern (subseq name 2)))
-         (number (cl:parse-integer name :start (- (length name) 2)))
+         (number (first (cl:parse-integer name :start (- (length name) 2))))
          (entry  (assoc key *pjb-function-key-commands*)))
     (unless entry
       (push (setf entry (cons key nil)) *pjb-function-key-commands*))
@@ -1081,7 +1082,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   ;;    (process-send-string (get-buffer-process (current-buffer))
   ;;                      "alias less=cat ; alias more=cat ; ")))
   )
-(add-hook 'shell-mode-hook (function pjb-shell-mode-meat))
+(add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
+
+;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
+
+(add-hook 'shell-mode-hook 'shell-dirtrack-mode)
+
+
 
 
 ;; (setf (getenv "ESHELL") (concatenate 'string  (USER-HOMEDIR-PATHNAME)
@@ -1140,7 +1147,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (.EMACS "vc")
   (require 'vc-hooks)
   (defadvice vc-registered (around vc-registered/bug-on-empty-string-filename
-				   first (file) activate)
+                   first (file) activate)
     (unless (and (stringp file) (string= "" file))
       ad-do-it))
   (add-to-list 'vc-handled-backends 'Fossil))
@@ -1171,6 +1178,131 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 ;;;----------------------------------------------------------------------------
 
+(defun splice (new-list old list)
+  "Like substitute but replace the old by the elements in the new-list."
+  (loop
+     with result = '()
+     for item in list
+     do (if (eql old item)
+            (loop
+               for item in new-list
+               do (push item result))
+            (push item result))
+     finally (return (nreverse result))))
+
+(defvar comint-last-prompt-overlay nil)
+(defun comint-output-filter (process string)
+  (let ((oprocbuf (process-buffer process)))
+    ;; First check for killed buffer or no input.
+    (when (and string oprocbuf (buffer-name oprocbuf))
+      (with-current-buffer oprocbuf
+        ;; Run preoutput filters
+        (let ((functions (splice (default-value 'comint-preoutput-filter-functions)
+                                 t
+                                 comint-preoutput-filter-functions))
+              (strings (list string)))
+          
+          (while (and functions strings)
+            (setf strings (loop
+                             with result = ()
+                             for string in strings
+                             do (setf result (revappend (ensure-list (funcall (car functions) string)) result))
+                             finally (return (nreverse result))))
+            (setq functions (cdr functions)))
+          (setf string strings))
+        
+        ;; Insert STRING
+        (let ((inhibit-read-only t)
+              ;; The point should float after any insertion we do.
+              (saved-point (copy-marker (point) t)))
+
+          ;; We temporarly remove any buffer narrowing, in case the
+          ;; process mark is outside of the restriction
+          (save-restriction
+            (widen)
+
+            (goto-char (process-mark process))
+            (set-marker comint-last-output-start (point))
+
+            ;; insert-before-markers is a bad thing. XXX
+            ;; Luckily we don't have to use it any more, we use
+            ;; window-point-insertion-type instead.
+            (loop
+               for item in string
+               do (cond
+                    ((stringp item) (insert item))
+                    ((consp   item) (insert-image (first item) (second item)))
+                    (t (error "Unexpected kind of insert %S" item))))
+
+            
+            ;; Advance process-mark
+            (set-marker (process-mark process) (point))
+            (setf string (buffer-substring comint-last-output-start (point)))
+            (unless comint-inhibit-carriage-motion
+              ;; Interpret any carriage motion characters (newline, backspace)
+              (comint-carriage-motion comint-last-output-start (point)))
+
+            ;; Run these hooks with point where the user had it.
+            (goto-char saved-point)
+            (run-hook-with-args 'comint-output-filter-functions string)
+            (set-marker saved-point (point))
+
+            (goto-char (process-mark process)) ; in case a filter moved it
+
+            (unless comint-use-prompt-regexp
+              (let ((inhibit-read-only t)
+                    (inhibit-modification-hooks t))
+                (add-text-properties comint-last-output-start (point)
+                                     '(front-sticky
+                                       (field inhibit-line-move-field-capture)
+                                       rear-nonsticky t
+                                       field output
+                                       inhibit-line-move-field-capture t))))
+
+            ;; Highlight the prompt, where we define `prompt' to mean
+            ;; the most recent output that doesn't end with a newline.
+            (let ((prompt-start (save-excursion (forward-line 0) (point)))
+                  (inhibit-read-only t)
+                  (inhibit-modification-hooks t))
+              (when comint-prompt-read-only
+                (or (= (point-min) prompt-start)
+                    (get-text-property (1- prompt-start) 'read-only)
+                    (put-text-property
+                     (1- prompt-start) prompt-start 'read-only 'fence))
+                (add-text-properties
+                 prompt-start (point)
+                 '(read-only t rear-nonsticky t front-sticky (read-only))))
+              (when (boundp 'comint-last-prompt-overlay)
+               (unless (and (bolp) (null comint-last-prompt-overlay))
+                 ;; Need to create or move the prompt overlay (in the case
+                 ;; where there is no prompt ((bolp) == t), we still do
+                 ;; this if there's already an existing overlay).
+                 (if comint-last-prompt-overlay
+                     ;; Just move an existing overlay
+                     (move-overlay comint-last-prompt-overlay
+                                   prompt-start (point))
+                     ;; Need to create the overlay
+                     (setq comint-last-prompt-overlay
+                           (make-overlay prompt-start (point)))
+                     (overlay-put comint-last-prompt-overlay
+                                  'font-lock-face 'comint-highlight-prompt)))))
+            (goto-char saved-point)))))))
+
+
+(defun pjb-comint-preoutput-insert-image (string)
+  (let ((case-fold-search t))
+    (loop
+       with result = '()
+       while (and (plusp (length string))
+                  (string-match "\\(.*\\)(EMACS:INSERT-IMAGE[ \t\n]+#P\"\\(\\([^\\\"]\\|\\.\\)*\\)\")\\(.*\\)"
+                                string))
+       do (let ((before (match-string 1 string))
+                (path   (match-string 2 string))
+                (after  (match-string 4 string)))
+            (push before result)
+            (push (list (create-image path) " ") result)
+            (setf string after))
+       finally (push string result) (return (nreverse result)))))
 
 
 
@@ -1353,6 +1485,7 @@ URL in a new window."
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
+(require 'w3m-load)
 (when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
@@ -1719,7 +1852,7 @@ URL in a new window."
   (erc-list-match erc-foolish-content msg))
 
 (add-hook 'erc-insert-pre-hook
-	      (lambda (s)
+          (lambda (s)
             (when (erc-foolish-content s)
               (setq erc-insert-this nil))))
 
@@ -2070,6 +2203,10 @@ License:
 ;; http://www.cpqd.com.br/~vinicius/emacs/Emacs.html
 
 
+;; (add-hook 'write-file-hooks 
+;;           (lambda ()
+;;             (unless indent-tabs-mode
+;;               (untabify (point-min) (point-max)))))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "Info-directory-list")
@@ -2265,21 +2402,6 @@ License:
 ;; (setf find-file-hook  (remove (function pjb-indent-meat) find-file-hook))
 
 
-;;;----------------------------------------------------------------------------
-(defun remove-meat-from-all-hook (meat)
-  (let ((c 0))
-    (do-symbols (s)
-      (when (and (boundp s)
-                 (listp (symbol-value s))
-                 (< 5 (length (symbol-name s)))
-                 (string= (subseq (symbol-name s) (- (length (symbol-name s)) 5))
-                          "-hook"))
-        (set s (remove meat (symbol-value s)))
-        (incf c)))
-    c))
-(remove-meat-from-all-hook 'semantic-default-elisp-setup)
-(remove-meat-from-all-hook 'semantic-default-c-setup)
-(remove-meat-from-all-hook 'semantic-make)
 
 ;;;----------------------------------------------------------------------------
 ;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/gst-mode.el") 
@@ -2631,16 +2753,15 @@ or as \"emacs at <hostname>\"."
         (get-pair-of-random-colors)
         (mapcar (lambda (rgb)
                   (apply (function color-rgb-to-hex)
-                         (mapcar (lambda (x) (min (max 0.0 x) 1.0)) rgb)))
+                         (mapcar (function color-clamp) rgb)))
                 (let* ((fh (apply (function color-rgb-to-hsl) f))
                        (bh (apply (function color-rgb-to-hsl) b)))
                   (flet ((spread (l d)
                            (list (color-lighten-hsl (first l) (second l) (third l) 80)
-                                 (color-darken-hsl  (first d) (second d) (third d) 50))))
+                                 (color-darken-hsl  (first d) (second d) (third d) -50))))
                     (if (< (third fh) (third bh))
                         (reverse (spread bh fh))
                         (spread fh bh))))))))
-
 
 (defun set-random-colors ()
   (interactive)
@@ -2668,10 +2789,25 @@ or as \"emacs at <hostname>\"."
 
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "semantic mode")
-(require 'semantic)
-(semantic-mode 1)
-(push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
+(defun remove-meat-from-all-hooks (meat)
+  (let ((c 0))
+    (do-symbols (s)
+      (when (and (boundp s)
+                 (listp (symbol-value s))
+                 (< 5 (length (symbol-name s)))
+                 (string= (subseq (symbol-name s) (- (length (symbol-name s)) 5))
+                          "-hook"))
+        (set s (remove meat (symbol-value s)))
+        (incf c)))
+    c))
+;;;----------------------------------------------------------------------------
+;; (.EMACS "semantic mode")
+;; (require 'semantic)
+;; (semantic-mode 1)
+;; (push '(objc-mode . semantic-default-c-setup) semantic-new-buffer-setup-functions)
+(remove-meat-from-all-hooks 'semantic-default-elisp-setup)
+(remove-meat-from-all-hooks 'semantic-default-c-setup)
+(remove-meat-from-all-hooks 'semantic-make)
 ;;;----------------------------------------------------------------------------
 
 ;; (setf inhibit-splash-screen t)
