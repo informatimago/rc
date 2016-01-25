@@ -193,9 +193,7 @@ function be_generate(){
         $HOME/src/reposurgeon
         $HOME/Tools
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-        # DxO stuff:
-
-        # $HOME/bin-$(hostname|sed -e 's/\..*//')
+    
         $HOME/bin  $HOME/opt/bin
         /usr/local/bin  /usr/local/sbin /usr/local/opt
         /opt/local/libexec/gnubin/
@@ -426,7 +424,7 @@ function be_generate(){
     be_variable IRCNAME                 'Pascal J. Bourguignon'
     be_variable IRCSERVER               irc.freenode.org
     be_variable BROWSER                 /usr/bin/lynx
-    be_variable LYNX_CFG                "$HOME"/.lynx.cfg
+    be_variable LYNX_CFG                "$HOME/.lynx.cfg"
 
 
     be_comment 'Application environments:'
@@ -442,7 +440,7 @@ function be_generate(){
     be_variable ENSCRIPT           ' -TA4 -fCourier10 -FCourier-Bold12 -B -h --header="" --margins=:::12 '
     be_variable GENSCRIPT          "$ENSCRIPT"
     be_variable NENSCRIPT          "$ENSCRIPT"
-    be_variable HTML_TIDY          $HOME/public_html/tidy.config
+    be_variable HTML_TIDY          "$HOME/public_html/tidy.config"
     be_variable ETAGS              
     be_variable CTAGS              
     be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
@@ -462,15 +460,12 @@ function be_generate(){
     be_variable QT_XFT             1
     be_variable SHOOPSH            /usr/local/share/shoop/shoop.sh
     be_variable SHOOPMOD           /usr/local/share/shoop/modules
-    be_variable SHOOPPATH          $SHOOPMOD
+    be_variable SHOOPPATH          "$SHOOPMOD"
 
     if [ -d /usr/local/cint/. ] ; then
         be_variable CINTSYSDIR     /usr/local/cint
     fi
 
-
-    be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
-    be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
 
     be_terminate
 }
@@ -484,7 +479,6 @@ else
 fi
 source $BASH_ENV
 
-SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
 
 # GNUstep environment:
@@ -982,15 +976,13 @@ function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(g
 function emacsen         (){ 
     mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true 
     chmod 700 /tmp/emacs${UID} 
-    if [ -x /opt/emacs-23.1/bin/emacs ] 
-    then EMACS=/opt/emacs-23.1/bin/emacs 
-    elif [ -x /usr/local/bin/emacs ] 
+    if [ -x /usr/local/bin/emacs ] 
     then EMACS=/usr/local/bin/emacs 
     else EMACS=emacs 
     fi 
     for EMACS_USE in pgm gnus erc 
     do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown 
-        sleep 9 
+        sleep 11 
     done 
 }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
@@ -1159,16 +1151,16 @@ else
     host=$(hostname)
 fi
 
-case "$host" in
-macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
-mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
-mercure)            source ~/rc/bashrc-ubudu ;;
-dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
-mdi-development-*)  source  /usr/local/env.sh  ;;
-*)                  source ~/rc/bashrc-pjb ;;
-esac
+# case "$host" in
+# macosx.mercure)     source ~/rc/bashrc-macosx-mercure ;;
+# mercure*|uiserver*) source ~/rc/bashrc-ubudu ;;
+# mercure)            source ~/rc/bashrc-ubudu ;;
+# dxo-pbo.local)      source ~/rc/bashrc-dxo ;;
+# mdi-development-*)  source  /usr/local/env.sh  ;;
+# *)                  source ~/rc/bashrc-pjb ;;
+# esac
 
-export "PATH=$HOME/opt/jdk/bin:$PATH"
+source "$HOME/rc/bashrc-pjb"
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####

@@ -1,5 +1,10 @@
 # -*- mode:shell-script -*-
 
+
+# be_variable PYTHONPATH   "/usr/local/Cellar/mercurial/2.4.1/libexec"
+# be_variable DXO_HG_HOOKS "$HOME/src/mercurial-tests/Tools/hooks"
+
+
 export p27=/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/mercurial/2.4.2/libexec
 
