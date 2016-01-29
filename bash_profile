@@ -1,5 +1,5 @@
-# .bash_profile
 # -*- mode:shell-script -*-
+# .bash_profile
 # The  personal  initialization  file,  executed  for login shells
 
 tset -Q

@@ -766,6 +766,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "<end>")         'end-of-buffer)
   (global-set-key (kbd "<prior>")       'scroll-down)
   (global-set-key (kbd "<next>")        'scroll-up))
+(defalias 'pjb-movement-keybindings 'reset-movement-keypad)
 
 ;; http://paste.lisp.org/display/10157
 
@@ -1904,8 +1905,8 @@ URL in a new window."
 
 ;;;----------------------------------------------------------------------------
 
-(require 'pjb-speak)
-(require 'pjb-erc-speak)
+;; (require 'pjb-speak)
+;; (require 'pjb-erc-speak)
 
 ;;;----------------------------------------------------------------------------
 
@@ -2035,7 +2036,8 @@ License:
     along with this program.
     If not, see <a href=\\\"http://www.gnu.org/licenses/\\\">http://www.gnu.org/licenses/</a>.
 
-")))
+")
+    (erc-unix . "To prevent erc to send out unix commands: http://paste.lisp.org/+3F18")))
 
 
 
