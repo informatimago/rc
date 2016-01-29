@@ -126,7 +126,7 @@ a=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/An
 i=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
 l=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat/Pods/Magnet-XMPPFramework/Vendor/libidn
 
-function see-trust(){
+function trustdirs(){
     for alias in c cx ; do
         alias $alias
     done
