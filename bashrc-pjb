@@ -10,11 +10,13 @@ export CCACHE_DIR=/src/android/ccache
 #  prebuilts/misc/linux-x86/ccache/ccache -M 100G
 export OUT_DIR_COMMON_BASE=/src/android/out
 
+# source "$HOME/src/android/android.sh"
+# SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
 
-
-
-export "PATH=/home/pjb/opt/jdk/bin:$PATH"
+if [ -d $HOME/opt/jdk/bin ] ; then
+    export "PATH=$HOME/opt/jdk/bin:$PATH"
+fi
 
 # [ -x /usr/bin/gnome-keyring-daemon ] && /usr/bin/gnome-keyring-daemon --start --components=pkcs11
 
