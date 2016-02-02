@@ -1168,6 +1168,7 @@ case "$host" in
 *)                             source ~/rc/bashrc-pjb ;;
 esac
 
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
 
