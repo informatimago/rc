@@ -12,7 +12,6 @@
 
 # test -z "$PROFILEREAD" && [ -r /etc/profile ] && . /etc/profile
 
-
 if test -f "$HOME/.bashrc" ; then
     echo "Sourcing $HOME/.bashrc from $HOME/.profile"
 	source "$HOME/.bashrc"
