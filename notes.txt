@@ -1,6 +1,12 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 * NOTES
+** XCode team distribution certificates
+
+Advise anyone on your team:
+- If you refresh/create a distribution certificate, e-mail the private key to you.
+- Install that private key in your keychain and you're all set.
+
 ** New Notes
 
 http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
