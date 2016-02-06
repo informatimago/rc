@@ -103,11 +103,10 @@
  '(indent-tabs-mode nil)
  '(mail-host-address nil)
  '(message-log-max 5000)
- '(org-agenda-files nil)
- '(org-fontify-done-headline t)
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
+ '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
+ '(safe-local-variable-values (quote ((org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
@@ -146,13 +145,17 @@
 ;;; Trustonic specific stuff
 ;;;----------------------------------------------------------------------------
 
-(deletef auto-mode-alist "\\.m$"  :test (function equal) :key (function car))
-(deletef auto-mode-alist "\\.mm$" :test (function equal) :key (function car))
-(deletef auto-mode-alist "\\.md$" :test (function equal) :key (function car))
-(appendf auto-mode-alist '(("\\.m$"  . objc-mode)
-                           ("\\.mm$" . objc-mode)
-                           ("\\.md$" . text-mode)))
+(progn
+  (dolist (extension '("h" "hh" "m" "mm" "md" "d"))
+    (deletef auto-mode-alist (format "\\.%s$" extension) :test (function equal) :key (function car)))
 
+  (appendf auto-mode-alist '(("\\.h$"  . c-mode)
+                             ("\\.m$"  . objc-mode)
+                             ("\\.hh$" . c++-mode)
+                             ("\\.mm$" . objc-mode)
+                             ("\\.md$" . text-mode)
+                             ("\\.d$"  . makefile-mode)))
+  (add-to-list 'auto-mode-alist '(".*/Apps/iOS/.*\\.\\(h\\|m\\|hh\\|mm\\)$" . objc-mode)))
 
 (require 'vc-svn)
 
@@ -535,21 +538,4 @@
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
-
-(defun extract-c-comment (source)
-  (string-match *c-comment-regexp* source)
-  (match-string 1 source))
-
-(setf *c-comment-regexp* "\\(/\\*\\([^*]\\|*[^*/]\\*\\*??\\)*\\*/\\)")
-
-(assert (equal "/*/*/" (extract-c-comment "a/*/*/b*/")))
-(assert (equal "/**/" (extract-c-comment "a/**/*/b*/")))
-
-(assert (equal "/***/" (extract-c-comment "a/***/*/b*/")))
-(assert (equal "/****/" (extract-c-comment "a/****/*/b*/")))
-
-(extract-c-comment "a/***/*/b*/")
-(extract-c-comment "a/****/*/b*/")
-"/*/b*/"
-"/*/b*/"
 
