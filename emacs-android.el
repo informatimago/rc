@@ -81,12 +81,10 @@
 
 (push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
 
+(require 'android-mode nil t)
 (when (require 'android nil t)
   (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
-  (require 'android-mode nil t)
   (require 'android-classes)
-
-
 
   (defun gud-meat ()
     (interactive)
