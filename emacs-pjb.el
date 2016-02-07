@@ -320,7 +320,14 @@ X-Accept-Language:         fr, es, en
  '(mspools-update t)
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
- '(org-agenda-files (quote ("~/works/ops/TODO.org" "~/notes.txt")))
+ '(org-agenda-files (quote ("~/rc/notes.txt"
+                            "~/src/pjb/nasium-lse/ISSUES.txt"
+                            "~/works/abnotation/abnotation/todo.txt"
+                            "~/works/enolaba/macosx/src/TODO"
+                            "~/works/manif/TODO.org"
+                            "~/works/ops/TODO.org"
+                            "~/works/patchwork/src/mclgui/TODO.org"
+                            "~/works/patchwork/src/patchwork/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
