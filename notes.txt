@@ -2452,6 +2452,9 @@ Project Number: 444610959287
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
       Done. Not followed up.
 
+*** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
+~/src/public/games/hangman-ios/
+
 *** TODO [#A] mocl test 2 (ios/android).                             :cl:dev:
 #+BEGIN(src)
 cd /Users/pjb/src/mocl ; make mocl-test
