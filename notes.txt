@@ -1063,19 +1063,26 @@ http://www.maclisp.info/pitmanual/master-index-s.html
 * ACTIONS
 ** AFAIRE, TODO, ENCOURS
 *** Real
-**** TODO [#A] Impôts 2014
-**** TODO [#A] plomberie
-**** TODO [#A] Photos pour Carte Vitale, Carte d'Identité, Passeport
-**** TODO [#A] Carte Vitale
-**** TODO [#A] Carte d'Identité & Passeport
-**** TODO [#A] Rendez vous Ophtalmologiste
-**** TODO [#A] Rendez vous Dentiste
-**** TODO [#A] Taxe d'habitation
-**** TODO [#A] Impôts 2012
-**** TODO [#B] sell the CDs and DVDs to Gibert Jeune.
-     :DEADLINE: <2015-12-07 -7d>
-**** TODO [#A] [0/6] Emploi.
-    :DEADLINE: <2015-12-31 -1m>
+**** TODO [#A] Impôts                                          :impots:admin:
+     :DEADLINE: <2016-03-15 -15d>
+***** TODO [#A] Taxe d'habitation 2015
+***** TODO [#A] Taxe d'habitation 2016
+***** TODO [#A] Impôt sur le revenu 2012
+***** TODO [#A] Impôt sur le revenu 2013
+***** TODO [#A] Impôt sur le revenu 2014
+***** TODO [#A] Impôt sur le revenu 2015
+***** TODO [#A] TVA 2016
+***** TODO [#A] Taxe d'habitation 
+**** TODO [#A] plomberie                                              :admin:
+**** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
+**** TODO [#A] Carte Vitale                                           :admin:
+**** TODO [#A] Carte d'Identité & Passeport                           :admin:
+**** TODO [#A] Rendez vous Ophtalmologiste                            :admin:
+**** TODO [#A] Rendez vous Dentiste                                   :admin:
+**** TODO [#B] sell the CDs and DVDs to Gibert Jeune.                 :admin:
+     :DEADLINE: <2016-12-07 -12m>
+**** TODO [#A] [0/6] Emploi                                             :job:
+     :DEADLINE: <2016-06-30 -1m>
 
 jobs: http://www.odesk.com
 
@@ -1103,9 +1110,10 @@ http://beknown.com/pascal-bourguignon
           ruby, C++ (STL, Boost),
           Objecteering, 
           RTSP,
-**** TODO [#A] Espagne: fermer compte cajamar valencia
-**** TODO [#A] Espagne: assigner telephone pour les cles sinon fermer compte openbank -> virement a cajama
-**** TODO [#C] Chez Joëlle:
+**** TODO [#A] Espagne: fermer compte cajamar valencia                :admin:
+**** TODO [#A] Espagne: assigner telephone openbank                   :admin:
+pour les cles sinon fermer compte openbank -> virement a cajama
+**** TODO [#C] Chez Joëlle:                                           :admin:
 - CD À RECOMPRESSER
   robert-schroeder/computer-voice/05-back-to-the-earth
   robert-schroeder/computer-voice/06-rotary-motion
@@ -1115,11 +1123,7 @@ http://beknown.com/pascal-bourguignon
 - Vendre ma part de terrain de Volstroff à Joëlle. (~ 8000 EUR).
 
 *** Virtual
-**** TODO [#A] OGAMITA.NET renewal 
-     :DEADLINE: <2015-11-15 -15d>
-**** TODO [#B] move domain names to another DNS
-**** TODO [#B] move parroquias-manga.org to a Spanish host
-**** TODO [#C] edit cliki.net
+**** TODO [#C] edit cliki.net                                            :cl:
 
 create pages for those *(Common Lisp Implementations).
 
@@ -1139,9 +1143,9 @@ Freelisp (Harlequin)
 HILISP (Hitachi Interactive Lisp)
 Harlequin Common Lisp (LispWorks was the IDE)
 
-**** TODO [#A] digitize movie DVDs.
-     :DEADLINE: <2015-11-31 -1m>
-**** TODO [0/4] Organize my music files
+**** TODO [#A] digitize movie DVDs.                                   :admin:
+     :DEADLINE: <2016-08-31 -2m>
+**** TODO [0/4] Organize my music files                               :admin:
 ***** TODO [#B] group files ~/bin/group-files the-ventures the-surfaris the-surf-coasters the-chantays dario-moreno/compilation-sorted/
 ***** TODO [#B] reconcile md5sums in /data/sound/flac.sums /data/sound/music-flac.sums
 clisp scripts to index and set mp3info to new mp3 files:
@@ -1150,6 +1154,20 @@ clisp scripts to index and set mp3info to new mp3 files:
     /data/sound/music-mp3/the-ventures.index
 ***** TODO [#B] Rename Schubert files and MP3 Info.
 ***** TODO [#B] Name Johan Sebastian Bach files, using cddb.txt files.
+**** TOD [#A] OGAMITA.ORG renewal                                     :admin:
+     :DEADLINE: <2017-02-03 -1m>
+**** TODO [#A] OGAMITA.NET renewal                                    :admin:
+     :DEADLINE: <2016-12-01 -1m>
+**** TODO [#A] OGAMITA.COM renewal                                    :admin:
+     :DEADLINE: <2017-06-26 -1m>
+**** TODO [#A] INFORMATIMAGO.COM renewal                              :admin:
+     :DEADLINE: <2017-06-26 -1m>
+**** TODO [#A] PARROQUIAS-MANGA.ORG renewal                           :admin:
+     :DEADLINE: <2016-03-17 -1m>
+**** TODO [#B] move domain names to another DNS                       :admin:
+     :DEADLINE: <2016-12-30 -5m>
+**** TODO [#B] move parroquias-manga.org to a Spanish host            :admin:
+     :DEADLINE: <2016-12-30 -5m>
 *** Divers
 **** Earn retirement money
 ----   ---------------  ---------------
@@ -1183,8 +1201,8 @@ the computing technology we use today.
        Gazdar & Mellish,
        Addison-Wesley,
 
-***** TODO [#C] Movies to Get with mldonkey 
-    DEADLINE: <2015-12-31 -1m>   
+***** TODO [#C] Movies to Get with mldonkey                           :admin:
+      :DEADLINE: <2016-12-31 -6m>   
 
 As Far as My Feet Will Carry Me (2001)
 
@@ -2015,7 +2033,8 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
 ***** TODO [#A] cable usb sata                                          :buy:
 ***** TODO [#C] Track IR 3D                                             :buy:
 ***** TODO [#C] warthog hotas                                           :buy:
-***** TODO [#C] 2x SanDisk Extreme PRO® SDHC™/SDXC™ UHS-I Memory Card   :buy:
+***** TODO [#C] 2x SanDisk Extreme PRO®                                 :buy:
+SanDisk Extreme PRO® SDHC™/SDXC™ UHS-I Memory Card
 http://www.dpreview.com/articles/5813601559/sandisk-unveils-512gb-extreme-pro-sdxc-uhs-i-card
 
 volume of a sdcard = 1612.8 mm³
@@ -2185,8 +2204,8 @@ msa.fr -> cotisant de solidarité
 IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
 ~/jobs/free-lance/aeat/aeat-2008
 
-**** DONE [#B] payer loyer                               679 €   :accounting:
-     DEADLINE: <2013-03-04 Mon +1m -12d>
+**** TODO [#B] payer loyer          679 €                        :accounting:
+     :DEADLINE: <2013-03-01 Fri +1m>
      - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
        Fait par virement de la BNP.
      - CLOSING NOTE [2012-12-04 Wed 22:13] \\
@@ -2206,11 +2225,12 @@ IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
      CLOSED: [2013-08-11 Sun 19:50]
      - CLOSING NOTE [2013-08-11 Sun 19:50]
 **** DONE [#B] pagar andre                               400 €   :accounting:
-     CLOSED: [2013-03-15 Fri 23:04] DEADLINE: <2013-01-01 -12d>
+     :CLOSED: [2013-03-15 Fri 23:04] 
+     :DEADLINE: <2013-01-01 -12d>
      - CLOSING NOTE [2013-03-15 Fri 23:04] \\
        Did that.
-**** DONE [#B] Hacer transferencia  Celestino Conesa     600 €   :accounting:
-     DEADLINE: <2013-04-01 Mon +1m>
+**** DONE [#B] Hacer transferencia  Celestino Conesa 600 €       :accounting:
+     :DEADLINE: <2013-04-01>
      - CLOSING NOTE [2013-04-28 Sun 13:19] \\
        Completed last month.
      - CLOSING NOTE [2012-12-29 Sat 20:04] \\
@@ -2233,8 +2253,11 @@ Account Number (IBAN).........:          ES19 3058 0370 6927 2000 0258
 Beneficiary............................: CELESTINO CONESA
 BIC / SWIFT Code..................:      CCRIES2A
 
+**** TODO [#C] Envoyer attestation assurance habitation               :admin:
+     :DEADLINE: <2016-10-15 +1y -15d>
+
 **** DONE [#B] Annuler assurance.
-    DEADLINE: <2010-09-07 Tue +1m -7d>
+     :CLOSED: [2012-11-26 Mon 21:11] :DEADLINE: <2010-09-07 Tue -7d>
     - CLOSING NOTE [2012-11-26 Mon 21:11] \\
       note done :-(
     :PROPERTIES:
@@ -2424,55 +2447,17 @@ https://github.com/nikodemus/sb-cga
 Project Number: 444610959287
 
 ** Developments TO DO
-*** TODO [#A] Write  proposal for vitale                                :dev:
-    :DEADLINE: <2015-11-02 Mon -1w>
+*** DONE [#A] Write  proposal for vitale                                :dev:
+    CLOSED: [2016-02-06 Sat 21:42] :DEADLINE: <2015-11-02 Mon -1w>
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
+      Done. Not followed up.
 
-*** TODO [0/6] Patchwork                            :patchwork:macosx:cl:dev:
-    :DEADLINE: <2015-11-01 -15d>
-
-**** TODO [#A] debug Patchwork and produce a release  :bug:patchwork:macosx:cl:dev:
-     :DEADLINE: <2015-11-01 -15d>
-
-https://github.com/informatimago/mclgui/graphs/code-frequency
-https://github.com/informatimago/patchwork/graphs/code-frequency
-
-**** TODO [#A] Patchwork: save-image --> dead macptrs in wrappers :bug:patchwork:macosx:cl:dev:
-**** TODO [#A] Patchwork: generate-application --> patchwork menus missing :bug:patchwork:macosx:cl:dev:
-
-This generates a patchwork.app, but when launched, we don't have the
-Patchwork menus, but Clozure CL menus.
-
-**** TODO [#A] Patchwork: Use com.informatimago.manifest.lisp in Patchwork (generate-application). :bug:patchwork:macosx:cl:dev:
-**** TODO [#A] Patchwork: AppleEvent            :bug:patchwork:macosx:cl:dev:
-     - State "TODO"       from "IN-PROGRESS" [2014-06-22 Sun 06:32] \\
-       To be done.
-     - State "IN-PROGRESS" from "TODO"       [2012-12-12 Wed 23:46] \\
-       Started working on it.
-**** TODO [#A] Patchwork: Subclasses of view etc. :bug:patchwork:macosx:cl:dev:
-     - State "TODO"       from "IN-PROGRESS" [2012-12-12 Wed 23:44] \\
-       Not yet.
-     - State "IN-PROGRESS" from "TODO"       [2012-12-12 Wed 23:43] \\
-       Let's start working on it.
-**** TODO [#A] Patchwork: Rest of port.         :bug:patchwork:macosx:cl:dev:
-**** TODO [#A] OPS                                               :ops:cl:dev:
-    :DEADLINE: <2015-12-01 -45d>
-**** TODO [#B] the Server                                        :ops:cl:dev:
-**** TODO [#B] the Customer web app                              :ops:cl:dev:
-**** TODO [#B] the Provider web app                              :ops:cl:dev:
-**** TODO [#B] on iOS                                            :ops:cl:dev:
-**** TODO [#B] on Android                                        :ops:cl:dev:
-*** TODO [#A] Manif                                            :manif:cl:dev:
-    :DEADLINE: <2015-12-01 -45d>
-Comptage de manifestation + geolocation.
-**** TODO [#B] th  Server                                      :manif:cl:dev:
-**** TODO [#B] on iOS                                          :manif:cl:dev:
-**** TODO [#B] on Android                                      :manif:cl:dev:
-*** TODO [#A] mocl test 2 (ios/android).
+*** TODO [#A] mocl test 2 (ios/android).                             :cl:dev:
 #+BEGIN(src)
 cd /Users/pjb/src/mocl ; make mocl-test
 #+END(src)
 *** TODO [#A] Failing test case in reader.lisp                       :cl:dev:
-   :DEADLINE: <2015-12-31 -1m>
+   :DEADLINE: <2016-03-31 -1m>
 From: Orivej Desh <orivej@gmx.fr>
 Subject: Failing test case in informatimago/common-lisp/lisp-reader/reader.lisp
 To: Pascal J. Bourguignon <pjb@informatimago.com>
@@ -2488,44 +2473,15 @@ and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
 *** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
-*** TODO [0/9] nasium-lse                                        :lse:cl:dev:
-    :DEADLINE: <2016-06-01 -45d>
-
-LSE2000: https://sites.google.com/site/phoenixlse2000/
-
-**** TODO [#A] LSE: Move nasium-lse/manifest.lisp to com.informatimago :lse:cl:dev:
-
-It's copied, but we'd need to use now the tools/manifest.lisp instead
-of nasium-lse/manifest.lisp
-
-**** TODO [#A] LSE: Tests / Debug
-**** TODO [#B] LSE: complete telnet and options
-     - State "TODO"       from "TODO"       [2012-12-12 Wed 23:56]
-**** TODO [#B] LSE: paypal / download?
-**** TODO [#B] LSE: CLI MacOSX
-**** TODO [#B] LSE: CLI Linux
-**** TODO [#B] LSE: CLI MS-Windows
-**** TODO [#B] LSE: Server Linux
-**** TODO [#B] LSE: Server MacOSX
-**** TODO [#B] LSE: GUI MacOSX
-*** TODO [#B] Enolaba Abalone                       :macosx:ipad:android:dev:
-    :DEADLINE: <2016-06-30 -3m>
-Using MoCL.
-- some work on Abalone-macosx
-/home/pjb/works/abalone-macosx/Abalone
-- Write a little application in lisp.
-- Rewrite Abalone in lisp.
-**** TODO [#B] on MacOSX
-**** TODO [#B] on iOS
-**** TODO [#B] on Android
 *** TODO [#B] Implement "stonedge" game on iPad.                   :ipad:dev:
-   DEADLINE: <2016-02-28 -2m>
+   DEADLINE: <2016-09-01 -3m>
 - playtomo-stonedge.lisp
 
-*** TODO [#C] cl-stepper generation of backtraces / lisp debugger API
-*** TODO [#B] add to lisp-mirror http://wcp.sdf-eu.org/software/      :admin:
-*** TODO [#B] Application mobiles (iOS, Android): geofamily-like but free.
-*** TODO [#B] lispos (lire eros, prendre notes)
+*** TODO [#C] cl-stepper gen backtraces / lisp debugger API          :cl:dev:
+*** TODO [#B] add to lisp-mirror                                      :admin:
+ http://wcp.sdf-eu.org/software/      
+*** TODO [#B] apps (iOS, Android): geofamily-like but free.             :dev:
+*** TODO [#B] lispos (lire eros, prendre notes)               :lispos:cl:dev:
 *** TODO [0/4] LEP - Lisp Empowered Program                      :lep:cl:dev:
 
 integrate a lisp linux distribution:
@@ -2536,7 +2492,7 @@ integrate a lisp linux distribution:
 etc.
 
 **** TODO [#C] read http://nixos.org/nix/
-**** TODO [#C] implement lepbootstrap
+**** TODO [#C] implement lepbootstrap    
 
 To install a minimal LEP system in a virtual machine.
 
@@ -2546,20 +2502,20 @@ Check a lisp X11 server?
 
 **** TODO [#C] add StumpWM          
 
-*** TODO [#B] beyondvoice
-*** TODO [#B] check this diff
-   DEADLINE: <2015-12-31 -1m>
+*** TODO [#B] check this diff                                      :admin:cl:
+   DEADLINE: <2016-12-31 -6m>
 diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp
 1057a1058
 >         (sax:element-declaration (handler *ctx*) element-name content-model)
 
-*** TODO [#B] Update web site for new packages.                       :admin:
-   DEADLINE: <2015-11-01 -1d>
+*** TODO [#B] Update web site with new cl packages.                   :admin:
+   DEADLINE: <2016-06-01 -6m>
 com.informatimago.common-lisp
 <serichsen> pjb: I'm browsing http://informatimago.com/develop/lisp/index.html and the
 links to the individual packages are broken. 
-*** TODO [#B] REVIEW AND RENAME THESE FILES:
-   DEADLINE: <2015-12-31 -1m>
+
+*** TODO [#B] REVIEW AND RENAME THESE FILES:                          :admin:
+    :DEADLINE: <2016-12-31 -6m>
 [pjb@hubble localhost:10.0 ~]$ locate /afaa/|sed -e 's-/afaa/.*-/afaa/-' |sort -u
 /a3/triton/Users/pjb/Library/images/photographies/afaa/
 /b1/backups/darcs/afaa/
@@ -2597,7 +2553,7 @@ links to the individual packages are broken.
    525M  /a3/save/systems
 51G      total
 
-*** TODO [#C] move all my parsers closer?
+*** TODO [#C] move all my parsers closer?                            :cl:dev:
 - com.informatimago.nasium-lse
 - com.informatimago.lua
 - com.informatimago.xcode
@@ -2624,11 +2580,12 @@ http://www.common-lisp.net/project/cl-objc/
 #+BEGIN_SRC(commonlisp)
 #+ccl(require 'objc-support)
 #+END_SRC
-*** TODO [#C] move lambda-calculus to git repository for quicklisp    :admin:
-    DEADLINE: <2015-12-31 -1m> 
-*** TODO [#C] melpa http://nic.ferrier.me.uk/blog/2012_07/emacs-packages-for-programmers
-*** TODO [#C] fcll blog
-   DEADLINE: <2015-11-01 +1m -7d>
+*** TODO [#C] move lambda-calculus to git for quicklisp           :dev:admin:
+    DEADLINE: <2016-12-31 -12m> 
+*** TODO [#C] melpa                                                   :admin:
+ http://nic.ferrier.me.uk/blog/2012_07/emacs-packages-for-programmers
+*** TODO [#C] fcll blog                                                :blog:
+   DEADLINE: <2016-03-01 +1m -21d>
 
 Example Soft OpCode VM + Assembler:
 http://www.informatimago.com/develop/lisp/small-cl-pgms/example-soft-opcodes.lisp
@@ -2641,7 +2598,8 @@ MIX VM + Assembler (TBD):
  
 *** TODO [#C] replace viewgit by http://www.scm-manager.org/          :admin:
  or something else.
-*** TODO [#C] web service to setup private mail-lists with aliases.
+*** TODO [#C] listserv                                                :admin:
+web service to setup private mail-lists with aliases.
 
 http://list.ogamita.com
 
@@ -2657,8 +2615,8 @@ create mail list:
 mailto:${name}@list.ogamita.com
 
 *** TODO [#B] debug llrbtree                                     :bug:cl:dev:
-*** TODO [#B] add llrbtree as an implementation for dictionary       :cl:dev:
-*** TODO [#B] clisp *print-readably*
+*** TODO [#B] add llrbtree as an impl for dictionary                 :cl:dev:
+*** TODO [#B] clisp *print-readably*                                 :cl:bug:
 <18:31:41><maxm> heh clisp *print-readbly* can't be read by other lisps
 <18:32:03><maxm> coz it prints 'make-instance as |CLOS|:|MAKE-INSTANCE|
 <18:36:15><pjb> This should be reported as a bug.
@@ -3053,9 +3011,15 @@ https://melpa.org/#/window-number
 *** TODO [#B] CDR lisp reader                                        :cl:dev:
 Write a CDR to specify extension parse-token hook to the lisp reader.
 See also reader extension for hierarchical packages, etc.
-*** TODO [#B] Merge ~/firms/anevia/lisp-20090104T142949/encours/     :cl:dev:
-*** TODO [#B] move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms :cl:dev:
-*** TODO [#B] add http://groups.google.com/group/comp.lang.lisp/msg/aa9494a2f0c35f74?hl=en to articles :cl:dev:
+*** DONE [#B] Merge  anevia stuff                                    :cl:dev:
+    CLOSED: [2016-02-06 Sat 21:08]
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:08] \\
+      Has been done.
+~/firms/anevia/lisp-20090104T142949/encours/
+*** TODO [#B] move flpl to smallclpgms                               :cl:dev:
+move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms
+*** TODO [#B] add usenet articles                                    :cl:dev:
+add http://groups.google.com/group/comp.lang.lisp/msg/aa9494a2f0c35f74?hl=en to articles
 *** TODO [#B] flood protection in erc                             :emacs:dev:
     :DEADLINE: <2016-06-01 -2m>
 *** TODO [#B] cll archive                                            :cl:dev:
@@ -3146,27 +3110,28 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
 ;   In an anonymous lambda form inside COM.INFORMATIMAGO.COMMON-LISP.DATA-ENCODING.BENCODE::TEST/STRING: Undefined function COM.INFORMATIMAGO.COMMON-LISP.DATA-ENCODING.BENCODE::HASHTABLEP
 
 *** TODO [#B] dmiles mc.                                                :dev:
-    DEADLINE: 
+    :DEADLINE: <2016-12-31 -6m>
 - Created a git repository for ~/works/ai/dmiles/mc on http://git.informatimago.com/srv/git/public/mc
 - ~/works/ai/dmiles/mc  minimal compiler: Added some macros to standard-macros.lisp
 "Daxtron Labs" dmiles.
 
-*** SUSPENDED [#C] [0/0] ABNotation                :abnotation:mcclim:cl:dev:
-    :DEADLINE:
+*** SUSPENDED [#C] [0/0] ABNotation                                      :ab:
+    :DEADLINE: <2018-12-31 -2y>
     - State "SUSPENDED"  from "TODO"       [2015-10-19 Mon 15:20] \\
       Suspended till further notice.
 
-**** TODO [#C] planifications modules à écrire
-**** TODO [#C] implémentation dessin des notes à barre
-*** TODO [0/3] Yellow Submarine                     :submarine:macosx:cl:dev:
+**** TODO [#C] planifications modules 
+**** TODO [#C] dessin des notes à barre
+*** TODO [0/3] Yellow Submarine                                   :submarine:
 **** TODO [0/4] implement a bare submarine simulator               
 ***** TODO [#C] buyancy
 ***** TODO [#C] orientation
 ***** TODO [#C] movement
 ***** TODO [#C] joystick interface.
-**** TODO [#C] Submarine: Install Rigs of Rods and evaluate it for submarine simulation
-**** TODO [#C] Submarine: integrate FlightGear video
-**** TODO [#C] Submarine: integrate FlightGear flight models.
+**** TODO [#C] Install Rigs of Rods
+ and evaluate it for submarine simulation
+**** TODO [#C] integrate FlightGear video
+**** TODO [#C] integrate FlightGear flight models.                
 *** TODO [#C] Xcode tools                                 :dxo:macosx:cl:dev:
    CLOSED: [2012-12-24 Mon 01:27]
    - State "TODO"       from "IN-PROGRESS" [2014-06-22 Sun 06:19] \\
@@ -3175,15 +3140,17 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
 - write pbxproj parser and tools (search files, explain targets, etc).
 http://www.monobjc.net/index.php?page=xcode-project-file-format
 
-*** TODO [#C] Publish HTML documentation snippets for my packages    :cl:dev:
+*** TODO [#C] Publish HTML doc snippets for my packages              :cl:dev:
 eg. Extract from ASDF descriptions.
 *** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
 pjb-objc-edit.el
 pjb-objc-gen.el
 pjb-objc-mode.el
 pjb-c-style.el
-**** TODO [#C] objc-method-call-cont in pjb-c-style.el to indent aligning colons.
-**** TODO [#C] command to create/update objective-C properties
+**** TODO [#C] objc-method-call-cont to indent colons.       :objc:emacs:dev:
+aligning collons,
+in pjb-c-style.el
+**** TODO [#C] cmd create/update objc properties             :objc:emacs:dev:
 
      create property:  public/private Class  name   (non atomic,retain)
 
@@ -3209,9 +3176,9 @@ pjb-c-style.el
      @property (…) Class* name;
      @synthesize name=_name;
 
-**** TODO [#C] objc-edit (like paredit)
-**** TODO [#C] objc-gen (like parenscript), to generate Objective-C code from sexps.
-
+**** TODO [#C] objc-edit (like paredit)                      :objc:emacs:dev:
+**** TODO [#C] objc-gen (like parenscript) code from sexps   :objc:emacs:dev:
+to generate Objective-C
 **** Objective-C
 http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
 https://github.com/Nortey/TankDB
@@ -5185,13 +5152,17 @@ Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
 
 ** backups
 *** TODO [#A] sauvegardes                                             :admin:
-    DEADLINE: <2012-12-15 Sat +1w>
-    - State "TODO"       from "DONE"       [2012-12-13 Thu 00:47]
-    CLOSED: [2012-12-13 Thu 00:47] 
+    :DEADLINE: <2016-02-13 Sat +1w>
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:45]
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:38] \\
+      larissa backup 2.
     - State "DONE"       from "TODO"       [2012-12-13 Thu 00:47]
+    :PROPERTIES:
+    :LAST_REPEAT: [2016-02-06 Sat 21:45]
+    :END:
 Backup kuiper to external hard disks.  
 *** TODO [#B] Implement an incremental backup for hubble              :admin:
-    DEADLINE: <2016-01-01 Sun -1m> 
+    :DEADLINE: <2016-03-01 Sun -3m>
 *** Internal disks
 
 ------------------------------           ------------------------------
@@ -7539,7 +7510,8 @@ http://www.robotwisdom.com/map.html
     one solution like Lexalytics, Serendio, Clarabridge, etc
 
 *** CSAIL, AILabs
-**** TODO [#B] Make a clone of http://ftp.sunet.se/pub/lang/lisp/  and compare it with our ailab repo lang/lisp.
+**** TODO [#B] compare ailab                                          :admin:
+Make a clone of http://ftp.sunet.se/pub/lang/lisp/  and compare it with our ailab repo lang/lisp.
 **** Bookmarks
     http://www.ai.mit.edu/research/publications/
 
