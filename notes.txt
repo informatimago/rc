@@ -2774,9 +2774,16 @@ https://github.com/ageneau/ecl-android
 http://funcall.posterous.com/ecl-on-iphone-redux
 
 *** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
+    :DEADLINE: <2016-03-30 -2m>
 ~/src/public/games/hangman-ios/
 
+*** TODO [#B] Implement "stonedge" game on iPad.                 :ios:cl:dev:
+   DEADLINE: <2016-09-01 -3m>
+- playtomo-stonedge.lisp
+
+    :DEADLINE: <2016-06-30 -3m>
 *** TODO [#A] mocl test 2 (ios/android).                             :cl:dev:
+    :DEADLINE: <2016-03-30 -2m>
 #+BEGIN(src)
 cd /Users/pjb/src/mocl ; make mocl-test
 #+END(src)
@@ -2796,7 +2803,9 @@ but its complex numbers testcase fails for me with a non default
 and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
+    :DEADLINE: <2016-09-30 -6m>
 *** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
+    :DEADLINE: <2016-06-30 -6m>
 pjb-objc-edit.el
 pjb-objc-gen.el
 pjb-objc-mode.el
@@ -2837,6 +2846,7 @@ to generate Objective-C
 http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
 https://github.com/Nortey/TankDB
 *** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
+    :DEADLINE: <2016-06-30 -6m>
 **** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
 **** TODO [#A] interface with emacs (wisent, bovinator)           :emacs:dev:
 - and have some tools (navigation, generation, indent, font-lock, etc).
@@ -2854,10 +2864,6 @@ https://github.com/Nortey/TankDB
   xib files into source code.
 
 *** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
-*** TODO [#B] Implement "stonedge" game on iPad.                    :ios:dev:
-   DEADLINE: <2016-09-01 -3m>
-- playtomo-stonedge.lisp
-
 *** TODO [#C] cl-stepper gen backtraces / lisp debugger API          :cl:dev:
 *** TODO [#B] add to lisp-mirror                                      :admin:
  http://wcp.sdf-eu.org/software/      
