@@ -2446,12 +2446,322 @@ https://github.com/nikodemus/sb-cga
 
 Project Number: 444610959287
 
-** Developments TO DO
-*** DONE [#A] Write  proposal for vitale                                :dev:
-    CLOSED: [2016-02-06 Sat 21:42] :DEADLINE: <2015-11-02 Mon -1w>
-    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
-      Done. Not followed up.
+** APPLICATION IDEAS:
+    - dev: agloo
+    - dev: cdb
+    - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
+    - dev: lisp web surfer script
+    - dev: setiathome farm
+    - dev: tar-backup / raid-archive
 
+               OpenStep   GNUstep/linux    MacOSX/darwin   palm
+    Abalone       X              X               X           X
+    agloo                        X               X
+    cirrus        X
+    iTransfer                    X               X
+    metre                        X               X
+    minitel       X              X
+    convoy                       X               X
+    simanimals                   X               X           X
+    tour-de-france               X               X           X
+    safari                       X               X           X
+    Figurine                     X               X
+    asteroid3d                   X               X           X
+    LSE                          X               X
+    Mr.Do                        X               X           X
+    morphing-puzzle              X               X           X
+    raid-archive                 X               X
+    typogenetic
+    wallstreet
+
+
+    - Idées d'application :  APPLICATION IDEAS:
+
+        ------------------------------------------------------------------------
+        presence and communication manager:
+        A computer system centralizing communication notificiations (phone
+        calls, sms, emails, etc), and monitoring the user presence to report
+        him new notifications.
+        ------------------------------------------------------------------------
+        bluetooth:
+        a device to push informations to bluetooth devices.
+        ------------------------------------------------------------------------
+
+        - Minitel M1B bug reports
+          Porter en OS4.2 pour implimentation sur Mac OS X.
+          Emulateur Minitel :
+              - compteur suplimentaire pour le cout
+              - equivalents claviers
+              - sauvegarde en continu en videotex et en texte
+              - photo d'ecran
+              - edition souris sur l'ecran
+
+        - Abalone:
+            - Programmer v1.0 (jeu en riseau).
+            - Porter sur Linux/GNUstep.
+	        - Abalone update the URL in the About dialog
+
+        - Traveller
+            A purposeless game. A set of virtual planets to explore.
+            Several means of transport...
+
+        - Convoy
+            Similar to Traveller, but within an artificial environment
+            (space-station) and multi-users (thru Internet).
+
+        - Simulateur d'oiseau (et autre animaux).
+
+      	- Jeu Mr-Do /classique, /3d.  ---> Mr. It !!!
+      	- Jeu Tour de France.         ---> Vuelta 3D !!!
+
+  	    - Jeu Safari.
+
+  	    - Creature/Tiercé: générations de chevaux, gestion d'une écurie,
+	      simulation des courses, gestion des paris, en riseau TCP/IP.
+
+        - Collection de soldat de plomb virtuelle.
+            - Moules / simulation du coulage des soldats de plomb !
+            - Figurines virtuelles à "peindre", vitrine virtuelle.
+            - CAO de figurines virtuelle (style soldat de plomb).
+            - CAO de vêtements et accessoires, modèle virtuel
+              s'habillant automatiquement.
+
+    Gestion de parc / voisinage riseau:
+    Cela depend de ce que tu veux dire par "scanner"? et surtout quelles infos
+    tu veux avoir, nmap peut faire l'affaire ou Komba, gnomba... si tu veux
+    faire du "voisinage reseau"....
+
+
+      	- Application de Métré.
+
+        - Proxy Web/FTP/News optimisant les temps de connection.
+
+            +----------+      +----------+         +----------+
+            | Client   |      | Proxy    |         | Serveur  |
+            | Web,Mail |<---->|    Local |<--...-->| Proxy    |<-->(Internet)
+            | FTP,News |      | (cache)  |         | Connecti |
+            +----------+      +----------+         +----------+
+
+            Super-Compression d'email (mjme Mini-M, Inmarsat-C, etc !).
+
+
+        - AGLOO/Intelligent
+
+            - Analyse de spécifications et description de modèle en
+              langage naturel.
+
+            - Analyse de programmes sources ou objet et reconstruction
+              du modèle.
+
+            - Génération & transformation  automatique de modèles et
+              de programmes.
+
+            - Validation des modèles, Preuve de programme, Correction
+              des erreurs d'implimentation.
+
+            - Recherche de documentations, références et informations
+              sur Internet (FTP, Web, etc).
+
+            - Apprentissage automatique de langages de programmation.
+
+            - Portages, traduction entre langages de programmation.
+
+** Programming Log (Done) 
+
+2015-10-19
+- Published a blog rss feed http://www.informatimago.com/blog/
+
+2012-10-04
+DONE: funconcurrency: install a basilisk VM to run WriteNow and extract .txt
+      and .ps documentations.
+
+
+2012-04-22 - 2012-04-29
+- updated the docstrings and the :license field in asd files.
+- improved lispdoc.lisp.
+- updated www.informatimago.com/develop/lisp/
+--> remains to document objcl, rdp, clisp, susv3.
+
+2012-04-16 - 2012-04-21
+- implemented telnet.lisp
+
+2012-04-15
+- switched to AGPL3 licence for com.informatimago.
+- moved small-cl-pgms, objcl and rdp to com.informatimago.
+
+2012-04-13
+- Compiled the Patchwork Demo on 10.5.8 ppc and 10.7.3 32-bit and sent
+  to Alexis Bosch.
+
+2012-04-11
+- Completed the Patchwork Demo and sent to Alexis Bosch.
+
+2012-04-04
+- lisp-text.source-text: peek-char moves file-position in ccl.
+- xref + lisp-reader.reader + lisp-reader.package
+
+2012-03-28 - 2012-04-03
+- devis Patchwork
+- zpack -> com.informatimago.common-lisp.lisp-reader.package
+
+2012-01-01 - 2012-03-28
+- implemented nasium-lse
+  Remains to finish:
+  - the web site (paypal, downloads, java telnet),
+  - a few terminal classes (eg. MS-Windows, clisp)
+  - the server.
+  Possibly:
+  - a MacOSX application.
+  - a iOS application.
+
+
+2011-01-19
+- completed flpl transcription, "A Fortran-Compiled List-Processing Language"
+  with figures.lisp to draw the list diagrams; this could be used in claar.
+  /home/pjb/src/lisp/history/flpl
+  /home/pjb/public_html/sites/com.informatimago.www/articles/flpl/truetype/webdings.ttf
+
+- http://www.informatimago.com/articles/flpl/
+
+- Wrote some solutions to the l99 problem set.
+
+2010-12-22
+- Wrote /home/pjb/src/public/lisp/objcl/
+        ftp://ftp.informatimago.com/users/pjb/lisp/objcl.tar.bz2
+
+2010-12-09
+- com.informatimago.common-lisp.data-encoding.bencode to read torrent files.
+
+- installed transmission to download wikileak torrent files.
+
+  transmission-daemon -w /home/p2p/incoming/files/
+
+ transmission-daemon -f -t -u your_username -v your_password -w /path/to/downloaded/torrents -g /etc/transmission-daemon/
+
+
+http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
+
+2010-11
+- check-pathnames
+- clisp dbus for bonjour/rendez-vous for mplayer synchronization
+  ~/works/media-player/dbus-hi.lisp
+- lambda-calculus for lambda-calculus-machine
+- ccl objc reader macros.
+- some work on Abalone-macosx
+
+2010-10-10
+- http://www.informatimago.com/articles/cl-types/
+
+2010-07-09 - 2010-07-10
+- playtomo-stonedege.lisp
+
+2010-06-27
+- ~/src/public/lisp/ Factorized out */Makefiles into implementations.mk
+
+2010-06-25
+- working on kernels, gentoo, xen, uml...
+
+2010-06-19
+- ~/works/ai/dmiles/mc  minimal compiler: Added some macros to standard-macros.lisp
+
+2010-06-18
+- org-modified ~/notes.txt and ~/firms/*/notes.txt (well, just ~/firms/medicalis/notes.txt).
+- Created a git repository for ~/works/ai/dmiles/mc on http://git.informatimago.com/srv/git/public/mc
+
+2010-06-16
+- MEDICALIS:MDI: Prepared a development VM:  mdi-development-1.
+
+2010-06-15
+- medicalis/src/tools
+
+2010-06-14
+- Pôle Emploi 
+- avion Paris Valencia
+
+2010-06-13
+- avion Valencia Paris
+
+2010-06-08
+- ~/works/ls-lR/ published to 
+  ssh://git.informatimago.com/srv/git/public/ls-lR
+  http://git.informatimago.com/public/ls-lR
+
+2010-06-06
+- installation of dia for new diagrams. It's usable (arrows follow
+  boxes, sometimes).  It has a Python REPL, would be better with an
+  ECL REPL...
+
+- installation of planner and ecl; it would be nice to embed ecl into
+  planner to be able to expand it dynamically, and implement missing
+  algorithms.
+
+- installation KDE for Gambas2 for pgDesigner for understanding of
+  sara schema.
+
+2010-01-15
+- ~/src/lisp/encours/cyc/
+  Moved things around.
+
+2010-01-05
+- ~/bin/newpassword in lisp using ~/bin/script.lisp
+
+2010-01-04
+- ~/src/pjb/linc/ruby.lisp contains the grammar of Ruby in sexp form.
+
+2010-01-03
+- ~/works/ls-lR/command-line.lisp
+- ~/works/ls-lR/ls-lr-browser.lisp
+
+2009-12-07
+- ~/src/lisp/encours/sam.lisp   
+  Schank's Conceptual Dependencies.
+  Code from chapter 14 of "Common Lisp Programming for Artificial Intelligence" 
+
+2009-11-28
+- ~/src/lisp/encours/clisp/script-example/compile.lisp
+  Compile a clisp script.
+
+2009-11-25
+- ~/src/lisp/encours/rename-with-md5sums.lisp
+  Identify files by their md5sum to rename them across directories.
+
+2009-09-12
+- ~/src/public/lisp/common-lisp/llrbtree.lisp
+   Left-Leaning Red-Black Tree.
+
+2009-08-19
+- ~/src/lisp/encours/scratch/compress.lisp
+  Encodes and decodes sexps as compact strings.
+
+2009-08-09
+- intergruas.co.in
+
+2009-08-04
+- moved simple-reader.lisp to ~/src/lisp/encours/common-lisp/bootstrap/
+
+2009-08-03
+- reviewed wizards code and mysql installation on voyager.
+
+2009-07-28
+- various /data/sound/music/*.index files. (clisp scripts to index and
+  set mp3info to new mp3 files).
+
+2009-07-27
+- Wrote ~/src/lisp/encours/scratch/big-directory.lisp  (CL:DIRECTORY benchmark).
+- Added (setf com.informatimago.common-lisp.file:sexp-file-content).
+
+2009-07-26
+- redirected informatimago.com to www.informatimago.com
+- INTERGRUAS: Added asia.intergruas.com and india.intergruas.com as CNAME intergruas.co.in. 
+- INTERGRUAS: enqueued 4 tickets to support@b4uindia.biz about intergruas.co.in.
+- voyager: separated /var/log/pound.log
+- Wrote ~/src/lisp/encours/scratch/clscheme.lisp (intersection CL R5RS).
+
+2009-07-25
+- started claar/gml.lisp to interface with OGDF to draw the cons graphs.
+  
+** Developments TODO
+*** TODO [#A] 
 *** TODO [#A] ECL on Android: compile and install            :android:cl:dev:
 Also, have a look at what would be involved at making it work on iOS too.
 *** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
@@ -2477,6 +2787,63 @@ but its complex numbers testcase fails for me with a non default
 and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
+*** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
+pjb-objc-edit.el
+pjb-objc-gen.el
+pjb-objc-mode.el
+pjb-c-style.el
+**** TODO [#A] objc-method-call-cont to indent colons.       :objc:emacs:dev:
+aligning collons,
+in pjb-c-style.el
+**** TODO [#A] cmd create/update objc properties             :objc:emacs:dev:
+
+     create property:  public/private Class  name   (non atomic,retain)
+
+     in @interface:
+
+     Class* _name; // in attributes
+     @property (…) Class* _name;
+
+     in @implementation:
+
+     @synthesize _name;
+
+     -init
+     {
+     …
+        _name=[[Class alloc] init];
+     }
+
+
+
+     For a public property:
+
+     @property (…) Class* name;
+     @synthesize name=_name;
+
+**** TODO [#A] objc-edit (like paredit)                      :objc:emacs:dev:
+**** TODO [#A] objc-gen (like parenscript) code from sexps   :objc:emacs:dev:
+to generate Objective-C
+**** Objective-C
+http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
+https://github.com/Nortey/TankDB
+*** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
+**** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
+**** TODO [#A] interface with emacs (wisent, bovinator)           :emacs:dev:
+- and have some tools (navigation, generation, indent, font-lock, etc).
+
+**** TODO [#A] write some code analysis tools                        :cl:dev:
+
+- we'd like to see code and data dependencies 
+
+- notably, for for Cocoa/GNUstep Objective-C, we'd want to see the
+  notifications and binding dependencies.
+
+- analysis of Xcode projects
+
+- analysis of Xcode xib, notably bindings, but in general, translate
+  xib files into source code.
+
 *** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
 *** TODO [#B] Implement "stonedge" game on iPad.                    :ios:dev:
    DEADLINE: <2016-09-01 -3m>
@@ -3016,11 +3383,6 @@ https://melpa.org/#/window-number
 *** TODO [#B] CDR lisp reader                                        :cl:dev:
 Write a CDR to specify extension parse-token hook to the lisp reader.
 See also reader extension for hierarchical packages, etc.
-*** DONE [#B] Merge  anevia stuff                                    :cl:dev:
-    CLOSED: [2016-02-06 Sat 21:08]
-    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:08] \\
-      Has been done.
-~/firms/anevia/lisp-20090104T142949/encours/
 *** TODO [#B] move flpl to smallclpgms                               :cl:dev:
 move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms
 *** TODO [#B] add usenet articles                                    :cl:dev:
@@ -3147,63 +3509,6 @@ http://www.monobjc.net/index.php?page=xcode-project-file-format
 
 *** TODO [#C] Publish HTML doc snippets for my packages              :cl:dev:
 eg. Extract from ASDF descriptions.
-*** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
-pjb-objc-edit.el
-pjb-objc-gen.el
-pjb-objc-mode.el
-pjb-c-style.el
-**** TODO [#C] objc-method-call-cont to indent colons.       :objc:emacs:dev:
-aligning collons,
-in pjb-c-style.el
-**** TODO [#C] cmd create/update objc properties             :objc:emacs:dev:
-
-     create property:  public/private Class  name   (non atomic,retain)
-
-     in @interface:
-
-     Class* _name; // in attributes
-     @property (…) Class* _name;
-
-     in @implementation:
-
-     @synthesize _name;
-
-     -init
-     {
-     …
-        _name=[[Class alloc] init];
-     }
-
-
-
-     For a public property:
-
-     @property (…) Class* name;
-     @synthesize name=_name;
-
-**** TODO [#C] objc-edit (like paredit)                      :objc:emacs:dev:
-**** TODO [#C] objc-gen (like parenscript) code from sexps   :objc:emacs:dev:
-to generate Objective-C
-**** Objective-C
-http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
-https://github.com/Nortey/TankDB
-*** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
-**** TODO [#C] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
-**** TODO [#C] interface with emacs (wisent, bovinator)           :emacs:dev:
-- and have some tools (navigation, generation, indent, font-lock, etc).
-
-**** TODO [#C] write some code analysis tools                        :cl:dev:
-
-- we'd like to see code and data dependencies 
-
-- notably, for for Cocoa/GNUstep Objective-C, we'd want to see the
-  notifications and binding dependencies.
-
-- analysis of Xcode projects
-
-- analysis of Xcode xib, notably bindings, but in general, translate
-  xib files into source code.
-
 *** TODO [#C] check http://ocmock.org/                             :objc:dev:
 and http://www.mockobjects.com/
 
@@ -3237,17 +3542,26 @@ FullWrite: Your Serial Number is — FREE-33333-33333
  (or is it i386/x86_64)?
 what-implementation is at telnet://clis.informatimago.com:8101
 *
-*** Developments (Done TODOs)
-**** DONE [#C] linc to git repository for quicklisp                   :admin:
-    CLOSED: [2015-10-19 Mon 15:24] DEADLINE: <2012-12-31 -7d> 
-    - State "DONE"       from "TODO"       [2015-10-19 Mon 15:24] \\
-      Moved to informatimago/languages/linc.
-**** DONE [#A] ~/bin/script.lisp message bug                         :cl:dev:
+** Developments DONE
+*** DONE [#B] Merge  anevia stuff                                    :cl:dev:
+    CLOSED: [2016-02-06 Sat 21:08]
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:08] \\
+      Has been done.
+~/firms/anevia/lisp-20090104T142949/encours/
+*** CANCELED [#A] Write  proposal for vitale                            :dev:
+    CLOSED: [2016-02-06 Sat 21:42] :DEADLINE: <2015-11-02 Mon -1w>
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
+      Done. Not followed up.
+*** DONE [#C] linc to git repository for quicklisp                    :admin:
+   CLOSED: [2015-10-19 Mon 15:24] DEADLINE: <2012-12-31 -7d> 
+   - State "DONE"       from "TODO"       [2015-10-19 Mon 15:24] \\
+     Moved to informatimago/languages/linc.
+*** DONE [#A] ~/bin/script.lisp message bug                          :cl:dev:
    CLOSED: [2012-12-24 Mon 01:24]
    - CLOSING NOTE [2012-12-24 Mon 01:24] \\
      Done.
 ERROR: Missing arguments: INDEX  --> ERROR: option -s is missing an argument: INDEX
-**** CANCELED [#B] Ramon / programmer site ayudaparavivir.org           :dev:
+*** CANCELED [#B] Ramon / programmer site ayudaparavivir.org            :dev:
    CLOSED: [2012-12-12 Wed 22:26]
    - State "CANCELED"   from "DONE"       [2012-12-12 Wed 23:52]
    - CLOSING NOTE [2012-12-12 Wed 22:26] \\
@@ -3261,333 +3575,19 @@ mysql db GroupWare user GroupWare password group3423
 http://www.ayudaparavivir.com/admin/ 
 login ayudaparavivir password 5z2csasz
 
-**** DONE lispdoc                                                    :cl:dev:
+*** DONE lispdoc                                                     :cl:dev:
    CLOSED: [2012-12-15 Sat 20:33]
    - State "DONE"       from ""           [2012-12-15 Sat 20:33] \\
      Updated lispdoc and docstrings.
 - correct URI in package docstring.
 - regenerate & upload documentation.
-**** DONE [#B] ccl Obj-C reader macros                               :cl:dev:
+*** DONE [#B] ccl Obj-C reader macros                                :cl:dev:
    CLOSED: [2014-02-07 Fri 00:18]
    - State "DONE"       from "TODO"       [2014-02-07 Fri 00:18] \\
      objective-cl done two years ago.
 - ccl objc reader macros.
 /home/pjb/works/abalone-macosx/Abalone-lisp
 --> Define nice macros to define classes and methods.-
-
-*** Programming Log (Done) 
-
-2015-10-19
-- Published a blog rss feed http://www.informatimago.com/blog/
-
-2012-10-04
-DONE: funconcurrency: install a basilisk VM to run WriteNow and extract .txt
-      and .ps documentations.
-
-
-2012-04-22 - 2012-04-29
-- updated the docstrings and the :license field in asd files.
-- improved lispdoc.lisp.
-- updated www.informatimago.com/develop/lisp/
---> remains to document objcl, rdp, clisp, susv3.
-
-2012-04-16 - 2012-04-21
-- implemented telnet.lisp
-
-2012-04-15
-- switched to AGPL3 licence for com.informatimago.
-- moved small-cl-pgms, objcl and rdp to com.informatimago.
-
-2012-04-13
-- Compiled the Patchwork Demo on 10.5.8 ppc and 10.7.3 32-bit and sent
-  to Alexis Bosch.
-
-2012-04-11
-- Completed the Patchwork Demo and sent to Alexis Bosch.
-
-2012-04-04
-- lisp-text.source-text: peek-char moves file-position in ccl.
-- xref + lisp-reader.reader + lisp-reader.package
-
-2012-03-28 - 2012-04-03
-- devis Patchwork
-- zpack -> com.informatimago.common-lisp.lisp-reader.package
-
-2012-01-01 - 2012-03-28
-- implemented nasium-lse
-  Remains to finish:
-  - the web site (paypal, downloads, java telnet),
-  - a few terminal classes (eg. MS-Windows, clisp)
-  - the server.
-  Possibly:
-  - a MacOSX application.
-  - a iOS application.
-
-
-2011-01-19
-- completed flpl transcription, "A Fortran-Compiled List-Processing Language"
-  with figures.lisp to draw the list diagrams; this could be used in claar.
-  /home/pjb/src/lisp/history/flpl
-  /home/pjb/public_html/sites/com.informatimago.www/articles/flpl/truetype/webdings.ttf
-
-- http://www.informatimago.com/articles/flpl/
-
-- Wrote some solutions to the l99 problem set.
-
-2010-12-22
-- Wrote /home/pjb/src/public/lisp/objcl/
-        ftp://ftp.informatimago.com/users/pjb/lisp/objcl.tar.bz2
-
-2010-12-09
-- com.informatimago.common-lisp.data-encoding.bencode to read torrent files.
-
-- installed transmission to download wikileak torrent files.
-
-  transmission-daemon -w /home/p2p/incoming/files/
-
- transmission-daemon -f -t -u your_username -v your_password -w /path/to/downloaded/torrents -g /etc/transmission-daemon/
-
-
-http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
-
-2010-11
-- check-pathnames
-- clisp dbus for bonjour/rendez-vous for mplayer synchronization
-  ~/works/media-player/dbus-hi.lisp
-- lambda-calculus for lambda-calculus-machine
-- ccl objc reader macros.
-- some work on Abalone-macosx
-
-2010-10-10
-- http://www.informatimago.com/articles/cl-types/
-
-2010-07-09 - 2010-07-10
-- playtomo-stonedege.lisp
-
-2010-06-27
-- ~/src/public/lisp/ Factorized out */Makefiles into implementations.mk
-
-2010-06-25
-- working on kernels, gentoo, xen, uml...
-
-2010-06-19
-- ~/works/ai/dmiles/mc  minimal compiler: Added some macros to standard-macros.lisp
-
-2010-06-18
-- org-modified ~/notes.txt and ~/firms/*/notes.txt (well, just ~/firms/medicalis/notes.txt).
-- Created a git repository for ~/works/ai/dmiles/mc on http://git.informatimago.com/srv/git/public/mc
-
-2010-06-16
-- MEDICALIS:MDI: Prepared a development VM:  mdi-development-1.
-
-2010-06-15
-- medicalis/src/tools
-
-2010-06-14
-- Pôle Emploi 
-- avion Paris Valencia
-
-2010-06-13
-- avion Valencia Paris
-
-2010-06-08
-- ~/works/ls-lR/ published to 
-  ssh://git.informatimago.com/srv/git/public/ls-lR
-  http://git.informatimago.com/public/ls-lR
-
-2010-06-06
-- installation of dia for new diagrams. It's usable (arrows follow
-  boxes, sometimes).  It has a Python REPL, would be better with an
-  ECL REPL...
-
-- installation of planner and ecl; it would be nice to embed ecl into
-  planner to be able to expand it dynamically, and implement missing
-  algorithms.
-
-- installation KDE for Gambas2 for pgDesigner for understanding of
-  sara schema.
-
-2010-01-15
-- ~/src/lisp/encours/cyc/
-  Moved things around.
-
-2010-01-05
-- ~/bin/newpassword in lisp using ~/bin/script.lisp
-
-2010-01-04
-- ~/src/pjb/linc/ruby.lisp contains the grammar of Ruby in sexp form.
-
-2010-01-03
-- ~/works/ls-lR/command-line.lisp
-- ~/works/ls-lR/ls-lr-browser.lisp
-
-2009-12-07
-- ~/src/lisp/encours/sam.lisp   
-  Schank's Conceptual Dependencies.
-  Code from chapter 14 of "Common Lisp Programming for Artificial Intelligence" 
-
-2009-11-28
-- ~/src/lisp/encours/clisp/script-example/compile.lisp
-  Compile a clisp script.
-
-2009-11-25
-- ~/src/lisp/encours/rename-with-md5sums.lisp
-  Identify files by their md5sum to rename them across directories.
-
-2009-09-12
-- ~/src/public/lisp/common-lisp/llrbtree.lisp
-   Left-Leaning Red-Black Tree.
-
-2009-08-19
-- ~/src/lisp/encours/scratch/compress.lisp
-  Encodes and decodes sexps as compact strings.
-
-2009-08-09
-- intergruas.co.in
-
-2009-08-04
-- moved simple-reader.lisp to ~/src/lisp/encours/common-lisp/bootstrap/
-
-2009-08-03
-- reviewed wizards code and mysql installation on voyager.
-
-2009-07-28
-- various /data/sound/music/*.index files. (clisp scripts to index and
-  set mp3info to new mp3 files).
-
-2009-07-27
-- Wrote ~/src/lisp/encours/scratch/big-directory.lisp  (CL:DIRECTORY benchmark).
-- Added (setf com.informatimago.common-lisp.file:sexp-file-content).
-
-2009-07-26
-- redirected informatimago.com to www.informatimago.com
-- INTERGRUAS: Added asia.intergruas.com and india.intergruas.com as CNAME intergruas.co.in. 
-- INTERGRUAS: enqueued 4 tickets to support@b4uindia.biz about intergruas.co.in.
-- voyager: separated /var/log/pound.log
-- Wrote ~/src/lisp/encours/scratch/clscheme.lisp (intersection CL R5RS).
-
-2009-07-25
-- started claar/gml.lisp to interface with OGDF to draw the cons graphs.
-  
-*** APPLICATION IDEAS:
-    - dev: agloo
-    - dev: cdb
-    - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
-    - dev: lisp web surfer script
-    - dev: setiathome farm
-    - dev: tar-backup / raid-archive
-
-               OpenStep   GNUstep/linux    MacOSX/darwin   palm
-    Abalone       X              X               X           X
-    agloo                        X               X
-    cirrus        X
-    iTransfer                    X               X
-    metre                        X               X
-    minitel       X              X
-    convoy                       X               X
-    simanimals                   X               X           X
-    tour-de-france               X               X           X
-    safari                       X               X           X
-    Figurine                     X               X
-    asteroid3d                   X               X           X
-    LSE                          X               X
-    Mr.Do                        X               X           X
-    morphing-puzzle              X               X           X
-    raid-archive                 X               X
-    typogenetic
-    wallstreet
-
-
-    - Idées d'application :  APPLICATION IDEAS:
-
-        ------------------------------------------------------------------------
-        presence and communication manager:
-        A computer system centralizing communication notificiations (phone
-        calls, sms, emails, etc), and monitoring the user presence to report
-        him new notifications.
-        ------------------------------------------------------------------------
-        bluetooth:
-        a device to push informations to bluetooth devices.
-        ------------------------------------------------------------------------
-
-        - Minitel M1B bug reports
-          Porter en OS4.2 pour implimentation sur Mac OS X.
-          Emulateur Minitel :
-              - compteur suplimentaire pour le cout
-              - equivalents claviers
-              - sauvegarde en continu en videotex et en texte
-              - photo d'ecran
-              - edition souris sur l'ecran
-
-        - Abalone:
-            - Programmer v1.0 (jeu en riseau).
-            - Porter sur Linux/GNUstep.
-	        - Abalone update the URL in the About dialog
-
-        - Traveller
-            A purposeless game. A set of virtual planets to explore.
-            Several means of transport...
-
-        - Convoy
-            Similar to Traveller, but within an artificial environment
-            (space-station) and multi-users (thru Internet).
-
-        - Simulateur d'oiseau (et autre animaux).
-
-      	- Jeu Mr-Do /classique, /3d.  ---> Mr. It !!!
-      	- Jeu Tour de France.         ---> Vuelta 3D !!!
-
-  	    - Jeu Safari.
-
-  	    - Creature/Tiercé: générations de chevaux, gestion d'une écurie,
-	      simulation des courses, gestion des paris, en riseau TCP/IP.
-
-        - Collection de soldat de plomb virtuelle.
-            - Moules / simulation du coulage des soldats de plomb !
-            - Figurines virtuelles à "peindre", vitrine virtuelle.
-            - CAO de figurines virtuelle (style soldat de plomb).
-            - CAO de vêtements et accessoires, modèle virtuel
-              s'habillant automatiquement.
-
-    Gestion de parc / voisinage riseau:
-    Cela depend de ce que tu veux dire par "scanner"? et surtout quelles infos
-    tu veux avoir, nmap peut faire l'affaire ou Komba, gnomba... si tu veux
-    faire du "voisinage reseau"....
-
-
-      	- Application de Métré.
-
-        - Proxy Web/FTP/News optimisant les temps de connection.
-
-            +----------+      +----------+         +----------+
-            | Client   |      | Proxy    |         | Serveur  |
-            | Web,Mail |<---->|    Local |<--...-->| Proxy    |<-->(Internet)
-            | FTP,News |      | (cache)  |         | Connecti |
-            +----------+      +----------+         +----------+
-
-            Super-Compression d'email (mjme Mini-M, Inmarsat-C, etc !).
-
-
-        - AGLOO/Intelligent
-
-            - Analyse de spécifications et description de modèle en
-              langage naturel.
-
-            - Analyse de programmes sources ou objet et reconstruction
-              du modèle.
-
-            - Génération & transformation  automatique de modèles et
-              de programmes.
-
-            - Validation des modèles, Preuve de programme, Correction
-              des erreurs d'implimentation.
-
-            - Recherche de documentations, références et informations
-              sur Internet (FTP, Web, etc).
-
-            - Apprentissage automatique de langages de programmation.
-
-            - Portages, traduction entre langages de programmation.
 
 * VENI SANCTE
 
