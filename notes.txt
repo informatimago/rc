@@ -2761,9 +2761,18 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
   
 ** Developments TODO
-*** TODO [#A] 
 *** TODO [#A] ECL on Android: compile and install            :android:cl:dev:
+    :DEADLINE: <2016-03-30 -2m>
 Also, have a look at what would be involved at making it work on iOS too.
+**** ECL Android
+../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
+https://github.com/pasky/pachi/blob/master/ANDROID.txt
+https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
+http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
+https://github.com/ageneau/ecl-android
+**** ECL on iPhone/iPad
+http://funcall.posterous.com/ecl-on-iphone-redux
+
 *** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
 ~/src/public/games/hangman-ios/
 
@@ -9898,16 +9907,6 @@ returned for the total of 5 values.
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
 
-
-*** ECL on iPhone/iPad
-http://funcall.posterous.com/ecl-on-iphone-redux
-
-*** ecl android
-../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
-https://github.com/pasky/pachi/blob/master/ANDROID.txt
-https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
-http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
-https://github.com/ageneau/ecl-android
 
 *** ECL funcall from C with unwind-protect
 #+BEGIN(src)
