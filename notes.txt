@@ -2452,6 +2452,8 @@ Project Number: 444610959287
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
       Done. Not followed up.
 
+*** TODO [#A] ECL on Android: compile and install            :android:cl:dev:
+Also, have a look at what would be involved at making it work on iOS too.
 *** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
 ~/src/public/games/hangman-ios/
 
@@ -2476,7 +2478,7 @@ and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
 *** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
-*** TODO [#B] Implement "stonedge" game on iPad.                   :ipad:dev:
+*** TODO [#B] Implement "stonedge" game on iPad.                    :ios:dev:
    DEADLINE: <2016-09-01 -3m>
 - playtomo-stonedge.lisp
 
