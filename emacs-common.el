@@ -2541,6 +2541,13 @@ p")
     (format "find ~/works/patchwork/src/patchwork/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
 (global-set-key (kbd "H-/") 'pwfind)
 
+(setf calendar-time-display-form '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")))
+(setf mode-line-format '("%e" mode-line-front-space
+                         mode-line-mule-info mode-line-client mode-line-modified mode-line-remote
+                         mode-line-frame-identification mode-line-buffer-identification
+                         "   " mode-line-position (vc-mode vc-mode) "  "
+                         mode-line-modes mode-line-misc-info mode-line-end-spaces))
+
 (defun next-day (date)
   "Returns the next day.
 DATE: (YYYY MM DD [DOW])
