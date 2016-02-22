@@ -56,8 +56,10 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
+ '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-autojoin-delay 10)
+ '(erc-autojoin-mode t)
+ '(erc-autojoin-timing (quote connect))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -101,6 +103,8 @@
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
  '(indent-tabs-mode nil)
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
  '(mail-host-address nil)
  '(message-log-max 5000)
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
@@ -188,6 +192,45 @@
   ;; (ignore-errors (visit-tags-table "~/src/tbase.etags"))
   )
 
+
+;;----------------------------------------------------------------------------
+;; java
+
+(require 'auto-complete nil t)
+(defun java-meat ()
+  (interactive)
+  (when (fboundp 'auto-complete-mode)
+    (auto-complete-mode 1))
+  (setf tab-stop 2
+        tab-width 2
+        c-indent-level 2
+        c-basic-offset 2
+        c-tab-always-indent t))
+
+(add-hook 'java-mode-hook 'java-meat)
+
+(global-set-key (kbd "C-h 1") 'android-search-region)
+(add-hook 'java-mode 'pjb-java-edit-meat)
+
+
+(defparameter *android-tools-directory*
+  (if (string= (hostname) "macbook-trustonic.local")
+      "~/Library/Android"
+      "~/opt"))
+(push (expand-file-name (concat *android-tools-directory* "/sdk/tools/lib/")) load-path)
+(when (require 'android nil t)
+ (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "sdk")))
+ (require 'android-mode nil t)
+
+ (defun gud-meat ()
+   (interactive)
+   (add-to-list 'gud-jdb-classpath (expand-file-name (concat *android-tools-directory* "sdk/platforms/android-23/android.jar"))))
+ (add-hook 'gud-mode-hook 'gud-meat))
+
+(require 'cedet)
+
+(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+(require 'jde)
 
 
 ;;----------------------------------------------------------------------------
