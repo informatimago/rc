@@ -574,6 +574,14 @@ X-Accept-Language:         fr, es, en
 
 (setf *pjb-intervention-firm* '((trustonic thp)))
 
+
+;; (setf org-finish-function 'org-store-log-note)
+;; org-finish-function
+;; org-store-log-note
+;; <YoungFrog> igam: In org-add-log-note there is (org-set-local 'org-finish-function
+;; 'org-store-log-note). I'd try adding a (message "Curbuf %S" (current-buffer)) in there to
+;; see in which buffer that goes... probably not the Org Note buffer as it should be.
+
 ;;  irc://artigue.org.es
 (cd (user-homedir-pathname))
 (slime)
