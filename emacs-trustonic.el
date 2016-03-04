@@ -15,7 +15,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-input-face ((t (:foreground "dark blue"))))
+ '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
@@ -103,14 +103,14 @@
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
  '(indent-tabs-mode nil)
- '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
- '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))) t)
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))) t)
  '(mail-host-address nil)
  '(message-log-max 5000)
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
+ '(safe-local-variable-values (quote ((eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
@@ -131,6 +131,8 @@
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-android.el")
+(load "~/rc/emacs-ruby.el")
+(load "~/rc/emacs-objective-c.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (defun dummy-bell () (message "bell"))
@@ -466,8 +468,6 @@
 ;;   (re-delete-lines-between (point-min) (point-max)
 ;;                            "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
 ;;                            "^\t}\\()\\| error: \\)"))
-
-(load "~/rc/emacs-package.el")
 
 ;;;----------------------------------------------------------------------------
 
