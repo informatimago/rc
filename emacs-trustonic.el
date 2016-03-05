@@ -15,7 +15,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-input-face ((t (:foreground "dark blue"))))
+ '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
@@ -56,8 +56,10 @@
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
+ '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-autojoin-delay 10)
+ '(erc-autojoin-mode t)
+ '(erc-autojoin-timing (quote connect))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-echo-notices-in-current-buffer t)
  '(erc-echo-timestamps nil)
@@ -101,12 +103,14 @@
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
  '(indent-tabs-mode nil)
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))) t)
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))) t)
  '(mail-host-address nil)
  '(message-log-max 5000)
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
+ '(safe-local-variable-values (quote ((eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
@@ -127,6 +131,8 @@
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-android.el")
+(load "~/rc/emacs-ruby.el")
+(load "~/rc/emacs-objective-c.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (defun dummy-bell () (message "bell"))
@@ -188,6 +194,45 @@
   ;; (ignore-errors (visit-tags-table "~/src/tbase.etags"))
   )
 
+
+;;----------------------------------------------------------------------------
+;; java
+
+(require 'auto-complete nil t)
+(defun java-meat ()
+  (interactive)
+  (when (fboundp 'auto-complete-mode)
+    (auto-complete-mode 1))
+  (setf tab-stop 2
+        tab-width 2
+        c-indent-level 2
+        c-basic-offset 2
+        c-tab-always-indent t))
+
+(add-hook 'java-mode-hook 'java-meat)
+
+(global-set-key (kbd "C-h 1") 'android-search-region)
+(add-hook 'java-mode 'pjb-java-edit-meat)
+
+
+(defparameter *android-tools-directory*
+  (if (string= (hostname) "macbook-trustonic.local")
+      "~/Library/Android"
+      "~/opt"))
+(push (expand-file-name (concat *android-tools-directory* "/sdk/tools/lib/")) load-path)
+(when (require 'android nil t)
+ (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "sdk")))
+ (require 'android-mode nil t)
+
+ (defun gud-meat ()
+   (interactive)
+   (add-to-list 'gud-jdb-classpath (expand-file-name (concat *android-tools-directory* "sdk/platforms/android-23/android.jar"))))
+ (add-hook 'gud-mode-hook 'gud-meat))
+
+(require 'cedet)
+
+(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+(require 'jde)
 
 
 ;;----------------------------------------------------------------------------
@@ -423,8 +468,6 @@
 ;;   (re-delete-lines-between (point-min) (point-max)
 ;;                            "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
 ;;                            "^\t}\\()\\| error: \\)"))
-
-(load "~/rc/emacs-package.el")
 
 ;;;----------------------------------------------------------------------------
 

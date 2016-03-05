@@ -102,6 +102,8 @@ export ANDROID_HOME="$ANDROID_SDK"
 export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 
+export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+
 function connect-adb-device(){
     adb devices
     adb tcpip ${ANDROID_SERIAL/.*:/}
@@ -118,19 +120,22 @@ function connect-nereid(){
 alias c='mvn compile'
 alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
 
-sb=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
-si=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
 x=$HOME/src/xabber-android
 
-a=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat
-i=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
-l=$HOME/src/trustonic/tbase/branches/dev_thp_mwc2016_demo/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat/Pods/Magnet-XMPPFramework/Vendor/libidn
+k=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk
+ka=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat
+ki=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
+ks=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+
+i=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk
+is=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+
 
 function trustdirs(){
     for alias in c cx ; do
         alias $alias
     done
-    for var in sb si x a i l ; do
+    for var in x k ka ki ks i is ; do
         printf "variable %-3s = %s\n" "${var}" "${!var}"
     done
 }
