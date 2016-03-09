@@ -95,13 +95,12 @@ BLINK=""
 UNDERLINE=""
 BOLD=""
 
-
+export LM_LICENSE_FILE=8224@emea-meu-lic01.trustonic.internal
 export LANG=en_US.UTF-8
 export ANDROID_SDK="$HOME/Library/Android/sdk"
 export ANDROID_HOME="$ANDROID_SDK"
 export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
-
 export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
 
 function connect-adb-device(){
