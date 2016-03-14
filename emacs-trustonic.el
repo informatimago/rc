@@ -15,6 +15,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))

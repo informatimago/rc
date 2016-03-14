@@ -95,7 +95,7 @@ BLINK=""
 UNDERLINE=""
 BOLD=""
 
-
+export REPLYTO='Pascal J. Bourguignon <pascal.bourguignon@trustonic.com>'
 export LANG=en_US.UTF-8
 export ANDROID_SDK="$HOME/Library/Android/sdk"
 export ANDROID_HOME="$ANDROID_SDK"
