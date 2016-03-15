@@ -131,31 +131,42 @@ xterm*activeIcon:               false
 ! xterm*font5.Label: lycidatypewriter-21
 ! xterm*font6.Label: lycidatypewriter-24
 
-
-
-
-
-
-
-
-
-
-
-
-
-xterm*font1.Label: -adobe-courier-medium-r-normal--11-80-100-100-m-60-iso8859-1  
-xterm*font2.Label: -adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1 
-xterm*font3.Label: -adobe-courier-medium-r-normal--17-120-100-100-m-100-iso8859-1
-xterm*font4.Label: -adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1
-xterm*font5.Label: -adobe-courier-medium-r-normal--25-180-100-100-m-150-iso8859-1
-xterm*font6.Label: -adobe-courier-medium-r-normal--34-240-100-100-m-200-iso8859-1
-
 xterm*font1.Label: Very Small
 xterm*font2.Label: Small
 xterm*font3.Label: Normal
 xterm*font4.Label: Big
 xterm*font5.Label: Very Big
 xterm*font6.Label: Really Very Big
+
+xterm*font1:   -b&h-lucidatypewriter-medium-r-normal-sans-14-100-100-100-m-80-iso10646-1 
+xterm*font2:   -b&h-lucidatypewriter-medium-r-normal-sans-17-120-100-100-m-100-iso10646-1
+xterm*font3:   -b&h-lucidatypewriter-medium-r-normal-sans-20-140-100-100-m-120-iso10646-1
+xterm*font4:   -b&h-lucidatypewriter-medium-r-normal-sans-25-180-100-100-m-150-iso10646-1
+xterm*font5:   -b&h-lucidatypewriter-medium-r-normal-sans-26-190-100-100-m-159-iso10646-1
+xterm*font6:   -b&h-lucidatypewriter-medium-r-normal-sans-34-240-100-100-m-200-iso10646-1
+
+
+
+
+
+
+
+
+! -adobe-courier-medium-r-normal--0-0-100-100-m-0-*-*
+! -b&h-lucidatypewriter-medium-r-normal-sans-0-0-100-100-m-0-*-*
+! -bitstream-terminal-medium-r-normal--0-0-100-100-c-0-*-*
+! -misc-fixed-medium-r-normal--0-0-100-100-c-0-*-*
+! -sony-fixed-medium-r-normal--0-0-100-100-c-0-*-*
+! 
+! -b&h-luxi mono-medium-r-normal--0-0-0-0-m-0-*-*
+! -bitstream-bitstream vera sans mono-medium-r-normal--0-0-0-0-m-0-*-*
+! -bitstream-courier 10 pitch-medium-r-normal--0-0-0-0-m-0-*-*
+! -bitstream-menlo-medium-r-normal--0-0-0-0-m-0-*-*
+! -ibm-courier-medium-r-normal--0-0-0-0-m-0-*-*
+! 
+! -dec-terminal-medium-r-normal--0-0-75-75-c-0-*-*
+! -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-*-*
+! -schumacher-clean-medium-r-normal--0-0-75-75-c-0-*-*
 
 ! xterm*font1:    -*-lucidatypewriter-medium-r-normal-*-12-*-*-*-m-*-*-*
 ! xterm*font2:    -*-smoothansi-medium-r-*-*-13-*-*-*-m-*-*-*
@@ -420,13 +431,13 @@ lavaps*checkInterval:   1000
 
 ! Generic athena widget font selection
 
-*Text.Font:                     -*-lucidatypewriter-medium-r-*-*-12-*-*-*-*-*-iso8859-1
-*Label.Font:                    -*-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-1
-*Command.Font:                  -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*SimpleMenu.Font:               -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*SmeBSB.Font:                   -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*MenuButton.Font:               -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
-*List.Font:                     -*-helvetica-bold-r-*-*-12-*-*-*-*-*-iso8859-1
+*Text.Font:                     -*-lucidatypewriter-medium-r-*-*-15-*-*-*-*-*-iso8859-1
+*Label.Font:                    -*-helvetica-medium-r-*-*-15-*-*-*-*-*-iso8859-1
+*Command.Font:                  -*-helvetica-bold-r-*-*-15-*-*-*-*-*-iso8859-1
+*SimpleMenu.Font:               -*-helvetica-bold-r-*-*-15-*-*-*-*-*-iso8859-1
+*SmeBSB.Font:                   -*-helvetica-bold-r-*-*-15-*-*-*-*-*-iso8859-1
+*MenuButton.Font:               -*-helvetica-bold-r-*-*-15-*-*-*-*-*-iso8859-1
+*List.Font:                     -*-helvetica-bold-r-*-*-15-*-*-*-*-*-iso8859-1
 
 
 !/*
