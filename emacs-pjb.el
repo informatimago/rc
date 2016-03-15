@@ -466,12 +466,15 @@ X-Accept-Language:         fr, es, en
 (load "~/rc/emacs-font.el")
 (when (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
-(load "~/rc/emacs-slime-simple.el")
 ;; (load "~/rc/emacs-slime.el")
 ;; (load "~/rc/emacs-cl-indent.el")
-(load "~/rc/emacs-redshank.el")
+(load "~/rc/emacs-slime-simple.el")
 (load "~/rc/emacs-hyperspec.el")
+(load "~/rc/emacs-redshank.el")
+(load "~/rc/emacs-objective-c.el")
 (load "~/rc/emacs-android.el")
+(load "~/rc/emacs-ruby.el")
+
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
