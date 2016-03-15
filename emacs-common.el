@@ -1753,7 +1753,7 @@ URL in a new window."
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
-  (auto-complete-mode -1)
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode -1))
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 
