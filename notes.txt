@@ -1156,6 +1156,9 @@ clisp scripts to index and set mp3info to new mp3 files:
 ***** TODO [#B] Name Johan Sebastian Bach files, using cddb.txt files.
 **** TOD [#A] OGAMITA.ORG renewal                                     :admin:
      :DEADLINE: <2017-02-03 -1m>
+**** TODO [#A] HTTPS on kuiper
+https://letsencrypt.org/
+http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-connections-501924.shtml
 **** TODO [#A] OGAMITA.NET renewal                                    :admin:
      :DEADLINE: <2016-12-01 -1m>
 **** TODO [#A] OGAMITA.COM renewal                                    :admin:
