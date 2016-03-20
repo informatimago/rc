@@ -1,4 +1,4 @@
-# -*- mode: shell-script;coding:iso-8859-1 -*-
+# -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 
@@ -381,33 +381,23 @@ function be_generate(){
     fi
     
     be_comment 'Generic environment:'
-    be_variable TZ                      Europe/Madrid
+    be_variable TZ                      Europe/Paris
 
     be_unset GNOME_KEYRING_CONTROL
 
     # Most prioritary:
-    be_variable LC_ALL                    C
-
+    be_variable LC_ALL                    en_US.UTF-8
     # If LC_ALL is not defined:
-    # be_variable LC_MONETARY             es_ES.UTF-8
-    # be_variable LC_MESSAGES             en_US.UTF-8
-    # be_variable LC_NUMERIC              en_US.UTF-8
-    # be_variable LC_TIME                 en_US.UTF-8
-    # be_variable LC_COLLATE              fr_FR.UTF-8
-    # be_variable LC_CTYPE                fr_FR.UTF-8
-    # be_variable LC_COLLATE              C
-    # be_variable LC_CTYPE                en_US.UTF-8
-    be_unset LC_MONETARY 
-    be_unset LC_MESSAGES
-    be_unset LC_NUMERIC 
-    be_unset LC_TIME
-    be_unset LC_COLLATE
-    be_unset LC_CTYPE
-
-    be_unset XMODIFIERS
-
+    be_unset    LC_MONETARY               fr_FR.UTF-8
+    be_unset    LC_MESSAGES
+    be_unset    LC_NUMERIC 
+    be_unset    LC_TIME                   fr_FR.UTF-8
+    be_variable LC_COLLATE                C
+    be_variable LC_CTYPE                  C
     # If the above are not defined:
     be_unset LANG
+
+    be_unset XMODIFIERS
 
     # if [ $(hostname) = iMac-Core-i5.local ] ; then
     # 
@@ -585,18 +575,55 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 
 alias ..='cd ..'
 alias ...='cd ../..'
+alias â€¦='cd ../..'
 
 alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
 
-export CVSEDITOR=emacsclient
+function dirs(){
+    local i=1
+    for dir in "${DIRSTACK[@]}" ; do
+        printf "%2d) %s\n" $i "$dir"
+        i=$(( $i + 1 ))
+    done
+}
+
+function cdd(){
+    local diri
+    local i=1
+    dirs
+    read -p "Change to what directory? " diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" -eq "$i" ] ; then
+            cd "$dir"
+            return
+        fi
+        i=$(( $i + 1 ))
+    done
+    cd "$diri"
+}
+
+function pushdd(){
+    local diri
+    local i=1
+    dirs
+    read -p "Change to what directory? " diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" -eq "$i" ] ; then
+            pushd "$dir"
+            return
+        fi
+        i=$(( $i + 1 ))
+    done
+    pushd "$diri"
+}
 
 
 # system specific aliases:
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
 if [ $(uname) = Darwin ] ; then
     ou=$(umask);umask 077
-    env|sed -n -e '/UTF-8/d' -e'/=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p'>/tmp/$$
+    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p' >/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
     if [ -x /opt/local/bin/gls ] ; then
@@ -1086,7 +1113,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       ~/.bash_profile,  ~/.bash_login,  and  ~/.profile, in that
 #       order, and reads and executes commands from the first  one
 #       that  exists  and is readable.  The --noprofile option may
-#       be used when the shell is started to inhibit  this  behav­
+#       be used when the shell is started to inhibit  this  behavÂ­
 #       ior.
 #
 #       When a login shell exits, bash reads and executes commands
@@ -1119,7 +1146,7 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       be used to inhibit this  behavior.   When  invoked  as  an
 #       interactive  shell  with  the  name sh, bash looks for the
 #       variable ENV, expands its value if it is defined, and uses
-#       the  expanded value as the name of a file to read and exe­
+#       the  expanded value as the name of a file to read and exeÂ­
 #       cute.  Since a shell invoked as sh  does  not  attempt  to
 #       read  and  execute  commands from any other startup files,
 #       the --rcfile option  has  no  effect.   A  non-interactive
@@ -1146,8 +1173,8 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #
 #       If the shell is started with the effective user (group) id
 #       not  equal  to the real user (group) id, and the -p option
-#       is not supplied, no startup files are  read,  shell  func­
-#       tions  are  not  inherited from the environment, the SHEL­
+#       is not supplied, no startup files are  read,  shell  funcÂ­
+#       tions  are  not  inherited from the environment, the SHELÂ­
 #       LOPTS variable, if  it  appears  in  the  environment,  is
 #       ignored, and the effective user id is set to the real user
 #       id.  If the -p  option  is  supplied  at  invocation,  the
