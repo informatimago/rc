@@ -496,11 +496,8 @@ case "$host" in
         SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
         # GNUstep environment:
-        if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
-            . /usr/share/GNUstep/Makefiles/GNUstep.sh
-        fi
         if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-            for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+            for gsr in /usr/lib/GNUstep /usr/share/GNUstep / /GNUstep ; do
                 #echo "$gsr/System/Makefiles"
                 if [ -d $gsr/System/Makefiles ] ; then
                     gsr=$gsr/System
@@ -508,11 +505,12 @@ case "$host" in
                 fi
                 [ -d $gsr/Makefiles ] && break
             done
-            [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+            [ -f $gsr/Makefiles/GNUstep.sh ] && source $gsr/Makefiles/GNUstep.sh
         fi
-        if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then 
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
         fi
+
         ;;
 esac
 
