@@ -1,6 +1,12 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+
+
+
 * NOTES
+** emulators on the web
+ http://manymo.com and https://appetize.io 
+
 ** XCode team distribution certificates
 
 Advise anyone on your team:
@@ -1154,7 +1160,7 @@ clisp scripts to index and set mp3info to new mp3 files:
     /data/sound/music-mp3/the-ventures.index
 ***** TODO [#B] Rename Schubert files and MP3 Info.
 ***** TODO [#B] Name Johan Sebastian Bach files, using cddb.txt files.
-**** TOD [#A] OGAMITA.ORG renewal                                     :admin:
+**** TODO [#A] OGAMITA.ORG renewal                                    :admin:
      :DEADLINE: <2017-02-03 -1m>
 **** TODO [#A] HTTPS on kuiper
 https://letsencrypt.org/
@@ -1206,6 +1212,11 @@ the computing technology we use today.
 
 ***** TODO [#C] Movies to Get with mldonkey                           :admin:
       :DEADLINE: <2016-12-31 -6m>   
+
+Films colombiens:
+- l'etreinte du serpent
+- les voyages du vent
+Livres: Andres Caicedo, Alvaro Mutis y Ospina
 
 As Far as My Feet Will Carry Me (2001)
 
@@ -2764,6 +2775,9 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
   
 ** Developments TODO
+*** TODO [#A] botil, irb bot to log channels                         :cl:dev:
+    :DEADLINE: <2016-02-28 -1m>
+
 *** TODO [#A] ECL on Android: compile and install            :android:cl:dev:
     :DEADLINE: <2016-03-30 -2m>
 Also, have a look at what would be involved at making it work on iOS too.

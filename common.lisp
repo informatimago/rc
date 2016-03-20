@@ -83,7 +83,7 @@
   (:use "COMMON-LISP")
   (:shadow "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
   (:export "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME"
-           "ASDF-CONFIGURATION" "LOAD-QUICKLISP" "INFORMATIMAGO-PACKAGES")
+           "LOAD-ASDF3" "ASDF-CONFIGURATION" "LOAD-QUICKLISP" "INFORMATIMAGO-PACKAGES")
   (:documentation "
 
 Utilities for the com.informatimago.pjb package.
@@ -227,6 +227,11 @@ License:
 ;;; ASDF-CONFIGURATION
 ;;;
 
+(defun load-asdf3 ()
+  (unless (member :asdf3 *features*)
+    (load (merge-pathnames #P"src/public/lisp/tools/asdf.lisp"
+                           (user-homedir-pathname)))))
+
 (defun asdf-configuration ()
   "Creates the ~/.config/common-lisp/asdf-output-translations.conf file."
  (let ((asdf-conf-path (merge-pathnames
@@ -323,6 +328,7 @@ License:
 
 (in-package "COM.INFORMATIMAGO.PJB")
 
+(load-asdf3)
 (asdf-configuration)
 (load-quicklisp)
 (push #P"~/src/public/lisp/" ql:*local-project-directories*)
