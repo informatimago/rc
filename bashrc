@@ -386,16 +386,16 @@ function be_generate(){
     be_unset GNOME_KEYRING_CONTROL
 
     # Most prioritary:
-    be_variable LC_ALL                    en_US.UTF-8
+    be_variable LC_ALL                    C
     # If LC_ALL is not defined:
     be_unset    LC_MONETARY               fr_FR.UTF-8
-    be_unset    LC_MESSAGES
-    be_unset    LC_NUMERIC 
+    be_unset    LC_MESSAGES               en_US.UTF-8
+    be_unset    LC_NUMERIC                fr_FR.UTF-8
     be_unset    LC_TIME                   fr_FR.UTF-8
     be_variable LC_COLLATE                C
     be_variable LC_CTYPE                  C
     # If the above are not defined:
-    be_unset LANG
+    be_variable LANG                      en_US.UTF-8
 
     be_unset XMODIFIERS
 
