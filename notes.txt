@@ -1131,6 +1131,10 @@ pour les cles sinon fermer compte openbank -> virement a cajama
 *** Virtual
 **** TODO [#C] edit cliki.net                                            :cl:
 
+http://www.cliki.net/HTML%20generator
+http://cliki.net/HTML%20generator
+
+
 create pages for those *(Common Lisp Implementations).
 
 > b
@@ -3044,7 +3048,6 @@ http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
 
 http://hightechhistory.com/category/stanford/
 
-http://www.cliki.net/HTML%20generator
 
 Raspberry Pi OS:
 http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
