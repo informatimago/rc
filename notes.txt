@@ -2,8 +2,9 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 
-
 * NOTES
+** Remote Desktop for Linux
+http://www.rdesktop.org/#download
 ** emulators on the web
  http://manymo.com and https://appetize.io 
 
@@ -1011,7 +1012,7 @@ TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
 
 coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
 
-http://www.digitalcombatsimulator.com/|pjb@informatimago.com|FUKekij2solryj
+http://www.digitalcombatsimulator.com/|pjb@informatimago.com|Multiplayer3
 
 
 http://www.artinfo-musinfo.org/en/issues/index.html
