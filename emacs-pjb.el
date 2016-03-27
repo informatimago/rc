@@ -135,7 +135,7 @@
  '(calendar-date-style (quote iso))
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
- '(calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))))
+ '(calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))) t)
  '(calendar-view-holidays-initially-flag t)
  '(calendar-week-start-day 1)
  '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
@@ -169,7 +169,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#botwar" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs" "#botwar" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -178,6 +178,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-mode nil)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
@@ -462,8 +463,8 @@ X-Accept-Language:         fr, es, en
 
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-package.el")
 (load "~/rc/emacs-font.el")
+(load "~/rc/emacs-package.el")
 (when (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
 ;; (load "~/rc/emacs-slime.el")
