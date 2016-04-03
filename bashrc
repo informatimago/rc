@@ -628,7 +628,7 @@ function pushdd(){
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
 if [ $(uname) = Darwin ] ; then
     ou=$(umask);umask 077
-    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p' >/tmp/$$
+    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
     if [ -x /opt/local/bin/gls ] ; then
