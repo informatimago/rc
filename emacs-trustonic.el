@@ -68,6 +68,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-mode nil)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)

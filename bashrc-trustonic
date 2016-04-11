@@ -1,5 +1,21 @@
 # -*- mode:shell-script -*-
 
+defaults write org.x.X11 enable_test_extensions -boolean true 
+defaults write org.macports.X11 enable_test_extensions -boolean true 
+
+export GRADLE_HOME=/opt/local/share/java/gradle
+# sudo port select --set maven maven2
+# sudo port select --set maven maven31
+# sudo port select --set python python27
+# sudo port select --set python2 python27
+# sudo bash -c 'cat /opt/local/etc/w3m/mailcap-dist>> /opt/local/etc/w3m/mailcap '
+# sudo port select --set pip pip27
+
+# if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+#     . /opt/local/etc/profile.d/bash_completion.sh
+# fi
+# export PATH="/opt/local/libexec/gnubin:$PATH"
+
 good_env=(COLUMNS
           DBUS_SESSION_BUS_ADDRESS
           DESKTOP_SESSION
@@ -104,6 +120,7 @@ export ANDROID_HOME="$ANDROID_SDK"
 export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+
 
 function connect-adb-device(){
     adb devices
