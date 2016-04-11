@@ -388,16 +388,16 @@ function be_generate(){
     be_unset GNOME_KEYRING_CONTROL
 
     # Most prioritary:
-    be_variable LC_ALL                    en_US.UTF-8
+    be_variable LC_ALL                    C
     # If LC_ALL is not defined:
     be_unset    LC_MONETARY               fr_FR.UTF-8
-    be_unset    LC_MESSAGES
-    be_unset    LC_NUMERIC 
+    be_unset    LC_MESSAGES               en_US.UTF-8
+    be_unset    LC_NUMERIC                fr_FR.UTF-8
     be_unset    LC_TIME                   fr_FR.UTF-8
     be_variable LC_COLLATE                C
     be_variable LC_CTYPE                  C
     # If the above are not defined:
-    be_unset LANG
+    be_variable LANG                      en_US.UTF-8
 
     be_unset XMODIFIERS
 
@@ -487,12 +487,10 @@ case "$host" in
 
         SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
+
         # GNUstep environment:
-        if [ -x /usr/share/GNUstep/Makefiles/GNUstep.sh ] ; then
-            . /usr/share/GNUstep/Makefiles/GNUstep.sh
-        fi
         if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-            for gsr in /usr/share/GNUstep / /gnustep /GNUstep /local/gnustep /local/GNUstep NOWHERE ; do
+            for gsr in /usr/lib/GNUstep /usr/share/GNUstep / /GNUstep /opt/local/GNUstep/share/GNUstep/ ; do
                 #echo "$gsr/System/Makefiles"
                 if [ -d $gsr/System/Makefiles ] ; then
                     gsr=$gsr/System
@@ -500,11 +498,16 @@ case "$host" in
                 fi
                 [ -d $gsr/Makefiles ] && break
             done
-            [ -f $gsr/Makefiles/GNUstep.sh ] && .  $gsr/Makefiles/GNUstep.sh
+            [ -f $gsr/Makefiles/GNUstep.sh ] && source $gsr/Makefiles/GNUstep.sh
         fi
-        if [ -s "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then 
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
+            export MANPATH=$GNUSTEP_SYSTEM_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
         fi
+        if [ -s "$GNUSTEP_LOCAL_ROOT" ] ; then
+            export MANPATH=$GNUSTEP_LOCAL_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
+        fi
+
         ;;
 esac
 
@@ -628,7 +631,7 @@ function pushdd(){
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
 if [ $(uname) = Darwin ] ; then
     ou=$(umask);umask 077
-    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p' >/tmp/$$
+    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
     if [ -x /opt/local/bin/gls ] ; then
