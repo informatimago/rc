@@ -154,9 +154,9 @@ screen -t root 0
 screen -t loc  1 
 screen -t kui  2 
 screen -t hub  3 
-screen -t gal  4 
-screen -t tri  5 
-screen -t voy  6
+#screen -t gal  4 
+#screen -t tri  5 
+#screen -t voy  6
 
 # caption always "%3n %t%? @%u%?%? [%h]%?"
 # hardstatus alwaysignore

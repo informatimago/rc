@@ -465,23 +465,7 @@ of `inferior-lisp-program').  Runs the hooks from
                (setf inferior-lisp-buffer (first lisp-buffers)))
               (nlisp ask-command))))))
 
-
-
 (defvar package 'common-lisp-user)
-
-(defun symbol-value-in-buffer (symbol buffer)
-  (save-excursion
-    (set-buffer buffer)
-    (when (boundp symbol)
-      (symbol-value symbol))))
-
-(defun set-symbol-value-in-buffer (symbol buffer value)
-  (save-excursion
-    (set-buffer buffer)
-    (make-local-variable symbol)
-    (setf (symbol-value symbol) value)))
-
-(defsetf symbol-value-in-buffer set-symbol-value-in-buffer)
 
 ;; (symbol-value-in-buffer 'inferior-lisp-buffer "a.lisp")
 ;; (local-variable-p 'package)
