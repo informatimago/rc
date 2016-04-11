@@ -1036,8 +1036,16 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "shell")
+(require 'shell)
 (add-hook 'ielm-mode-hook (lambda () (setf standard-output (current-buffer))))
 
+;; https://github.com/szermatt/emacs-bash-completion
+(unless (file-directory-p "~/emacs/emacs-bash-completion")
+  (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git")
+  (push "~/emacs/emacs-bash-completion" load-path))
+(require 'bash-completion)
+(bash-completion-setup)
+(setf shell-dirstack-query "pwd")
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
 ;; (unless (featurep 'eshell-auto)
@@ -1753,7 +1761,7 @@ URL in a new window."
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
-  (auto-complete-mode -1)
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode -1))
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 
