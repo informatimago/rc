@@ -42,6 +42,8 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
+PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+
 uname="$(uname -s)"
 case "$uname" in 
 Darwin)
@@ -537,7 +539,8 @@ function ds () {
 }
 
 
-
+alias intersection='grep -Fxf'
+alias difference='grep -vFxf' 
 # bash specific aliases:
 alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
 alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
@@ -950,6 +953,13 @@ function reload  (){ /etc/init.d/$1 reload;  }
 # ----------------------------------------
 # Some commands in $HOME/bin/* have a bash auto-completion feature.
 # ----------------------------------------
+case "$BASH_VERSION" in
+    4.[1-9]*)
+        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+            . /opt/local/etc/profile.d/bash_completion.sh
+        fi
+        ;;
+esac
 
 quote(){
     for arg ; do
