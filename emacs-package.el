@@ -33,5 +33,18 @@
     (run-lac-functions)))
 
 
+(defun pjb-install-packages ()
+  ;;
+  (package-install 'auto-complete)
+  ;;
+  (package-install 'inf-ruby)
+  (package-install 'enh-ruby-mode)
+  (package-install 'smartparens)
+  (package-install 'highlight-indentation)
+  (package-install 'robe)
+  (package-install 'dash)
+  (package-install 'dash-at-point)
+  (package-install 'textmate))
+
 ;;;; The End ;;;;
 
