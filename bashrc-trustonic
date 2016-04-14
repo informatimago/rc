@@ -112,7 +112,6 @@ UNDERLINE=""
 BOLD=""
 
 export REPLYTO='Pascal J. Bourguignon <pascal.bourguignon@trustonic.com>'
-export LM_LICENSE_FILE=8224@emea-meu-lic01.trustonic.internal
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ANDROID_SDK="$HOME/Library/Android/sdk"
@@ -157,5 +156,9 @@ function trustdirs(){
         printf "variable %-3s = %s\n" "${var}" "${!var}"
     done
 }
+
+export LM_LICENSE_FILE=8224@emea-meu-lic01.trustonic.internal
+export OBFUSCATE=no
+alias mvn='TERM=unix mvn'
 
 #### THE END ####
