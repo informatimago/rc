@@ -1204,8 +1204,12 @@ else
 fi
 
 case "$host" in
-*macbook?employer-a.local)      source ~/rc/bashrc-employer-a ;;
-*)                             source ~/rc/bashrc-pjb ;;
+*macbook?employer-a.local|vmdevlinux)
+    source ~/rc/bashrc-employer-a
+    ;;
+*)
+    source ~/rc/bashrc-pjb
+    ;;
 esac
 
 
