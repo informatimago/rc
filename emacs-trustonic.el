@@ -17,12 +17,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(compilation-error ((t (:inherit error :foreground "red"))))
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
- '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
+ '(font-lock-preprocessor-face ((t (:foreground "#cc5500"))))
  '(font-lock-string-face ((t (:foreground "#aa2211"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
@@ -41,6 +42,7 @@
 
 (.EMACS "custom variables")
 (custom-set-variables
+ '(backup-by-copying-when-linked t)
  '(c-backslash-column (quote set-from-style))
  '(c-backslash-max-column (quote set-from-style))
  '(c-basic-offset (quote set-from-style))
@@ -501,13 +503,6 @@
 
 (global-set-key (kbd "<f9>") 'hs-toggle-hiding)
 
-
-(defun outline-easy-bindings-meat ()
-  (interactive)
-  (require 'outline-mode-easy-bindings))
-
-(add-hook 'outline-mode-hook       'outline-easy-bindings-meat)
-(add-hook 'outline-minor-mode-hook 'outline-easy-bindings-meat)
 
 (defun lua-mode-meat ()
   (interactive)
