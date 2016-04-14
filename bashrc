@@ -1204,8 +1204,12 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local)      source ~/rc/bashrc-trustonic ;;
-*)                             source ~/rc/bashrc-pjb ;;
+*macbook?trustonic.local|vmdevlinux)
+    source ~/rc/bashrc-trustonic
+    ;;
+*)
+    source ~/rc/bashrc-pjb
+    ;;
 esac
 
 
