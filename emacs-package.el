@@ -36,6 +36,7 @@
 (defun pjb-install-packages ()
   ;;
   (package-install 'auto-complete)
+  (package-install 'column-marker)
   ;;
   (package-install 'inf-ruby)
   (package-install 'enh-ruby-mode)
