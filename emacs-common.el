@@ -1036,8 +1036,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "shell")
+(require 'shell)
 (add-hook 'ielm-mode-hook (lambda () (setf standard-output (current-buffer))))
 
+;; https://github.com/szermatt/emacs-bash-completion
+(unless (file-directory-p "~/emacs/emacs-bash-completion")
+  (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git")
+  (push "~/emacs/emacs-bash-completion" load-path))
+(require 'bash-completion)
+(milliways-schedule (lambda ()
+                      (bash-completion-setup)
+                      (setf shell-dirstack-query "pwd")))
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
 ;; (unless (featurep 'eshell-auto)
