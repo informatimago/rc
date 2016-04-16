@@ -23,13 +23,14 @@ set resizeunit 8
 set inputwidth 600
 msgwait 60
 
-alias emacs     exec emacs
-alias erc       exec erc
-alias web       exec firefox
-alias xterm     exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
-alias objing    exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
-alias galatea   exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
-alias date      exec xmessage $(date)
+alias emacs        exec emacs
+alias erc          exec erc
+alias web          exec firefox
+alias xterm        exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
+alias objing       exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
+alias galatea      exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
+alias date         exec xmessage $(date)
+alias other-screen exec ~/bin/other-screen
 
 escape C-t
 bind t         meta C-t
@@ -57,7 +58,8 @@ rudeness 15
 
 exec xrdb -merge ~/.Xresources
 exec xmodmap .xmodmap
-exec xsetroot -solid black
+exec ~/bin/workspace
+#exec xsetroot -solid black
 #exec xsetroot -solid "#312"
 # exec rpws init 3 -k
 

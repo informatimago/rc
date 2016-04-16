@@ -1015,18 +1015,6 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ 
-    mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true 
-    chmod 700 /tmp/emacs${UID} 
-    if [ -x /usr/local/bin/emacs ] 
-    then EMACS=/usr/local/bin/emacs 
-    else EMACS=emacs 
-    fi 
-    for EMACS_USE in pgm gnus erc 
-    do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown 
-        sleep 11 
-    done 
-}
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 

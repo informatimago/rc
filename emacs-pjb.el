@@ -29,6 +29,7 @@
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
+ '(erc-default-face ((t (:foreground "light blue"))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "cyan2"))))
  '(erc-notice-face ((t (:foreground "gray70"))))
