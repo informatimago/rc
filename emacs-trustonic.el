@@ -5,6 +5,7 @@
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
 
+
 ;;;----------------------------------------------------------------------------
 ;;; Customization
 ;;;----------------------------------------------------------------------------
@@ -15,13 +16,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(compilation-error ((t (:inherit error :foreground "red3"))))
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
- '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
- '(font-lock-string-face ((t (:foreground "#aa2211"))))
+ '(font-lock-preprocessor-face ((t (:foreground "orange"))))
+ '(font-lock-string-face ((t (:foreground "yellow3"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
@@ -39,6 +41,7 @@
 
 (.EMACS "custom variables")
 (custom-set-variables
+ '(backup-by-copying-when-linked t)
  '(c-backslash-column (quote set-from-style))
  '(c-backslash-max-column (quote set-from-style))
  '(c-basic-offset (quote set-from-style))
@@ -68,6 +71,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-mode nil)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
@@ -499,13 +503,6 @@
 (global-set-key (kbd "<f9>") 'hs-toggle-hiding)
 
 
-(defun outline-easy-bindings-meat ()
-  (interactive)
-  (require 'outline-mode-easy-bindings))
-
-(add-hook 'outline-mode-hook       'outline-easy-bindings-meat)
-(add-hook 'outline-minor-mode-hook 'outline-easy-bindings-meat)
-
 (defun lua-mode-meat ()
   (interactive)
   (auto-complete-mode 1)
@@ -580,6 +577,7 @@
           (indent-region (point) end)
           (forward-sexp))))))
 
+(translate-powerbook-keyboard)
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

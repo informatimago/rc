@@ -148,6 +148,8 @@
 (defpalette pal-irc           "MidnightBlue" "light yellow"  "blue"          "light green"    "#444444")
 (defpalette pal-stripe        "#a7feff"      "#0a171b"       "Cyan"          "#082830"        "#446688")
 (defpalette pal-stripe1       "#a7feff"      "#0a171b"       "Cyan"          "#105060"        "#446688")
+(defpalette pal-stripe2       "#a7feff"      "#1a1c1b"       "Cyan"          "#105060"        "#446688")
+
 (defpalette pal-anevia        "white"        "#081040"       "green"         "cadetblue4"     "yellow")
 (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"        "cadetblue4"     "yellow")
 (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"        "cadetblue4"     "yellow")

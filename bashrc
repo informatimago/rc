@@ -42,6 +42,8 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
+PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+
 uname="$(uname -s)"
 case "$uname" in 
 Darwin)
@@ -540,7 +542,8 @@ function ds () {
 }
 
 
-
+alias intersection='grep -Fxf'
+alias difference='grep -vFxf' 
 # bash specific aliases:
 alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
 alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
@@ -628,7 +631,7 @@ function pushdd(){
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
 if [ $(uname) = Darwin ] ; then
     ou=$(umask);umask 077
-    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8 /p' >/tmp/$$
+    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
     umask $ou
     if [ -x /opt/local/bin/gls ] ; then
@@ -953,6 +956,13 @@ function reload  (){ /etc/init.d/$1 reload;  }
 # ----------------------------------------
 # Some commands in $HOME/bin/* have a bash auto-completion feature.
 # ----------------------------------------
+case "$BASH_VERSION" in
+    4.[1-9]*)
+        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+            . /opt/local/etc/profile.d/bash_completion.sh
+        fi
+        ;;
+esac
 
 quote(){
     for arg ; do
@@ -1182,8 +1192,12 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local)      source ~/rc/bashrc-trustonic ;;
-*)                             source ~/rc/bashrc-pjb ;;
+*macbook?trustonic.local|vmdevlinux)
+    source ~/rc/bashrc-trustonic
+    ;;
+*)
+    source ~/rc/bashrc-pjb
+    ;;
 esac
 
 
