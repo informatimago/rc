@@ -16,23 +16,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-<<<<<<< HEAD
- '(compilation-error ((t (:inherit error :foreground "red"))))
-=======
  '(compilation-error ((t (:inherit error :foreground "red3"))))
->>>>>>> a817677d316b45ba90904470e061029015b13553
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-face ((t (:foreground "darkgreen"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
-<<<<<<< HEAD
- '(font-lock-preprocessor-face ((t (:foreground "#cc5500"))))
- '(font-lock-string-face ((t (:foreground "#aa2211"))))
-=======
  '(font-lock-preprocessor-face ((t (:foreground "orange"))))
  '(font-lock-string-face ((t (:foreground "yellow3"))))
->>>>>>> a817677d316b45ba90904470e061029015b13553
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
