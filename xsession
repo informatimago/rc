@@ -7,7 +7,9 @@ echo PJB .xsession > /tmp/pjb.log
 
 xset s on
 xset s 400
-xsetroot -solid '#031218'
+xset -dpms
+
+xsetroot -solid '#204050'
 
 #
 # If ssh is configured and ssh-agent is wanted set "yes"
