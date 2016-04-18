@@ -20,20 +20,21 @@
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
- '(font-lock-comment-face ((t (:foreground "darkgreen"))))
+ '(font-lock-comment-face ((t (:foreground "green"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "orange"))))
  '(font-lock-string-face ((t (:foreground "yellow3"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+ '(region ((t (:background "#B0E0F0"))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
  '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
- '(smerge-refined-change ((t (:background "#997722")))))
+ '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
 
