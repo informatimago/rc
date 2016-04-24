@@ -5,6 +5,7 @@
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
 
+
 ;;;----------------------------------------------------------------------------
 ;;; Customization
 ;;;----------------------------------------------------------------------------
@@ -15,23 +16,25 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(compilation-error ((t (:inherit error :foreground "red3"))))
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
- '(font-lock-comment-face ((t (:foreground "darkgreen"))))
+ '(font-lock-comment-face ((t (:foreground "green"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
- '(font-lock-preprocessor-face ((t (:foreground "#550000"))))
- '(font-lock-string-face ((t (:foreground "#aa2211"))))
+ '(font-lock-preprocessor-face ((t (:foreground "orange"))))
+ '(font-lock-string-face ((t (:foreground "yellow3"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+ '(region ((t (:background "#B0E0F0"))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
  '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
- '(smerge-refined-change ((t (:background "#997722")))))
+ '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
 
@@ -39,6 +42,7 @@
 
 (.EMACS "custom variables")
 (custom-set-variables
+ '(backup-by-copying-when-linked t)
  '(c-backslash-column (quote set-from-style))
  '(c-backslash-max-column (quote set-from-style))
  '(c-basic-offset (quote set-from-style))
@@ -68,6 +72,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
+ '(erc-fill-mode nil)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
@@ -499,13 +504,6 @@
 (global-set-key (kbd "<f9>") 'hs-toggle-hiding)
 
 
-(defun outline-easy-bindings-meat ()
-  (interactive)
-  (require 'outline-mode-easy-bindings))
-
-(add-hook 'outline-mode-hook       'outline-easy-bindings-meat)
-(add-hook 'outline-minor-mode-hook 'outline-easy-bindings-meat)
-
 (defun lua-mode-meat ()
   (interactive)
   (auto-complete-mode 1)
@@ -580,6 +578,7 @@
           (indent-region (point) end)
           (forward-sexp))))))
 
+(translate-powerbook-keyboard)
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
 

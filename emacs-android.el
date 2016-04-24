@@ -18,9 +18,8 @@
 ;;              :key (function car)))
 
 
-(when (require 'yasnippet nil t)
-  (yas-global-mode 1))
-
+;; (when (require 'yasnippet nil t)
+;;   (yas-global-mode 1))
 
 (require 'auto-complete nil t)
 

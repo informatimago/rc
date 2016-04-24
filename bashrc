@@ -42,6 +42,8 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
+PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+
 uname="$(uname -s)"
 case "$uname" in 
 Darwin)
@@ -540,7 +542,8 @@ function ds () {
 }
 
 
-
+alias intersection='grep -Fxf'
+alias difference='grep -vFxf' 
 # bash specific aliases:
 alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
 alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
@@ -953,6 +956,13 @@ function reload  (){ /etc/init.d/$1 reload;  }
 # ----------------------------------------
 # Some commands in $HOME/bin/* have a bash auto-completion feature.
 # ----------------------------------------
+case "$BASH_VERSION" in
+    4.[1-9]*)
+        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+            . /opt/local/etc/profile.d/bash_completion.sh
+        fi
+        ;;
+esac
 
 quote(){
     for arg ; do
@@ -1015,18 +1025,6 @@ function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\''
 function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
-function emacsen         (){ 
-    mkdir /tmp/emacs${UID}/ >/dev/null 2>&1 || true 
-    chmod 700 /tmp/emacs${UID} 
-    if [ -x /usr/local/bin/emacs ] 
-    then EMACS=/usr/local/bin/emacs 
-    else EMACS=emacs 
-    fi 
-    for EMACS_USE in pgm gnus erc 
-    do EMACS_USE=$EMACS_USE $EMACS >/tmp/emacs${UID}/emacs-${EMACS_USE}.log 2>&1 & disown 
-        sleep 11 
-    done 
-}
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
 
 
@@ -1194,8 +1192,12 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local)      source ~/rc/bashrc-trustonic ;;
-*)                             source ~/rc/bashrc-pjb ;;
+*macbook?trustonic.local|vmdevlinux)
+    source ~/rc/bashrc-trustonic
+    ;;
+*)
+    source ~/rc/bashrc-pjb
+    ;;
 esac
 
 

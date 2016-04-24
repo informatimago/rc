@@ -15,6 +15,10 @@
 41G     Downloads/
 
 * NOTES
+** commande Apple iPad Pro
+
+Facture TVA: 0800 046 046
+
 ** Remote Desktop for Linux
 http://www.rdesktop.org/#download
 ** emulators on the web
