@@ -542,12 +542,13 @@ function ds () {
 }
 
 
-alias intersection='grep -Fxf'
-alias difference='grep -vFxf' 
+# alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
+# alias difference='grep -vFxf'
+
 # bash specific aliases:
-alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
-alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
-alias rcopy='echo "rcopy  src/ dst" ; rsync -HSWavx --progress'
+alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x"'
+alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
+alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
 alias rehash='hash -r'
 alias which='type -path'
 alias mplayer='mplayer -quiet'
