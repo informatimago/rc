@@ -3,6 +3,19 @@
 
 
 * NOTES
+** Agility
+
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
+
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
+
 ** commande Apple iPad Pro
 
 Facture TVA: 0800 046 046
@@ -1222,6 +1235,11 @@ the computing technology we use today.
 ***** TODO [#C] Movies to Get with mldonkey                           :admin:
       :DEADLINE: <2016-12-31 -6m>   
 
+Scifi:
+Mr Nobody
+Stalker 1979 (russian)
+
+
 Films colombiens:
 - l'etreinte du serpent
 - les voyages du vent
@@ -1264,6 +1282,8 @@ A Clockwork Orange (1971)
 Solaris (1972) (Andrei Tarkovsky)
 
 ***** TODO [#B] Movies to watch
+
+https://skillsmatter.com/skillscasts/3504-lightning-talk-dider-verna-death-by-obesity#showModal?modal-signup-complete
 
 Replace "youtube" with "listentoyoutube" in the URL to download the audio of the video.
 Replace "youtube" with "ssyoutube" in the URL to download the video in any quality available.
@@ -2870,7 +2890,8 @@ in pjb-c-style.el
 to generate Objective-C
 **** Objective-C
 http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
-https://github.com/Nortey/TankDB
+https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 based?)
+
 *** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
     :DEADLINE: <2016-06-30 -6m>
 **** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
@@ -4411,6 +4432,7 @@ http://bolet.no-ip.com/annonce/
 
 
 
+Pascal Bourguignon  +33 637 191 327
 Pascal Bourguignon  +33 623 171 770
 Pascal Bourguignon  +34 636 653 318
 
@@ -4492,6 +4514,7 @@ mobile: +46 76 558 7458
 SOS Maman
 BP 70114
 95210 Saint Gracien
+http://laportelatine.org/associations/SOSMamans/SOSMamans.php
 
 ** Phone Book
 
@@ -5867,6 +5890,9 @@ http://tinydns.org/ (inofficial contributions; FAQ, documents)
     gcc -pipe -xc - << FIN
     int main() {return(0);}
     FIN
+
+
+    CC="gcc -arch x86_64 -mmacosx-version-min=10.5"
 
 ** COMMANDS: GCC WARNINGS
 
