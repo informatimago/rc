@@ -1,6 +1,18 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+* DU
+
+24G     Music/iTunes
+34G     Pictures/
+
+
+6.5G    opt/adt-bundle-mac-x86_64-20140702
+3.3G    opt/android-ndk-r10d-32bit
+49G     opt/android-sdk-r24.0.2-macosx
+60G     opt/
+
+41G     Downloads/
 
 * NOTES
 ** Agility
