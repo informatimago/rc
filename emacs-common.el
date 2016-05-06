@@ -1149,6 +1149,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                          )
       org-enforce-todo-dependencies t
       org-log-done 'note)
+(setf org-planning-line-re "^org-planning-line-re"
+      org-clock-line-re    "^org-clock-line-re")
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
