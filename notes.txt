@@ -9976,6 +9976,11 @@ returned for the total of 5 values.
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
 
+*** garbage collector statistics
+
+Use (EXT:GC-STATS :FULL) in an ECL built with --enable-boehm=system 
+Expect a _lot_ of information. 
+In addition to this you may get a dump of the allocated memory map using (EXT:GC-DUMP)
 
 *** ECL funcall from C with unwind-protect
 #+BEGIN(src)
