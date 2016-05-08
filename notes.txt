@@ -3719,7 +3719,6 @@ login ayudaparavivir password 5z2csasz
 
 * SAYINGS, QUOTES
 
-
 DON'T FEED THE TROLL
 http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
 
@@ -3784,8 +3783,7 @@ La vecina se atormenta: se avecina la tormenta.
 "As memory is becoming cheaper, even microcomputers could be built
 having these primitives, so that the prospect of controlling one's
 kitchen stove with LISP is not so far-fetched." H. Baker, 1977
-* Citations
-
+#
 Dijkstra spoke to Joel Aron (not Eyles), "head of IBM's Federal
 Systems Division which had been responsible for the software of the
 moonshot". It wasn't specifically in the lunar module, but somewhere
@@ -3796,7 +3794,6 @@ See Dijkstra say it in person, at 15:00 in this interview (context
 starts at 13:40): http://www.cs.utexas.edu/users/EWD/video.html (I
 haven't linked directly to the 300MB download). Great interview BTW
 (dutch with subtitles).
-
 #
 Un pays qui se construit un mur dans son millieu, est ce que vous
 imaginez qu'il est possible qu'à un moment où à un autre, il ne se
@@ -3823,6 +3820,27 @@ We must give the impression that what we do is human.
 At the same time, it must be done so that humans live better.
 Not just to let them dreaming in an impossible imaginary world.
 -- François Hollande
+#
+All code is bad
+
+Every programmer occasionally, when nobody’s home, turns off the
+lights, pours a glass of scotch, puts on some light German
+electronica, and opens up a file on their computer. It’s a different
+file for every programmer. Sometimes they wrote it, sometimes they
+found it and knew they had to save it. They read over the lines, and
+weep at their beauty, then the tears turn bitter as they remember the
+rest of the files and the inevitable collapse of all that is good and
+true in the world.
+
+This file is Good Code. It has sensible and consistent names for
+functions and variables. It’s concise. It doesn’t do anything
+obviously stupid. It has never had to live in the wild, or answer to a
+sales team. It does exactly one, mundane, specific thing, and it does
+it well. It was written by a single person, and never touched by
+another. It reads like poetry written by someone over thirty.
+
+-- Coding Sucks: Why a Job in Programming Is Absolute Hell 
+   by Peter Welch
 #
 
 ** Test Driven Development -- Writing Tests
