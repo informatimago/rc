@@ -18,10 +18,7 @@ else
     host=$(hostname -f)
 fi
 
-
-# Read first /etc/inputrc if the variable is not defined, and after 
-# the /etc/inputrc include the ~/.inputrc
-[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
+export INPUTRC="$HOME/.inputrc"
 
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
@@ -1200,6 +1197,9 @@ case "$host" in
     source ~/rc/bashrc-pjb
     ;;
 esac
+
+# display function and alias duplicates:
+compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
