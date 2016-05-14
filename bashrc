@@ -196,26 +196,27 @@ function be_generate(){
     local list
 
     bindirs=( 
-        $HOME/src/fast-export
-        $HOME/src/reposurgeon
-        $HOME/Tools
+        $HOME/bin
+        $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-    
-        $HOME/bin  $HOME/opt/bin
-        /usr/local/bin  /usr/local/sbin /usr/local/opt
+        
+        /usr/local/bin
+        /usr/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/libexec/gnubin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/bin        /opt/sbin
-        # /data/languages/sbcl/bin
-        /data/languages/ecl/bin
-        /data/languages/cmucl/bin
-        /data/languages/clisp/bin
-        /data/languages/ccl/bin
-        /data/languages/acl82express
-        /data/languages/abcl
-        /Developer/Tools 
+        
+        /opt/bin
+        /opt/sbin
+        
+        /data/languages/acl82express/bin/
+        /data/languages/bigloo4.1a/bin/
+        /data/languages/ccl/bin/
+        #/data/languages/clisp/bin/
+        /data/languages/cmucl/bin/
+        /data/languages/ecl/bin/
+        #/data/languages/gcl-2.6.7/bin/
+        #/data/languages/sbcl/bin/
+
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /usr/bin        /usr/sbin
         /bin            /sbin
