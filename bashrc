@@ -18,10 +18,7 @@ else
     host=$(hostname -f)
 fi
 
-
-# Read first /etc/inputrc if the variable is not defined, and after 
-# the /etc/inputrc include the ~/.inputrc
-[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
+export INPUTRC="$HOME/.inputrc"
 
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
@@ -199,26 +196,27 @@ function be_generate(){
     local list
 
     bindirs=( 
-        $HOME/src/fast-export
-        $HOME/src/reposurgeon
-        $HOME/Tools
+        $HOME/bin
+        $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-    
-        $HOME/bin  $HOME/opt/bin
-        /usr/local/bin  /usr/local/sbin /usr/local/opt
+        
+        /usr/local/bin
+        /usr/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/libexec/gnubin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/bin        /opt/sbin
-        # /data/languages/sbcl/bin
-        /data/languages/ecl/bin
-        /data/languages/cmucl/bin
-        /data/languages/clisp/bin
-        /data/languages/ccl/bin
-        /data/languages/acl82express
-        /data/languages/abcl
-        /Developer/Tools 
+        
+        /opt/bin
+        /opt/sbin
+        
+        /data/languages/acl82express/bin/
+        /data/languages/bigloo4.1a/bin/
+        /data/languages/ccl/bin/
+        #/data/languages/clisp/bin/
+        /data/languages/cmucl/bin/
+        /data/languages/ecl/bin/
+        #/data/languages/gcl-2.6.7/bin/
+        #/data/languages/sbcl/bin/
+
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /usr/bin        /usr/sbin
         /bin            /sbin
@@ -277,7 +275,7 @@ function be_generate(){
         fi
         socket=()
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        alias ec="$e --no-wait"
+        # alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -285,7 +283,7 @@ function be_generate(){
     *)
         for e in "${editors[@]}" ; do
             if [ -x "$e" ] ; then
-                alias ec="$e --no-wait"
+                # alias ec="$e --no-wait"
                 be_variable EDITOR    "$e"
                 be_variable VISUAL    "$e"
                 be_variable CVSEDITOR "$e"
@@ -542,12 +540,13 @@ function ds () {
 }
 
 
-alias intersection='grep -Fxf'
-alias difference='grep -vFxf' 
+# alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
+# alias difference='grep -vFxf'
+
 # bash specific aliases:
-alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e ssh '
-alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e ssh --force --delete --delete-after'
-alias rcopy='echo "rcopy  src/ dst" ; rsync -HSWavx --progress'
+alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x"'
+alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
+alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
 alias rehash='hash -r'
 alias which='type -path'
 alias mplayer='mplayer -quiet'
@@ -559,12 +558,12 @@ case "$uname" in
     Darwin)
         alias df='df -h'
         socket=(/tmp/emacs${UID}/server-*)
-        alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
+        # alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
         ;;
     *)
         alias df='df -ah'
-        alias ec='emacsclient --no-wait'
-        #alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
+        # alias ec='emacsclient --no-wait'
+        # alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
         ;;
 esac
 alias du='du -h'
@@ -1199,6 +1198,9 @@ case "$host" in
     source ~/rc/bashrc-pjb
     ;;
 esac
+
+# display function and alias duplicates:
+compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
