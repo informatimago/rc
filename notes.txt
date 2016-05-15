@@ -1108,7 +1108,6 @@ http://www.maclisp.info/pitmanual/master-index-s.html
 ***** TODO [#A] Impôt sur le revenu 2014
 ***** TODO [#A] Impôt sur le revenu 2015
 ***** TODO [#A] TVA 2016
-***** TODO [#A] Taxe d'habitation 
 **** TODO [#A] plomberie                                              :admin:
 **** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
 **** TODO [#A] Carte Vitale                                           :admin:
