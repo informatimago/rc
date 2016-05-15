@@ -64,5 +64,8 @@ exec ~/bin/workspace
 # exec rpws init 3 -k
 
 unmanage xv
+unmanage "Welcome to Android Studio"
+unmanage InputOutput
+
 version
 banish

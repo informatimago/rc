@@ -1,6 +1,13 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+* IMPOTS
 
+https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
+Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
+Ce numéro d'abonné vous est personnel et doit le rester.
+
+
+* 
 * DU
 
 24G     Music/iTunes
@@ -15,6 +22,19 @@
 41G     Downloads/
 
 * NOTES
+** Agility
+
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
+
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
+
 ** commande Apple iPad Pro
 
 Facture TVA: 0800 046 046
@@ -1095,7 +1115,6 @@ http://www.maclisp.info/pitmanual/master-index-s.html
 ***** TODO [#A] Impôt sur le revenu 2014
 ***** TODO [#A] Impôt sur le revenu 2015
 ***** TODO [#A] TVA 2016
-***** TODO [#A] Taxe d'habitation 
 **** TODO [#A] plomberie                                              :admin:
 **** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
 **** TODO [#A] Carte Vitale                                           :admin:
@@ -1234,6 +1253,11 @@ the computing technology we use today.
 ***** TODO [#C] Movies to Get with mldonkey                           :admin:
       :DEADLINE: <2016-12-31 -6m>   
 
+Scifi:
+Mr Nobody
+Stalker 1979 (russian)
+
+
 Films colombiens:
 - l'etreinte du serpent
 - les voyages du vent
@@ -1276,6 +1300,8 @@ A Clockwork Orange (1971)
 Solaris (1972) (Andrei Tarkovsky)
 
 ***** TODO [#B] Movies to watch
+
+https://skillsmatter.com/skillscasts/3504-lightning-talk-dider-verna-death-by-obesity#showModal?modal-signup-complete
 
 Replace "youtube" with "listentoyoutube" in the URL to download the audio of the video.
 Replace "youtube" with "ssyoutube" in the URL to download the video in any quality available.
@@ -2882,7 +2908,8 @@ in pjb-c-style.el
 to generate Objective-C
 **** Objective-C
 http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
-https://github.com/Nortey/TankDB
+https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 based?)
+
 *** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
     :DEADLINE: <2016-06-30 -6m>
 **** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
@@ -3698,7 +3725,6 @@ login ayudaparavivir password 5z2csasz
 
 * SAYINGS, QUOTES
 
-
 DON'T FEED THE TROLL
 http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
 
@@ -3763,8 +3789,7 @@ La vecina se atormenta: se avecina la tormenta.
 "As memory is becoming cheaper, even microcomputers could be built
 having these primitives, so that the prospect of controlling one's
 kitchen stove with LISP is not so far-fetched." H. Baker, 1977
-* Citations
-
+#
 Dijkstra spoke to Joel Aron (not Eyles), "head of IBM's Federal
 Systems Division which had been responsible for the software of the
 moonshot". It wasn't specifically in the lunar module, but somewhere
@@ -3775,7 +3800,6 @@ See Dijkstra say it in person, at 15:00 in this interview (context
 starts at 13:40): http://www.cs.utexas.edu/users/EWD/video.html (I
 haven't linked directly to the 300MB download). Great interview BTW
 (dutch with subtitles).
-
 #
 Un pays qui se construit un mur dans son millieu, est ce que vous
 imaginez qu'il est possible qu'à un moment où à un autre, il ne se
@@ -3802,6 +3826,27 @@ We must give the impression that what we do is human.
 At the same time, it must be done so that humans live better.
 Not just to let them dreaming in an impossible imaginary world.
 -- François Hollande
+#
+All code is bad
+
+Every programmer occasionally, when nobody’s home, turns off the
+lights, pours a glass of scotch, puts on some light German
+electronica, and opens up a file on their computer. It’s a different
+file for every programmer. Sometimes they wrote it, sometimes they
+found it and knew they had to save it. They read over the lines, and
+weep at their beauty, then the tears turn bitter as they remember the
+rest of the files and the inevitable collapse of all that is good and
+true in the world.
+
+This file is Good Code. It has sensible and consistent names for
+functions and variables. It’s concise. It doesn’t do anything
+obviously stupid. It has never had to live in the wild, or answer to a
+sales team. It does exactly one, mundane, specific thing, and it does
+it well. It was written by a single person, and never touched by
+another. It reads like poetry written by someone over thirty.
+
+-- Coding Sucks: Why a Job in Programming Is Absolute Hell 
+   by Peter Welch
 #
 
 ** Test Driven Development -- Writing Tests
@@ -4423,6 +4468,7 @@ http://bolet.no-ip.com/annonce/
 
 
 
+Pascal Bourguignon  +33 637 191 327
 Pascal Bourguignon  +33 623 171 770
 Pascal Bourguignon  +34 636 653 318
 
@@ -4504,6 +4550,7 @@ mobile: +46 76 558 7458
 SOS Maman
 BP 70114
 95210 Saint Gracien
+http://laportelatine.org/associations/SOSMamans/SOSMamans.php
 
 ** Phone Book
 
@@ -5879,6 +5926,9 @@ http://tinydns.org/ (inofficial contributions; FAQ, documents)
     gcc -pipe -xc - << FIN
     int main() {return(0);}
     FIN
+
+
+    CC="gcc -arch x86_64 -mmacosx-version-min=10.5"
 
 ** COMMANDS: GCC WARNINGS
 
@@ -9950,6 +10000,11 @@ returned for the total of 5 values.
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
 
+*** garbage collector statistics
+
+Use (EXT:GC-STATS :FULL) in an ECL built with --enable-boehm=system 
+Expect a _lot_ of information. 
+In addition to this you may get a dump of the allocated memory map using (EXT:GC-DUMP)
 
 *** ECL funcall from C with unwind-protect
 #+BEGIN(src)

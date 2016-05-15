@@ -118,7 +118,7 @@ export ANDROID_SDK="$HOME/Library/Android/sdk"
 export ANDROID_HOME="$ANDROID_SDK"
 export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
-export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+export PATH="/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
 
 
 function connect-adb-device(){

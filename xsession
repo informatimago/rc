@@ -130,7 +130,8 @@ if test -f $HOME/.xinitrc ; then
     fi
 else
     test -n "$WINDOWMANAGER" && WINDOWMANAGER=`type -p $WINDOWMANAGER`
-    wms=( 
+    wms=(  
+        /usr/bin/stumpwm
         /usr/bin/ratpoison 
         /opt/local/bin/ratpoison 
         /opt/X11/bin/quartz-wm
