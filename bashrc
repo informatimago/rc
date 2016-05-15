@@ -275,7 +275,7 @@ function be_generate(){
         fi
         socket=()
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        alias ec="$e --no-wait"
+        # alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -283,7 +283,7 @@ function be_generate(){
     *)
         for e in "${editors[@]}" ; do
             if [ -x "$e" ] ; then
-                alias ec="$e --no-wait"
+                # alias ec="$e --no-wait"
                 be_variable EDITOR    "$e"
                 be_variable VISUAL    "$e"
                 be_variable CVSEDITOR "$e"
@@ -558,12 +558,12 @@ case "$uname" in
     Darwin)
         alias df='df -h'
         socket=(/tmp/emacs${UID}/server-*)
-        alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
+        # alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
         ;;
     *)
         alias df='df -ah'
-        alias ec='emacsclient --no-wait'
-        #alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
+        # alias ec='emacsclient --no-wait'
+        # alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
         ;;
 esac
 alias du='du -h'
