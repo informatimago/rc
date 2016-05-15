@@ -1044,9 +1044,12 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git")
   (push "~/emacs/emacs-bash-completion" load-path))
 (require 'bash-completion)
+(bash-completion-setup)
+(set-default 'shell-dirstack-query "pwd")
 (milliways-schedule (lambda ()
                       (bash-completion-setup)
-                      (setf shell-dirstack-query "pwd")))
+                      (set-default 'shell-dirstack-query "pwd")))
+
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
 ;; (unless (featurep 'eshell-auto)
@@ -1146,6 +1149,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                          )
       org-enforce-todo-dependencies t
       org-log-done 'note)
+(setf org-planning-line-re "^org-planning-line-re"
+      org-clock-line-re    "^org-clock-line-re")
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
