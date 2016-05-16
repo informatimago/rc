@@ -1046,7 +1046,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (require 'bash-completion)
 (bash-completion-setup)
 (set-default 'shell-dirstack-query "pwd")
-
+(milliways-schedule (lambda ()
+                      (bash-completion-setup)
+                      (set-default 'shell-dirstack-query "pwd")))
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
 ;; (unless (featurep 'eshell-auto)
@@ -1082,6 +1084,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (auto-complete-mode -1))
   (when (fboundp 'ansi-color-for-comint-mode-on)
     (ansi-color-for-comint-mode-on))
+  (bash-completion-setup)
+  (set-default 'shell-dirstack-query "pwd")  
   ;; (cond
   ;;   ((let ((shell (getenv "ESHELL")))
   ;;       (or (null shell)

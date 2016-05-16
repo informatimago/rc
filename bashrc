@@ -1,6 +1,7 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
@@ -276,8 +277,8 @@ function be_generate(){
             mfod -s 1
         fi
         socket=()
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        alias ec="$e --no-wait"
+        alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+        e=ec
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -285,7 +286,6 @@ function be_generate(){
     *)
         for e in "${editors[@]}" ; do
             if [ -x "$e" ] ; then
-                alias ec="$e --no-wait"
                 be_variable EDITOR    "$e"
                 be_variable VISUAL    "$e"
                 be_variable CVSEDITOR "$e"
@@ -542,6 +542,13 @@ function ds () {
 }
 
 
+
+function function-source(){
+    for fun ; do
+        declare -f  "$fun"
+    done
+}
+
 # alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
 # alias difference='grep -vFxf'
 
@@ -559,13 +566,9 @@ alias nano='emacs -nw -q'
 case "$uname" in 
     Darwin)
         alias df='df -h'
-        socket=(/tmp/emacs${UID}/server-*)
-        alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
         ;;
     *)
         alias df='df -ah'
-        alias ec='emacsclient --no-wait'
-        #alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
         ;;
 esac
 alias du='du -h'
@@ -1023,7 +1026,7 @@ function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
 
-function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
+function ec              (){ ( unset TMPDIR ; emacsclient --socket-name=/tmp/emacs${UID}/server --no-wait "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
