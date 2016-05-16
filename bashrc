@@ -19,10 +19,7 @@ else
     host=$(hostname -f)
 fi
 
-
-# Read first /etc/inputrc if the variable is not defined, and after 
-# the /etc/inputrc include the ~/.inputrc
-[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
+export INPUTRC="$HOME/.inputrc"
 
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
@@ -200,26 +197,27 @@ function be_generate(){
     local list
 
     bindirs=( 
-        $HOME/src/fast-export
-        $HOME/src/reposurgeon
-        $HOME/Tools
+        $HOME/bin
+        $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-    
-        $HOME/bin  $HOME/opt/bin
-        /usr/local/bin  /usr/local/sbin /usr/local/opt
+        
+        /usr/local/bin
+        /usr/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/libexec/gnubin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/bin        /opt/sbin
-        # /data/languages/sbcl/bin
-        /data/languages/ecl/bin
-        /data/languages/cmucl/bin
-        /data/languages/clisp/bin
-        /data/languages/ccl/bin
-        /data/languages/acl82express
-        /data/languages/abcl
-        /Developer/Tools 
+        
+        /opt/bin
+        /opt/sbin
+        
+        /data/languages/acl82express/bin/
+        /data/languages/bigloo4.1a/bin/
+        /data/languages/ccl/bin/
+        #/data/languages/clisp/bin/
+        /data/languages/cmucl/bin/
+        /data/languages/ecl/bin/
+        #/data/languages/gcl-2.6.7/bin/
+        #/data/languages/sbcl/bin/
+
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /usr/bin        /usr/sbin
         /bin            /sbin
@@ -277,8 +275,8 @@ function be_generate(){
             mfod -s 1
         fi
         socket=()
-        alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-        e=ec
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
+        # alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -575,7 +573,7 @@ alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
+alias sdiff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
 
 alias basilisk=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
@@ -1203,6 +1201,9 @@ case "$host" in
     source ~/rc/bashrc-pjb
     ;;
 esac
+
+# display function and alias duplicates:
+compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
