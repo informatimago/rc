@@ -977,7 +977,7 @@ quote(){
 
 
 if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
-    for script in radio fpm newpassword religion ; do
+    for script in radio fpm new-password religion ; do
 	eval $( $script --bash-completion-function )
     done
 fi
