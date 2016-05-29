@@ -203,9 +203,12 @@ function be_generate(){
         
         /usr/local/bin
         /usr/local/sbin
+
+        /opt/local/bin
+        /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        
+
         /opt/bin
         /opt/sbin
         
