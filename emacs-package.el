@@ -45,7 +45,8 @@
   (package-install 'robe)
   (package-install 'dash)
   (package-install 'dash-at-point)
-  (package-install 'textmate))
+  (package-install 'textmate)
+  (package-install 'flycheck))
 
 ;;;; The End ;;;;
 
