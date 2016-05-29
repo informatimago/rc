@@ -78,7 +78,7 @@
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
- '(erc-modules (quote (autoaway autojoin button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-modules (quote (autoaway autojoin button completion irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
  '(erc-nick (quote ("pjb-d")))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote nil))

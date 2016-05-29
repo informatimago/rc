@@ -2764,7 +2764,7 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
   Moved things around.
 
 2010-01-05
-- ~/bin/newpassword in lisp using ~/bin/script.lisp
+- ~/bin/new-password in lisp using ~/bin/script.lisp
 
 2010-01-04
 - ~/src/pjb/linc/ruby.lisp contains the grammar of Ruby in sexp form.
