@@ -1086,7 +1086,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (when (fboundp 'ansi-color-for-comint-mode-on)
     (ansi-color-for-comint-mode-on))
   (bash-completion-setup)
-  (set-default 'shell-dirstack-query "pwd")  
+  (set-default 'shell-dirstack-query "pwd")
   ;; (cond
   ;;   ((let ((shell (getenv "ESHELL")))
   ;;       (or (null shell)
@@ -1098,6 +1098,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   )
 (add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
 
+(bash-completion-setup)
+(set-default 'shell-dirstack-query "pwd")
 ;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
 
 (add-hook 'shell-mode-hook 'shell-dirtrack-mode)
