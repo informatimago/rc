@@ -1046,6 +1046,9 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (require 'bash-completion)
 (bash-completion-setup)
 (set-default 'shell-dirstack-query "pwd")
+(milliways-schedule (lambda ()
+                      (bash-completion-setup)
+                      (set-default 'shell-dirstack-query "pwd")))
 
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
@@ -1082,6 +1085,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (auto-complete-mode -1))
   (when (fboundp 'ansi-color-for-comint-mode-on)
     (ansi-color-for-comint-mode-on))
+  (bash-completion-setup)
+  (set-default 'shell-dirstack-query "pwd")
   ;; (cond
   ;;   ((let ((shell (getenv "ESHELL")))
   ;;       (or (null shell)
@@ -1093,6 +1098,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   )
 (add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
 
+(bash-completion-setup)
+(set-default 'shell-dirstack-query "pwd")
 ;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
 
 (add-hook 'shell-mode-hook 'shell-dirtrack-mode)
@@ -1146,6 +1153,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                          )
       org-enforce-todo-dependencies t
       org-log-done 'note)
+(setf org-planning-line-re "^org-planning-line-re"
+      org-clock-line-re    "^org-clock-line-re")
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
@@ -2890,6 +2899,13 @@ list or vector, the length of the sequence."
 ;; (pushnew '("/midishare/libraries/.*\\.[hc]$" . iso-8859-1) auto-coding-alist :test (function equal))
 
 (defun viper-mode () (interactive) (message "I want more life, fucker!"))
+
+
+(defun pjb-disable-erc-fill-mode-meat ()
+  (when erc-fill-mode
+    (erc-fill-mode -1)))
+
+(push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
 ;; (set-frame-parameter (selected-frame) 'alpha 0)
 ;; (set-frame-parameter (selected-frame) 'alpha 96)

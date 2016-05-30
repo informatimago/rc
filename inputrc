@@ -1,0 +1,36 @@
+$include /etc/inputrc
+
+set editing-mode emacs
+
+# Permettre de rentrer & recevoir des caractères accentués
+set meta-flag    on
+set convert-meta off
+set input-meta   on
+set output-meta  on
+
+
+# Pas de bip audible mais visible
+set bell-style visible
+
+# Pour faire marcher Home, End, Delete, Esc + Delete & Esc + Backspace
+"\e[1~":   beginning-of-line
+"\e[3~":   delete-char
+"\e[4~":   end-of-line
+"\e\C-h":  backward-kill-word
+"\e\e[3~": kill-word
+
+Meta-p: "\C-p"
+Meta-n: "\C-n"
+"\ep": "\C-p"
+"\en": "\C-n"
+
+
+
+# doesn't seem to work: Control-d: "(quit)"
+#                       "\C-d": "(quit)"
+
+#for clash: prints the square brackets to run an external command
+#"\ex": "#[]\C-b"
+#"\ec": "#[]\C-b"
+# "A-x": "#[]\C-b"
+

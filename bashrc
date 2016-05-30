@@ -1,6 +1,7 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
@@ -18,10 +19,7 @@ else
     host=$(hostname -f)
 fi
 
-
-# Read first /etc/inputrc if the variable is not defined, and after 
-# the /etc/inputrc include the ~/.inputrc
-[ -z $INPUTRC ] && export INPUTRC=/etc/inputrc
+export INPUTRC="$HOME/.inputrc"
 
 case "$DISPLAY" in
 /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
@@ -199,26 +197,30 @@ function be_generate(){
     local list
 
     bindirs=( 
-        $HOME/src/fast-export
-        $HOME/src/reposurgeon
-        $HOME/Tools
+        $HOME/bin
+        $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-    
-        $HOME/bin  $HOME/opt/bin
-        /usr/local/bin  /usr/local/sbin /usr/local/opt
+        
+        /usr/local/bin
+        /usr/local/sbin
+
+        /opt/local/bin
+        /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/libexec/gnubin
-        /opt/*/bin      /opt/*/sbin 
-        /opt/bin        /opt/sbin
-        # /data/languages/sbcl/bin
-        /data/languages/ecl/bin
-        /data/languages/cmucl/bin
-        /data/languages/clisp/bin
-        /data/languages/ccl/bin
-        /data/languages/acl82express
-        /data/languages/abcl
-        /Developer/Tools 
+
+        /opt/bin
+        /opt/sbin
+        
+        /data/languages/acl82express/bin/
+        /data/languages/bigloo4.1a/bin/
+        /data/languages/ccl/bin/
+        #/data/languages/clisp/bin/
+        /data/languages/cmucl/bin/
+        /data/languages/ecl/bin/
+        #/data/languages/gcl-2.6.7/bin/
+        #/data/languages/sbcl/bin/
+
         /usr/X11R6/bin  /usr/X11/bin /usr/games 
         /usr/bin        /usr/sbin
         /bin            /sbin
@@ -277,7 +279,7 @@ function be_generate(){
         fi
         socket=()
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        alias ec="$e --no-wait"
+        # alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -285,7 +287,6 @@ function be_generate(){
     *)
         for e in "${editors[@]}" ; do
             if [ -x "$e" ] ; then
-                alias ec="$e --no-wait"
                 be_variable EDITOR    "$e"
                 be_variable VISUAL    "$e"
                 be_variable CVSEDITOR "$e"
@@ -537,10 +538,33 @@ function ds () {
     local f
     for f in $(dirs) ; do
         echo "$i $f"
-        i=$(($i + 1))
+        i=$((i+1))
     done
 }
 
+
+function variable-list(){
+    # vnamelist str            get var that starts with str
+    # vnamelist (no args)      get all variables
+    local var_name
+    local char
+    if [[ -n "${1-}" ]] ; then 
+        for var_name in $(eval "echo \${!${1}*}"); do
+            echo "$var_name"
+        done
+    else
+        for char in _ {a..z} {A..Z} ; do
+            variable-list "$char"
+        done
+    fi
+}
+
+
+function function-source(){
+    for fun ; do
+        declare -f  "$fun"
+    done
+}
 
 # alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
 # alias difference='grep -vFxf'
@@ -559,20 +583,16 @@ alias nano='emacs -nw -q'
 case "$uname" in 
     Darwin)
         alias df='df -h'
-        socket=(/tmp/emacs${UID}/server-*)
-        alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --socket-name=${socket[@]}" 
         ;;
     *)
         alias df='df -ah'
-        alias ec='emacsclient --no-wait'
-        #alias ec='/usr/local/emacs-multitty/bin/emacsclient -s /tmp/emacs${UID}/server-* -c --no-wait'
         ;;
 esac
 alias du='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias diff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
+alias sdiff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
 
 alias basilisk=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
@@ -585,6 +605,7 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias ..='cd ..'
 alias ...='cd ../..'
 alias …='cd ../..'
+alias sl=ls
 
 alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
@@ -976,7 +997,7 @@ quote(){
 
 
 if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
-    for script in radio fpm newpassword religion ; do
+    for script in radio fpm new-password religion ; do
 	eval $( $script --bash-completion-function )
     done
 fi
@@ -1023,7 +1044,7 @@ function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
 
-function ec              (){ ( unset TMPDIR ; emacsclient "$@" ) ; }
+function ec              (){ ( unset TMPDIR ; emacsclient --socket-name=/tmp/emacs${UID}/server --no-wait "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
@@ -1200,6 +1221,9 @@ case "$host" in
     source ~/rc/bashrc-pjb
     ;;
 esac
+
+# display function and alias duplicates:
+compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
