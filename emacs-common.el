@@ -2898,6 +2898,13 @@ list or vector, the length of the sequence."
 
 (defun viper-mode () (interactive) (message "I want more life, fucker!"))
 
+
+(defun pjb-disable-erc-fill-mode-meat ()
+  (when erc-fill-mode
+    (erc-fill-mode -1)))
+
+(push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
+
 ;; (set-frame-parameter (selected-frame) 'alpha 0)
 ;; (set-frame-parameter (selected-frame) 'alpha 96)
 ;; (set-frame-parameter (selected-frame) 'alpha 100)
