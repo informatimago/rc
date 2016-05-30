@@ -25,6 +25,7 @@ FILES= \
 	.gclrc.lisp \
 	.geek \
 	.gitconfig \
+	.inputrc \
 	.irbrc \
 	.ircrc \
 	.kermrc \
@@ -69,6 +70,7 @@ symlinks: save
 	ln -sf    $(SRCDIR)/emacs-bash                       $$HOME/.emacs_bash
 	ln -sf    $(SRCDIR)/gclrc.lisp                       $$HOME/.gclrc.lisp
 	ln -sf    $(SRCDIR)/geek                             $$HOME/.geek
+	ln -sf    $(SRCDIR)/inputrc                          $$HOME/.inputrc
 	ln -sf    $(SRCDIR)/irbrc                            $$HOME/.irbrc
 	ln -sf    $(SRCDIR)/ircrc                            $$HOME/.ircrc
 	ln -sf    $(SRCDIR)/kermrc                           $$HOME/.kermrc

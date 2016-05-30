@@ -20,7 +20,8 @@
  '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
- '(font-lock-comment-face ((t (:foreground "green"))))
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "dark violet"))))
+ '(font-lock-comment-face ((t (:foreground "dark violet"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#cc5500"))))
  '(font-lock-string-face ((t (:foreground "red1"))))
@@ -37,7 +38,7 @@
  '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
-
+ 
 
 
 (.EMACS "custom variables")
@@ -72,7 +73,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
- '(erc-fill-mode nil)
+ '(erc-fill-mode -1)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
@@ -89,7 +90,7 @@
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
- '(erc-modules (quote (autoaway button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-modules (quote (autoaway button completion irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
  '(erc-nick (quote ("Pascal")))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote nil))
@@ -122,7 +123,7 @@
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pascal.bourguignon@trustonic.com")
- '(visible-bell t)
+ '(visible-bell nil)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
 (put 'erase-buffer 'disabled nil)
@@ -143,7 +144,6 @@
 (display-time-mode 1)
 (defun dummy-bell () (message "bell"))
 (setf ring-bell-function 'dummy-bell)
-(setf visible-bell nil)
 
 (setq backup-by-copying       t                      ; don't clobber symlinks
       backup-directory-alist '(("." . "~/.backups")) ; don't litter my fs tree
@@ -179,7 +179,7 @@
 
 
 (push "~/emacs/org-jira" load-path)
-(require 'org-jira)
+(require 'org-jira nil)
 (setf jiralib-url "http://jira.trustonic.internal")
 
 ;; (require 'confluence)
@@ -578,7 +578,11 @@
           (indent-region (point) end)
           (forward-sexp))))))
 
+(global-flycheck-mode)
+
+
 (translate-powerbook-keyboard)
 (load "~/rc/emacs-epilog.el")
+(provide 'emacs-trustonic)
 ;;;; THE END ;;;;
 
