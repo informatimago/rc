@@ -203,9 +203,12 @@ function be_generate(){
         
         /usr/local/bin
         /usr/local/sbin
+
+        /opt/local/bin
+        /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        
+
         /opt/bin
         /opt/sbin
         
@@ -994,7 +997,7 @@ quote(){
 
 
 if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
-    for script in radio fpm newpassword religion ; do
+    for script in radio fpm new-password religion ; do
 	eval $( $script --bash-completion-function )
     done
 fi
