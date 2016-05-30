@@ -38,7 +38,7 @@
  '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
-
+ 
 
 
 (.EMACS "custom variables")
@@ -73,7 +73,7 @@
  '(erc-encoding-coding-alist (quote (("#emacsfr" . iso-8859-15) ("#scheme-es" . iso-8859-15))))
  '(erc-fill-column 90)
  '(erc-fill-function (quote erc-fill-variable))
- '(erc-fill-mode nil)
+ '(erc-fill-mode -1)
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
@@ -90,7 +90,7 @@
  '(erc-max-buffer-size 300000)
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
- '(erc-modules (quote (autoaway button completion fill irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
+ '(erc-modules (quote (autoaway button completion irccontrols log match netsplit readonly replace ring scrolltobottom services stamp track truncate)))
  '(erc-nick (quote ("Pascal")))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote nil))
