@@ -203,9 +203,12 @@ function be_generate(){
         
         /usr/local/bin
         /usr/local/sbin
+
+        /opt/local/bin
+        /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
-        
+
         /opt/bin
         /opt/sbin
         
@@ -535,10 +538,26 @@ function ds () {
     local f
     for f in $(dirs) ; do
         echo "$i $f"
-        i=$(($i + 1))
+        i=$((i+1))
     done
 }
 
+
+function variable-list(){
+    # vnamelist str            get var that starts with str
+    # vnamelist (no args)      get all variables
+    local var_name
+    local char
+    if [[ -n "${1-}" ]] ; then 
+        for var_name in $(eval "echo \${!${1}*}"); do
+            echo "$var_name"
+        done
+    else
+        for char in _ {a..z} {A..Z} ; do
+            variable-list "$char"
+        done
+    fi
+}
 
 
 function function-source(){
@@ -586,6 +605,7 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias ..='cd ..'
 alias ...='cd ../..'
 alias …='cd ../..'
+alias sl=ls
 
 alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
