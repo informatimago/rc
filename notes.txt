@@ -6,9 +6,25 @@ https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireC
 Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
 Ce numéro d'abonné vous est personnel et doit le rester.
 
+* NOTES
+** New Notes
 
-* 
-* DU
+scan la-construction-de-programmes-structures
+missing: page 132 135 136 
+
+maillists: cmucl*@cmucl.cons.org
+
+http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
+http://wisee.cs.washington.edu/wisee_paper.pdf
+
+ℤ
+- application mobile pour échanger des articles de loi ou de constitution et les commenter.
+
+#+BEGIN_SRC lisp :results scalar
+(list 1 2 3)
+#+END_SRC
+
+DU
 
 24G     Music/iTunes
 34G     Pictures/
@@ -20,311 +36,6 @@ Ce numéro d'abonné vous est personnel et doit le rester.
 60G     opt/
 
 41G     Downloads/
-
-* NOTES
-** Agility
-
-Agility -- What to Do
-- find out where you are
-- take a small step toward your goal
-- adjust your understanding based on what you learned
-- repeat
-
-Agility -- How to do it
-- when faced with two or more alternatives
-  that deliver roughly the same value, take
-  the path that makes future change easier.
-
-** commande Apple iPad Pro
-
-Facture TVA: 0800 046 046
-
-** Remote Desktop for Linux
-http://www.rdesktop.org/#download
-** emulators on the web
- http://manymo.com and https://appetize.io 
-
-** XCode team distribution certificates
-
-Advise anyone on your team:
-- If you refresh/create a distribution certificate, e-mail the private key to you.
-- Install that private key in your keychain and you're all set.
-
-** New Notes
-
-http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
-http://wisee.cs.washington.edu/wisee_paper.pdf
-
-
-ℤ
-- application mobile pour échanger des articles de loi ou de constitution et les commenter.
-
-
-#+BEGIN_SRC lisp :results scalar
-(list 1 2 3)
-#+END_SRC
-
-** Economy: Économie:
-
-Capital productif:
-- travail pour produire l'ensemble des moyens de production représentés par ce capital.
-
-Coût économique du capital productif:
-- travail pour maintenir les moyens de production.
-
-Coût financier du capital productif:
-- endettement (dividendes, intérêts) pour acheter les moyens de production.
-
-(= (* masse-monétaire vitesse-circulation-monnaie)
-   (* quantités-vendues prix))
-
-*** Economic Freedom:
-http://www.freetheworld.com/
-http://www.heritage.org/        2003 Index of Economic Freedom
-http://www.heritage.org/research/features/index/
-
-** Cinefin Framework
-
-Simple:  cause -> effect
-Complicated: cause -> -> -> effect
-Complex: cause? effect
-Chaotic: effect? cause?
-Disorder: 
-
-** Ubudu
-
-uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
-(same as Krystof)
-
-** Interesting programs
-Social network from irc traffic:
-http://www.jibble.org/piespy/
-
-** TeamSpeak (DCS World):
-;; 81.13.118.162:9987          CVAT
-;; 63.34.162.240:9102 phoenix  104th
-;; 81.200.8.157:9987           RvAF
-;; 193.106.93.31:9987          RAF
-;; vip1.ts1.cn:8770            3GO
-
-** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
-
-
-> See asm7090-describe-codop.  You could even do that in a
-> post-command-hook, or on mouse or arrow events so that the instructions
-> are always explained.  It would also possible to attach tooltips to the
-> instructions so that you get the description on a mouse over.
-
-The "canonical" way to do that in Emacs is to set
-eldoc-documentation-function buffer-locally.  Then users can choose to
-use this by enabling eldoc-mode.
-
-
-WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-transmission-daemon -w /other/pjb/globcover
-
-
-Find how to distinguish (in emacs or X) the keys coming from the
-different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
-
-http://openfarmtech.org/wiki/Crash_Course
-http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
-
-
-sourceforge.net
-API key:    fbe5b8d039ce9d46f926
-Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
-
-
-http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
-Pre-industrial workers had a shorter workweek than today's    
-
-
-2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
-
-42 Trillian 2^276709 
-            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
-GURSIXO
-emergency services: +44 (0) 118 999 881 999 119 7253
-
-This message is rot-13 encoded to prevent unwanted viewing.
-Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
-
-Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
-pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET 
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
-
-(add-hook 'lisp-mode-hook
-  (lambda ()
-    (font-lock-add-keywords nil
-      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
-         (1 font-lock-keyword-face)
-         (2 font-lock-type-face))))))
-
-(put '$defclass 'common-lisp-indent-function
-     (get 'defclass 'common-lisp-indent-function))
-
-
-
-------------------------------------------------------------------------------
-apache / pound ports
-
-8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
-              joellegymtonic, parroquias-manga, willcom)
-
-8001 sbcl    linking
-8002
-8003 sbcl    films.willcom.fr
-8004 apache2 films.willcom.fr
-8005
-8006 sbcl    claar
-------------------------------------------------------------------------------
-
-
-BlackBerry 
-PIN 259B61F6
-IMEI: 357564.02.644206.5
-
-SIM Cards: 
-Operator Card Number            Phone Num   Date
-Movistar 8934076100032652090    636653318
-Movistar 340761 000326 5209 0   636653318   20110509
-
-http://www.progweb.com/modules/blackberry/index-en.html
-
-** Livres à acheter
-
-Au coeur du pouvoir : Enquête sur le club le plus puissant de France
-Émmanuel Ratier
-
-La guerre secrête contre les peuples
-Claire Séverac
-
-
-**** Petite histoire de l'expérimentation démocratique                  :buy:
-Yves Sintomer
-Petite histoire de l'expérimentation démocratique
-Tirage au sort et politique d'Athênes à nos jours
- 
-**** Valentina: Soul in Sapphire                                        :buy:
-**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
- 
-Esercizi di costruzioni elettromeccaniche
-Autore: Vaske Paul, Riggert Johann H.
-ISBN-10: 8820707020
-ISBN-13: 9788820707026
-ID prodotto: EPID49446951
-
-http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
- 
-**** Ploncard d'Assac                                                   :buy:
-
- 30?   L'église occupée
- 30    1792 Les dernières marches du trône
- 25    Salazar
- 20    Manifeste nationaliste
- 20    Critique nationaliste
- 20    Les idées qui tuent
- 28    Le nationalisme français
- 35    La maçonnerie
- 18    Le complot mondialiste
- 20    Enquête sur la nouvelle droite
- 20    Histoire d'une trahison
- 24    Tradition ou révolution
- 16    Sarkosy ou la mort programmée de la France
- 24    La démocratie contre le peuple
- 10    Le combat des idees
- 10    La franc-maçonnerie dans la révolution dite française
- 10    Le double visage de la maçonnerie et de ses "compagnons de route"
- 10    Du 11 septembre au krach financier mondial
----
-370
-
-** CNIL
-https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
-** GOLD
-
-deglet.com|compra$oro
-
-
-2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
-2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
-2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
-(/ 245.0 145.0) = 69%/3 ans  = 19%/an
-
-2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
-
-
-We may yet see a bubble in the US into 2015.75 if we in fact see the
-dollar RISE as did the yen going into 1989. A rising dollar will
-increase the profits for foreign investors and draw in even more
-capital globally creating massive capital concentration and global
-civil unrest. The Fed will go nuts and be forced to raise interest
-rates fearing a bubble and that will blow out the deficits and the
-entire system will collapse 2016-2020. So hold on to your socks. This
-is likely to be a wild ride.
-
-** Pole Emploi
-
-Pour valider votre demande d'inscription à Pôle Emploi, vous devez
-choisir un rendez-vous avec un conseiller.  Vendredi 11 Avril 2014,
-09h50
-
-Vous serez reçu(e), durant une heure environ, par un conseiller
-spécialisé dans l’accompagnement des cadres au Pôle emploi suivant :
-
-    USP Cadres issy-les-moulineaux
-    19-21 BD GAMBETTA
-    92130 ISSY LES MOULINEAUX
-
-(Attention, votre inscription ne sera effective que si vous vous
-présentez à ce rendez-vous obligatoire)
-
-*** Pole Emploi - references
-6093514E
-649084
-92130
-
-3760303L
-641700
-93310
-
-** Notes 1
-
-- test and compare, expansion of all CL macros in all implementation for all optimization levels.
-  find if expansions use implementation specific features.
-
-
 
 "universal" code generation: if we specify a processor instruction
 sets as subgraphs with nodes for registers/memory and for operations,
@@ -366,47 +77,10 @@ MAC ARM Version 1.0
 
 rpn lisp: http://paste.lisp.org/display/144513
 
-mysql|medicalis|pjb|mygalatea
-mysql||root|
 
 
 Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
 "La Révolution Européenne"
-
-** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
-
-** MUD, GAMES
-   CLOSED: [2012-12-01 Sat 10:03]
-
-     http://www.aardmud.org
-     http://www.aardwolf.org
-
-     AlternateReality
-         ssh -p 4005 ar.static.net
-             abrazak                 protection
-             judicandus noselacri
-             candusima               refreshed
-             gpuzre                  force field
-
-*** telnet ascii art videos
-
-Telehack:                telnet://telehack.com
-Telehack (web):          http://telehack.com
-
-Star Wars:               telnet://towel.blinkenlights.nl   
-Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
-The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
-
-What CL implementation:  telnet://voyager.informatimago.com:8101
-Nasium LSE:              telnet://voyager.informatimago.com:8115
-
-** LONG TERM
-
-     http://www.danbricklin.com/200yearsoftware.htm
 
 ** NOTES 2
 
@@ -522,144 +196,6 @@ http://hello.processing.org/editor/
 https://dionyziz.com/oath/
 https://github.com/sabof/svg-thing.git
 http://www.theatlantic.com/magazine/archive/2013/11/the-man-who-would-teach-machines-to-think/309529/?curator=MediaREDEF
-
-** misc
-
-mailbox.org
-
-
-1 ;;DPASTE                                                 
-2 (load "~/.emacs.d/dpaste.el")                            
-3 (require 'dpaste nil)                                    
-4 (global-set-key (kbd "C-c p") 'dpaste-region-or-buffer)  
-5 (setq dpaste-poster "XL04D")                             
-
-
-decoding emotions video
-
-
-Top Secret is brilliant. Any of the early National Lampoon's Vacation
-movies are excellent. Mel Brooks' stuff is genius, particularly
-Blazing Saddles, Young Frankenstein and History of the World,
-Part 1. Steve Martin's early films - Dead Men Don't Wear Plaid, The
-Man With Two Brains, and The Lonely Guy are all excellent, but The
-Jerk is just plain brilliant. The first Austin Powers was a classic,
-the others I didn't care for as much personally, but they were very
-popular at the time.
-
-There was also a show in the late '80s called Sledge Hammer that was
-just plain stupid brilliant. Worth seeking it out. 
-
-Hot Shots! (1991) and its Sequel Hot Shots! part Deux (1993) 
-
-Scary Movie or Not Another Teen Movie. 
-
-
-
-http://www.ubudu.com/ où je développe leur produits sur iOS et Android.
-(Ubudu bon plan, SDK uBeacon, uGeofence, pour le marquetage géolocalisé
-en magasin; ce mois-ci, on a développé l'application bwin poker live
-pour les compétitions de poker de http://www.bwin.fr)
-
-sur iOS:
-http://www.appannie.com/apps/ios/app/ubudu-bons-plans-vos-promotions-et-coupons-de-reduction/
-http://www.appannie.com/apps/ios/app/bwin-poker-live/
-
-sur Android:
-http://www.appannie.com/apps/google-play/app/com.ubudu.mobile/
-http://www.appannie.com/apps/google-play/app/com.bwin.pokerlive/
-
-
-
-- Développement et maintenance d'applications Android: ubudu bon plans, de la release 2.0 à 2.4
-
-- Développement de l'application bwin poker live (iOS & Android).
-
-- Développement du SDK ubudu de marketing geolocalisé, comprenant: iBeacons, Geofences, et détecteur de code ultrasons (écriture des spécifications du SDK pour iOS & Android, écriture des test Android), écriture des applications internes de test et demo (iOS, Android).
-
-- Travail avec des collaborateurs étrangers en télétravail (github).
-
-- Développement du prototype d'ubudu presence analytics: collecte d'adresse MAC sur routeur wifi (ddWRT/openWRT wiviz), transmission à un serveur, stockage en base de donnée OpenTSDB, et développement d'un dashboard Rails (Ruby) affichant les statistiques de présence.  Stand Démonstration au MEDEF 2013.
-
-
-
-
-
-
-
-Les productions de la PLume
-1, route des volaillers
-28410 Saint Lubin de la Haye
-
-http://www.youtube.com/watch?v=o4-YnLpLgtk  Demo Genera Symbolics Jan 2013
-
-
-
-
-
-ADA
-=======================
-J-P. Rosen
-Adalog
-2 rue du Docteur Lombard, 92441 Issy-les-Moulineaux CEDEX
-Tel: +33 1 45 29 21 52, Fax: +33 1 45 29 25 00
-http://www.adalog.fr
-
-http://forge.ada-ru.org/matreshka
-
-> how was the experience of building a website on ada?
-
-http://v2p.fr.eu.org
-
-
-
-
-http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
-
-
-6502 lisp
-http://ahefner.livejournal.com/20528.html#
-https://github.com/ahefner/asm6502
-
-
-
-GBOM
-
-Green 
-Beans
-Onion
-Mushrooms
-
-
-Thank you for supporting the proposed European Citizens' Initiative: Unconditional Basic Income (UBI) - Exploring a pathway towards emancipatory welfare conditions in the EU
-Your statement of support has been submitted successfully.
-Date: 04/12/2013
-Signature identifier: 2d139d94-b9f1-4f78-8089-12fda49854f3
-
-
-http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
-
-;; SFR
-;;
-;; Carte SIM n°89331036123640651403
-;; 
-;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
-;; Votre contrat est le XFR460.
-;;
-;; samsung: pjb@ogamita.org | vih3doq9
-;; dropbox: pjb@ogamita.org | ciliz6kah3
-
-Gerald Jay Sussman
-http://www.infoq.com/presentations/Expression-of-Ideas
-http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
-
-
-http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
-
-scan la-construction-de-programmes-structures
-missing: page 132 135 136 
-
-maillists: cmucl*@cmucl.cons.org
 
 ** NOTES 4
 http://www.omg.org/spec/index.htm
@@ -834,6 +370,7 @@ https://antoszka.pl/features-of-common-lisp/
 llvm gc:
 [1]: https://github.com/elliottslaughter/rust-gc-talk
 [2]: http://llvm.org/docs/GarbageCollection.html
+http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
 
 http://code.google.com/p/aster-math/
 
@@ -1103,6 +640,298 @@ http://home.pipeline.com/~hbaker1/ShallowBinding.html
 http://www.interstellarmovie.com/adventure/
 http://www.maclisp.info/pitmanual/master-index-s.html
 
+** Agility
+
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
+
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
+
+** commande Apple iPad Pro
+
+Facture TVA: 0800 046 046
+
+** Remote Desktop for Linux
+http://www.rdesktop.org/#download
+** emulators on the web
+ http://manymo.com and https://appetize.io 
+
+** XCode team distribution certificates
+
+Advise anyone on your team:
+- If you refresh/create a distribution certificate, e-mail the private key to you.
+- Install that private key in your keychain and you're all set.
+
+** Economy: Économie:
+
+Capital productif:
+- travail pour produire l'ensemble des moyens de production représentés par ce capital.
+
+Coût économique du capital productif:
+- travail pour maintenir les moyens de production.
+
+Coût financier du capital productif:
+- endettement (dividendes, intérêts) pour acheter les moyens de production.
+
+(= (* masse-monétaire vitesse-circulation-monnaie)
+   (* quantités-vendues prix))
+
+*** Economic Freedom:
+http://www.freetheworld.com/
+http://www.heritage.org/        2003 Index of Economic Freedom
+http://www.heritage.org/research/features/index/
+
+** Cinefin Framework
+
+Simple:  cause -> effect
+Complicated: cause -> -> -> effect
+Complex: cause? effect
+Chaotic: effect? cause?
+Disorder: 
+
+** Ubudu
+
+uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+(same as Krystof)
+
+** Interesting programs
+Social network from irc traffic:
+http://www.jibble.org/piespy/
+
+** TeamSpeak (DCS World):
+;; 81.13.118.162:9987          CVAT
+;; 63.34.162.240:9102 phoenix  104th
+;; 81.200.8.157:9987           RvAF
+;; 193.106.93.31:9987          RAF
+;; vip1.ts1.cn:8770            3GO
+
+** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
+
+> See asm7090-describe-codop.  You could even do that in a
+> post-command-hook, or on mouse or arrow events so that the instructions
+> are always explained.  It would also possible to attach tooltips to the
+> instructions so that you get the description on a mouse over.
+
+The "canonical" way to do that in Emacs is to set
+eldoc-documentation-function buffer-locally.  Then users can choose to
+use this by enabling eldoc-mode.
+
+
+WanderLust http://box.matto.nl/emacsgmail.html
+
+/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
+
+transmission-daemon -w /other/pjb/globcover
+
+
+Find how to distinguish (in emacs or X) the keys coming from the
+different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
+
+http://openfarmtech.org/wiki/Crash_Course
+http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
+
+
+sourceforge.net
+API key:    fbe5b8d039ce9d46f926
+Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
+
+
+http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
+Pre-industrial workers had a shorter workweek than today's    
+
+
+2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
+
+42 Trillian 2^276709 
+            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
+GURSIXO
+emergency services: +44 (0) 118 999 881 999 119 7253
+
+This message is rot-13 encoded to prevent unwanted viewing.
+Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
+
+Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
+pour professionnalisme.
+
+
+
+
+paredit bug report:
+
+(a b c (^ d e f))
+M-up / M-x paredit-splice-sexp-killing-backward RET 
+(a b c d e f)
+
+This empties the kill ring.
+
+I understand that in the case of
+
+(a b c (d e f ^ g h i))
+M-up
+(a b c g h i)
+
+we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
+saving the empty string to the kill ring, and keep the old one.
+
+
+
+
+
+
+(add-hook 'lisp-mode-hook
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
+         (1 font-lock-keyword-face)
+         (2 font-lock-type-face))))))
+
+(put '$defclass 'common-lisp-indent-function
+     (get 'defclass 'common-lisp-indent-function))
+
+
+
+------------------------------------------------------------------------------
+apache / pound ports
+
+8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
+              joellegymtonic, parroquias-manga, willcom)
+
+8001 sbcl    linking
+8002
+8003 sbcl    films.willcom.fr
+8004 apache2 films.willcom.fr
+8005
+8006 sbcl    claar
+------------------------------------------------------------------------------
+
+
+BlackBerry 
+PIN 259B61F6
+IMEI: 357564.02.644206.5
+
+SIM Cards: 
+Operator Card Number            Phone Num   Date
+Movistar 8934076100032652090    636653318
+Movistar 340761 000326 5209 0   636653318   20110509
+
+http://www.progweb.com/modules/blackberry/index-en.html
+
+** Livres à acheter
+
+Au coeur du pouvoir : Enquête sur le club le plus puissant de France
+Émmanuel Ratier
+
+La guerre secrête contre les peuples
+Claire Séverac
+
+
+**** Petite histoire de l'expérimentation démocratique                  :buy:
+Yves Sintomer
+Petite histoire de l'expérimentation démocratique
+Tirage au sort et politique d'Athênes à nos jours
+ 
+**** Valentina: Soul in Sapphire                                        :buy:
+**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
+ 
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
+
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+ 
+**** Ploncard d'Assac                                                   :buy:
+
+ 30?   L'église occupée
+ 30    1792 Les dernières marches du trône
+ 25    Salazar
+ 20    Manifeste nationaliste
+ 20    Critique nationaliste
+ 20    Les idées qui tuent
+ 28    Le nationalisme français
+ 35    La maçonnerie
+ 18    Le complot mondialiste
+ 20    Enquête sur la nouvelle droite
+ 20    Histoire d'une trahison
+ 24    Tradition ou révolution
+ 16    Sarkosy ou la mort programmée de la France
+ 24    La démocratie contre le peuple
+ 10    Le combat des idees
+ 10    La franc-maçonnerie dans la révolution dite française
+ 10    Le double visage de la maçonnerie et de ses "compagnons de route"
+ 10    Du 11 septembre au krach financier mondial
+---
+370
+
+** CNIL
+https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
+** GOLD
+
+deglet.com|compra$oro
+
+
+2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
+2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
+2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
+(/ 245.0 145.0) = 69%/3 ans  = 19%/an
+
+2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
+
+
+We may yet see a bubble in the US into 2015.75 if we in fact see the
+dollar RISE as did the yen going into 1989. A rising dollar will
+increase the profits for foreign investors and draw in even more
+capital globally creating massive capital concentration and global
+civil unrest. The Fed will go nuts and be forced to raise interest
+rates fearing a bubble and that will blow out the deficits and the
+entire system will collapse 2016-2020. So hold on to your socks. This
+is likely to be a wild ride.
+
+** La Manga del Mar Menor
+
+http://lmweb.com/
+http://www.zm101.com/MARMENOR/mangalhis.html
+http://lamangawind.com/LaManga0.html
+
+** MUD, GAMES
+
+     http://www.aardmud.org
+     http://www.aardwolf.org
+
+     AlternateReality
+         ssh -p 4005 ar.static.net
+             abrazak                 protection
+             judicandus noselacri
+             candusima               refreshed
+             gpuzre                  force field
+
+*** telnet ascii art videos
+
+Telehack:                telnet://telehack.com
+Telehack (web):          http://telehack.com
+
+Star Wars:               telnet://towel.blinkenlights.nl   
+Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
+The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
+
+What CL implementation:  telnet://voyager.informatimago.com:8101
+Nasium LSE:              telnet://voyager.informatimago.com:8115
+
+** LONG TERM
+
+     http://www.danbricklin.com/200yearsoftware.htm
+
 * ACTIONS
 ** AFAIRE, TODO, ENCOURS
 *** Real
@@ -1204,6 +1033,7 @@ clisp scripts to index and set mp3info to new mp3 files:
      :DEADLINE: <2017-02-03 -1m>
 **** TODO [#A] HTTPS on kuiper
 https://letsencrypt.org/
+http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
 http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-connections-501924.shtml
 **** TODO [#A] OGAMITA.NET renewal                                    :admin:
      :DEADLINE: <2016-12-01 -1m>
@@ -2822,6 +2652,10 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
   
 ** Developments TODO
+*** TODO [#B] check CL macros for implementation specifics           :cl:dev:
+- test and compare, expansion of all CL macros in all implementation for all optimization levels.
+  find if expansions use implementation specific features.
+
 *** TODO [#A] botil, irb bot to log channels                         :cl:dev:
     :DEADLINE: <2016-02-28 -1m>
 
@@ -8118,6 +7952,18 @@ rfc2700  Internet Official Protocol Standards
     http://adam.chlipala.net/papers/CtpcPLDI07/CtpcPLDI07.pdf
     http://adam.chlipala.net/papers/PhoasICFP08/PhoasICFP08.pdf
 
+** LANGUAGES: ADA
+
+ADA
+=======================
+J-P. Rosen
+Adalog
+2 rue du Docteur Lombard, 92441 Issy-les-Moulineaux CEDEX
+Tel: +33 1 45 29 21 52, Fax: +33 1 45 29 25 00
+http://www.adalog.fr
+
+http://forge.ada-ru.org/matreshka
+
 ** LANGUAGES: C FORMAT SPECIFIERS
 
 %fdphs  Each of the fields f, d, p and h are optional.
@@ -9506,7 +9352,7 @@ Happy hacking.
     | ;; in e_interact_.list
     +----------------------------------------------------------------------------
 
-
+    http://www.youtube.com/watch?v=o4-YnLpLgtk  Demo Genera Symbolics Jan 2013
     genera date:  10 1990 1:49pm
     + local NTP server
     + old X windows < 6.8
@@ -12434,6 +12280,8 @@ Comments:
   "COPYRIGHT="
 
 * DATA, DONNEES, DATOS
+** Criminalité
+http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
 ** Paleodiet
 
     http://homodiet.netfirms.com/index.html
