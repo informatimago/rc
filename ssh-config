@@ -30,6 +30,13 @@ Host github.com
     ForwardAgent            no
     ForwardX11              no
 
+Host patchy+github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
+    ForwardAgent            no
+    ForwardX11              no
+
 Host ubudu+github.com
     HostName                github.com
     User                    git
