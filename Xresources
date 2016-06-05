@@ -20,7 +20,7 @@
 !! ! -------------
 !!
 !! 
-emacs.geometry:                             81x71-68+0
+emacs.geometry:                             81x32+0+0
 emacs.dialog*.background:                   LightBlue1
 emacs*pane.background:                      LightBlue1
 emacs*menu*background:                      LightBlue1

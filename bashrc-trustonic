@@ -1,9 +1,10 @@
 # -*- mode:shell-script -*-
+set +o posix
 
 defaults write org.x.X11 enable_test_extensions -boolean true 
 defaults write org.macports.X11 enable_test_extensions -boolean true 
 
-export GRADLE_HOME=/opt/local/share/java/gradle
+export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
 # sudo port select --set maven maven31
 # sudo port select --set python python27
@@ -78,7 +79,7 @@ function badEnvironment(){
 }
 
 function cleanEnvironment(){
-    badEnvironment | while read var ; do unset ${var} ; done
+    badEnvironment | while read var ; do unset "${var}" ; done
 }
 
 grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" < ~/.bash_env > ~/.bash_env_small
@@ -134,18 +135,24 @@ function connect-nereid(){
     connect-adb-device
 }
 
+function load-properties(){ eval "$(sed -e '/^#/d' -e 's/^/export /' -e 's/$/;/' -e 's/env./env_/' <target/make.properties)" ; }
+
 alias c='mvn compile'
 alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
 
-x=$HOME/src/xabber-android
+x="$HOME/src/xabber-android"
 
-k=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk
-ka=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat
-ki=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
-ks=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+k="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk"
+ka="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat"
+ki="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat"
+ks="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk"
 
-i=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk
-is=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
+
+i="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk"
+ndk10="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/Common/AndroidNdk/r10e-linux-x86"
+tlsdk="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk"
+cliwb="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/MobiCoreDriver/Linux/ClientLibWB"
+taaes="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/TrustedApplications/TAAes"
 
 
 function trustdirs(){
@@ -157,8 +164,8 @@ function trustdirs(){
     done
 }
 
-export LM_LICENSE_FILE=8224@emea-meu-lic01.trustonic.internal
-export OBFUSCATE=no
+export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
+export OBFUSCATE="no"
 alias mvn='TERM=unix mvn'
 
 #### THE END ####
