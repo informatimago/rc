@@ -123,7 +123,7 @@
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pascal.bourguignon@trustonic.com")
- '(visible-bell t)
+ '(visible-bell nil)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
 (put 'erase-buffer 'disabled nil)
@@ -144,7 +144,6 @@
 (display-time-mode 1)
 (defun dummy-bell () (message "bell"))
 (setf ring-bell-function 'dummy-bell)
-(setf visible-bell nil)
 
 (setq backup-by-copying       t                      ; don't clobber symlinks
       backup-directory-alist '(("." . "~/.backups")) ; don't litter my fs tree
@@ -180,7 +179,7 @@
 
 
 (push "~/emacs/org-jira" load-path)
-(require 'org-jira)
+(require 'org-jira nil)
 (setf jiralib-url "http://jira.trustonic.internal")
 
 ;; (require 'confluence)
@@ -579,7 +578,11 @@
           (indent-region (point) end)
           (forward-sexp))))))
 
+(global-flycheck-mode)
+
+
 (translate-powerbook-keyboard)
 (load "~/rc/emacs-epilog.el")
+(provide 'emacs-trustonic)
 ;;;; THE END ;;;;
 
