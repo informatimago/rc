@@ -6,6 +6,10 @@
 ;;;;
 
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
+
+;; (setf debug-on-quit t
+;;       debug-on-error t)
+
 (setq message-log-max 5000)
 (when (< emacs-major-version 24) 
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
