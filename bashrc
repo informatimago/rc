@@ -110,9 +110,7 @@ function appendToListVariable(){
     # Appends to the array VARIABLE each element.
     # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
     local var=$1 ; shift
-    for element ; do
-        eval "$var[\${#$var[@]}]=\"\$element\""
-    done
+    eval "${var}+=(\"\${@}\")"
 }
 
 

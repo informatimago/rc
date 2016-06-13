@@ -38,7 +38,7 @@
  '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
- 
+
 
 
 (.EMACS "custom variables")
@@ -61,6 +61,7 @@
  '(c-label-minimum-indentation (quote set-from-style))
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
+ '(display-time-24hr-format t)
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-autojoin-delay 10)
@@ -119,6 +120,7 @@
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
  '(safe-local-variable-values (quote ((Syntax . Common-Lisp) (Syntax . ANSI-Common-Lisp) (Base . 10) (eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
+ '(show-trailing-whitespace t)
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
@@ -147,7 +149,7 @@
 
 (setq backup-by-copying       t                      ; don't clobber symlinks
       backup-directory-alist '(("." . "~/.backups")) ; don't litter my fs tree
-      delete-old-versions     t   
+      delete-old-versions     t
       kept-new-versions       5
       kept-old-versions       3
       version-control         t)
@@ -185,7 +187,7 @@
 ;; (require 'confluence)
 ;; (setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
-;; (when (require 'semantic nil t) 
+;; (when (require 'semantic nil t)
 ;;   (semantic-mode 1))
 
 (require 'pjb-c-style)
@@ -194,7 +196,7 @@
 
 
 (let ((tags-add-tables t))
-  (setf tags-table-list '()) 
+  (setf tags-table-list '())
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
   ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
   ;; (ignore-errors (visit-tags-table "~/src/tbase.etags"))
@@ -209,10 +211,10 @@
   (interactive)
   (when (fboundp 'auto-complete-mode)
     (auto-complete-mode 1))
-  (setf tab-stop 2
-        tab-width 2
-        c-indent-level 2
-        c-basic-offset 2
+  (setf tab-stop 4
+        tab-width 4
+        c-indent-level 4
+        c-basic-offset 4
         c-tab-always-indent t))
 
 (add-hook 'java-mode-hook 'java-meat)
@@ -363,7 +365,7 @@
          "SRC=$(pwd) ; while [ ! -z \"${SRC}\" -a ! -d \"${SRC}/DXOOpticsPro.xcodeproj\" ] ; do SRC=\"$(dirname \"${SRC}\")\" ; done"
          ";"
          "/Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc-4.2"
-         
+
          "-O0"
          "-Wall"
          "-Werror-implicit-function-declaration"
@@ -382,17 +384,17 @@
          "-Wunused-label"
          "-Wunused-value"
          "-Wunused-variable"
-         
+
          "-arch x86_64"
-         
+
          "-fasm-blocks"
          "-fmessage-length=0"
          "-fpascal-strings"
          "-fvisibility=hidden"
-         
+
          "-gdwarf-2"
          "-mmacosx-version-min=10.6"
-         
+
          "-pipe"
          "-std=c99"
          "-x objective-c"
@@ -403,28 +405,28 @@
          "-DDXO_FOUNDATION_DYNAMIC"
          "-DDXO_FWK_LOG_CATEGORY=DXFAppKitUI"
          "-D_DEBUG"
-         
+
          "-F/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
 
          "$(find ${SRC} \\( -name \\*.app -o -name \\*.octest -o -name \\*.ibplugin \\) -prune -o \\( -name \\*.framework -print \\) |xargs -n 1 dirname |sort -u|sed -e 's/^/-F/')"
 
          "-F${HOME}/src/OpticsPro-Mac-trunk/AppKit/bin/debug"
-         
+
          "-F${SRC}/AppKit/bin/debug"
          "-F${SRC}/AppKit/externals/Common/bin/debug"
          "-F${SRC}/bin/debug"
          "-F${SRC}/externals/OCHamcrest"
          "-F${SRC}/externals/OCMock"
-         
+
          "-framework Cocoa"
          "-framework OCHamcrest"
          "-framework OCMock"
          "-framework SenTestingKit"
          "-framework DXFAppKitUI"
          "-framework DXFAppKitUI"
-         
-         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')" 
-         
+
+         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')"
+
          "-I${SRC}/AppKit/bin/debug/include"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-all-target-headers.hmap"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-own-target-headers.hmap"
@@ -432,7 +434,7 @@
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DerivedSources/x86_64"
          "-I${SRC}/AppKit/externals/Common/include/DxOFramework"
          "-I${SRC}/AppKit/externals/Common/include/Foundation"
-         
+
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-generated-files.hmap"
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-project-headers.hmap"
          "-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
@@ -513,7 +515,7 @@
 
 (add-hook 'lua-mode-hook 'lua-mode-meat)
 
-;; (find-library "outline-mode-easy-bindings") 
+;; (find-library "outline-mode-easy-bindings")
 
 
 (defvar *c-comment-regexp*)
@@ -580,9 +582,9 @@
 
 (global-flycheck-mode)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (translate-powerbook-keyboard)
 (load "~/rc/emacs-epilog.el")
 (provide 'emacs-trustonic)
 ;;;; THE END ;;;;
-
