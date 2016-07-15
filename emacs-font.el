@@ -284,7 +284,7 @@
    (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
    (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))))
 
-(ignore-errors (set-frame-font (fifth *pjb-font-list*)))
+(ignore-errors (set-frame-font (elt *pjb-font-list* 8)))
 
 ;; ------------------------------------------------------------------------
 
