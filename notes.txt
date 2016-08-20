@@ -1,5 +1,13 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+
+https://en.wikipedia.org/wiki/User:Lycurgus/MoCA
+* Snowden
+
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+
 * IMPOTS
 
 https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
