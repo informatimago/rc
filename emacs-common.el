@@ -2199,6 +2199,9 @@ License:
   (add-hook 'lisp-mode-hook 'common-lisp-font-lock-hook))
 
 
+(dolist (hook '(emacs-lisp-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
 ;;(setq emacs-lisp-mode-hook nil lisp-mode-hook nil)
 
 
