@@ -29,7 +29,7 @@
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (or (let* ((hostname-configuration-map
                                       '(("macbook[-.]trustonic.local" . "~/rc/emacs-trustonic.el")
-                                        ("^vmdevlinux"                . "~/rc/emacs-trustonic.el")
+                                        ("^vmlinux"                   . "~/rc/emacs-trustonic.el")
                                         ("^mercure"                   . "~/rc/emacs-ubudu.el")
                                         ("^uiserver"                  . "~/rc/emacs-ubudu.el")
                                         ("^ubudair"                   . "~/rc/emacs-ubudu.el")

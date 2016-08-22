@@ -1,8 +1,8 @@
 # -*- mode:shell-script -*-
 set +o posix
 
-defaults write org.x.X11 enable_test_extensions -boolean true 
-defaults write org.macports.X11 enable_test_extensions -boolean true 
+defaults write org.x.X11 enable_test_extensions -boolean true
+defaults write org.macports.X11 enable_test_extensions -boolean true
 
 export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
@@ -173,6 +173,11 @@ function trustdirs(){
 
 export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
 export OBFUSCATE="no"
+
 alias mvn='TERM=unix mvn'
+
+
+alias from-mb='rsynch  macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/ /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook'
+alias to-mb='rsynch  /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook/ macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk'
 
 #### THE END ####
