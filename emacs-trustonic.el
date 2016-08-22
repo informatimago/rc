@@ -28,7 +28,7 @@
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
- '(region ((t (:background "#B0E0F0"))))
+ '(region ((t (:background "#6080b0"))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
@@ -107,6 +107,7 @@
  '(erc-server-reconnect-timeout 60)
  '(erc-timestamp-format nil)
  '(erc-timestamp-intangible nil)
+ '(erc-track-enable-keybindings t)
  '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
@@ -170,6 +171,9 @@
                              ("\\.md$" . text-mode)
                              ("\\.d$"  . makefile-mode)))
   (add-to-list 'auto-mode-alist '(".*/Apps/iOS/.*\\.\\(h\\|m\\|hh\\|mm\\)$" . objc-mode)))
+(deletef auto-mode-alist "\\.rb$")
+(appendf auto-mode-alist '(("\\.rb$" . ruby-mode)))
+
 
 (require 'vc-svn)
 
