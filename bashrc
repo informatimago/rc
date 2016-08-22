@@ -213,7 +213,7 @@ function be_generate(){
         /opt/bin
         /opt/sbin
 
-        /data/languages/acl82express/bin/
+        #/data/languages/acl82express/bin/
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
         #/data/languages/clisp/bin/

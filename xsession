@@ -3,13 +3,18 @@
 # .xsession ; actually sourced by /etc/X11/Xsession.d/40x11-common_xsessionrc
 #
 
-echo PJB .xsession > /tmp/pjb.log
+touch ~/.xsession-errors
+mv    ~/.xsession-errors ~/.xsession-errors-current
+touch ~/.xsession-errors
 
 xset s on
 xset s 400
 xset -dpms
 
-xsetroot -solid '#204050'
+#xsetroot -solid '#d0e0f0'
+#xsetroot -solid '#80a0c0'
+xsetroot -solid '#4080a0'
+#xsetroot -solid '#204050' 
 
 #
 # If ssh is configured and ssh-agent is wanted set "yes"
@@ -140,7 +145,7 @@ else
         /usr/X11R6/bin/kde 
         /usr/X11R6/bin/startkde 
         /usr/X11R6/bin/fvwm2 
-        $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true ) 
+        $( if [ -x /usr/X11R6/bin/wmlist ] ; then /usr/X11R6/bin/wmlist ; fi ) 
     )
     for wm in "${wms[@]}" ; do
         if test -x "$wm" ; then
