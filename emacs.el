@@ -29,7 +29,7 @@
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (or (let* ((hostname-configuration-map
                                       '(("macbook[-.]employer-a.local" . "~/rc/emacs-employer-a.el")
-                                        ("^vmdevlinux"                . "~/rc/emacs-employer-a.el")
+                                        ("^vmlinux"                   . "~/rc/emacs-employer-a.el")
                                         ("^mercure"                   . "~/rc/emacs-employer-c.el")
                                         ("^uiserver"                  . "~/rc/emacs-employer-c.el")
                                         ("^ubudair"                   . "~/rc/emacs-employer-c.el")
