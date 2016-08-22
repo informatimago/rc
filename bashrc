@@ -271,7 +271,7 @@ function be_generate(){
     be_comment 'My compilation environment:'
     be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
-    be_variable TARGET   "$(uname)"
+    be_variable COMPILATION_TARGET  "$(uname)"
 
     case "$uname" in
     Darwin)
