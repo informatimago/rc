@@ -1,8 +1,8 @@
 # -*- mode:shell-script -*-
 set +o posix
 
-defaults write org.x.X11 enable_test_extensions -boolean true 
-defaults write org.macports.X11 enable_test_extensions -boolean true 
+defaults write org.x.X11 enable_test_extensions -boolean true
+defaults write org.macports.X11 enable_test_extensions -boolean true
 
 export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
@@ -136,12 +136,13 @@ function connect-nereid(){
     connect-adb-device
 }
 
-function load-properties(){ eval "$(sed -e '/^#/d' -e 's/^/export /' -e 's/$/;/' -e 's/env./env_/' <target/make.properties)" ; }
+function load-properties(){ eval "$(sed -e '/^#/d' -e "s/'/'\\\\''/g;s/^/'/;s/\$/'/" -e 's/^/export /' -e 's/$/;/' -e 's/env./env_/' <target/make.properties)" ; }
 function find-workspaces(){ find . -name \*.xcworkspace -print ; }
 function find-projects(){ find . -name \*.xcodeproj -print ; }
 function find-dylibs(){ find . -name \*.dylib -print ; }
 function find-libs(){ find . -name \*.a -print ; }
 function find-frameworks(){ find . -name \*.framework -print ; }
+function find-file(){ local file="$1";shift; find "$@" -name "$file" -print ; }
 
 alias c='mvn compile'
 alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
@@ -174,5 +175,20 @@ function trustdirs(){
 export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
 export OBFUSCATE="no"
 alias mvn='TERM=unix mvn'
+
+
+function findNewestFileInTree(){
+    if [[ "$(uname)" = "Darwin" ]] ; then
+        # on MacOSX we have BSD find, which doesn't have -printf;
+        # We still try find and gfind if in case GNU find is installed,
+        # but we have to fallback to BSD find with stat:
+        ( find "$@" -type f -printf "%T@ %p\n"  2>/dev/null \
+        || gfind "$@" -type f -printf "%T@ %p\n"  2>/dev/null \
+        || /usr/bin/find  "$@" -type f -exec /usr/bin/stat -f '%#m %N' {} \; )
+    else
+        find "$@" -type f -printf "%T@ %p\n"
+    fi | sort -nr | head -n 1 | cut -d ' ' -f 2-
+}
+
 
 #### THE END ####
