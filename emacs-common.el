@@ -179,7 +179,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;; window-system        nil x mac ns w32
 ;; emacs-major-version  18 19 20 21 23
 ;; emacs-minor-version  0 1 2 3
-;; emacs-version        "20.7.2" "21.2.1" 
+;; emacs-version        "20.7.2" "21.2.1"
 ;; NO emacs-type! We won't run on anything else than GNU emacs.
 
 ;; window-system ==> (display-multi-frame-p)
@@ -241,7 +241,7 @@ WELCOME TO EMACS!
 
 (setf visible-bell nil)
 (when (eq window-system 'x)
-  (setf ring-bell-function 
+  (setf ring-bell-function
         (lambda ()
           (call-process-shell-command "xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.1;xset -led;sleep 0.05;xset led;sleep 0.2;xset -led" nil 0 nil))))
 
@@ -258,7 +258,7 @@ WELCOME TO EMACS!
 ;; (standard-display-8bit 128 255)
 
 (set-input-mode nil nil t nil) ;; INTERRUPT FLOW META [QUIT]
-;; (setq meta-prefix-char nil) ; to split ESC from M- 
+;; (setq meta-prefix-char nil) ; to split ESC from M-
 
 (when (fboundp 'unify-8859-on-encoding-mode)
   (unify-8859-on-encoding-mode 1))
@@ -281,7 +281,7 @@ WELCOME TO EMACS!
 
 (progn
   (case system-type
-    (darwin 
+    (darwin
 
      (set-language-environment                "utf-8")
      (prefer-coding-system                    'utf-8-unix)
@@ -499,7 +499,7 @@ WELCOME TO EMACS!
         (if (listp directories)
             (find-if (function add-if-good) directories)
             (add-if-good directories)))
-      
+
       (setf load-path (append new-paths
                               (set-difference load-path base-load-path :test (function equal))
                               base-load-path)))))
@@ -670,8 +670,8 @@ Useful for Objective-CL reader macros."
 
 ;; (when (load "load-cl" t)
 ;;   (setf *pjb-emacs-cl-present-p* t)
-;;   (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*  
-;;                                           *STANDARD-OUTPUT* 
+;;   (message "emacs-cl streams = %S" (list  *STANDARD-INPUT*
+;;                                           *STANDARD-OUTPUT*
 ;;                                           *TERMINAL-IO*))
 ;;   (let ((stream (make-buffer-output-stream "*scratch*")))
 ;;     (setf *STANDARD-INPUT*  stream
@@ -788,7 +788,7 @@ SIDE must be the symbol `left' or `right'."
   (interactive)
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
-
+(defalias 'translate-macbook-keyboard  'translate-powerbook-keyboard)
 
 (defmacro define-force-justification (direction)
   `(defun ,(intern (format "force-set-justification-%s" direction)) (start end)
@@ -829,7 +829,7 @@ SIDE must be the symbol `left' or `right'."
   (define-key input-decode-map "\M-[1;9B" [M-down])
   (define-key input-decode-map "\M-[1;9C" [M-right])
   (define-key input-decode-map "\M-[1;9D" [M-left])
-  
+
   nil)
 
 
@@ -861,7 +861,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
 
   (global-set-key (kbd "M-g g")         'goto-char)
-  
+
   (global-set-key (kbd "<f8>")          'pjb-show-lisp-repl)
   (global-set-key (kbd "C-<f8>")         (lambda () (interactive) (pjb-show-lisp-repl t)))
 
@@ -904,7 +904,7 @@ SIDE must be the symbol `left' or `right'."
 
   ;; (delete-selection-mode t)
   (if (fboundp 'delete-region-and-yank)
-      (global-set-key (kbd "C-y")  'delete-region-and-yank) 
+      (global-set-key (kbd "C-y")  'delete-region-and-yank)
       (global-set-key (kbd "C-y")  'yank))
 
   ;; A strange configuration with a narrow frame...
@@ -1219,7 +1219,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                                  t
                                  comint-preoutput-filter-functions))
               (strings (list string)))
-          
+
           (while (and functions strings)
             (setf strings (loop
                              with result = ()
@@ -1228,7 +1228,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                              finally (return (nreverse result))))
             (setq functions (cdr functions)))
           (setf string strings))
-        
+
         ;; Insert STRING
         (let ((inhibit-read-only t)
               ;; The point should float after any insertion we do.
@@ -1252,7 +1252,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                     ((consp   item) (insert-image (first item) (second item)))
                     (t (error "Unexpected kind of insert %S" item))))
 
-            
+
             ;; Advance process-mark
             (set-marker (process-mark process) (point))
             (setf string (buffer-substring comint-last-output-start (point)))
@@ -1339,13 +1339,13 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;;         (when (re-search-backward
 ;;                "^;;; Generated autoloads from \\(.*\\)" nil t)
 ;;           (match-string 1))))))
-;; 
-;; 
+;;
+;;
 ;; (defun find-definition-site-of-subr-function (function)
 ;;   ;; Find the C source file name.
 ;;   nil)
-;; 
-;; 
+;;
+;;
 ;; (defun find-function-source (function)
 ;;   "Find the source of the emacs lisp FUNCTION (a symbol)."
 ;;   (interactive
@@ -1372,7 +1372,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;;                             (symbol-file function 'defun)))
 ;;         (when (and file-name
 ;;                    (equal (describe-simplify-lib-file-name file-name)
-;;                           "loaddefs.el")) 
+;;                           "loaddefs.el"))
 ;;           (setf file-name (find-definition-site-of-preloaded-function function)))
 ;;         (when (and (null file-name) (subrp def))
 ;;           (setq file-name (find-definition-site-of-subr-function function)))
@@ -1511,14 +1511,14 @@ URL in a new window."
 
   (global-set-key (kbd "H-w") 'w3m-browse-url)
   (global-set-key (kbd "H-b") 'w3m-select-buffer)
-  
+
   (defvar *browse-frame-name* "*w3m*")
   (pushnew *browse-frame-name* special-display-buffer-names :test (function equal))
 
   ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
   (setf common-lisp-hyperspec-browser (function w3m-browse-url))
   ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
-  
+
   ) ;;when
 
 
@@ -1683,7 +1683,7 @@ URL in a new window."
 
     (defvar emms-browser-mode-hook '()
       "Hook for meat called after emms-browser-mode is activated.")
-    
+
     (defadvice emms-browser-mode (after pjb-emms-browse-mode-hook-advice activate)
       "Add an emms-browser-mode-hook feature."
       (interactive)
@@ -1699,16 +1699,16 @@ URL in a new window."
              (name  (cdr (assoc 'name    track))))
         (kill-new name nil nil)
         (message "%s" name)))
-    
+
     (defun pjb-emms-browser-mode-meat ()
       (interactive)
       (local-set-key (kbd "u") 'pjb-emms-save-file-path)
       (local-set-key (kbd "U") 'pjb-emms-save-file-path))
 
     (add-hook 'emms-browser-mode-hook 'pjb-emms-browser-mode-meat)
-    
+
     (defalias 'np 'emms-show)
-    
+
     'lac-emms)
   (.EMACS "Load and configure emms complete."))
 
@@ -1729,11 +1729,11 @@ URL in a new window."
 
 ;; ;;;----------------------------------------------------------------------------
 ;; (.EMACS "mew")
-;; 
+;;
 ;; (autoload 'mew      "mew" "Start Mew." t)
 ;; (autoload 'mew-send "mew" "Compose a new message." t)
 ;; ;;(defalias 'mail 'mew-send)
-;; 
+;;
 ;; (setq mew-mailbox-type 'mbox)
 ;; (setq mew-mbox-command "incm")
 ;; (setq mew-mbox-command-arg "-d /var/spool/mail/pjb")
@@ -1874,7 +1874,7 @@ URL in a new window."
             (when (erc-foolish-content s)
               (setq erc-insert-this nil))))
 
-;; (add-hook 'erc-join-hook 'pjb-erc-join-meat)  
+;; (add-hook 'erc-join-hook 'pjb-erc-join-meat)
 ;; (pjb-set-erc-nickserv-passwords)
 ;; (setf erc-timestamp-format "%Y-%m-%d %H:%M\n")
 ;; (erc-match-mode 1)
@@ -1903,7 +1903,7 @@ URL in a new window."
 (defun vowelp (ch) (find ch "aeiouy"))
 
 ;; (setf word "qu1j0t3")
-;; 
+;;
 ;; (defun used-digits-for-letters-p (word)
 ;;   (let ((d (map 'vector 'cl:digit-char-p word))
 ;;         (v (map 'vector 'vowelp word)))
@@ -1914,7 +1914,7 @@ URL in a new window."
 ;;             always (or (not (aref d i))
 ;;                        (and (< 0 i) (not (aref v (1- i))))
 ;;                        (and (< i m) (not (aref v (1+ i)))))))))
-;; 
+;;
 ;; (mapcar 'used-digits-for-letters-p '("qu1j0t3"
 ;;                                      "tali713"
 ;;                                      "elf"))
@@ -1934,58 +1934,58 @@ URL in a new window."
     (lisp-applications
      . "“Please don't assume Lisp is only useful for Animation and Graphics, AI, Bioinformatics, B2B and Ecommerce, Data Mining, EDA/Semiconductor applications, Expert Systems, Finance, Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and Simulation, Natural Language, Optimization, Research, Risk Analysis, Scheduling, Telecom, and Web Authoring just because these are the only things they happened to list.”")
     (haskell-road . "\"The Haskell Road to Logic, Math and Programming\" http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.137.9312&rep=rep1&type=pdf")
-    (lisp-1-vs-lisp-2-technical-issues  
+    (lisp-1-vs-lisp-2-technical-issues
      . "Please read: http://www.nhplace.com/kent/Papers/Technical-Issues.html")
-    (equal         
+    (equal
      . "Please read: http://www.nhplace.com/kent/PS/EQUAL.html")
     (ambitious-eval
      . "Please read: http://www.nhplace.com/kent/PS/Ambitious.html")
-    (what-implementation  
+    (what-implementation
      . "To get help choosing a CL implementation, connect to telnet://hubble.informatimago.com:8101 ; have a look at http://www.cliki.net/Common%20Lisp%20implementation")
-    (clhs          
+    (clhs
      . "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm")
-    (intersection  
+    (intersection
      . "Have a look at (intersection common-lisp emacs-lisp scheme) http://www.informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/intersection-r5rs-common-lisp-emacs-lisp/")
-    (scheme-or-cl  
+    (scheme-or-cl
      . "CL vs. Scheme http://irreal.org/blog/?p=813")
-    (cliki         
+    (cliki
      . "Have a look at http://cliki.net/ ; start with http://www.cliki.net/Getting%20Started")
     (newbie
      . "http://cliki.net/Getting%20Started or http://articulate-lisp.com/ ")
-    (getting-started 
+    (getting-started
      . "Start with http://www.cliki.net/Getting%20Started  or  http://articulate-lisp.com/" )
     (emacs-lisp-intro
      . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
-    (emacs-lisp      
+    (emacs-lisp
      . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
-    (emacs-manual    
+    (emacs-manual
      . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
-    (the-art-of-unix-programming    
+    (the-art-of-unix-programming
      . "The Art of Unix Programming http://www.faqs.org/docs/artu/")
-    (hacker-howto    
+    (hacker-howto
      . "http://www.catb.org/~esr/faqs/hacker-howto.html")
-    (the-craft-of-text-editing    
+    (the-craft-of-text-editing
      . "The Craft of Text Editing   http://www.finseth.com/craft/")
     (craft . the-craft-of-text-editing)
-    (essentials-of-programming-languages     
+    (essentials-of-programming-languages
      . "Essentials of Programming Languages, 3rd ed.   Daniel P. Friedman and Mitchell Wand   ISBN: 978-0-262-06279-4   http://MITPress.MIT.Edu/0262062798/  http://WWW.EoPL3.Com/")
-    (practical-common-lisp      
+    (practical-common-lisp
      . "Practical Common Lisp http://www.gigamonkeys.com/book/")
-    (common-lisp-a-gentle-introduction-to-symbolic-computation   
+    (common-lisp-a-gentle-introduction-to-symbolic-computation
      . "Common Lisp: A Gentle Introduction to Symbolic Computation  http://www.cs.cmu.edu/~dst/LispBook/  http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html")
-    (common-lisp-programming-for-artificial-intelligence   
+    (common-lisp-programming-for-artificial-intelligence
      . "Common Lisp Programming for Artificial Intelligence  Tony Hasemer & John Domingue - 1989  International Computer Science Series  Addison & Wesley  ISBN 0-201-17579-7")
-    (common-lisp-an-interactive-approach    
+    (common-lisp-an-interactive-approach
      . "Common Lisp: An Interactive Approach  by Stuart C. Shapiro   http://www.cse.buffalo.edu/~shapiro/Commonlisp/")
-    (paradigms-of-artificial-intellgience     
+    (paradigms-of-artificial-intellgience
      . "Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp")
-    (artifical-intelligence-a-modern-approach     
+    (artifical-intelligence-a-modern-approach
      . "Artificial Intelligence: A Modern Approach  http://aima.cs.berkeley.edu")
-    (sicp     
+    (sicp
      . "Structure and Interpretation of Computer Programs  http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html  http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/")
-    (sicp-mit 
+    (sicp-mit
      . "http://web.mit.edu/alexmv/6.S184/")
-    (6.S184   
+    (6.S184
      . "http://web.mit.edu/alexmv/6.S184/")
     ;; http://www.codepoetics.com/wiki/index.php?title=Topics:SICP_in_other_languages
     ;; http://eli.thegreenplace.net/category/programming/lisp/sicp/
@@ -1993,36 +1993,36 @@ URL in a new window."
     ;; http://www.youtube.com/watch?v=rdj6deraQ6k
     (the-little-lisper  . "http://kysmykseka.net/koti/wizardry/Programming/Lisp/Scheme/The%2520Little%2520Schemer%25204th%2520Ed.pdf")
     (the-schemer-lisper . "http://kysmykseka.net/koti/wizardry/Programming/Lisp/Scheme/The%2520Little%2520Schemer%25204th%2520Ed.pdf")
-    (r5rs     
+    (r5rs
      . "http://www.schemers.org/Documents/Standards/R5RS/HTML/")
-    (how-to-design-programs     
+    (how-to-design-programs
      . "How to Design Programs -- An Introduction to Computing and Programming  http://www.htdp.org/2003-09-26/Book/  ")
-    (concrete-abstraction       
+    (concrete-abstraction
      . "Concrete Abstractions -- An Introduction to Computer Science Using Scheme  http://www.gustavus.edu/+max/concrete-abstractions.html")
-    (lisp-in-small-pieces     
+    (lisp-in-small-pieces
      . "Lisp in Small Pieces   http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html  http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz")
-    (on-lisp   
+    (on-lisp
      . "On Lisp  Paul Graham   http://www.paulgraham.com/onlisptext.html  http://www.bookshelf.jp/texi/onlisp/onlisp.html  http://www.bookshelf.jp/texi/onlisp/onlisp.tar.gz")
-    (compiler-principle-techniques-and-tools     
+    (compiler-principle-techniques-and-tools
      . "Compiler Principles Techniques and Tools, Aho et al. http://dragonbook.stanford.edu/")
-    (the-art-of-computer-programming    
+    (the-art-of-computer-programming
      . "The Art of Computer Programming  Donald E. Knuth  Addison & Wesley")
-    (goedel-escher-bach      
+    (goedel-escher-bach
      . "Gödel, Escher, Bach: An Eternal Golden Braid  Douglas Hofstadter")
-    (basic-lisp-technique      
+    (basic-lisp-technique
      . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
-    (casting-speels-in-lisp  
+    (casting-speels-in-lisp
      . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
     (floating-point
-     . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/") 
+     . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/")
     ;; --
-    (gitlab-lisp 
+    (gitlab-lisp
      . "https://gitlab.com/com-informatimago/com-informatimago/")
     (gitlab-emacs
      . "https://gitlab.com/com-informatimago/emacs/")
-    (rc       
+    (rc
      . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/rc")
-    (bin      
+    (bin
      . "http://git.informatimago.com/viewgit/index.php?a=summary&p=public/bin")
     (maintained-illustration
      . "http://tinyurl.com/last-commit-six-month-ago http://tinyurl.com/monthly-commits http://tinyurl.com/last-commit-yesterday http://tinyurl.com/last-commit-before-VCS-existed")
@@ -2032,24 +2032,24 @@ URL in a new window."
     (see-defpackage
      . ";;;;    See defpackage documentation string.\n")
     (ring . "One Lisp to rule them all, One Lisp to find them, One Lisp to bring them all, And in the darkness bind them.")
-    (agpl3         
+    (agpl3
      . "
 License:
 
     AGPL3
-    
+
     Copyright Pascal J. Bourguignon 1994 - 2012
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-    
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
-    
+
     You should have received a copy of the GNU Affero General Public License
     along with this program.
     If not, see <a href=\\\"http://www.gnu.org/licenses/\\\">http://www.gnu.org/licenses/</a>.
@@ -2066,8 +2066,8 @@ License:
 
 ;; TODO reimplement pjb-erc-answer using define-global-abbrev ?
 (defun pjb-erc-answer (key)
-  (interactive (list 
-                (intern (completing-read 
+  (interactive (list
+                (intern (completing-read
                          "What? " (mapcar (lambda (x) (cons x nil)) (pjb-erc-get-answers))
                          (lambda (answer) (setq *pjb-erc-last-answer* (car answer)))
                          t))))
@@ -2221,7 +2221,7 @@ License:
 ;; http://www.cpqd.com.br/~vinicius/emacs/Emacs.html
 
 
-;; (add-hook 'write-file-hooks 
+;; (add-hook 'write-file-hooks
 ;;           (lambda ()
 ;;             (unless indent-tabs-mode
 ;;               (untabify (point-min) (point-max)))))
@@ -2422,8 +2422,8 @@ License:
 
 
 ;;;----------------------------------------------------------------------------
-;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/gst-mode.el") 
-;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/smalltalk-mode.el") 
+;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/gst-mode.el")
+;; (load "/opt/smalltalk-3.0.4/share/emacs/site-lisp/smalltalk-mode.el")
 
 ;;;----------------------------------------------------------------------------
 
@@ -2438,7 +2438,7 @@ License:
     (format  "-I%s -L%s" prefix prefix)))
 
 (defun compile-and-run-file (src mode)
-  (interactive "fC or C++ source file to compile and run: 
+  (interactive "fC or C++ source file to compile and run:
 p")
   (flet ((name (path)
            (when (string-match "^.*/\\([^./]*\\)\\.[^/.]*$" path)
@@ -2482,7 +2482,7 @@ p")
 (when (require 'psql-mode nil t)
   (modify-syntax-entry ?/   "<14>" psql-mode-syntax-table)
   (modify-syntax-entry ?*   "<23>" psql-mode-syntax-table)
-  
+
   (modify-syntax-entry ?-   "<12"  psql-mode-syntax-table)
   (modify-syntax-entry ?\n  ">"    psql-mode-syntax-table))
 
@@ -2556,7 +2556,7 @@ p")
                     (forward-sexp) (backward-sexp)
                     (thing-at-point-no-properties 'symbol)))))
    (find-grep
-    (format "find ~/works/patchwork/src/patchwork/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what)))) 
+    (format "find ~/works/patchwork/src/patchwork/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what))))
 (global-set-key (kbd "H-/") 'pwfind)
 
 (setf calendar-time-display-form '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")))
@@ -2575,7 +2575,7 @@ RETURN: (YYYY MM DD DOW)  next day."
     (let ((next-cursor-day (calendar-gregorian-from-absolute
                             (1+ (calendar-absolute-from-gregorian  (list m d y))))))
       (destructuring-bind (m d y) next-cursor-day
-        
+
         (list y m d (aref [Do Lu Ma Mi Ju Vi Sa]
                           (calendar-day-of-week next-cursor-day)))))))
 
@@ -2803,7 +2803,7 @@ or as \"emacs at <hostname>\"."
 
 (loop for key in (list (kbd "<mouse-5>") (kbd "C-<mouse-5>") (kbd "S-<mouse-5>")
                        (kbd "<mouse-4>") (kbd "C-<mouse-4>") (kbd "S-<mouse-4>"))
-     do (global-set-key key 'ignore)) 
+     do (global-set-key key 'ignore))
 
 
 (defun toggle-read-only-region (start end)
