@@ -2199,6 +2199,9 @@ License:
   (add-hook 'lisp-mode-hook 'common-lisp-font-lock-hook))
 
 
+(dolist (hook '(emacs-lisp-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
 ;;(setq emacs-lisp-mode-hook nil lisp-mode-hook nil)
 
 
@@ -2545,6 +2548,12 @@ p")
 (setf grep-find-command "find . -name \\*.lisp -print0 | xargs -0  grep -niH -e "
       grep-host-defaults-alist nil)
 
+(defun pjb-grep-meat--remove-grep-option ()
+  (interactive)
+  ;; grep: warning: GREP_OPTIONS is deprecated; please use an alias or script
+  (setenv "GREP_OPTIONS" nil))
+
+(add-hook 'grep-setup-hook 'pjb-grep-meat--remove-grep-option)
 
 
 (defun pwfind (start end)
