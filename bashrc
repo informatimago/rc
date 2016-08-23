@@ -41,7 +41,7 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
-PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+# PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
 
 uname="$(uname -s)"
 case "$uname" in
