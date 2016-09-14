@@ -33,8 +33,9 @@ emacs*pointerColor:                         Black
 emacs*cursorColor:                          Red
 emacs*bitmapIcon:                           off
 
-emacs.font:         6x12
-emacs.menu.font:    6x12
+
+!! emacs.font:         6x12
+!! emacs.menu.font:    6x12
 !! emacs.font:      fixed
 !! emacs.font:      -*-courier-medium-r-normal-*-12-*-*-*-*-*-*-*
 
@@ -59,7 +60,7 @@ pvs*pointerColor:               #000000
 pvs*cursorColor:                #0000ff
 pvs*bitmapIcon:                 off
 
-pvs*font:                       7x14
+!! pvs*font:                       7x14
 pvs.geometry:                   84x32-64+4 
 
 
