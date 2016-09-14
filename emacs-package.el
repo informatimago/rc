@@ -34,9 +34,11 @@
 
 
 (defun pjb-install-packages ()
+  (interactive)
   ;;
+  (package-install 'paredit)
   (package-install 'auto-complete)
-  (package-install 'column-marker)
+  ;; (package-install 'column-marker)
   ;;
   (package-install 'inf-ruby)
   (package-install 'enh-ruby-mode)
@@ -44,7 +46,7 @@
   (package-install 'highlight-indentation)
   (package-install 'robe)
   (package-install 'dash)
-  (package-install 'dash-at-point)
+  ;; (package-install 'dash-at-point)
   (package-install 'textmate)
   (package-install 'flycheck))
 
