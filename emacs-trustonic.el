@@ -108,7 +108,6 @@
  '(erc-server-reconnect-timeout 60)
  '(erc-timestamp-format nil)
  '(erc-timestamp-intangible nil)
- '(erc-track-enable-keybindings t)
  '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
