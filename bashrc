@@ -41,6 +41,9 @@ else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
+# WARNING: CDPATH is quite a strong setting!
+# PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+
 uname="$(uname -s)"
 case "$uname" in
 Darwin)
@@ -269,7 +272,7 @@ function be_generate(){
     be_comment 'My compilation environment:'
     be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
-    be_variable TARGET   "$(uname)"
+    be_variable COMPILATION_TARGET  "$(uname)"
 
     case "$uname" in
     Darwin)
