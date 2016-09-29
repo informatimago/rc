@@ -11,13 +11,14 @@
 ;;       debug-on-error t)
 
 (setq message-log-max 5000)
-(when (< emacs-major-version 24) 
+(when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
 
 (defun hostname ()
+  "Return the hostname of the system, or nil if it cannot be retrieved."
   (or (and (boundp  'system-name) system-name)
       (and (fboundp 'system-name) (system-name))
       (ignore-errors
