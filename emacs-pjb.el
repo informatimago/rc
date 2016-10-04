@@ -468,6 +468,7 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-package.el")
+(load "~/rc/emacs-paredit.el")
 (when (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
 ;; (load "~/rc/emacs-slime.el")

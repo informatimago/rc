@@ -28,11 +28,7 @@
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
-<<<<<<< HEAD
- '(region ((t (:background "brown"))))
-=======
  '(region ((t (:background "#6080b0"))))
->>>>>>> e8ab528c901db41e5c90ffcccabae236ca7053c4
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
@@ -65,6 +61,7 @@
  '(c-label-minimum-indentation (quote set-from-style))
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
+ '(confluence-save-credentials t)
  '(display-time-24hr-format t)
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
@@ -111,7 +108,6 @@
  '(erc-server-reconnect-timeout 60)
  '(erc-timestamp-format nil)
  '(erc-timestamp-intangible nil)
- '(erc-track-enable-keybindings t)
  '(erc-user-full-name "Pascal J. Bourguignon")
  '(eval-expression-print-length nil)
  '(gnus-select-method (quote (nntp "news.individual.com")))
@@ -590,9 +586,28 @@
 
 (global-flycheck-mode)
 
+(defun pjb-alert-trailing-whitespace ()
+  (set-background-color "#600c0c")
+  (read-char "ALERT! Trailing whitespaces!     (Type the Any key)")
+  (set-palette *current-palette*))
+
+(defun pjb-check-trailing-whitespace ()
+  (interactive)
+  (save-excursion
+   (goto-char (point-min))
+   (when (re-search-forward " $"nil t)
+     (pjb-alert-trailing-whitespace))))
+
+(add-hook 'find-file-hook   'pjb-check-trailing-whitespace)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (translate-powerbook-keyboard)
+
+
+(require 'confluence)
+(setf confluence-url "http://wiki.trustonic.internal/confluence2/rpc/xmlrpc")
+
+
 (load "~/rc/emacs-epilog.el")
 (provide 'emacs-trustonic)
 ;;;; THE END ;;;;

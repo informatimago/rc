@@ -50,7 +50,7 @@
        (set-default-frame-parameter 'cursor-color     (palette-cursor palette))
        (set-default-frame-parameter 'mouse-color      (palette-mouse palette)))
      (set-face-background 'region (palette-region palette))
-     
+
      (set-face-background 'mode-line (palette-foreground palette))
      (set-face-foreground 'mode-line (palette-background palette))
      (let ((box  (list :line-width -1
@@ -65,7 +65,7 @@
                       :style 'released-button)))
        (set-face-attribute  'mode-line-inactive (selected-frame) :box box)
        (set-face-attribute  'mode-line-inactive t                :box box))
-     
+
      (when (getenv "EMACS_WM")
        (set-face-background 'border (palette-background palette)))
      (set-foreground-color (palette-foreground palette))
@@ -223,8 +223,8 @@
                                           (font-exists-p fixed))
                                    fixed
                                    font))))
-                 
-                 (("larissa") 
+
+                 (("larissa")
                   (setq palette            pal-larissa
                         Width              81
                         height             70))
