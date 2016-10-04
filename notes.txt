@@ -2676,6 +2676,19 @@ https://github.com/pasky/pachi/blob/master/ANDROID.txt
 https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
 http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
 https://github.com/ageneau/ecl-android
+
+
+Raspberry Pi OS:
+http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
+
+
+sudo dd bs=512 skip=137216 seek=131072 count=7712768  if=2016-05-27-raspbian-jessie.img of=/dev/sdf
+sudo dd bs=512 skip=8192   seek=2048   count=129024   if=2016-05-27-raspbian-jessie.img of=/dev/sdf
+mkswap /dev/sdf3
+mke2fs -L home -j /dev/sdf4
+
+
+
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
 
@@ -2934,9 +2947,6 @@ http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
 
 http://hightechhistory.com/category/stanford/
 
-
-Raspberry Pi OS:
-http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
 
 time:
 http://unix4lyfe.org/time/
