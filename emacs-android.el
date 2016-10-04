@@ -93,9 +93,9 @@
   (add-hook 'gud-mode-hook 'gud-meat)
 
 
-  (require 'cedet)
-  (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
-  (require 'jde)
+  ;; (require 'cedet)
+  ;; (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+  ;; (require 'jde)
 
 
   ;; eclipse has a hard time dealing with backup files.
