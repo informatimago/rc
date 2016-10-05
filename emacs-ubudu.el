@@ -455,7 +455,6 @@ X-Accept-Language:         fr, es, en
 (setq pgp-signer  "0xC5F8B7FC") ;; "pascal.bourguignon@ubudu.com"
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-package.el")
 (when  (not *pjb-pvs-is-running*)
   (load "~/rc/emacs-palette.el"))
 ;;;----------------------------------------------------------------------------
