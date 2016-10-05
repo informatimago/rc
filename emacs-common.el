@@ -70,6 +70,7 @@
     (message text)))
 
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
+(load "~/rc/emacs-package.el")
 
 
 ;;;----------------------------------------------------------------------------

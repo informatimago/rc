@@ -141,7 +141,7 @@
 (require 'org-jira)
 (setf jiralib-url "https://jira:8443/")
 
-(when (require 'semantic nil t) 
+(when (require 'semantic nil t)
   (semantic-mode 1))
 
 (require 'pjb-c-style)
@@ -173,7 +173,7 @@
 
 
 (let ((tags-add-tables t))
-  (setf tags-table-list '()) 
+  (setf tags-table-list '())
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
   ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
   (ignore-errors (visit-tags-table "~/src/OpticsPro.etags")))
@@ -317,7 +317,7 @@
          "SRC=$(pwd) ; while [ ! -z \"${SRC}\" -a ! -d \"${SRC}/DXOOpticsPro.xcodeproj\" ] ; do SRC=\"$(dirname \"${SRC}\")\" ; done"
          ";"
          "/Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc-4.2"
-         
+
          "-O0"
          "-Wall"
          "-Werror-implicit-function-declaration"
@@ -336,17 +336,17 @@
          "-Wunused-label"
          "-Wunused-value"
          "-Wunused-variable"
-         
+
          "-arch x86_64"
-         
+
          "-fasm-blocks"
          "-fmessage-length=0"
          "-fpascal-strings"
          "-fvisibility=hidden"
-         
+
          "-gdwarf-2"
          "-mmacosx-version-min=10.6"
-         
+
          "-pipe"
          "-std=c99"
          "-x objective-c"
@@ -357,28 +357,28 @@
          "-DDXO_FOUNDATION_DYNAMIC"
          "-DDXO_FWK_LOG_CATEGORY=DXFAppKitUI"
          "-D_DEBUG"
-         
+
          "-F/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
 
          "$(find ${SRC} \\( -name \\*.app -o -name \\*.octest -o -name \\*.ibplugin \\) -prune -o \\( -name \\*.framework -print \\) |xargs -n 1 dirname |sort -u|sed -e 's/^/-F/')"
 
          "-F${HOME}/src/OpticsPro-Mac-trunk/AppKit/bin/debug"
-         
+
          "-F${SRC}/AppKit/bin/debug"
          "-F${SRC}/AppKit/externals/Common/bin/debug"
          "-F${SRC}/bin/debug"
          "-F${SRC}/externals/OCHamcrest"
          "-F${SRC}/externals/OCMock"
-         
+
          "-framework Cocoa"
          "-framework OCHamcrest"
          "-framework OCMock"
          "-framework SenTestingKit"
          "-framework DXFAppKitUI"
          "-framework DXFAppKitUI"
-         
-         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')" 
-         
+
+         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')"
+
          "-I${SRC}/AppKit/bin/debug/include"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-all-target-headers.hmap"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-own-target-headers.hmap"
@@ -386,7 +386,7 @@
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DerivedSources/x86_64"
          "-I${SRC}/AppKit/externals/Common/include/DxOFramework"
          "-I${SRC}/AppKit/externals/Common/include/Foundation"
-         
+
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-generated-files.hmap"
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-project-headers.hmap"
          "-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
@@ -428,8 +428,6 @@
   (re-delete-lines-between (point-min) (point-max)
                            "\\(UpdateParameters\\|DOPQuickPreview\\|DOPThumbnailsPreloadingController\\.ToThumbnailCache\\).*{"
                            "^\t}\\()\\| error: \\)"))
-
-(load "~/rc/emacs-package.el")
 
 ;;;----------------------------------------------------------------------------
 
@@ -476,8 +474,7 @@
 
 (add-hook 'lua-mode-hook 'lua-mode-meat)
 
-(find-library "outline-mode-easy-bindings") 
+(find-library "outline-mode-easy-bindings")
 
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
-

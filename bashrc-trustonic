@@ -1,7 +1,7 @@
 # -*- mode:shell-script -*-
 set +o posix
 
-ulimit -n 2048 -u 1024
+# ulimit -n 2048 -u 1024
 
 defaults write org.x.X11 enable_test_extensions -boolean true
 defaults write org.macports.X11 enable_test_extensions -boolean true
@@ -148,6 +148,35 @@ function find-stuff(){
 }
 
 function load-properties(){ eval "$(sed -e '/^#/d' -e "s/'/'\\\\''/g;s/^/'/;s/\$/'/" -e 's/^/export /' -e 's/$/;/' -e 's/env./env_/' <target/make.properties)" ; }
+function clean-properties(){
+    for prop in BUILDER BUILD_UNIQUE_ID COMMON COMMON_ABS COMP_COMMON \
+                COMP_PATH_AndroidNdkLinux COMP_PATH_Ant COMP_PATH_ArmRvct \
+                COMP_PATH_BouncyCastle COMP_PATH_CommonsCLI \
+                COMP_PATH_DrSecureFS_LocalsCode COMP_PATH_JCP COMP_PATH_LinaroGcc \
+                COMP_PATH_Make COMP_PATH_MobiConvert \
+                COMP_PATH_MobiCoreClientLib_LocalsCode \
+                COMP_PATH_MobiCore_LocalsCode COMP_PATH_SCP COMP_PATH_SCP_OSX \
+                COMP_PATH_SKB COMP_PATH_Scripts COMP_PATH_THPWCTools \
+                COMP_PATH_TlSdk COMP_PATH_TlSdk_LocalsCode FORCE_DEPS \
+                IS_DEVICE_MANDATORY IS_MODE_SUPPORTED IS_PLATFORM_MANDATORY \
+                IS_TOOLCHAIN_SUPPORTED LOCAL_MAKEFILE MAVEN_JAVA_HOME MODE_Debug \
+                MODE_Release MODULE_PATH_MobiConvert MODULE_PATH_THPWCTools \
+                MODULE_PATH_TlSdk MVN_SESSION_COMP NEXUS_OTA_SNAPSHOT_ID \
+                NEXUS_OTA_SNAPSHOT_NAME NEXUS_OTA_SNAPSHOT_URL NEXUS_RELEASE_ID \
+                NEXUS_RELEASE_NAME NEXUS_RELEASE_URL NEXUS_SNAPSHOT_ID \
+                NEXUS_SNAPSHOT_NAME NEXUS_SNAPSHOT_URL OEM_APP OEM_NAME PACKAGE \
+                PATH_DrSecureFS_LocalsCode PATH_MobiConvert \
+                PATH_MobiCoreClientLib_LocalsCode PATH_MobiCore_LocalsCode \
+                PATH_THPWCTools PATH_TlSdk PATH_TlSdk_LocalsCode SYSROOT TARGET_OS \
+                TASDK_DIR THPWCTools_DIR THPWCTools_DIR_SRC THP_TYPE TLSDK_DIR \
+                TLSDK_DIR_SRC TOOLCHAIN_ARM TOOLCHAIN_GNU TOOLCHAIN_XCODE \
+                buildsystem_folder components_folder makefile_path \
+                mobicore_tools_abs_folder packagers_folder projects_folder \
+                tbase_root_path tbase_root_path_ABS teeVersion
+    do
+        unset $prop
+    done
+}
 function find-workspaces(){ find-stuff '*.xcworkspace' ; }
 function find-projects(){ find-stuff '*.xcodeproj' ; }
 function find-dylibs(){ find-stuff '*.dylib' ; }
@@ -243,7 +272,11 @@ function nwdb-show-protection(){
         while read k v ; do
             if [[ "$k" = "created" ]] ; then
                 printf "${format}" "$k" "$v"
-                v="$( date -d @$((v/1000000)) )"
+                if [[ $(uname) = Darwin ]] ; then
+                    v="$( date -r $((v/1000000)) )"
+                else
+                    v="$( date -d @$((v/1000000)) )"
+                fi
             fi
             printf "${format}" "$k" "$v"
         done
