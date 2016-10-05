@@ -566,7 +566,8 @@ WELCOME TO EMACS!
 ;;;----------------------------------------------------------------------------
 ;;; CEDET / EIEIO
 ;;;----------------------------------------------------------------------------
-(when (and (require 'eieio nil t)
+(when (and nil
+           (require 'eieio nil t)
            (require 'cedet nil t))
   ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
   ;; Select one of the following:
