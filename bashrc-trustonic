@@ -84,9 +84,10 @@ function cleanEnvironment(){
     badEnvironment | while read var ; do unset "${var}" ; done
 }
 
-grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" < ~/.bash_env > ~/.bash_env_small
-mv ~/.bash_env_small ~/.bash_env
-
+grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" \
+     < ~/.bash_env \
+     > ~/.bash_env_small \
+    && mv ~/.bash_env_small ~/.bash_env
 
 
 CYAN_BACK=""
@@ -123,105 +124,14 @@ export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 export PATH="/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
 export PATH="$HOME/src/trustonic/bin:$PATH"
+export JAVA_HOME="$(/usr/libexec/java_home)"
 
-
-function connect-adb-device(){
-    adb devices
-    adb tcpip ${ANDROID_SERIAL/.*:/}
-    sleep 2
-    adb connect ${ANDROID_SERIAL}
-    adb devices
-}
-
-function connect-nereid(){
-    export ANDROID_SERIAL=192.168.2.182:5555
-    connect-adb-device
-}
-
-function find-stuff(){
-    local stuffname="$1" ; shift
-    if [ $# -gt 0 ] ; then
-        find "$@" -name "$stuffname" -print
-    else
-        find . -name "$stuffname" -print
-    fi
-}
-
-function load-properties(){ eval "$(sed -e '/^#/d' -e "s/'/'\\\\''/g;s/^/'/;s/\$/'/" -e 's/^/export /' -e 's/$/;/' -e 's/env./env_/' <target/make.properties)" ; }
-function clean-properties(){
-    for prop in BUILDER BUILD_UNIQUE_ID COMMON COMMON_ABS COMP_COMMON \
-                COMP_PATH_AndroidNdkLinux COMP_PATH_Ant COMP_PATH_ArmRvct \
-                COMP_PATH_BouncyCastle COMP_PATH_CommonsCLI \
-                COMP_PATH_DrSecureFS_LocalsCode COMP_PATH_JCP COMP_PATH_LinaroGcc \
-                COMP_PATH_Make COMP_PATH_MobiConvert \
-                COMP_PATH_MobiCoreClientLib_LocalsCode \
-                COMP_PATH_MobiCore_LocalsCode COMP_PATH_SCP COMP_PATH_SCP_OSX \
-                COMP_PATH_SKB COMP_PATH_Scripts COMP_PATH_THPWCTools \
-                COMP_PATH_TlSdk COMP_PATH_TlSdk_LocalsCode FORCE_DEPS \
-                IS_DEVICE_MANDATORY IS_MODE_SUPPORTED IS_PLATFORM_MANDATORY \
-                IS_TOOLCHAIN_SUPPORTED LOCAL_MAKEFILE MAVEN_JAVA_HOME MODE_Debug \
-                MODE_Release MODULE_PATH_MobiConvert MODULE_PATH_THPWCTools \
-                MODULE_PATH_TlSdk MVN_SESSION_COMP NEXUS_OTA_SNAPSHOT_ID \
-                NEXUS_OTA_SNAPSHOT_NAME NEXUS_OTA_SNAPSHOT_URL NEXUS_RELEASE_ID \
-                NEXUS_RELEASE_NAME NEXUS_RELEASE_URL NEXUS_SNAPSHOT_ID \
-                NEXUS_SNAPSHOT_NAME NEXUS_SNAPSHOT_URL OEM_APP OEM_NAME PACKAGE \
-                PATH_DrSecureFS_LocalsCode PATH_MobiConvert \
-                PATH_MobiCoreClientLib_LocalsCode PATH_MobiCore_LocalsCode \
-                PATH_THPWCTools PATH_TlSdk PATH_TlSdk_LocalsCode SYSROOT TARGET_OS \
-                TASDK_DIR THPWCTools_DIR THPWCTools_DIR_SRC THP_TYPE TLSDK_DIR \
-                TLSDK_DIR_SRC TOOLCHAIN_ARM TOOLCHAIN_GNU TOOLCHAIN_XCODE \
-                buildsystem_folder components_folder makefile_path \
-                mobicore_tools_abs_folder packagers_folder projects_folder \
-                tbase_root_path tbase_root_path_ABS teeVersion
-    do
-        unset $prop
-    done
-}
-function find-workspaces(){ find-stuff '*.xcworkspace' ; }
-function find-projects(){ find-stuff '*.xcodeproj' ; }
-function find-dylibs(){ find-stuff '*.dylib' ; }
-function find-libs(){ find-stuff '*.a' ; find-stuff '*.lib' ; }
-function find-frameworks(){ find-stuff '*.framework' ; }
-function find-file(){ find-stuff "${1?Missing file name argument}" ; }
-function grep-all(){ find . \( -name Out -o -name .svn \) -prune -o -type f -exec grep -nH "${1?Missing regular expression argument}" {} \; ; }
-
-function svn-remove-unregistered(){
-    local trash
-    trash="${TMPDIR-/tmp}/Trash/$UID/$$"
-    mkdir -p "${trash}"
-    svn status|awk  '/^\?/{print $2}'|while read item ; do mv "${item}" "${trash}" ; done
-}
-
-alias c='mvn compile'
-alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
-
-x="$HOME/src/xabber-android"
-
-k="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk"
-ka="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat"
-ki="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat"
-ks="$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk"
-
-
-i="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk"
-ndk10="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/Common/AndroidNdk/r10e-linux-x86"
-tlsdk="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk"
-cliwb="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/MobiCoreDriver/Linux/ClientLibWB"
-taaes="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/TrustedApplications/TAAes"
-caaes="$HOME/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/dev/components/ClientApplications/CAAes"
-
-
-function trustdirs(){
-    for alias in c cx ; do
-        alias $alias
-    done
-    for var in x k ka ki ks i is ; do
-        printf "variable %-3s = %s\n" "${var}" "${!var}"
-    done
-}
 
 export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
+export DELIVERY="no"
 export OBFUSCATE="no"
+export OBFUSCATE_TA="no"
+export REALLY_I_SHOULD_NOT_BUT_I_AM_IN_A_HURRY_AND_I_CANNOT_DEAL_WITH_WARNING_AS_ERRORS_RIGHT_NOW=yes
 
 alias mvn='TERM=unix mvn'
 
@@ -229,61 +139,7 @@ alias mvn='TERM=unix mvn'
 alias from-mb='rsynch  macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/ /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook'
 alias to-mb='rsynch  /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook/ macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk'
 
-function findNewestFileInTree(){
-    if [[ "$(uname)" = "Darwin" ]] ; then
-        # on MacOSX we have BSD find, which doesn't have -printf;
-        # We still try find and gfind if in case GNU find is installed,
-        # but we have to fallback to BSD find with stat:
-        ( find "$@" -type f -printf "%T@ %p\n"  2>/dev/null \
-        || gfind "$@" -type f -printf "%T@ %p\n"  2>/dev/null \
-        || /usr/bin/find  "$@" -type f -exec /usr/bin/stat -f '%#m %N' {} \; )
-    else
-        find "$@" -type f -printf "%T@ %p\n"
-    fi | sort -nr | head -n 1 | cut -d ' ' -f 2-
-}
-
-function findNewestFileInTree-txt(){
-    if [[ "$(uname)" = "Darwin" ]] ; then
-        # on MacOSX we have BSD find, which doesn't have -printf;
-        # We still try find and gfind if in case GNU find is installed,
-        # but we have to fallback to BSD find with stat:
-        ( find "$@" -type f -name \*.txt -printf "%T@ %p\n"  2>/dev/null \
-        || gfind "$@" -type f -name \*.txt -printf "%T@ %p\n"  2>/dev/null \
-        || /usr/bin/find  "$@" -type f -name \*.txt -exec /usr/bin/stat -f '%#m %N' {} \; )
-    else
-        find "$@" -type f -name \*.txt -printf "%T@ %p\n"
-    fi | sort -nr | head -n 20
-}
-
-
-
-function nwdb-count-entries(){
-    local nwdb="${1?Missing nwdb file as first argument}"
-    sqlite3 "${nwdb}" 'select count(*) from markers'
-}
-
-function nwdb-show-protection(){
-    local nwdb="${1?Missing nwdb file as first argument}"
-    local format='%-30s %s\n'
-    local savedIFS="${IFS}"
-    IFS='|'
-    # shellcheck disable=SC2059
-    sqlite3 "${nwdb}" 'select * from general' | \
-        while read k v ; do
-            if [[ "$k" = "created" ]] ; then
-                printf "${format}" "$k" "$v"
-                if [[ $(uname) = Darwin ]] ; then
-                    v="$( date -r $((v/1000000)) )"
-                else
-                    v="$( date -d @$((v/1000000)) )"
-                fi
-            fi
-            printf "${format}" "$k" "$v"
-        done
-    IFS="${savedIFS}"
-    # shellcheck disable=SC2059
-    printf "${format}" "markerCount" "$(nwdb-count-entries "${nwdb}")"
-}
+source "$HOME/src/trustonic/functions.bash"
 
 
 #### THE END ####
