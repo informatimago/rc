@@ -1230,7 +1230,7 @@ else
 fi
 
 case "$host" in
-*macbook?employer-a.local|vmdevlinux)
+*macbook?employer-a.local|vmubuntu*|vmdebian*)
     source ~/rc/bashrc-employer-a
     ;;
 *)
