@@ -1230,7 +1230,7 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local|vmdevlinux)
+*macbook?trustonic.local|vmubuntu*|vmdebian*)
     source ~/rc/bashrc-trustonic
     ;;
 *)
