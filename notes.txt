@@ -2,12 +2,13 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 * IMPOTS
 
+http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
+
+
 https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
 Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
 Ce numéro d'abonné vous est personnel et doit le rester.
 
-
-* 
 * DU
 
 24G     Music/iTunes
@@ -22,6 +23,13 @@ Ce numéro d'abonné vous est personnel et doit le rester.
 41G     Downloads/
 
 * NOTES
+** Paypal Me
+
+x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
+x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
+http://www.paypal.com/?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
+
+
 ** Agility
 
 Agility -- What to Do
@@ -487,7 +495,7 @@ http://imslp.org/
 
 http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
 
-0785017461 christiane
+
 http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 
 ** NOTES 3
@@ -647,7 +655,7 @@ http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-
 ;; Votre contrat est le XFR460.
 ;;
 ;; samsung: pjb@ogamita.org | vih3doq9
-;; dropbox: pjb@ogamita.org | ciliz6kah3
+;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
 
 Gerald Jay Sussman
 http://www.infoq.com/presentations/Expression-of-Ideas
@@ -4509,6 +4517,9 @@ Mme Thérèse Chilkowy
 Mme Christiane Chilkowy
 19, Grande Rue
 88340 Le Val d'Ajol
+0785017461 christianeckw@orange.fr
+ct2pj4bf6ag8
+
 
 Mme Bourguignon Joëlle
 6, rue des treize
@@ -11243,6 +11254,7 @@ the apps I've tried.
     sudo port upgrade outdated
     sudo port uninstall inactive      # remove the inactive ports.
     sudo port clean --all uninstalled # remove the non-installed distfiles
+
 
 ** SYSTEM: EROS
 

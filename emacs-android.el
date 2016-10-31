@@ -92,10 +92,11 @@
                                            "/adt/sdk/platforms/android-17/android.jar"))))
   (add-hook 'gud-mode-hook 'gud-meat)
 
-
   (require 'cedet)
-  (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
-  (require 'jde)
+  (let ((path (expand-file-name "~/emacs/jdee/lisp")))
+    (when (file-exists-p path)
+      (pushnew path load-path)
+      (require 'jde nil t)))
 
 
   ;; eclipse has a hard time dealing with backup files.
