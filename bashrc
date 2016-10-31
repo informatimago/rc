@@ -35,23 +35,26 @@ if [ $UID -eq 0 ] ; then
 elif [ "$TERM" = "emacs" ] ; then
     export PS1="\n\\w\n[\\u@\\h $DISPLAY]\\$ "
 elif type -path period-cookie >/dev/null 2>&1 ; then
-    export PS1='`period-cookie`[\u@\h $DISPLAY \W]\$ '
+    pc="$(type -path period-cookie)"
+    export PS1='$('"$pc"')[\u@\h $DISPLAY \W]\$ '
 else
     export PS1='[\u@\h $DISPLAY \W]$ '
 fi
 
+# WARNING: CDPATH is quite a strong setting!
 # PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
 
 uname="$(uname -s)"
-case "$uname" in 
+case "$uname" in
 Darwin)
     ulimit -s 32768
     stty erase  >/dev/null 2>&1
+    defaults write org.macosxforge.xquartz.X11 enable_test_extensions -boolean true
     ;;
 *)
     case $(uname -o) in
     Cygwin)
-        true 
+        true
         ;;
     *)
         ulimit -s 32768
@@ -63,7 +66,7 @@ esac
 
 function member(){
     local item="$1" ; shift
-    for arg ; do 
+    for arg ; do
         if [ "$item" = "$arg" ] ; then
             echo T
             return 0
@@ -77,9 +80,9 @@ function member(){
 function reverse(){
     local args=("$@")
     i=${#args[@]}
-    while [ $i -ge 0 ] ; do
+    while [ "$i" -ge 0 ] ; do
         echo "${args[$i]}"
-        i=$(( $i - 1 ))
+        i=$(( i - 1 ))
     done
 }
 
@@ -110,9 +113,7 @@ function appendToListVariable(){
     # Appends to the array VARIABLE each element.
     # Example:  a=(1 2 3) ; appendToList a 4 5 6 ; echo ${a[@]} --> 1 2 3 4 5 6
     local var=$1 ; shift
-    for element ; do
-        eval "$var[\${#$var[@]}]=\"\$element\""
-    done
+    eval "${var}+=(\"\${@}\")"
 }
 
 
@@ -122,7 +123,7 @@ function appendNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir ; do
-        if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+        if [ -d "${dir}/." -a "$(member "${dir}" "${ps[@]}")" = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"\$${var}:${dir}\" ; fi"
         fi
     done
@@ -136,7 +137,7 @@ function prependNewToStringVariableDirectoryIfExists(){
     local var=$1 ; shift
     ps=( $(eval "if [ -z \"\$${var}\" ] ; then true ; else echo \"\$${var}\"|tr ':' '\012' ; fi") )
     for dir in "$@" ; do
-        if [ -d "${dir}/." -a $(member "${dir}" "${ps[@]}") = NIL ] ; then
+        if [ -d "${dir}/." -a "$(member "${dir}" "${ps[@]}")" = NIL ] ; then
             eval "if [ -z \"\$${var}\" ] ; then ${var}=\"${dir}\" ; else ${var}=\"${dir}:\$${var}\" ; fi"
         fi
     done
@@ -147,19 +148,20 @@ function prependNewToStringVariableDirectoryIfExists(){
 function prependIfDirectoryExists(){
     local dir
     local result=()
-    for dir in $(reverse $@) ; do
-        if [ NIL != $(member $dir ${result[@]}) ] ; then
-            result=($dir $(remove $dir ${result[@]}))
-        elif [ -d $dir ] ; then
-            result=($dir ${result[@]})
+    for dir in $(reverse "$@") ; do
+        if [ NIL != "$(member "$dir" ${result[@]})" ] ; then
+            result=("$dir" $(remove "$dir" ${result[@]}))
+        elif [ -d "$dir" ] ; then
+            result=("$dir" ${result[@]})
         fi
     done
-    echo ${result[@]}
+    printf '%s\n' "${result[@]}"
 }
 
 
 # User specific environment and startup programs
-export BASH_ENV=$HOME/.bash_env
+export BASH_ENV="$HOME/.bash_env"
+export ENV="$BASH_ENV"
 ########################################################################
 ### Generation of bash_env
 
@@ -196,11 +198,11 @@ function be_generate(){
     local editors
     local list
 
-    bindirs=( 
+    bindirs=(
         $HOME/bin
         $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-        
+
         /usr/local/bin
         /usr/local/sbin
 
@@ -211,8 +213,8 @@ function be_generate(){
 
         /opt/bin
         /opt/sbin
-        
-        /data/languages/acl82express/bin/
+
+        #/data/languages/acl82express/bin/
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
         #/data/languages/clisp/bin/
@@ -221,7 +223,7 @@ function be_generate(){
         #/data/languages/gcl-2.6.7/bin/
         #/data/languages/sbcl/bin/
 
-        /usr/X11R6/bin  /usr/X11/bin /usr/games 
+        /usr/X11R6/bin  /usr/X11/bin /usr/games
         /usr/bin        /usr/sbin
         /bin            /sbin
     )
@@ -230,28 +232,28 @@ function be_generate(){
         /opt/*/share
     )
 
-    mandirs=( 
-        /opt/local/man /opt/local/share/man 
-        /usr/local/bin /usr/local/share/man 
-        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
+    mandirs=(
+        /opt/local/man /opt/local/share/man
+        /usr/local/bin /usr/local/share/man
+        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man
     )
 
-    lddirs=( 
-        /opt/*/lib 
-        /opt/local/lib 
-        /usr/local/lib 
-        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
+    lddirs=(
+        /opt/*/lib
+        /opt/local/lib
+        /usr/local/lib
+        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
     editors=(
-        /opt/local/bin/emacsclient 
-        /usr/local/bin/emacsclient 
-        /usr/bin/emacsclient 
-        /bin/emacsclient 
-        /bin/ed 
-        /usr/bin/vi 
+        /opt/local/bin/emacsclient
+        /usr/local/bin/emacsclient
+        /usr/bin/emacsclient
+        /bin/emacsclient
+        /bin/ed
+        /usr/bin/vi
     )
-    
+
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
     be_comment '.bash_env'
     be_comment 'Non interactive shells'
@@ -270,14 +272,14 @@ function be_generate(){
     be_comment 'My compilation environment:'
     be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
-    be_variable TARGET   $(uname)
+    be_variable COMPILATION_TARGET  "$(uname)"
 
-    case "$uname" in 
+    case "$uname" in
     Darwin)
-        if [ 1 = $(mfod -l|wc -l) ] ; then
+        if [ 1 = "$(mfod -l|wc -l)" ] ; then
             mfod -s 1
         fi
-        socket=()
+        # socket=()
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
         # alias ec="$e --no-wait"
         be_variable EDITOR    "$e"
@@ -342,8 +344,8 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
-    be_variable CVSROOT            '' 
-    be_variable CVS_RSH            ssh 
+    be_variable CVSROOT            ''
+    be_variable CVS_RSH            ssh
 
 
     if [ -d /usr/share/kaffe/. ] ; then
@@ -351,7 +353,7 @@ function be_generate(){
         list=''
         appendNewToStringVariableDirectoryIfExists list \
             "$JAVA_HOME"/lib/java.io.zip \
-            $KAFFEHOME/Klasses.jar \
+            "$KAFFEHOME"/Klasses.jar \
             /usr/local/share/kaffe/pizza.jar \
             "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip \
             "$JAVA_HOME"/lib/classes.zip \
@@ -371,7 +373,7 @@ function be_generate(){
             "$JAVA_BASE"/jaccess-1.0/jaccess.jar \
             "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
         be_variable classpath_jdk "$list"
-        be_variable CLASSPATH "$classpath_jdk"
+        be_variable CLASSPATH "${classpath_jdk:?}"
         if [ -d /usr/local/JavaApps/. ] ; then
             be_variable PATH /usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
         else
@@ -382,7 +384,7 @@ function be_generate(){
     if [ -d /opt/local/share/java/gradle ] ; then
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
-    
+
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Paris
 
@@ -403,18 +405,18 @@ function be_generate(){
     be_unset XMODIFIERS
 
     # if [ $(hostname) = iMac-Core-i5.local ] ; then
-    # 
+    #
     #     be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
     #     be_variable MAILHOST                localhost
     #     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
     #     be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
-    # 
+    #
     # else
 
         be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
         be_variable MAILHOST                mail.informatimago.com
-        be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
-        be_variable MAILPATH                ${MAIL}:/larissa/root/var/spool/mail/$USER
+        be_variable MAIL                    "/var/spool/mail/$USER"  # It's the default.
+        be_variable MAILPATH                "${MAIL}:/larissa/root/var/spool/mail/$USER"
 
     # fi
 
@@ -442,8 +444,8 @@ function be_generate(){
     be_variable GENSCRIPT          "$ENSCRIPT"
     be_variable NENSCRIPT          "$ENSCRIPT"
     be_variable HTML_TIDY          "$HOME/public_html/tidy.config"
-    be_variable ETAGS              
-    be_variable CTAGS              
+    be_variable ETAGS
+    be_variable CTAGS
     be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
 
     be_variable DTK_PROGRAM         espeak
@@ -471,21 +473,21 @@ function be_generate(){
     be_terminate
 }
 ########################################################################
-if [ -f $BASH_ENV ] ; then
-    if [ $HOME/rc/bashrc -nt $BASH_ENV ] ; then
+if [ -f "$BASH_ENV" ] ; then
+    if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
         be_generate
     fi
 else
     be_generate
 fi
-source $BASH_ENV
+source "$BASH_ENV"
 
 case "$host" in
     *macbook?trustonic.local)
         true ;;
-    *)      
+    *)
         wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
-
+        export wget_cookies
         SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
 
@@ -501,7 +503,7 @@ case "$host" in
             done
             [ -f $gsr/Makefiles/GNUstep.sh ] && source $gsr/Makefiles/GNUstep.sh
         fi
-        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
             export MANPATH=$GNUSTEP_SYSTEM_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
         fi
@@ -518,16 +520,16 @@ esac
 # if [ -n "$DISPLAY" ] ; then
 #     export XAUTHORITY=$HOME/.Xauthority
 #     function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
-# 
+#
 #     xrdb -merge ~/.Xresources
-# 
+#
 #     # On Darwin, we don't want to mess with X11 so much.
 #     # This is probably a hint we shouldn't do that here anyways.
 #     if [ $(uname) != Darwin ] ; then
 #         xrdb -merge ~/.Xresources
 #         xmodmap ~/.xmodmap
 #         # xset s 300
-#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 ))
 #     fi
 # fi
 
@@ -538,10 +540,26 @@ function ds () {
     local f
     for f in $(dirs) ; do
         echo "$i $f"
-        i=$(($i + 1))
+        ((i++))
     done
 }
 
+
+function variable-list(){
+    # vnamelist str            get var that starts with str
+    # vnamelist (no args)      get all variables
+    local var_name
+    local char
+    if [[ -n "${1-}" ]] ; then
+        for var_name in $(eval "echo \${!${1}*}"); do
+            echo "$var_name"
+        done
+    else
+        for char in _ {a..z} {A..Z} ; do
+            variable-list "$char"
+        done
+    fi
+}
 
 
 function function-source(){
@@ -564,7 +582,7 @@ alias mplayer='mplayer -quiet'
 alias more=less
 alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
-case "$uname" in 
+case "$uname" in
     Darwin)
         alias df='df -h'
         ;;
@@ -589,6 +607,7 @@ alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias ..='cd ..'
 alias ...='cd ../..'
 alias …='cd ../..'
+alias sl=ls
 
 alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
 alias mplayer='mplayer -nojoystick'
@@ -597,7 +616,7 @@ function dirs(){
     local i=1
     for dir in "${DIRSTACK[@]}" ; do
         printf "%2d) %s\n" $i "$dir"
-        i=$(( $i + 1 ))
+        ((i++))
     done
 }
 
@@ -611,7 +630,7 @@ function cdd(){
             cd "$dir"
             return
         fi
-        i=$(( $i + 1 ))
+        ((i++))
     done
     cd "$diri"
 }
@@ -626,7 +645,7 @@ function pushdd(){
             pushd "$dir"
             return
         fi
-        i=$(( $i + 1 ))
+        ((i++))
     done
     pushd "$diri"
 }
@@ -634,11 +653,11 @@ function pushdd(){
 
 # system specific aliases:
 #if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
-if [ $(uname) = Darwin ] ; then
-    ou=$(umask);umask 077
+if [ "$(uname)" = Darwin ] ; then
+    ou="$(umask)";umask 077
     env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/$$
     . /tmp/$$ ; rm /tmp/$$
-    umask $ou
+    umask "$ou"
     if [ -x /opt/local/bin/gls ] ; then
 	alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
 	alias lsv='LC_COLLATE="C" /opt/local/bin/gls -BCFN'
@@ -659,7 +678,7 @@ fi
 
 fgfs=false
 fgfs_other_root=/other/fgfs
-fgfs_next_root=/data/src/simulation/fg/fgdata
+# fgfs_next_root=/data/src/simulation/fg/fgdata
 
 
 
@@ -704,9 +723,9 @@ if [ -s "$fgfs" ] ; then
         --enable-skyblend
     )
 
-    fgfs_festival_options=(
-        --prop:/sim/sound/voices/enabled=true 
-    )
+    # fgfs_festival_options=(
+    #     --prop:/sim/sound/voices/enabled=true
+    # )
 
     fgfs_default_options=(
         ${fgfs_base_options[@]}
@@ -748,7 +767,7 @@ if [ -s "$fgfs" ] ; then
     #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
     # )
     # fgfs=/opt/fgfs/bin/fgfs
- 
+
     fgfs_server=mpserver12.flightgear.org
     fgfs_period=20
 
@@ -757,26 +776,26 @@ if [ -s "$fgfs" ] ; then
     fgfs_port_ac112q=5113
     fgfs_port_ac112r=5114
     fgfs_port_bk1p=5115
-    fgfs_port_f_pjb=5116
-    fgfs_port_nimits=5117
+    # fgfs_port_f_pjb=5116
+    # fgfs_port_nimits=5117
 
 
 
-    function netfs1(){ 
-        cd ~/fgfs/ 
+    function netfs1(){
+        cd ~/fgfs/
         "$fgfs" \
-            ${fgfs_default_options[@]} \
-            ${fgfs_scenery_options[@]} \
-            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ; 
+            "${fgfs_default_options[@]}" \
+            "${fgfs_scenery_options[@]}" \
+            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
+            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ;
     }
     function netfs2(){
-        cd ~/fgfs/ 
+        cd ~/fgfs/
         "$fgfs" \
-            ${fgfs_default_options[@]} \
-            ${fgfs_scenery_options[@]} \
-            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ; 
+            "${fgfs_default_options[@]}" \
+            "${fgfs_scenery_options[@]}" \
+            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
+            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ;
     }
 
 
@@ -799,7 +818,7 @@ cat > /dev/null <<EOF
   (gen-parking-positions
      "KSUU_parking"
      145
-     (- (dms-d 121 56 1.1))   
+     (- (dms-d 121 56 1.1))
      (dms-d 38 16 0.4)
      (- (dms-d 121 55 30.7))
      (dms-d 38 16 22.3)
@@ -807,26 +826,26 @@ cat > /dev/null <<EOF
 
 EOF
 
-KSUU_parking_1=(--heading=145.000000 --lon=-121.933639 --lat=38.266778)
-KSUU_parking_2=(--heading=145.000000 --lon=-121.933194 --lat=38.267098)
-KSUU_parking_3=(--heading=145.000000 --lon=-121.932750 --lat=38.267418)
-KSUU_parking_4=(--heading=145.000000 --lon=-121.932306 --lat=38.267738)
-KSUU_parking_5=(--heading=145.000000 --lon=-121.931861 --lat=38.268058)
-KSUU_parking_6=(--heading=145.000000 --lon=-121.931417 --lat=38.268379)
-KSUU_parking_7=(--heading=145.000000 --lon=-121.930972 --lat=38.268699)
-KSUU_parking_8=(--heading=145.000000 --lon=-121.930528 --lat=38.269019)
-KSUU_parking_9=(--heading=145.000000 --lon=-121.930083 --lat=38.269339)
-KSUU_parking_10=(--heading=145.000000 --lon=-121.929639 --lat=38.269659)
-KSUU_parking_11=(--heading=145.000000 --lon=-121.929194 --lat=38.269980)
-KSUU_parking_12=(--heading=145.000000 --lon=-121.928750 --lat=38.270300)
-KSUU_parking_13=(--heading=145.000000 --lon=-121.928306 --lat=38.270620)
-KSUU_parking_14=(--heading=145.000000 --lon=-121.927861 --lat=38.270940)
-KSUU_parking_15=(--heading=145.000000 --lon=-121.927417 --lat=38.271260)
-KSUU_parking_16=(--heading=145.000000 --lon=-121.926972 --lat=38.271580)
-KSUU_parking_17=(--heading=145.000000 --lon=-121.926528 --lat=38.271901)
-KSUU_parking_18=(--heading=145.000000 --lon=-121.926083 --lat=38.272221)
-KSUU_parking_19=(--heading=145.000000 --lon=-121.925639 --lat=38.272541)
-KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
+# KSUU_parking_1=(--heading=145.000000 --lon=-121.933639 --lat=38.266778)
+# KSUU_parking_2=(--heading=145.000000 --lon=-121.933194 --lat=38.267098)
+# KSUU_parking_3=(--heading=145.000000 --lon=-121.932750 --lat=38.267418)
+# KSUU_parking_4=(--heading=145.000000 --lon=-121.932306 --lat=38.267738)
+# KSUU_parking_5=(--heading=145.000000 --lon=-121.931861 --lat=38.268058)
+# KSUU_parking_6=(--heading=145.000000 --lon=-121.931417 --lat=38.268379)
+# KSUU_parking_7=(--heading=145.000000 --lon=-121.930972 --lat=38.268699)
+# KSUU_parking_8=(--heading=145.000000 --lon=-121.930528 --lat=38.269019)
+# KSUU_parking_9=(--heading=145.000000 --lon=-121.930083 --lat=38.269339)
+# KSUU_parking_10=(--heading=145.000000 --lon=-121.929639 --lat=38.269659)
+# KSUU_parking_11=(--heading=145.000000 --lon=-121.929194 --lat=38.269980)
+# KSUU_parking_12=(--heading=145.000000 --lon=-121.928750 --lat=38.270300)
+# KSUU_parking_13=(--heading=145.000000 --lon=-121.928306 --lat=38.270620)
+# KSUU_parking_14=(--heading=145.000000 --lon=-121.927861 --lat=38.270940)
+# KSUU_parking_15=(--heading=145.000000 --lon=-121.927417 --lat=38.271260)
+# KSUU_parking_16=(--heading=145.000000 --lon=-121.926972 --lat=38.271580)
+# KSUU_parking_17=(--heading=145.000000 --lon=-121.926528 --lat=38.271901)
+# KSUU_parking_18=(--heading=145.000000 --lon=-121.926083 --lat=38.272221)
+# KSUU_parking_19=(--heading=145.000000 --lon=-121.925639 --lat=38.272541)
+# KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
 
 
     function typhoon-1(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
@@ -850,24 +869,26 @@ KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
             --native-ctrls=socket,out,${fgfs_period},${slaveIP},5511,udp \
             "$@" ; }
 
-    function f14slave(){    
-       ( export DISPLAY=192.168.7.160:0.0 ;
-         netfs2  --callsign=AC112S  --aircraft=f-14b  \
-            --native-fdm=socket,in,${fgfs_period},,5510,udp \
-            --native-ctrls=socket,in,${fgfs_period},,5511,udp \
-            --fdm=null \
-            --enable-panel \
-            --disable-hud \
-            --disable-sound \
-            --prop:/sim/ai/enabled=false \
-            --prop:/sim/ai-traffic/enabled=false \
-            --prop:/sim/rendering/bump-mapping=false \
-            --prop:/sim/rendering/draw-otw=false \
-            "$@" ) ; }
+    function f14slave(){
+        (
+            # shellcheck disable=SC2030
+            export DISPLAY=192.168.7.160:0.0 ;
+            netfs2  --callsign=AC112S  --aircraft=f-14b  \
+                    --native-fdm=socket,in,${fgfs_period},,5510,udp \
+                    --native-ctrls=socket,in,${fgfs_period},,5511,udp \
+                    --fdm=null \
+                    --enable-panel \
+                    --disable-hud \
+                    --disable-sound \
+                    --prop:/sim/ai/enabled=false \
+                    --prop:/sim/ai-traffic/enabled=false \
+                    --prop:/sim/rendering/bump-mapping=false \
+                    --prop:/sim/rendering/draw-otw=false \
+                    "$@" ) ; }
 
 
     fgfs_disable_everything=(
-        --disable-hud 
+        --disable-hud
         --disable-anti-alias-hud
         --disable-hud-3d
         --disable-random-objects
@@ -891,20 +912,20 @@ KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
 
     function nimitz(){
         local cs=CVN68
-        cd ~/fgfs/ 
+        cd ~/fgfs/
         "$fgfs" \
-            ${fgfs_nimitz_options[@]} \
-            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port_nimitz} \
-            --callsign=$cs \
+            "${fgfs_nimitz_options[@]}" \
+            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port_nimitz}" \
+            --callsign="$cs" \
             --aircraft=nimitz \
-            --prop:/sim/mp-carriers/nimitz-callsign=$cs \
-            ${fgfs_disable_everything[@]} \
+            --prop:/sim/mp-carriers/nimitz-callsign="$cs" \
+            "${fgfs_disable_everything[@]}" \
             "$@"  # > /tmp/nimitz.$$.out 2>&1
         # --ai-scenario=nimitz_demo \
         #
     }
 
-    function netfs1n(){ cd ~/fgfs/ ; /usr/games/bin/fgfs  ${fgfs_nimitz_options[@]} ${fgfs_scenery_options[@]} --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
+    function netfs1n(){ cd ~/fgfs/ ; /usr/games/bin/fgfs  "${fgfs_nimitz_options[@]}" "${fgfs_scenery_options[@]}" --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
     function f14n(){  netfs1n  --callsign=AC112P  --aircraft=f-14b "$@" ; }
 
 
@@ -928,8 +949,10 @@ function _gopen (){
     local cur app
     COMPREPLY=()
     cur=${COMP_WORDS[COMP_CWORD]}
-    app=`for i in $GNUSTEP_LOCAL_ROOT/Applications/*.app  $GNUSTEP_SYSTEM_ROOT/Applications/*.app ; do basename $i ; done `
-    COMPREPLY=($(compgen -W '$app' |grep ^$cur))
+    # shellcheck disable=SC2034
+    app=$(for i in $GNUSTEP_LOCAL_ROOT/Applications/*.app  $GNUSTEP_SYSTEM_ROOT/Applications/*.app ; do basename "$i" ; done)
+    # shellcheck disable=SC2016
+    COMPREPLY=($(compgen -W '$app' |grep "^$cur"))
     return 0
 }
 complete -F _gopen -o dirnames gopen
@@ -949,11 +972,11 @@ function ew () {
 # ----------------------------------------
 # Linux rc
 # ----------------------------------------
-function status  (){ /etc/init.d/$1 status;  }
-function start   (){ /etc/init.d/$1 start;   }
-function stop    (){ /etc/init.d/$1 stop;    }
-function restart (){ /etc/init.d/$1 restart; }
-function reload  (){ /etc/init.d/$1 reload;  }
+function status  (){ "/etc/init.d/$1" status;  }
+function start   (){ "/etc/init.d/$1" start;   }
+function stop    (){ "/etc/init.d/$1" stop;    }
+function restart (){ "/etc/init.d/$1" restart; }
+function reload  (){ "/etc/init.d/$1" reload;  }
 
 #  export CFLAGS=-I/opt/local/include ; export LDFLAGS=-L/opt/local/lib
 
@@ -969,19 +992,29 @@ case "$BASH_VERSION" in
         ;;
 esac
 
-quote(){
-    for arg ; do
-        local slash=${arg//\\/\\\\}
-        local quote=\'${slash//\'/\'\\\'\'}\' # no "${...}" here! It would break the \'
-        printf "%s " ${quote}
-    done
-    printf "\n"
+# quote(){
+#     for arg ; do
+#         local slash=${arg//\\/\\\\}
+#         local quote=\'${slash//\'/\'\\\'\'}\' # no "${...}" here! It would break the \'
+#         printf "%s " ${quote}
+#     done
+#     printf "\n"
+# }
+
+function quote(){
+    # concatenate all the arguments and shell-quote them.
+    printf '%s\n' "$*" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/"
+}
+
+function quoteRegexp(){
+    # concatenate all the arguments and regexp-quote them.
+    printf '%s\n' "$*" | sed 's/\(.\)/[\1]/g'
 }
 
 
 if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
     for script in radio fpm new-password religion ; do
-	eval $( $script --bash-completion-function )
+	eval $( "$script" --bash-completion-function )
     done
 fi
 
@@ -1003,14 +1036,14 @@ function usb-devices     (){ awk 'BEGIN{line="==================================
 /^[IC]/{printf "\n";print $0;next;}
 {print $0;}
 END{printf "\n%s\n",line;}
-' < /proc/bus/usb/devices 
+' < /proc/bus/usb/devices
 }
 
 
 function mmencode        (){ base64 "$@" ; }
 function msum            (){ md5sum "$1" ; sumseg 9728000 "$1" ; }
 
-function rm-symlinks     (){ ls -l |grep -e '->'|awk '{print $9}'|xargs rm ; }
+function rm-symlinks     (){ ls -l|grep -e '->'|awk '{print $9}'|xargs rm ; }
 
 function all-disk-stat   (){ dstat -d -D total,$(cd /dev ; echo hd? sd? |tr ' ' ',') "$@" ; }
 function sysexits        (){ grep '#define' /usr/include/sysexits.h|sed -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/' ; }
@@ -1067,14 +1100,14 @@ function update-localized-xibs() {
             xibName="$(echo "$(basename ${xibFile})"|sed -e 's/.xib$//')"
             xibFile="${xibName}.xib"
             cp "English.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
-            svn revert "English.lproj/${xibFile}" 
+            svn revert "English.lproj/${xibFile}"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "German.lproj/${xibFile}"   --localize-incremental --write "German.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "French.lproj/${xibFile}"   --localize-incremental --write "French.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "Japanese.lproj/${xibFile}" --localize-incremental --write "Japanese.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
             rm "English.lproj/${xibFile}"
             mv "English.lproj/${xibName}-UP.xib" "English.lproj/${xibFile}"
         done
-        svn status 
+        svn status
     else
         echo "Please, cd to a Resources directory."
         return 1
@@ -1095,8 +1128,8 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 #    WHEN starting
 #     AND ( interactive AND login ) OR ( non-interactive AND --login ) )
-#      DO /etc/profile 
-#         THEN    ~/.bash_profile 
+#      DO /etc/profile
+#         THEN    ~/.bash_profile
 #         OR ELSE ~/.bash_login
 #         OR ELSE ~/.profile
 #
@@ -1197,7 +1230,7 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local|vmdevlinux)
+*macbook?trustonic.local|vmubuntu*|vmdebian*)
     source ~/rc/bashrc-trustonic
     ;;
 *)
@@ -1211,5 +1244,3 @@ compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
-
-

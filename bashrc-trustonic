@@ -1,9 +1,12 @@
 # -*- mode:shell-script -*-
+set +o posix
 
-defaults write org.x.X11 enable_test_extensions -boolean true 
-defaults write org.macports.X11 enable_test_extensions -boolean true 
+# ulimit -n 2048 -u 1024
 
-export GRADLE_HOME=/opt/local/share/java/gradle
+defaults write org.x.X11 enable_test_extensions -boolean true
+defaults write org.macports.X11 enable_test_extensions -boolean true
+
+export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
 # sudo port select --set maven maven31
 # sudo port select --set python python27
@@ -78,12 +81,13 @@ function badEnvironment(){
 }
 
 function cleanEnvironment(){
-    badEnvironment | while read var ; do unset ${var} ; done
+    badEnvironment | while read var ; do unset "${var}" ; done
 }
 
-grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" < ~/.bash_env > ~/.bash_env_small
-mv ~/.bash_env_small ~/.bash_env
-
+grep -v -e "\<\($(joinWithSeparator "\|" $(badEnvironment))\)\>" \
+     < ~/.bash_env \
+     > ~/.bash_env_small \
+    && mv ~/.bash_env_small ~/.bash_env
 
 
 CYAN_BACK=""
@@ -119,46 +123,23 @@ export ANDROID_HOME="$ANDROID_SDK"
 export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 export PATH="/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+export PATH="$HOME/src/trustonic/bin:$PATH"
+export JAVA_HOME="$(/usr/libexec/java_home)"
 
 
-function connect-adb-device(){
-    adb devices
-    adb tcpip ${ANDROID_SERIAL/.*:/}
-    sleep 2
-    adb connect ${ANDROID_SERIAL}
-    adb devices
-}
+export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
+export DELIVERY="no"
+export OBFUSCATE="no"
+export OBFUSCATE_TA="no"
+export REALLY_I_SHOULD_NOT_BUT_I_AM_IN_A_HURRY_AND_I_CANNOT_DEAL_WITH_WARNING_AS_ERRORS_RIGHT_NOW=yes
 
-function connect-nereid(){
-    export ANDROID_SERIAL=192.168.2.182:5555
-    connect-adb-device
-}
-
-alias c='mvn compile'
-alias cx='TERM=unix mvn -X -e compile -D TOOLCHAIN=NDK_ANDROID'
-
-x=$HOME/src/xabber-android
-
-k=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk
-ka=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/Android/TrustChat/Locals/Code/TrustChat
-ki=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/Apps/iOS/TrustChat/Locals/Code/TrustChat
-ks=$HOME/src/trustonic/tbase/branches/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
-
-i=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk
-is=$HOME/src/trustonic/tbase/users/pasbou01/ios/dev_kinibi_wb_sdk/dev/components/MobiCoreTools/TlSdk
-
-
-function trustdirs(){
-    for alias in c cx ; do
-        alias $alias
-    done
-    for var in x k ka ki ks i is ; do
-        printf "variable %-3s = %s\n" "${var}" "${!var}"
-    done
-}
-
-export LM_LICENSE_FILE=8224@emea-meu-lic01.trustonic.internal
-export OBFUSCATE=no
 alias mvn='TERM=unix mvn'
+
+
+alias from-mb='rsynch  macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk/ /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook'
+alias to-mb='rsynch  /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook/ macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk'
+
+source "$HOME/src/trustonic/functions.bash"
+
 
 #### THE END ####

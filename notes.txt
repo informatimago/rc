@@ -1,5 +1,13 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+
+https://en.wikipedia.org/wiki/User:Lycurgus/MoCA
+* Snowden
+
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+
 * IMPOTS
 
 http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
@@ -8,6 +16,7 @@ http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
 https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
 Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
 Ce numéro d'abonné vous est personnel et doit le rester.
+
 
 * DU
 
@@ -23,6 +32,23 @@ Ce numéro d'abonné vous est personnel et doit le rester.
 41G     Downloads/
 
 * NOTES
+** New Notes
+
+scan la-construction-de-programmes-structures
+missing: page 132 135 136
+
+maillists: cmucl*@cmucl.cons.org
+
+http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
+http://wisee.cs.washington.edu/wisee_paper.pdf
+
+ℤ
+- application mobile pour échanger des articles de loi ou de constitution et les commenter.
+
+#+BEGIN_SRC lisp :results scalar
+(list 1 2 3)
+#+END_SRC
+
 ** Paypal Me
 
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
@@ -31,309 +57,7 @@ http://www.paypal.com/?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4
 
 
 ** Agility
-
-Agility -- What to Do
-- find out where you are
-- take a small step toward your goal
-- adjust your understanding based on what you learned
-- repeat
-
-Agility -- How to do it
-- when faced with two or more alternatives
-  that deliver roughly the same value, take
-  the path that makes future change easier.
-
-** commande Apple iPad Pro
-
-Facture TVA: 0800 046 046
-
-** Remote Desktop for Linux
-http://www.rdesktop.org/#download
-** emulators on the web
- http://manymo.com and https://appetize.io 
-
-** XCode team distribution certificates
-
-Advise anyone on your team:
-- If you refresh/create a distribution certificate, e-mail the private key to you.
-- Install that private key in your keychain and you're all set.
-
-** New Notes
-
-http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
-http://wisee.cs.washington.edu/wisee_paper.pdf
-
-
-ℤ
-- application mobile pour échanger des articles de loi ou de constitution et les commenter.
-
-
-#+BEGIN_SRC lisp :results scalar
-(list 1 2 3)
-#+END_SRC
-
-** Economy: Économie:
-
-Capital productif:
-- travail pour produire l'ensemble des moyens de production représentés par ce capital.
-
-Coût économique du capital productif:
-- travail pour maintenir les moyens de production.
-
-Coût financier du capital productif:
-- endettement (dividendes, intérêts) pour acheter les moyens de production.
-
-(= (* masse-monétaire vitesse-circulation-monnaie)
-   (* quantités-vendues prix))
-
-*** Economic Freedom:
-http://www.freetheworld.com/
-http://www.heritage.org/        2003 Index of Economic Freedom
-http://www.heritage.org/research/features/index/
-
-** Cinefin Framework
-
-Simple:  cause -> effect
-Complicated: cause -> -> -> effect
-Complex: cause? effect
-Chaotic: effect? cause?
-Disorder: 
-
-** Ubudu
-
-uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
-(same as Krystof)
-
-** Interesting programs
-Social network from irc traffic:
-http://www.jibble.org/piespy/
-
-** TeamSpeak (DCS World):
-;; 81.13.118.162:9987          CVAT
-;; 63.34.162.240:9102 phoenix  104th
-;; 81.200.8.157:9987           RvAF
-;; 193.106.93.31:9987          RAF
-;; vip1.ts1.cn:8770            3GO
-
-** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
-
-
-> See asm7090-describe-codop.  You could even do that in a
-> post-command-hook, or on mouse or arrow events so that the instructions
-> are always explained.  It would also possible to attach tooltips to the
-> instructions so that you get the description on a mouse over.
-
-The "canonical" way to do that in Emacs is to set
-eldoc-documentation-function buffer-locally.  Then users can choose to
-use this by enabling eldoc-mode.
-
-
-WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-transmission-daemon -w /other/pjb/globcover
-
-
-Find how to distinguish (in emacs or X) the keys coming from the
-different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
-
-http://openfarmtech.org/wiki/Crash_Course
-http://openfarmtech.org/wiki/GVCS_in_2_Minutes 
-
-
-sourceforge.net
-API key:    fbe5b8d039ce9d46f926
-Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
-
-
-http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
-Pre-industrial workers had a shorter workweek than today's    
-
-
-2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
-
-42 Trillian 2^276709 
-            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
-GURSIXO
-emergency services: +44 (0) 118 999 881 999 119 7253
-
-This message is rot-13 encoded to prevent unwanted viewing.
-Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
-
-Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
-pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET 
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
-
-(add-hook 'lisp-mode-hook
-  (lambda ()
-    (font-lock-add-keywords nil
-      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
-         (1 font-lock-keyword-face)
-         (2 font-lock-type-face))))))
-
-(put '$defclass 'common-lisp-indent-function
-     (get 'defclass 'common-lisp-indent-function))
-
-
-
-------------------------------------------------------------------------------
-apache / pound ports
-
-8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
-              joellegymtonic, parroquias-manga, willcom)
-
-8001 sbcl    linking
-8002
-8003 sbcl    films.willcom.fr
-8004 apache2 films.willcom.fr
-8005
-8006 sbcl    claar
-------------------------------------------------------------------------------
-
-
-BlackBerry 
-PIN 259B61F6
-IMEI: 357564.02.644206.5
-
-SIM Cards: 
-Operator Card Number            Phone Num   Date
-Movistar 8934076100032652090    636653318
-Movistar 340761 000326 5209 0   636653318   20110509
-
-http://www.progweb.com/modules/blackberry/index-en.html
-
-** Livres à acheter
-
-Au coeur du pouvoir : Enquête sur le club le plus puissant de France
-Émmanuel Ratier
-
-La guerre secrête contre les peuples
-Claire Séverac
-
-
-**** Petite histoire de l'expérimentation démocratique                  :buy:
-Yves Sintomer
-Petite histoire de l'expérimentation démocratique
-Tirage au sort et politique d'Athênes à nos jours
- 
-**** Valentina: Soul in Sapphire                                        :buy:
-**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
- 
-Esercizi di costruzioni elettromeccaniche
-Autore: Vaske Paul, Riggert Johann H.
-ISBN-10: 8820707020
-ISBN-13: 9788820707026
-ID prodotto: EPID49446951
-
-http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
- 
-**** Ploncard d'Assac                                                   :buy:
-
- 30?   L'église occupée
- 30    1792 Les dernières marches du trône
- 25    Salazar
- 20    Manifeste nationaliste
- 20    Critique nationaliste
- 20    Les idées qui tuent
- 28    Le nationalisme français
- 35    La maçonnerie
- 18    Le complot mondialiste
- 20    Enquête sur la nouvelle droite
- 20    Histoire d'une trahison
- 24    Tradition ou révolution
- 16    Sarkosy ou la mort programmée de la France
- 24    La démocratie contre le peuple
- 10    Le combat des idees
- 10    La franc-maçonnerie dans la révolution dite française
- 10    Le double visage de la maçonnerie et de ses "compagnons de route"
- 10    Du 11 septembre au krach financier mondial
----
-370
-
-** CNIL
-https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
-** GOLD
-
-deglet.com|compra$oro
-
-
-2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
-2012/09/06 napoleons 20F    6 * 245.00  = 1470.00 
-2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
-(/ 245.0 145.0) = 69%/3 ans  = 19%/an
-
-2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
-
-
-We may yet see a bubble in the US into 2015.75 if we in fact see the
-dollar RISE as did the yen going into 1989. A rising dollar will
-increase the profits for foreign investors and draw in even more
-capital globally creating massive capital concentration and global
-civil unrest. The Fed will go nuts and be forced to raise interest
-rates fearing a bubble and that will blow out the deficits and the
-entire system will collapse 2016-2020. So hold on to your socks. This
-is likely to be a wild ride.
-
-** Pole Emploi
-
-Pour valider votre demande d'inscription à Pôle Emploi, vous devez
-choisir un rendez-vous avec un conseiller.  Vendredi 11 Avril 2014,
-09h50
-
-Vous serez reçu(e), durant une heure environ, par un conseiller
-spécialisé dans l’accompagnement des cadres au Pôle emploi suivant :
-
-    USP Cadres issy-les-moulineaux
-    19-21 BD GAMBETTA
-    92130 ISSY LES MOULINEAUX
-
-(Attention, votre inscription ne sera effective que si vous vous
-présentez à ce rendez-vous obligatoire)
-
-*** Pole Emploi - references
-6093514E
-649084
-92130
-
-3760303L
-641700
-93310
-
-** Notes 1
-
-- test and compare, expansion of all CL macros in all implementation for all optimization levels.
-  find if expansions use implementation specific features.
-
-
-
+=======
 "universal" code generation: if we specify a processor instruction
 sets as subgraphs with nodes for registers/memory and for operations,
 then generating the code will consist in matching the optimized
@@ -374,47 +98,10 @@ MAC ARM Version 1.0
 
 rpn lisp: http://paste.lisp.org/display/144513
 
-mysql|medicalis|pjb|mygalatea
-mysql||root|
 
 
 Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
 "La Révolution Européenne"
-
-** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
-
-** MUD, GAMES
-   CLOSED: [2012-12-01 Sat 10:03]
-
-     http://www.aardmud.org
-     http://www.aardwolf.org
-
-     AlternateReality
-         ssh -p 4005 ar.static.net
-             abrazak                 protection
-             judicandus noselacri
-             candusima               refreshed
-             gpuzre                  force field
-
-*** telnet ascii art videos
-
-Telehack:                telnet://telehack.com
-Telehack (web):          http://telehack.com
-
-Star Wars:               telnet://towel.blinkenlights.nl   
-Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
-The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666 
-
-What CL implementation:  telnet://voyager.informatimago.com:8101
-Nasium LSE:              telnet://voyager.informatimago.com:8115
-
-** LONG TERM
-
-     http://www.danbricklin.com/200yearsoftware.htm
 
 ** NOTES 2
 
@@ -426,7 +113,7 @@ without going thru the fdefinition of its name? (Same question for
 inline functions).
 
 
-Eytan 
+Eytan
 Tín Lóng 龍
 
 
@@ -495,7 +182,7 @@ http://imslp.org/
 
 http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
 
-
+0785017461 christiane
 http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 
 ** NOTES 3
@@ -531,157 +218,19 @@ https://dionyziz.com/oath/
 https://github.com/sabof/svg-thing.git
 http://www.theatlantic.com/magazine/archive/2013/11/the-man-who-would-teach-machines-to-think/309529/?curator=MediaREDEF
 
-** misc
-
-mailbox.org
-
-
-1 ;;DPASTE                                                 
-2 (load "~/.emacs.d/dpaste.el")                            
-3 (require 'dpaste nil)                                    
-4 (global-set-key (kbd "C-c p") 'dpaste-region-or-buffer)  
-5 (setq dpaste-poster "XL04D")                             
-
-
-decoding emotions video
-
-
-Top Secret is brilliant. Any of the early National Lampoon's Vacation
-movies are excellent. Mel Brooks' stuff is genius, particularly
-Blazing Saddles, Young Frankenstein and History of the World,
-Part 1. Steve Martin's early films - Dead Men Don't Wear Plaid, The
-Man With Two Brains, and The Lonely Guy are all excellent, but The
-Jerk is just plain brilliant. The first Austin Powers was a classic,
-the others I didn't care for as much personally, but they were very
-popular at the time.
-
-There was also a show in the late '80s called Sledge Hammer that was
-just plain stupid brilliant. Worth seeking it out. 
-
-Hot Shots! (1991) and its Sequel Hot Shots! part Deux (1993) 
-
-Scary Movie or Not Another Teen Movie. 
-
-
-
-http://www.ubudu.com/ où je développe leur produits sur iOS et Android.
-(Ubudu bon plan, SDK uBeacon, uGeofence, pour le marquetage géolocalisé
-en magasin; ce mois-ci, on a développé l'application bwin poker live
-pour les compétitions de poker de http://www.bwin.fr)
-
-sur iOS:
-http://www.appannie.com/apps/ios/app/ubudu-bons-plans-vos-promotions-et-coupons-de-reduction/
-http://www.appannie.com/apps/ios/app/bwin-poker-live/
-
-sur Android:
-http://www.appannie.com/apps/google-play/app/com.ubudu.mobile/
-http://www.appannie.com/apps/google-play/app/com.bwin.pokerlive/
-
-
-
-- Développement et maintenance d'applications Android: ubudu bon plans, de la release 2.0 à 2.4
-
-- Développement de l'application bwin poker live (iOS & Android).
-
-- Développement du SDK ubudu de marketing geolocalisé, comprenant: iBeacons, Geofences, et détecteur de code ultrasons (écriture des spécifications du SDK pour iOS & Android, écriture des test Android), écriture des applications internes de test et demo (iOS, Android).
-
-- Travail avec des collaborateurs étrangers en télétravail (github).
-
-- Développement du prototype d'ubudu presence analytics: collecte d'adresse MAC sur routeur wifi (ddWRT/openWRT wiviz), transmission à un serveur, stockage en base de donnée OpenTSDB, et développement d'un dashboard Rails (Ruby) affichant les statistiques de présence.  Stand Démonstration au MEDEF 2013.
-
-
-
-
-
-
-
-Les productions de la PLume
-1, route des volaillers
-28410 Saint Lubin de la Haye
-
-http://www.youtube.com/watch?v=o4-YnLpLgtk  Demo Genera Symbolics Jan 2013
-
-
-
-
-
-ADA
-=======================
-J-P. Rosen
-Adalog
-2 rue du Docteur Lombard, 92441 Issy-les-Moulineaux CEDEX
-Tel: +33 1 45 29 21 52, Fax: +33 1 45 29 25 00
-http://www.adalog.fr
-
-http://forge.ada-ru.org/matreshka
-
-> how was the experience of building a website on ada?
-
-http://v2p.fr.eu.org
-
-
-
-
-http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
-
-
-6502 lisp
-http://ahefner.livejournal.com/20528.html#
-https://github.com/ahefner/asm6502
-
-
-
-GBOM
-
-Green 
-Beans
-Onion
-Mushrooms
-
-
-Thank you for supporting the proposed European Citizens' Initiative: Unconditional Basic Income (UBI) - Exploring a pathway towards emancipatory welfare conditions in the EU
-Your statement of support has been submitted successfully.
-Date: 04/12/2013
-Signature identifier: 2d139d94-b9f1-4f78-8089-12fda49854f3
-
-
-http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
-
-;; SFR
-;;
-;; Carte SIM n°89331036123640651403
-;; 
-;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
-;; Votre contrat est le XFR460.
-;;
-;; samsung: pjb@ogamita.org | vih3doq9
-;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
-
-Gerald Jay Sussman
-http://www.infoq.com/presentations/Expression-of-Ideas
-http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
-
-
-http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
-
-scan la-construction-de-programmes-structures
-missing: page 132 135 136 
-
-maillists: cmucl*@cmucl.cons.org
-
 ** NOTES 4
 http://www.omg.org/spec/index.htm
 
 (setf w3m-cookies nil)
 
-According to wikipedia, the single-letter programming language names are: (B C D E F G J K L M Q R S T Z) 
+According to wikipedia, the single-letter programming language names are: (B C D E F G J K L M Q R S T Z)
 remain those names for your new language: (A H I N O P U V W X Y)
 
 (reverse (set-difference (loop for i from 65 repeat 26 collect(intern (format "%c" i))) '(B C D E F G J K L M Q R S T Z)))
 
 
 A++ C++ X++
-A# X# 
+A# X#
 
 Pascal Leroi: http://linuxgizmos.com/linux-based-underwater-robot-goes-faster-longer/
 
@@ -696,11 +245,11 @@ http://act.osdc.fr/osdc2013fr/cfp.html
 
 https://github.com/Fuco1/smartparens/
 
-# nameserver 99.199.11.127 
+# nameserver 99.199.11.127
 # nameserver 2001:470:1c:a3b::2
 
 alexis bosch
-chord sequence 
+chord sequence
 Editeur chord midi
 MidiNote -> fichier midi.
 
@@ -715,6 +264,8 @@ b. FP invades the mainstream list http://blog.languager.org/2013/06/functional-p
 
 http://osrc.dfm.io/
 
+
+http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 ** NOTES 5
 
 pascal.bourguignon03@orange.fr|7cxha2v
@@ -822,7 +373,7 @@ illustrate how to use lisp to solve needs/problems. It's about half done
                               :readers  (list slot-name)
                               :writers  (list `(setf ,slot-name))
                               :documentation  "Generated by define-association"))))))
-    class)) 
+    class))
 
 
 
@@ -842,6 +393,7 @@ https://antoszka.pl/features-of-common-lisp/
 llvm gc:
 [1]: https://github.com/elliottslaughter/rust-gc-talk
 [2]: http://llvm.org/docs/GarbageCollection.html
+http://patshaughnessy.net/2013/10/24/visualizing-garbage-collection-in-ruby-and-python/
 
 http://code.google.com/p/aster-math/
 
@@ -902,8 +454,21 @@ beach    https://github.com/robert-strandh/dpANS-parser
 eudoxia  https://github.com/eudoxia0/cl-ansi-spec
 
 
-ProgOnline Jacob Amar 0175430503 
+ProgOnline Jacob Amar 0175430503
 
+;; SFR
+;;
+;; Carte SIM n°89331036123640651403
+;;
+;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
+;; Votre contrat est le XFR460.
+;;
+;; samsung: pjb@ogamita.org | vih3doq9
+;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
+
+Gerald Jay Sussman
+http://www.infoq.com/presentations/Expression-of-Ideas
+http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
 *** debian 8
 systemctl status movies-swap.swap
 
@@ -922,18 +487,18 @@ If this is a new install you might want to run:
 $ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
 
 
-sudo port install port_cutleaves 
-sudo port_cutleaves 
-sudo port upgrade outdated 
+sudo port install port_cutleaves
+sudo port_cutleaves
+sudo port upgrade outdated
 sudo port clean --all installed
-sudo port uninstall mysql5-server 
+sudo port uninstall mysql5-server
 sudo port uninstall mysql5
-sudo port install mysql56 
+sudo port install mysql56
 sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
 
 
-Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true 
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true 
+Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
 defaults read  org.macports.X11 enable_test_extensions
 defaults read  org.x.X11        enable_test_extensions
 
@@ -997,13 +562,13 @@ You can switch to gcc5:
 
 ** NOTES 8
 *** Alexis
-Carole Sagon 
+Carole Sagon
 Karim Haddad
 
 *** BNP
 
-BNP 
-conseiller 
+BNP
+conseiller
 M. Thomas Noel
 M. Fauroux
 0141460409
@@ -1105,11 +670,303 @@ hello kitty:           http://tinyurl.com/oh7laeh
 DON'T FEED THE TROLL:  http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652a.jpg
 IRC RAGE:              http://www.vidarholen.net/contents/rage/
 
-http://asciiwwdc.com 
+http://asciiwwdc.com
 http://dspace.mit.edu/handle/1721.1/41992
 http://home.pipeline.com/~hbaker1/ShallowBinding.html
 http://www.interstellarmovie.com/adventure/
 http://www.maclisp.info/pitmanual/master-index-s.html
+
+** Agility
+
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
+
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
+
+** commande Apple iPad Pro
+
+Facture TVA: 0800 046 046
+
+** Remote Desktop for Linux
+http://www.rdesktop.org/#download
+** emulators on the web
+ http://manymo.com and https://appetize.io
+
+** XCode team distribution certificates
+
+Advise anyone on your team:
+- If you refresh/create a distribution certificate, e-mail the private key to you.
+- Install that private key in your keychain and you're all set.
+
+** Economy: Économie:
+
+Capital productif:
+- travail pour produire l'ensemble des moyens de production représentés par ce capital.
+
+Coût économique du capital productif:
+- travail pour maintenir les moyens de production.
+
+Coût financier du capital productif:
+- endettement (dividendes, intérêts) pour acheter les moyens de production.
+
+(= (* masse-monétaire vitesse-circulation-monnaie)
+   (* quantités-vendues prix))
+
+*** Economic Freedom:
+http://www.freetheworld.com/
+http://www.heritage.org/        2003 Index of Economic Freedom
+http://www.heritage.org/research/features/index/
+
+** Cinefin Framework
+
+Simple:  cause -> effect
+Complicated: cause -> -> -> effect
+Complex: cause? effect
+Chaotic: effect? cause?
+Disorder:
+
+** Ubudu
+
+uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+(same as Krystof)
+
+** Interesting programs
+Social network from irc traffic:
+http://www.jibble.org/piespy/
+
+** TeamSpeak (DCS World):
+;; 81.13.118.162:9987          CVAT
+;; 63.34.162.240:9102 phoenix  104th
+;; 81.200.8.157:9987           RvAF
+;; 193.106.93.31:9987          RAF
+;; vip1.ts1.cn:8770            3GO
+
+** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
+
+> See asm7090-describe-codop.  You could even do that in a
+> post-command-hook, or on mouse or arrow events so that the instructions
+> are always explained.  It would also possible to attach tooltips to the
+> instructions so that you get the description on a mouse over.
+
+The "canonical" way to do that in Emacs is to set
+eldoc-documentation-function buffer-locally.  Then users can choose to
+use this by enabling eldoc-mode.
+
+
+WanderLust http://box.matto.nl/emacsgmail.html
+
+/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
+
+transmission-daemon -w /other/pjb/globcover
+
+
+Find how to distinguish (in emacs or X) the keys coming from the
+different keyboards. (have a look at /usr/src/linux/.../keyboard... too.
+
+http://openfarmtech.org/wiki/Crash_Course
+http://openfarmtech.org/wiki/GVCS_in_2_Minutes
+
+
+sourceforge.net
+API key:    fbe5b8d039ce9d46f926
+Secret key: 69f59983a0ff67034e41af422ccc5ad9b6a7225c0446be7752f1fa57c6b9c97d1a9146c6a0715db8
+
+
+http://groups.csail.mit.edu/mac/users/rauch/worktime/hours_workweek.html
+Pre-industrial workers had a shorter workweek than today's
+
+
+2^2079460347:1  2079460347 phone of Islington flat where arthur met Trisha.
+
+42 Trillian 2^276709
+            2^260199  01-226-0199 = phone of apart where Arthur met Trillian.
+GURSIXO
+emergency services: +44 (0) 118 999 881 999 119 7253
+
+This message is rot-13 encoded to prevent unwanted viewing.
+Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
+
+Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
+pour professionnalisme.
+
+
+
+
+paredit bug report:
+
+(a b c (^ d e f))
+M-up / M-x paredit-splice-sexp-killing-backward RET
+(a b c d e f)
+
+This empties the kill ring.
+
+I understand that in the case of
+
+(a b c (d e f ^ g h i))
+M-up
+(a b c g h i)
+
+we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
+saving the empty string to the kill ring, and keep the old one.
+
+
+
+
+
+
+(add-hook 'lisp-mode-hook
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(("(\\(\\$defclass\\)\\s \\(\\(?:\\s_\\|\\sw\\)+\\)"
+         (1 font-lock-keyword-face)
+         (2 font-lock-type-face))))))
+
+(put '$defclass 'common-lisp-indent-function
+     (get 'defclass 'common-lisp-indent-function))
+
+
+
+------------------------------------------------------------------------------
+apache / pound ports
+
+8000 apache2 (localhost, afaa-intraweb, hamsterfabric,
+              joellegymtonic, parroquias-manga, willcom)
+
+8001 sbcl    linking
+8002
+8003 sbcl    films.willcom.fr
+8004 apache2 films.willcom.fr
+8005
+8006 sbcl    claar
+------------------------------------------------------------------------------
+
+
+BlackBerry
+PIN 259B61F6
+IMEI: 357564.02.644206.5
+
+SIM Cards:
+Operator Card Number            Phone Num   Date
+Movistar 8934076100032652090    636653318
+Movistar 340761 000326 5209 0   636653318   20110509
+
+http://www.progweb.com/modules/blackberry/index-en.html
+
+** Livres à acheter
+
+Au coeur du pouvoir : Enquête sur le club le plus puissant de France
+Émmanuel Ratier
+
+La guerre secrête contre les peuples
+Claire Séverac
+
+
+**** Petite histoire de l'expérimentation démocratique                  :buy:
+Yves Sintomer
+Petite histoire de l'expérimentation démocratique
+Tirage au sort et politique d'Athênes à nos jours
+
+**** Valentina: Soul in Sapphire                                        :buy:
+**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
+
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
+
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+
+**** Ploncard d'Assac                                                   :buy:
+
+ 30?   L'église occupée
+ 30    1792 Les dernières marches du trône
+ 25    Salazar
+ 20    Manifeste nationaliste
+ 20    Critique nationaliste
+ 20    Les idées qui tuent
+ 28    Le nationalisme français
+ 35    La maçonnerie
+ 18    Le complot mondialiste
+ 20    Enquête sur la nouvelle droite
+ 20    Histoire d'une trahison
+ 24    Tradition ou révolution
+ 16    Sarkosy ou la mort programmée de la France
+ 24    La démocratie contre le peuple
+ 10    Le combat des idees
+ 10    La franc-maçonnerie dans la révolution dite française
+ 10    Le double visage de la maçonnerie et de ses "compagnons de route"
+ 10    Du 11 septembre au krach financier mondial
+---
+370
+
+** CNIL
+https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
+** GOLD
+
+deglet.com|compra$oro
+
+
+2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
+2012/09/06 napoleons 20F    6 * 245.00  = 1470.00
+2012/10/04 napoleons 20F    7 * 249.00  = 1743.00
+(/ 245.0 145.0) = 69%/3 ans  = 19%/an
+
+2013/06/05 napoleons 20F    6 * 210.00  = 1260.00
+
+
+We may yet see a bubble in the US into 2015.75 if we in fact see the
+dollar RISE as did the yen going into 1989. A rising dollar will
+increase the profits for foreign investors and draw in even more
+capital globally creating massive capital concentration and global
+civil unrest. The Fed will go nuts and be forced to raise interest
+rates fearing a bubble and that will blow out the deficits and the
+entire system will collapse 2016-2020. So hold on to your socks. This
+is likely to be a wild ride.
+
+** La Manga del Mar Menor
+
+http://lmweb.com/
+http://www.zm101.com/MARMENOR/mangalhis.html
+http://lamangawind.com/LaManga0.html
+
+** MUD, GAMES
+
+     http://www.aardmud.org
+     http://www.aardwolf.org
+
+     AlternateReality
+         ssh -p 4005 ar.static.net
+             abrazak                 protection
+             judicandus noselacri
+             candusima               refreshed
+             gpuzre                  force field
+
+*** telnet ascii art videos
+
+Telehack:                telnet://telehack.com
+Telehack (web):          http://telehack.com
+
+Star Wars:               telnet://towel.blinkenlights.nl
+Marvin (eliza-like bot): telnet://towel.blinkenlights.nl:42
+The Bofh Excuse Server:  telnet://towel.blinkenlights.nl:666
+
+What CL implementation:  telnet://voyager.informatimago.com:8101
+Nasium LSE:              telnet://voyager.informatimago.com:8115
+
+** LONG TERM
+
+     http://www.danbricklin.com/200yearsoftware.htm
 
 * ACTIONS
 ** AFAIRE, TODO, ENCOURS
@@ -1158,7 +1015,7 @@ http://beknown.com/pascal-bourguignon
 
       Add to CV
           ruby, C++ (STL, Boost),
-          Objecteering, 
+          Objecteering,
           RTSP,
 **** TODO [#A] Espagne: fermer compte cajamar valencia                :admin:
 **** TODO [#A] Espagne: assigner telephone openbank                   :admin:
@@ -1212,6 +1069,7 @@ clisp scripts to index and set mp3info to new mp3 files:
      :DEADLINE: <2017-02-03 -1m>
 **** TODO [#A] HTTPS on kuiper
 https://letsencrypt.org/
+http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
 http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-connections-501924.shtml
 **** TODO [#A] OGAMITA.NET renewal                                    :admin:
      :DEADLINE: <2016-12-01 -1m>
@@ -1259,7 +1117,7 @@ the computing technology we use today.
        Addison-Wesley,
 
 ***** TODO [#C] Movies to Get with mldonkey                           :admin:
-      :DEADLINE: <2016-12-31 -6m>   
+      :DEADLINE: <2016-12-31 -6m>
 
 Scifi:
 Mr Nobody
@@ -1367,7 +1225,7 @@ AIM READ:
                  ! ERROR routine, SAVE and UNSAVE stack, PRINT, READ.
                  ! Of interest when reading the sources of LISP 1.5
 
-                 
+
 
 1968 AIM-154     A Budget of Fallacies                       Papert
      NE          Debunking Dreyfus.
@@ -1394,14 +1252,14 @@ AIM-29 CALCULUS OF KNOWLEDGE
     Paris : Editions du Toucan, 2009.-, 267 p., tabl., graph., fig.
     ISBN 978-2-810002-46-7
 
-BOOKS: 
+BOOKS:
 
     http://designzum.com/2014/03/04/best-online-lisp-books/#menu-top-menu
 
     http://www.bne.es/BDH/index.htm
     http://www.cervantesvirtual.com/portal/BNE/
 
-    Survival books: 
+    Survival books:
     http://www.godlikeproductions.com/forum1/message742541/pg1
     http://www.alpharubicon.com
 
@@ -1450,7 +1308,7 @@ BOOKS:
     http://www.reopen911.info
     Watch "Oil, smoke & mirrors"
 
-    http://www.genethique.org/  
+    http://www.genethique.org/
     Watch "la vie est en nous"
 
     http://video.google.co.uk/videoplay?docid=8823663220672823396
@@ -1585,7 +1443,7 @@ BOOKS:
     http://www.danga.com/mogilefs/
     http://en.wikipedia.org/wiki/Distributed_file_system
 
-    http://www.freeworldacademy.com/chronique.htm 
+    http://www.freeworldacademy.com/chronique.htm
 
     http://asm.sourceforge.net/articles/startup.html
 
@@ -1668,7 +1526,7 @@ http://www.rebelscience.org/
 
 
        EDW0030 Some Meditations on Advanced Programming
-       
+
 
 
        EDW1298 Under the Spell of Leibnitz Dream
@@ -1677,7 +1535,7 @@ http://www.rebelscience.org/
        symbolic proof, symbolic reasoning, University, Computer Science,
        Computer Industry, Algol 60, Lisp, Recursion.
 
-       
+
 
        Basic Lisp Techniques
        Cooper, Franz Inc.,  2003, 100 pages.
@@ -1692,7 +1550,7 @@ http://www.rebelscience.org/
        Forthcoming in Global Catastrophic Risks, Eds. Nick Bostrom and Milan Cirkovic
        Elizer Yudkowsky <yudkowsky@singinst.org>, Draft of August 31, 2006, 42 pages.
        file:///srv/books/informatics/artificial-intelligence/general/artificial-intelligence-as-a-positive-and-negative-factor-in-global-risk.pdf
-       http://singinst.org/upload/artificial-intelligence-risk.pdf 
+       http://singinst.org/upload/artificial-intelligence-risk.pdf
        Importance of developing Friendly AI, not just random AI (which
        could turn out evil or alien).
 
@@ -1701,7 +1559,7 @@ http://www.rebelscience.org/
        Anniversary Edition
        Frederic P. Brooks. Jr,
        University of North Carolina at Chapel Hill.
-       Addison-Wesley, 1995, 
+       Addison-Wesley, 1995,
        ISBN 0-201-83595-9
 
 ***** Economic Freedom
@@ -2156,7 +2014,7 @@ Adresse de livraison
 Pascal Bourguignon
 37, rue Rouget de Lisle
 Appartement 210
-92130 Issy les Moulineaux 
+92130 Issy les Moulineaux
 France
 
 **** DONE [#B] chaise de bureau poid-lourd 200 kg                       :buy:
@@ -2187,7 +2045,7 @@ bank rek buitenland (IBAN): BE53 3200 3834 2453
 BIC: BBRUBEBB
 btw: BE0861.860.638
 
- Total:  196.99EUR 
+ Total:  196.99EUR
 
 **** DONE [#A] green-goo netoyage claviers                              :buy:
      CLOSED: [2013-04-28 Sun 13:14]
@@ -2225,7 +2083,7 @@ Numéro de commande : 402-7647603-4439517
 ****** DONE [#C] new keyboards.                                         :buy:
    CLOSED: [2012-04-04 Wed 04:20]
    - CLOSING NOTE [2012-04-04 Wed 04:21] \\
-     Bought another TenKeyless.   
+     Bought another TenKeyless.
      Not for the flight simulator since the numeric keypad is useful there.
 
 Eventually will need to buy two more tenkeys keyboards: one for mac, one for flightsim machine.
@@ -2294,7 +2152,7 @@ IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
      CLOSED: [2013-08-11 Sun 19:50]
      - CLOSING NOTE [2013-08-11 Sun 19:50]
 **** DONE [#B] pagar andre                               400 €   :accounting:
-     :CLOSED: [2013-03-15 Fri 23:04] 
+     :CLOSED: [2013-03-15 Fri 23:04]
      :DEADLINE: <2013-01-01 -12d>
      - CLOSING NOTE [2013-03-15 Fri 23:04] \\
        Did that.
@@ -2314,7 +2172,7 @@ IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
 20130131 600 € facturas 2011
 20130303 600 € facturas 2010
 20130404 600 € facturas 2009
-         
+
 At maturity, please credit our account as follows
 Payment Bank.......................:     CAJAMAR
 Branch Name.........................:    LOS BELONES MURCIA
@@ -2489,13 +2347,13 @@ Certificado de pago 	53c3462646f3
      CLOSED: [2010-06-25 Fri 21:30]
      - CLOSING NOTE [2010-06-25 Fri 21:30] \\
        Done.
-*** DONE [#B] Ir a cajamar para activar la firma SMS    
-    CLOSED: [2010-06-25 Fri 21:15]    
+*** DONE [#B] Ir a cajamar para activar la firma SMS
+    CLOSED: [2010-06-25 Fri 21:15]
     - CLOSING NOTE [2010-06-25 Fri 14:45] \\
       Done.
     :PROPERTIES:
     :END:
-*** Clone git to gitorious. 
+*** Clone git to gitorious.
 *** Install gitorious on git.informatimago.com
 git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
 **** DONE [#B] Update web site.
@@ -2509,7 +2367,7 @@ http://git.gitorious.org/com-informatimago/com-informatimago
 http://gitorious.org/com-informatimago/com-informatimago/trees/master
 * DEVELOPMENTS
 
-https://github.com/nikodemus/sb-cga 
+https://github.com/nikodemus/sb-cga
 
 ** Google API
 
@@ -2635,7 +2493,7 @@ Project Number: 444610959287
 
             - Portages, traduction entre langages de programmation.
 
-** Programming Log (Done) 
+** Programming Log (Done)
 
 2015-10-19
 - Published a blog rss feed http://www.informatimago.com/blog/
@@ -2744,14 +2602,14 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - medicalis/src/tools
 
 2010-06-14
-- Pôle Emploi 
+- Pôle Emploi
 - avion Paris Valencia
 
 2010-06-13
 - avion Valencia Paris
 
 2010-06-08
-- ~/works/ls-lR/ published to 
+- ~/works/ls-lR/ published to
   ssh://git.informatimago.com/srv/git/public/ls-lR
   http://git.informatimago.com/public/ls-lR
 
@@ -2782,9 +2640,9 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - ~/works/ls-lR/ls-lr-browser.lisp
 
 2009-12-07
-- ~/src/lisp/encours/sam.lisp   
+- ~/src/lisp/encours/sam.lisp
   Schank's Conceptual Dependencies.
-  Code from chapter 14 of "Common Lisp Programming for Artificial Intelligence" 
+  Code from chapter 14 of "Common Lisp Programming for Artificial Intelligence"
 
 2009-11-28
 - ~/src/lisp/encours/clisp/script-example/compile.lisp
@@ -2821,15 +2679,19 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 
 2009-07-26
 - redirected informatimago.com to www.informatimago.com
-- INTERGRUAS: Added asia.intergruas.com and india.intergruas.com as CNAME intergruas.co.in. 
+- INTERGRUAS: Added asia.intergruas.com and india.intergruas.com as CNAME intergruas.co.in.
 - INTERGRUAS: enqueued 4 tickets to support@b4uindia.biz about intergruas.co.in.
 - voyager: separated /var/log/pound.log
 - Wrote ~/src/lisp/encours/scratch/clscheme.lisp (intersection CL R5RS).
 
 2009-07-25
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
-  
+
 ** Developments TODO
+*** TODO [#B] check CL macros for implementation specifics           :cl:dev:
+- test and compare, expansion of all CL macros in all implementation for all optimization levels.
+  find if expansions use implementation specific features.
+
 *** TODO [#A] botil, irb bot to log channels                         :cl:dev:
     :DEADLINE: <2016-02-28 -1m>
 
@@ -2842,6 +2704,19 @@ https://github.com/pasky/pachi/blob/master/ANDROID.txt
 https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
 http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
 https://github.com/ageneau/ecl-android
+
+
+Raspberry Pi OS:
+http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
+
+
+sudo dd bs=512 skip=137216 seek=131072 count=7712768  if=2016-05-27-raspbian-jessie.img of=/dev/sdf
+sudo dd bs=512 skip=8192   seek=2048   count=129024   if=2016-05-27-raspbian-jessie.img of=/dev/sdf
+mkswap /dev/sdf3
+mke2fs -L home -j /dev/sdf4
+
+
+
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
 
@@ -2926,7 +2801,7 @@ https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 base
 
 **** TODO [#A] write some code analysis tools                        :cl:dev:
 
-- we'd like to see code and data dependencies 
+- we'd like to see code and data dependencies
 
 - notably, for for Cocoa/GNUstep Objective-C, we'd want to see the
   notifications and binding dependencies.
@@ -2939,7 +2814,7 @@ https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 base
 *** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
 *** TODO [#C] cl-stepper gen backtraces / lisp debugger API          :cl:dev:
 *** TODO [#B] add to lisp-mirror                                      :admin:
- http://wcp.sdf-eu.org/software/      
+ http://wcp.sdf-eu.org/software/
 *** TODO [#B] apps (iOS, Android): geofamily-like but free.             :dev:
 *** TODO [#B] lispos (lire eros, prendre notes)               :lispos:cl:dev:
 *** TODO [0/4] LEP - Lisp Empowered Program                      :lep:cl:dev:
@@ -2952,15 +2827,15 @@ integrate a lisp linux distribution:
 etc.
 
 **** TODO [#C] read http://nixos.org/nix/
-**** TODO [#C] implement lepbootstrap    
+**** TODO [#C] implement lepbootstrap
 
 To install a minimal LEP system in a virtual machine.
 
-**** TODO [#C] add a X11 server     
+**** TODO [#C] add a X11 server
 
-Check a lisp X11 server? 
+Check a lisp X11 server?
 
-**** TODO [#C] add StumpWM          
+**** TODO [#C] add StumpWM
 
 *** TODO [#B] check this diff                                      :admin:cl:
    DEADLINE: <2016-12-31 -6m>
@@ -2972,7 +2847,7 @@ diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/da
    DEADLINE: <2016-06-01 -6m>
 com.informatimago.common-lisp
 <serichsen> pjb: I'm browsing http://informatimago.com/develop/lisp/index.html and the
-links to the individual packages are broken. 
+links to the individual packages are broken.
 
 *** TODO [#B] REVIEW AND RENAME THESE FILES:                          :admin:
     :DEADLINE: <2016-12-31 -6m>
@@ -3023,7 +2898,7 @@ links to the individual packages are broken.
 Parsers & Generators:
 
 - C, C++, Objective-C
-  --> ~/src/public/lisp/linc 
+  --> ~/src/public/lisp/linc
 
 - LaTeX / TeX
 
@@ -3041,7 +2916,7 @@ http://www.common-lisp.net/project/cl-objc/
 #+ccl(require 'objc-support)
 #+END_SRC
 *** TODO [#C] move lambda-calculus to git for quicklisp           :dev:admin:
-    DEADLINE: <2016-12-31 -12m> 
+    DEADLINE: <2016-12-31 -12m>
 *** TODO [#C] melpa                                                   :admin:
  http://nic.ferrier.me.uk/blog/2012_07/emacs-packages-for-programmers
 *** TODO [#C] fcll blog                                                :blog:
@@ -3055,7 +2930,7 @@ BrainFuck VM + "compiler":
 
 MIX VM + Assembler (TBD):
 /home/pjb/src/lisp/encours/scratch/mixlisp.lisp
- 
+
 *** TODO [#C] replace viewgit by http://www.scm-manager.org/          :admin:
  or something else.
 *** TODO [#C] listserv                                                :admin:
@@ -3101,9 +2976,6 @@ http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
 http://hightechhistory.com/category/stanford/
 
 
-Raspberry Pi OS:
-http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
-
 time:
 http://unix4lyfe.org/time/
 http://naggum.no/lugm-time.html
@@ -3116,10 +2988,10 @@ http://www.cs.washington.edu/education/courses/cse544/04sp/papers/xml-essence.pd
 
 c to cl compiler: https://github.com/vsedach/Vacietis
 
-(defconstant +magic-number+ 2976579765.) 
+(defconstant +magic-number+ 2976579765.)
 
 (+ 60 (*  1200 1.18 1.30))
-(euro-to-devise 'USD 1900.8) 
+(euro-to-devise 'USD 1900.8)
 
 
 http://www.youtube.com/universidadudima
@@ -3396,7 +3268,7 @@ Certificat de la transaction 	990e62687c51
 http://www.mendeley.com/research/clisp-conversational-lisp-1/
 
 
-pwgl 
+pwgl
 cari madad
 
 
@@ -3504,7 +3376,7 @@ common-lisp.
 
 **** http://benkard.de/objective-cl
 
-ssh://pjb@git.informatimago.com/srv/git/public/objective-cl 
+ssh://pjb@git.informatimago.com/srv/git/public/objective-cl
 ~/src/public/objective-cl/
 
 Objective-CL is an Objective-C bridge that strives to be portable both
@@ -3514,7 +3386,7 @@ Linux/GNUstep/x86, but it is expected to work on many more platforms
 without major changes. (Testers welcome!)
 
 --> Uses an old gnu objc API.
- 
+
 *** TODO [#B] check quicklisp descriptions                           :cl:dev:
      http://www.quicklisp.org/beta/UNOFFICIAL/descriptions.txt
      http://common-lisp.net/project/cl-test-grid/library/
@@ -3574,10 +3446,10 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
     - State "SUSPENDED"  from "TODO"       [2015-10-19 Mon 15:20] \\
       Suspended till further notice.
 
-**** TODO [#C] planifications modules 
+**** TODO [#C] planifications modules
 **** TODO [#C] dessin des notes à barre
 *** TODO [0/3] Yellow Submarine                                   :submarine:
-**** TODO [0/4] implement a bare submarine simulator               
+**** TODO [0/4] implement a bare submarine simulator
 ***** TODO [#C] buyancy
 ***** TODO [#C] orientation
 ***** TODO [#C] movement
@@ -3585,7 +3457,7 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
 **** TODO [#C] Install Rigs of Rods
  and evaluate it for submarine simulation
 **** TODO [#C] integrate FlightGear video
-**** TODO [#C] integrate FlightGear flight models.                
+**** TODO [#C] integrate FlightGear flight models.
 *** TODO [#C] Xcode tools                                 :dxo:macosx:cl:dev:
    CLOSED: [2012-12-24 Mon 01:27]
    - State "TODO"       from "IN-PROGRESS" [2014-06-22 Sun 06:19] \\
@@ -3640,7 +3512,7 @@ what-implementation is at telnet://clis.informatimago.com:8101
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
       Done. Not followed up.
 *** DONE [#C] linc to git repository for quicklisp                    :admin:
-   CLOSED: [2015-10-19 Mon 15:24] DEADLINE: <2012-12-31 -7d> 
+   CLOSED: [2015-10-19 Mon 15:24] DEADLINE: <2012-12-31 -7d>
    - State "DONE"       from "TODO"       [2015-10-19 Mon 15:24] \\
      Moved to informatimago/languages/linc.
 *** DONE [#A] ~/bin/script.lisp message bug                          :cl:dev:
@@ -3659,7 +3531,7 @@ ramon joma8jesu
 phpGroupWare Header Admin password: marb3114
 phpGroupWare Setup/Config Admin password: marb3114
 mysql db GroupWare user GroupWare password group3423
-http://www.ayudaparavivir.com/admin/ 
+http://www.ayudaparavivir.com/admin/
 login ayudaparavivir password 5z2csasz
 
 *** DONE lispdoc                                                     :cl:dev:
@@ -3713,7 +3585,7 @@ login ayudaparavivir password 5z2csasz
     et dimitte nobis ta nostra sicut
     et nos dimittimus debitoribus tris.
     Et ne nos inducas in tentationem,
-    sed era nos a malo. Amen.                          
+    sed era nos a malo. Amen.
 
     IXTUS: Iesus Xristos Teou Uios Soter
     http://www.aidez-moi.org/parole_du_seigneur/evangile_quotidien.php
@@ -3792,7 +3664,7 @@ devise and apply Turing tests to objects of its own creation.
 Capitalization is the difference between "I had to help my uncle Jack
 off a horse." and "I had to help my uncle jack off a horse."
 #
-La vecina se atormenta: se avecina la tormenta. 
+La vecina se atormenta: se avecina la tormenta.
 #
 "As memory is becoming cheaper, even microcomputers could be built
 having these primitives, so that the prospect of controlling one's
@@ -3853,7 +3725,7 @@ sales team. It does exactly one, mundane, specific thing, and it does
 it well. It was written by a single person, and never touched by
 another. It reads like poetry written by someone over thirty.
 
--- Coding Sucks: Why a Job in Programming Is Absolute Hell 
+-- Coding Sucks: Why a Job in Programming Is Absolute Hell
    by Peter Welch
 #
 
@@ -3886,10 +3758,10 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 
 
 +----------------------------------------------------------------------------
-| For the present-day darkness in the programmer's world the programmers 
-| themselves are responsible and nobody else.                            
+| For the present-day darkness in the programmer's world the programmers
+| themselves are responsible and nobody else.
 |
-| -- Dijkstra, pre-1970                                                 
+| -- Dijkstra, pre-1970
 +----------------------------------------------------------------------------
 
 +----------------------------------------------------------------------------
@@ -3901,7 +3773,7 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 | refinement.  It is the function of these next levels to build the
 | machine that has been assumed to be available at he top level, i.e. at
 | the highest level of abstraction.
-| 
+|
 | -- Dijkstra, July 1970
 +----------------------------------------------------------------------------
 
@@ -3914,29 +3786,29 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 | computer scientists.  Computer programs are good, they say, for
 | particular purposes, but they aren't flexible.  Neither is a violin,
 | or a typewriter, until you learn how to use it.
-| 
+|
 | -- Marvin Minsky, "Why programming is a good medium for expressing
 |    poorly understood and sloppily-formulated ideas" in "Design and
 |    Planning II - Computer in Design and Communication", (Martin
 |    Krampen and Peter Seitz, eds), Visual Committee Books, Hastings
 |    House Publishers, New York, 1967.
-| 
+|
 +----------------------------------------------------------------------------
 
 
 +----------------------------------------------------------------------------
 | The official laws of stupidity. Written by Professor Carlo M Cipolla in 1976.
-| 
+|
 |  1. Always and inevitably, everyone underestimates the number of
 |     stupid individuals in circulation.
-|    
+|
 |  2. The probability that a certain person be stupid is independent of
 |     any other characteristic of that person.
-|    
+|
 |  3. A stupid person is a person who causes losses to another person or
 |     to a group of persons, while himself deriving no gain and even
 |     possibly incurring losses.
-|    
+|
 |  4. Non-stupid people always underestimate the damaging power of
 |     stupid individuals. In particular, non-stupid people constantly
 |     forget that at all times and places and under any circumstances to
@@ -3948,202 +3820,202 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 +----------------------------------------------------------------------------
 | I was brainstorming the other day about features that I expect to be
 | easy in modern programming languages (plus libraries).
-| 
+|
 | Some of them are very common, some less common, and some might not
 | exist yet. Some are basic services of the runtime and some are more
 | conveniences for interacting with the modern networked world.
-| 
+|
 | None of them are impossible. I can point to examples of each of them
 | in popular programming languages. But there is no language that has
 | all of them. A lot of progress could be made with fortuitous curation
 | of existing libraries.
-| 
+|
 |   * String manipulation
-|    
+|
 |     String manipulation should be incredibly convenient. It's so
 |     common to parse something out of a string, or build up a new
 |     string. It should be so easy it disappears.
-|    
+|
 |       + Regular expressions
-| 
+|
 |       + Splitting
-| 
+|
 |       + Joining
-| 
+|
 |       + Replacing
-| 
+|
 | * Polymorphism
-|    
+|
 |     Polymorphism, as I'm describing it here, means the specific type
 |     of a value is an implementation detail that I can ignore. I can
 |     program to an "interface" and two values that implement the same
 |     interface can be treated interchangeably.
-|    
+|
 |   * Basic "container" types
-|    
+|
 |     I don't think it's a stretch to say that we know enough, as a
 |     science and industry, to know exactly what we need from our
 |     containers. +1 for convenient syntax.
-|    
+|
 |       + Linked list
-| 
+|
 |       + Dynamic array
-| 
+|
 |       + Hash map
-| 
+|
 |       + Set
-| 
-| 
+|
+|
 |   * Input/output
-|    
+|
 |     It's still a little hard in some languages to read and write
 |     files. Especially binary.
-|    
+|
 |   * Web requests
-|    
+|
 |     Our computers are approaching 100% time on the Internet. And the
 |     web is ubiquitous. You should be able to do web requests with one
 |     line.
-|    
+|
 |   * URL Manipulation
-|    
+|
 |     URL's are very structured strings, but that doesn't mean we should
 |     be concatenating the strings ourselves. There needs to be a way to
 |     build URL's and break them into their individual components.
-|    
+|
 |   * Garbage Collection
-|    
+|
 |     I just don't want to worry about memory management anymore.
-|    
+|
 |   * Namespaces
-|    
+|
 |     It is convenient to avoid naming conflicts as your library
 |     ecosystem grows.
-|    
+|
 |   * Homoiconic
-|    
+|
 |     Code can be manipulated as data.
-|    
+|
 |   * Extensible syntax
-|    
+|
 |     I find I don't use macros much anymore. I do more with
 |     data-oriented programming. But it is nice to have when you need
 |     it.
-|    
+|
 |   * Math-oriented numeric types
-|    
+|
 |     There are times when I want numbers that are defined by their
 |     machine representations, such as C int and double. I'll call this
 |     "machine-oriented numbers". There are times when I want a more
 |     abstract representation of numbers, that act like they taught me
 |     in Math class. I'll call this "math-oriented numbers".
-|    
+|
 |     With math-oriented numbers, the fear of overflowing should not
 |     exist and division is division.
-|    
+|
 |     While we're at it, we could add in matrices, vectors, and even
 |     equations.
-|    
+|
 |   * Units
-|    
+|
 |     Numeric values should be able to be qualified with a unit. You
 |     should be able to convert between units of the same kind.
-|    
+|
 |       + Mass
-| 
+|
 |       + Time
-| 
+|
 |       + Distance
-| 
+|
 |       + Temperature
-| 
+|
 |       + and combinations of the above (speed, acceleration, etc.)
-| 
+|
 |   * Time
-|    
+|
 |     Time, dates, and calendars are hard. The language should solve the
 |     hard part for us.
-|    
+|
 |   * Error
-|    
+|
 |     A number is rarely 100% accurate. There should be ways to
 |     represent the error and have it accumulate when combining
 |     different values. +1 for tracing the sources of error.
-|    
+|
 |   * Unification / pattern matching
-|    
+|
 |     It's just for convenience. The important thing is how unification
 |     errors are dealt with. Hopefully, there is something better than
 |     catching an exception.
-|    
+|
 |   * Before / after functions
-|    
+|
 |     This is sometimes known as aspects. But there is a lot of value
 |     being able to add functionality to existing functions without
 |     modifying the original code.
-|    
+|
 |   * Parser
-|    
+|
 |     Convenient way to define parser grammars that generate AST's
 |     available in the language.
-|    
+|
 |   * CSV library
-|    
+|
 |     CSV is a very common way to store tabular data, but it's not
 |     really a standard. There is enough variability in the format that
 |     a library is called for.
-|    
+|
 |   * Good error messages
-|    
+|
 |     Good error messages need to help you locate and solve the
 |     problem. It's actually really hard to get right. You can see this
 |     a lot in newer languages. Languages with helpful errors are
 |     typically mature.
-|    
+|
 |   * Immutable values
-|    
+|
 |     Values are values. They shouldn't change.
-|    
+|
 |   * Explicit model of time
-|    
+|
 |     It is very rare to find in programming languages. Time needs to be
 |     modeled by the programming language so that we can sanely deal
 |     with concurrency. This is one of the bigger mini-revolutions
 |     happening in programming at the moment.
-|    
+|
 |   * Graphics
-|    
+|
 |     Most languages make it really hard to draw on the screen. This
 |     just needs to be easier. Displaying images, shapes, colors, text,
 |     video, and associated manipulations: scaling, rotation,
 |     translation.
-|    
+|
 |   * Sound
-|    
+|
 |     Same goes for sound: playing sounds should be easy! Listening to
 |     the microphone should be easy!
-|    
+|
 |   * Common file formats
-|    
+|
 |     Reading common formats should be easy. At the very least, there
 |     should be a framework/convention for libraries for common formats
 |     to follow.
-|    
+|
 |   * Game input
-|    
+|
 |     By this, I mean getting raw events about key down, key up, mouse
 |     movement, etc.
-|    
+|
 |   * GUI
-|    
+|
 |   * First-class functions
-|    
+|
 |     Higher-order programming is an obvious win. +1 for lexical
 |     closures. +1 if you can store the functions to disk and read them
 |     back in!
-|    
+|
 |   * Easy way to store data in flat text files
-|    
+|
 |     I don't want to have to write my own serialization routines.
 +----------------------------------------------------------------------------
 
@@ -4154,46 +4026,46 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 | Buffett -- take steps to help them realize their full  potential. Some
 | of these things are strategies you can easily  emulate to rise to
 | success in your own life...
-| 
-| 
+|
+|
 |  1. Create and pursue S.M.A.R.T. goals -- S.M.A.R.T. goals are
 |     Specific, Measurable, Attainable, Relevant, and Timely.
-| 
+|
 |  2. Take decisive and immediate action -- Knowledge and intelligence
 |     are both useless without action.
-| 
+|
 |  3. Focus on being productive, not being busy -- In other words, work
 |     smarter, not harder.
-| 
+|
 |  4. Make logical, informed decisions -- Think things through before
 |     making life-changing decisions.
-| 
+|
 |  5. Avoid trying to make things perfect -- The only way to get things
 |     done is to be imperfect 99% of the time.
-| 
+|
 |  6. Work outside of your comfort zone -- Embrace all moments of
 |     opportunity for personal growth and success.
-| 
+|
 |  7. Keep things simple -- Rather than evaluating every last detail of
 |     every possible option, choose something you think will work and
 |     give it a shot.
-| 
+|
 |  8. Focus on making small, continuous improvements -- Soon you'll find
 |     yourself on a spiral of changes -- one building on the other.
-| 
+|
 |  9. Measure and track your progress -- Step back and assess your
 |     progress regularly so you know what needs to be done to excel and
 |     accelerate.
-| 
+|
 | 10. Maintain a positive outlook as you learn from your mistakes --
 |     Look for the silver lining in every situation.
-| 
+|
 | 11. Spend time with the right people -- You are the sum of the people
 |     you spend the most time with.
-| 
+|
 | 12. Maintain balance in your life -- An imbalanced lifestyle will hold
 |     you back from reaching your full potential.
-| 
+|
 +----------------------------------------------------------------------------
 
 
@@ -4244,7 +4116,7 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 | computing is only in your hands. What's in your hands, I think and
 | hope, is intelligence: the ability to see the machine as more than
 | when you were first led up to it, that you can make it more.
-|  
+|
 | Alan J. Perlis (April 1, 1922-February 7, 1990)
 +---------------------------------------------------------------------------+
 
@@ -4268,7 +4140,7 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 +---------------------------------------------------------------------------+
 | Steve Yegge's Law:          Systems should never reboot.
 | Steve Yegge's Corrolary:    Systems must be able to grow without rebooting.
-| Steve Yegge's Features:  
+| Steve Yegge's Features:
 |    1- Every great system has a command shell.
 |    2- Great systems have also advice (hooks).
 |    3- World-class software systems have an extension language and a plug-in system.
@@ -4277,24 +4149,24 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 
 +---------------------------------------------------------------------------+
 | The Joel Test
-|    1. Do you use source control?                                    
-|    2. Can you make a build in one step?                             
-|    3. Do you make daily builds?                                     
-|    4. Do you have a bug database?                                   
-|    5. Do you fix bugs before writing new code?                      
-|    6. Do you have an up-to-date schedule?                           
-|    7. Do you have a spec?                                           
-|    8. Do programmers have quiet working conditions?                 
-|    9. Do you use the best tools money can buy?                      
-|   10. Do you have testers?                                          
-|   11. Do new candidates write code during their interview?          
-|   12. Do you do hallway usability testing?                          
-| 
+|    1. Do you use source control?
+|    2. Can you make a build in one step?
+|    3. Do you make daily builds?
+|    4. Do you have a bug database?
+|    5. Do you fix bugs before writing new code?
+|    6. Do you have an up-to-date schedule?
+|    7. Do you have a spec?
+|    8. Do programmers have quiet working conditions?
+|    9. Do you use the best tools money can buy?
+|   10. Do you have testers?
+|   11. Do new candidates write code during their interview?
+|   12. Do you do hallway usability testing?
+|
 |     A score of 12 is perfect, 11 is tolerable, but 10 or lower and
 |     you've got serious problems. The truth is that most software
 |     organizations are running with a score of 2 or 3, and they
 |     need serious help, because companies like Microsoft run at 12
-|     full-time. 
+|     full-time.
 +---------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------+
@@ -4329,36 +4201,36 @@ Don’t force yourself to test-first every controller, model, and view (my ratio
 +------------------------------------------------------------------------
 |=========================================================================
 | http://web.archive.org/web/20060522191515/http://ruby-talk.org/cgi-bin/scat.rb/ruby/ruby-talk/179642
-| 
+|
 | Subject: Re: Ruby's lisp features.
 | From: Yukihiro Matsumoto <matz ruby-lang.org>
 | Date: Mon, 13 Feb 2006 13:43:02 +0900
 | In-reply-to: 179515
-| 
+|
 | Hi,
-| 
+|
 | In message "Re: Ruby's lisp features."
 |     on Mon, 13 Feb 2006 02:38:18 +0900, Edward Kenworthy <edward / kenworthy.info> writes:
-| 
-| |I've been programming for more years than I care to remember and am  
-| |enjoying programming in Ruby (especially on Rails). So far I've found  
-| |nothing "new" (to me) in Ruby, with the exception of the lisp-like  
-| |features and that's something I'd really like to explore.  
-| 
+|
+| |I've been programming for more years than I care to remember and am
+| |enjoying programming in Ruby (especially on Rails). So far I've found
+| |nothing "new" (to me) in Ruby, with the exception of the lisp-like
+| |features and that's something I'd really like to explore.
+|
 | |Anyone able to point me to a resource please?
-| 
+|
 | Ruby is a language designed in the following steps:
-| 
+|
 |   * take a simple lisp language (like one prior to CL).
 |   * remove macros, s-expression.
 |   * add simple object system (much simpler than CLOS).
 |   * add blocks, inspired by higher order functions.
 |   * add methods found in Smalltalk.
 |   * add functionality found in Perl (in OO way).
-| 
+|
 | So, Ruby was a Lisp originally, in theory.
 | Let's call it MatzLisp from now on. ;-)
-| 
+|
 |                             matz.
 |=========================================================================
 | (Yukihiro Matsumoto aka matz is the creator of Ruby).
@@ -4370,20 +4242,20 @@ http://invisible-island.net/xterm/xterm.faq.html
 
 ! x, S-x, g-x, g-S-x
 !
-! ESC         F1   F2   F3   F4     F5   F6   F7   F8     F9   F10  F11  F12    
-! `~∞∝ 1!₁¹ 2@₂² 3#₃³ 4$₄⁴ 5%₅⁵ 6^₆⁶ 7₇⁷ 8*₈⁸ 9(₉⁹ 0)₀⁰ -_⊣⊥ =+⊢⊤   Backspace   
+! ESC         F1   F2   F3   F4     F5   F6   F7   F8     F9   F10  F11  F12
+! `~∞∝ 1!₁¹ 2@₂² 3#₃³ 4$₄⁴ 5%₅⁵ 6^₆⁶ 7₇⁷ 8*₈⁸ 9(₉⁹ 0)₀⁰ -_⊣⊥ =+⊢⊤   Backspace
 ! TAB     qQωΩ wW€¢ eEεΕ rRρΡ tTτΤ yYψΨ uUυΥ iIιΙ oOοΟ pPπΠ [{«∀ ]}»∃     \|∖∫
 ! Control   aAαΑ sSσΣ dDδΔ fFφΦ gGγΓ hHθΘ jJηΗ kKκΚ lLλΛ ;:⊆⎕ '"⊇○     Return
 ! Shift       zZζΖ xXξΞ cCχΧ vV∇√ bBβΒ nNνΝ mMμΜ ,<≤∧ .>≥∨ /?≠¬         Shift
 ! Multi_key Alt  Meta   ---- Space DigitSpace ------ Meta AltGr Hyper Control
-! 
-! 
-! 
+!
+!
+!
 ! Pause  ∂     CapsLock    Print
-! Insert ∈∉   Home ⇒⇔    Prior ≡≢      NumLock     *          /          -     
-! Delete ∅≣   End ∴ ∵     Next ≈≇        Home    7   Up    8   Prior 9    
+! Insert ∈∉   Home ⇒⇔    Prior ≡≢      NumLock     *          /          -
+! Delete ∅≣   End ∴ ∵     Next ≈≇        Home    7   Up    8   Prior 9
 !                                         Left    4   Begin 5   Right 6     +
-!              Up ↑∩                     End     1   Down  2   Next  3    Ent 
+!              Up ↑∩                     End     1   Down  2   Next  3    Ent
 !  Left ←⊂    Down ↓∪    Right →⊃     Insert 0              Delete .    er
 
 
@@ -4429,25 +4301,25 @@ See dasher below.
 
 russian-computer:
 
-Ё ! " № ; % : ? * ( ) _ + 
-ё 1 2 3 4 5 6 7 8 9 0 - = 
- Й Ц У К Е Н Г Ш Щ З Х Ъ / 
- й ц у к е н г ш щ з х ъ \ 
-  Ф Ы В А П Р О Л Д Ж Э 
-  ф ы в а п р о л д ж э 
-   Я Ч С М И Т Ь Б Ю , 
-   я ч с м и т ь б ю . 
+Ё ! " № ; % : ? * ( ) _ +
+ё 1 2 3 4 5 6 7 8 9 0 - =
+ Й Ц У К Е Н Г Ш Щ З Х Ъ /
+ й ц у к е н г ш щ з х ъ \
+  Ф Ы В А П Р О Л Д Ж Э
+  ф ы в а п р о л д ж э
+   Я Ч С М И Т Ь Б Ю ,
+   я ч с м и т ь б ю .
 
 russian-typewriter:
 
-+ 1 2 3 4 5 6 7 8 9 0 = \ 
-| № - / " : , . _ ? % ! ; 
- Й Ц У К Е Н Г Ш Щ З Х Ъ ( 
- й ц у к е н г ш щ з х ъ ) 
-  Ф Ы В А П Р О Л Д Ж Э 
-  ф ы в а п р о л д ж э 
-   Я Ч С М И Т Ь Б Ю Ё 
-   я ч с м и т ь б ю ё 
++ 1 2 3 4 5 6 7 8 9 0 = \
+| № - / " : , . _ ? % ! ;
+ Й Ц У К Е Н Г Ш Щ З Х Ъ (
+ й ц у к е н г ш щ з х ъ )
+  Ф Ы В А П Р О Л Д Ж Э
+  ф ы в а п р о л д ж э
+   Я Ч С М И Т Ь Б Ю Ё
+   я ч с м и т ь б ю ё
 
 Я не хочу это видеть．
 
@@ -4502,7 +4374,7 @@ Pascal Bourguignon  +34 636 653 318
     Appartement 32, 19 rue de la Paix, 60180 Nogent sur Oise, 03 44 66 14 22
 
 Bernard Bourguignon +33 296 701 636
-5, rue Maéziou, 
+5, rue Maéziou,
 22290 Lanvollon
 
 alain/wacjalquloca
@@ -4555,7 +4427,7 @@ franck@poullain.net
 Misha Tavkhelidze
 email: misha.tavkhelidze@gmail.com
 skype: misha.tavkhelidze
-mobile: +46 76 558 7458 
+mobile: +46 76 558 7458
 
 
 SOS Maman
@@ -4750,7 +4622,7 @@ bestfriend/bestfriend/internet/lisp
 ------------------------------------------------------------------------
 
 ** Domains Domain Names
-    
+
 http://www.afnic.fr/outils/whois
 
 ** Godaddy
@@ -4767,11 +4639,11 @@ http://www.afnic.fr/outils/whois
     ogamita.com                2015
     ogamita.org                2015
     parroquias-manga.org       2014
-    lavirgenmadre.org 
+    lavirgenmadre.org
 
 
     NS5.SECURESERVER.NET  208.109.78.180
-    NS6.SECURESERVER.NET  208.109.80.75    
+    NS6.SECURESERVER.NET  208.109.80.75
 
 ** Domainedesnoms
 
@@ -4807,7 +4679,7 @@ http://www.kimsufi.com/fr/ks/                  15 €/mois à  50 €/mois
 
 Pedido DELL: ES0132-5293-94854
 |11-30|01114694|DELL Pantalla 22" 2209WA             |   409.48|        409.48|
-DELL 2009WAf 
+DELL 2009WAf
 CN-0H735H-72872-98V-226L
 REV A01
 Made in China on August 2009
@@ -4815,7 +4687,7 @@ Support: ESJ-00000714020016000-098W01284-A
 
 ** Acer
 
-Acer Aspire One 
+Acer Aspire One
 número de registro STDREG.9306446
 
 ** Mountain Systems
@@ -4857,8 +4729,8 @@ telefono-p:
     movil:                  +34 636 653 318
 
 
-    Comunidad de propietarios edificio monaco  968 140 309 
-                                               968 140 934 
+    Comunidad de propietarios edificio monaco  968 140 309
+                                               968 140 934
                                                968 142 358
 
     pagé a telefonica 147.69 no se porque
@@ -4885,9 +4757,9 @@ telefono-p:
     30385 Los Belones - Murcia
 
 
-    Sr. Pascal Bourguignon  
+    Sr. Pascal Bourguignon
     C/ José María Bergamin, 7; 2°4
-    29660 Marbella - Nueva Andalucia 
+    29660 Marbella - Nueva Andalucia
     952 811 048 (cancelado)
 
 
@@ -4896,8 +4768,8 @@ telefono-p:
     636 653 318 -             Los Belones,                       GSM Movistar
     952 811 048 - (cancelado) Nueva Andalucia, Marbella          ADSL Telefonica
     968 143 198 - (cancelado) La Manga del Mar Menor, San Javer, ADSL Easynet
-    968 140 492 - (cancelado) La Manga del Mar Menor, San Javer, RTC 
-    968 143 074 - (cancelado) La Manga del Mar Menor, San Javer, RDSI -> RTC  
+    968 140 492 - (cancelado) La Manga del Mar Menor, San Javer, RTC
+    968 143 074 - (cancelado) La Manga del Mar Menor, San Javer, RDSI -> RTC
     669 155 386 - (cancelado)                                    GSM Movistar
 
 
@@ -5059,7 +4931,7 @@ telefono-p:
 
     Internet Radio:  kohina.com slayradio.org
 
-    mplayer http://195.10.10.107:80/cope/copefm.asf 
+    mplayer http://195.10.10.107:80/cope/copefm.asf
     mplayer mms://wm.live.tv-radio.com/radiocourtoisie_20k
 
     http://www.tv-radio.com/cgi-bin/tagger.pl?tag=site&metafile=direct/direct-20k.ram
@@ -5131,11 +5003,11 @@ de compte avec vous par téléphone en fonction de
 vos attentes et de vos besoins.
 Vous la recevrez immédiatement par email
 ou par courrier, vous n'aurez qu'à signer et nous la faire parvenir accompagnée des pièces justificatives.
-	  	
+
 Monsieur Pascal BOURGUIGNON
 
 Votre demande d’ouverture d’un compte Boursorama Essentiel+ nous est bien parvenue. Votre contrat électronique a été déposé, vous pourrez le retrouver avec votre numéro de transaction sur demande à Boursorama Banque.
- 
+
 NOTEZ BIEN VOTRE NUMÉRO DE TRANSACTION
 W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
 Nous venons de vous envoyer un nouvel email dans lequel vous trouverez un lien vous permettant d’accéder à votre dossier.
@@ -5161,15 +5033,15 @@ vos pièces justificatives
 Les données ci-dessus pourront être utilisées afin de vous faire bénéficier d'offres émanant de nos partenaires. Pour en savoir plus veuillez consulter l'article 2 du contrat d'utilisation. Nous vous rappelons que vous disposez d'un droit d'accès, de rectification et d'opposition au traitement des données vous concernant (articles 38, 39 et 40 de la loi "Informatique et Libertés" modifiée). Nous allons implanter un cookie dans votre ordinateur afin que vous puissiez bénéficier des services personnalisés offerts par Boursorama et d'assurer un bon fonctionnement du site. Pour en savoir plus, veuillez consulter notre contrat d'utilisation.
 ------------------------------------------------------------------------
 
-** cajamar 
+** cajamar
 
 Ha utilizado por completo su tarjeta personal de claves. Puede seguir
 realizando operaciones con esta tarjeta, aunque, como medida de
 seguridad, le recomendamos que solicite una nueva en su oficina.
 
 Introduzca las siguientes coordenadas de su tarjeta personal de claves
-acabada en 216 G6 	
-	
+acabada en 216 G6
+
 Coordenada recibida por SMS en su móvil acabado en 318
 
 * INFORMATIMAGO COMPUTERS
@@ -5232,7 +5104,7 @@ voyager|linux|lse|fyLxIqmuC
 lassell|cygwin|lse|fyLxIqmuC
 lassell|cygwin|cyg_server|VYwJali9
 
-telnet voyager 8105 
+telnet voyager 8105
 
 voyager postgresql-8.4
 voyager|linux|trac|su/CAs&Ze
@@ -5275,7 +5147,7 @@ Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
     :PROPERTIES:
     :LAST_REPEAT: [2016-02-06 Sat 21:45]
     :END:
-Backup kuiper to external hard disks.  
+Backup kuiper to external hard disks.
 *** TODO [#B] Implement an incremental backup for hubble              :admin:
     :DEADLINE: <2016-03-01 Sun -3m>
 *** Internal disks
@@ -5305,12 +5177,12 @@ internal disk                            external backup
 /dev/sdd4 OTHER
 
 2 TB      Model=WDC WD20EARS-00MVWB0, FwRev=51.0AB51, SerialNo=WD-WCAZA3007295
-/dev/sde1 MOVIES1                        2TERAONE      
+/dev/sde1 MOVIES1                        2TERAONE
 
 
 ordered:
 
-4 TB  
+4 TB
 
 4 TB
 ------------------------------           ------------------------------
@@ -5328,17 +5200,17 @@ ordered:
     - 2 TB external hard disk             EXT3  2TERATWO  (movies2)
     - 1 TB external hard disk             EXT3  1TERATWO  (root+domU+local)
 
-    - 200 GB external hard disk number 1  HFS+  galatea-backup  
+    - 200 GB external hard disk number 1  HFS+  galatea-backup
       DOES NOT SEEM TO WORK ANYMORE
 
-    - 200 GB external hard disk number 2  HFS+  triton-backup   
-      TimeMachine BackupBackup triton 
+    - 200 GB external hard disk number 2  HFS+  triton-backup
+      TimeMachine BackupBackup triton
       TimeMachine BackupBackup galatea
 
-    - 200 GB external hard disk number 4  NTFS                  
+    - 200 GB external hard disk number 4  NTFS
       Backup galle
 
-    - 200 GB external hard disk number 5  HFS+  backup5         
+    - 200 GB external hard disk number 5  HFS+  backup5
       TimeMachine Backup galatea
       Copy of newton.medicalis.es before upgrade to 10.5.
       --> full galatea backup
@@ -5347,7 +5219,7 @@ ordered:
 ** ALGORITHMS
 *** Floating  point numbers
     floating point numbers:
-    http://www.exploringbinary.com/the-four-stages-of-floating-point-competence/  
+    http://www.exploringbinary.com/the-four-stages-of-floating-point-competence/
     What Every Computer Scientist Should Know About Floating-Point Arithmetic
     http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
     http://portal.acm.org/citation.cfm?id=103163
@@ -5373,10 +5245,10 @@ Google bloom filter.
      (sqrt(/ 6 (monte-carlo n cesaro))))
     (define (cesaro)
      (= (gcd (rand) (rand)) 1))
-    (define (monte-carlo trials experiment) 
+    (define (monte-carlo trials experiment)
     (define (iter remaining passed)
      (cond ((= remaining 0) (/ passed trials))
-           ((experiment) 
+           ((experiment)
             (iter (-1+ remaining)
                   (1+ passed)))
            (else
@@ -5393,12 +5265,12 @@ Titles like "Composable memory transactions" really catch attention.
 
 *** RANDOM GENERATOR
 
-    Mersenne Twister is very popular but there are better alternatives. For 
-    instance I use the WELL generators for the financial monte-carlo 
+    Mersenne Twister is very popular but there are better alternatives. For
+    instance I use the WELL generators for the financial monte-carlo
     simulations running in FPGAs.
     http://www.iro.umontreal.ca/~lecuyer/myftp/papers/wellrng.pdf
 
-    Though they are rather nice, I will switch to cryptographic generators 
+    Though they are rather nice, I will switch to cryptographic generators
     anyway to avoid potential correlations in higher dimensions.
 
     L'Ecuyer has written a lot of papers on the subject:
@@ -5454,7 +5326,7 @@ http://www.sobbayi.com/blog/software-development/easy-cc-source-code-analysis-vi
   * Greylisting
     <http://projects.puremagic.com/greylisting/>
 
-    sudo mysql gld -e 'select * from whitelist;' 
+    sudo mysql gld -e 'select * from whitelist;'
     sudo mysql gld -e 'select * from greylist order by recipient;'
     sudo mysql gld -e "insert into whitelist values ('pjb@ogamita.com','Myself);"
 
@@ -5568,7 +5440,7 @@ http://www.sobbayi.com/blog/software-development/easy-cc-source-code-analysis-vi
     http://www.networm.org/faq
 
 ** Apple OpenFirmware
-   
+
 http://www.netneurotic.de/mac/openfirmware.html
 
 ** ASCII
@@ -5599,14 +5471,14 @@ EOPL   = Essentials of Programming Languages, 3rd ed.
          Daniel P. Friedman, Mitchell Wand, Christopher T. Haynes
          MIT Press, ISBN 0-262-06217
          http://www.cs.indiana.edu/eopl/
-        
-         
+
+
 PCL    = Practical Common Lisp       = http://www.gigamonkeys.com/book/
 
 GENTLE = Common Lisp: A Gentle Introduction to Symbolic Computation
          http://www.cs.cmu.edu/~dst/LispBook/
          http://www-cgi.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html
-         
+
 CLPfAI = Common Lisp Programming for Artificial Intelligence
          Tony Hasemer & John Domingue - 1989
          International Computer Science Series
@@ -5615,13 +5487,13 @@ CLPfAI = Common Lisp Programming for Artificial Intelligence
 
          This book was written during the period of standardization of
          Common Lisp, before the specification of CLOS was included in
-         the standard.  
+         the standard.
 
          It was addressed to programmers learning Common Lisp, but
          today beginners will prefer newer books, giving a more
          complete  and modern coverage of Common Lisp and CLOS, post
          standardization.
-    
+
          Otherwise it is quite pedagogical a book, leading easily the
          beginner to a basic working knowledge of Common Lisp, and
          still interesting today for its presentation of:
@@ -5646,10 +5518,10 @@ CLAIA  = "COMMON LISP: An Interactive Approach"
           http://www.cse.buffalo.edu/~shapiro/Commonlisp/
 
 
-PAIP   = Paradigms of Artificial Intelligence Programming: 
+PAIP   = Paradigms of Artificial Intelligence Programming:
          Case Studies in Common Lisp
 
-AIMA   = AIMA is Artificial Intelligence: A Modern Approach 
+AIMA   = AIMA is Artificial Intelligence: A Modern Approach
          http://aima.cs.berkeley.edu
 
 SICP   = Structure and Interpretation of Computer Programs
@@ -5662,12 +5534,12 @@ SICP   = Structure and Interpretation of Computer Programs
          http://www.youtube.com/watch?v=rdj6deraQ6k
 
 HTDP   = How to Design Programs -- An Introduction to Computing and Programming
-         http://www.htdp.org/2003-09-26/Book/  
+         http://www.htdp.org/2003-09-26/Book/
 
 CA     = Concrete Abstractions -- An Introduction to Computer Science Using Scheme
          http://www.gustavus.edu/+max/concrete-abstractions.html
 
-LISP   = "Lisp in Small Pieces"  
+LISP   = "Lisp in Small Pieces"
          http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html
          http://pagesperso-systeme.lip6.fr/Christian.Queinnec/Books/LiSP-2ndEdition-2006Dec11.tgz
          This book covers Lisp, Scheme and other related dialects,
@@ -5712,8 +5584,8 @@ CASTING = Casting Spels in Lisp
           Conrad Barski, M.D.
           http://www.lisperati.com/casting.html
 
-AMLH    = Ainsi marchait l'humanité 
-          Jean-François Geneste 
+AMLH    = Ainsi marchait l'humanité
+          Jean-François Geneste
           http://www.amazon.fr/gp/product/2756311030/ref=oss_product
           Loi de la moyenne
 
@@ -5753,16 +5625,16 @@ AMLH    = Ainsi marchait l'humanité
 >> http://en.wikipedia.org/wiki/Computational_theory
 > When it comes to programming languages and programming paradigms you
 > certainly can't go wrong with
-> 
+>
 > 	Concepts, Techniques, and Models of Computer Programming
 > 	Peter van Roy and Seif Haridi
 > 	ISBN: 978-0262220699
 > 	<http://MITPress.MIT.Edu/0262220695/>
 > 	<http://Info.UCL.Ac.Be/~pvr/book>
 > 	<http://CodePoetics.Com/wiki/>
-> 
+>
 > or
-> 
+>
 > 	Programming Languages: Application and Interpretation
 > 	Shriram Krishnamurthi
 > 	<http://WWW.PLAI.Org/>
@@ -6460,16 +6332,16 @@ other language... it's pity :-/
         > The trouble is lost of C leads you to "but that wouldn't be
         > efficient!". But I'm trying to reprogram myself.
 
-        After a couple of projects that I've done in scheme, after many years of 
-        C (and assembler), I've come to the conclusion that even *starting* a 
-        program in C is an exercise in premature optimization.  Correctness 
-        trumps everything, and algorithm design and selection trump brute force.  
-        C doesn't help much with either of those.  There isn't even a place for C 
+        After a couple of projects that I've done in scheme, after many years of
+        C (and assembler), I've come to the conclusion that even *starting* a
+        program in C is an exercise in premature optimization.  Correctness
+        trumps everything, and algorithm design and selection trump brute force.
+        C doesn't help much with either of those.  There isn't even a place for C
         until you're well into your first or second revision...
 
         Cheers,
 
-        -- 
+        --
         Andrew
 
 
@@ -6578,7 +6450,7 @@ fossil help                                      Prints help.
 fossil version                                   Prints version.
 
 
-fossil configuration export AREA FILENAME                   
+fossil configuration export AREA FILENAME
 fossil configuration import FILENAME
 fossil configuration merge FILENAME
 fossil configuration pull AREA [URL]
@@ -6692,7 +6564,7 @@ fossil sync [URL] [-R|--repository REPOSITORY]
 
 
 
-fossil open FILENAME                    
+fossil open FILENAME
 
         Open a connection to the local repository in FILENAME. A
         checkout is created in the local directory.
@@ -6721,12 +6593,12 @@ fossil undo [FILENAME…]
 
         Undo the most recent update or merge operation.  If FILENAME
         is specified then restore the content of the named file but
-        otherwise leave the update or merge in effect. 
+        otherwise leave the update or merge in effect.
 
 fossil redo [FILENAME…]
 
         Redo an update or merge operation that has been undone by the
-        undo command. 
+        undo command.
 
 A single level of undo/redo is supported.  The undo/redo stack is
 cleared by the commit and checkout commands.
@@ -6812,11 +6684,11 @@ fossil timeline [WHEN] [CHECK-IN|DATETIME] [-n|--count N]
         ancestors or parent.  DATETIME should be in ISO-8601 format.
 
 
-fossil branch list                                   [-R|--repository REPFILE]  
+fossil branch list                                   [-R|--repository REPFILE]
 
         List all branches.
 
-fossil branch new BRANCH-NAME BASIS [-bgcolor COLOR] [-R|--repository REPFILE]  
+fossil branch new BRANCH-NAME BASIS [-bgcolor COLOR] [-R|--repository REPFILE]
 
         Create a new banch off of checkin BASIS.
 
@@ -6833,14 +6705,14 @@ fossil merge VERSION
 
         Merge file contents from VERSION into the current checkout files.
 
- 
+
 
 
 fossil tag add [--raw] TAGNAME CHECK-IN [VALUE]
 
         Add a new tag or property to CHECK-IN.  The tag can be used
         instead of CHECK-IN in commands such as update and merge.
-        
+
 
 fossil tag branch [--raw] [--nofork] TAGNAME CHECK-IN [VALUE]
 
@@ -6895,7 +6767,7 @@ fossil http REPOSITORY
         Handle a single HTTP request appearing on stdin.
 
 
-fossil wiki list                                  List all wiki entries.      
+fossil wiki list                                  List all wiki entries.
 fossil wiki export PAGENAME [FILE]                Exports the wiki page.
 fossil wiki create PAGENAME [FILE]                Creates a new wiki page.
 fossil wiki commit PAGENAME [FILE]                Commit changes to a wiki page.
@@ -7013,7 +6885,7 @@ In emacs-24:
 (require 'cl-lib)
 
 (eval-when-compile
-  (require 'cl)) 
+  (require 'cl))
 
 Rename all common lisp functions, for example coerce -> cl-coerce. n
 Keep 'cl for macro expansion such as incf.
@@ -7031,16 +6903,16 @@ Google weather API is killed, but this is an example of how to run code from org
     on Android:
     https://play.google.com/store/apps/details?id=com.zielm.emacs&hl=en
 
-    VERSION=24.3 ; wget ftp://ftp.gnu.org/gnu/emacs/emacs-${VERSION}.tar.gz ; tar zxf emacs-${VERSION}.tar.gz ; cd emacs-${VERSION} ; ./configure && make && make install 
+    VERSION=24.3 ; wget ftp://ftp.gnu.org/gnu/emacs/emacs-${VERSION}.tar.gz ; tar zxf emacs-${VERSION}.tar.gz ; cd emacs-${VERSION} ; ./configure && make && make install
     ftp://ftp.gnu.org/gnu/emacs/windows/
 
 
-    VERSION=2.49 ; wget ftp://ftp.gnu.org/gnu/clisp/release/${VERSION}/clisp-${VERSION}.tar.gz ; tar zxf clisp-${VERSION}.tar.gz ; cd clisp-${VERSION} ; ./configure --cbc build && make && make install 
+    VERSION=2.49 ; wget ftp://ftp.gnu.org/gnu/clisp/release/${VERSION}/clisp-${VERSION}.tar.gz ; tar zxf clisp-${VERSION}.tar.gz ; cd clisp-${VERSION} ; ./configure --cbc build && make && make install
 
 *** Emacs IDE
                           http://tuhdo.github.io/c-ide.html
-    C / C++               http://cedet.sourceforge.net 
-    Common Lisp / Scheme  http://common-lisp.net/project/slime 
+    C / C++               http://cedet.sourceforge.net
+    Common Lisp / Scheme  http://common-lisp.net/project/slime
     Java                  http://jdee.sunsite.dk/
     Ruby                  http://rubyforge.org/projects/ri-emacs/
 
@@ -7217,7 +7089,7 @@ A-< A->	begin/end text
     General info on CHM's software preservation here:
       http://www.computerhistory.org/PreserveClassicSoftware/
 
- 
+
     http://open360.copyleft.de/VM370/VM370.html
 
     C'était sur naiad/macosx-1...
@@ -7258,7 +7130,7 @@ A-< A->	begin/end text
 
 
     telnet cyberspace.org        (OpenBSD)
-    telnet login.cray-cyber.org  (A real cray YMP!)    
+    telnet login.cray-cyber.org  (A real cray YMP!)
 
     http://www.imsai8080.com/computers/s100/northstar.html
     http://www.pdpplanet.com/
@@ -7288,12 +7160,12 @@ A-< A->	begin/end text
 
 
     OpenVMS cluster:
-    ssh demo@dahmer.vistech.net    
+    ssh demo@dahmer.vistech.net
     ssh pjb@dahmer.vistech.net 2x4gasdh
     mailto:pjb@dahmer.vistech.net
     ssh ogamita@dahmer.vistech.net fEk-ZA'NI
 
-    ssh demo@dahmer.vistech.net    
+    ssh demo@dahmer.vistech.net
     ssh pjb@dahmer.vistech.net 2x4gasdh
     mailto:pjb@dahmer.vistech.net
     ssh ogamita@dahmer.vistech.net fEk-ZA'NI
@@ -8100,7 +7972,7 @@ rfc2700  Internet Official Protocol Standards
 ** Inverse Turing Machine
 
     http://historical.ncstrl.org/litesite-data/stan/CS-TR-73-390.pdf
-    http://www.springerlink.com/index/jx1v04262u084382.pdf 
+    http://www.springerlink.com/index/jx1v04262u084382.pdf
 
 ** Lambda Calculus
 *** Church Numerals
@@ -8128,6 +8000,18 @@ rfc2700  Internet Official Protocol Standards
     Certified lambda calculus compiler to assembly.
     http://adam.chlipala.net/papers/CtpcPLDI07/CtpcPLDI07.pdf
     http://adam.chlipala.net/papers/PhoasICFP08/PhoasICFP08.pdf
+
+** LANGUAGES: ADA
+
+ADA
+=======================
+J-P. Rosen
+Adalog
+2 rue du Docteur Lombard, 92441 Issy-les-Moulineaux CEDEX
+Tel: +33 1 45 29 21 52, Fax: +33 1 45 29 25 00
+http://www.adalog.fr
+
+http://forge.ada-ru.org/matreshka
 
 ** LANGUAGES: C FORMAT SPECIFIERS
 
@@ -8199,7 +8083,7 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
                                          |
                                          +---> load-time       load-time-value
                                           \
-                                           --> eval-time       defun 
+                                           --> eval-time       defun
 
 
 *** URLS
@@ -8211,7 +8095,7 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
 
 
     I'm new to CLOS, and to start I'm looking at
-    http://www.ravenbrook.com/doc/2003/07/15/clos-fundamentals/ 
+    http://www.ravenbrook.com/doc/2003/07/15/clos-fundamentals/
     At the end there is a little graph on CLOS class in CL titled
     "C. Partial class hierarchy" and maybe could be useful to you. I
     personally like the Joswing's graph:
@@ -8248,7 +8132,7 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
     https://github.com/emoon/Score
 
 
-    cl-gpu translates a subset of CL to CUDA GPU kernels. 
+    cl-gpu translates a subset of CL to CUDA GPU kernels.
     https://github.com/angavrilov/cl-gpu
 
     Arduino Lisp translates a subset of CL to a subset of C++ that can be
@@ -8279,26 +8163,26 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
         TAO, Ikuo Takeuchi, practical expirience, runs on ELIS Lisp machine,
         (namespace problems - symbol packages)
 
-        MacELIS, Ken-ichiro Murakami 
+        MacELIS, Ken-ichiro Murakami
 
         Mul-T, David Kranz, Robert Halstead, Eric Mohr (optimizing compiler
-        generating code for Encore Multimax) 
+        generating code for Encore Multimax)
 
         Utilisp, (University of Tokyo Interactive Lisp), Hideya Iwasaki,
         (mUtilisp, implementation, simulat parallelism by time-slicing)
 
         PM!, PMLisp, Taiichi Yuasa, Takafumi Kawana, (8-bit Z80, first prototype
-        of "P-machine"), Scheme-like 
+        of "P-machine"), Scheme-like
 
         EVLIS, Hiroshi Yasui, Tashikazu Sakaguchi, Kohichi Kudo, Nobuyuki
         Hironishi, (multiport mem-sys)
 
-        TOP-1, Norihisa Suzuki, ongoing project of parallel Common Lisp 
+        TOP-1, Norihisa Suzuki, ongoing project of parallel Common Lisp
 
         GHC (guarded-Horn-clause), Kazunori Ueda (comments: Akikazu Takeuchi),
-        (variables in p-languages) 
+        (variables in p-languages)
 
-        OPS-5, Hiroshi Okuno, (parallelizing 2 large AI systems) 
+        OPS-5, Hiroshi Okuno, (parallelizing 2 large AI systems)
 
         ...
 
@@ -8459,7 +8343,7 @@ http://rondam.blogspot.com/2009/08/global-variables-done-right.html
 *** Garnet & KR
     http://garnetlisp.sourceforge.net/
     http://www.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles/kr_2.3.4.tar.gz
-    
+
 *** LISP PERFORMANCE:
     http://www.lrde.epita.fr/~didier/comp/research/verna.06.ecoop.pdf
     http://www.lrde.epita.fr/~didier/comp/research/publi.php
@@ -8485,35 +8369,35 @@ http://rondam.blogspot.com/2009/08/global-variables-done-right.html
 
         *Lisp Dictionary.
 
-        Just found an older parallel version of *lisp  or StarLisp simulator which 
-        may be downloaded at bottom of the following archive URL page but it 
-        was created back in 1989.  	
+        Just found an older parallel version of *lisp  or StarLisp simulator which
+        may be downloaded at bottom of the following archive URL page but it
+        was created back in 1989.
              File Name = Starsim-f20.zip   File size = 580 KB
           http://examples.franz.com/index.html
-          "*Lisp (pronounced "star Lisp") is a data parallel extension of the 
-        Common Lisp programming language, designed for the Connection 
-        Machine system." 
+          "*Lisp (pronounced "star Lisp") is a data parallel extension of the
+        Common Lisp programming language, designed for the Connection
+        Machine system."
 
-        Multilisp, Robert Halstead, an extended Scheme-version 
+        Multilisp, Robert Halstead, an extended Scheme-version
 
         Paralation Lisp (there is a book about that, The Paralation Model)
         Connection Machine Lisp
 
         QLisp (http://www.dreamsongs.com/Qlisp.html)
-        Qlisp, Ron Goldman, Richard Gabriel, Carol Sexton, a scheme-like 
+        Qlisp, Ron Goldman, Richard Gabriel, Carol Sexton, a scheme-like
 
         Proceedings of the US/Japan workshop on Parallel Lisp on Parallel
         Lisp: languages and systems (June 1990, Sendai, Japan)
 
-        PaiLisp, paper by Takayasu Ito and Manabu Matsui, a kernel-language 
+        PaiLisp, paper by Takayasu Ito and Manabu Matsui, a kernel-language
         "A parallel Lisp language PaiLisp and its kernel specification" by
-        T. Ito and M. Matsui. 
+        T. Ito and M. Matsui.
 
 *** Garbage Collection
-        gc-algorithms, James Miller, Barbera Epstein 
+        gc-algorithms, James Miller, Barbera Epstein
 
         Concurrent Scheme, Robert Kessler, Mark Swanson, concurrent threads in
-        seperat domains 
+        seperat domains
 
         the Boyer benchmark, W.Ludwell Harrison, (compiler-notes)
 
@@ -8538,7 +8422,7 @@ http://rondam.blogspot.com/2009/08/global-variables-done-right.html
     openmusic http://recherche.ircam.fr/equipes/repmus/OpenMusic/
 
     nyquist http://www.cs.cmu.edu/~music/music.software.html
- 
+
 
     The repository is "clozure.com:/usr/local/publiccvs", and the CVS module
     for the documentation and the rest of the website content is "website".
@@ -8769,7 +8653,7 @@ http://www.fema.gov/areyouready/
       language. Unfortunately the Lisp market was already heading for the
       doldrums, and so a lot of the experience from Statice went into the
       C++ OODB rather than into Lisp. But apparently Statice is still
-      available. 
+      available.
     http://kogs-www.informatik.uni-hamburg.de/~moeller/symbolics-info/statice.html
 
 
@@ -8794,8 +8678,8 @@ http://www.fema.gov/areyouready/
 
 
     (let ((*DEFAULT-PATHNAME-DEFAULTS*
-             (merge-pathnames (make-pathname :name "DEFAULT" 
-                                             :type "DATA" 
+             (merge-pathnames (make-pathname :name "DEFAULT"
+                                             :type "DATA"
                                              :version nil
                                              :case :common
                                              :defaults (user-homedir-pathname))
@@ -9060,7 +8944,7 @@ or, for that matter, starting with this:
     American fuzzy lop is a security-oriented fuzzer that employs a
     novel type of compile-time instrumentation and genetic algorithms
     to automatically discover clean, interesting test cases that
-    trigger new internal states in the targeted binary. 
+    trigger new internal states in the targeted binary.
     http://lcamtuf.coredump.cx/afl/
 
 
@@ -9388,11 +9272,11 @@ I don't know of any commercial Common Lisp RPGs.
   HANDLER-BIND:
 
    A handler can DECLINE (return)
-   the condition is passed to next handler, 
+   the condition is passed to next handler,
    and eventually ERROR or CERROR enter the debugger,
    or SIGNAL or WARN return NIL.
 
-   A handler can HANDLE (non-local exit) the condition, 
+   A handler can HANDLE (non-local exit) the condition,
    using GO, THROW, RETURN-FROM, ABORT, INVOKE-RESTART, etc.
 
    A handler can DEFER the condition,
@@ -9404,10 +9288,10 @@ I don't know of any commercial Common Lisp RPGs.
          (handler-bind ((error (lambda (err)
                                  (terpri)(princ "Handling ") (princ err)
                                  (return-from :test)))) ; handle
-           (handler-bind ((error (lambda (err) 
+           (handler-bind ((error (lambda (err)
                                    (terpri)(princ "Defering ") (princ err)
                                    (error err)))) ; defer
-             (handler-bind ((error (lambda (err) 
+             (handler-bind ((error (lambda (err)
                                      (terpri)(princ "Declining ") (princ err)
                                      nil))) ; decline
                (error "Test")))))
@@ -9422,14 +9306,14 @@ I don't know of any commercial Common Lisp RPGs.
 
         (handler-case
             (handler-case (error "Test")
-              (error (err) 
+              (error (err)
                 (terpri)(princ "Inside ") (princ err)
                 (error err)))                   ; defer
           (error (err)
             (terpri) (princ "Outside ") (princ err) nil)) ; handle
 
 
-Location: http://random-state.net/log/3453016738.html                        
+Location: http://random-state.net/log/3453016738.html
 random-state.net
 
 Nikodemus Siivola
@@ -9507,17 +9391,17 @@ Happy hacking.
 
     +----------------------------------------------------------------------------
     | (defun jetteur-des-gazongues ()
-    |   (throw 'les-grandes-gazongues gazonga)) 
+    |   (throw 'les-grandes-gazongues gazonga))
     | ;;  is in e_basic_.list, as is a:
-    | 
+    |
     | (catch (charlisten) gazonga)
-    | 
+    |
     | ;; command-quit invokes:
-    | (throw 'les-petites-gazongues pgazonga) 
+    | (throw 'les-petites-gazongues pgazonga)
     | ;; in e_interact_.list
     +----------------------------------------------------------------------------
 
-
+    http://www.youtube.com/watch?v=o4-YnLpLgtk  Demo Genera Symbolics Jan 2013
     genera date:  10 1990 1:49pm
     + local NTP server
     + old X windows < 6.8
@@ -9554,23 +9438,23 @@ Happy hacking.
     Date: Fri, 2 May 2008 01:58:45 +0200
     Message-ID: <2omdnSwvVY6rxIfVnZ2dnUVZ8sWhnZ2d@giganews.com>
 
-    Here is the result of what I presented (or tried to present ;) at the ECLM 
+    Here is the result of what I presented (or tried to present ;) at the ECLM
     2008.
     http://www.hpcplatform.com
 
     The short story: Domain Specific Languages in Common Lisp.
-    The result: 100 to 1000 times faster than optimized C++ programs running on 
+    The result: 100 to 1000 times faster than optimized C++ programs running on
     current high-end N cores serveurs.
 
-    Marc 
+    Marc
 
 
 
 
     SecondLife:
-    If you plan to look at some Second Life code, you can find it here: 
+    If you plan to look at some Second Life code, you can find it here:
     http://bitbucket.org/lindenlab/
-    Otherwise, if you prefer Lisp code, that would be here instead: 
+    Otherwise, if you prefer Lisp code, that would be here instead:
     http://bitbucket.org/S11001001/weblocks-dev/
 
 
@@ -9637,7 +9521,7 @@ hammer.
                B.R.Lewis (comp.lang.scheme)
 
     A Short Ballad Dedicated to the Growth of Programs
-    http://people.cs.uchicago.edu/~wiseman/humor/large-programs.html             
+    http://people.cs.uchicago.edu/~wiseman/humor/large-programs.html
 
 
     http://dept-info.labri.u-bordeaux.fr/~idurand/SLS/
@@ -9681,7 +9565,7 @@ hammer.
 
 
     The modern "equivalent" of SFAs would be things like:
-      * Gray streams 
+      * Gray streams
         http://www.nhplace.com/kent/CL/Issues/stream-definition-by-user.html
       * Simple Streams
         http://www.franz.com/support/documentation/6.2/doc/streams.htm
@@ -9752,7 +9636,7 @@ $ ccl -n -I /tmp/foo.image
 Welcome to Clozure Common Lisp Version 1.7-dev-r14422  (DarwinX8664)!
 ? *foo*
 12
-? 
+?
 
 
 ./dx86cl -n
@@ -9786,7 +9670,7 @@ Welcome to Clozure Common Lisp Version 1.7-dev-r14422  (DarwinX8664)!
 
 So what to do with CLISP and testing?  It seems CLISP is prevented from
 entering testing due to bugs #751005 and #752726, i.e. segfaults on
-certain architectures.  
+certain architectures.
 
     http://clisp.cons.org/impnotes/extensions.html
     http://clisp.cons.org/impnotes/stream-dict.html#stream-eltype
@@ -9800,14 +9684,14 @@ certain architectures.
 
 
 [5]> (regexp:match "(a)(b)?(c?)(d)" "ad" :extended t)
-#S(REGEXP:MATCH :START 0 :END 2) ; 
-#S(REGEXP:MATCH :START 0 :END 1) ; 
-NIL ; 
-#S(REGEXP:MATCH :START 1 :END 1) ; 
+#S(REGEXP:MATCH :START 0 :END 2) ;
+#S(REGEXP:MATCH :START 0 :END 1) ;
+NIL ;
+#S(REGEXP:MATCH :START 1 :END 1) ;
 #S(REGEXP:MATCH :START 1 :END 2)
 [6]> (lisp-implementation-version)
 "2.33.2 (2004-06-02) (built 3392849301) (memory 3392849384)"
-[7]> 
+[7]>
 
 
 
@@ -9819,7 +9703,7 @@ C/USER[45]> (regexp:match "(a)(b)?(c?)(d)" "ad" :extended t)
 #S(REGEXP:MATCH :START 1 :END 2)
 C/USER[46]> (lisp-implementation-version)
 "2.41 (2006-10-13) (built 3389559784) (memory 3389562614)"
-C/USER[47]> 
+C/USER[47]>
 
 
 
@@ -10013,8 +9897,8 @@ returned for the total of 5 values.
 
 *** garbage collector statistics
 
-Use (EXT:GC-STATS :FULL) in an ECL built with --enable-boehm=system 
-Expect a _lot_ of information. 
+Use (EXT:GC-STATS :FULL) in an ECL built with --enable-boehm=system
+Expect a _lot_ of information.
 In addition to this you may get a dump of the allocated memory map using (EXT:GC-DUMP)
 
 *** ECL funcall from C with unwind-protect
@@ -10102,7 +9986,7 @@ http://groups.google.com/group/comp.lang.lisp/browse_frm/thread/ba809b621e88da2b
 
      ~width,decimal,scalefactor,overflowchar,padcharF
      ~@F print the sign always
-     
+
      ~decimal,minbefore,minwidth,padchar$
 
      ~mincol,colinc,minpad,padcharA
@@ -10163,7 +10047,7 @@ http://groups.google.com/group/comp.lang.lisp/browse_frm/thread/ba809b621e88da2b
      "Items:~#[ none~; ~S~; ~S and ~S~:;~@{~#[~; and~] ~S~^ ,~}~]."
      --> "Items: FOO, BAR, BAZ, and QUUX."
 
-     
+
      ~(   ~) downcase.
      ~:(  ~) capitalize.
      ~@(  ~) capitalize the first word, downcase the rest.
@@ -10214,7 +10098,7 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
 
 (format t "# Shell Command:~% ~{~< \\~%~8T~1,72:; ~A~>~}"
          ;;                     ^^^ put it here.
-         '("mv" "/some/really/long/path/seriously/it/is/really/long" 
+         '("mv" "/some/really/long/path/seriously/it/is/really/long"
  	      "/to/some/other/really/long/path"))
 | # Shell Command:
 |   mv /some/really/long/path/seriously/it/is/really/long \
@@ -10251,7 +10135,7 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
 https://github.com/Hexstream/
 
 http://common-lisp.net/project/cl-org-mode/
-Open Computer Vision  http://opencv.willowgarage.com  
+Open Computer Vision  http://opencv.willowgarage.com
 
     Eye tracking in CL:
     http://13-49.blogspot.com/2009/09/eye-region-tracking-in-common-lisp.html
@@ -10264,7 +10148,7 @@ Open Computer Vision  http://opencv.willowgarage.com
 pattern matchers
     cl-unification
     optima
-    
+
 ** LANGUAGES: COMMON LISP: Others
 
 
@@ -10629,7 +10513,7 @@ uiop:run-program instead
   (let ((whole  (syntax->list syntax)))
     (display whole) (newline)
     (let ((left  (syntax-object->datum (cadr whole)))
-          (right (syntax-object->datum (caddr whole))) 
+          (right (syntax-object->datum (caddr whole)))
           (args  (map syntax-object->datum (cdddr whole))))
       (let ((new-form  `(,(string->symbol (string-append (symbol->string left)
                                                          (symbol->string right)))
@@ -10650,7 +10534,7 @@ uiop:run-program instead
 
 http://www.archive.org/download/UsingtheSLIMELispInteractionModeforEmacs/slime.mov
 
-http://lispcast.blip.tv/posts?view=archive&nsfw=dc 
+http://lispcast.blip.tv/posts?view=archive&nsfw=dc
 
 Start at Episode 1 and watch them in full screen mode. A real good way
 of understanding the power of Common Lisp as a full-fledged languange,
@@ -10686,7 +10570,7 @@ SICP   = Structure and Interpretation of Computer Programs
 Other interesting books to learn how to program with scheme:
 
 HTDP   = How to Design Programs -- An Introduction to Computing and Programming
-         http://www.htdp.org/2003-09-26/Book/  
+         http://www.htdp.org/2003-09-26/Book/
 
 CA     = Concrete Abstractions -- An Introduction to Computer Science Using Scheme
          http://www.gustavus.edu/+max/concrete-abstractions.html
@@ -10694,7 +10578,7 @@ CA     = Concrete Abstractions -- An Introduction to Computer Science Using Sche
 
 
 Once you know how to program, you can learn easily other programming
-languages.  
+languages.
 ------------------------------------------------------------------------
 
 *** CONTINUATIONS
@@ -11193,10 +11077,10 @@ http://www.w3.org/Amaya/Overview.html
 
 ** Project Phases
 
-              Specifications ---------------------------------> acceptance tests 
+              Specifications ---------------------------------> acceptance tests
                          \                                        /
                        Analyse ---------------------------> system tests
-                             \                                 / 
+                             \                                 /
                             Design  -------------------> integration tests
                                 \                           /
                                Implementation -----> unit tests
@@ -11458,7 +11342,7 @@ http://www.weihenstephan.org/~michaste/pagetable/mac/Inside_Macintosh.pdf
 
 http://wiki.debian.org/Multiarch/HOWTO
 
-pin the repository and do apt-get install emacs24/sid 
+pin the repository and do apt-get install emacs24/sid
 
 debian versions
 
@@ -11477,7 +11361,7 @@ debian versions
 
     List of available packages:
     apt-cache search $PATTERN
-    
+
     Show description of package:
 
     apt-cache show $PACKAGE
@@ -11506,7 +11390,7 @@ debian versions
 *** Commands
 
     list installed packages:
-         qlist -I 
+         qlist -I
 
     To generate a list of all installed packages in the x11-drivers
     category:
@@ -11520,17 +11404,17 @@ debian versions
           equery files $PACKAGE
 
 
-    To find the package containing /path/to/file:   
+    To find the package containing /path/to/file:
 
           equery belongs $FILEPATH
 
 
-    To find whether a package is installed (very slow):          
+    To find whether a package is installed (very slow):
 
           emerge -pretend --verbose $PACKAGE
 
 
-    What package depend on a package:       
+    What package depend on a package:
 
           equery depends $PACKAGE
 
@@ -11590,7 +11474,7 @@ debian versions
      * will correct most issues. If you find a binary that does
      * not run please re-emerge package to ensure it properly
      *  links after upgrade.
-     * 
+     *
 
      * Messages for package net-libs/xulrunner-1.9.2.12:
 
@@ -11615,7 +11499,7 @@ debian versions
      *      /var/tmp/portage/www-client/icecat-3.6.12/image///usr/lib64/icecat/icecat
      * All the packages built against icecat won't compile,
      * any package that fails to build warrants a bug report.
-     * 
+     *
 
      * Messages for package mail-mta/postfix-2.7.1:
 
@@ -11642,7 +11526,7 @@ debian versions
      * IMPORTANT: 2 config files in '/etc' need updating.
      * See the CONFIGURATION FILES section of the emerge
      * man page to learn how to update config files.
-    root@kuiper ~ # 
+    root@kuiper ~ #
 
 ** SYSTEMS: Linux Ubuntu
 
@@ -11793,10 +11677,10 @@ sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
 
     Try RCEnvironment from rubicode
     http://www.rubicode.com/Software/RCEnvironment/
-    Which can set environment variables when you login to your Mac GUI 
+    Which can set environment variables when you login to your Mac GUI
     environment.
-    Basically the RCEnvironment System Preference panel is creating 
-    and maintaining a  ~/.MacOSX/environment.plist file which gets 
+    Basically the RCEnvironment System Preference panel is creating
+    and maintaining a  ~/.MacOSX/environment.plist file which gets
     processed during the Mac OS X account GUI startup.
 
     environment variables macosx Anyway, in newer OSX you need to use /etc/launchd.conf. See here:
@@ -11828,8 +11712,8 @@ mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=nt
  Remember to set the environment variable GRADLE_HOME to the path to
  the gradle distribution: /opt/local/share/java/gradle
 
-Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true 
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true 
+Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
 
 *** port
 
@@ -11848,18 +11732,18 @@ open /Applications/MacPorts/KDE4/kdeinit4.app
 ######################################################
 
 ##########################################################
-# Don't forget that dbus needs to be started as the local 
+# Don't forget that dbus needs to be started as the local
 # user (not with sudo) before any KDE programs will launch
-# To start it run the following command:                  
+# To start it run the following command:
 # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 ##########################################################
- 
+
 ######################################################
-#  Programs will not start until you run the command 
-#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
-#  replacing $USER with your username, followed by  
-#  'open /Applications/MacPorts/KDE4/kdeinit4.app'      
-#  in a Terminal.                                    
+#  Programs will not start until you run the command
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'
+#  replacing $USER with your username, followed by
+#  'open /Applications/MacPorts/KDE4/kdeinit4.app'
+#  in a Terminal.
 ######################################################
 
 ###########################################################
@@ -11881,16 +11765,16 @@ open /Applications/MacPorts/KDE4/kdeinit4.app
 ###########################################################
 
 ##########################################################
-# Don't forget that dbus needs to be started as the local 
+# Don't forget that dbus needs to be started as the local
 # user (not with sudo) before any KDE programs will launch
-# To start it run the following command:                  
+# To start it run the following command:
 # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 ##########################################################
- 
+
 ######################################################
-#  Programs will not start until you run the command 
-#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
-#  replacing $USER with your username.              
+#  Programs will not start until you run the command
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'
+#  replacing $USER with your username.
 ######################################################
 
 ###########################################################
@@ -11942,16 +11826,16 @@ To create a database instance, after install do
 To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
 
 ##########################################################
-# Don't forget that dbus needs to be started as the local 
+# Don't forget that dbus needs to be started as the local
 # user (not with sudo) before any KDE programs will launch
-# To start it run the following command:                  
+# To start it run the following command:
 # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 ##########################################################
- 
+
 ######################################################
-#  Programs will not start until you run the command 
-#  'sudo chown -R $USER ~/Library/Preferences/KDE'  
-#  replacing $USER with your username.              
+#  Programs will not start until you run the command
+#  'sudo chown -R $USER ~/Library/Preferences/KDE'
+#  replacing $USER with your username.
 ######################################################
 
 
@@ -12088,7 +11972,7 @@ http://modula2.net/resources/Modula-2.xclangspec
 
         http://www.blackholeinc.com/
         http://www.channelu.com/Turbo/
- 
+
     ------------------------------------------------------------------------
     BOCHS 2.1 runs NeXTSTEP 3.3 / i486
 
@@ -12446,6 +12330,8 @@ Comments:
   "COPYRIGHT="
 
 * DATA, DONNEES, DATOS
+** Criminalité
+http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
 ** Paleodiet
 
     http://homodiet.netfirms.com/index.html
@@ -12725,17 +12611,17 @@ info@kingbarcelona.com
 
 ** ALPHABET INTERNATIONAL
 
-    ALPHA       NOVEMBER    0 NADAZERO   
-    BRAVO       OSCAR       1 UNAONE     
-    CHARLIE     PAPA        2 BISSOTWO   
-    DELTA       QUEBEC      3 TERRATHREE 
-    ECHO        ROMEO       4 KARTEFOUR  
-    FOX TROTT   SIERRA      5 PANTAFIVE  
-    GOLF        TANGO       6 SOXISIX    
-    HOTEL       UNIFORM     7 SETTESEVEN 
-    INDIA       VICTOR      8 OKTOEIGHT  
-    JULIETT     WISKY       9 NOVENINE   
-    KILO        X RAY       
+    ALPHA       NOVEMBER    0 NADAZERO
+    BRAVO       OSCAR       1 UNAONE
+    CHARLIE     PAPA        2 BISSOTWO
+    DELTA       QUEBEC      3 TERRATHREE
+    ECHO        ROMEO       4 KARTEFOUR
+    FOX TROTT   SIERRA      5 PANTAFIVE
+    GOLF        TANGO       6 SOXISIX
+    HOTEL       UNIFORM     7 SETTESEVEN
+    INDIA       VICTOR      8 OKTOEIGHT
+    JULIETT     WISKY       9 NOVENINE
+    KILO        X RAY
     LIMA        YANKEE      Les noms de personnes ne doivent
     MIKE        ZOULOU      jamais être énoncés en clair.
 
@@ -12913,21 +12799,21 @@ Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
 Van Allen                          = 5e-1 Sievert/hour
 Fukushima inside plant             = 8e0  Sievert/hour
 
-33 hours on Moon surface = 3e-3 Sievert = 
+33 hours on Moon surface = 3e-3 Sievert =
 16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
 
 
 
 Van Allen:
 
-  outer belt:  
+  outer belt:
       3 to 10 earth-radius-mean
       electrons 0.1 to 10 MeV
-      ions    
+      ions
 
   inner belt:
       0.01 to 1.5 earth-radius-mean
-      protons    100 MeV    
+      protons    100 MeV
       electrons  0.1 MeV
 
       flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s

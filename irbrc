@@ -1,8 +1,8 @@
 # -*- mode:ruby -*-
 
-require 'irb/ext/save-history'
-IRB.conf[:SAVE_HISTORY] = 100
-IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
+# require 'irb/ext/save-history'
+# IRB.conf[:SAVE_HISTORY] = 100
+# IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 
 
 def ri(*args) 
@@ -20,22 +20,23 @@ def netstat(*args)
 end
 
 
-class Class
-  def _superclasses 
-    if superclass then
-      superclass._superclasses<<self;
-    else
-      [self];
-    end
-  end
-  def superclasses ; _superclasses.reverse ; end
-end
+# class Class
+#   def _superclasses 
+#     if superclass 
+#       superclass._superclasses<<self
+#     else
+#       [self];
+#     end
+#   end
+#   def superclasses ; _superclasses.reverse ; end
+# end
 
     
 
-class Array;def unshiftArray(a);a.reverse.each{|e|self.unshift(e);};self;end;end
-$:.unshiftArray(Dir.glob("/usr/lib/ruby/gems/1.8/gems/*/{cli,lib}"));
-require 'ruby-debug'
+# class Array;def unshiftArray(a);a.reverse.each{|e|self.unshift(e);};self;end;end
+# $:.unshiftArray(Dir.glob("/usr/lib/ruby/gems/1.8/gems/*/{cli,lib}"));
+
+# require 'ruby-debug'
 
 
 

@@ -38,8 +38,8 @@
 ;;;----------------------------------------------------------------------------
 ;; Get the Groovy support for Emacs from http://svn.codehaus.org/groovy/trunk/groovy/ide/emacs
 ;; Symlink the downloaded Groovy support into your .emacs.d folder as "groovy"
- 
- 
+
+
 ;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
 (autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
 ;; For some reason, these recommendations don't seem to work with Aquamacs
@@ -92,11 +92,11 @@
                                            "/adt/sdk/platforms/android-17/android.jar"))))
   (add-hook 'gud-mode-hook 'gud-meat)
 
-  (require 'cedet)
-  (let ((path (expand-file-name "~/emacs/jdee/lisp")))
-    (when (file-exists-p path)
-      (pushnew path load-path)
-      (require 'jde nil t)))
+  ;; (require 'cedet)
+  ;; (let ((path (expand-file-name "~/emacs/jdee/lisp")))
+  ;;   (when (file-exists-p path)
+  ;;     (pushnew path load-path)
+  ;;     (require 'jde nil t)))
 
 
   ;; eclipse has a hard time dealing with backup files.
@@ -108,7 +108,7 @@
 
   (setf android-filter-function nil)
   (setf android-filter-function (android-filter-match-tag     "Listeria"))
-  
+
   (setf android-filter-function (android-filter-or
                                  (android-filter-match-tag     "ubudu\\|bwin\\|AndroidRuntime")
                                  (android-filter-match-message "ubudu\\|bwin\\|AndroidRuntime")))

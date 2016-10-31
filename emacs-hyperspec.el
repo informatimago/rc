@@ -6,7 +6,8 @@
 (require 'cl)
 (require 'browse-url)			;you need the Emacs 20 version
 (require 'thingatpt)
-(require 'clhs)
+(require 'clhs      nil t)
+(require 'hyperspec nil t)
 
 (defun probe-url (url)
   (cond

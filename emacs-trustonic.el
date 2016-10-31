@@ -5,6 +5,7 @@
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
 
+(translate-powerbook-keyboard)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -17,18 +18,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(compilation-error ((t (:inherit error :foreground "red"))))
- '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
+ '(enh-ruby-string-delimiter-face ((t (:foreground "darkgreen"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "dark violet"))))
  '(font-lock-comment-face ((t (:foreground "dark violet"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#cc5500"))))
- '(font-lock-string-face ((t (:foreground "red1"))))
+ '(font-lock-string-face ((t (:foreground "yellow4"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
- '(region ((t (:background "#B0E0F0"))))
+ '(region ((t (:background "#6080b0"))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
@@ -38,7 +39,7 @@
  '(smerge-refined-change ((t (:background "#997722"))) t))
 
 
- 
+
 
 
 (.EMACS "custom variables")
@@ -61,6 +62,8 @@
  '(c-label-minimum-indentation (quote set-from-style))
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
+ '(confluence-save-credentials t)
+ '(display-time-24hr-format t)
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-autojoin-delay 10)
@@ -119,11 +122,12 @@
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
  '(safe-local-variable-values (quote ((Syntax . Common-Lisp) (Syntax . ANSI-Common-Lisp) (Base . 10) (eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
+ '(show-trailing-whitespace t)
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 25)
  '(starttls-use-gnutls nil)
  '(user-mail-address "pascal.bourguignon@trustonic.com")
- '(visible-bell t)
+ '(visible-bell nil)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
 (put 'erase-buffer 'disabled nil)
@@ -131,7 +135,6 @@
 
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-package.el")
 (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-palette.el")
 (load "~/rc/emacs-slime-simple.el")
@@ -144,11 +147,10 @@
 (display-time-mode 1)
 (defun dummy-bell () (message "bell"))
 (setf ring-bell-function 'dummy-bell)
-(setf visible-bell nil)
 
 (setq backup-by-copying       t                      ; don't clobber symlinks
       backup-directory-alist '(("." . "~/.backups")) ; don't litter my fs tree
-      delete-old-versions     t   
+      delete-old-versions     t
       kept-new-versions       5
       kept-old-versions       3
       version-control         t)
@@ -169,6 +171,9 @@
                              ("\\.md$" . text-mode)
                              ("\\.d$"  . makefile-mode)))
   (add-to-list 'auto-mode-alist '(".*/Apps/iOS/.*\\.\\(h\\|m\\|hh\\|mm\\)$" . objc-mode)))
+(deletef auto-mode-alist "\\.rb$")
+(appendf auto-mode-alist '(("\\.rb$" . ruby-mode)))
+
 
 (require 'vc-svn)
 
@@ -180,13 +185,13 @@
 
 
 (push "~/emacs/org-jira" load-path)
-(require 'org-jira)
+(require 'org-jira nil)
 (setf jiralib-url "http://jira.trustonic.internal")
 
 ;; (require 'confluence)
 ;; (setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
 
-;; (when (require 'semantic nil t) 
+;; (when (require 'semantic nil t)
 ;;   (semantic-mode 1))
 
 (require 'pjb-c-style)
@@ -195,7 +200,7 @@
 
 
 (let ((tags-add-tables t))
-  (setf tags-table-list '()) 
+  (setf tags-table-list '())
   (ignore-errors (visit-tags-table "~/src/Cocoa.etags"))
   ;; ;(ignore-errors (visit-tags-table "~/src/Ruby.etags"))
   ;; (ignore-errors (visit-tags-table "~/src/tbase.etags"))
@@ -210,10 +215,10 @@
   (interactive)
   (when (fboundp 'auto-complete-mode)
     (auto-complete-mode 1))
-  (setf tab-stop 2
-        tab-width 2
-        c-indent-level 2
-        c-basic-offset 2
+  (setf tab-stop 4
+        tab-width 4
+        c-indent-level 4
+        c-basic-offset 4
         c-tab-always-indent t))
 
 (add-hook 'java-mode-hook 'java-meat)
@@ -236,10 +241,9 @@
    (add-to-list 'gud-jdb-classpath (expand-file-name (concat *android-tools-directory* "sdk/platforms/android-23/android.jar"))))
  (add-hook 'gud-mode-hook 'gud-meat))
 
-(require 'cedet)
-
-(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
-(require 'jde)
+;; (require 'cedet)
+;; (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+;; (require 'jde)
 
 
 ;;----------------------------------------------------------------------------
@@ -364,7 +368,7 @@
          "SRC=$(pwd) ; while [ ! -z \"${SRC}\" -a ! -d \"${SRC}/DXOOpticsPro.xcodeproj\" ] ; do SRC=\"$(dirname \"${SRC}\")\" ; done"
          ";"
          "/Applications/Xcode.app/Contents/Developer/usr/bin/llvm-gcc-4.2"
-         
+
          "-O0"
          "-Wall"
          "-Werror-implicit-function-declaration"
@@ -383,17 +387,17 @@
          "-Wunused-label"
          "-Wunused-value"
          "-Wunused-variable"
-         
+
          "-arch x86_64"
-         
+
          "-fasm-blocks"
          "-fmessage-length=0"
          "-fpascal-strings"
          "-fvisibility=hidden"
-         
+
          "-gdwarf-2"
          "-mmacosx-version-min=10.6"
-         
+
          "-pipe"
          "-std=c99"
          "-x objective-c"
@@ -404,28 +408,28 @@
          "-DDXO_FOUNDATION_DYNAMIC"
          "-DDXO_FWK_LOG_CATEGORY=DXFAppKitUI"
          "-D_DEBUG"
-         
+
          "-F/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
 
          "$(find ${SRC} \\( -name \\*.app -o -name \\*.octest -o -name \\*.ibplugin \\) -prune -o \\( -name \\*.framework -print \\) |xargs -n 1 dirname |sort -u|sed -e 's/^/-F/')"
 
          "-F${HOME}/src/OpticsPro-Mac-trunk/AppKit/bin/debug"
-         
+
          "-F${SRC}/AppKit/bin/debug"
          "-F${SRC}/AppKit/externals/Common/bin/debug"
          "-F${SRC}/bin/debug"
          "-F${SRC}/externals/OCHamcrest"
          "-F${SRC}/externals/OCMock"
-         
+
          "-framework Cocoa"
          "-framework OCHamcrest"
          "-framework OCMock"
          "-framework SenTestingKit"
          "-framework DXFAppKitUI"
          "-framework DXFAppKitUI"
-         
-         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')" 
-         
+
+         "$(find ${SRC} -name 'src' -o -name 'Classes' -o -name 'Tests' -o -name 'Interfaces' | sed -e 's/^/-I/')"
+
          "-I${SRC}/AppKit/bin/debug/include"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-all-target-headers.hmap"
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-own-target-headers.hmap"
@@ -433,7 +437,7 @@
          "-I${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DerivedSources/x86_64"
          "-I${SRC}/AppKit/externals/Common/include/DxOFramework"
          "-I${SRC}/AppKit/externals/Common/include/Foundation"
-         
+
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-generated-files.hmap"
          "-iquote ${SRC}/AppKit/build/AppKit.build/debug/DXFAppKitUI.build/DXFAppKitUI-project-headers.hmap"
          "-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
@@ -514,7 +518,7 @@
 
 (add-hook 'lua-mode-hook 'lua-mode-meat)
 
-;; (find-library "outline-mode-easy-bindings") 
+;; (find-library "outline-mode-easy-bindings")
 
 
 (defvar *c-comment-regexp*)
@@ -579,7 +583,103 @@
           (indent-region (point) end)
           (forward-sexp))))))
 
-(translate-powerbook-keyboard)
-(load "~/rc/emacs-epilog.el")
-;;;; THE END ;;;;
+(global-flycheck-mode)
 
+
+
+;;;
+;;; Trustonic TODO comments:
+;;;
+;;; Binding suggestion: (kbd "A-;") (kbd "H-;")  or (kbd "C-c t ;")
+;;; (no predefined emacs key binding use Alt- or Hyper- (and no known usual emacs package does),
+;;; and C-c <letter> is the standard prefix for user defined bindings, t = trustonic, ; = comment)
+;;;
+;;; (global-set-key (kbd "C-c t ;") 'trustonic-insert-todo-comment)
+;;; (global-set-key (kbd "H-;")     'trustonic-insert-todo-comment)
+;;; (setf *trustonic-user-name* "PreNom01")
+
+(defvar *trustonic-user-name* nil
+  "Set it to your Trustonic user name if it is different from the variable `user-login-name'.")
+
+(defun trustonic-insert-todo-comment (start end)
+  "Insert a Trustonic TODO comment.
+If the region is set, then use it as comment text.
+START is the start of the region.
+END is the end of the region."
+  (interactive "*r")
+  (let* ((user (or *trustonic-user-name* user-login-name))
+         (date (calendar-current-date))
+         (head (format "TODO-[%04d-%02d-%02d]-[%s] "
+                       (third date) (first date) (second date)
+                       user))
+         (endm   (make-marker)))
+    (unwind-protect
+         (progn
+           (if (and mark-active start end)
+               (progn
+                 (goto-char start)
+                 (set-marker endm end)
+                 (insert head))
+               (progn
+                 (setf start (point))
+                 (insert head)
+                 (set-marker endm (point))))
+           (set-mark start)
+           (goto-char endm)
+           (comment-region start endm)
+           (goto-char endm))
+      (set-marker endm nil))))
+
+
+(global-set-key (kbd "C-c t ;") 'trustonic-insert-todo-comment)
+(global-set-key (kbd "H-;")     'trustonic-insert-todo-comment)
+(setf *trustonic-user-name* "pasbou01")
+
+
+;;;
+;;; Trailing Whitespaces
+;;;
+;;; Let's use a find-file-hook to check and alert for trailing whitespaces upon opening a file,
+;;; and a before-save-hook to delete the trailing whitespaces upons saving.
+;;;
+;;; When the alert is given, the file should be touched and saved, the
+;;; whitespace removal should be commited, and only then the file can
+;;; be edited for the current task.
+
+(defun trustonic-check-trailing-whitespace-meat ()
+  "Check for trailing whitespaces in source files."
+  (interactive)
+  (when (vc-backend (buffer-file-name)) ; We don't care about files that are not in SVN.
+    (save-excursion
+     (goto-char (point-min))
+     (when (re-search-forward " $"nil t)
+       (message-box "*** WARNING: There are Trailing White Spaces in %s ***"
+                    (buffer-name))))))
+
+(defun pjb-alert-trailing-whitespace ()
+  (set-background-color "#600c0c")
+  (read-char "ALERT! Trailing whitespaces!     (Type the Any key)")
+  (set-palette *current-palette*))
+
+(defun pjb-check-trailing-whitespace-meat ()
+  (interactive)
+  (save-excursion
+   (goto-char (point-min))
+   (when (re-search-forward " $"nil t)
+     (pjb-alert-trailing-whitespace))))
+
+(add-hook 'find-file-hook   'pjb-check-trailing-whitespace-meat)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+
+
+
+
+(require 'confluence)
+(setf confluence-url "http://wiki.trustonic.internal/confluence2/rpc/xmlrpc")
+
+
+(load "~/rc/emacs-epilog.el")
+(provide 'emacs-trustonic)
+;;;; THE END ;;;;
