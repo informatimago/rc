@@ -3,13 +3,18 @@
 # .xsession ; actually sourced by /etc/X11/Xsession.d/40x11-common_xsessionrc
 #
 
-echo PJB .xsession > /tmp/pjb.log
+touch ~/.xsession-errors
+mv    ~/.xsession-errors ~/.xsession-errors-current
+touch ~/.xsession-errors
 
 xset s on
 xset s 400
 xset -dpms
 
-xsetroot -solid '#204050'
+#xsetroot -solid '#d0e0f0'
+#xsetroot -solid '#80a0c0'
+xsetroot -solid '#4080a0'
+#xsetroot -solid '#204050'
 
 #
 # If ssh is configured and ssh-agent is wanted set "yes"
@@ -114,7 +119,7 @@ if [ -n "$DISPLAY" ] ; then
         xrdb -merge ~/.Xresources
         xmodmap ~/.xmodmap
         # xset s 300
-        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 ))
     fi
 fi
 
@@ -131,24 +136,24 @@ if test -f $HOME/.xinitrc ; then
 else
     test -n "$WINDOWMANAGER" && WINDOWMANAGER=`type -p $WINDOWMANAGER`
     if [ "$(uname)" = "Darwin" ] ; then
-        wms=(  
+        wms=(
             /opt/X11/bin/quartz-wm
             /usr/X11/bin/quartz-wm
             /usr/X11/bin/twm
-            $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true ) 
+            $( if [ -x /usr/X11R6/bin/wmlist ] ; then /usr/X11R6/bin/wmlist ; fi )
         )
     else
-        wms=(  
+        wms=(
             /usr/bin/stumpwm
-            /usr/bin/ratpoison 
-            /opt/local/bin/ratpoison 
+            /usr/bin/ratpoison
+            /opt/local/bin/ratpoison
             /opt/X11/bin/quartz-wm
             /usr/X11/bin/quartz-wm
-            /usr/bin/sawfish 
-            /usr/X11R6/bin/kde 
-            /usr/X11R6/bin/startkde 
-            /usr/X11R6/bin/fvwm2 
-            $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true ) 
+            /usr/bin/sawfish
+            /usr/X11R6/bin/kde
+            /usr/X11R6/bin/startkde
+            /usr/X11R6/bin/fvwm2
+            $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true )
         )
     fi
     for wm in "${wms[@]}" ; do
