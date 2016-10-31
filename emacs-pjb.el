@@ -486,15 +486,16 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 (add-to-list 'auto-mode-alist '("/Users/pjb/works/abalone/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
 (add-to-list 'auto-mode-alist '("/Users/pjb/src/ios/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
-
 (add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
+
+(add-to-list 'auto-mode-alist '("/Users/pjb/.*/coursera-robotics/.*\\.m$" . matlab-mode))
 
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
 
 (ignore-errors (set-sources "/home/pjb/works/patchwork/src/patchwork/"))
-
+(require 'flycheck)
 (global-flycheck-mode)
 ;;;----------------------------------------------------------------------------
 
@@ -575,6 +576,35 @@ X-Accept-Language:         fr, es, en
                     (find-file file))))
 
 (setf *pjb-intervention-firm* '((trustonic thp)))
+
+
+(defun pjb-find-file-meat ()
+  "Meat for find-file-hook: warn about trailing whitespace."
+  (goto-char (point-min))
+  (when (re-search-forward "\\s-$" nil t)
+    (case (ignore-errors
+           (if (fboundp 'x-popup-dialog)
+               (x-popup-dialog t '("There are trailing whitespaces."
+                                   ("Remove them, save file and vc-next-action" . 1)
+                                   ("Remove them, and go on editing" . 2)
+                                   ("Go on editing" . 3)))
+               (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
+      ((1)
+       (let ((delete-trailing-lines t))
+         (delete-trailing-whitespace))
+       (save-buffer)
+       (vc-next-action))
+      ((2) (let ((delete-trailing-lines t))
+             (delete-trailing-whitespace)))
+      ((3)))))
+
+(defun pjb-before-save-meat ()
+  "Meat for before-save-hook: delete trailing whitespace."
+  (let ((delete-trailing-lines t))
+    (delete-trailing-whitespace)))
+
+(add-hook 'find-file-hook 'pjb-find-file-meat)
+(add-hook 'before-save-hook 'pjb-before-save-meat)
 
 
 ;; (setf org-finish-function 'org-store-log-note)

@@ -35,6 +35,7 @@
 
 (defun pjb-install-packages ()
   ;;
+  (package-install 'company)
   (package-install 'auto-complete)
   (package-install 'column-marker)
   ;;
@@ -49,4 +50,3 @@
   (package-install 'flycheck))
 
 ;;;; The End ;;;;
-
