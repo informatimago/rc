@@ -582,7 +582,7 @@ X-Accept-Language:         fr, es, en
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
   (goto-char (point-min))
-  (when (re-search-forward "\\s-$" nil t)
+  (when (re-search-forward "[ \t\v]$" nil t)
     (case (ignore-errors
            (if (fboundp 'x-popup-dialog)
                (x-popup-dialog t '("There are trailing whitespaces."
