@@ -594,7 +594,7 @@ X-Accept-Language:         fr, es, en
        (let ((delete-trailing-lines t))
          (delete-trailing-whitespace))
        (save-buffer)
-       (vc-next-action))
+       (vc-next-action t))
       ((2) (let ((delete-trailing-lines t))
              (delete-trailing-whitespace)))
       ((3)))))
