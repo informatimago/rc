@@ -80,7 +80,7 @@ Host bolet.no-ip.com
 Host *
     Protocol                2,1
     Port                    22
-    Cipher                  blowfish
+    Cipher                  blowfish-cbc
     EscapeChar              ~
     ForwardAgent            yes
     ForwardX11              yes
@@ -149,7 +149,7 @@ Host *
 #         ``yes''.
 #
 #     Cipher  Specifies the cipher to use for encrypting the session in proto-
-#         col version 1.  Currently, ``blowfish'', ``3des'', and ``des''
+#         col version 1.  Currently, ``blowfish-cbc'', ``3des'', and ``des''
 #         are supported.  des is only supported in the ssh client for
 #         interoperability with legacy protocol 1 implementations that do
 #         not support the 3des cipher.  Its use is strongly discouraged due
