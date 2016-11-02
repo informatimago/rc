@@ -36,9 +36,10 @@
 (defun pjb-install-packages ()
   (interactive)
   ;;
+  (package-install 'company)
   (package-install 'paredit)
   (package-install 'auto-complete)
-  ;; (package-install 'column-marker)
+  (package-install 'column-marker)
   ;;
   (package-install 'inf-ruby)
   (package-install 'enh-ruby-mode)
