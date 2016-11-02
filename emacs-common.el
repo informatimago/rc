@@ -1460,7 +1460,9 @@ URL in a new window."
 ;;;----------------------------------------------------------------------------
 (when (require 'column-marker nil t)
   (.EMACS "columnmarker")
-  (column-marker-1 80))
+  (column-marker-1  80)
+  (column-marker-2 120)
+  (column-marker-3 132))
 
 ;;;----------------------------------------------------------------------------
 (when (file-exists-p "/usr/local/share/emacs/bigloo/")
