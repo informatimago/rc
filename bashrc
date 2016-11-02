@@ -590,7 +590,7 @@ case "$uname" in
         alias df='df -ah'
         ;;
 esac
-alias du='du -h'
+alias duh='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
