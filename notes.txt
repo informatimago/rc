@@ -1,6 +1,10 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+telnet milek7.pl             # pong, brick, tetris
+telnet yay.tim.org 5440      # adventure, kind of.
+
+
 https://en.wikipedia.org/wiki/User:Lycurgus/MoCA
 * Snowden
 
