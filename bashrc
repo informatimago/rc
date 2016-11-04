@@ -450,7 +450,8 @@ function be_generate(){
 
     be_variable DTK_PROGRAM         espeak
 
-
+    be_variable cookiefiles         "${HOME}/all.cookies"
+    
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
     # be_variable ORACLE_SID        orcl
@@ -590,7 +591,7 @@ case "$uname" in
         alias df='df -ah'
         ;;
 esac
-alias du='du -h'
+alias duh='du -h'
 # alias sbcl='sbcl --noinform'
 # alias nslookup='nslookup -silent'
 # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
@@ -598,6 +599,9 @@ alias sdiff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .
 
 alias basilisk=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
 alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
+
+alias vboxmanage='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage'
+alias vbm='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage'
 
 # alias dw='darcs whatsnew -sl'
 # alias dr='darcs record -am'
@@ -1230,7 +1234,7 @@ else
 fi
 
 case "$host" in
-*macbook?trustonic.local|vmdevlinux)
+*macbook?trustonic.local|vmubuntu*|vmdebian*)
     source ~/rc/bashrc-trustonic
     ;;
 *)
@@ -1241,6 +1245,6 @@ esac
 # display function and alias duplicates:
 compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
-
+export "PATH=$HOME/src/trustonic/bin:$PATH"
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
