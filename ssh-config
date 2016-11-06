@@ -1,4 +1,4 @@
-# This is ssh client systemwide configuration file.  This file provides 
+# This is ssh client systemwide configuration file.  This file provides
 # defaults for users, and the values can be changed in per-user configuration
 # files or on the command line.
 #
@@ -15,7 +15,11 @@ Host gitlab.com
     ForwardAgent            no
     ForwardX11              no
 
-Host git.framasoft.org
+Host framagit.org
+    ForwardAgent            no
+    ForwardX11              no
+
+    Host git.framasoft.org
     ForwardAgent            no
     ForwardX11              no
 
@@ -71,7 +75,7 @@ Host anonix.net
     ForwardX11              no
     # No need for X11 forwarding since there's no X11 on anonix.
 
-    
+
 # ----------------------------------------
 # Andre Reinald:
 
