@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             CLISP
 ;;;;USER-INTERFACE:     None
 ;;;;DESCRIPTION
-;;;;  
+;;;;
 ;;;;    The CLISP init file.
-;;;;  
+;;;;
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal Bourguignon
 ;;;;MODIFICATIONS
@@ -15,20 +15,20 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL
-;;;;  
+;;;;
 ;;;;    Copyright Pascal Bourguignon 2003 - 2003
 ;;;;    mailto:pjb@informatimago.com
-;;;;  
+;;;;
 ;;;;    This program is free software; you can redistribute it and/or
 ;;;;    modify it under the terms of the GNU General Public License
 ;;;;    as published by the Free Software Foundation; either version
 ;;;;    2 of the License, or (at your option) any later version.
-;;;;  
+;;;;
 ;;;;    This program is distributed in the hope that it will be
 ;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
 ;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 ;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;  
+;;;;
 ;;;;    You should have received a copy of the GNU General Public
 ;;;;    License along with this program; if not, write to the Free
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
@@ -123,7 +123,7 @@
  custom:*parse-namestring-dot-file*       :name
  custom:*print-pathnames-ansi*             t
  custom:*sequence-count-ansi*              t
-    
+
  custom:*default-float-format*            'single-float
  custom:*warn-on-floating-point-contagion* nil
  custom:*suppress-check-redefinition*      nil
@@ -170,7 +170,7 @@
  custom:*inspect-print-length*  100000
  custom:*inspect-print-level*   5
  custom:*inspect-print-lines*   5
- 
+
  ;; HTTP
  custom:*browser*           :emacs-w3m
  custom:*browsers*
@@ -197,7 +197,7 @@
  '("html" "PUBLIC"
    "\"-//W3C//DTD XHTML 1.0 Strict//EN\""
    "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
- 
+
  custom:*user-mail-address*    "pjb@informatimago.com"
  custom:*editor*               "emacsclient"
 
@@ -233,10 +233,10 @@
 
 ;; Breaks stdin/stdout...
 ;; #+(and unix macos)
-;; (setf ;; CUSTOM:*DEFAULT-FILE-ENCODING*  charset:utf-8 
+;; (setf ;; CUSTOM:*DEFAULT-FILE-ENCODING*  charset:utf-8
 ;;       #+FFI CUSTOM:*FOREIGN-ENCODING* #+FFI charset:iso-8859-15
 ;;       CUSTOM:*MISC-ENCODING*          charset:utf-8 ; best same as terminal
-;;       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8 
+;;       CUSTOM:*TERMINAL-ENCODING*      charset:utf-8
 ;;       CUSTOM:*PATHNAME-ENCODING*      charset:utf-8)
 
 #+#.(cicv:rt-version<= "2.38" (cicv:clisp-version))
@@ -255,7 +255,7 @@
  custom:*eql-hashfunction*                          'ext:fasthash-eql
  custom:*equal-hashfunction*                        'ext:fasthash-equal
  custom:*fill-indent-sexp*                          (function 1+)
-    
+
  custom:*init-hooks*                                nil
  custom:*fini-hooks*                                nil
  custom:*warn-on-hashtable-needing-rehash-after-gc* nil
@@ -263,12 +263,12 @@
  ;; HTTP
  custom:*http-proxy*                               nil
  custom:*impnotes-root-default* "http://clisp.cons.org/impnotes/"
-    
-    
+
+
  custom:*print-symbol-package-prefix-shortest*      nil
  custom:*report-error-print-backtrace*              nil
  custom:*user-commands*                             nil
-    
+
  ;; CUSTOM:*STRICT-MOP*                             T
  ;; CUSTOM:*FORWARD-REFERENCED-CLASS-MISDESIGN*     NIL
  )
@@ -378,7 +378,7 @@
 ;; Setting environment -- CLISP specific --
 ;; ----------------------------------------
 
-;; (setf *editor* 
+;; (setf *editor*
 ;;       (lambda (arg &key (wait t))
 ;;         (if (or (functionp arg) (symbolp arg))
 ;;             (ed arg)
@@ -418,7 +418,7 @@
 (export 'quit)
 
 (push 'ext:cd com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
-(cd (ext:cd))   
+(cd (ext:cd))
 
 
 (defun sh (command)
@@ -450,7 +450,7 @@
 ;;       CUSTOM:*TERMINAL-ENCODING*     charset:iso-8859-1)
 
 ;; ;;; You could put this in ~/.clisprc.lisp
-;; 
+;;
 ;; ;; http://clisp.cons.org/impnotes/encoding.html#make-encoding
 ;; (let ((dumb-encoding
 ;;        (ext:make-encoding :charset charset:utf-8
@@ -458,13 +458,13 @@
 ;;                           :input-error-action :ignore
 ;;                           :output-error-action #\uFFFD)))
 ;;   (setf
-;;    CUSTOM:*DEFAULT-FILE-ENCODING*   dumb-encoding 
-;;    #+FFI 'CUSTOM:*FOREIGN-ENCODING* #+FFI dumb-encoding 
-;;    CUSTOM:*MISC-ENCODING*           dumb-encoding 
-;;    CUSTOM:*PATHNAME-ENCODING*       dumb-encoding 
-;;    CUSTOM:*TERMINAL-ENCODING*       dumb-encoding 
+;;    CUSTOM:*DEFAULT-FILE-ENCODING*   dumb-encoding
+;;    #+FFI 'CUSTOM:*FOREIGN-ENCODING* #+FFI dumb-encoding
+;;    CUSTOM:*MISC-ENCODING*           dumb-encoding
+;;    CUSTOM:*PATHNAME-ENCODING*       dumb-encoding
+;;    CUSTOM:*TERMINAL-ENCODING*       dumb-encoding
 ;;    SYSTEM::*HTTP-ENCODING*          dumb-encoding))
-;; 
+;;
 ;; ;;; But I wouldn't advise you to do so...
 
 
@@ -504,15 +504,15 @@
             :until (eq sexp input)
             :do (eval sexp))))))
 (export 'eval-string-in-unlocked-package)
-      
+
 ;; for a *debugger-hook*:
 ;; SYSTEM::*READ-LINE-NUMBER*
 
 (defun ps ()
-  (with-open-stream (in (ext:run-program "ps" :arguments '("axf") 
-                                         :output :stream)) 
+  (with-open-stream (in (ext:run-program "ps" :arguments '("axf")
+                                         :output :stream))
     (loop
-       :for line = (read-line in nil nil) 
+       :for line = (read-line in nil nil)
        :while line :do (princ line ) (terpri))))
 (export 'ps)
 
@@ -706,7 +706,7 @@ RETURN: A list of string, the parsed arguments.
                (setf line (read-line stream)
                      i 0)))))
 
-;; a b c def "def" 'def' \'def "de'f\"g'hi\ " "   a b c   " 'de"f\'g"hi\ ' '   a b c   ' 
+;; a b c def "def" 'def' \'def "de'f\"g'hi\ " "   a b c   " 'de"f\'g"hi\ ' '   a b c   '
 
 (define-user-commands (date) "interactive commands"
   "prints the date."
@@ -768,7 +768,7 @@ RETURN: A list of string, the parsed arguments.
         CUSTOM:*BROWSER* :emacs-w3m-socket))
 (export 'set-emacs-server-pid)
 ;; (set-emacs-server-pid 392)
- 
+
 
 (pushnew :testing-script *features*)
 (in-package "COMMON-LISP-USER")
