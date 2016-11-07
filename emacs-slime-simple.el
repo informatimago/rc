@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             POSIX
 ;;;;USER-INTERFACE:     NONE
 ;;;;DESCRIPTION
-;;;;  
+;;;;
 ;;;;    Load slime and other CL stuff.
-;;;;  
+;;;;
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
 ;;;;MODIFICATIONS
@@ -15,19 +15,19 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL3
-;;;;  
+;;;;
 ;;;;    Copyright Pascal J. Bourguignon 2013 - 2013
-;;;;  
+;;;;
 ;;;;    This program is free software: you can redistribute it and/or modify
 ;;;;    it under the terms of the GNU General Public License as published by
 ;;;;    the Free Software Foundation, either version 3 of the License, or
 ;;;;    (at your option) any later version.
-;;;;  
+;;;;
 ;;;;    This program is distributed in the hope that it will be useful,
 ;;;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;;;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;;;;    GNU General Public License for more details.
-;;;;  
+;;;;
 ;;;;    You should have received a copy of the GNU General Public License
 ;;;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;;;**************************************************************************
@@ -38,20 +38,20 @@
 ;; This is about the easiest profiling I've seen in any language. In
 ;; fact, I think it's the only time I been able to make significant
 ;; improvements based on the report.
-;; 
-;;   
+;;
+;;
 ;;     M-x slime-toggle-profile-fdefinition
-;; 
+;;
 ;; on all the functions you want to
-;; profile, 
-;;   
+;; profile,
+;;
 ;;     M-x slime-profile-reset
-;; 
+;;
 ;; to clear any existing data, and
-;; 
-;;   
+;;
+;;
 ;;     M-x slime-profile-report
-;; 
+;;
 ;; to see the report after running.
 
 
@@ -80,7 +80,7 @@
   (defun slime-repl-bol ()
     (interactive)
     (if (eql 'home last-input-event)
-        (beginning-of-buffer) 
+        (beginning-of-buffer)
         (funcall *slime-repl-bol*))))
 
 
@@ -223,7 +223,7 @@
        ;; Return a single form to avoid problems with buffered input.
        (format "%S\n\n"
                `(progn
-                  (load ,(windoize-pathname (expand-file-name loader)) 
+                  (load ,(windoize-pathname (expand-file-name loader))
                         :verbose t)
                   (funcall (read-from-string "swank-loader:init"))
                   (funcall (read-from-string "swank:start-server")
@@ -291,8 +291,8 @@
 
    (define-lisp-implementation sbcl
        (mapcar (lambda (cmd) (list cmd "--noinform"))
-               '("/data/languages/sbcl/bin/sbcl" 
-                 "/usr/local/bin/sbcl" 
+               '("/data/languages/sbcl/bin/sbcl"
+                 "/usr/local/bin/sbcl"
                  "/opt/local/bin/sbcl"
                  "/usr/bin/sbcl"))
      "^\[[0-9]*\]> "
@@ -369,7 +369,7 @@
            (message "Default Lisp implementations is %s" impl)
            (return impl)))
 
- 
+
    (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
    (defun %lisp-buffer-name-match-p (buffer-name &optional number)
      (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
@@ -763,7 +763,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key [M-down]      'down-list)
   (local-set-key [M-right]     'forward-sexp)
   (local-set-key [M-left]      'backward-sexp)
-  (values)) 
+  (values))
 
 
 
@@ -883,7 +883,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 ;;; In emacs, we can execute Common Lisp expressions:
 
-(setf slime-enable-evaluate-in-emacs t) 
+(setf slime-enable-evaluate-in-emacs t)
 
 (defun eval-in-cl (cl-expression-string process-result-values)
   (slime-eval-with-transcript
@@ -912,7 +912,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 
 ;; ;;; In Common Lisp, we can execute emacs lisp expressions:
-;; 
+;;
 ;; (defparameter *emacs-readtable* (copy-readtable))
 ;; (setf (readtable-case *emacs-readtable*) :preserve)
 ;; (set-syntax-from-char #\> #\) *emacs-readtable*)
@@ -921,28 +921,28 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;  (lambda (stream subchar dispchar)
 ;;    `(emacs-unreadable ,@(read-delimited-list #\> stream t)))
 ;;  *emacs-readtable*)
-;; 
+;;
 ;; ;; Probably more readtable patching would be in order.
 ;; ;;
 ;; ;; We could define CLOS proxies for emacs objects for a more seamless
 ;; ;; integration. swank::eval-in-emacs process the CL form to make it
 ;; ;; "emacs" (eg. downcase symbols, etc).  It could convert CLOS proxies
 ;; ;; to emacs lisp forms returning the corresponding emacs object.
-;; 
+;;
 ;; (defun eval-in-emacs (form &optional nowait)
 ;;   (let ((result (SWANK::EVAL-IN-EMACS `(format "%S" ,form) nowait))
 ;;         (*readtable* *emacs-readtable*))
 ;;     (with-input-from-string (in result)
 ;;       (let ((result (read in nil in)))
 ;;         result))))
-;; 
-;; 
+;;
+;;
 ;; (eval-in-emacs `(progn
 ;;                   (switch-to-buffer (buffer-named "*scratch*"))
 ;;                   (goto-char (point-max))
 ;;                   (insert ,(format nil "~%Hello~%"))
 ;;                   (list 42 (current-buffer))))
-;; 
+;;
 ;; ;; Switch to the *scratch* buffer,
 ;; ;; goto the last position, and
 ;; ;; inserts \nHello\n

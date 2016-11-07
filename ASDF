@@ -9,7 +9,7 @@
   (:USE "COMMON-LISP"))
 (CL:IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 
-(progn 
+(progn
   (defvar *directories*  '())
   (defun get-directory (key &optional (subpath ""))
     (unless *directories*
@@ -40,7 +40,7 @@
                     :directory `(:absolute ,@logical-dir :wild-inferiors)
                     logical-tail)
              (format nil "~A**/~A" physical-dir physical-tail))))
- 
+
    #+clisp
    (if file-type
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
@@ -97,7 +97,7 @@
       (handler-case (load (translate-logical-pathname file))
         (FILE-ERROR (err)
           (format *error-output* "Got error ~A~%" err))))
-  
+
     #+clisp
     (SYSTEM::SIMPLE-FILE-ERROR (err)
       (format *error-output* "Got error ~A ; trying again.~%" err)

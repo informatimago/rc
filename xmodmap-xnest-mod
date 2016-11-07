@@ -3,7 +3,7 @@
 ! Sixth line
 !------------------------------------------------------------
 
-keycode  37 = Multi_key     
+keycode  37 = Multi_key
 keycode 133 = Alt_L
 keycode  64 = Meta_L
 
@@ -27,7 +27,7 @@ clear Mod3
 clear Mod4
 clear Mod5
 
-!!! In order of bits: 
+!!! In order of bits:
 add    Shift   = Shift_L     Shift_R
 add    Lock    = Caps_Lock
 add    Control = Control_L   Control_R
@@ -35,4 +35,4 @@ add    Mod1    = Num_Lock
 add    Mod2    = Meta_L      Meta_R
 add    Mod3    = Alt_L       Alt_R       Mode_switch
 add    Mod4    = Super_L     Super_R
-add    Mod5    = Hyper_L     Hyper_R   
+add    Mod5    = Hyper_L     Hyper_R

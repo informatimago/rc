@@ -5,11 +5,11 @@ unset LC_COLLATE
 unset LC_CTYPE
 unset LC_TIME
 
-export LC_CTYPE=en_US.UTF-8 
+export LC_CTYPE=en_US.UTF-8
 
-export PAGER=cat 
-export TERM=emacs 
-alias less=cat 
-alias more=cat 
+export PAGER=cat
+export TERM=emacs
+alias less=cat
+alias more=cat
 stty rows 10000 columns 80  2>/dev/null
-echo '# welcome to emacs shell' 
+echo '# welcome to emacs shell'

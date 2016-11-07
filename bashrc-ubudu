@@ -51,9 +51,9 @@ function connect-g3(){
 }
 
 function adb-reconnect(){
-    adb disconnect 192.168.2.182:5555 
-    sleep 1 
-    adb tcpip 5555 
-    sleep 1 
+    adb disconnect 192.168.2.182:5555
+    sleep 1
+    adb tcpip 5555
+    sleep 1
     adb connect 192.168.2.182:5555
 }
