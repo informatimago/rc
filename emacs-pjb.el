@@ -581,28 +581,30 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
-  (goto-char (point-min))
-  (when (re-search-forward "[ \t\v]$" nil t)
-    (case (ignore-errors
-           (if (fboundp 'x-popup-dialog)
-               (x-popup-dialog t '("There are trailing whitespaces."
-                                   ("Remove them, save file and vc-next-action" . 1)
-                                   ("Remove them, and go on editing" . 2)
-                                   ("Go on editing" . 3)))
-               (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
-      ((1)
-       (let ((delete-trailing-lines t))
-         (delete-trailing-whitespace))
-       (save-buffer)
-       (vc-next-action t))
-      ((2) (let ((delete-trailing-lines t))
-             (delete-trailing-whitespace)))
-      ((3)))))
+  (when (vc-workfile-version (buffer-file-name))
+    (goto-char (point-min))
+    (when (re-search-forward "[ \t\v]$" nil t)
+      (case (ignore-errors
+             (if (fboundp 'x-popup-dialog)
+                 (x-popup-dialog t '("There are trailing whitespaces."
+                                     ("Remove them, save file and vc-next-action" . 1)
+                                     ("Remove them, and go on editing" . 2)
+                                     ("Go on editing" . 3)))
+                 (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
+        ((1)
+         (let ((delete-trailing-lines t))
+           (delete-trailing-whitespace))
+         (save-buffer)
+         (vc-next-action nil))
+        ((2) (let ((delete-trailing-lines t))
+               (delete-trailing-whitespace)))
+        ((3))))))
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (let ((delete-trailing-lines t))
-    (delete-trailing-whitespace)))
+  (when (vc-workfile-version (buffer-file-name))
+    (let ((delete-trailing-lines t))
+      (delete-trailing-whitespace))))
 
 (add-hook 'find-file-hook 'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
