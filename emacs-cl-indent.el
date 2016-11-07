@@ -88,7 +88,7 @@ a 'lisp-indent-function property set to NUM-FORMS.
 
 (defmacro* do-directories-up ((var dir-path &optional result) &body body)
   "
-DO:     Evaluates body with var bound to dir-path, then dir-path's parent, 
+DO:     Evaluates body with var bound to dir-path, then dir-path's parent,
         and so on up to the root directory.
 RETURN: The evaluation of the result form.
 "
@@ -108,7 +108,7 @@ RETURN: The evaluation of the result form.
 
 
 (defun load-lisp-indentations ()
-  "Processes a lisp.indentations file, 
+  "Processes a lisp.indentations file,
 in the current directory, or in a parent."
   (interactive)
   (do-directories-up (dir default-directory)
