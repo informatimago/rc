@@ -451,7 +451,7 @@ function be_generate(){
     be_variable DTK_PROGRAM         espeak
 
     be_variable cookiefiles         "${HOME}/all.cookies"
-  
+
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
     # be_variable ORACLE_SID        orcl

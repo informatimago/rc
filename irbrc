@@ -5,7 +5,7 @@
 # IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 
 
-def ri(*args) 
+def ri(*args)
   doc=IO.popen("ri "+args.join(" "),"w+");
   doc.each_line{|line| puts line;};
 end
@@ -21,8 +21,8 @@ end
 
 
 # class Class
-#   def _superclasses 
-#     if superclass 
+#   def _superclasses
+#     if superclass
 #       superclass._superclasses<<self
 #     else
 #       [self];
@@ -31,7 +31,7 @@ end
 #   def superclasses ; _superclasses.reverse ; end
 # end
 
-  
+
 
 # class Array;def unshiftArray(a);a.reverse.each{|e|self.unshift(e);};self;end;end
 # $:.unshiftArray(Dir.glob("/usr/lib/ruby/gems/1.8/gems/*/{cli,lib}"));

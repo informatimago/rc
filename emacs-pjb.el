@@ -583,7 +583,7 @@ X-Accept-Language:         fr, es, en
   "Meat for find-file-hook: warn about trailing whitespace."
   (when (vc-workfile-version (buffer-file-name))
     (goto-char (point-min))
-    (when (re-search-forward "[ \t\v]$" nil t)
+    (when (re-search-forward "[ \t]$" nil t)
       (case (ignore-errors
              (if (fboundp 'x-popup-dialog)
                  (x-popup-dialog t '("There are trailing whitespaces."
