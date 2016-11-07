@@ -31,7 +31,7 @@ end
 #   def superclasses ; _superclasses.reverse ; end
 # end
 
-    
+  
 
 # class Array;def unshiftArray(a);a.reverse.each{|e|self.unshift(e);};self;end;end
 # $:.unshiftArray(Dir.glob("/usr/lib/ruby/gems/1.8/gems/*/{cli,lib}"));

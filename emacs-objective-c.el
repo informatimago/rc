@@ -28,7 +28,7 @@
                                    ;; "-I/usr/local/lib/ocaml/"
                                    )))
   (linux
-   
+ 
    ))
 
 (setq company-backends '(company-clang
