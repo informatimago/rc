@@ -599,7 +599,7 @@ pcb*controlMasterForm*Label.width:            70
 pcb*controlMasterForm*MenuButton.resizable:   off
 pcb*controlMasterForm*MenuButton.shapeStyle:  rectangle
 pcb*controlMasterForm*MenuButton.width:       70
-pcb*controlMasterForm*MenuButton.borderWidth: 1  
+pcb*controlMasterForm*MenuButton.borderWidth: 1
 pcb*controlMasterForm*Toggle.width:           70
 pcb*controlMasterForm*Toggle.borderWidth:     1
 

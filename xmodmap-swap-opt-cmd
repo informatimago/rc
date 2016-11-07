@@ -28,7 +28,7 @@ add    Mod1    = Num_Lock
 add    Mod3    = Alt_L       Alt_R       Mode_switch
 add    Mod2    = Meta_L      Meta_R
 add    Mod4    = Super_L     Super_R
-add    Mod5    = Hyper_L     Hyper_R     
+add    Mod5    = Hyper_L     Hyper_R   
 
 
 ! THE END !

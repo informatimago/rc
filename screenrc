@@ -163,7 +163,7 @@ screen -t mov  5
 # hardstatus alwayslastline "%w"
 
 # An alternative hardstatus to display a bar at the bottom listing the 
-# window names and highlighting the current window name in blue.  
+# window names and highlighting the current window name in blue.
 hardstatus on 
 hardstatus alwayslastline 
 
