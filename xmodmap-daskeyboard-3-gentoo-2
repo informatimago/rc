@@ -1,7 +1,7 @@
 !
 ! This is an `xmodmap' input file for the  DasKeyboard 3
 !
-! Bus 008 Device 005: ID 04d9:2013 Holtek Semiconductor, Inc. 
+! Bus 008 Device 005: ID 04d9:2013 Holtek Semiconductor, Inc.
 !
 ! PC 105 keys, wide Delete, wide Enter.
 !
@@ -13,7 +13,7 @@
 
 keycode   9 = Escape
 
-keycode  67 = F1              XF86_Switch_VT_1  F14 
+keycode  67 = F1              XF86_Switch_VT_1  F14
 keycode  68 = F2              XF86_Switch_VT_2  F15
 keycode  69 = F3              XF86_Switch_VT_3  F16
 keycode  70 = F4              XF86_Switch_VT_4  F17
@@ -29,7 +29,7 @@ keycode  95 = F11             XF86_Switch_VT_11 F24
 keycode  96 = F12             XF86_Switch_VT_12 F25
 
 keycode 111 = Pause           Break
-keycode  78 = Caps_Lock     
+keycode  78 = Caps_Lock
 keycode 110 = Print           Sys_Req
 
 
@@ -50,7 +50,7 @@ keycode  18 = 9               parenleft       ninesubscript     ninesuperior
 keycode  19 = 0               parenright      zerosubscript     zerosuperior
 keycode  20 = minus           underscore      righttack         downtack
 keycode  21 = equal           plus            lefttack          uptack
-keycode  22 = BackSpace       BackSpace       BackSpace         BackSpace     
+keycode  22 = BackSpace       BackSpace       BackSpace         BackSpace
 
 
 !------------------------------------------------------------
@@ -112,14 +112,14 @@ keycode  59 = comma           less      lessthanequal       logicaland
 keycode  60 = period          greater   greaterthanequal    logicalor
 keycode  61 = slash           question  notequal            notsign
 
-keycode  62 = Shift_R       
+keycode  62 = Shift_R
 
 
 !------------------------------------------------------------
 ! Sixth line
 !------------------------------------------------------------
 
-keycode  37 = Multi_key     
+keycode  37 = Multi_key
 keycode 115 = Alt_L
 keycode  64 = Meta_L
 
@@ -138,7 +138,7 @@ keycode 109 = Control_R
 keycode 106 = Insert    Insert  elementof       notelementof
 keycode 107 = Delete    Delete  emptyset        stricteq
 
-keycode  93 = Home      Home    implies         ifonlyif     
+keycode  93 = Home      Home    implies         ifonlyif
 keycode 103 = End       End     therefore       because
 
 keycode  99 = Prior     Prior   identical       notidentical
@@ -149,7 +149,7 @@ keycode 105 = Next      Next    approxeq        notapproxeq
 ! Arrows
 !------------------------------------------------------------
 
-keycode  98 = Up      Up        uparrow         intersection     
+keycode  98 = Up      Up        uparrow         intersection
 keycode 100 = Left    Left      leftarrow       includedin
 keycode 104 = Down    Down      downarrow       union
 keycode 102 = Right   Right     rightarrow      includes
@@ -161,7 +161,7 @@ keycode 102 = Right   Right     rightarrow      includes
 
 ! Second line:
 !keycode 77 = Num_Lock        Pointer_EnableKeys
-keycode  77 = Num_Lock      
+keycode  77 = Num_Lock
 keycode 112 = KP_Multiply     XF86_ClearGrab
 keycode  63 = KP_Divide       XF86_Ungrab
 keycode  82 = KP_Subtract     KP_Subtract 0x1002500 0x1002550
@@ -185,7 +185,7 @@ keycode  89 = KP_Next         KP_3    0x1002518  0x100255D
 ! Sixth line:
 keycode  90 = KP_Insert       KP_0
 keycode  91 = KP_Delete       KP_Decimal
-keycode 108 = KP_Enter 
+keycode 108 = KP_Enter
 
 
 !------------------------------------------------------------
@@ -201,17 +201,17 @@ clear Mod3
 clear Mod4
 clear Mod5
 
-!!! In order of bits: 
+!!! In order of bits:
 add    Shift   = Shift_L     Shift_R
 add    Lock    = Caps_Lock
 ! add  Lock    = Mode_switch
 add    Control = Control_L   Control_R
 add    Mod1    = Num_Lock
 ! add    Mod1    = Mode_switch
-add    Mod2    = Alt_L       Alt_R     
+add    Mod2    = Alt_L       Alt_R
 add    Mod3    = Meta_L      Meta_R
 add    Mod4    = Super_L     Super_R
-add    Mod5    = Hyper_L     Hyper_R   
+add    Mod5    = Hyper_L     Hyper_R
 
 
 
@@ -270,7 +270,7 @@ add    Mod5    = Hyper_L     Hyper_R
 !    ½  fraction one-half       12           ¾  fraction three-quarter  34
 !    ·  middle dot           .^ or ..        ¬  not sign                -,
 !    ×  multiplication sign     xx           ÷  division sign           :-
-!  
+!
 !    À  A grave                 A`           à  a grave                 a`
 !    Á  A acute                 A'           á  a acute                 a'
 !    Â  A circumflex            A^           â  a circumflex            a^
@@ -278,39 +278,39 @@ add    Mod5    = Hyper_L     Hyper_R
 !    Ä  A diaeresis             A"           ä  a diaeresis             a"
 !    Å  A ring                  A*           å  a ring                  a*
 !    Æ  AE ligature             AE           æ  ae ligature             ae
-!  
+!
 !    Ç  C cedilla               C,           ç  c cedilla               c,
-!  
+!
 !    È  E grave                 E`           è  e grave                 e`
 !    É  E acute                 E'           é  e acute                 e'
 !    Ê  E circumflex            E^           ê  e circumflex            e^
 !    Ë  E diaeresis             E"           ë  e diaeresis             e"
-!  
+!
 !    Ì  I grave                 I`           ì  i grave                 i`
 !    Í  I acute                 I'           í  i acute                 i'
 !    Î  I circumflex            I^           î  i circumflex            i^
 !    Ï  I diaeresis             I"           ï  i diaeresis             i"
-!  
+!
 !    Ð  capital eth             D-           ð  small eth               d-
-!  
+!
 !    Ñ  N tilde                 N~           ñ  n tilde                 n~
-!  
+!
 !    Ò  O grave                 O`           ò  o grave                 o`
 !    Ó  O acute                 O'           ó  o acute                 o'
 !    Ô  O circumflex            O^           ô  o circumflex            o^
 !    Õ  O tilde                 O~           õ  o tilde                 o~
 !    Ö  O diaeresis             O"           ö  o diaeresis             o"
 !    Ø  O slash                 O/           ø  o slash                 o/
-!  
+!
 !    Ù  U grave                 U`           ù  u grave                 u`
 !    Ú  U acute                 U'           ú  u acute                 u'
 !    Û  U circumflex            U^           û  u circumflex            u^
 !    Ü  U diaeresis             U"           ü  u diaeresis             u"
-!  
+!
 !    Ý  Y acute                 Y'           ý  y acute                 y'
-!  
+!
 !    Þ  capital thorn           TH           þ  small thorn             th
-!  
+!
 !    ß  German small sharp s    ss           ÿ  y diaeresis             y"
 
 
