@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             CLISP
 ;;;;USER-INTERFACE:     None
 ;;;;DESCRIPTION
-;;;;    
+;;;;  
 ;;;;    The CLISP init file.
-;;;;    
+;;;;  
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal Bourguignon
 ;;;;MODIFICATIONS
@@ -15,20 +15,20 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL
-;;;;    
+;;;;  
 ;;;;    Copyright Pascal Bourguignon 2003 - 2003
 ;;;;    mailto:pjb@informatimago.com
-;;;;    
+;;;;  
 ;;;;    This program is free software; you can redistribute it and/or
 ;;;;    modify it under the terms of the GNU General Public License
 ;;;;    as published by the Free Software Foundation; either version
 ;;;;    2 of the License, or (at your option) any later version.
-;;;;    
+;;;;  
 ;;;;    This program is distributed in the hope that it will be
 ;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
 ;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 ;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;    
+;;;;  
 ;;;;    You should have received a copy of the GNU General Public
 ;;;;    License along with this program; if not, write to the Free
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
@@ -123,7 +123,7 @@
  custom:*parse-namestring-dot-file*       :name
  custom:*print-pathnames-ansi*             t
  custom:*sequence-count-ansi*              t
-      
+    
  custom:*default-float-format*            'single-float
  custom:*warn-on-floating-point-contagion* nil
  custom:*suppress-check-redefinition*      nil
@@ -154,7 +154,7 @@
 
  custom:*source-file-types*   '("lisp" "lsp" "cl")
  custom:*compiled-file-types* '("fas")
-  
+
  custom:*applyhook*             nil
  custom:*evalhook*              nil
  custom:*trace-indent*          t
@@ -255,7 +255,7 @@
  custom:*eql-hashfunction*                          'ext:fasthash-eql
  custom:*equal-hashfunction*                        'ext:fasthash-equal
  custom:*fill-indent-sexp*                          (function 1+)
-      
+    
  custom:*init-hooks*                                nil
  custom:*fini-hooks*                                nil
  custom:*warn-on-hashtable-needing-rehash-after-gc* nil
@@ -263,12 +263,12 @@
  ;; HTTP
  custom:*http-proxy*                               nil
  custom:*impnotes-root-default* "http://clisp.cons.org/impnotes/"
-      
-      
+    
+    
  custom:*print-symbol-package-prefix-shortest*      nil
  custom:*report-error-print-backtrace*              nil
  custom:*user-commands*                             nil
-      
+    
  ;; CUSTOM:*STRICT-MOP*                             T
  ;; CUSTOM:*FORWARD-REFERENCED-CLASS-MISDESIGN*     NIL
  )
@@ -418,7 +418,7 @@
 (export 'quit)
 
 (push 'ext:cd com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
-(cd (ext:cd))     
+(cd (ext:cd))   
 
 
 (defun sh (command)
@@ -504,7 +504,7 @@
             :until (eq sexp input)
             :do (eval sexp))))))
 (export 'eval-string-in-unlocked-package)
-        
+      
 ;; for a *debugger-hook*:
 ;; SYSTEM::*READ-LINE-NUMBER*
 
@@ -768,7 +768,7 @@ RETURN: A list of string, the parsed arguments.
         CUSTOM:*BROWSER* :emacs-w3m-socket))
 (export 'set-emacs-server-pid)
 ;; (set-emacs-server-pid 392)
-   
+ 
 
 (pushnew :testing-script *features*)
 (in-package "COMMON-LISP-USER")

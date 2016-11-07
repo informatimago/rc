@@ -5,13 +5,13 @@
 ;;;;SYSTEM:             Armed Bear Common Lisp
 ;;;;USER-INTERFACE:     None
 ;;;;DESCRIPTION
-;;;;    
+;;;;  
 ;;;;    The ABCL init file.
 ;;;;
 ;;;;    Note, abcl doesn't load it automatically, you have to load it yourself.
 ;;;;
 ;;;;    abcl -load ~/abcl-init.lisp
-;;;;    
+;;;;  
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
 ;;MODIFICATIONS
@@ -21,20 +21,20 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL
-;;;;    
+;;;;  
 ;;;;    Copyright Pascal Bourguignon 2003 - 2003
 ;;;;    mailto:pjb@informatimago.com
-;;;;    
+;;;;  
 ;;;;    This program is free software; you can redistribute it and/or
 ;;;;    modify it under the terms of the GNU General Public License
 ;;;;    as published by the Free Software Foundation; either version
 ;;;;    2 of the License, or (at your option) any later version.
-;;;;    
+;;;;  
 ;;;;    This program is distributed in the hope that it will be
 ;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
 ;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 ;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;    
+;;;;  
 ;;;;    You should have received a copy of the GNU General Public
 ;;;;    License along with this program; if not, write to the Free
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
