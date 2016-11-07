@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             POSIX
 ;;;;USER-INTERFACE:     NONE
 ;;;;DESCRIPTION
-;;;;    
+;;;;  
 ;;;;    Load slime and other CL stuff.
-;;;;    
+;;;;  
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
 ;;;;MODIFICATIONS
@@ -15,19 +15,19 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL3
-;;;;    
+;;;;  
 ;;;;    Copyright Pascal J. Bourguignon 2013 - 2013
-;;;;    
+;;;;  
 ;;;;    This program is free software: you can redistribute it and/or modify
 ;;;;    it under the terms of the GNU General Public License as published by
 ;;;;    the Free Software Foundation, either version 3 of the License, or
 ;;;;    (at your option) any later version.
-;;;;    
+;;;;  
 ;;;;    This program is distributed in the hope that it will be useful,
 ;;;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;;;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;;;;    GNU General Public License for more details.
-;;;;    
+;;;;  
 ;;;;    You should have received a copy of the GNU General Public License
 ;;;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;;;**************************************************************************
@@ -35,24 +35,24 @@
 (.EMACS "emacs-slime-simple.el")
 
 
-;; This is about the easiest profiling I've seen in any language. In  
-;; fact, I think it's the only time I been able to make significant  
-;; improvements based on the report.  
+;; This is about the easiest profiling I've seen in any language. In
+;; fact, I think it's the only time I been able to make significant
+;; improvements based on the report.
 ;; 
-;;     
+;;   
 ;;     M-x slime-toggle-profile-fdefinition
 ;; 
-;; on all the functions you want to  
+;; on all the functions you want to
 ;; profile, 
-;;     
+;;   
 ;;     M-x slime-profile-reset
 ;; 
-;; to clear any existing data, and  
+;; to clear any existing data, and
 ;; 
-;;     
+;;   
 ;;     M-x slime-profile-report
 ;; 
-;; to see the report after running.  
+;; to see the report after running.
 
 
 
@@ -187,12 +187,12 @@
      iso-8859-1)
 
 
-  
+
    (define-lisp-implementation abcl
        '("/data/languages/abcl/abcl")
      "^.*([0-9]+): "
      iso-8859-1)
-  
+
    (define-lisp-implementation allegro
        '("/data/languages/acl82express/alisp")
      "^\[[0-9]*\]> "
@@ -214,7 +214,7 @@
        (if (prefixp home path)
            (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
            (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
-  
+
    (defun slime-init-ccl-win-cygwin (port-filename coding-system)
      "Return a string to initialize Lisp."
      (let ((loader (if (file-name-absolute-p slime-backend)
@@ -236,7 +236,7 @@
      utf-8
      :init  'slime-init-ccl-win-cygwin)
 
-  
+
    (define-lisp-implementation openmcl
        '("/usr/local/bin/openmcl")
      "^\[[0-9]*\]> "
@@ -288,7 +288,7 @@
      "^\* "
      utf-8)
 
-  
+
    (define-lisp-implementation sbcl
        (mapcar (lambda (cmd) (list cmd "--noinform"))
                '("/data/languages/sbcl/bin/sbcl" 
@@ -307,7 +307,7 @@
      "^> "
      utf-8)
 
-  
+
    (define-lisp-implementation gcl
        '("/data/languages/gcl/bin/gcl"
          "/usr/local/bin/gcl"
@@ -369,7 +369,7 @@
            (message "Default Lisp implementations is %s" impl)
            (return impl)))
 
-   
+ 
    (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
    (defun %lisp-buffer-name-match-p (buffer-name &optional number)
      (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
@@ -632,9 +632,9 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
   (local-set-key (kbd "A-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "A-s")         'pjb-cl-export-symbol-at-point)
-  
+
   ;; (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp)
-  
+
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
