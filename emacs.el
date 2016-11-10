@@ -5,19 +5,27 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
 
 ;; (setf debug-on-quit t
 ;;       debug-on-error t)
 
 (setq message-log-max 5000)
-(when (< emacs-major-version 24) 
+(when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
 
 (defun hostname ()
+  "Return the hostname of the system, or nil if it cannot be retrieved."
   (or (and (boundp  'system-name) system-name)
       (and (fboundp 'system-name) (system-name))
       (ignore-errors
@@ -29,7 +37,7 @@
                          '(aquamacs . "~/rc/emacs-aquamacs.el")
                          (or (let* ((hostname-configuration-map
                                       '(("macbook[-.]employer-a.local" . "~/rc/emacs-employer-a.el")
-                                        ("^vmdevlinux"                . "~/rc/emacs-employer-a.el")
+                                        ("^vmlinux"                   . "~/rc/emacs-employer-a.el")
                                         ("^mercure"                   . "~/rc/emacs-employer-c.el")
                                         ("^uiserver"                  . "~/rc/emacs-employer-c.el")
                                         ("^ubudair"                   . "~/rc/emacs-employer-c.el")
