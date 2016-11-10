@@ -34,7 +34,10 @@
 
 
 (defun pjb-install-packages ()
+  (interactive)
   ;;
+  (package-install 'company)
+  (package-install 'paredit)
   (package-install 'auto-complete)
   ;; (package-install 'column-marker) ;; not available?
   ;;
@@ -44,7 +47,11 @@
   (package-install 'highlight-indentation)
   (package-install 'robe)
   (package-install 'dash)
+<<<<<<< HEAD
   ;; (package-install 'dash-at-point) ;; not available?
+=======
+  ;; (package-install 'dash-at-point)
+>>>>>>> a010c211fb19d6834a6dba551e02641be791a52e
   (package-install 'textmate)
   (package-install 'flycheck))
 
