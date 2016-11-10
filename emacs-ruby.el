@@ -4,7 +4,7 @@
 
 (.EMACS "~/rc/emacs-ruby.el %s" "Pascal J. Bourguignon's emacs ruby stuff.")
 
-(require 'enh-ruby-mode)
+(require 'enh-ruby-mode nil t)
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
@@ -30,7 +30,7 @@
 (require 'robe)
 (add-hook 'ruby-mode-hook 'robe-mode)
 
-(require 'dash-at-point)
+(require 'dash-at-point nil t)
 (require 'textmate)
 
 ;;;; THE END ;;;;
