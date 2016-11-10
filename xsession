@@ -14,7 +14,7 @@ xset -dpms
 #xsetroot -solid '#d0e0f0'
 #xsetroot -solid '#80a0c0'
 xsetroot -solid '#4080a0'
-#xsetroot -solid '#204050' 
+#xsetroot -solid '#204050'
 
 #
 # If ssh is configured and ssh-agent is wanted set "yes"
@@ -119,7 +119,7 @@ if [ -n "$DISPLAY" ] ; then
         xrdb -merge ~/.Xresources
         xmodmap ~/.xmodmap
         # xset s 300
-        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+        xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 ))
     fi
 fi
 
@@ -135,18 +135,27 @@ if test -f $HOME/.xinitrc ; then
     fi
 else
     test -n "$WINDOWMANAGER" && WINDOWMANAGER=`type -p $WINDOWMANAGER`
-    wms=(  
-        /usr/bin/stumpwm
-        /usr/bin/ratpoison 
-        /opt/local/bin/ratpoison 
-        /opt/X11/bin/quartz-wm
-        /usr/X11/bin/quartz-wm
-        /usr/bin/sawfish 
-        /usr/X11R6/bin/kde 
-        /usr/X11R6/bin/startkde 
-        /usr/X11R6/bin/fvwm2 
-        $( if [ -x /usr/X11R6/bin/wmlist ] ; then /usr/X11R6/bin/wmlist ; fi ) 
-    )
+    if [ "$(uname)" = "Darwin" ] ; then
+        wms=(
+            /opt/X11/bin/quartz-wm
+            /usr/X11/bin/quartz-wm
+            /usr/X11/bin/twm
+            $( if [ -x /usr/X11R6/bin/wmlist ] ; then /usr/X11R6/bin/wmlist ; fi )
+        )
+    else
+        wms=(
+            /usr/bin/stumpwm
+            /usr/bin/ratpoison
+            /opt/local/bin/ratpoison
+            /opt/X11/bin/quartz-wm
+            /usr/X11/bin/quartz-wm
+            /usr/bin/sawfish
+            /usr/X11R6/bin/kde
+            /usr/X11R6/bin/startkde
+            /usr/X11R6/bin/fvwm2
+            $( [ -x /usr/X11R6/bin/wmlist ] && /usr/X11R6/bin/wmlist || true )
+        )
+    fi
     for wm in "${wms[@]}" ; do
         if test -x "$wm" ; then
             WINDOWMANAGER="$(type -p "$wm")"
