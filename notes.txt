@@ -1,19 +1,26 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
-telnet milek7.pl             # pong, brick, tetris
-telnet yay.tim.org 5440      # adventure, kind of.
 
 
-https://en.wikipedia.org/wiki/User:Lycurgus/MoCA
+appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
+jpaizier@gmail.com|Titiminou88|
+jpaizier@yahoo.fr|
+skype|aizier42|
+Titicoco88
 
-https://www.darlinghq.org/source-code/
 
-* Snowden
 
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
+http://mathworks.com|pjb@informatimago.com|informatimago|Gis6loki0
+Run the installer and log in as pjb@informatimago.com and select license id 3354093.
+
+sudo dseditgroup -o edit -a $USER -t user procmod
+
+| System         | Xcode | iOS targets     |
+|----------------+-------+-----------------|
+| 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
+|                |       |                 |
+
 
 * IMPOTS
 
@@ -60,7 +67,6 @@ http://wisee.cs.washington.edu/wisee_paper.pdf
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
 http://www.paypal.com/?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
-
 
 ** Agility
 =======
@@ -876,7 +882,6 @@ Au coeur du pouvoir : Enquête sur le club le plus puissant de France
 La guerre secrête contre les peuples
 Claire Séverac
 
-
 **** Petite histoire de l'expérimentation démocratique                  :buy:
 Yves Sintomer
 Petite histoire de l'expérimentation démocratique
@@ -959,6 +964,9 @@ http://lamangawind.com/LaManga0.html
              gpuzre                  force field
 
 *** telnet ascii art videos
+
+pong, brick, tetris      telnet milek7.pl
+adventure, kind of.      telnet yay.tim.org 5440
 
 Telehack:                telnet://telehack.com
 Telehack (web):          http://telehack.com
@@ -1089,6 +1097,12 @@ http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-conn
      :DEADLINE: <2016-12-30 -5m>
 **** TODO [#B] move parroquias-manga.org to a Spanish host            :admin:
      :DEADLINE: <2016-12-30 -5m>
+**** TODO [#A] VirtualBox :macosx:
+Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
+(Maverick  10.9  Xcode 5) (galatea)
+(Yosemite  10.10 Xcode 6)
+(elCapitan 10.11 Xcode 7)
+(sierra    10.12 Xcode 8)
 *** Divers
 **** Earn retirement money
 ----   ---------------  ---------------
@@ -2721,8 +2735,6 @@ sudo dd bs=512 skip=8192   seek=2048   count=129024   if=2016-05-27-raspbian-jes
 mkswap /dev/sdf3
 mke2fs -L home -j /dev/sdf4
 
-
-
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
 
@@ -3369,7 +3381,6 @@ http://lib.euli.eu/cll-aioe.org.tar.bz2
 Develop a portable Objective-C / Common-Lisp bridge over CFFI.
 Targets current gnu objc, cocoa objc, cocotron?
 
-
 **** http://www.common-lisp.net/project/cl-objc/
 
 CL-OBJC is a portable common-lisp/objective-c bridge written using
@@ -3378,7 +3389,6 @@ CFFI.
 The aim is to be able to build Cocoa applications on Mac OS X by using
 InterfaceBuilder to design the GUI and then implement the code in
 common-lisp.
-
 
 **** http://benkard.de/objective-cl
 
@@ -7184,6 +7194,8 @@ A-< A->	begin/end text
 
 /usr/bin/xcode-select --install
 
+VBoxManage internalcommands createrawvmdk -filename "galatea-disk3.vmdk" -rawdisk /dev/disk3
+
 vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
 vboxmanage clonehd  /path/to/virtualdisk.vdi  /path/to/copy.vdi
 
@@ -8090,7 +8102,6 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
                                          +---> load-time       load-time-value
                                           \
                                            --> eval-time       defun
-
 
 *** URLS
 
@@ -11145,6 +11156,8 @@ the apps I've tried.
     sudo port uninstall inactive      # remove the inactive ports.
     sudo port clean --all uninstalled # remove the non-installed distfiles
 
+** SYSTEM: Darwin on Linux: darling
+https://www.darlinghq.org/source-code/
 
 ** SYSTEM: EROS
 
