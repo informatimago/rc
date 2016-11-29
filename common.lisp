@@ -91,19 +91,19 @@ Utilities for the com.informatimago.pjb package.
 License:
 
     AGPL3
-    
+
     Copyright Pascal J. Bourguignon 2003 - 2015
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-    
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
-    
+
     You should have received a copy of the GNU Affero General Public License
     along with this program.
     If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
@@ -143,19 +143,19 @@ COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE.
 License:
 
     AGPL3
-    
+
     Copyright Pascal J. Bourguignon 2003 - 2015
-    
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-    
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
-    
+
     You should have received a copy of the GNU Affero General Public License
     along with this program.
     If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.
@@ -446,7 +446,7 @@ selected by KEY, and the given SUBPATH.
 
 ;;;----------------------------------------------------------------------
 ;;;
-;;; Logical hosts -- the Common-Lisp way to paths. 
+;;; Logical hosts -- the Common-Lisp way to paths.
 ;;;
 
 
@@ -494,15 +494,15 @@ The inclusion  of a version wildcard is also implementation dependant.
        `(((:name :wild :type ,file-type :version nil) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type nil   :version nil) "*")
          ((:name :wild :type :wild :version nil) "*.*")))
-   #-(or clisp sbcl allegro ccl) 
-   (if file-type 
+   #-(or clisp sbcl allegro ccl)
+   (if file-type
        `(((:name :wild :type ,file-type :version nil)   ,(format nil "*.~(~A~)" file-type))
          ((:name :wild :type ,file-type :version :wild) ,(format nil "*.~(~A~)" file-type)))
        '(((:name :wild :type nil   :version nil)   "*")
          ((:name :wild :type :wild :version nil)   "*.*")
          ((:name :wild :type :wild :version :wild) "*.*")))))
 
- 
+
 (defun define-logical-pathname-translations (host path &optional (subpath ""))
   "
 Defines a new logical pathname (or overrides an existing one)
@@ -559,7 +559,7 @@ The HOST is added to the list of logical hosts defined.
     (when (fboundp 'common-lisp-user::post-process-logical-pathname-translations)
       (map nil
            'common-lisp-user::post-process-logical-pathname-translations
-           *logical-hosts*)))) 
+           *logical-hosts*))))
 
 (post-process-logical-host-translations)
 
@@ -596,7 +596,7 @@ The HOST is added to the list of logical hosts defined.
                             (format
                              nil
                              "~A-~A-~A"
-                             (cond 
+                             (cond
                                ((string-equal
                                  "International Allegro CL Enterprise Edition"
                                  (lisp-implementation-type))

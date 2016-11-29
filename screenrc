@@ -6,7 +6,7 @@
 # This is how one can set a reattach password:
 # password ODSJQf.4IJN7E    # "1234"
 
-# Use C-z instead of C-a as this makes more sense for Emacs 
+# Use C-z instead of C-a as this makes more sense for Emacs
 # escape ^z^z
 # See below
 
@@ -147,25 +147,25 @@ bind ^] paste [.]
 # screen -t mail 1 elm
 # screen -t 40 2 rlogin faui40
 
-# screen bash 
-# screen -t irc 1 emacs -nw --debug-init -f erc 
+# screen bash
+# screen -t irc 1 emacs -nw --debug-init -f erc
 
 screen -t root 0
-screen -t loc  1 
-screen -t kui  2 
-screen -t hub  3 
-screen -t lar  4 
-screen -t mov  5 
+screen -t loc  1
+screen -t kui  2
+screen -t hub  3
+screen -t lar  4
+screen -t mov  5
 #screen -t voy  6
 
 # caption always "%3n %t%? @%u%?%? [%h]%?"
 # hardstatus alwaysignore
 # hardstatus alwayslastline "%w"
 
-# An alternative hardstatus to display a bar at the bottom listing the 
-# window names and highlighting the current window name in blue.  
-hardstatus on 
-hardstatus alwayslastline 
+# An alternative hardstatus to display a bar at the bottom listing the
+# window names and highlighting the current window name in blue.
+hardstatus on
+hardstatus alwayslastline
 
 # Blue:
 #hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G}%H%{..r}%l%{..G}%m-%d %c"
