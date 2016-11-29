@@ -255,11 +255,13 @@ License:
                                :if-exists nil
                                :external-format :default)
        (write-string ";; -*- mode:lisp -*-" asdfconf)
-       (print '(:output-translations
-                #-clisp :ignore-invalid-entries
-                (t (:home ".cache" "common-lisp" :hostname :implementation))
-                (t (:home ".cache" "common-lisp" :implementation))
-                :inherit-configuration)
+       (print '(:OUTPUT-TRANSLATIONS
+                :ignore-invalid-entries
+                ;; :ignore-inherited-configuration
+                ;; TODO: Replace :hostname which doesn't seem to be supported anymore by a function.
+                (T (:HOME ".cache" "common-lisp" :HOSTNAME :IMPLEMENTATION))
+                (T (:HOME ".cache" "common-lisp" :IMPLEMENTATION))
+                :INHERIT-CONFIGURATION)
               asdfconf)
        (terpri asdfconf)))))
 

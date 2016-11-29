@@ -43,7 +43,7 @@ fi
 PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
 
 uname="$(uname -s)"
-case "$uname" in 
+case "$uname" in
 Darwin)
     ulimit -s 32768
     stty erase  >/dev/null 2>&1
@@ -51,7 +51,7 @@ Darwin)
 *)
     case $(uname -o) in
     Cygwin)
-        true 
+        true
         ;;
     *)
         ulimit -s 32768
@@ -63,7 +63,7 @@ esac
 
 function member(){
     local item="$1" ; shift
-    for arg ; do 
+    for arg ; do
         if [ "$item" = "$arg" ] ; then
             echo T
             return 0
@@ -194,11 +194,11 @@ function be_generate(){
     local editors
     local list
 
-    bindirs=( 
+    bindirs=(
         $HOME/bin
         $HOME/opt/bin
         $HOME/.rvm/bin # Add RVM to PATH for scripting
-        
+
         /usr/local/bin
         /usr/local/sbin
 
@@ -209,7 +209,10 @@ function be_generate(){
 
         /opt/bin
         /opt/sbin
-        
+
+        /usr/local/opt/coreutils/libexec/gnubin
+        /usr/local/opt/findutils/libexec/gnubin
+
         /data/languages/acl82express/bin/
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
@@ -219,7 +222,7 @@ function be_generate(){
         #/data/languages/gcl-2.6.7/bin/
         #/data/languages/sbcl/bin/
 
-        /usr/X11R6/bin  /usr/X11/bin /usr/games 
+        /usr/X11R6/bin  /usr/X11/bin /usr/games
         /usr/bin        /usr/sbin
         /bin            /sbin
     )
@@ -228,28 +231,28 @@ function be_generate(){
         /opt/*/share
     )
 
-    mandirs=( 
-        /opt/local/man /opt/local/share/man 
-        /usr/local/bin /usr/local/share/man 
-        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man  
+    mandirs=(
+        /opt/local/man /opt/local/share/man
+        /usr/local/bin /usr/local/share/man
+        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man
     )
 
-    lddirs=( 
-        /opt/*/lib 
-        /opt/local/lib 
-        /usr/local/lib 
-        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib 
+    lddirs=(
+        /opt/*/lib
+        /opt/local/lib
+        /usr/local/lib
+        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
     editors=(
-        /opt/local/bin/emacsclient 
-        /usr/local/bin/emacsclient 
-        /usr/bin/emacsclient 
-        /bin/emacsclient 
-        /bin/ed 
-        /usr/bin/vi 
+        /opt/local/bin/emacsclient
+        /usr/local/bin/emacsclient
+        /usr/bin/emacsclient
+        /bin/emacsclient
+        /bin/ed
+        /usr/bin/vi
     )
-    
+
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
     be_comment '.bash_env'
     be_comment 'Non interactive shells'
@@ -270,7 +273,7 @@ function be_generate(){
     be_variable MAKEDIR "$COMMON/makedir"
     be_variable TARGET   $(uname)
 
-    case "$uname" in 
+    case "$uname" in
     Darwin)
         if [ 1 = $(mfod -l|wc -l) ] ; then
             mfod -s 1
@@ -340,8 +343,8 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
-    be_variable CVSROOT            '' 
-    be_variable CVS_RSH            ssh 
+    be_variable CVSROOT            ''
+    be_variable CVS_RSH            ssh
 
 
     if [ -d /usr/share/kaffe/. ] ; then
@@ -380,7 +383,12 @@ function be_generate(){
     if [ -d /opt/local/share/java/gradle ] ; then
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
-    
+
+    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+    if [ "$uname" = Darwin ] ; then
+        be_variable JAVA_HOME "$(/usr/libexec/java_home)"
+    fi
+
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Paris
 
@@ -401,12 +409,12 @@ function be_generate(){
     be_unset XMODIFIERS
 
     # if [ $(hostname) = iMac-Core-i5.local ] ; then
-    # 
+    #
     #     be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
     #     be_variable MAILHOST                localhost
     #     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
     #     be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
-    # 
+    #
     # else
 
         be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
@@ -440,8 +448,8 @@ function be_generate(){
     be_variable GENSCRIPT          "$ENSCRIPT"
     be_variable NENSCRIPT          "$ENSCRIPT"
     be_variable HTML_TIDY          "$HOME/public_html/tidy.config"
-    be_variable ETAGS              
-    be_variable CTAGS              
+    be_variable ETAGS
+    be_variable CTAGS
     be_variable GDFONTPATH          /usr/share/fonts/ttf-bitstream-vera
 
     be_variable DTK_PROGRAM         espeak
@@ -481,7 +489,7 @@ source $BASH_ENV
 case "$host" in
     *macbook?trustonic.local)
         true ;;
-    *)      
+    *)
         wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
 
         SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
@@ -499,7 +507,7 @@ case "$host" in
             done
             [ -f $gsr/Makefiles/GNUstep.sh ] && source $gsr/Makefiles/GNUstep.sh
         fi
-        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then 
+        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
             export MANPATH=$GNUSTEP_SYSTEM_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
         fi
@@ -516,16 +524,16 @@ esac
 # if [ -n "$DISPLAY" ] ; then
 #     export XAUTHORITY=$HOME/.Xauthority
 #     function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
-# 
+#
 #     xrdb -merge ~/.Xresources
-# 
+#
 #     # On Darwin, we don't want to mess with X11 so much.
 #     # This is probably a hint we shouldn't do that here anyways.
 #     if [ $(uname) != Darwin ] ; then
 #         xrdb -merge ~/.Xresources
 #         xmodmap ~/.xmodmap
 #         # xset s 300
-#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 )) 
+#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 ))
 #     fi
 # fi
 
@@ -546,7 +554,7 @@ function variable-list(){
     # vnamelist (no args)      get all variables
     local var_name
     local char
-    if [[ -n "${1-}" ]] ; then 
+    if [[ -n "${1-}" ]] ; then
         for var_name in $(eval "echo \${!${1}*}"); do
             echo "$var_name"
         done
@@ -578,7 +586,7 @@ alias mplayer='mplayer -quiet'
 alias more=less
 alias vi='emacs -nw -q'
 alias nano='emacs -nw -q'
-case "$uname" in 
+case "$uname" in
     Darwin)
         alias df='df -h'
         ;;
@@ -720,7 +728,7 @@ if [ -s "$fgfs" ] ; then
     )
 
     fgfs_festival_options=(
-        --prop:/sim/sound/voices/enabled=true 
+        --prop:/sim/sound/voices/enabled=true
     )
 
     fgfs_default_options=(
@@ -763,7 +771,7 @@ if [ -s "$fgfs" ] ; then
     #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
     # )
     # fgfs=/opt/fgfs/bin/fgfs
- 
+
     fgfs_server=mpserver12.flightgear.org
     fgfs_period=20
 
@@ -777,21 +785,21 @@ if [ -s "$fgfs" ] ; then
 
 
 
-    function netfs1(){ 
-        cd ~/fgfs/ 
+    function netfs1(){
+        cd ~/fgfs/
         "$fgfs" \
             ${fgfs_default_options[@]} \
             ${fgfs_scenery_options[@]} \
             --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ; 
+            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ;
     }
     function netfs2(){
-        cd ~/fgfs/ 
+        cd ~/fgfs/
         "$fgfs" \
             ${fgfs_default_options[@]} \
             ${fgfs_scenery_options[@]} \
             --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ; 
+            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ;
     }
 
 
@@ -814,7 +822,7 @@ cat > /dev/null <<EOF
   (gen-parking-positions
      "KSUU_parking"
      145
-     (- (dms-d 121 56 1.1))   
+     (- (dms-d 121 56 1.1))
      (dms-d 38 16 0.4)
      (- (dms-d 121 55 30.7))
      (dms-d 38 16 22.3)
@@ -865,7 +873,7 @@ KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
             --native-ctrls=socket,out,${fgfs_period},${slaveIP},5511,udp \
             "$@" ; }
 
-    function f14slave(){    
+    function f14slave(){
        ( export DISPLAY=192.168.7.160:0.0 ;
          netfs2  --callsign=AC112S  --aircraft=f-14b  \
             --native-fdm=socket,in,${fgfs_period},,5510,udp \
@@ -882,7 +890,7 @@ KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
 
 
     fgfs_disable_everything=(
-        --disable-hud 
+        --disable-hud
         --disable-anti-alias-hud
         --disable-hud-3d
         --disable-random-objects
@@ -906,7 +914,7 @@ KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
 
     function nimitz(){
         local cs=CVN68
-        cd ~/fgfs/ 
+        cd ~/fgfs/
         "$fgfs" \
             ${fgfs_nimitz_options[@]} \
             --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port_nimitz} \
@@ -1018,7 +1026,7 @@ function usb-devices     (){ awk 'BEGIN{line="==================================
 /^[IC]/{printf "\n";print $0;next;}
 {print $0;}
 END{printf "\n%s\n",line;}
-' < /proc/bus/usb/devices 
+' < /proc/bus/usb/devices
 }
 
 
@@ -1082,14 +1090,14 @@ function update-localized-xibs() {
             xibName="$(echo "$(basename ${xibFile})"|sed -e 's/.xib$//')"
             xibFile="${xibName}.xib"
             cp "English.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
-            svn revert "English.lproj/${xibFile}" 
+            svn revert "English.lproj/${xibFile}"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "German.lproj/${xibFile}"   --localize-incremental --write "German.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "French.lproj/${xibFile}"   --localize-incremental --write "French.lproj/${xibFile}"   "English.lproj/${xibName}-UP.xib"
             ibtool --previous-file "English.lproj/${xibFile}" --incremental-file "Japanese.lproj/${xibFile}" --localize-incremental --write "Japanese.lproj/${xibFile}" "English.lproj/${xibName}-UP.xib"
             rm "English.lproj/${xibFile}"
             mv "English.lproj/${xibName}-UP.xib" "English.lproj/${xibFile}"
         done
-        svn status 
+        svn status
     else
         echo "Please, cd to a Resources directory."
         return 1
@@ -1110,8 +1118,8 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 
 #    WHEN starting
 #     AND ( interactive AND login ) OR ( non-interactive AND --login ) )
-#      DO /etc/profile 
-#         THEN    ~/.bash_profile 
+#      DO /etc/profile
+#         THEN    ~/.bash_profile
 #         OR ELSE ~/.bash_login
 #         OR ELSE ~/.profile
 #
@@ -1226,5 +1234,4 @@ compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
-
-
+ulimit -c unlimited
