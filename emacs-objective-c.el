@@ -3,7 +3,7 @@
 
 (case system-type
   (darwin
-   ;; Forgot what this was for..think some os x issues. 
+   ;; Forgot what this was for..think some os x issues.
    (setenv "LC_CTYPE" "UTF-8")
    (setq flycheck-make-executable "/usr/local/bin/make"
          company-clang-executable (concat *xcode-developer-path*
@@ -28,7 +28,7 @@
                                    ;; "-I/usr/local/lib/ocaml/"
                                    )))
   (linux
-   
+
    ))
 
 (setq company-backends '(company-clang

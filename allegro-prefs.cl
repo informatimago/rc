@@ -5,7 +5,7 @@
 
 :has-version-check
 
-(common-lisp:in-package :common-lisp-user) 
+(common-lisp:in-package :common-lisp-user)
 
 (ide.base::verify-implementation-version
   "8.0 [Linux (x86)] (Jun 6, 2006 16:01)" "1.80.2.21")

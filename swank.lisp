@@ -120,7 +120,7 @@
                      (error (err)
                        (format t "~&ERROR: ~A" err)
                        (values)))))
-      (list (get-output-stream-string s) 
+      (list (get-output-stream-string s)
             (format nil "~{~S~^~%~}" values)))))
 
 
