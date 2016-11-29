@@ -6,11 +6,11 @@
 
 ;; USAGE:
 ;; Put in your .emacs:
-;; 
+;;
 ;; (translate-keystrokes-ru->en)
 ;; (add-hook 'text-mode-hook
 ;;           (lambda () (literal-insert-mode 1)))
-;; 
+;;
 ;; Only buffers with literal-insert-mode active will be sensitive to the
 ;; environment language. Prefixed keybindings will still be usable.
 

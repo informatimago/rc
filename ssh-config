@@ -1,4 +1,4 @@
-# This is ssh client systemwide configuration file.  This file provides 
+# This is ssh client systemwide configuration file.  This file provides
 # defaults for users, and the values can be changed in per-user configuration
 # files or on the command line.
 #
@@ -15,7 +15,11 @@ Host gitlab.com
     ForwardAgent            no
     ForwardX11              no
 
-Host git.framasoft.org
+Host framagit.org
+    ForwardAgent            no
+    ForwardX11              no
+
+    Host git.framasoft.org
     ForwardAgent            no
     ForwardX11              no
 
@@ -71,7 +75,7 @@ Host anonix.net
     ForwardX11              no
     # No need for X11 forwarding since there's no X11 on anonix.
 
-    
+
 # ----------------------------------------
 # Andre Reinald:
 
@@ -87,7 +91,7 @@ Host bolet.no-ip.com
 Host *
     Protocol                2,1
     Port                    22
-    Cipher                  blowfish
+    Cipher                  blowfish-cbc
     EscapeChar              ~
     ForwardAgent            yes
     ForwardX11              yes
@@ -156,7 +160,7 @@ Host *
 #         ``yes''.
 #
 #     Cipher  Specifies the cipher to use for encrypting the session in proto-
-#         col version 1.  Currently, ``blowfish'', ``3des'', and ``des''
+#         col version 1.  Currently, ``blowfish-cbc'', ``3des'', and ``des''
 #         are supported.  des is only supported in the ssh client for
 #         interoperability with legacy protocol 1 implementations that do
 #         not support the 3des cipher.  Its use is strongly discouraged due
