@@ -34,17 +34,33 @@
 
 
 (defun pjb-install-packages ()
+  (interactive)
   ;;
+  (package-install 'company)
+  (package-install 'paredit)
   (package-install 'auto-complete)
+<<<<<<< HEAD
   ;; (package-install 'column-marker)
+=======
+  ;; (package-install 'column-marker) ;; not available?
+>>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
   ;;
   (package-install 'inf-ruby)
   (package-install 'enh-ruby-mode)
   (package-install 'smartparens)
   (package-install 'highlight-indentation)
   (package-install 'robe)
+<<<<<<< HEAD
   ;; (package-install 'dash)
   ;; (package-install 'dash-at-point)
+=======
+  (package-install 'dash)
+<<<<<<< HEAD
+  ;; (package-install 'dash-at-point) ;; not available?
+=======
+  ;; (package-install 'dash-at-point)
+>>>>>>> a010c211fb19d6834a6dba551e02641be791a52e
+>>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
   (package-install 'textmate)
   (package-install 'flycheck))
 
