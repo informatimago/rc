@@ -30,11 +30,7 @@
 (require 'robe)
 (add-hook 'ruby-mode-hook 'robe-mode)
 
-<<<<<<< HEAD
 ;; (require 'dash-at-point)
-=======
-(require 'dash-at-point nil t)
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
 (require 'textmate)
 
 ;;;; THE END ;;;;

@@ -124,16 +124,13 @@ export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 export PATH="/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
 export PATH="$HOME/src/trustonic/bin:$PATH"
-<<<<<<< HEAD
 export PATH="$HOME/opt/bin:$PATH"
-=======
 if [[ "$(uname)" = "Darwin" ]] ; then
     export JAVA_HOME="$(/usr/libexec/java_home)"
 else
     export JAVA_HOME=/usr/lib/jvm/default-java/jre
 fi
 
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
 
 export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
 export DELIVERY="no"
@@ -149,13 +146,10 @@ alias to-mb='rsynch  /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_
 
 source "$HOME/src/trustonic/functions.bash"
 
-<<<<<<< HEAD
 export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
 export OBFUSCATE="no"
 alias mvn='TERM=unix mvn'
 alias jbrew='HOME=/Users/julare01 sudo -u julian brew'
 
-=======
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
 
 #### THE END ####
