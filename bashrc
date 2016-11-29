@@ -214,14 +214,10 @@ function be_generate(){
         /opt/bin
         /opt/sbin
 
-<<<<<<< HEAD
         /usr/local/opt/coreutils/libexec/gnubin
         /usr/local/opt/findutils/libexec/gnubin
 
-        /data/languages/acl82express/bin/
-=======
         #/data/languages/acl82express/bin/
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
         #/data/languages/clisp/bin/
@@ -392,14 +388,11 @@ function be_generate(){
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
 
-<<<<<<< HEAD
     be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
     if [ "$uname" = Darwin ] ; then
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
 
-=======
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Paris
 
@@ -742,15 +735,9 @@ if [ -s "$fgfs" ] ; then
         --enable-skyblend
     )
 
-<<<<<<< HEAD
-    fgfs_festival_options=(
-        --prop:/sim/sound/voices/enabled=true
-    )
-=======
     # fgfs_festival_options=(
     #     --prop:/sim/sound/voices/enabled=true
     # )
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
 
     fgfs_default_options=(
         ${fgfs_base_options[@]}
@@ -809,29 +796,17 @@ if [ -s "$fgfs" ] ; then
     function netfs1(){
         cd ~/fgfs/
         "$fgfs" \
-<<<<<<< HEAD
-            ${fgfs_default_options[@]} \
-            ${fgfs_scenery_options[@]} \
-            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-=======
             "${fgfs_default_options[@]}" \
             "${fgfs_scenery_options[@]}" \
             --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
             "$@" ; # > /tmp/netfs1.$$.out 2>&1 ;
     }
     function netfs2(){
         cd ~/fgfs/
         "$fgfs" \
-<<<<<<< HEAD
-            ${fgfs_default_options[@]} \
-            ${fgfs_scenery_options[@]} \
-            --multiplay=out,${fgfs_period},${fgfs_server},5000  --multiplay=in,${fgfs_period},,${fgfs_port:-5001} \
-=======
             "${fgfs_default_options[@]}" \
             "${fgfs_scenery_options[@]}" \
             --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
             "$@" ; # > /tmp/netfs2.$$.out 2>&1  ;
     }
 
@@ -907,21 +882,6 @@ EOF
             "$@" ; }
 
     function f14slave(){
-<<<<<<< HEAD
-       ( export DISPLAY=192.168.7.160:0.0 ;
-         netfs2  --callsign=AC112S  --aircraft=f-14b  \
-            --native-fdm=socket,in,${fgfs_period},,5510,udp \
-            --native-ctrls=socket,in,${fgfs_period},,5511,udp \
-            --fdm=null \
-            --enable-panel \
-            --disable-hud \
-            --disable-sound \
-            --prop:/sim/ai/enabled=false \
-            --prop:/sim/ai-traffic/enabled=false \
-            --prop:/sim/rendering/bump-mapping=false \
-            --prop:/sim/rendering/draw-otw=false \
-            "$@" ) ; }
-=======
         (
             # shellcheck disable=SC2030
             export DISPLAY=192.168.7.160:0.0 ;
@@ -937,7 +897,6 @@ EOF
                     --prop:/sim/rendering/bump-mapping=false \
                     --prop:/sim/rendering/draw-otw=false \
                     "$@" ) ; }
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
 
 
     fgfs_disable_everything=(
@@ -1294,10 +1253,14 @@ esac
 # display function and alias duplicates:
 compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
-export "PATH=$HOME/src/trustonic/bin:$PATH"
+if [[ -d "$HOME/src/trustonic/bin" ]] ; then
+    export "PATH=$HOME/src/trustonic/bin:$PATH"
+fi
+if [[ -d "$HOME/opt/bin" ]] ; then
+    export "PATH=$HOME/opt/bin:$PATH"
+fi
+ulimit -c unlimited
+
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
-<<<<<<< HEAD
-ulimit -c unlimited
-=======
->>>>>>> 2374328f767fd2ec23c10caa8a021123f60e7776
