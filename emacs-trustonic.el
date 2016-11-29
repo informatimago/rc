@@ -5,6 +5,7 @@
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
 
+(translate-powerbook-keyboard)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -17,18 +18,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(compilation-error ((t (:inherit error :foreground "red"))))
- '(enh-ruby-string-delimiter-face ((t (:foreground "#ddff77"))))
+ '(enh-ruby-string-delimiter-face ((t (:foreground "darkgreen"))))
  '(erc-input-face ((t (:foreground "light blue"))))
  '(erc-my-nick-face ((t (:foreground "dark blue" :weight bold))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "dark violet"))))
  '(font-lock-comment-face ((t (:foreground "dark violet"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-preprocessor-face ((t (:foreground "#cc5500"))))
- '(font-lock-string-face ((t (:foreground "red1"))))
+ '(font-lock-string-face ((t (:foreground "yellow4"))))
  '(font-lock-type-face ((t (:foreground "#6620b0"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
- '(region ((t (:background "#B0E0F0"))))
+ '(region ((t (:background "#6080b0"))))
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
  '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
@@ -61,6 +62,7 @@
  '(c-label-minimum-indentation (quote set-from-style))
  '(c-offsets-alist (quote nil))
  '(c-special-indent-hook (quote nil))
+ '(confluence-save-credentials t)
  '(display-time-24hr-format t)
  '(erc-auto-query (quote window))
  '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
@@ -133,7 +135,6 @@
 
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-package.el")
 (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-palette.el")
 (load "~/rc/emacs-slime-simple.el")
@@ -170,6 +171,9 @@
                              ("\\.md$" . text-mode)
                              ("\\.d$"  . makefile-mode)))
   (add-to-list 'auto-mode-alist '(".*/Apps/iOS/.*\\.\\(h\\|m\\|hh\\|mm\\)$" . objc-mode)))
+(deletef auto-mode-alist "\\.rb$")
+(appendf auto-mode-alist '(("\\.rb$" . ruby-mode)))
+
 
 (require 'vc-svn)
 
@@ -237,10 +241,9 @@
    (add-to-list 'gud-jdb-classpath (expand-file-name (concat *android-tools-directory* "sdk/platforms/android-23/android.jar"))))
  (add-hook 'gud-mode-hook 'gud-meat))
 
-(require 'cedet)
-
-(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
-(require 'jde)
+;; (require 'cedet)
+;; (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+;; (require 'jde)
 
 
 ;;----------------------------------------------------------------------------
@@ -582,9 +585,101 @@
 
 (global-flycheck-mode)
 
+
+
+;;;
+;;; Trustonic TODO comments:
+;;;
+;;; Binding suggestion: (kbd "A-;") (kbd "H-;")  or (kbd "C-c t ;")
+;;; (no predefined emacs key binding use Alt- or Hyper- (and no known usual emacs package does),
+;;; and C-c <letter> is the standard prefix for user defined bindings, t = trustonic, ; = comment)
+;;;
+;;; (global-set-key (kbd "C-c t ;") 'trustonic-insert-todo-comment)
+;;; (global-set-key (kbd "H-;")     'trustonic-insert-todo-comment)
+;;; (setf *trustonic-user-name* "PreNom01")
+
+(defvar *trustonic-user-name* nil
+  "Set it to your Trustonic user name if it is different from the variable `user-login-name'.")
+
+(defun trustonic-insert-todo-comment (start end)
+  "Insert a Trustonic TODO comment.
+If the region is set, then use it as comment text.
+START is the start of the region.
+END is the end of the region."
+  (interactive "*r")
+  (let* ((user (or *trustonic-user-name* user-login-name))
+         (date (calendar-current-date))
+         (head (format "TODO-[%04d-%02d-%02d]-[%s] "
+                       (third date) (first date) (second date)
+                       user))
+         (endm   (make-marker)))
+    (unwind-protect
+         (progn
+           (if (and mark-active start end)
+               (progn
+                 (goto-char start)
+                 (set-marker endm end)
+                 (insert head))
+               (progn
+                 (setf start (point))
+                 (insert head)
+                 (set-marker endm (point))))
+           (set-mark start)
+           (goto-char endm)
+           (comment-region start endm)
+           (goto-char endm))
+      (set-marker endm nil))))
+
+
+(global-set-key (kbd "C-c t ;") 'trustonic-insert-todo-comment)
+(global-set-key (kbd "H-;")     'trustonic-insert-todo-comment)
+(setf *trustonic-user-name* "pasbou01")
+
+
+;;;
+;;; Trailing Whitespaces
+;;;
+;;; Let's use a find-file-hook to check and alert for trailing whitespaces upon opening a file,
+;;; and a before-save-hook to delete the trailing whitespaces upons saving.
+;;;
+;;; When the alert is given, the file should be touched and saved, the
+;;; whitespace removal should be commited, and only then the file can
+;;; be edited for the current task.
+
+(defun trustonic-check-trailing-whitespace-meat ()
+  "Check for trailing whitespaces in source files."
+  (interactive)
+  (when (vc-backend (buffer-file-name)) ; We don't care about files that are not in SVN.
+    (save-excursion
+     (goto-char (point-min))
+     (when (re-search-forward " $"nil t)
+       (message-box "*** WARNING: There are Trailing White Spaces in %s ***"
+                    (buffer-name))))))
+
+(defun pjb-alert-trailing-whitespace ()
+  (set-background-color "#600c0c")
+  (read-char "ALERT! Trailing whitespaces!     (Type the Any key)")
+  (set-palette *current-palette*))
+
+(defun pjb-check-trailing-whitespace-meat ()
+  (interactive)
+  (save-excursion
+   (goto-char (point-min))
+   (when (re-search-forward " $"nil t)
+     (pjb-alert-trailing-whitespace))))
+
+(add-hook 'find-file-hook   'pjb-check-trailing-whitespace-meat)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(translate-powerbook-keyboard)
+
+
+
+
+
+(require 'confluence)
+(setf confluence-url "http://wiki.trustonic.internal/confluence2/rpc/xmlrpc")
+
+
 (load "~/rc/emacs-epilog.el")
 (provide 'emacs-trustonic)
 ;;;; THE END ;;;;

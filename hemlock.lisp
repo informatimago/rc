@@ -23,5 +23,5 @@
 (apropos "DIRECTORY")
 #-(and)
 "
- 
+
 "
