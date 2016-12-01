@@ -766,21 +766,21 @@ The HOST is added to the list of logical hosts defined.
 ;; Not really: call-in should be in some package.
 #-mocl (declaim (declaration call-in))
 
-
+#-(and) (
 ;;; Add local include dirs for grovellers.
-(unless (find-package "IOLIB-GROVEL")
-  (defpackage "IOLIB-GROVEL"
-    (:use "COMMON-LISP")
-    (:intern "*CC-FLAGS*")))
-(unless (find-package "CFFI-GROVEL")
-  (defpackage "CFFI-GROVEL"
-    (:use "COMMON-LISP")
-    (:intern "*CC-FLAGS*")))
-(defvar iolib-grovel::*cc-flags* '())
-(defvar  cffi-grovel::*cc-flags* '())
-(dolist (include-dir '("/opt/local/include/" "/usr/local/include/"))
-  (dolist (var '(iolib-grovel::*cc-flags* cffi-grovel::*cc-flags*))
-    (unless (member include-dir (symbol-value var) :test (function string=))
-      (set var (list* "-I" include-dir (symbol-value var))))))
+      (unless (find-package "IOLIB-GROVEL")
+        (defpackage "IOLIB-GROVEL"
+          (:use "COMMON-LISP")
+          (:intern "*CC-FLAGS*")))
+      (unless (find-package "CFFI-GROVEL")
+        (defpackage "CFFI-GROVEL"
+          (:use "COMMON-LISP")
+          (:intern "*CC-FLAGS*")))
+      (defvar iolib-grovel::*cc-flags* '())
+      (defvar  cffi-grovel::*cc-flags* '())
+      (dolist (include-dir '("/opt/local/include/" "/usr/local/include/"))
+        (dolist (var '(iolib-grovel::*cc-flags* cffi-grovel::*cc-flags*))
+          (unless (member include-dir (symbol-value var) :test (function string=))
+            (set var (list* "-I" include-dir (symbol-value var)))))))
 
 ;;;; THE END ;;;;
