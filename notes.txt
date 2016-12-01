@@ -2,20 +2,6 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 
-
-appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
-jpaizier@gmail.com|Titiminou88|
-jpaizier@yahoo.fr|
-skype|aizier42|
-Titicoco88
-
-
-
-http://mathworks.com|pjb@informatimago.com|informatimago|Gis6loki0
-Run the installer and log in as pjb@informatimago.com and select license id 3354093.
-
-sudo dseditgroup -o edit -a $USER -t user procmod
-
 | System         | Xcode | iOS targets     |
 |----------------+-------+-----------------|
 | 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
@@ -26,42 +12,19 @@ sudo dseditgroup -o edit -a $USER -t user procmod
 
 http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
 
-
 https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
 Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
 Ce numéro d'abonné vous est personnel et doit le rester.
 
-* DU
-
-24G     Music/iTunes
-34G     Pictures/
-
-
-6.5G    opt/adt-bundle-mac-x86_64-20140702
-3.3G    opt/android-ndk-r10d-32bit
-49G     opt/android-sdk-r24.0.2-macosx
-60G     opt/
-
-41G     Downloads/
-
 * NOTES
-** New Notes
+** Android and iOS emulators on the web
+http://manymo.com
+https://appetize.io
 
-scan la-construction-de-programmes-structures
-missing: page 132 135 136
+https://xcloud.me
 
-maillists: cmucl*@cmucl.cons.org
-
-http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
-http://wisee.cs.washington.edu/wisee_paper.pdf
-
-ℤ
-- application mobile pour échanger des articles de loi ou de constitution et les commenter.
-
-#+BEGIN_SRC lisp :results scalar
-(list 1 2 3)
-#+END_SRC
-
+** Bitcoin
+g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
 ** Paypal Me
 
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
@@ -69,133 +32,33 @@ x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC
 http://www.paypal.com/?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
 
 ** Agility
-=======
-"universal" code generation: if we specify a processor instruction
-sets as subgraphs with nodes for registers/memory and for operations,
-then generating the code will consist in matching the optimized
-clearvir graph to those instruction subgraphs until we get a complete
-coverage.  The question is how to specify VM operators and processor
-operations so that we can match them, and if no exact correspondance,
-so that we can build automatically processors subgraphs to match them.
 
-Given that representation, the same algorithms can be used to further
-optimize the resulting processor code as for the clearvir code.
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
 
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
 
-Article 104 TUE.
+** Alexis Bosch
 
-Fabrice Montupet <binaryside@yahoo.fr>
-http://www.ti99.com/exelvision/website/
+chord sequence
+Editeur chord midi
+MidiNote -> fichier midi.
 
+Carole Sagon
+Karim Haddad
 
-paredit
-http://danmidwood.com/content/2014/11/21/animated-paredit.html
-
-
-conférence gesticulée
-SCOP le pavé
-lepave@no-log.org
-
-atelier de désintoxication du langage
-
-http://www.scoplepave.org/
-http://www.scoplepave.org/l-education-populaire-monsieur-ils-n-en-ont-pas
-
-
-
-AUTOMATED REQUIREMENT MEASUREMENT TOOL
-Software Assurance Technology Center
-MAC ARM Version 1.0
-
-
-rpn lisp: http://paste.lisp.org/display/144513
-
-
-
-Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
-"La Révolution Européenne"
-
-** NOTES 2
-
-beach: about the first HIR example.  I assume you consider that the
-open-coding allowed for CL operators would be implemented _before_
-generating the HIR code.  In that case, is there a way to call
-"literal" functions, that is, to refer in HIR compiled functions
-without going thru the fdefinition of its name? (Same question for
-inline functions).
-
-
-Eytan
-Tín Lóng 龍
-
-
-https://www.youtube.com/watch?v=xT_rTYB1zPM  Le grand secret 1987
-https://www.youtube.com/watch?v=sju4qeTUKko  La raison d'état 1978
-https://www.youtube.com/watch?v=NiBDin5nxd4  Jean Gabin 1935 Crimes et chatiments
-
-<eudoxia> so this is cool https://github.com/fukamachi/fast-http
-<eudoxia> >In this benchmark, fast-http is 5.5% faster than http-parser, a C library.
-
-g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
-
-
-boot to guile in qemu:
-http://lists.gnu.org/archive/html/guile-user/2013-02/msg00131.html
-
-
-http://www.bayfronttechnologies.com/mc_tutorial.html
-
-http://www.daemonology.net/blog/2014-09-06-zeroing-buffers-is-insufficient.html
-
-
-Turing Machine - Universal Turing Machine
-reflection, introspection
-stuff/stuff/
-
-
-Docteur: B7391 dr 1er Lundi 15:40
-
-https://github.com/WalnutiQ/WalnutiQ#walnutiq
-https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
-
-mère de famille: gestionaire de portefeuille familial personalisé avec
-une spécialisation en gestion de crise.
-
-
-
-http://quickdocs.org
-http://l1sp.org
-http://lispdoc.com/
-http://buildyourownlisp.com
-
-http://blog.quicklisp.org/2014/01/a-dist-for-testing.html
-https://github.com/quicklisp/quicklisp-projects/
-
-If you want to roll your own dist, take a look at
-https://github.com/Shirakumo/dist and https://github.com/orivej/quickdist
-
-
-http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
-
-Space Shuttle: each programmer managed 2600 lines of code over 10 years, to make sure they were right.
-
-
-uBeacon UUID F2A74FC4-7625-44DB-9B08-CB7E130B2029  12300  12310
-
-http://javarevisited.blogspot.co.il/2014/05/10-articles-every-programmer-must-read.html
-
-http://kuomarc.wordpress.com/2012/05/13/12-steps-to-build-and-deploy-common-lisp-in-the-cloud-and-comparing-rails/
-https://www.gnu.org/software/emacs/emacs-paper.html
-http://wry.me/misc/peval.html Partial Evaluation
-
-NSA, ASIS, BND, GRU, DGSE, MSS, CIA, MOSSAD, MI6, ISI, RAW
-
-http://imslp.org/
-
-http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
-
-0785017461 christiane
-http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
+** Jean-Pierre Aizier
+appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
+jpaizier@gmail.com|Titiminou88|
+jpaizier@yahoo.fr|
+skype|aizier42|
+Titicoco88
 
 ** NOTES 3
 http://darling.dolezel.info/en/Darling
@@ -231,18 +94,8 @@ https://github.com/sabof/svg-thing.git
 http://www.theatlantic.com/magazine/archive/2013/11/the-man-who-would-teach-machines-to-think/309529/?curator=MediaREDEF
 
 ** NOTES 4
-http://www.omg.org/spec/index.htm
 
 (setf w3m-cookies nil)
-
-According to wikipedia, the single-letter programming language names are: (B C D E F G J K L M Q R S T Z)
-remain those names for your new language: (A H I N O P U V W X Y)
-
-(reverse (set-difference (loop for i from 65 repeat 26 collect(intern (format "%c" i))) '(B C D E F G J K L M Q R S T Z)))
-
-
-A++ C++ X++
-A# X#
 
 Pascal Leroi: http://linuxgizmos.com/linux-based-underwater-robot-goes-faster-longer/
 
@@ -260,27 +113,16 @@ https://github.com/Fuco1/smartparens/
 # nameserver 99.199.11.127
 # nameserver 2001:470:1c:a3b::2
 
-alexis bosch
-chord sequence
-Editeur chord midi
-MidiNote -> fichier midi.
-
 
 
 a. A 'lost booty' of features list http://blog.languager.org/2012/10/functional-programming-lost-booty.html
 b. FP invades the mainstream list http://blog.languager.org/2013/06/functional-programming-invades.html
 
 
-
-
-
 http://osrc.dfm.io/
 
-
-http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 ** NOTES 5
 
-pascal.bourguignon03@orange.fr|7cxha2v
 bolet75@live.com
 
 http://postmaster.info.aol.com/errors/421dynt1.html
@@ -449,15 +291,11 @@ https://youtu.be/ubaX1Smg6pY?list=PLKuVC3Lrr0b8k5UY402FfM2LuZ8Ecti96&t=5077
 
 
 
-
 http://www.ina.fr/video/CPF86648057/informatique-generale-video.html
 http://webtubes.free.fr/ortf/articles.php?pg=art58
 
 
 IPv6: RFC3177 RFC4193
-
-
-
 
 
 robert.strandh@gmail.com idurand@labri.fr
@@ -468,19 +306,10 @@ eudoxia  https://github.com/eudoxia0/cl-ansi-spec
 
 ProgOnline Jacob Amar 0175430503
 
-;; SFR
-;;
-;; Carte SIM n°89331036123640651403
-;;
-;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
-;; Votre contrat est le XFR460.
-;;
-;; samsung: pjb@ogamita.org | vih3doq9
-;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
-
 Gerald Jay Sussman
 http://www.infoq.com/presentations/Expression-of-Ideas
 http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
+
 *** debian 8
 systemctl status movies-swap.swap
 
@@ -572,62 +401,7 @@ You can switch to gcc5:
 
 (but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
 
-** NOTES 8
-*** Alexis
-Carole Sagon
-Karim Haddad
-
-*** BNP
-
-BNP
-conseiller
-M. Thomas Noel
-M. Fauroux
-0141460409
-
-*** SFR
-
-sfr web pin=6599
-
-*** Orange
-
-Orange fibre: my phone number: +33966872199
-
-*** Comptes
-voyage-sncf.fr|pjb@informatimago.com|manonVoyage
-cloudmagic.com|pjb@informatimago.com|cAty-bar8
-
-www.godaddy.com
-1898145/informatimago/ecsvRWUv
-
-www.domainedesnoms.com
-compte DDN:  14012-DDN / 1e12neurons
-
-http://pole-emploi.fr|9093514E|649084|92130
-
-[27/07/15 18:35:59] Angelo Rossi: http://webmail.af-engineering.it/
-[27/07/15 18:36:25] Angelo Rossi: user: pascal.bourguignon
-[27/07/15 18:36:33] Angelo Rossi: password: P4sc4l#64
-pascal.bourguignon@af-engineering.it
-
-e2506005030
-delphine.capy@malix.univ-paris1.fr
-1413040195Dc
-Paris 1 Interactif
-
-
-http://www.microchoix.com/espace_client.html
-Login : pjb@informatimago.com
-Votre mot de passe : dSqcUixM
-
-http://www.materiel.net
-informatimago
-poporoplo
-
 ** NOTES 9
-
-
-TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
 
 (alexandria:hash-table-alist asdf/source-registry::*source-registry*)
 
@@ -688,71 +462,25 @@ http://home.pipeline.com/~hbaker1/ShallowBinding.html
 http://www.interstellarmovie.com/adventure/
 http://www.maclisp.info/pitmanual/master-index-s.html
 
-** Agility
-
-Agility -- What to Do
-- find out where you are
-- take a small step toward your goal
-- adjust your understanding based on what you learned
-- repeat
-
-Agility -- How to do it
-- when faced with two or more alternatives
-  that deliver roughly the same value, take
-  the path that makes future change easier.
-
-** commande Apple iPad Pro
-
-Facture TVA: 0800 046 046
-
 ** Remote Desktop for Linux
 http://www.rdesktop.org/#download
-** emulators on the web
- http://manymo.com and https://appetize.io
-
 ** XCode team distribution certificates
 
 Advise anyone on your team:
 - If you refresh/create a distribution certificate, e-mail the private key to you.
 - Install that private key in your keychain and you're all set.
 
-** Economy: Économie:
+** Ubudu uBeacon
 
-Capital productif:
-- travail pour produire l'ensemble des moyens de production représentés par ce capital.
-
-Coût économique du capital productif:
-- travail pour maintenir les moyens de production.
-
-Coût financier du capital productif:
-- endettement (dividendes, intérêts) pour acheter les moyens de production.
-
-(= (* masse-monétaire vitesse-circulation-monnaie)
-   (* quantités-vendues prix))
-
-*** Economic Freedom:
-http://www.freetheworld.com/
-http://www.heritage.org/        2003 Index of Economic Freedom
-http://www.heritage.org/research/features/index/
-
-** Cinefin Framework
-
-Simple:  cause -> effect
-Complicated: cause -> -> -> effect
-Complex: cause? effect
-Chaotic: effect? cause?
-Disorder:
-
-** Ubudu
-
-uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+uBeacon UUID: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+uBeacon UUID: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
 (same as Krystof)
 
-** Interesting programs
-Social network from irc traffic:
+** Social network from irc traffic:
 http://www.jibble.org/piespy/
 
 ** TeamSpeak (DCS World):
+
 ;; 81.13.118.162:9987          CVAT
 ;; 63.34.162.240:9102 phoenix  104th
 ;; 81.200.8.157:9987           RvAF
@@ -764,7 +492,7 @@ http://fare.tunes.org/articles/ll99/index.en.html
 http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
 https://github.com/DamienCassou/DSLides
 
-
+** Miscellaenous
 > See asm7090-describe-codop.  You could even do that in a
 > post-command-hook, or on mouse or arrow events so that the instructions
 > are always explained.  It would also possible to attach tooltips to the
@@ -776,10 +504,6 @@ use this by enabling eldoc-mode.
 
 
 WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-transmission-daemon -w /other/pjb/globcover
 
 
 Find how to distinguish (in emacs or X) the keys coming from the
@@ -810,31 +534,6 @@ Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
 
 Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
 pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
 
 (add-hook 'lisp-mode-hook
   (lambda ()
@@ -874,53 +573,6 @@ Movistar 340761 000326 5209 0   636653318   20110509
 
 http://www.progweb.com/modules/blackberry/index-en.html
 
-** Livres à acheter
-
-Au coeur du pouvoir : Enquête sur le club le plus puissant de France
-Émmanuel Ratier
-
-La guerre secrête contre les peuples
-Claire Séverac
-
-**** Petite histoire de l'expérimentation démocratique                  :buy:
-Yves Sintomer
-Petite histoire de l'expérimentation démocratique
-Tirage au sort et politique d'Athênes à nos jours
-
-**** Valentina: Soul in Sapphire                                        :buy:
-**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
-
-Esercizi di costruzioni elettromeccaniche
-Autore: Vaske Paul, Riggert Johann H.
-ISBN-10: 8820707020
-ISBN-13: 9788820707026
-ID prodotto: EPID49446951
-
-http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
-
-**** Ploncard d'Assac                                                   :buy:
-
- 30?   L'église occupée
- 30    1792 Les dernières marches du trône
- 25    Salazar
- 20    Manifeste nationaliste
- 20    Critique nationaliste
- 20    Les idées qui tuent
- 28    Le nationalisme français
- 35    La maçonnerie
- 18    Le complot mondialiste
- 20    Enquête sur la nouvelle droite
- 20    Histoire d'une trahison
- 24    Tradition ou révolution
- 16    Sarkosy ou la mort programmée de la France
- 24    La démocratie contre le peuple
- 10    Le combat des idees
- 10    La franc-maçonnerie dans la révolution dite française
- 10    Le double visage de la maçonnerie et de ses "compagnons de route"
- 10    Du 11 septembre au krach financier mondial
----
-370
-
 ** CNIL
 https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
 ** GOLD
@@ -944,12 +596,6 @@ civil unrest. The Fed will go nuts and be forced to raise interest
 rates fearing a bubble and that will blow out the deficits and the
 entire system will collapse 2016-2020. So hold on to your socks. This
 is likely to be a wild ride.
-
-** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
 
 ** MUD, GAMES
 
@@ -996,7 +642,6 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 ***** TODO [#A] TVA 2016
 **** TODO [#A] plomberie                                              :admin:
 **** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
-**** TODO [#A] Carte Vitale                                           :admin:
 **** TODO [#A] Carte d'Identité & Passeport                           :admin:
 **** TODO [#A] Rendez vous Ophtalmologiste                            :admin:
 **** TODO [#A] Rendez vous Dentiste                                   :admin:
@@ -1024,7 +669,7 @@ http://beknown.com/pascal-bourguignon
       * développement C++ : intégration module RPC proprietaire a
         l'application manager pour configuration et pilotage de
         l'application.
-         C++, Objecteering, UML,
+        C++, Objecteering, UML,
          Ruby (jeux de tests)
 
       Add to CV
@@ -1044,6 +689,28 @@ pour les cles sinon fermer compte openbank -> virement a cajama
 - Vendre ma part de terrain de Volstroff à Joëlle. (~ 8000 EUR).
 
 *** Virtual
+**** TODO add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
+**** TODO scan la-construction-de-programmes-structures
+missing: page 132 135 136
+
+**** TODO [2/3] Install gitlab on git.informatimago.com
+git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
+***** DONE [#B] Update web site.
+      CLOSED: [2012-11-26 Mon 21:47]
+      - CLOSING NOTE [2012-11-26 Mon 21:47] \\
+        Done.
+***** DONE [#B] Clone git to gitorious
+***** TODO [#B] Clone git repositories
+Check the repository clone situation
+github
+gitlab
+framagit
+informatimago.
+
+https://gitorious.org/com-informatimago
+http://git.gitorious.org/com-informatimago/com-informatimago
+http://gitorious.org/com-informatimago/com-informatimago/trees/master
+
 **** TODO [#C] edit cliki.net                                            :cl:
 
 http://www.cliki.net/HTML%20generator
@@ -1103,6 +770,9 @@ Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
 (Yosemite  10.10 Xcode 6)
 (elCapitan 10.11 Xcode 7)
 (sierra    10.12 Xcode 8)
+**** TODO trainz
+http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
+
 *** Divers
 **** Earn retirement money
 ----   ---------------  ---------------
@@ -1124,17 +794,17 @@ Year   Infl.Corr/Year   Total Remaining
 ----   ---------------  ---------------
 
 **** ALIRE, LECTURES
-
-<beach> I recommend a book called "The Dream Machine" by M. Mitchell Waldrop.  It's about
-a man named J.C.R. Licklider who funded "strange" projects, many of which are the basis of
-the computing technology we use today.
-
 ***** Reading:
 ****** TODO [#B] Reading Natural Language Processing in Lisp           :read:
        Natural Language Processing in Lisp
        An introduction to computationnal linguistics
        Gazdar & Mellish,
        Addison-Wesley,
+
+***** <beach> I recommend a book called "The Dream Machine" by M. Mitchell Waldrop.
+
+It's about a man named J.C.R. Licklider who funded "strange" projects,
+many of which are the basis of the computing technology we use today.
 
 ***** TODO [#C] Movies to Get with mldonkey                           :admin:
       :DEADLINE: <2016-12-31 -6m>
@@ -1187,6 +857,10 @@ Solaris (1972) (Andrei Tarkovsky)
 
 ***** TODO [#B] Movies to watch
 
+https://www.youtube.com/watch?v=xT_rTYB1zPM  Le grand secret 1987
+https://www.youtube.com/watch?v=sju4qeTUKko  La raison d'état 1978
+https://www.youtube.com/watch?v=NiBDin5nxd4  Jean Gabin 1935 Crimes et chatiments
+
 https://skillsmatter.com/skillscasts/3504-lightning-talk-dider-verna-death-by-obesity#showModal?modal-signup-complete
 
 Replace "youtube" with "listentoyoutube" in the URL to download the audio of the video.
@@ -1209,6 +883,8 @@ http://www.cs.cornell.edu/home/ulfar/cuba/paper/
 
 http://www.nongnu.org/mldonkey/faq.html#build1
 
+***** http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
+***** http://wisee.cs.washington.edu/wisee_paper.pdf
 ***** TODO [0/4] Text to read
 ****** TODO [#B] http://home.pipeline.com/~hbaker1/Prag-Parse.html
 ****** TODO [#B] http://fr.wikipedia.org/wiki/Mati%C3%A8re_plastique
@@ -1742,22 +1418,8 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
        http://textpix.com
        http://www.club-decideur.com/index.adml?h=5
 
-***** Webcam Acapulco
-
-       http://www.wetteronline.de/cgi-bin/regframe?3&PRG=citywind&LANG=de&WMO=76805&PROVIDER=anwendung
-
-       http://www.comfm.com/webcam/fiche.html?id=13289 puerto vallarta
-
-       http://www.vialidad.telmex.net/foto.php?NF=22&
-       http://www.vialidad.telmex.net/foto.php?NF=23&
-       http://www.vialidad.telmex.net/foto.php?NF=24&
-       http://www.vialidad.telmex.net/foto.php?NF=25&
-       http://www.vialidad.telmex.net/foto.php?NF=29
-
-       http://www.camscape.com/cam1d.htm
-       http://franck.legallo.free.fr/us/USAAUTRES1.htm
-
 ***** Ufo
+
        http://disclosureproject.com
        http://earthfiles.com
 
@@ -1977,10 +1639,66 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
        http://www.tomadivx.com
 
 **** Achats
+***** Livres à acheter
+
+Au coeur du pouvoir : Enquête sur le club le plus puissant de France
+Émmanuel Ratier
+
+La guerre secrête contre les peuples
+Claire Séverac
+
+****** Petite histoire de l'expérimentation démocratique                :buy:
+Yves Sintomer
+Petite histoire de l'expérimentation démocratique
+Tirage au sort et politique d'Athênes à nos jours
+
+****** Valentina: Soul in Sapphire                                      :buy:
+****** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
+
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
+
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+
+****** Ploncard d'Assac                                                 :buy:
+
+ 30?   L'église occupée
+ 30    1792 Les dernières marches du trône
+ 25    Salazar
+ 20    Manifeste nationaliste
+ 20    Critique nationaliste
+ 20    Les idées qui tuent
+ 28    Le nationalisme français
+ 35    La maçonnerie
+ 18    Le complot mondialiste
+ 20    Enquête sur la nouvelle droite
+ 20    Histoire d'une trahison
+ 24    Tradition ou révolution
+ 16    Sarkosy ou la mort programmée de la France
+ 24    La démocratie contre le peuple
+ 10    Le combat des idees
+ 10    La franc-maçonnerie dans la révolution dite française
+ 10    Le double visage de la maçonnerie et de ses "compagnons de route"
+ 10    Du 11 septembre au krach financier mondial
+---
+370
+
 ***** TODO [#A] cable usb sata                                          :buy:
-***** TODO [#C] Track IR 3D                                             :buy:
 ***** TODO [#C] warthog hotas                                           :buy:
-***** TODO [#C] 2x SanDisk Extreme PRO®                                 :buy:
+** FAIT, DONE
+*** Achats Achetés
+**** DONE [#C] Track IR 3D                                              :buy:
+      CLOSED: [2016-11-20 Sun 16:27]
+      - State "DONE"       from "TODO"       [2016-11-20 Sun 16:27] \\
+        Bought one.
+**** DONE [#C] 2x SanDisk Extreme PRO®                                  :buy:
+      CLOSED: [2016-11-20 Sun 16:27]
+      - State "DONE"       from "TODO"       [2016-11-20 Sun 16:27] \\
+        Bought one.
+
 SanDisk Extreme PRO® SDHC™/SDXC™ UHS-I Memory Card
 http://www.dpreview.com/articles/5813601559/sandisk-unveils-512gb-extreme-pro-sdxc-uhs-i-card
 
@@ -2007,8 +1725,10 @@ platinum $5,188,803.00 @shoebox.
  (gold 4601698)
  (platinum 5188803))
 
-** FAIT, DONE
-*** Achats Achetés
+**** commande Apple iPad Pro
+
+Facture TVA: 0800 046 046
+
 **** DONE [#A] produits netoyage écrans                                 :buy:
      CLOSED: [2015-10-19 Mon 14:47]
      - State "DONE"       from "TODO"       [2015-10-19 Mon 14:47] \\
@@ -2017,7 +1737,7 @@ platinum $5,188,803.00 @shoebox.
      CLOSED: [2015-10-19 Mon 14:47]
      - State "DONE"       from "TODO"       [2015-10-19 Mon 14:47] \\
        Printed mouse map patterns.
-**** Laurent LOUIS
+**** DONE Laurent LOUIS
 Votre paiement a été effectué.
 
 Le numéro de transaction pour ce paiement est le suivant : 66X52110TD680102S.
@@ -2041,6 +1761,8 @@ France
      CLOSED: [2014-02-17 Mon 03:33]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
        150 kg only :-(
+       Didn't last long. :-(
+
 **** DONE [#C] basquettes, vêtements                                    :buy:
      CLOSED: [2014-02-17 Mon 03:33]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
@@ -2373,18 +2095,10 @@ Certificado de pago 	53c3462646f3
       Done.
     :PROPERTIES:
     :END:
-*** Clone git to gitorious.
-*** Install gitorious on git.informatimago.com
-git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
-**** DONE [#B] Update web site.
-     CLOSED: [2012-11-26 Mon 21:47]
-     - CLOSING NOTE [2012-11-26 Mon 21:47] \\
-       Done.
-**** DONE [#B] Clone git to gitorious
-
-https://gitorious.org/com-informatimago
-http://git.gitorious.org/com-informatimago/com-informatimago
-http://gitorious.org/com-informatimago/com-informatimago/trees/master
+**** DONE [#A] Carte Vitale                                           :admin:
+     CLOSED: [2016-11-26 Sat 18:04]
+     - State "DONE"       from "TODO"       [2016-11-26 Sat 18:04] \\
+       Done
 * DEVELOPMENTS
 
 https://github.com/nikodemus/sb-cga
@@ -2394,6 +2108,7 @@ https://github.com/nikodemus/sb-cga
 Project Number: 444610959287
 
 ** APPLICATION IDEAS:
+
     - dev: agloo
     - dev: cdb
     - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
@@ -2512,6 +2227,12 @@ Project Number: 444610959287
             - Apprentissage automatique de langages de programmation.
 
             - Portages, traduction entre langages de programmation.
+
+** Nasium-LSE
+
+Fabrice Montupet <binaryside@yahoo.fr>
+http://www.ti99.com/exelvision/website/
+http://www.ti99.com/exelvision/website/index.php?mact=Search%2Ccntnt01%2Cdosearch%2C0&cntnt01returnid=376&cntnt01searchinput=LSE
 
 ** Programming Log (Done)
 
@@ -2769,6 +2490,10 @@ and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
     :DEADLINE: <2016-09-30 -6m>
+
+https://github.com/drh/lcc
+https://github.com/Kalimehtar/pcc1
+
 *** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
     :DEADLINE: <2016-06-30 -6m>
 pjb-objc-edit.el
@@ -2805,6 +2530,10 @@ in pjb-c-style.el
      @synthesize name=_name;
 
 **** TODO [#A] objc-edit (like paredit)                      :objc:emacs:dev:
+
+paredit tutorial:
+http://danmidwood.com/content/2014/11/21/animated-paredit.html
+
 **** TODO [#A] objc-gen (like parenscript) code from sexps   :objc:emacs:dev:
 to generate Objective-C
 **** Objective-C
@@ -3215,7 +2944,6 @@ http://pub1.de/
 -->EPI http://www.bbc.com/news/technology-17740143
 
 http://all-things-andy-gavin.com/2011/03/12/making-crash-bandicoot-gool-part-9/
-http://foodisforfuel.com/exercise/
 http://globalguerrillas.typepad.com/globalguerrillas/2012/03/drones-are-forever.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+typepad%2FrzYD+%28Global+Guerrillas%29
 http://people.mills.edu/spertus/Gender/pap/node15.html
 http://pichotjm.free.fr/T1600/Manuel_T1600/file.html
@@ -3592,6 +3320,7 @@ login ayudaparavivir password 5z2csasz
   |                                      Jésus-Christ Notre Seigneur.      |
   |                                      Ainsi soit-il.                    |
   +------------------------------------------------------------------------+
+
     PATER NOSTER, qui es in caelis,
     sanctificetur nomen tuum.
     Adveniat regnum tuum.
@@ -4617,6 +4346,24 @@ Vicyor Minuesa Cuenca|+34629402487
 Vincente De Robert|+34690010607
 
 * PROVIDERS
+** SFR
+
+sfr web pin=6599
+;; SFR
+;;
+;; Carte SIM n°89331036123640651403
+;;
+;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
+;; Votre contrat est le XFR460.
+;;
+;; samsung: pjb@ogamita.org | vih3doq9
+;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
+
+** Orange
+
+Orange fibre: my phone number: +33966872199
+
+
 ** eFax
 
     Your Personal eFax Number is
@@ -5232,14 +4979,23 @@ ordered:
       --> full galatea backup
 
 * INFORMATICS
+** newbie programmer
+
+    http://javarevisited.blogspot.co.il/2014/05/10-articles-every-programmer-must-read.html
+
+    http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
+
 ** ALGORITHMS
 *** Floating  point numbers
+
     floating point numbers:
     http://www.exploringbinary.com/the-four-stages-of-floating-point-competence/
+
     What Every Computer Scientist Should Know About Floating-Point Arithmetic
     http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
     http://portal.acm.org/citation.cfm?id=103163
     http://focus.hut.fi/docs/WorkShop/common/ug/goldberg1.doc.html
+
 
     RealLib3:
     http://www.brics.dk/~barnie/RealLib/
@@ -6246,6 +6002,9 @@ http://www.employees.org/~satch/ssh/faq (Steve's)
 ** COMMANDS: XLI, PPM, LABEL:
 
     jpegtopnm acapulco-2.jpg  | ppmlabel -background '#C44' -x 20 -y 20 -text 'ESSAI Tralalere' -size 24 -text 'Ragnagna' > a.ppm ; xv a.ppm
+** COMPILER METACOMPILERS
+http://www.bayfronttechnologies.com/mc_tutorial.html
+
 ** COMPILER COMPILATION SUPERCOMPILER SUPERCOMPILATION
 
    http://www.supercompilers.com/white_paper.shtml
@@ -6871,6 +6630,8 @@ Scratch is the Logo of today.  No typing, easy for kids to pick up.
 http://scratch.mit.edu/
 
 ** EMACS:
+
+https://www.gnu.org/software/emacs/emacs-paper.html
 
 By the way, there are:
 
@@ -8105,6 +7866,18 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
 
 *** URLS
 
+http://quickdocs.org
+http://l1sp.org
+http://lispdoc.com/
+http://buildyourownlisp.com
+
+quicklisp
+http://blog.quicklisp.org/2014/01/a-dist-for-testing.html
+https://github.com/quicklisp/quicklisp-projects/
+
+If you want to roll your own dist, take a look at
+https://github.com/Shirakumo/dist and https://github.com/orivej/quickdist
+
     L subset of Common Lisp for embedded
     http://www.cs.cmu.edu/~chuck/pubpg/luv95.pdf
     http://kremer.cpsc.ucalgary.ca/courses/AC/F2012/gettingCASA.html
@@ -8440,6 +8213,7 @@ http://rondam.blogspot.com/2009/08/global-variables-done-right.html
 
     nyquist http://www.cs.cmu.edu/~music/music.software.html
 
+    Public Domain Music http://imslp.org/
 
     The repository is "clozure.com:/usr/local/publiccvs", and the CVS module
     for the documentation and the rest of the website content is "website".
@@ -9129,6 +8903,8 @@ http://kogs-www.informatik.uni-hamburg.de/~moeller/symbolics-info/statice.html
 
       A Hacker's Introduction to Partial Evaluation
       http://www.lisp-p.org/htdocs/peval/peval.cgi
+
+      http://wry.me/misc/peval.html Partial Evaluation
 
     Well, you can read about Screamer, a system by Jeffrey Mark Siskind.
     This does what you are interested in, namely using a code walker to
@@ -10149,6 +9925,9 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
 
 ** LANGUAGES: COMMON LISP: LIBRARIES
 
+http://kuomarc.wordpress.com/2012/05/13/12-steps-to-build-and-deploy-common-lisp-in-the-cloud-and-comparing-rails/
+
+
 https://github.com/Hexstream/
 
 http://common-lisp.net/project/cl-org-mode/
@@ -10468,6 +10247,10 @@ uiop:run-program instead
     the inner backquote is evaluated, just use ,@(car s).)
 
 ** LANGUAGES: Scheme
+
+boot to guile in qemu:
+http://lists.gnu.org/archive/html/guile-user/2013-02/msg00131.html
+
 
     http://nhiro.org/learn_language/LISP-on-browser.html lisp in javascript.
     http://www.biwascheme.org/  scheme in javascript, scheme scripts in html
@@ -11031,6 +10814,7 @@ http://www.scilab.org/
 http://maxima.sourceforge.net/
 *** Music
 http://musescore.org/
+
 *** Office Productivity
 http://www.openoffice.org/
 http://www.libreoffice.org/
@@ -11713,7 +11497,11 @@ sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
 sudo nvram boot-args='-v'
 dscl . -list /Users
 dscl . -read /Users/pjb
+
+sudo dseditgroup -o edit -a $USER -t user procmod
+
 #-END(src)
+
 
 *** MacOSX 10.10 root exploit:
 
@@ -12348,20 +12136,104 @@ Comments:
   "LOCATION="
   "COPYRIGHT="
 
+* PHYSICS
+** Radiation Belt
+
+Earth radiation = 1e-5 Sievert/day = 4e-7 Sievert/hour
+Fukushima hotest measured          = 2e-5 Sievert/hour
+Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
+Van Allen                          = 5e-1 Sievert/hour
+Fukushima inside plant             = 8e0  Sievert/hour
+
+33 hours on Moon surface = 3e-3 Sievert =
+16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
+
+
+
+Van Allen:
+
+  outer belt:
+      3 to 10 earth-radius-mean
+      electrons 0.1 to 10 MeV
+      ions
+
+  inner belt:
+      0.01 to 1.5 earth-radius-mean
+      protons    100 MeV
+      electrons  0.1 MeV
+
+      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
+             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
+
+
+      protons of 0.1 MeV penetrate 0.6 mm of Pb
+      protons of 400 MeV penetrate 143 mm of Pb
+
+radiation:  2500 rem/year
+              25 mS
+
+    apollo astronauts: 5 rem
+
+** Matter Energy Information
+
+    http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
+
+    E-M  E=mc²
+    E-I  E=hf
+    M-I  m=fh/c²  f=mc²/h
+    Bremermann's limit = 2e50  bit/kg/s
+    Bremermann's Limit is the maximum computational speed of a
+    self-contained system in the material universe.
+
+    What is a country? A country (~ France) ~= 1e12 m² * 1000 m * 2000
+    kg/m³ * 2000*31557600 s & Bremermann's limit = 1e50 bit/kg/s  ==>
+    A country ~= 1.3E29 * 1e50 = 1.3e79 bits.  TLA = (log (expt
+    26 3) 2) ~= 14 bits.  So you'd need about 1e78 TLA to make a
+    country.
+
+    1e12 neurons
+    1e4  connections
+
+    1e18 bit/kg/s
+
+* LINGUISTICS
+** CHINESE CHINOIS
+    http://www.mandarintools.com/cgi-bin/wordlook.pl
+    http://www.popjisyo.com/WebHint/Portal_e.aspx
+
+** Voynich
+
+    http://elias.weltretter.de/voyblog/wp-content/evahand1.zip
+
+    To detect patterns in those features, they used wavelet analysis,
+    a statistical technique used to identify patterns in geophysical
+    data such as significant warming of the surface of the ocean off
+    South America that causes El Niño climatic events. The wavelet
+    analysis of bacterial genomes yielded "scalograms," maps colored
+    to elucidate the strength of a variety of periodicities associated
+    with chromosome position. Just as the wavelet analysis identified
+    significant increases in sea surface temperatures; it also
+    revealed nonrandom patterns in the genomes of the 151
+    microorganisms studied.
+
 * DATA, DONNEES, DATOS
 ** Criminalité
 http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
-** Paleodiet
+** Food
+http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
+http://foodisforfuel.com/exercise/
 
-    http://homodiet.netfirms.com/index.html
-    http://www.second-opinions.co.uk/
-    http://www.agora-inc.com/reports/RCH/TrueGains/
+*** Paleodiet
 
-** Dukan Diet
+     http://homodiet.netfirms.com/index.html
+     http://www.second-opinions.co.uk/
+     http://www.agora-inc.com/reports/RCH/TrueGains/
 
-    http://thedukandiet.info
+*** Dukan Diet
 
-** Atkins Diet
+     http://thedukandiet.info
+
+*** Atkins Diet
 
 Meats: Bacon, Beef, Calf Liver, Chicken, Cornish Game Hen, Duck,
        Goose, Ham, Keilbasa, Lamb, Pork, Quail, Sausage,Steak, Turkey,
@@ -12808,95 +12680,6 @@ Saturn	313.0	21.000	1.7237e-03	121.823	1298.8	40.698	83.41
 Uranus	366.0	260.000	1.9651e-02	150.336	1353.5	332.598	87.68
 Neptune	360.0	283.000	2.1746e-02	117.192	1342.3	301.495	84.98
 Titan	94.0	1.500	5.5026e-03	20.074	194.3	58.887	89.99
-
-* PHYSICS
-** Radiation Belt
-
-Earth radiation = 1e-5 Sievert/day = 4e-7 Sievert/hour
-Fukushima hotest measured          = 2e-5 Sievert/hour
-Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
-Van Allen                          = 5e-1 Sievert/hour
-Fukushima inside plant             = 8e0  Sievert/hour
-
-33 hours on Moon surface = 3e-3 Sievert =
-16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
-
-
-
-Van Allen:
-
-  outer belt:
-      3 to 10 earth-radius-mean
-      electrons 0.1 to 10 MeV
-      ions
-
-  inner belt:
-      0.01 to 1.5 earth-radius-mean
-      protons    100 MeV
-      electrons  0.1 MeV
-
-      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
-             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
-
-
-      protons of 0.1 MeV penetrate 0.6 mm of Pb
-      protons of 400 MeV penetrate 143 mm of Pb
-
-radiation:  2500 rem/year
-              25 mS
-
-    apollo astronauts: 5 rem
-
-** Matter Energy Information
-
-    http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
-
-    E-M  E=mc²
-    E-I  E=hf
-    M-I  m=fh/c²  f=mc²/h
-    Bremermann's limit = 2e50  bit/kg/s
-    Bremermann's Limit is the maximum computational speed of a
-    self-contained system in the material universe.
-
-    What is a country? A country (~ France) ~= 1e12 m² * 1000 m * 2000
-    kg/m³ * 2000*31557600 s & Bremermann's limit = 1e50 bit/kg/s  ==>
-    A country ~= 1.3E29 * 1e50 = 1.3e79 bits.  TLA = (log (expt
-    26 3) 2) ~= 14 bits.  So you'd need about 1e78 TLA to make a
-    country.
-
-    1e12 neurons
-    1e4  connections
-
-    1e18 bit/kg/s
-
-* LINGUISTICS
-** CHINESE CHINOIS
-    http://www.mandarintools.com/cgi-bin/wordlook.pl
-    http://www.popjisyo.com/WebHint/Portal_e.aspx
-
-** Voynich
-
-    http://elias.weltretter.de/voyblog/wp-content/evahand1.zip
-
-    To detect patterns in those features, they used wavelet analysis,
-    a statistical technique used to identify patterns in geophysical
-    data such as significant warming of the surface of the ocean off
-    South America that causes El Niño climatic events. The wavelet
-    analysis of bacterial genomes yielded "scalograms," maps colored
-    to elucidate the strength of a variety of periodicities associated
-    with chromosome position. Just as the wavelet analysis identified
-    significant increases in sea surface temperatures; it also
-    revealed nonrandom patterns in the genomes of the 151
-    microorganisms studied.
-
-* Test
-** Aaa
-aaa bot
-** Test-1
-** Test-2
-testy II
-** Zzz
-zzz top
 
 * Local Variables
 Local Variables:
