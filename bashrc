@@ -214,6 +214,9 @@ function be_generate(){
         /opt/bin
         /opt/sbin
 
+        /usr/local/opt/coreutils/libexec/gnubin
+        /usr/local/opt/findutils/libexec/gnubin
+
         #/data/languages/acl82express/bin/
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
@@ -383,6 +386,11 @@ function be_generate(){
 
     if [ -d /opt/local/share/java/gradle ] ; then
         be_variable GRADLE_HOME /opt/local/share/java/gradle
+    fi
+
+    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+    if [ "$uname" = Darwin ] ; then
+        be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
 
     be_comment 'Generic environment:'
@@ -1245,6 +1253,14 @@ esac
 # display function and alias duplicates:
 compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
-export "PATH=$HOME/src/trustonic/bin:$PATH"
+if [[ -d "$HOME/src/trustonic/bin" ]] ; then
+    export "PATH=$HOME/src/trustonic/bin:$PATH"
+fi
+if [[ -d "$HOME/opt/bin" ]] ; then
+    export "PATH=$HOME/opt/bin:$PATH"
+fi
+ulimit -c unlimited
+
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
