@@ -1,13 +1,272 @@
 #!/bin/bash
+set -e
 
-mkdir -p ~/src/public ~/emacs
 
-cd ~
-git clone ssh://pjb@git.informatimago.com/srv/git/public/bin
+# - AppStore:
+#     - install Xcode
+#     - install Omnigrafle        from purchased applications
+#     - install Closure CL        from purchased applications
+#     - install Libre Office      from purchased applications
+#     - install Garage Band       from purchased applications
+#     - install Theta S Remote    from purchased applications
+#
+# - install https://emacsformacosx.com
+# - install java from oracle.
+# - install https://www.macports.org
+#
+# - install https://developer.android.com/studio/index.html
 
-cd ~/src/public
-git clone ssh://pjb@git.informatimago.com/srv/git/public/emacs
-git clone ssh://pjb@git.informatimago.com/srv/git/public/lisp
+#-----------------------------------------------------------------------
+# Pjb Environments ~/bin ~/rc ~/src/public/lisp ~/src/public/emacs
+#-----------------------------------------------------------------------
 
-cd ~/emacs
-wget http://mumble.net/~campbell/emacs/paredit.el
+function install_pjb_environment(){
+    local repositories=(
+        pjb@git.informatimago.com:/srv/git/public/bin
+        pjb@git.informatimago.com:/srv/git/public/rc
+        pjb@git.informatimago.com:/srv/git/public/lisp
+        pjb@git.informatimago.com:/srv/git/public/emacs
+    )
+    cd "$HOME"
+    mkdir -p src/public
+    cd src/public
+    for repo in "${repositories[@]}" ; do
+	local name="$(basename "${repo}")"
+        if [[ ! -x "${name}" ]] ; then
+	    git clone "${repo}"
+	else
+	    printf 'WARNING: item already exists: %s/%s\n         for %s\n' "$(pwd)" "${name}" "${repo}"
+	fi
+    done
+    cd "$HOME"
+    ln -sf src/public/bin src/public/rc .
+    cd rc
+    make symlinks
+    cd $HOME ; source .bashrc
+    printf 'Evaluate:\n   cd $HOME ; source .bashrc\n'
+
+}
+
+function install_quiclisp(){
+    local url="https://beta.quicklisp.org/quicklisp.lisp"
+    local file="$(basename "${url}")"
+    curl -O "${url}"
+    curl -O "${url}".asc
+    gpg --verify "${file}".asc "${file}"
+}
+
+
+#-----------------------------------------------------------------------
+# /usr/local stuff
+#-----------------------------------------------------------------------
+
+function prepare_usr_local(){
+    sudo mkdir -p /usr/local/{bin,sbin,src,share,etc,lib,libexec,include,info,man}
+    sudo chown "$USER" /usr/local/* /usr/local
+}
+
+
+function install_emacs_from_sources(){
+    cd /usr/local/src
+    local url='ftp://ftp.gnu.org/gnu/emacs/emacs-25.1.tar.gz'
+    local name="$(basename "${url}")"
+    curl -O "${url}"
+    curl -O "${url}.sig"
+    tar zxf "${name}"
+    cd "$(basename "${name}" .tar.gz)"
+    ./configure --prefix=/usr/local \
+		--with-x --without-ns \
+	&& make && make install
+}
+
+
+
+
+function install_ccl_from_sources(){
+    local version
+    local sys
+    local pro
+    sys="$(uname|tr 'A-Z' 'a-z')"
+    pro="$(uname -m)"
+    case "$pro" in
+    (x86_64) pro=x86 ;;
+    esac
+    version="$(svn ls http://svn.clozure.com/publicsvn/openmcl/release|sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n|tail -1)"
+    cd /usr/local/src
+    svn co "http://svn.clozure.com/publicsvn/openmcl/release/${version}${sys}${pro}/ccl" "ccl-${version%/}"
+    ln -s "ccl-${version%/}" ccl
+    cd /usr/local/bin
+    ln -s ../src/ccl/scripts/ccl ccl32
+    ln -s ../src/ccl/scripts/ccl64 ccl64
+    ln -s ccl64 ccl
+}
+
+
+function install_clisp_from_sources(){
+    cd /usr/local/src/
+    hg clone http://hg.code.sf.net/p/clisp/clisp clisp-hg
+}
+
+
+function install_abcl_from_sources(){
+    cd /usr/local/src/
+}
+
+function install_ecl_from_sources(){
+    cd /usr/local/src/
+}
+
+function install_usr_local_stuff(){
+    prepare_usr_local
+    for component in emacs ccl clisp abcl ecl  ; do
+        "install_${component}_from_sources"
+    done
+}
+
+
+#-----------------------------------------------------------------------
+# quicklisp
+#-----------------------------------------------------------------------
+
+function install_quicklisp(){
+    local url="https://beta.quicklisp.org/quicklisp.lisp"
+    local file="$(basename "${url}")"
+    curl -O "${url}"
+    curl -O "${url}".asc
+    gpg --verify "${file}".asc "${file}"
+    ccl --no-init <<EOF
+(load "quicklisp.lisp")
+(quicklisp-quickstart:install)
+(ql:quickload "quicklisp-slime-helper")
+(ccl::quit)
+EOF
+    mkdir -p quicklisp/local-systems/com
+    ln -s ../../../src/public/lisp  quicklisp/local-systems/com/informatimago
+}
+
+#-----------------------------------------------------------------------
+# Darwin: EmacsForMacOSX
+#-----------------------------------------------------------------------
+
+function install_emacsformacosx(){
+    local url='https://emacsformacosx.com/download/emacs-builds/Emacs-25.1-1-universal.dmg'
+    local dmg;dmg="$(basename "${url}")"
+    local mnt;mnt="$(mktemp -d /tmp/mnt.XXXXXX)" || ( echo cannot make mount point >&2 ; return 1 )
+    cd /tmp
+    curl -O "${url}"
+    dev="$(hdiutil attach "${dmg}" -mountpoint "${mnt}" |grep dev|tail -1|awk '{print $1}')"
+    cp -av "${mnt}"/Emacs.app /Applications/Emacs.app
+    hdiutil detach "${dev}"
+    rmdir "${mnt}"
+}
+
+
+#-----------------------------------------------------------------------
+# Darwin: MacPorts
+#-----------------------------------------------------------------------
+
+function install_macports(){
+    local ignore1
+    local ignore2
+    local version
+    local url
+    read ignore1 ignore2 version <<<$(distribution)
+    case "${version}" in
+    (16.*)  url='https://distfiles.macports.org/MacPorts/MacPorts-2.3.4-10.12-Sierra.pkg' ;;
+    (15.*)  url='https://distfiles.macports.org/MacPorts/MacPorts-2.3.4-10.11-ElCapitan.pkg' ;;
+    (14.*)  url='https://distfiles.macports.org/MacPorts/MacPorts-2.3.4-10.10-Yosemite.pkg' ;;
+    (13.*)  url='https://distfiles.macports.org/MacPorts/MacPorts-2.3.4-10.9-Mavericks.pkg' ;;
+    (*) printf 'ERROR: Unexpected OSX version: %s\n' "${version}"
+        return 1
+        ;;
+    esac
+
+    cd /tmp
+    local packageName="$(basename "$url")"
+    curl -O "$url"
+    sudo installer -pkg "${packageName}" -target /
+}
+
+
+function install_ports(){
+    local ports=(MPlayer abcMIDI abcm2ps ant-contrib
+                 apache-ant bash ccl clisp cmake coreutils docbook-xml-5.0
+                 docbook-xsl ecl enscript ffcall fluidsynth fop gawk gcl gdb giflib
+                 gnupg gnutar gradle graphviz gsed libconfig-hr libevent libiconv
+                 lisp-hyperspec lynx mercurial mmv multimarkdown mysql mysql-server
+                 ncftp ninja optipng pandoc pngcheck pngcrush pngpp port_cutleaves
+                 portmidi pstree py-pdfrw py27-pip py27-sphinx py33-docutils
+                 py33-pip ragel rlwrap rst2pdf sbcl sitecopy texlive-bibtex-extra
+                 texlive-fonts-extra texlive-formats-extra texlive-games
+                 texlive-htmlxml texlive-humanities texlive-lang-african
+                 texlive-lang-arabic texlive-latex texlive-latex-extra
+                 texlive-latex-recommended texlive-music texlive-omega
+                 texlive-pstricks texlive-publishers texlive-science tiemu3
+                 umbrello unrar vineserver w3m wget x11perf xauth xcalc xcb
+                 xclipboard xclock xcompmgr xconsole xcursorgen xditview xdm
+                 xdotool xdpyinfo xedit xev xeyes xfd xfig xfontsel xforms xfs
+                 xfsinfo xgamma xgc xhost xinit xkeyboard-config xkill xload xlogo
+                 xlsatoms xlsclients xlsfonts xmag xman xmessage xmh xmlto xmms
+                 xmodmap xmore xorg-scripts xpdf xpdf-cyrillic xplot xpr xprop
+                 xrandr xrefresh xscope xscreensaver xsetmode xsetpointer xsetroot
+                 xskat xsm xstdcmap xwd xwininfo xwud py27-readline mysql57
+                 mysql57-server mysql_select gcc5 gcc7 gcc_select
+                 w3m tree boehmgc ghostscript
+                )
+    sudo port selfupdate
+    sudo port upgrade outdated
+
+    sudo port install xorg-server
+    sudo port install xorg-libXt +flat_namespace.
+
+    for port in  "${ports[@]}" ; do
+	sudo port install "${port}"
+    done
+
+    sudo port uninstall inactive      # remove the inactive ports.
+    sudo port clean --all uninstalled # remove the non-installed distfiles
+
+    sudo port select --set sphinx py27-sphinx
+
+    sudo port select --set python  python33
+    sudo port select --set python3 python33
+    sudo port select --set pip     pip33
+
+    sudo launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
+    launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
+    launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+    launchctl load -w /Library/LaunchAgents/org.macports.kdecache.plist
+}
+
+
+#-----------------------------------------------------------------------
+# Install All
+#-----------------------------------------------------------------------
+
+
+
+function install_all(){
+
+    install_pjb_environment
+    source "$HOME/.bashrc"
+
+    case "$(uname)" in
+    (Darwin)
+	install_emacsformacosx
+        install_macports
+        install_ports
+        ;;
+    esac
+
+    install_usr_local_stuff
+    install_quicklisp
+}
+
+
+function main(){
+    echo Use it manually for now.
+    exit 0
+}
+
+
+main "$@"
