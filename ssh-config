@@ -11,58 +11,32 @@
 # configuration file, and defaults at the end.
 
 
-Host gitlab.com
-    ForwardAgent            no
-    ForwardX11              no
-
-Host framagit.org
-    ForwardAgent            no
-    ForwardX11              no
-
-    Host git.framasoft.org
-    ForwardAgent            no
-    ForwardX11              no
-
-Host gitorious.org
-    ForwardAgent            no
-    ForwardX11              no
-
 Host github.com
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/id_rsa
-    ForwardAgent            no
-    ForwardX11              no
+    IdentityFile            ~/.ssh/github-id_ed25519
 
 Host patchy+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
-    ForwardAgent            no
-    ForwardX11              no
 
 Host ubudu+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
-    ForwardAgent            no
-    ForwardX11              no
 
 
-# ----------------------------------------
-# informatimago.com:
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab-id_ed25519
 
-Host hubble.informatimago.com
-    ForwardAgent            no
-    ForwardX11              no
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit-id_ed25519
 
-Host cvs.informatimago.com
-    ForwardAgent            no
-    ForwardX11              no
-
-Host git.informatimago.com
-    ForwardAgent            no
-    ForwardX11              no
 
 
 # ----------------------------------------
@@ -71,9 +45,6 @@ Host git.informatimago.com
 Host anonix.net
     User                    hf
     Protocol                2
-    ForwardAgent            no
-    ForwardX11              no
-    # No need for X11 forwarding since there's no X11 on anonix.
 
 
 # ----------------------------------------
@@ -81,7 +52,6 @@ Host anonix.net
 
 Host bolet.no-ip.com
     Protocol                1,2
-    ForwardX11              no
     StrictHostKeyChecking	no
     CheckHostIP             no
 
@@ -93,8 +63,8 @@ Host *
     Port                    22
     Cipher                  blowfish-cbc
     EscapeChar              ~
-    ForwardAgent            yes
-    ForwardX11              yes
+    ForwardAgent            no
+    ForwardX11              no
     ForwardX11Trusted       yes
     HostbasedAuthentication yes
     RhostsRSAAuthentication yes
