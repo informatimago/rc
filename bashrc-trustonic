@@ -2,9 +2,10 @@
 set +o posix
 
 # ulimit -n 2048 -u 1024
-
-defaults write org.x.X11 enable_test_extensions -boolean true
-defaults write org.macports.X11 enable_test_extensions -boolean true
+if [[ $(uname) = Darwin ]] ; then
+    defaults write org.x.X11 enable_test_extensions -boolean true
+    defaults write org.macports.X11 enable_test_extensions -boolean true
+fi
 
 export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
