@@ -2807,6 +2807,7 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
 ** Developments TODO                                                    :dev:
+*** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
 *** TODO [#A] build robot, and implement robot software                  :pi:
 *** TODO [#B] check CL macros for implementation specifics               :cl:
@@ -4272,6 +4273,9 @@ sfr web pin=6599
 
 Orange fibre: my phone number: +33966872199
 
+Adresse mail : pascal.bourguignon03@orange.fr
+Numéro de compte : 713217363
+Numéro de téléphone : 09 66 87 21 99
 
 ** eFax
 
