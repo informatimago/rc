@@ -5,6 +5,8 @@
 ;;;; We only run GNU emacs.
 ;;;;
 
+;;; Code:
+
 ;; Emacs   Makes All Computing Simple.
 ;; Eine    Is Not Emacs.
 ;; Zwei    Was Eine Initially.
@@ -38,11 +40,8 @@
 (setq-default lexical-binding t)
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
-(if (string= emacs-version "25.0.50.1")
-    (setq source-directory
-          ;; "/usr/local/src/emacs/src"
-          "~/works/emacs/src")
-    (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version)))
+(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
+
 
 ;;;----------------------------------------------------------------------------
 ;;; Message Log
@@ -458,32 +457,7 @@ WELCOME TO EMACS!
                        '("site-start.el" "site-gentoo.el" "subdirs.el"))
                  t))))
       (dolist (directories (append
-                            ;; When several directories are listed in a sublist, only
-                            ;; the first found directory will be added.
-                            (case emacs-major-version
-                              ((20 21 22)
-                               (append '("/opt/lisp/emacs"
-                                         "/opt/local/share/emacs/site-lisp"
-                                         "/usr/local/share/emacs/site-lisp")
-                                       '("/opt/clisp-2.48/share/emacs/site-lisp"
-                                         "/opt/clisp-2.48-newclx/share/emacs/site-lisp"
-                                         "/opt/clisp-2.48-mitclx/share/emacs/site-lisp"
-                                         "/opt/clisp-2.47/share/emacs/site-lisp"
-                                         "/opt/clisp-2.46/share/emacs/site-lisp"
-                                         "/opt/clisp-2.41-pjb1-regexp/share/emacs/site-lisp")
-                                       '("/opt/smalltalk-3.0.4/share/emacs/site-lisp")
-                                       ))
-                              ((23)
-                               '("/usr/local/share/emacs/site-lisp"))
-                              ((24)
-                               '("/opt/share/emacs/site-lisp/w3m/"))
-                              ((25)
-                               '())
-                              (otherwise
-                               (.EMACS "WARNING: No load-paths for emacs version %d"
-                                       emacs-major-version)
-                               '()))
-                            (list
+			    (list
                              ;; -----------------
                              ;; PJB emacs sources
                              ;; -----------------
@@ -496,7 +470,12 @@ WELCOME TO EMACS!
                              ;; the same source directory.
                              ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
                              '("~/src/public/emacs")
-                             '("~/emacs"))))
+                             '("~/emacs"))
+			    '(("/opt/lisp/emacs")
+			      ("/opt/share/emacs/site-lisp")
+			      ("/opt/local/share/emacs/site-lisp")
+			      ("/usr/local/share/emacs/site-lisp")
+			      ("/usr/share/emacs/site-lisp"))))
         (if (listp directories)
             (find-if (function add-if-good) directories)
             (add-if-good directories)))
@@ -509,7 +488,7 @@ WELCOME TO EMACS!
 
 (.EMACS "Loading my personal files -- My own stuff.")
 (pjb-setup-load-path)
-(unless (load "pjb-loader.el" t) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
+(unless (load "pjb-loader.el" ) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 (load "~/rc/emacs-directories")
 
 
