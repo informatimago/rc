@@ -1238,11 +1238,11 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 if [ -r ~/.config/host ] ; then
     host=$(cat ~/.config/host)
 else
-    host=$(hostname)
+    host=$(hostname -f)
 fi
 
 case "$host" in
-*macbook?employer-a.local|vmubuntu*|vmdebian*)
+(*employer-a.local)
     source ~/rc/bashrc-employer-a
     ;;
 *)
