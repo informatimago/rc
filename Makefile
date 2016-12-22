@@ -75,6 +75,7 @@ symlinks: save
 	ln -sf    $(SRCDIR)/ircrc                            $$HOME/.ircrc
 	ln -sf    $(SRCDIR)/kermrc                           $$HOME/.kermrc
 	ln -sf    $(SRCDIR)/lispworks.lisp                   $$HOME/.lispworks
+	ln -sf    $(SRCDIR)/notes.txt                        $$HOME/notes.txt
 	ln -sf    $(SRCDIR)/plan                             $$HOME/.plan
 	ln -sf    $(SRCDIR)/profile                          $$HOME/.profile
 	ln -sf    $(SRCDIR)/sbclrc.lisp                      $$HOME/.sbclrc
