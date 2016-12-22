@@ -1248,3 +1248,4 @@ compgen -A alias -A function | awk 'seen[$1]++ == 1'
 export "PATH=$HOME/src/trustonic/bin:$PATH"
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+ulimit -c unlimited
