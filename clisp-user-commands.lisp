@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             Common-Lisp
 ;;;;USER-INTERFACE:     NONE
 ;;;;DESCRIPTION
-;;;;    
+;;;;
 ;;;;    Utilities to help creating clisp REPL user commands.
-;;;;    
+;;;;
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
 ;;;;MODIFICATIONS
@@ -15,19 +15,19 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    AGPL3
-;;;;    
+;;;;
 ;;;;    Copyright Pascal J. Bourguignon 2014 - 2014
-;;;;    
+;;;;
 ;;;;    This program is free software: you can redistribute it and/or modify
 ;;;;    it under the terms of the GNU Affero General Public License as published by
 ;;;;    the Free Software Foundation, either version 3 of the License, or
 ;;;;    (at your option) any later version.
-;;;;    
+;;;;
 ;;;;    This program is distributed in the hope that it will be useful,
 ;;;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;;;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;;;;    GNU Affero General Public License for more details.
-;;;;    
+;;;;
 ;;;;    You should have received a copy of the GNU Affero General Public License
 ;;;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;;;**************************************************************************
@@ -220,7 +220,7 @@ If the last command in a category is removed, then the category is removed."
 
 
 
-(define-user-command (date) "interactive commands" () 
+(define-user-command (date) "interactive commands" ()
   "prints the date."
   (com.informatimago.common-lisp.interactive.interactive:date))
 
@@ -505,7 +505,7 @@ If the last command in a category is removed, then the category is removed."
                     ((string= "eur" ga :start2 (- (length ga) 3))
                      (setf ga (concatenate 'string
                                 (subseq ga 0 (1- (length ga))) "se")))
-                    (t 
+                    (t
                      (setf ga (concatenate 'string ga "e")))))
                  (first (elt nm n)))))
          (conj (if (position (aref gn 0) "aeiouyh") "d'" "de "))

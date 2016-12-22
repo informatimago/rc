@@ -19,7 +19,7 @@
 !! ! emacs, xemacs
 !! ! -------------
 !!
-!! 
+!!
 emacs.geometry:                             81x32+0+0
 emacs.dialog*.background:                   LightBlue1
 emacs*pane.background:                      LightBlue1
@@ -61,7 +61,7 @@ pvs*cursorColor:                #0000ff
 pvs*bitmapIcon:                 off
 
 !! pvs*font:                       7x14
-pvs.geometry:                   84x32-64+4 
+pvs.geometry:                   84x32-64+4
 
 
 
@@ -139,7 +139,7 @@ xterm*font4.Label: Big
 xterm*font5.Label: Very Big
 xterm*font6.Label: Really Very Big
 
-xterm*font1:   -b&h-lucidatypewriter-medium-r-normal-sans-14-100-100-100-m-80-iso10646-1 
+xterm*font1:   -b&h-lucidatypewriter-medium-r-normal-sans-14-100-100-100-m-80-iso10646-1
 xterm*font2:   -b&h-lucidatypewriter-medium-r-normal-sans-17-120-100-100-m-100-iso10646-1
 xterm*font3:   -b&h-lucidatypewriter-medium-r-normal-sans-20-140-100-100-m-120-iso10646-1
 xterm*font4:   -b&h-lucidatypewriter-medium-r-normal-sans-25-180-100-100-m-150-iso10646-1
@@ -158,13 +158,13 @@ xterm*font6:   -b&h-lucidatypewriter-medium-r-normal-sans-34-240-100-100-m-200-i
 ! -bitstream-terminal-medium-r-normal--0-0-100-100-c-0-*-*
 ! -misc-fixed-medium-r-normal--0-0-100-100-c-0-*-*
 ! -sony-fixed-medium-r-normal--0-0-100-100-c-0-*-*
-! 
+!
 ! -b&h-luxi mono-medium-r-normal--0-0-0-0-m-0-*-*
 ! -bitstream-bitstream vera sans mono-medium-r-normal--0-0-0-0-m-0-*-*
 ! -bitstream-courier 10 pitch-medium-r-normal--0-0-0-0-m-0-*-*
 ! -bitstream-menlo-medium-r-normal--0-0-0-0-m-0-*-*
 ! -ibm-courier-medium-r-normal--0-0-0-0-m-0-*-*
-! 
+!
 ! -dec-terminal-medium-r-normal--0-0-75-75-c-0-*-*
 ! -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-*-*
 ! -schumacher-clean-medium-r-normal--0-0-75-75-c-0-*-*
@@ -295,7 +295,7 @@ Vim*menuForeground: moccasin
 ! ! I always use a literal newline as the argument
 ! #define FontAndLabel(cFont,sz,NL,lbl) \
 ! xterm*VT100*font/**/cFont/**/: sz/**/NL \
-! xterm*fontMenu*font/**/cFont/**/*Label: lbl (/**/sz/**/)NL 
+! xterm*fontMenu*font/**/cFont/**/*Label: lbl (/**/sz/**/)NL
 
 
 ! #ifdef SMALL_SCREEN
@@ -599,7 +599,7 @@ pcb*controlMasterForm*Label.width:            70
 pcb*controlMasterForm*MenuButton.resizable:   off
 pcb*controlMasterForm*MenuButton.shapeStyle:  rectangle
 pcb*controlMasterForm*MenuButton.width:       70
-pcb*controlMasterForm*MenuButton.borderWidth: 1  
+pcb*controlMasterForm*MenuButton.borderWidth: 1
 pcb*controlMasterForm*Toggle.width:           70
 pcb*controlMasterForm*Toggle.borderWidth:     1
 
