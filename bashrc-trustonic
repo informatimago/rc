@@ -2,9 +2,10 @@
 set +o posix
 
 # ulimit -n 2048 -u 1024
-
-defaults write org.x.X11 enable_test_extensions -boolean true
-defaults write org.macports.X11 enable_test_extensions -boolean true
+if [[ $(uname) = Darwin ]] ; then
+    defaults write org.x.X11 enable_test_extensions -boolean true
+    defaults write org.macports.X11 enable_test_extensions -boolean true
+fi
 
 export GRADLE_HOME="/opt/local/share/java/gradle"
 # sudo port select --set maven maven2
@@ -124,6 +125,7 @@ export ANDROID_NDK="$ANDROID_SDK/ndk-bundle"
 export PATH="$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH"
 export PATH="/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
 export PATH="$HOME/src/trustonic/bin:$PATH"
+export PATH="$HOME/opt/bin:$PATH"
 if [[ "$(uname)" = "Darwin" ]] ; then
     export JAVA_HOME="$(/usr/libexec/java_home)"
 else
@@ -144,6 +146,11 @@ alias from-mb='rsynch  macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev
 alias to-mb='rsynch  /home/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk-macbook/ macbook:/Users/pjb/src/trustonic/tbase/users/pasbou01/dev_kinibi_wb_sdk'
 
 source "$HOME/src/trustonic/functions.bash"
+
+export LM_LICENSE_FILE="8224@emea-meu-lic01.trustonic.internal"
+export OBFUSCATE="no"
+alias mvn='TERM=unix mvn'
+alias jbrew='HOME=/Users/julare01 sudo -u julian brew'
 
 
 #### THE END ####

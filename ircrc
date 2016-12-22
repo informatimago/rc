@@ -1,16 +1,16 @@
 /set novice off
 
 #/nick pjb
-/server irc.freenode.net 
+/server irc.freenode.net
 /sleep 1
 
 
-#/join #mldonkey 
+#/join #mldonkey
 #/join #MacOSX
 #/join #MOL
 #/join #gnu
 #/join #macdev
-#/join #math 
+#/join #math
 #/join #paris-sansfil
 #/join #scsh
 
@@ -45,7 +45,7 @@
 # /topic  #lamanga Discussions sur La Manga del Mar Menor.
 # /join   #maptree
 # /topic  #maptree Discussions sur le developpement de MapTree.
-#/server irc.freenode.net 
+#/server irc.freenode.net
 #/server irc.undernet.org
 #/server irc.informatimago.com
 #/server         Paris.FR.EU.Undernet.Org
@@ -53,7 +53,7 @@
 
 
 
-#/server irc.gnustep.org 
+#/server irc.gnustep.org
 #/join #gnustep
 
 #/server irc.openprojects.net

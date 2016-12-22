@@ -1,7 +1,7 @@
 !
 ! This is an `xmodmap' input file for the  DasKeyboard 3
 !
-! Bus 008 Device 005: ID 04d9:2013 Holtek Semiconductor, Inc. 
+! Bus 008 Device 005: ID 04d9:2013 Holtek Semiconductor, Inc.
 !
 ! PC 105 keys, wide Delete, wide Enter.
 !
@@ -20,7 +20,7 @@ clear Mod3
 clear Mod4
 clear Mod5
 
-!!! In order of bits: 
+!!! In order of bits:
 add    Shift   = Shift_L     Shift_R
 add    Lock    = Caps_Lock
 add    Control = Control_L   Control_R
@@ -28,7 +28,7 @@ add    Mod1    = Num_Lock
 add    Mod3    = Alt_L       Alt_R       Mode_switch
 add    Mod2    = Meta_L      Meta_R
 add    Mod4    = Super_L     Super_R
-add    Mod5    = Hyper_L     Hyper_R     
+add    Mod5    = Hyper_L     Hyper_R
 
 
 ! THE END !
