@@ -214,6 +214,9 @@ function be_generate(){
         /opt/bin
         /opt/sbin
 
+        /usr/local/opt/coreutils/libexec/gnubin
+        /usr/local/opt/findutils/libexec/gnubin
+
         #/data/languages/acl82express/bin/
         /data/languages/bigloo4.1a/bin/
         /data/languages/ccl/bin/
@@ -385,6 +388,11 @@ function be_generate(){
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
 
+    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+    if [ "$uname" = Darwin ] ; then
+        be_variable JAVA_HOME "$(/usr/libexec/java_home)"
+    fi
+
     be_comment 'Generic environment:'
     be_variable TZ                      Europe/Paris
 
@@ -451,7 +459,7 @@ function be_generate(){
     be_variable DTK_PROGRAM         espeak
 
     be_variable cookiefiles         "${HOME}/all.cookies"
-    
+
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
     # be_variable ORACLE_SID        orcl
@@ -1230,11 +1238,11 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 if [ -r ~/.config/host ] ; then
     host=$(cat ~/.config/host)
 else
-    host=$(hostname)
+    host=$(hostname -f)
 fi
 
 case "$host" in
-*macbook?trustonic.local|vmubuntu*|vmdebian*)
+(*trustonic.local)
     source ~/rc/bashrc-trustonic
     ;;
 *)
@@ -1245,7 +1253,15 @@ esac
 # display function and alias duplicates:
 compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
-export "PATH=$HOME/src/trustonic/bin:$PATH"
+if [[ -d "$HOME/src/trustonic/bin" ]] ; then
+    export "PATH=$HOME/src/trustonic/bin:$PATH"
+fi
+if [[ -d "$HOME/opt/bin" ]] ; then
+    export "PATH=$HOME/opt/bin:$PATH"
+fi
+ulimit -c unlimited
+
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
 ulimit -c unlimited
