@@ -380,13 +380,16 @@ joelle: http://online.wsj.com/article/SB1000142405297020347100457714090038872837
 pass 1210479
 
 ** Android and iOS emulators on the web
+
 http://manymo.com
 https://appetize.io
 
 https://xcloud.me
 
 ** Bitcoin
+
 g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
+
 ** Paypal Me
 
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
@@ -848,11 +851,6 @@ http://www.jibble.org/piespy/
 ;; 81.200.8.157:9987           RvAF
 ;; 193.106.93.31:9987          RAF
 ;; vip1.ts1.cn:8770            3GO
-
-** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
 
 ** Miscellaenous
 > See asm7090-describe-codop.  You could even do that in a
@@ -5940,6 +5938,12 @@ http://www.employees.org/~satch/ssh/faq (Steve's)
 ** COMMANDS: XLI, PPM, LABEL:
 
     jpegtopnm acapulco-2.jpg  | ppmlabel -background '#C44' -x 20 -y 20 -text 'ESSAI Tralalere' -size 24 -text 'Ragnagna' > a.ppm ; xv a.ppm
+
+** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
 ** COMPILER METACOMPILERS
 http://www.bayfronttechnologies.com/mc_tutorial.html
 
@@ -6096,10 +6100,6 @@ other language... it's pity :-/
     http://www.merl.com/publications/TR1991-004/
     http://www.merl.com/publications/TR1993-017/
     http://lionel.suz.free.fr/index.php?id=run&sub=chikungunya
-
-** CRACK
-    mv run/Dhostname.N run/tempfilename
-    Crack -recover -fmt spf run/tempfilename
 
 ** CRYPTOGRAPHIE
 
