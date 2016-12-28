@@ -423,6 +423,8 @@ Host *
 #         Specifies the full pathname of the xauth(1) program.  The default
 #         is /usr/X11R6/bin/xauth.
 #
+# AddKeysToAgent yes
+# UseKeyChain yes
 
 # ----------------------------------------
 # This is for Emacs.
