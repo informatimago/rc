@@ -1929,6 +1929,8 @@ URL in a new window."
      . "Basic Lisp Techniques  Cooper - 2003 Franz, Inc. - 100 pages.  http://www.franz.com/resources/educational_resources/cooper.book.pdf")
     (casting-speels-in-lisp
      . "Casting Spels in Lisp  Conrad Barski, M.D.  http://www.lisperati.com/casting.html")
+    (lisp-packages .
+     "The Complete Idiot's Guide to Common Lisp Packages: http://www.flownet.com/ron/packages.pdf")
     (floating-point
      . "What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html   and   What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/")
     ;; --
