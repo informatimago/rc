@@ -1238,11 +1238,11 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 if [ -r ~/.config/host ] ; then
     host=$(cat ~/.config/host)
 else
-    host=$(hostname)
+    host=$(hostname -f)
 fi
 
 case "$host" in
-*macbook?trustonic.local|vmubuntu*|vmdebian*)
+(*trustonic.local)
     source ~/rc/bashrc-trustonic
     ;;
 *)
@@ -1264,3 +1264,4 @@ ulimit -c unlimited
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+ulimit -c unlimited
