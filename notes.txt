@@ -3024,6 +3024,7 @@ aek@bitsavers.org
 
 posterdati http://code.google.com/p/circuit/
         "Angelo Rossi <angelo.rossi.homelab@gmail.com>"
+        22 Via delle Albizzie;Roma, Lazio;Italia
 
 
 
