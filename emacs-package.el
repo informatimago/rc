@@ -33,22 +33,23 @@
     (run-lac-functions)))
 
 
+(defvar *packages* '())
+(setq *packages* '(
+
+                     paredit
+
+                     emms json popup
+
+                     company auto-complete inf-ruby enh-ruby-mode
+                     smartparens highlight-indentation robe textmate
+                     flycheck
+
+                     ))
+
 (defun pjb-install-packages ()
   (interactive)
-  ;;
-  (package-install 'company)
-  (package-install 'paredit)
-  (package-install 'auto-complete)
-  ;; (package-install 'column-marker) ;; not available?
-  ;;
-  (package-install 'inf-ruby)
-  (package-install 'enh-ruby-mode)
-  (package-install 'smartparens)
-  (package-install 'highlight-indentation)
-  (package-install 'robe)
-  ;; (package-install 'dash)
-  ;; (package-install 'dash-at-point) ;; not available?
-  (package-install 'textmate)
-  (package-install 'flycheck))
+  (mapc (function package-install) *packages*))
+
+(pjb-install-packages)
 
 ;;;; The End ;;;;
