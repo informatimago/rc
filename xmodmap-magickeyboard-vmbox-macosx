@@ -1,0 +1,157 @@
+!
+! This is an `xmodmap' input file for the Apple MagicKeyboard
+!
+!
+
+
+!------------------------------------------------------------
+! First line
+!------------------------------------------------------------
+
+keycode   9 = Escape
+
+keycode  67 = F1              XF86_Switch_VT_1  F14
+keycode  68 = F2              XF86_Switch_VT_2  F15
+keycode  69 = F3              XF86_Switch_VT_3  F16
+keycode  70 = F4              XF86_Switch_VT_4  F17
+
+keycode  71 = F5              XF86_Switch_VT_5  F18
+keycode  72 = F6              XF86_Switch_VT_6  F19
+keycode  73 = F7              XF86_Switch_VT_7  F20
+keycode  74 = F8              XF86_Switch_VT_8  F21
+
+keycode  75 = F9              XF86_Switch_VT_9  F22
+keycode  76 = F10             XF86_Switch_VT_10 F23
+keycode  95 = F11             XF86_Switch_VT_11 F24
+keycode  96 = F12             XF86_Switch_VT_12 F25
+
+
+
+!------------------------------------------------------------
+! Second line
+!------------------------------------------------------------
+
+keycode  49 = grave           asciitilde      infinity          variation
+keycode  10 = 1               exclam          onesubscript      onesuperior
+keycode  11 = 2               at              twosubscript      twosuperior
+keycode  12 = 3               numbersign      threesubscript    threesuperior
+keycode  13 = 4               dollar          foursubscript     foursuperior
+keycode  14 = 5               percent         fivesubscript     fivesuperior
+keycode  15 = 6               asciicircum     sixsubscript      sixsuperior
+keycode  16 = 7               ampersand       sevensubscript    sevensuperior
+keycode  17 = 8               asterisk        eightsubscript    eightsuperior
+keycode  18 = 9               parenleft       ninesubscript     ninesuperior
+keycode  19 = 0               parenright      zerosubscript     zerosuperior
+keycode  20 = minus           underscore      righttack         downtack
+keycode  21 = equal           plus            lefttack          uptack
+keycode  22 = BackSpace       BackSpace       BackSpace         BackSpace
+
+
+!------------------------------------------------------------
+! Third line
+!------------------------------------------------------------
+
+keycode  23 = Tab             ISO_Left_Tab
+
+keycode  24 = q               Q             Greek_omega     Greek_OMEGA
+keycode  25 = w               W             EuroSign        cent
+keycode  26 = e               E             Greek_epsilon   Greek_EPSILON
+keycode  27 = r               R             Greek_rho       Greek_RHO
+keycode  28 = t               T             Greek_tau       Greek_TAU
+keycode  29 = y               Y             Greek_psi       Greek_PSI
+keycode  30 = u               U             Greek_upsilon   Greek_UPSILON
+keycode  31 = i               I             Greek_iota      Greek_IOTA
+keycode  32 = o               O             Greek_omicron   Greek_OMICRON
+keycode  33 = p               P             Greek_pi        Greek_PI
+keycode  34 = bracketleft     braceleft     guillemotleft   0x1002200
+keycode  35 = bracketright    braceright    guillemotright  0x1002203
+keycode  51 = backslash       bar           integral        partialderivative
+
+
+!------------------------------------------------------------
+! Fourth line (home row)
+!------------------------------------------------------------
+
+keycode  66 = Control_L
+
+keycode  38 = a               A             Greek_alpha     Greek_ALPHA
+keycode  39 = s               S             Greek_sigma     Greek_SIGMA
+keycode  40 = d               D             Greek_delta     Greek_DELTA
+keycode  41 = f               F             Greek_phi       Greek_PHI
+keycode  42 = g               G             Greek_gamma     Greek_GAMMA
+keycode  43 = h               H             Greek_theta     Greek_THETA
+keycode  44 = j               J             Greek_eta       Greek_ETA
+keycode  45 = k               K             Greek_kappa     Greek_KAPPA
+keycode  46 = l               L             Greek_lamda     Greek_LAMDA
+keycode  47 = semicolon       colon         quad            quad
+keycode  48 = apostrophe      quotedbl      circle          circle
+
+keycode  36 = Return
+
+
+!------------------------------------------------------------
+! Fifth line
+!------------------------------------------------------------
+
+keycode  50 = Shift_L
+
+keycode  52 = z               Z         Greek_zeta          Greek_ZETA
+keycode  53 = x               X         Greek_xi            Greek_XI
+keycode  54 = c               C         Greek_chi           Greek_CHI
+keycode  55 = v               V         nabla               radical
+keycode  56 = b               B         Greek_beta          Greek_BETA
+keycode  57 = n               N         Greek_nu            Greek_NU
+keycode  58 = m               M         Greek_mu            Greek_MU
+keycode  59 = comma           less      lessthanequal       logicaland
+keycode  60 = period          greater   greaterthanequal    logicalor
+keycode  61 = slash           question  notequal            notsign
+
+keycode  62 = Shift_R
+
+
+!------------------------------------------------------------
+! Sixth line
+!------------------------------------------------------------
+
+keycode  37 = Control_L
+keycode  64 = Alt_L
+keycode 133 = Meta_L
+
+keycode  65 = space         space       digitspace          digitspace
+
+keycode 108 = Meta_R
+
+!------------------------------------------------------------
+! Arrows
+!------------------------------------------------------------
+
+keycode 111 = Up      Up        uparrow         intersection
+keycode 113 = Left    Left      leftarrow       includedin
+keycode 116 = Down    Down      downarrow       union
+keycode 114 = Right   Right     rightarrow      includes
+
+!------------------------------------------------------------
+! Modifiers
+!------------------------------------------------------------
+
+clear Shift
+clear Lock
+clear Control
+clear Mod1
+clear Mod2
+clear Mod3
+clear Mod4
+clear Mod5
+
+!!! In order of bits:
+add    Shift   = Shift_L     Shift_R
+add    Lock    = Caps_Lock
+add    Control = Control_L   Control_R
+add    Mod1    = Num_Lock
+add    Mod2    = Alt_L       Alt_R       Mode_switch
+add    Mod3    = Meta_L      Meta_R
+add    Mod4    = Super_L     Super_R
+add    Mod5    = Hyper_L     Hyper_R
+
+
+!---- THE END ----
