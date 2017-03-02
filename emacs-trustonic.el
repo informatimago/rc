@@ -65,7 +65,7 @@
  '(confluence-save-credentials t)
  '(display-time-24hr-format t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
+ '(erc-autojoin-channels-alist (quote (("irc" "#iOS" "#newsdk" "#tbase" "#sophia" "#meudon") ("freenode.net" "#lisp-it" "#lispcafe" "#python" "#bash" "#ccl" "#clnoobs" "##lisp" "#lisp") ("irc.oftc.net" "#openjdk") ("irc.freenode.org" "#maven" "#lisp" "#clnoobs" "#smack") ("irc.trustonic.internal" "#meudon" "#jenkins" "#tbase" "#newSDK" "#kinibi"))))
  '(erc-autojoin-delay 10)
  '(erc-autojoin-mode t)
  '(erc-autojoin-timing (quote connect))
@@ -120,7 +120,8 @@
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
- '(safe-local-variable-values (quote ((Syntax . Common-Lisp) (Syntax . ANSI-Common-Lisp) (Base . 10) (eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
+ '(package-selected-packages (quote (company-jedi elpy anaconda-mode textmate smartparens robe jira highlight-indentation highlight-indent-guides flycheck fill-column-indicator enh-ruby-mode dash-at-point confluence company ag)))
+ '(safe-local-variable-values (quote ((mode:python . coding:utf-8) (Package . ASDF) (Syntax . Common-Lisp) (Syntax . ANSI-Common-Lisp) (Base . 10) (eval font-lock-add-keywords nil (\` (((\, (concat "(" (regexp-opt (quote ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl")) t) "\\_>")) 1 (quote font-lock-variable-name-face))))) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (tab-always-indent . t) (electric-indent-mode) (encoding . utf-8) (Readtable . PY-AST-READTABLE) (Package . CLPYTHON\.PARSER) (Readtable . PY-AST-USER-READTABLE) (Package . CLPYTHON) (Package . "CCL") (syntax . COMMON-LISP) (Package . CLPYTHON\.UTIL) (Package . CCL) (Package . CLPYTHON\.MODULE\.OPERATOR) (Syntax . COMMON-LISP))))
  '(send-mail-function (quote smtpmail-send-it))
  '(show-trailing-whitespace t)
  '(smtpmail-smtp-server "hubble.informatimago.com")
@@ -189,7 +190,8 @@
 (setf jiralib-url "http://jira.trustonic.internal")
 
 ;; (require 'confluence)
-;; (setq confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
+;; (setf confluence-url "http://wiki.trustonic.internal/rpc/xmlrpc")
+;; (setf confluence-login-credential-alist '(("http://wiki.trustonic.internal/rpc/xmlrpc" "pasbou01" . "XXXXXXX")))
 
 ;; (when (require 'semantic nil t)
 ;;   (semantic-mode 1))
