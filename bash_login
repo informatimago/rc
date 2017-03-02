@@ -15,7 +15,7 @@
 #	. ~/.bashrc
 #fi
 
-# I don't want the non-interactive shells to run .bashrc, 
+# I don't want the non-interactive shells to run .bashrc,
 # which is for interactive shell initialization.
 #
 # For now, let them inherit the environment of the invoking shell.

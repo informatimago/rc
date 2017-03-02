@@ -8,7 +8,7 @@
   (warn "~/rc/emacs-epilog.el: Please set the right source-directory."))
 
 
-(when (fboundp 'milliways-activate) 
+(when (fboundp 'milliways-activate)
   (milliways-activate)
   (.EMACS "milliways activated!"))
 (.EMACS "DONE")

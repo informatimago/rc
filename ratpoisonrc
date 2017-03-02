@@ -6,11 +6,11 @@ set gravity c
 set wingravity c
 
 # set border 4
-# 
+#
 # set barpadding 4 4
 # set fgcolor black
 # set bgcolor yellow
-# 
+#
 # set fwcolor red
 # set bwcolor black
 
@@ -28,7 +28,7 @@ alias erc          exec erc
 alias web          exec firefox
 alias xterm        exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
 alias objing       exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
-alias galatea      exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea 
+alias galatea      exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea
 alias date         exec xmessage $(date)
 alias other-screen exec ~/bin/other-screen
 
@@ -48,7 +48,7 @@ bind N         nextscreen
 bind P         prevscreen
 
 
-rudeness 15 
+rudeness 15
 # rudeness 12  = to prevent firefox to raise indiscriminately.
 # 1    Transient windows may raise.
 # 2    Normal windows may raise.
