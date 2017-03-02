@@ -381,6 +381,7 @@ function be_generate(){
         fi
     fi
 
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8'
     if [ -d /opt/local/share/java/gradle ] ; then
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
@@ -1244,6 +1245,7 @@ esac
 # display function and alias duplicates:
 compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
-export "PATH=$HOME/src/trustonic/bin:$PATH"
+
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+ulimit -c unlimited
