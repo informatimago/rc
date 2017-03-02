@@ -19,13 +19,13 @@ DO:       Execute the BODY with a handler for CONDITION and
           SIMPLE-CONDITION reporting the conditions.
 "
   `(handler-case (progn ,@body)
-     (simple-condition  (err) 
+     (simple-condition  (err)
        (format *error-output* "~&~A:~%~?~&"
                (class-name (class-of err))
                (simple-condition-format-control   err)
                (simple-condition-format-arguments err))
        #-mocl (finish-output *error-output*))
-     (condition (err) 
+     (condition (err)
        (format *error-output* "~&~A:~%~A~%" (class-name (class-of err)) err)
        #-mocl (finish-output *error-output*))))
 
@@ -65,4 +65,4 @@ DO:        Implements a minimalist CL REPL.
                *** **   ** *   * (first /)))
        (format t "~& --> ~{~S~^ ;~%     ~}~%" /)
        #-mocl (finish-output)))))
- 
+

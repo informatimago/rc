@@ -1,53 +1,395 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
-https://en.wikipedia.org/wiki/User:Lycurgus/MoCA
-* Snowden
 
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
-ffdae96f8dd292374a966ec8b57d9cc680ce1d23cb7072c522efe32a1a7e34b0
-
-* IMPOTS
-
-http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
-
-
-https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
-Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
-Ce numéro d'abonné vous est personnel et doit le rester.
-
-
-* DU
-
-24G     Music/iTunes
-34G     Pictures/
-
-
-6.5G    opt/adt-bundle-mac-x86_64-20140702
-3.3G    opt/android-ndk-r10d-32bit
-49G     opt/android-sdk-r24.0.2-macosx
-60G     opt/
-
-41G     Downloads/
+| System         | Xcode | iOS targets     |
+|----------------+-------+-----------------|
+| 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
+|                |       |                 |
 
 * NOTES
-** New Notes
+** Notes
+iconv -l|tr -d /|while read e ; do f="$(iconv -f "$e" -t "utf-8" < b 2>/dev/null)" && printf "%-30s %s\n" "$e" "$f" ; done|sort -k 2
 
-scan la-construction-de-programmes-structures
-missing: page 132 135 136
+lisppaste out --> clo-devel@common-lisp.net
 
-maillists: cmucl*@cmucl.cons.org
+http://www.ymeme.com/lisp
 
-http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
-http://wisee.cs.washington.edu/wisee_paper.pdf
+Java AbstractSingletonProxyFactoryBean.
+http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/aop/framework/AbstractSingletonProxyFactoryBean.html
 
-ℤ
-- application mobile pour échanger des articles de loi ou de constitution et les commenter.
+sort out /srv/ftp/pub/mirrors/ftp.cs.indiana.edu/pub/
 
-#+BEGIN_SRC lisp :results scalar
-(list 1 2 3)
-#+END_SRC
+http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
+
+http://hightechhistory.com/category/stanford/
+
+
+time:
+http://unix4lyfe.org/time/
+http://naggum.no/lugm-time.html
+http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
+http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time-wisdom
+
+
+XML: problem not hard, solved badly.
+http://www.cs.washington.edu/education/courses/cse544/04sp/papers/xml-essence.pdf
+
+c to cl compiler: https://github.com/vsedach/Vacietis
+
+(defconstant +magic-number+ 2976579765.)
+
+(+ 60 (*  1200 1.18 1.30))
+(euro-to-devise 'USD 1900.8)
+
+
+http://www.youtube.com/universidadudima
+
+
+
+VIA APC 8750 Android Mini PC $49
+
+Topology http://www.youtube.com/watch?v=yWi2_H-JUqY&feature=channel&list=UL
+
+Barco spheric display http://www.virtualworldlets.net/Shop/ProductsDisplay/VRInterface.php?ID=149
+biomolecular computation: http://www.dna.caltech.edu/courses/cs191/
+interpreter: http://matt.might.net/articles/cesk-machines/
+
+ono augusto pagado por targeta 835200
+
+
+Human Universals
+-----------------
+Coping
+Social
+Language
+Culture
+Fantasies
+Stories
+Tools, Art, Technologies
+Goals, Plans
+Play & Games
+Fixed Rules, Flexible Strategies
+Case based learning
+Case based reasoning
+Superstition
+Religion/Magic
+Theater
+Differences over Similarities
+Quick Reactions To Patterns
+"The Other"
+Supernormal Responses
+Vendetta
+Value Shortages
+**Loud Noises & Snakes
+
+Non-Universals
+--------------
+Progress
+Writing & Reading
+Deductive Abstract Math
+Model Based Science
+Thought, Thought, Thought
+Equal Rights
+Democracy
+Similarities over Differences
+Slow Deep Thinking
+Legal System vs. Vendetta
+Perspective Drawing
+Theory of Harmony
+
+
+clall -r '(let ((r nil)) (do-all-symbols (s) (when (and (special-operator-p s) (not (cl:macro-function s))) (push s r))) (sort (set-difference (remove-duplicates r) (quote (block catch eval-when flet function go if labels let let* load-time-value locally macrolet multiple-value-call multiple-value-prog1 progn progv quote return-from setq symbol-macrolet tagbody the throw unwind-protect))) (function string<)))'
+
+
+http://vWorker.com|pjb@informatimago.com|zuqzadb1m
+http://vWorker.com|pjb@informatimago.com|zuqzadb1m
+
+
+Fill in:  http://wiki.alu.org/Consultant
+
+/local/srv/mirrors/lisp/www.unlambda.com
+
+Soeur de Kasimiera Chilkowy : Mariette en Argentine.
+
+
+Dear Customer,
+Thank you for ordering via the Farnell web site.  Your order has been
+given the following Farnell reference number: ORP064827.
+Please refer to this number if you contact Farnell regarding your
+order. When stock is allocated to your order, we will send you a full
+order confirmation including prices, availability and expected
+delivery date.
+Thank you for ordering with Farnell.  Kind regards The Farnell Team.
+
+lisp in javascript http://kybernetikos.github.com/Javathcript/
+lisp in javascript http://slip.lisperator.net/
+
+   [1]: http://puntoblogspot.blogspot.ie/
+   [2]: http://davazp.github.com/ecmalisp/ecmalisp.html
+   [3]: http://github.com/davazp/ecmalisp/
+
+
+java inception: http://axisofeval.blogspot.com.es/2011/03/truth-is-stranger-than-fiction.html
+
+http://www.psy.fsu.edu/~baumeistertice/goodaboutmen.htm
+
+Why Lisp macros are cool, a Perl perspective (2005)
+http://lists.warhead.org.uk/pipermail/iwe/2005-July/000130.html
+
+
+(objc:objc-message-send [NSCursor class] "IBeamCursor")
+
+http://programming.nu/reference lisp-like over Objective-C / http://www.vicoapp.com/
+
+
+
+http://www.theopensourceway.org/wiki/How_to_tell_if_a_FLOSS_project_is_doomed_to_FAIL
+
+
+
+
+http://wekinator.cs.princeton.edu
+http://opensoundcontrol.org/implementations
+
+
+Eight Stages of Debugging
+1. That can't happen.
+2. That doesn't happen on my machine.
+3. That shouldn't happen.
+4. Why does that happen?
+5. Oh, I see.
+6. How did that ever work?
+7. Svn blame.
+8. One day we will write tests.
+
+
+Apple ID = pjb@informatimago.com|SOMaTyT
+http://adc.apple.com/|pjb@informatimago.com|SOMaTyT
+
+mercadona 963468446
+
+payment movies 1 €/life/person
+    identification movie (producer / title / date / legal number).
+    identification person (name / birthdate / birthplace).
+    --- signed by payment authority.
+  gives right to have unencumbered digital copies of the movie (any
+  format, any number), and to distribute copies of it.
+
+
+cms: drupal, drone
+ckeditor
+http://www.openwebware.com
+Free cross-browser WYSIWYG editor.
+
+
+rav:                     718879 rlolc
+patchwork:                42659 rlolc
+patchwork+mclgui:         64414 rlolc
+com.informatimago.rdp:     2985 rlolc
+com.informatimago:       122905 rlolc
+nasium-lse:               23426 rlolc
+
+
+
+
+
+♥♡❥❥❥❥❥❥❥❥❥❥❥♡♥
+
+crowd government budget
+- let the people voluntarily give taxes, and administer them, choosing
+  the repartition to various government projects and spendings.
+
+
+h=host85-230-dynamic.17-87-r.retail.telecomitalia.it
+wget -c --progress=bar:force -nH --cut-dirs=2 -m ftp://$h/pub/Videos/tekkaman/
+wget -c --progress=bar:force -nH --cut-dirs=2 -m ftp://$h/pub/Videos/ufo_shado/
+
+
+http://ensmp.net/pdf/1971/mercouroff.html
+
+
+IVA: http://ec.europa.eu/taxation_customs/vies/vieshome.do
+
+
+savannah.gnu.org|informatimago|fend6Clip=Modem)
+
+savannah.gnu.org|informatimago|fend6Clip=Modem)
+
+1lofc2 http://www.youtube.com/watch?v=y2VE4C0tZkY
+
+Another job opportunity at EyeCarePro.net
+
+EyeCarePro.net (www.eyecarepro.net) is looking for another full time
+SBCL programmer to help manage and improve our main website builder
+application. No relocation required – North American working hours, 5+
+years of SBCL experience (Hunchentoot / Debian) with strong
+communication skills. Contact DanielR@eyecarepro.net for more details.
+
+
+
+trieur de cartes perforées
+http://www.youtube.com/watch?v=2RCgIrZiC6c
+
+IBM System/3 IPL
+http://www.youtube.com/watch?v=CBtXLZcY_bM&feature=related
+
+DEC Decsystem2020
+http://www.youtube.com/watch?v=SVAHSzz9-Zg&NR=1
+
+AS/400
+http://pub1.de/
+
+
+
+
+-->EPI http://www.bbc.com/news/technology-17740143
+
+http://all-things-andy-gavin.com/2011/03/12/making-crash-bandicoot-gool-part-9/
+http://globalguerrillas.typepad.com/globalguerrillas/2012/03/drones-are-forever.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+typepad%2FrzYD+%28Global+Guerrillas%29
+http://people.mills.edu/spertus/Gender/pap/node15.html
+http://pichotjm.free.fr/T1600/Manuel_T1600/file.html
+http://www.feb-patrimoine.com/english/mitra.htm
+http://web.archive.org/web/20040516233333/http://perso.club-internet.fr/febcm/systemes_ord/mitra.htm
+http://research.microsoft.com/en-us/um/people/simonpj/papers/stm/stm.pdf
+http://texteditors.org/cgi-bin/wiki.pl?Z
+http://wiki.flightgear.org/index.php/Using_Terragear
+http://www-formal.stanford.edu/jmc/history/lisp/node4.html
+
+http://www.cl.cam.ac.uk/~mgk25/unicode.html
+http://inamidst.com/stuff/unidata/
+
+http://www.dalnefre.com/wp/2010/10/evaluating-expressions-part-4-%E2%80%93-pattern-equations/
+http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
+http://www.pipeline.com/~hbaker1/CritLisp.html
+http://www.uphs.upenn.edu/news/News_Releases/2011/03/mathematical-sequence-brain-imaging/
+http://www.lucidcafe.com/library/96jul/teslaauto01.html
+
+
+Parser: http://arxiv.org/abs/1010.5023
+
+"Constraints Generalize Procedures"
+    http://groups.csail.mit.edu/mac/users/gjs/6.945/readings/robust-systems.pdf
+    http://totem.cc/onward2012/onward.pdf
+
+
+
+find . \( -name \*.lisp -o -name \*.asd \) -print \
+| while read f ; do
+   cp "${f}" "${f}~" \
+   && iconv -f iso-8859-1 -t utf-8 < "${f}~" \
+    | sed -e '1s/ *-\*- *$/; coding:utf-8 -*-/' \
+    > "${f}"
+  done
+
+
+#-(or abcl allegro clisp clozure cmu cormanlisp ecl gcl genera lispworks mcl sbcl scl xcl)
+(error "ASDF is not supported on your implementation. Please help us port it.")
+
+asdf/lisp-build:*uninteresting-conditions*
+
+(asdf/plan:plan-actions (asdf:make-plan asdf/plan:*default-plan-class* 'asdf:load-op system))
+
+  (mapcar 'asdf:component-pathname
+      (asdf::required-components :cleavir :keep-component 'asdf:cl-source-file))
+
+
+https://github.com/jdz/brians-brain/blob/master/display.lisp
+
+
+http://mpmap01.flightgear.org/?ll=35.90684930677121,-1.7962646484375&z=8&t=h&fg_server=mpserver12:5000,mpserver12.flightgear.org,5001&update_interval=5&pilot_label=always&icon_mode=normal
+tab nav
+uncheck show nbd awy vor fix (bottom right)
+click on the eye.
+
+
+Date de la transaction 	12 Avril 2012 05:36:21 (UTC/GMT)
+Adresse du web commerçant 	www.progonline.com
+Identifiant commerçant 	048101283900017
+Référence de la transaction 	073555
+Montant de la transaction 	287,04 €
+Numéro de la carte 	4150 #### #### ##51   06/13
+Autorisation 	191645
+Certificat de la transaction 	990e62687c51
+
+
+http://www.mendeley.com/research/clisp-conversational-lisp-1/
+
+
+pwgl
+cari madad
+
+
+
+aek@bitsavers.org
+
+
+posterdati http://code.google.com/p/circuit/
+        "Angelo Rossi <angelo.rossi.homelab@gmail.com>"
+        22 Via delle Albizzie;Roma, Lazio;Italia
+
+
+
++----------------------------------------------------------------------------
+| Patches generated by git are organized in hunks whose title contains
+| useful information about the context of the modification. For example,
+| in C files, the hunk title contains the name of the function where the
+| modification occurs.
+| .
+| Git doesn't have any specific rule to name hunks for Common Lisp
+| files, but we can provide a method ourselves.
+| .
+| First add a .gitattributes files at the root of your repository with
+| the following content:
+| .
+| *.lisp diff=lisp
+| .
+| This tells git to look at the diff.lisp section of the configuration
+| file to know how to handle lisp files for diffs.
+| .
+| Then edit your Git configuration file (for example ~/.gitconfig), and
+| add the following section:
+| .
+| [diff "lisp"] xfuncname="^(\\((def|test).*)$"
+| .
+| With this regexp, the title of each hunk will indicate the
+| corresponding top-level form, which most of the time starts with the
+| def prefix. I added test which is used to define 5am tests, and is
+| handy for diffs in test suites.
++----------------------------------------------------------------------------
+
+
+
+mp-escape:
+- let's add planes at gudata (assume the base was taken with planes and pilots on ground).
+- let's add ground forces.
+- CAP missions should be releved when they land by other teams. Add loops too.
+- let's add some SAM.
+- start earlier.
+
+
+http://www.activistpost.com/2012/02/official-list-of-words-feds-monitor-on.html
+
+« Tout le monde habite le sixième dans cette affaire, c'est épuissant! »
+
+git remote add foo <url> ; git fetch foo; git log foo ; git cherry-pick <id>
+
+
+joelle: http://online.wsj.com/article/SB10001424052970203471004577140900388728374.html?mod=WSJ_hp_mostpop_read
+
+209.247.83.121:9229
+pass 1210479
+
+** Android and iOS emulators on the web
+
+http://manymo.com
+https://appetize.io
+
+https://xcloud.me
+
+** Bitcoin
+
+g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
 
 ** Paypal Me
 
@@ -55,135 +397,34 @@ x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
 http://www.paypal.com/?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
 
-
 ** Agility
-=======
-"universal" code generation: if we specify a processor instruction
-sets as subgraphs with nodes for registers/memory and for operations,
-then generating the code will consist in matching the optimized
-clearvir graph to those instruction subgraphs until we get a complete
-coverage.  The question is how to specify VM operators and processor
-operations so that we can match them, and if no exact correspondance,
-so that we can build automatically processors subgraphs to match them.
 
-Given that representation, the same algorithms can be used to further
-optimize the resulting processor code as for the clearvir code.
+Agility -- What to Do
+- find out where you are
+- take a small step toward your goal
+- adjust your understanding based on what you learned
+- repeat
 
+Agility -- How to do it
+- when faced with two or more alternatives
+  that deliver roughly the same value, take
+  the path that makes future change easier.
 
-Article 104 TUE.
+** Alexis Bosch
 
-Fabrice Montupet <binaryside@yahoo.fr>
-http://www.ti99.com/exelvision/website/
+chord sequence
+Editeur chord midi
+MidiNote -> fichier midi.
 
+Carole Sagon
+Karim Haddad
 
-paredit
-http://danmidwood.com/content/2014/11/21/animated-paredit.html
-
-
-conférence gesticulée
-SCOP le pavé
-lepave@no-log.org
-
-atelier de désintoxication du langage
-
-http://www.scoplepave.org/
-http://www.scoplepave.org/l-education-populaire-monsieur-ils-n-en-ont-pas
-
-
-
-AUTOMATED REQUIREMENT MEASUREMENT TOOL
-Software Assurance Technology Center
-MAC ARM Version 1.0
-
-
-rpn lisp: http://paste.lisp.org/display/144513
-
-
-
-Il faut reprendre le pouvoir démocratique :  http://le-message.org/  http://www.upr.fr/﻿
-"La Révolution Européenne"
-
-** NOTES 2
-
-beach: about the first HIR example.  I assume you consider that the
-open-coding allowed for CL operators would be implemented _before_
-generating the HIR code.  In that case, is there a way to call
-"literal" functions, that is, to refer in HIR compiled functions
-without going thru the fdefinition of its name? (Same question for
-inline functions).
-
-
-Eytan
-Tín Lóng 龍
-
-
-https://www.youtube.com/watch?v=xT_rTYB1zPM  Le grand secret 1987
-https://www.youtube.com/watch?v=sju4qeTUKko  La raison d'état 1978
-https://www.youtube.com/watch?v=NiBDin5nxd4  Jean Gabin 1935 Crimes et chatiments
-
-<eudoxia> so this is cool https://github.com/fukamachi/fast-http
-<eudoxia> >In this benchmark, fast-http is 5.5% faster than http-parser, a C library.
-
-g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
-
-
-boot to guile in qemu:
-http://lists.gnu.org/archive/html/guile-user/2013-02/msg00131.html
-
-
-http://www.bayfronttechnologies.com/mc_tutorial.html
-
-http://www.daemonology.net/blog/2014-09-06-zeroing-buffers-is-insufficient.html
-
-
-Turing Machine - Universal Turing Machine
-reflection, introspection
-stuff/stuff/
-
-
-Docteur: B7391 dr 1er Lundi 15:40
-
-https://github.com/WalnutiQ/WalnutiQ#walnutiq
-https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
-
-mère de famille: gestionaire de portefeuille familial personalisé avec
-une spécialisation en gestion de crise.
-
-
-
-http://quickdocs.org
-http://l1sp.org
-http://lispdoc.com/
-http://buildyourownlisp.com
-
-http://blog.quicklisp.org/2014/01/a-dist-for-testing.html
-https://github.com/quicklisp/quicklisp-projects/
-
-If you want to roll your own dist, take a look at
-https://github.com/Shirakumo/dist and https://github.com/orivej/quickdist
-
-
-http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
-
-Space Shuttle: each programmer managed 2600 lines of code over 10 years, to make sure they were right.
-
-
-uBeacon UUID F2A74FC4-7625-44DB-9B08-CB7E130B2029  12300  12310
-
-http://javarevisited.blogspot.co.il/2014/05/10-articles-every-programmer-must-read.html
-
-http://kuomarc.wordpress.com/2012/05/13/12-steps-to-build-and-deploy-common-lisp-in-the-cloud-and-comparing-rails/
-https://www.gnu.org/software/emacs/emacs-paper.html
-http://wry.me/misc/peval.html Partial Evaluation
-
-NSA, ASIS, BND, GRU, DGSE, MSS, CIA, MOSSAD, MI6, ISI, RAW
-
-http://imslp.org/
-
-http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
-
-0785017461 christiane
-http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
+** Jean-Pierre Aizier
+appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
+jpaizier@gmail.com|Titiminou88|
+jpaizier@yahoo.fr|
+skype|aizier42|
+Titicoco88
 
 ** NOTES 3
 http://darling.dolezel.info/en/Darling
@@ -219,18 +460,8 @@ https://github.com/sabof/svg-thing.git
 http://www.theatlantic.com/magazine/archive/2013/11/the-man-who-would-teach-machines-to-think/309529/?curator=MediaREDEF
 
 ** NOTES 4
-http://www.omg.org/spec/index.htm
 
 (setf w3m-cookies nil)
-
-According to wikipedia, the single-letter programming language names are: (B C D E F G J K L M Q R S T Z)
-remain those names for your new language: (A H I N O P U V W X Y)
-
-(reverse (set-difference (loop for i from 65 repeat 26 collect(intern (format "%c" i))) '(B C D E F G J K L M Q R S T Z)))
-
-
-A++ C++ X++
-A# X#
 
 Pascal Leroi: http://linuxgizmos.com/linux-based-underwater-robot-goes-faster-longer/
 
@@ -248,27 +479,16 @@ https://github.com/Fuco1/smartparens/
 # nameserver 99.199.11.127
 # nameserver 2001:470:1c:a3b::2
 
-alexis bosch
-chord sequence
-Editeur chord midi
-MidiNote -> fichier midi.
-
 
 
 a. A 'lost booty' of features list http://blog.languager.org/2012/10/functional-programming-lost-booty.html
 b. FP invades the mainstream list http://blog.languager.org/2013/06/functional-programming-invades.html
 
 
-
-
-
 http://osrc.dfm.io/
 
-
-http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
 ** NOTES 5
 
-pascal.bourguignon03@orange.fr|7cxha2v
 bolet75@live.com
 
 http://postmaster.info.aol.com/errors/421dynt1.html
@@ -437,15 +657,11 @@ https://youtu.be/ubaX1Smg6pY?list=PLKuVC3Lrr0b8k5UY402FfM2LuZ8Ecti96&t=5077
 
 
 
-
 http://www.ina.fr/video/CPF86648057/informatique-generale-video.html
 http://webtubes.free.fr/ortf/articles.php?pg=art58
 
 
 IPv6: RFC3177 RFC4193
-
-
-
 
 
 robert.strandh@gmail.com idurand@labri.fr
@@ -456,19 +672,10 @@ eudoxia  https://github.com/eudoxia0/cl-ansi-spec
 
 ProgOnline Jacob Amar 0175430503
 
-;; SFR
-;;
-;; Carte SIM n°89331036123640651403
-;;
-;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
-;; Votre contrat est le XFR460.
-;;
-;; samsung: pjb@ogamita.org | vih3doq9
-;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
-
 Gerald Jay Sussman
 http://www.infoq.com/presentations/Expression-of-Ideas
 http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
+
 *** debian 8
 systemctl status movies-swap.swap
 
@@ -560,62 +767,7 @@ You can switch to gcc5:
 
 (but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
 
-** NOTES 8
-*** Alexis
-Carole Sagon
-Karim Haddad
-
-*** BNP
-
-BNP
-conseiller
-M. Thomas Noel
-M. Fauroux
-0141460409
-
-*** SFR
-
-sfr web pin=6599
-
-*** Orange
-
-Orange fibre: my phone number: +33966872199
-
-*** Comptes
-voyage-sncf.fr|pjb@informatimago.com|manonVoyage
-cloudmagic.com|pjb@informatimago.com|cAty-bar8
-
-www.godaddy.com
-1898145/informatimago/ecsvRWUv
-
-www.domainedesnoms.com
-compte DDN:  14012-DDN / 1e12neurons
-
-http://pole-emploi.fr|9093514E|649084|92130
-
-[27/07/15 18:35:59] Angelo Rossi: http://webmail.af-engineering.it/
-[27/07/15 18:36:25] Angelo Rossi: user: pascal.bourguignon
-[27/07/15 18:36:33] Angelo Rossi: password: P4sc4l#64
-pascal.bourguignon@af-engineering.it
-
-e2506005030
-delphine.capy@malix.univ-paris1.fr
-1413040195Dc
-Paris 1 Interactif
-
-
-http://www.microchoix.com/espace_client.html
-Login : pjb@informatimago.com
-Votre mot de passe : dSqcUixM
-
-http://www.materiel.net
-informatimago
-poporoplo
-
 ** NOTES 9
-
-
-TODO: add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
 
 (alexandria:hash-table-alist asdf/source-registry::*source-registry*)
 
@@ -676,83 +828,32 @@ http://home.pipeline.com/~hbaker1/ShallowBinding.html
 http://www.interstellarmovie.com/adventure/
 http://www.maclisp.info/pitmanual/master-index-s.html
 
-** Agility
-
-Agility -- What to Do
-- find out where you are
-- take a small step toward your goal
-- adjust your understanding based on what you learned
-- repeat
-
-Agility -- How to do it
-- when faced with two or more alternatives
-  that deliver roughly the same value, take
-  the path that makes future change easier.
-
-** commande Apple iPad Pro
-
-Facture TVA: 0800 046 046
-
 ** Remote Desktop for Linux
 http://www.rdesktop.org/#download
-** emulators on the web
- http://manymo.com and https://appetize.io
-
 ** XCode team distribution certificates
 
 Advise anyone on your team:
 - If you refresh/create a distribution certificate, e-mail the private key to you.
 - Install that private key in your keychain and you're all set.
 
-** Economy: Économie:
+** Ubudu uBeacon
 
-Capital productif:
-- travail pour produire l'ensemble des moyens de production représentés par ce capital.
-
-Coût économique du capital productif:
-- travail pour maintenir les moyens de production.
-
-Coût financier du capital productif:
-- endettement (dividendes, intérêts) pour acheter les moyens de production.
-
-(= (* masse-monétaire vitesse-circulation-monnaie)
-   (* quantités-vendues prix))
-
-*** Economic Freedom:
-http://www.freetheworld.com/
-http://www.heritage.org/        2003 Index of Economic Freedom
-http://www.heritage.org/research/features/index/
-
-** Cinefin Framework
-
-Simple:  cause -> effect
-Complicated: cause -> -> -> effect
-Complex: cause? effect
-Chaotic: effect? cause?
-Disorder:
-
-** Ubudu
-
-uBeacon: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+uBeacon UUID: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
+uBeacon UUID: F2A74FC4-7625-44DB-9B08-CB7E130B2029 12300 12310
 (same as Krystof)
 
-** Interesting programs
-Social network from irc traffic:
+** Social network from irc traffic:
 http://www.jibble.org/piespy/
 
 ** TeamSpeak (DCS World):
+
 ;; 81.13.118.162:9987          CVAT
 ;; 63.34.162.240:9102 phoenix  104th
 ;; 81.200.8.157:9987           RvAF
 ;; 193.106.93.31:9987          RAF
 ;; vip1.ts1.cn:8770            3GO
 
-** metaprogramming
-http://fare.tunes.org/articles/ll99/index.en.html
-http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
-https://github.com/DamienCassou/DSLides
-
-
+** Miscellaenous
 > See asm7090-describe-codop.  You could even do that in a
 > post-command-hook, or on mouse or arrow events so that the instructions
 > are always explained.  It would also possible to attach tooltips to the
@@ -764,10 +865,6 @@ use this by enabling eldoc-mode.
 
 
 WanderLust http://box.matto.nl/emacsgmail.html
-
-/Applications/VLCStreamer.app/Contents/Resources/VLC/VLC.app/Contents/MacOS/VLC -I dummy /movies/movies/ma-femme-est-formidable--1951.avi vlc://quit --sout=#transcode{vcodec=h264,soverlay,acodec=mp3,channels=2,venc=x264{profile=baseline,level=2.2,keyint=45,bframes=0,ref=1,nocabac},width=640,fps=25,vb=1200,ab=200}:std{access=livehttp{seglen=10,index="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream.m3u8",index-url=stream-###.ts},mux=ts{use-key-frames},dst="/Users/pjb/Library/Application Support/VLCStreamer/Streams/ma-femme-est-formidable--1951/stream-###.ts"}
-
-transmission-daemon -w /other/pjb/globcover
 
 
 Find how to distinguish (in emacs or X) the keys coming from the
@@ -798,31 +895,6 @@ Guvf zrffntr vf ebg-13 rapbqrq gb cerirag hajnagrq ivrjvat.
 
 Aux Jeux Olympiques de la Connerie, les français sont disqualifiés
 pour professionnalisme.
-
-
-
-
-paredit bug report:
-
-(a b c (^ d e f))
-M-up / M-x paredit-splice-sexp-killing-backward RET
-(a b c d e f)
-
-This empties the kill ring.
-
-I understand that in the case of
-
-(a b c (d e f ^ g h i))
-M-up
-(a b c g h i)
-
-we get  "d e f " in the  kill ring, and it's  ok, but we  could avoid
-saving the empty string to the kill ring, and keep the old one.
-
-
-
-
-
 
 (add-hook 'lisp-mode-hook
   (lambda ()
@@ -862,54 +934,6 @@ Movistar 340761 000326 5209 0   636653318   20110509
 
 http://www.progweb.com/modules/blackberry/index-en.html
 
-** Livres à acheter
-
-Au coeur du pouvoir : Enquête sur le club le plus puissant de France
-Émmanuel Ratier
-
-La guerre secrête contre les peuples
-Claire Séverac
-
-
-**** Petite histoire de l'expérimentation démocratique                  :buy:
-Yves Sintomer
-Petite histoire de l'expérimentation démocratique
-Tirage au sort et politique d'Athênes à nos jours
-
-**** Valentina: Soul in Sapphire                                        :buy:
-**** Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.) :buy:
-
-Esercizi di costruzioni elettromeccaniche
-Autore: Vaske Paul, Riggert Johann H.
-ISBN-10: 8820707020
-ISBN-13: 9788820707026
-ID prodotto: EPID49446951
-
-http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
-
-**** Ploncard d'Assac                                                   :buy:
-
- 30?   L'église occupée
- 30    1792 Les dernières marches du trône
- 25    Salazar
- 20    Manifeste nationaliste
- 20    Critique nationaliste
- 20    Les idées qui tuent
- 28    Le nationalisme français
- 35    La maçonnerie
- 18    Le complot mondialiste
- 20    Enquête sur la nouvelle droite
- 20    Histoire d'une trahison
- 24    Tradition ou révolution
- 16    Sarkosy ou la mort programmée de la France
- 24    La démocratie contre le peuple
- 10    Le combat des idees
- 10    La franc-maçonnerie dans la révolution dite française
- 10    Le double visage de la maçonnerie et de ses "compagnons de route"
- 10    Du 11 septembre au krach financier mondial
----
-370
-
 ** CNIL
 https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
 ** GOLD
@@ -934,12 +958,6 @@ rates fearing a bubble and that will blow out the deficits and the
 entire system will collapse 2016-2020. So hold on to your socks. This
 is likely to be a wild ride.
 
-** La Manga del Mar Menor
-
-http://lmweb.com/
-http://www.zm101.com/MARMENOR/mangalhis.html
-http://lamangawind.com/LaManga0.html
-
 ** MUD, GAMES
 
      http://www.aardmud.org
@@ -953,6 +971,9 @@ http://lamangawind.com/LaManga0.html
              gpuzre                  force field
 
 *** telnet ascii art videos
+
+pong, brick, tetris      telnet milek7.pl
+adventure, kind of.      telnet yay.tim.org 5440
 
 Telehack:                telnet://telehack.com
 Telehack (web):          http://telehack.com
@@ -969,10 +990,26 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
      http://www.danbricklin.com/200yearsoftware.htm
 
 * ACTIONS
-** AFAIRE, TODO, ENCOURS
-*** Real
+** A-FAIRE, TODO, ENCOURS
+*** Real                                                               :real:
+**** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
+**** TODO [#A] Carte d'Identité & Passeport                           :admin:
 **** TODO [#A] Impôts                                          :impots:admin:
      :DEADLINE: <2016-03-15 -15d>
+
+
+http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
+
+https://inscriptionpro.impots.gouv.fr/opale_inscription/valideCreationTitulaireCB.do?action=creerTitulaire
+Votre inscription a été réalisée le 15 mai 2016 sous le numéro 20161360046363.
+Ce numéro d'abonné vous est personnel et doit le rester.
+
+
+code des impots 1346 article 78
+msa.fr -> cotisant de solidarité
+IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
+~/jobs/free-lance/aeat/aeat-2008
+
 ***** TODO [#A] Taxe d'habitation 2015
 ***** TODO [#A] Taxe d'habitation 2016
 ***** TODO [#A] Impôt sur le revenu 2012
@@ -980,12 +1017,8 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 ***** TODO [#A] Impôt sur le revenu 2014
 ***** TODO [#A] Impôt sur le revenu 2015
 ***** TODO [#A] TVA 2016
-**** TODO [#A] plomberie                                              :admin:
-**** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
-**** TODO [#A] Carte Vitale                                           :admin:
-**** TODO [#A] Carte d'Identité & Passeport                           :admin:
-**** TODO [#A] Rendez vous Ophtalmologiste                            :admin:
 **** TODO [#A] Rendez vous Dentiste                                   :admin:
+**** TODO [#A] plomberie                                              :admin:
 **** TODO [#B] sell the CDs and DVDs to Gibert Jeune.                 :admin:
      :DEADLINE: <2016-12-07 -12m>
 **** TODO [#A] [0/6] Emploi                                             :job:
@@ -1010,7 +1043,7 @@ http://beknown.com/pascal-bourguignon
       * développement C++ : intégration module RPC proprietaire a
         l'application manager pour configuration et pilotage de
         l'application.
-         C++, Objecteering, UML,
+        C++, Objecteering, UML,
          Ruby (jeux de tests)
 
       Add to CV
@@ -1029,7 +1062,32 @@ pour les cles sinon fermer compte openbank -> virement a cajama
 - Have all the diapositive digitalized (~ 1000 EUR ?)
 - Vendre ma part de terrain de Volstroff à Joëlle. (~ 8000 EUR).
 
-*** Virtual
+**** DONE [#A] Rendez vous Ophtalmologiste                            :admin:
+     CLOSED: [2016-12-03 Sat 20:00]
+     - State "DONE"       from "TODO"       [2016-12-03 Sat 20:00]
+*** Virtual                                                         :virtual:
+**** TODO add link http://www-formal.stanford.edu/jmc/recursive.pdf to aim-8.html
+**** TODO scan la-construction-de-programmes-structures
+missing: page 132 135 136
+
+**** TODO [2/3] Install gitlab on git.informatimago.com
+git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
+***** DONE [#B] Update web site.
+      CLOSED: [2012-11-26 Mon 21:47]
+      - CLOSING NOTE [2012-11-26 Mon 21:47] \\
+        Done.
+***** DONE [#B] Clone git to gitorious
+***** TODO [#B] Clone git repositories
+Check the repository clone situation
+github
+gitlab
+framagit
+informatimago.
+
+https://gitorious.org/com-informatimago
+http://git.gitorious.org/com-informatimago/com-informatimago
+http://gitorious.org/com-informatimago/com-informatimago/trees/master
+
 **** TODO [#C] edit cliki.net                                            :cl:
 
 http://www.cliki.net/HTML%20generator
@@ -1083,40 +1141,65 @@ http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-conn
      :DEADLINE: <2016-12-30 -5m>
 **** TODO [#B] move parroquias-manga.org to a Spanish host            :admin:
      :DEADLINE: <2016-12-30 -5m>
-*** Divers
-**** Earn retirement money
-----   ---------------  ---------------
-Year   Infl.Corr/Year   Total Remaining
-----   ---------------  ---------------
-2015:        18.179,66       343.270,80
-2016:        19.270,44       325.091,12
-2017:        20.426,67       305.820,68
-2018:        21.652,27       285.394,04
-2019:        22.951,40       263.741,76
-2020:        24.328,49       240.790,34
-2021:        25.788,19       216.461,86
-2022:        27.335,48       190.673,68
-2023:        28.975,61       163.338,19
-2024:        30.714,14       134.362,58
-2025:        32.556,99       103.648,43
-2026:        34.510,41        71.091,44
-2027:        36.581,03        36.581,03
-----   ---------------  ---------------
+**** TODO [#A] VirtualBox :macosx:
+Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
+(Maverick  10.9  Xcode 5) (galatea)
+(Yosemite  10.10 Xcode 6)
+(elCapitan 10.11 Xcode 7)
+(sierra    10.12 Xcode 8)
+**** TODO trainz
+http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
 
-**** ALIRE, LECTURES
+*** A-ACHETER                                                           :buy:
+**** Livres à acheter                                                  :book:
+***** TODO Au coeur du pouvoir : Enquête sur le club le plus puissant de France
+Émmanuel Ratier
 
-<beach> I recommend a book called "The Dream Machine" by M. Mitchell Waldrop.  It's about
-a man named J.C.R. Licklider who funded "strange" projects, many of which are the basis of
-the computing technology we use today.
+***** TODO La guerre secrête contre les peuples
+Claire Séverac
 
-***** Reading:
-****** TODO [#B] Reading Natural Language Processing in Lisp           :read:
-       Natural Language Processing in Lisp
-       An introduction to computationnal linguistics
-       Gazdar & Mellish,
-       Addison-Wesley,
+***** TODO Petite  phistoire de l'expérimentation démocratique
+Yves Sintomer
+Petite histoire de l'expérimentation démocratique
+Tirage au sort et politique d'Athênes à nos jours
 
-***** TODO [#C] Movies to Get with mldonkey                           :admin:
+***** TODO Esercizi di costruzioni elettromeccaniche (Vaske Paul, Riggert Johann H.)
+
+Esercizi di costruzioni elettromeccaniche
+Autore: Vaske Paul, Riggert Johann H.
+ISBN-10: 8820707020
+ISBN-13: 9788820707026
+ID prodotto: EPID49446951
+
+http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-elettromeccaniche/9788820707026
+
+***** TODO Ploncard d'Assac
+
+ 30?   L'église occupée
+ 30    1792 Les dernières marches du trône
+ 25    Salazar
+ 20    Manifeste nationaliste
+ 20    Critique nationaliste
+ 20    Les idées qui tuent
+ 28    Le nationalisme français
+ 35    La maçonnerie
+ 18    Le complot mondialiste
+ 20    Enquête sur la nouvelle droite
+ 20    Histoire d'une trahison
+ 24    Tradition ou révolution
+ 16    Sarkosy ou la mort programmée de la France
+ 24    La démocratie contre le peuple
+ 10    Le combat des idees
+ 10    La franc-maçonnerie dans la révolution dite française
+ 10    Le double visage de la maçonnerie et de ses "compagnons de route"
+ 10    Du 11 septembre au krach financier mondial
+---
+370
+
+**** TODO [#A] cable usb sata                                        :amazon:
+**** TODO [#C] warthog hotas                                         :amazon:
+*** A-VOIR                                                            :watch:
+**** TODO [#C] Movies to Get with mldonkey                            :admin:
       :DEADLINE: <2016-12-31 -6m>
 
 Scifi:
@@ -1165,7 +1248,11 @@ Phase IV (1974)
 A Clockwork Orange (1971)
 Solaris (1972) (Andrei Tarkovsky)
 
-***** TODO [#B] Movies to watch
+**** TODO [#B] Movies to watch
+
+https://www.youtube.com/watch?v=xT_rTYB1zPM  Le grand secret 1987
+https://www.youtube.com/watch?v=sju4qeTUKko  La raison d'état 1978
+https://www.youtube.com/watch?v=NiBDin5nxd4  Jean Gabin 1935 Crimes et chatiments
 
 https://skillsmatter.com/skillscasts/3504-lightning-talk-dider-verna-death-by-obesity#showModal?modal-signup-complete
 
@@ -1189,18 +1276,35 @@ http://www.cs.cornell.edu/home/ulfar/cuba/paper/
 
 http://www.nongnu.org/mldonkey/faq.html#build1
 
-***** TODO [0/4] Text to read
-****** TODO [#B] http://home.pipeline.com/~hbaker1/Prag-Parse.html
-****** TODO [#B] http://fr.wikipedia.org/wiki/Mati%C3%A8re_plastique
-****** TODO [#B] http://www.danbricklin.com/200yearsoftware.htm
-****** TODO [#B] http://www.w3.org/DesignIssues/Principles.html
-****** TODO [#B] http://www.amazon.com/Elements-Networking-Style-Animadversions-Intercomputer/dp/0595088791/
-****** TODO [#B] http://www.amazon.com/Interconnections-Bridges-Switches-Internetworking-Protocols/dp/0201634481/
-****** TODO [#B] http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
-****** Intentionnal Programming
-       http://localhost/~pascal/others/www.edge.org/documents/archive/edge20.html
+*** A-LIRE, LECTURES                                                   :read:
+**** IN-PROGRESS [#B] Reading Natural Language Processing in Lisp
+     - State "IN-PROGRESS" from "TODO"       [2016-12-03 Sat 22:12]
+     Natural Language Processing in Lisp
+     An introduction to computationnal linguistics
+     Gazdar & Mellish,
+     Addison-Wesley,
 
-****** Informatique
+**** IN-PROGRESS [#C] Valentina: Soul in Sapphire
+     - State "IN-PROGRESS" from "TODO"       [2016-12-03 Sat 22:12]
+**** TODO "The Dream Machine" by M. Mitchell Waldrop.
+
+<beach> I recommend a book called "The Dream Machine" by M. Mitchell Waldrop.
+It's about a man named J.C.R. Licklider who funded "strange" projects,
+many of which are the basis of the computing technology we use today.
+
+**** TODO [#B] http://www.washington.edu/news/2013/06/04/wi-fi-signals-enable-gesture-recognition-throughout-entire-home/
+**** TODO [#B] http://wisee.cs.washington.edu/wisee_paper.pdf
+**** TODO [#B] http://home.pipeline.com/~hbaker1/Prag-Parse.html
+**** TODO [#B] http://fr.wikipedia.org/wiki/Mati%C3%A8re_plastique
+**** TODO [#B] http://www.danbricklin.com/200yearsoftware.htm
+**** TODO [#B] http://www.w3.org/DesignIssues/Principles.html
+**** TODO [#B] http://www.amazon.com/Elements-Networking-Style-Animadversions-Intercomputer/dp/0595088791/
+**** TODO [#B] http://www.amazon.com/Interconnections-Bridges-Switches-Internetworking-Protocols/dp/0201634481/
+**** TODO [#B] http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
+**** Intentionnal Programming
+     http://localhost/~pascal/others/www.edge.org/documents/archive/edge20.html
+
+**** Informatique
 Periodique:
 
     Donald Knuth Guide to Visual Basic: http://www.ibiblio.org/Dave/Dr-Fun/df200002/df20000210.jpg
@@ -1518,61 +1622,61 @@ http://www.rebelscience.org/
 
     http://developer.apple.com/techpubs/enterprise/WebObjects/
 
-***** Read DONE:
+**** Read DONE:
 
-       EDW0028 1962 Substitution Process Definition of a recursive stack
-       machine. Algol 60, Lisp, Recursion, M.V.Wukjes, J.McCarthy,
-       M.Woodger.
-
-
-       EDW0030 Some Meditations on Advanced Programming
+      EDW0028 1962 Substitution Process Definition of a recursive stack
+      machine. Algol 60, Lisp, Recursion, M.V.Wukjes, J.McCarthy,
+      M.Woodger.
 
 
-
-       EDW1298 Under the Spell of Leibnitz Dream
-       Dijkstra biography, Gottfried Wilhelm Leibnitz, Hilbert,
-       Hoftstdter, R.W.Floyd, C.A.R.Hoare, E.T.Bell, George Boole,
-       symbolic proof, symbolic reasoning, University, Computer Science,
-       Computer Industry, Algol 60, Lisp, Recursion.
+      EDW0030 Some Meditations on Advanced Programming
 
 
 
-       Basic Lisp Techniques
-       Cooper, Franz Inc.,  2003, 100 pages.
-       file:///srv/books/informatics/languages/lisp/basic-lisp-techniques--cooper--2003.pdf
-       http://www.franz.com/resources/educational_resources/cooper.book.pdf
-       Presentation of Common Lisp, emacs (plus some Allegro specific stuff).
-       Short and clear.
+      EDW1298 Under the Spell of Leibnitz Dream
+      Dijkstra biography, Gottfried Wilhelm Leibnitz, Hilbert,
+      Hoftstdter, R.W.Floyd, C.A.R.Hoare, E.T.Bell, George Boole,
+      symbolic proof, symbolic reasoning, University, Computer Science,
+      Computer Industry, Algol 60, Lisp, Recursion.
 
 
 
-       Artificial Intelligence as a Positive and Negative Factor in Global Risk
-       Forthcoming in Global Catastrophic Risks, Eds. Nick Bostrom and Milan Cirkovic
-       Elizer Yudkowsky <yudkowsky@singinst.org>, Draft of August 31, 2006, 42 pages.
-       file:///srv/books/informatics/artificial-intelligence/general/artificial-intelligence-as-a-positive-and-negative-factor-in-global-risk.pdf
-       http://singinst.org/upload/artificial-intelligence-risk.pdf
-       Importance of developing Friendly AI, not just random AI (which
-       could turn out evil or alien).
+      Basic Lisp Techniques
+      Cooper, Franz Inc.,  2003, 100 pages.
+      file:///srv/books/informatics/languages/lisp/basic-lisp-techniques--cooper--2003.pdf
+      http://www.franz.com/resources/educational_resources/cooper.book.pdf
+      Presentation of Common Lisp, emacs (plus some Allegro specific stuff).
+      Short and clear.
 
 
-       The Mythical Man.Month, Essay on Software Engineering
-       Anniversary Edition
-       Frederic P. Brooks. Jr,
-       University of North Carolina at Chapel Hill.
-       Addison-Wesley, 1995,
-       ISBN 0-201-83595-9
 
-***** Economic Freedom
+      Artificial Intelligence as a Positive and Negative Factor in Global Risk
+      Forthcoming in Global Catastrophic Risks, Eds. Nick Bostrom and Milan Cirkovic
+      Elizer Yudkowsky <yudkowsky@singinst.org>, Draft of August 31, 2006, 42 pages.
+      file:///srv/books/informatics/artificial-intelligence/general/artificial-intelligence-as-a-positive-and-negative-factor-in-global-risk.pdf
+      http://singinst.org/upload/artificial-intelligence-risk.pdf
+      Importance of developing Friendly AI, not just random AI (which
+      could turn out evil or alien).
 
-       http://www.freetheworld.com/
-       http://www.heritage.org/        2003 Index of Economic Freedom
-       http://www.heritage.org/research/features/index/
 
-***** Survival
+      The Mythical Man.Month, Essay on Software Engineering
+      Anniversary Edition
+      Frederic P. Brooks. Jr,
+      University of North Carolina at Chapel Hill.
+      Addison-Wesley, 1995,
+      ISBN 0-201-83595-9
 
-       http://www.alpharubicon.com
+**** Economic Freedom
 
-***** Science
+      http://www.freetheworld.com/
+      http://www.heritage.org/        2003 Index of Economic Freedom
+      http://www.heritage.org/research/features/index/
+
+**** Survival
+
+      http://www.alpharubicon.com
+
+**** Science
 
 National Science Digital Library
 http://nsdl.org
@@ -1580,387 +1684,395 @@ http://nsdl.org
 
 http://www.newscientist.com/news/news.jsp?id=ns99992066
 
-***** Aerospace
+**** Aerospace
 
-       http://patft.uspto.gov/netahtml/search-adv.htm
-       http://ntrs.nasa.gov/
-       http://library.lanl.gov/catalog/
-       http://www.llnl.gov/library/catalogs.html
+      http://patft.uspto.gov/netahtml/search-adv.htm
+      http://ntrs.nasa.gov/
+      http://library.lanl.gov/catalog/
+      http://www.llnl.gov/library/catalogs.html
 
-       The NACA digital archive can be surprisingly usefull too.
-       Maybe not quite cutting-edge.
+      The NACA digital archive can be surprisingly usefull too.
+      Maybe not quite cutting-edge.
 
-***** Chimie
+**** Chimie
 
-       http://www.mems-exchange.org/
+      http://www.mems-exchange.org/
 
-***** Energy
+**** Energy
 
-     http://www.blacklightpower.com/technology/sf-ciht-cell/
+    http://www.blacklightpower.com/technology/sf-ciht-cell/
 
-     Uranium & Nuclear Power Information Center Australia
-     http://www.uic.com.au/
+    Uranium & Nuclear Power Information Center Australia
+    http://www.uic.com.au/
 
-     http://www.tinaja.com/h2gas01.asp http://dieoff.com/page168.htm
-     http://www.citizen.org/cmep/Water/articles.cfm?ID=7268
+    http://www.tinaja.com/h2gas01.asp http://dieoff.com/page168.htm
+    http://www.citizen.org/cmep/Water/articles.cfm?ID=7268
 
-     http://www-formal.stanford.edu/jmc/progress/nuclear-faq.html
-     http://www-formal.stanford.edu/jmc/progress/cohen.html
+    http://www-formal.stanford.edu/jmc/progress/nuclear-faq.html
+    http://www-formal.stanford.edu/jmc/progress/cohen.html
 
-     http://www.jaeri.go.jp/english/ff/ff43/topics.html
-     http://www.jaeri.go.jp/english/ff/2001.html
+    http://www.jaeri.go.jp/english/ff/ff43/topics.html
+    http://www.jaeri.go.jp/english/ff/2001.html
 
-     Energy Analysis of Power Systems http://www.uic.com.au/nip57.htm
+    Energy Analysis of Power Systems http://www.uic.com.au/nip57.htm
 
-     http://www.aip.org/tip/INPHFA/vol-8/iss-1/p22.pdf
+    http://www.aip.org/tip/INPHFA/vol-8/iss-1/p22.pdf
 
-     http://jnaudin.free.fr/html/farhom.htm
+    http://jnaudin.free.fr/html/farhom.htm
 
-     http://www.josephnewman.com
-     http://www.newphys.se/elektromagnum/physics/JosephNewman/newman.start.html
-     http://www.phact.org/phact/newman.htm
-     http://colossus2.cvl.bcm.tmc.edu/~wje/free_energy/newman/special_report.html
-     http://www.angelfire.com/biz/Newman/
-     http://www.futureworld.dk/tech/el_mag/el_magt.htm
+    http://www.josephnewman.com
+    http://www.newphys.se/elektromagnum/physics/JosephNewman/newman.start.html
+    http://www.phact.org/phact/newman.htm
+    http://colossus2.cvl.bcm.tmc.edu/~wje/free_energy/newman/special_report.html
+    http://www.angelfire.com/biz/Newman/
+    http://www.futureworld.dk/tech/el_mag/el_magt.htm
 
-***** Others
+**** Others
 
-      http://www.ucalgary.ca/~rzach/logblog/2007/11/csli-lecture-notes-online-and-free.html
-      http://indexical.blogspot.com/2007/10/this-is-neat.html
+     http://www.ucalgary.ca/~rzach/logblog/2007/11/csli-lecture-notes-online-and-free.html
+     http://indexical.blogspot.com/2007/10/this-is-neat.html
 
-       http://www.swiss.ai.mit.edu/tftpdir/scsh/
+      http://www.swiss.ai.mit.edu/tftpdir/scsh/
 
-       You could always use OpenBIOS
-       http://freshmeat.net/projects/openbios/
+      You could always use OpenBIOS
+      http://freshmeat.net/projects/openbios/
 
-       http://www.soton.ac.uk/~scp93ch/refer/morseform.html
-       http://www.knowledgehound.com
-       http://openquicktime.sourceforge.net/
-       voir aussi http://www.3ivx.com
+      http://www.soton.ac.uk/~scp93ch/refer/morseform.html
+      http://www.knowledgehound.com
+      http://openquicktime.sourceforge.net/
+      voir aussi http://www.3ivx.com
 
 
-       http://www.sunless-sea.net/forum
+      http://www.sunless-sea.net/forum
 
 
-       http://osfameron.perlmonk.org/chickenman/asciimation_diary.html
+      http://osfameron.perlmonk.org/chickenman/asciimation_diary.html
 
-       http://my.netfilter.se/ bandwidth limiting
+      http://my.netfilter.se/ bandwidth limiting
 
-       ftp://tierra.slhs.udel.edu
-       ftp://life.slhs.udel.edu
+      ftp://tierra.slhs.udel.edu
+      ftp://life.slhs.udel.edu
 
-       http://www-2.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/
+      http://www-2.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/
 
-       http://tunes.org/papers/WhyNewOS/WhyNewOS.html
+      http://tunes.org/papers/WhyNewOS/WhyNewOS.html
 
-       http://www.piercefuller.com/oldibm-shadow/1401.html
+      http://www.piercefuller.com/oldibm-shadow/1401.html
 
-       http://vwei.ifrance.com/vwei/
+      http://vwei.ifrance.com/vwei/
 
-       http://www.anandtech.com/
+      http://www.anandtech.com/
 
-       http://members.aol.com/sylvanz/index.htm
-       http://members.aol.com/sylvanz/gvcont.htm
+      http://members.aol.com/sylvanz/index.htm
+      http://members.aol.com/sylvanz/gvcont.htm
 
 
-       http://www.hanssummers.com/mainpage.htm
+      http://www.hanssummers.com/mainpage.htm
 
-       http://www.simulation-argument.com/classic.html
+      http://www.simulation-argument.com/classic.html
 
-       http://www.linux-france.org/article/these/unix-vs-nt/unix-vs-nt.html
-       http://www.thevenusproject.com/intro_main/whatis_tvp.htm
+      http://www.linux-france.org/article/these/unix-vs-nt/unix-vs-nt.html
+      http://www.thevenusproject.com/intro_main/whatis_tvp.htm
 
 
-       http://www.samag.com/documents/s=1824/sam0201h/0201h.htm
+      http://www.samag.com/documents/s=1824/sam0201h/0201h.htm
 
-       http://www.midnightpictures.co.uk (video)
-       http://www.darrylsloan.com        (video)
+      http://www.midnightpictures.co.uk (video)
+      http://www.darrylsloan.com        (video)
 
 
-       http://artstkmkt.sourceforge.net/  Swarm John H. Holland
-       http://sourceforge.net/projects/artstkmkt/
+      http://artstkmkt.sourceforge.net/  Swarm John H. Holland
+      http://sourceforge.net/projects/artstkmkt/
 
-       http://www.cyberhaven.com/bookshop/belikebuffet.html
+      http://www.cyberhaven.com/bookshop/belikebuffet.html
 
-       http://www.beepcore.org/beepcore/home.jsp
+      http://www.beepcore.org/beepcore/home.jsp
 
-       http://www.ietf.org/rfc/rfc3080.txt - base standard
-       http://www.ietf.org/rfc/rfc3081.txt - mapping to tcp
-       http://www.ietf.org/rfc/rfc3117.txt - article about reinventing wheels
+      http://www.ietf.org/rfc/rfc3080.txt - base standard
+      http://www.ietf.org/rfc/rfc3081.txt - mapping to tcp
+      http://www.ietf.org/rfc/rfc3117.txt - article about reinventing wheels
 
 
-       http://savannah.gnu.org/support/?func=detailsupport&support_id=100485&group_id=99
+      http://savannah.gnu.org/support/?func=detailsupport&support_id=100485&group_id=99
 
-       Es: http://cuantosimpuestospago.com
-       Es: http://www.diadelcontribuyente.org/calculadora2.php
-       Mx: http://www.sat.gob.mx/sat/default.htm
-       Vz: http://www.misimpuestos.net/registro.htm
+      Es: http://cuantosimpuestospago.com
+      Es: http://www.diadelcontribuyente.org/calculadora2.php
+      Mx: http://www.sat.gob.mx/sat/default.htm
+      Vz: http://www.misimpuestos.net/registro.htm
 
 
 
 
-       http://www.lib.utexas.edu/maps/europe.html
+      http://www.lib.utexas.edu/maps/europe.html
 
-       http://redivi.com/~bob/celestia.html
+      http://redivi.com/~bob/celestia.html
 
-       http://www.think-aboutit.com/underground.html
-       http://www.chris.com/ascii/
+      http://www.think-aboutit.com/underground.html
+      http://www.chris.com/ascii/
 
-       http://pw1.netcom.com/~jna/
-       http://soufron.free.fr/files/gpl.html
+      http://pw1.netcom.com/~jna/
+      http://soufron.free.fr/files/gpl.html
 
-       http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=2009756094
+      http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&item=2009756094
 
 
-       http://www.isd.atr.co.jp/~ray/tierra/index.html
+      http://www.isd.atr.co.jp/~ray/tierra/index.html
 
-       http://www.mexicomexico.to/mxmap.htm
+      http://www.mexicomexico.to/mxmap.htm
 
 
-       http://www.padrak.com/ine/index.shtml
-       telnet://towel.blinkenlights.nl
-       http://textpix.com
-       http://www.club-decideur.com/index.adml?h=5
+      http://www.padrak.com/ine/index.shtml
+      telnet://towel.blinkenlights.nl
+      http://textpix.com
+      http://www.club-decideur.com/index.adml?h=5
 
-***** Webcam Acapulco
+**** Ufo
 
-       http://www.wetteronline.de/cgi-bin/regframe?3&PRG=citywind&LANG=de&WMO=76805&PROVIDER=anwendung
+      http://disclosureproject.com
+      http://earthfiles.com
 
-       http://www.comfm.com/webcam/fiche.html?id=13289 puerto vallarta
 
-       http://www.vialidad.telmex.net/foto.php?NF=22&
-       http://www.vialidad.telmex.net/foto.php?NF=23&
-       http://www.vialidad.telmex.net/foto.php?NF=24&
-       http://www.vialidad.telmex.net/foto.php?NF=25&
-       http://www.vialidad.telmex.net/foto.php?NF=29
+      firma digital Fabrica de moneda y timbre  http://www.telecable.es/personales/gamo/
 
-       http://www.camscape.com/cam1d.htm
-       http://franck.legallo.free.fr/us/USAAUTRES1.htm
+      Internation Phonetic Alphabet
+      http://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm
 
-***** Ufo
-       http://disclosureproject.com
-       http://earthfiles.com
+      10 commandements du jeune internaute:
+      http://fac-info.joueb.com/news/11.shtml
 
+      mms://mediaserver.sinectis.com.ar/AmericaTV/AmericaTV.asx
+      mms://mediaserver.sinectis.com.ar/AmericaTV-Large/AmericaTV-Large.asx
+      http://www.americatv.com.pe/station1.asx
 
-       firma digital Fabrica de moneda y timbre  http://www.telecable.es/personales/gamo/
+      http://www.eskimo.com/~pristine/ftp.html
+      http://www.scps.org/html/body_relationship_to_other_protocol.html
+      http://nondot.org/sabre/os/files/FileSystems/iso9660.pdf
 
-       Internation Phonetic Alphabet
-       http://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm
+      http://www.amasci.com/freenrg/minto.html
 
-       10 commandements du jeune internaute:
-       http://fac-info.joueb.com/news/11.shtml
+      http://keyholepublishing.com/essays.htm
+      http://www.service-public.fr/
+      http://www.podval.org/~sds/tool.html
+      http://www.recoverylabs.com/webv01/contactanos.htm
+      http://rognerud.com/physics/index.htm
+      http://bel.150m.com/deaquino.htm
+      http://xxx.lanl.gov/abs/physics/0206046
 
-       mms://mediaserver.sinectis.com.ar/AmericaTV/AmericaTV.asx
-       mms://mediaserver.sinectis.com.ar/AmericaTV-Large/AmericaTV-Large.asx
-       http://www.americatv.com.pe/station1.asx
 
-       http://www.eskimo.com/~pristine/ftp.html
-       http://www.scps.org/html/body_relationship_to_other_protocol.html
-       http://nondot.org/sabre/os/files/FileSystems/iso9660.pdf
+      http://www.raum-energie-forschung.de/IREF-home-engl./Theor.htm.
 
-       http://www.amasci.com/freenrg/minto.html
 
-       http://keyholepublishing.com/essays.htm
-       http://www.service-public.fr/
-       http://www.podval.org/~sds/tool.html
-       http://www.recoverylabs.com/webv01/contactanos.htm
-       http://rognerud.com/physics/index.htm
-       http://bel.150m.com/deaquino.htm
-       http://xxx.lanl.gov/abs/physics/0206046
+      http://www.info.unicaen.fr/bnum/jelec/Solaris/d06/6borde.html
+      http://web.textfiles.com/ezines/PROPHETZINE/prpzn063.txt
 
+      http://www.marxists.org/
+      http://www.geocities.com/archiviste2000/memoire.htm    Bilan communiste
 
-       http://www.raum-energie-forschung.de/IREF-home-engl./Theor.htm.
+      http://freshmeat.net/redir/securedelete/9377/url_tgz/download.php?t=r&d=secure_delete-2.3.tar.gz
 
+      http://kangzhuang.ucam.org/cgi-bin/access/access.cgi
+      http://www.cl.cam.ac.uk/~ssb22/access.html#download
+      http://www.cus.cam.ac.uk/~ssb22/help.htm
 
-       http://www.info.unicaen.fr/bnum/jelec/Solaris/d06/6borde.html
-       http://web.textfiles.com/ezines/PROPHETZINE/prpzn063.txt
+      http://trendsaction.com/books/Harry_Browne/Fail_Safe_Investing/investing.php
+      http://s2.invisionfree.com/de_Pinet_Labs/
+      http://bioinformatics.org/softwaremap/?form_cat=2
+      http://www.libertyfree.com/
+      http://download.info.apple https://store.apple.com/Your/WebObjects/OrderStatusEurope..com/Apple_Support_Area/Apple_Software_Updates/English-North_American/Macintosh/System/Older_System/System_6.0.x/
 
-       http://www.marxists.org/
-       http://www.geocities.com/archiviste2000/memoire.htm    Bilan communiste
+      http://www.hubbertpeak.com/us/
+      http://www.dieoff.org/
 
-       http://freshmeat.net/redir/securedelete/9377/url_tgz/download.php?t=r&d=secure_delete-2.3.tar.gz
 
-       http://kangzhuang.ucam.org/cgi-bin/access/access.cgi
-       http://www.cl.cam.ac.uk/~ssb22/access.html#download
-       http://www.cus.cam.ac.uk/~ssb22/help.htm
 
-       http://trendsaction.com/books/Harry_Browne/Fail_Safe_Investing/investing.php
-       http://s2.invisionfree.com/de_Pinet_Labs/
-       http://bioinformatics.org/softwaremap/?form_cat=2
-       http://www.libertyfree.com/
-       http://download.info.apple https://store.apple.com/Your/WebObjects/OrderStatusEurope..com/Apple_Support_Area/Apple_Software_Updates/English-North_American/Macintosh/System/Older_System/System_6.0.x/
+      http://www.obs-nice.fr/stee/quickcam/quickcam.html
+      http://www.csociety.org/~kearneyd/linux_quickcam.html
 
-       http://www.hubbertpeak.com/us/
-       http://www.dieoff.org/
 
+      Sharp SL-5000D
+      http://www.infosync.no/show.php?id=1063
 
 
-       http://www.obs-nice.fr/stee/quickcam/quickcam.html
-       http://www.csociety.org/~kearneyd/linux_quickcam.html
+      http://www.cocam.co.uk/CoCamWS/Infrared/INFRARED.HTM
 
+      http://www.cc.gatech.edu/classes/AY2002/cs4470_fall/CMU-CS-94-182.pdf
+      http://www.tls.cena.fr/~jestin/SIG/old/docs/debat/TSI%20an%202000%20mbl.pdf
+      http://www.tls.cena.fr/divisions/PII/Rapports/NR93-830.ps.gz
+      http://www.tls.cena.fr/divisions/PII/Rapports/NR93-829.ps.gz
 
-       Sharp SL-5000D
-       http://www.infosync.no/show.php?id=1063
+      http://www-106.ibm.com/developerworks/linux/library/l-hw1/#resources
+      http://www-106.ibm.com/developerworks/linux/library/l-hw1/
 
+      http://www.index-materiel.com/
 
-       http://www.cocam.co.uk/CoCamWS/Infrared/INFRARED.HTM
+      http://www.modelingstyle.info/activityDiagram.html
+      http://www.eros-os.org/mailman/listinfo/eros-arch
+      http://www.schnada.de/quotes/contempt.html
 
-       http://www.cc.gatech.edu/classes/AY2002/cs4470_fall/CMU-CS-94-182.pdf
-       http://www.tls.cena.fr/~jestin/SIG/old/docs/debat/TSI%20an%202000%20mbl.pdf
-       http://www.tls.cena.fr/divisions/PII/Rapports/NR93-830.ps.gz
-       http://www.tls.cena.fr/divisions/PII/Rapports/NR93-829.ps.gz
+      http://laurel.actlab.utexas.edu/~cynbe/muq/muf3_toc.html
+      http://www.idealx.org/fr/doc/intro_preuve_formelle/intro_preuve_formelle.html
 
-       http://www-106.ibm.com/developerworks/linux/library/l-hw1/#resources
-       http://www-106.ibm.com/developerworks/linux/library/l-hw1/
+      http://www.mathpages.com/rr/s9-08/9-08.htm
 
-       http://www.index-materiel.com/
 
-       http://www.modelingstyle.info/activityDiagram.html
-       http://www.eros-os.org/mailman/listinfo/eros-arch
-       http://www.schnada.de/quotes/contempt.html
+      http://aduni.org/courses/
+      http://www.securiteam.com/securityreviews/5HP040KB5S.html.
+      http://www.gold-eagle.com/editorials_03/mauldin083103.html
+      http://www.safehaven.com/
+      http://web.archive.org/web/*/http://www-aig.jpl.nasa.gov/public/home/gat/ftp/http.lsp
+      http://www.agora-inc.com/reports/RCH/RackUpProfits/
 
-       http://laurel.actlab.utexas.edu/~cynbe/muq/muf3_toc.html
-       http://www.idealx.org/fr/doc/intro_preuve_formelle/intro_preuve_formelle.html
+      http://www.youtube.com/universidadudima
 
-       http://www.mathpages.com/rr/s9-08/9-08.htm
+      http://www.coursera.org
 
+      http://ocw.mit.edu/OcwWeb/Global/all-courses.htm#Aeronautics%20and%20Astronautics
+      http://www.geocities.com/mj_17870/waterelectret.html
+      http://www.baen.com/ Editeur livre électroniques
+      http://www.jeanweber.com in PDF, without copy protection.  The
+      eBook versions are substantially cheaper than the paper versions.
+      http://www.antipope.org/charlie/fiction/index.html
 
-       http://aduni.org/courses/
-       http://www.securiteam.com/securityreviews/5HP040KB5S.html.
-       http://www.gold-eagle.com/editorials_03/mauldin083103.html
-       http://www.safehaven.com/
-       http://web.archive.org/web/*/http://www-aig.jpl.nasa.gov/public/home/gat/ftp/http.lsp
-       http://www.agora-inc.com/reports/RCH/RackUpProfits/
 
-       http://www.youtube.com/universidadudima
 
-       http://www.coursera.org
 
-       http://ocw.mit.edu/OcwWeb/Global/all-courses.htm#Aeronautics%20and%20Astronautics
-       http://www.geocities.com/mj_17870/waterelectret.html
-       http://www.baen.com/ Editeur livre électroniques
-       http://www.jeanweber.com in PDF, without copy protection.  The
-       eBook versions are substantially cheaper than the paper versions.
-       http://www.antipope.org/charlie/fiction/index.html
+      http://personal-homepages.mis.mpg.de/gruening/bg_short.pdf
+      http://www.ling.lu.se/education/homepages/ALS052/handouts/TL4.pdf
+      http://crl.ucsd.edu/pdpnlp/abstract/20020528.html
+      http://l4ka.org/projects/persistence/
 
+      http://www.hpl.hp.com/techreports/2000/HPL-2000-99.html
+      http://www.iecc.com/gclist/GC-faq.html
+      http://www.calresco.org/offline.htm
+      http://public.kitware.com/VTK/
 
+      http://www.arm.linux.org.uk/
+      http://fabrice.bellard.free.fr/qemu/
+      http://arcem.sourceforge.net/
+      http://www.departments.bucknell.edu/russian/language/
 
+      http://www.ee.surrey.ac.uk/Personal/L.Wood/constellations/overview.html
+      http://petef.port5.com/c/portability.txt
 
-       http://personal-homepages.mis.mpg.de/gruening/bg_short.pdf
-       http://www.ling.lu.se/education/homepages/ALS052/handouts/TL4.pdf
-       http://crl.ucsd.edu/pdpnlp/abstract/20020528.html
-       http://l4ka.org/projects/persistence/
+      http://www.linuxdevices.com/news/NS6681886148.html
+      http://mes.emuunlim.com/tips/capturing_a_mac_rom_image.htm
+      http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/Programmation-Symbolique/2003-2004/
+      http://digilander.libero.it/chiediloapippo/Engineering/iarchitect/shame.htm
+      http://www.joelonsoftware.com/navLinks/fog0000000247.html
+      http://www.johncon.com/john/
+      http://www.geocities.com/mparker/
 
-       http://www.hpl.hp.com/techreports/2000/HPL-2000-99.html
-       http://www.iecc.com/gclist/GC-faq.html
-       http://www.calresco.org/offline.htm
-       http://public.kitware.com/VTK/
+      http://www.asciimation.co.nz/
+      http://www.logwatch.org
 
-       http://www.arm.linux.org.uk/
-       http://fabrice.bellard.free.fr/qemu/
-       http://arcem.sourceforge.net/
-       http://www.departments.bucknell.edu/russian/language/
+      http://www.srcf.ucam.org/~dl276/bookmarks.php
+      http://www.nhplace.com/kent/Papers/Large-Systems.html
+      http://www.cse.ucsc.edu/pipermail/rts/2003-October/000014.html
+      http://www.cl.cam.ac.uk/Research/SRG/netos/xen/
+      http://www.toms.net/rb/
 
-       http://www.ee.surrey.ac.uk/Personal/L.Wood/constellations/overview.html
-       http://petef.port5.com/c/portability.txt
+      http://www.chkrootkit.org/#related_links
+      http://www.spip.net/fr
+      http://wikipedia.sourceforge.net/
+      flashcard PCMCIA:  http://www.si.org/pcmciamtd/
 
-       http://www.linuxdevices.com/news/NS6681886148.html
-       http://mes.emuunlim.com/tips/capturing_a_mac_rom_image.htm
-       http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/Programmation-Symbolique/2003-2004/
-       http://digilander.libero.it/chiediloapippo/Engineering/iarchitect/shame.htm
-       http://www.joelonsoftware.com/navLinks/fog0000000247.html
-       http://www.johncon.com/john/
-       http://www.geocities.com/mparker/
+      http://marcogee.free.fr/news/ej1.htm
 
-       http://www.asciimation.co.nz/
-       http://www.logwatch.org
 
-       http://www.srcf.ucam.org/~dl276/bookmarks.php
-       http://www.nhplace.com/kent/Papers/Large-Systems.html
-       http://www.cse.ucsc.edu/pipermail/rts/2003-October/000014.html
-       http://www.cl.cam.ac.uk/Research/SRG/netos/xen/
-       http://www.toms.net/rb/
+      http://www.scsh.net/
+      http://www.stud.uni-karlsruhe.de/~unk6/clxman/
 
-       http://www.chkrootkit.org/#related_links
-       http://www.spip.net/fr
-       http://wikipedia.sourceforge.net/
-       flashcard PCMCIA:  http://www.si.org/pcmciamtd/
+      http://www.squish.net/dnscheck/
+      check DNS reverse informatimago
 
-       http://marcogee.free.fr/news/ej1.htm
+      ftp://ftp.rediris.es/sites/ftp.es.debian.org/debian-cd/3.0_r1/source/
+      http://www.stat.duke.edu/~sto/bookmarks.html
 
+**** Lifter
 
-       http://www.scsh.net/
-       http://www.stud.uni-karlsruhe.de/~unk6/clxman/
+      wget --mirror --convert-links --continue http://members.aol.com/jnaudin509/systemg/html/syshexp.htm
 
-       http://media35.fastclick.net/w/click.here?fid=10&cid=2553&mid=13186&sid=5364&m=1&c=6631http://www.quirit.com/quiritmatic/quiritmatic.asp?lang=fr
-       750MB 30GB/mois $25/mois
+      http://www.electricspacecraft.com/index.htm
+      http://www.totse.com/en/fringe/gravity_anti_gravity/grav.html
 
+      http://www.ebv.com/
+      http://www.raypa.es/
 
-       http://www.squish.net/dnscheck/
-       check DNS reverse informatimago
+      http://moumra.onzenet.com/moumraV12/evolution/zeiplin/powertht/alimuktht01.html
+      http://moumra.onzenet.com/moumraV12/evolution/zeiplin/ukzeipplin.htm
 
-       ftp://ftp.rediris.es/sites/ftp.es.debian.org/debian-cd/3.0_r1/source/
-       http://www.stat.duke.edu/~sto/bookmarks.html
+      http://www.ddsp.com/sb/order.cgi        stun gun
 
-***** Lifter
+      http://membres.lycos.fr/plasmapropulsion/the_lifters_dedicated_page.htm
+      http://www.inria.fr/rapportsactivite/RA96/croap/croap.html
 
-       wget --mirror --convert-links --continue http://members.aol.com/jnaudin509/systemg/html/syshexp.htm
+**** Over-Unity Devices that work
 
-       http://www.electricspacecraft.com/index.htm
-       http://www.totse.com/en/fringe/gravity_anti_gravity/grav.html
+      http://www.explorepub.com/articles/beardon/overunity.html [Tom Bearden]
+      http://www.cheniere.org/misc/oulist.htm [Tom Bearden]
+      http://www.cheniere.org/techpapers/Final%20Secret%2013%20May%201994/ [Tom Bearden]
+      http://www.geocities.com/Area51/Shadowlands/9654/bearden/poed.html [Tom Bearden]
+      http://www.cheniere.org/correspondence/052103.htm [Tom Bearden]
+      http://groups.yahoo.com/group/Antigravity/messages/2601?viscount=100
+      http://www.eurobility.com/news/one_news.asp?IDNews=866
+      http://www.rmsg.us/fuel/free.htm Free Energy Devices
+      http://www.geocities.com/theadamsmotor/motordesign.html
+      http://www.stardrivedevice.com/links.html
+      http://www.hbci.com/~wenonah/tommy/td.htm
+      http://www.altenergy.org/3/new_energy/zero_point_and_other/methernitha/methernitha.html
+      http://www.eskimo.com/~bilb/freenrgl/devlist.html
+      http://www.yowusa.com/Archive/May2003/OverunityKit1/overunitykit1.htm
+      http://www.altenergy.org/3/new_energy/zero_point_and_other/grotz/grotz.html
+      http://www.amasci.com/weird/wsci.html
+      http://www.fortunecity.com/greenfield/bp/16/content1.htm
 
-       http://www.ebv.com/
-       http://www.raypa.es/
 
-       http://moumra.onzenet.com/moumraV12/evolution/zeiplin/powertht/alimuktht01.html
-       http://moumra.onzenet.com/moumraV12/evolution/zeiplin/ukzeipplin.htm
+      lynx -source http://www.accu.org/access/public/install.sh > install.sh && chmod +x install.sh && ./install.sh
 
-       http://www.ddsp.com/sb/order.cgi        stun gun
 
-       http://membres.lycos.fr/plasmapropulsion/the_lifters_dedicated_page.htm
-       http://www.inria.fr/rapportsactivite/RA96/croap/croap.html
+      http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
+      http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
 
-***** Over-Unity Devices that work
+      The 1998 paper by Nigam and McCallum "A Comparison of Event Models for
+      Naive Bayes Text Classification"
+      (http://citeseer.nj.nec.com/mccallum98comparison.html)
+      is very useful.
 
-       http://www.explorepub.com/articles/beardon/overunity.html [Tom Bearden]
-       http://www.cheniere.org/misc/oulist.htm [Tom Bearden]
-       http://www.cheniere.org/techpapers/Final%20Secret%2013%20May%201994/ [Tom Bearden]
-       http://www.geocities.com/Area51/Shadowlands/9654/bearden/poed.html [Tom Bearden]
-       http://www.cheniere.org/correspondence/052103.htm [Tom Bearden]
-       http://groups.yahoo.com/group/Antigravity/messages/2601?viscount=100
-       http://www.eurobility.com/news/one_news.asp?IDNews=866
-       http://www.rmsg.us/fuel/free.htm Free Energy Devices
-       http://www.geocities.com/theadamsmotor/motordesign.html
-       http://www.stardrivedevice.com/links.html
-       http://www.hbci.com/~wenonah/tommy/td.htm
-       http://www.altenergy.org/3/new_energy/zero_point_and_other/methernitha/methernitha.html
-       http://www.eskimo.com/~bilb/freenrgl/devlist.html
-       http://www.yowusa.com/Archive/May2003/OverunityKit1/overunitykit1.htm
-       http://www.altenergy.org/3/new_energy/zero_point_and_other/grotz/grotz.html
-       http://www.amasci.com/weird/wsci.html
-       http://www.fortunecity.com/greenfield/bp/16/content1.htm
+      http://singinst.org/CFAI.html
+      http://www.cc.gatech.edu/classes/AY2003/cs7613_spring/
+      http://www.tomadivx.com
 
+*** TODO Earn retirement money
+----   ---------------  ---------------  ---------------
+Year   Infl.Corr/Year   Total Remaining  Spared
+----   ---------------  ---------------  ---------------
+2015:        18.179,66       343.270,80
+2016:        19.270,44       325.091,12         21417.00
+2017:        20.426,67       305.820,68
+2018:        21.652,27       285.394,04
+2019:        22.951,40       263.741,76
+2020:        24.328,49       240.790,34
+2021:        25.788,19       216.461,86
+2022:        27.335,48       190.673,68
+2023:        28.975,61       163.338,19
+2024:        30.714,14       134.362,58
+2025:        32.556,99       103.648,43
+2026:        34.510,41        71.091,44
+2027:        36.581,03        36.581,03
+----   ---------------  ---------------  ---------------
+(+ (* 100 209.72) (* 100 4.45))
 
-       lynx -source http://www.accu.org/access/public/install.sh > install.sh && chmod +x install.sh && ./install.sh
+** FAIT, DONE
+*** Achats Achetés                                                   :bought:
+**** DONE [#C] Track IR 3D
+      CLOSED: [2016-11-20 Sun 16:27]
+      - State "DONE"       from "TODO"       [2016-11-20 Sun 16:27] \\
+        Bought one.
+**** DONE [#C] 2x SanDisk Extreme PRO®
+      CLOSED: [2016-11-20 Sun 16:27]
+      - State "DONE"       from "TODO"       [2016-11-20 Sun 16:27] \\
+        Bought one.
 
-
-       http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
-       http://www.blacklightpower.com/pdf/GUT/TOE%2002.10.03/Parts/Part Two (Chapter 27-40).pdf
-
-       The 1998 paper by Nigam and McCallum "A Comparison of Event Models for
-       Naive Bayes Text Classification"
-       (http://citeseer.nj.nec.com/mccallum98comparison.html)
-       is very useful.
-
-       http://singinst.org/CFAI.html
-       http://www.cc.gatech.edu/classes/AY2003/cs7613_spring/
-       http://www.tomadivx.com
-
-**** Achats
-***** TODO [#A] cable usb sata                                          :buy:
-***** TODO [#C] Track IR 3D                                             :buy:
-***** TODO [#C] warthog hotas                                           :buy:
-***** TODO [#C] 2x SanDisk Extreme PRO®                                 :buy:
 SanDisk Extreme PRO® SDHC™/SDXC™ UHS-I Memory Card
 http://www.dpreview.com/articles/5813601559/sandisk-unveils-512gb-extreme-pro-sdxc-uhs-i-card
 
@@ -1987,17 +2099,19 @@ platinum $5,188,803.00 @shoebox.
  (gold 4601698)
  (platinum 5188803))
 
-** FAIT, DONE
-*** Achats Achetés
-**** DONE [#A] produits netoyage écrans                                 :buy:
+**** commande Apple iPad Pro
+
+Facture TVA: 0800 046 046
+
+**** DONE [#A] produits netoyage écrans
      CLOSED: [2015-10-19 Mon 14:47]
      - State "DONE"       from "TODO"       [2015-10-19 Mon 14:47] \\
        bought.
-**** DONE [#A] tapis souris pour souris optiques.                       :buy:
+**** DONE [#A] tapis souris pour souris optiques.
      CLOSED: [2015-10-19 Mon 14:47]
      - State "DONE"       from "TODO"       [2015-10-19 Mon 14:47] \\
        Printed mouse map patterns.
-**** Laurent LOUIS
+**** DONE Laurent LOUIS
 Votre paiement a été effectué.
 
 Le numéro de transaction pour ce paiement est le suivant : 66X52110TD680102S.
@@ -2017,19 +2131,21 @@ Appartement 210
 92130 Issy les Moulineaux
 France
 
-**** DONE [#B] chaise de bureau poid-lourd 200 kg                       :buy:
+**** DONE [#B] chaise de bureau poid-lourd 200 kg
      CLOSED: [2014-02-17 Mon 03:33]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
        150 kg only :-(
-**** DONE [#C] basquettes, vêtements                                    :buy:
+       Didn't last long. :-(
+
+**** DONE [#C] basquettes, vêtements
      CLOSED: [2014-02-17 Mon 03:33]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:33] \\
        Capel.
-**** DONE [#B] 2 x 4 TB HD                                              :buy:
+**** DONE [#B] 2 x 4 TB HD
      CLOSED: [2014-02-17 Mon 03:34]
      - State "DONE"       from "TODO"       [2014-02-17 Mon 03:34] \\
        Done last week.
-**** DONE [#A] azerty keyboard for André                                :buy:
+**** DONE [#A] azerty keyboard for André
      CLOSED: [2013-04-28 Sun 13:23]
      - CLOSING NOTE [2013-04-28 Sun 13:23] \\
        Done.
@@ -2047,16 +2163,16 @@ btw: BE0861.860.638
 
  Total:  196.99EUR
 
-**** DONE [#A] green-goo netoyage claviers                              :buy:
+**** DONE [#A] green-goo netoyage claviers
      CLOSED: [2013-04-28 Sun 13:14]
      - CLOSING NOTE [2013-04-28 Sun 13:14] \\
        Commandé chez Amazon Sun Apr 28 13:14:52 CEST 2013
-**** DONE [#A] flight simulators                                        :buy:
+**** DONE [#A] flight simulators
     CLOSED: [2013-04-28 Sun 13:15]
     - CLOSING NOTE [2013-04-28 Sun 13:15] \\
       Done last month.
 http://www.digitalcombatsimulator.com/index.php?end_pos=1322&scr=shop&lang=en
-****** DONE [#B] new disks.                                             :buy:
+****** DONE [#B] new disks.
 - 2 external 2GB HD for backups
 - 1 internal 2GB HD.
 
@@ -2074,13 +2190,13 @@ Numéro de commande : 402-7647603-4439517
 
     * 1 article sera expédié à Bourguignon Pascal de Amazon EU S.a.r.L.  Date de livraison estimée  7 mars 2011 - 11 mars 2011
 
-****** DONE [#C] new screens.                                           :buy:
+****** DONE [#C] new screens.
       - CLOSING NOTE [2010-11-29 Mon 22:05] \\
         Bought one.
         Should still buy one more for the flight sim machine.
         and perhaps another one for the dual screen video card I have in kuiper.
 
-****** DONE [#C] new keyboards.                                         :buy:
+****** DONE [#C] new keyboards.
    CLOSED: [2012-04-04 Wed 04:20]
    - CLOSING NOTE [2012-04-04 Wed 04:21] \\
      Bought another TenKeyless.
@@ -2119,19 +2235,13 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
 
     Copyright © 1999-2010 PayPal. Todos los derechos reservados.
 
-**** DONE [#B] iPad                                                     :buy:
+**** DONE [#B] iPad
      CLOSED: [2010-11-29 Mon 22:04]
      - CLOSING NOTE [2010-11-29 Mon 22:04] \\
        Bought.
 
-*** Comptabilité
-**** Impots
-code des impots 1346 article 78
-msa.fr -> cotisant de solidarité
-IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
-~/jobs/free-lance/aeat/aeat-2008
-
-**** TODO [#B] payer loyer          679 €                        :accounting:
+*** Comptabilité                                                 :accounting:
+**** TODO [#B] payer loyer          679 €
      :DEADLINE: <2013-03-01 Fri +1m>
      - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
        Fait par virement de la BNP.
@@ -2148,6 +2258,14 @@ IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
     :PROPERTIES:
     :LAST_REPEAT: [2014-02-17 Mon 03:35]
     :END:
+**** TODO [#C] Envoyer attestation assurance habitation               :admin:
+     :DEADLINE: <2017-10-15 Sun +1y -15d>
+     - State "DONE"       from "TODO"       [2016-12-03 Sat 22:04] \\
+       Done.
+     :PROPERTIES:
+     :LAST_REPEAT: [2016-12-03 Sat 22:04]
+     :END:
+
 **** DONE [#A] fermer compte cajamar cabo de palos
      CLOSED: [2013-08-11 Sun 19:50]
      - CLOSING NOTE [2013-08-11 Sun 19:50]
@@ -2179,9 +2297,6 @@ Branch Name.........................:    LOS BELONES MURCIA
 Account Number (IBAN).........:          ES19 3058 0370 6927 2000 0258
 Beneficiary............................: CELESTINO CONESA
 BIC / SWIFT Code..................:      CCRIES2A
-
-**** TODO [#C] Envoyer attestation assurance habitation               :admin:
-     :DEADLINE: <2016-10-15 +1y -15d>
 
 **** DONE [#B] Annuler assurance.
      :CLOSED: [2012-11-26 Mon 21:11] :DEADLINE: <2010-09-07 Tue -7d>
@@ -2353,18 +2468,10 @@ Certificado de pago 	53c3462646f3
       Done.
     :PROPERTIES:
     :END:
-*** Clone git to gitorious.
-*** Install gitorious on git.informatimago.com
-git daemon --listen=0.0.0.0  --verbose --export-all --base-path=/var/cache/git  --enable=receive-pack
-**** DONE [#B] Update web site.
-     CLOSED: [2012-11-26 Mon 21:47]
-     - CLOSING NOTE [2012-11-26 Mon 21:47] \\
-       Done.
-**** DONE [#B] Clone git to gitorious
-
-https://gitorious.org/com-informatimago
-http://git.gitorious.org/com-informatimago/com-informatimago
-http://gitorious.org/com-informatimago/com-informatimago/trees/master
+**** DONE [#A] Carte Vitale                                           :admin:
+     CLOSED: [2016-11-26 Sat 18:04]
+     - State "DONE"       from "TODO"       [2016-11-26 Sat 18:04] \\
+       Done
 * DEVELOPMENTS
 
 https://github.com/nikodemus/sb-cga
@@ -2374,6 +2481,7 @@ https://github.com/nikodemus/sb-cga
 Project Number: 444610959287
 
 ** APPLICATION IDEAS:
+
     - dev: agloo
     - dev: cdb
     - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
@@ -2493,7 +2601,17 @@ Project Number: 444610959287
 
             - Portages, traduction entre langages de programmation.
 
+** Nasium-LSE
+
+Fabrice Montupet <binaryside@yahoo.fr>
+http://www.ti99.com/exelvision/website/
+http://www.ti99.com/exelvision/website/index.php?mact=Search%2Ccntnt01%2Cdosearch%2C0&cntnt01returnid=376&cntnt01searchinput=LSE
+
 ** Programming Log (Done)
+
+2016-12-03
+- updated src/objc/linear Objective-C example for MacOSX.
+- updated src/public/hw (hello world).
 
 2015-10-19
 - Published a blog rss feed http://www.informatimago.com/blog/
@@ -2687,15 +2805,23 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 2009-07-25
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
-** Developments TODO
-*** TODO [#B] check CL macros for implementation specifics           :cl:dev:
+** Developments TODO                                                    :dev:
+*** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
+*** TODO [#A] raspberri pi CFFI CL library                               :pi:
+*** TODO [#A] build robot, and implement robot software                  :pi:
+*** TODO [#B] check CL macros for implementation specifics               :cl:
 - test and compare, expansion of all CL macros in all implementation for all optimization levels.
   find if expansions use implementation specific features.
 
-*** TODO [#A] botil, irb bot to log channels                         :cl:dev:
+*** IN-PROGRESS [#A] botil, irb bot to log channels                      :cl:
     :DEADLINE: <2016-02-28 -1m>
+    - State "IN-PROGRESS" from "TODO"       [2016-12-03 Sat 23:19] \\
+      Base functionality is implemented.
+      Remains to do:
+      - Debugging.
+      - Search algorithm.
 
-*** TODO [#A] ECL on Android: compile and install            :android:cl:dev:
+*** TODO [#A] ECL on Android: compile and install                :android:cl:
     :DEADLINE: <2016-03-30 -2m>
 Also, have a look at what would be involved at making it work on iOS too.
 **** ECL Android
@@ -2715,26 +2841,24 @@ sudo dd bs=512 skip=8192   seek=2048   count=129024   if=2016-05-27-raspbian-jes
 mkswap /dev/sdf3
 mke2fs -L home -j /dev/sdf4
 
-
-
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
 
-*** TODO [#A] hangman-ios                                :hangman:ios:cl:dev:
+*** TODO [#A] hangman-ios                                    :hangman:ios:cl:
     :DEADLINE: <2016-03-30 -2m>
 ~/src/public/games/hangman-ios/
 
-*** TODO [#B] Implement "stonedge" game on iPad.                 :ios:cl:dev:
+*** TODO [#B] Implement "stonedge" game on iPad.                     :ios:cl:
    DEADLINE: <2016-09-01 -3m>
 - playtomo-stonedge.lisp
 
     :DEADLINE: <2016-06-30 -3m>
-*** TODO [#A] mocl test 2 (ios/android).                             :cl:dev:
+*** TODO [#A] mocl test 2 (ios/android).                                 :cl:
     :DEADLINE: <2016-03-30 -2m>
 #+BEGIN(src)
 cd /Users/pjb/src/mocl ; make mocl-test
 #+END(src)
-*** TODO [#A] Failing test case in reader.lisp                       :cl:dev:
+*** TODO [#A] Failing test case in reader.lisp                           :cl:
    :DEADLINE: <2016-03-31 -1m>
 From: Orivej Desh <orivej@gmx.fr>
 Subject: Failing test case in informatimago/common-lisp/lisp-reader/reader.lisp
@@ -2749,18 +2873,22 @@ but its complex numbers testcase fails for me with a non default
 *read-default-float-format*.  It should synchronize it with CL package
 and maybe run the testcase with all supported values.
 
-*** TODO [#A] Implement C11 compiler/translator to lisp.       :emacs:cl:dev:
+*** TODO [#A] Implement C11 compiler/translator to lisp.           :emacs:cl:
     :DEADLINE: <2016-09-30 -6m>
-*** TODO [0/4] emacs Objective-C tools                       :objc:emacs:dev:
+
+https://github.com/drh/lcc
+https://github.com/Kalimehtar/pcc1
+
+*** TODO [0/4] emacs Objective-C tools                           :objc:emacs:
     :DEADLINE: <2016-06-30 -6m>
 pjb-objc-edit.el
 pjb-objc-gen.el
 pjb-objc-mode.el
 pjb-c-style.el
-**** TODO [#A] objc-method-call-cont to indent colons.       :objc:emacs:dev:
+**** TODO [#A] objc-method-call-cont to indent colons.       :objc:emacs:
 aligning collons,
 in pjb-c-style.el
-**** TODO [#A] cmd create/update objc properties             :objc:emacs:dev:
+**** TODO [#A] cmd create/update objc properties             :objc:emacs:
 
      create property:  public/private Class  name   (non atomic,retain)
 
@@ -2786,20 +2914,24 @@ in pjb-c-style.el
      @property (…) Class* name;
      @synthesize name=_name;
 
-**** TODO [#A] objc-edit (like paredit)                      :objc:emacs:dev:
-**** TODO [#A] objc-gen (like parenscript) code from sexps   :objc:emacs:dev:
+**** TODO [#A] objc-edit (like paredit)                      :objc:emacs:
+
+paredit tutorial:
+http://danmidwood.com/content/2014/11/21/animated-paredit.html
+
+**** TODO [#A] objc-gen (like parenscript) code from sexps   :objc:emacs:
 to generate Objective-C
 **** Objective-C
 http://www.omnigroup.com/blog/setting-omnigraphsketcher-free
 https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 based?)
 
-*** TODO [0/3] C/C++/Objective-C code analysis tool             :objc:cl:dev:
+*** TODO [0/3] C/C++/Objective-C code analysis tool                 :objc:cl:
     :DEADLINE: <2016-06-30 -6m>
-**** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :dev:
-**** TODO [#A] interface with emacs (wisent, bovinator)           :emacs:dev:
+**** TODO [#A] check gcc-xml, gcc and llvm to get the parse trees.      :
+**** TODO [#A] interface with emacs (wisent, bovinator)           :emacs:
 - and have some tools (navigation, generation, indent, font-lock, etc).
 
-**** TODO [#A] write some code analysis tools                        :cl:dev:
+**** TODO [#A] write some code analysis tools                        :cl:
 
 - we'd like to see code and data dependencies
 
@@ -2811,13 +2943,13 @@ https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 base
 - analysis of Xcode xib, notably bindings, but in general, translate
   xib files into source code.
 
-*** TODO [#B] Translate GNU emacs C sources in Lisp.           :emacs:cl:dev:
-*** TODO [#C] cl-stepper gen backtraces / lisp debugger API          :cl:dev:
+*** TODO [#B] Translate GNU emacs C sources in Lisp.               :emacs:cl:
+*** TODO [#C] cl-stepper gen backtraces / lisp debugger API              :cl:
 *** TODO [#B] add to lisp-mirror                                      :admin:
  http://wcp.sdf-eu.org/software/
-*** TODO [#B] apps (iOS, Android): geofamily-like but free.             :dev:
-*** TODO [#B] lispos (lire eros, prendre notes)               :lispos:cl:dev:
-*** TODO [0/4] LEP - Lisp Empowered Program                      :lep:cl:dev:
+*** TODO [#B] apps (iOS, Android): geofamily-like but free.
+*** TODO [#B] lispos (lire eros, prendre notes)                   :lispos:cl:
+*** TODO [0/4] LEP - Lisp Empowered Program                          :lep:cl:
 
 integrate a lisp linux distribution:
 - all user land written in lisp
@@ -2888,7 +3020,7 @@ links to the individual packages are broken.
    525M  /a3/save/systems
 51G      total
 
-*** TODO [#C] move all my parsers closer?                            :cl:dev:
+*** TODO [#C] move all my parsers closer?                                :cl:
 - com.informatimago.nasium-lse
 - com.informatimago.lua
 - com.informatimago.xcode
@@ -2915,7 +3047,7 @@ http://www.common-lisp.net/project/cl-objc/
 #+BEGIN_SRC(commonlisp)
 #+ccl(require 'objc-support)
 #+END_SRC
-*** TODO [#C] move lambda-calculus to git for quicklisp           :dev:admin:
+*** TODO [#C] move lambda-calculus to git for quicklisp               :admin:
     DEADLINE: <2016-12-31 -12m>
 *** TODO [#C] melpa                                                   :admin:
  http://nic.ferrier.me.uk/blog/2012_07/emacs-packages-for-programmers
@@ -2949,8 +3081,8 @@ create mail list:
 
 mailto:${name}@list.ogamita.com
 
-*** TODO [#B] debug llrbtree                                     :bug:cl:dev:
-*** TODO [#B] add llrbtree as an impl for dictionary                 :cl:dev:
+*** TODO [#B] debug llrbtree                                         :bug:cl:
+*** TODO [#B] add llrbtree as an impl for dictionary                     :cl:
 *** TODO [#B] clisp *print-readably*                                 :cl:bug:
 <18:31:41><maxm> heh clisp *print-readbly* can't be read by other lisps
 <18:32:03><maxm> coz it prints 'make-instance as |CLOS|:|MAKE-INSTANCE|
@@ -2960,377 +3092,6 @@ mailto:${name}@list.ogamita.com
 version is who knows from where
 <18:37:21><pjb> ok, I'll do it.
 
-iconv -l|tr -d /|while read e ; do f="$(iconv -f "$e" -t "utf-8" < b 2>/dev/null)" && printf "%-30s %s\n" "$e" "$f" ; done|sort -k 2
-
-lisppaste out --> clo-devel@common-lisp.net
-
-http://www.ymeme.com/lisp
-
-Java AbstractSingletonProxyFactoryBean.
-http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/aop/framework/AbstractSingletonProxyFactoryBean.html
-
-sort out /srv/ftp/pub/mirrors/ftp.cs.indiana.edu/pub/
-
-http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
-
-http://hightechhistory.com/category/stanford/
-
-
-time:
-http://unix4lyfe.org/time/
-http://naggum.no/lugm-time.html
-http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
-http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time-wisdom
-
-
-XML: problem not hard, solved badly.
-http://www.cs.washington.edu/education/courses/cse544/04sp/papers/xml-essence.pdf
-
-c to cl compiler: https://github.com/vsedach/Vacietis
-
-(defconstant +magic-number+ 2976579765.)
-
-(+ 60 (*  1200 1.18 1.30))
-(euro-to-devise 'USD 1900.8)
-
-
-http://www.youtube.com/universidadudima
-
-
-
-VIA APC 8750 Android Mini PC $49
-
-Topology http://www.youtube.com/watch?v=yWi2_H-JUqY&feature=channel&list=UL
-
-Barco spheric display http://www.virtualworldlets.net/Shop/ProductsDisplay/VRInterface.php?ID=149
-biomolecular computation: http://www.dna.caltech.edu/courses/cs191/
-interpreter: http://matt.might.net/articles/cesk-machines/
-
-ono augusto pagado por targeta 835200
-
-
-Human Universals
------------------
-Coping
-Social
-Language
-Culture
-Fantasies
-Stories
-Tools, Art, Technologies
-Goals, Plans
-Play & Games
-Fixed Rules, Flexible Strategies
-Case based learning
-Case based reasoning
-Superstition
-Religion/Magic
-Theater
-Differences over Similarities
-Quick Reactions To Patterns
-"The Other"
-Supernormal Responses
-Vendetta
-Value Shortages
-**Loud Noises & Snakes
-
-Non-Universals
---------------
-Progress
-Writing & Reading
-Deductive Abstract Math
-Model Based Science
-Thought, Thought, Thought
-Equal Rights
-Democracy
-Similarities over Differences
-Slow Deep Thinking
-Legal System vs. Vendetta
-Perspective Drawing
-Theory of Harmony
-
-
-clall -r '(let ((r nil)) (do-all-symbols (s) (when (and (special-operator-p s) (not (cl:macro-function s))) (push s r))) (sort (set-difference (remove-duplicates r) (quote (block catch eval-when flet function go if labels let let* load-time-value locally macrolet multiple-value-call multiple-value-prog1 progn progv quote return-from setq symbol-macrolet tagbody the throw unwind-protect))) (function string<)))'
-
-
-http://vWorker.com|pjb@informatimago.com|zuqzadb1m
-http://vWorker.com|pjb@informatimago.com|zuqzadb1m
-
-
-Fill in:  http://wiki.alu.org/Consultant
-
-/local/srv/mirrors/lisp/www.unlambda.com
-
-Soeur de Kasimiera Chilkowy : Mariette en Argentine.
-
-
-Dear Customer,
-Thank you for ordering via the Farnell web site.  Your order has been
-given the following Farnell reference number: ORP064827.
-Please refer to this number if you contact Farnell regarding your
-order. When stock is allocated to your order, we will send you a full
-order confirmation including prices, availability and expected
-delivery date.
-Thank you for ordering with Farnell.  Kind regards The Farnell Team.
-
-lisp in javascript http://kybernetikos.github.com/Javathcript/
-lisp in javascript http://slip.lisperator.net/
-
-   [1]: http://puntoblogspot.blogspot.ie/
-   [2]: http://davazp.github.com/ecmalisp/ecmalisp.html
-   [3]: http://github.com/davazp/ecmalisp/
-
-
-java inception: http://axisofeval.blogspot.com.es/2011/03/truth-is-stranger-than-fiction.html
-
-http://www.psy.fsu.edu/~baumeistertice/goodaboutmen.htm
-
-Why Lisp macros are cool, a Perl perspective (2005)
-http://lists.warhead.org.uk/pipermail/iwe/2005-July/000130.html
-
-
-(objc:objc-message-send [NSCursor class] "IBeamCursor")
-
-http://programming.nu/reference lisp-like over Objective-C / http://www.vicoapp.com/
-
-
-
-http://www.theopensourceway.org/wiki/How_to_tell_if_a_FLOSS_project_is_doomed_to_FAIL
-
-
-
-
-http://wekinator.cs.princeton.edu
-http://opensoundcontrol.org/implementations
-
-
-Eight Stages of Debugging
-1. That can't happen.
-2. That doesn't happen on my machine.
-3. That shouldn't happen.
-4. Why does that happen?
-5. Oh, I see.
-6. How did that ever work?
-7. Svn blame.
-8. One day we will write tests.
-
-
-Apple ID = pjb@informatimago.com|SOMaTyT
-http://adc.apple.com/|pjb@informatimago.com|SOMaTyT
-
-mercadona 963468446
-
-payment movies 1 €/life/person
-    identification movie (producer / title / date / legal number).
-    identification person (name / birthdate / birthplace).
-    --- signed by payment authority.
-  gives right to have unencumbered digital copies of the movie (any
-  format, any number), and to distribute copies of it.
-
-
-cms: drupal, drone
-ckeditor
-http://www.openwebware.com
-Free cross-browser WYSIWYG editor.
-
-
-rav:                     718879 rlolc
-patchwork:                42659 rlolc
-patchwork+mclgui:         64414 rlolc
-com.informatimago.rdp:     2985 rlolc
-com.informatimago:       122905 rlolc
-nasium-lse:               23426 rlolc
-
-
-
-
-
-♥♡❥❥❥❥❥❥❥❥❥❥❥♡♥
-
-crowd government budget
-- let the people voluntarily give taxes, and administer them, choosing
-  the repartition to various government projects and spendings.
-
-
-h=host85-230-dynamic.17-87-r.retail.telecomitalia.it
-wget -c --progress=bar:force -nH --cut-dirs=2 -m ftp://$h/pub/Videos/tekkaman/
-wget -c --progress=bar:force -nH --cut-dirs=2 -m ftp://$h/pub/Videos/ufo_shado/
-
-
-http://ensmp.net/pdf/1971/mercouroff.html
-
-
-IVA: http://ec.europa.eu/taxation_customs/vies/vieshome.do
-
-
-savannah.gnu.org|informatimago|fend6Clip=Modem)
-
-savannah.gnu.org|informatimago|fend6Clip=Modem)
-
-1lofc2 http://www.youtube.com/watch?v=y2VE4C0tZkY
-
-Another job opportunity at EyeCarePro.net
-
-EyeCarePro.net (www.eyecarepro.net) is looking for another full time
-SBCL programmer to help manage and improve our main website builder
-application. No relocation required – North American working hours, 5+
-years of SBCL experience (Hunchentoot / Debian) with strong
-communication skills. Contact DanielR@eyecarepro.net for more details.
-
-
-
-trieur de cartes perforées
-http://www.youtube.com/watch?v=2RCgIrZiC6c
-
-IBM System/3 IPL
-http://www.youtube.com/watch?v=CBtXLZcY_bM&feature=related
-
-DEC Decsystem2020
-http://www.youtube.com/watch?v=SVAHSzz9-Zg&NR=1
-
-AS/400
-http://pub1.de/
-
-
-
-
--->EPI http://www.bbc.com/news/technology-17740143
-
-http://all-things-andy-gavin.com/2011/03/12/making-crash-bandicoot-gool-part-9/
-http://foodisforfuel.com/exercise/
-http://globalguerrillas.typepad.com/globalguerrillas/2012/03/drones-are-forever.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+typepad%2FrzYD+%28Global+Guerrillas%29
-http://people.mills.edu/spertus/Gender/pap/node15.html
-http://pichotjm.free.fr/T1600/Manuel_T1600/file.html
-http://www.feb-patrimoine.com/english/mitra.htm
-http://web.archive.org/web/20040516233333/http://perso.club-internet.fr/febcm/systemes_ord/mitra.htm
-http://research.microsoft.com/en-us/um/people/simonpj/papers/stm/stm.pdf
-http://texteditors.org/cgi-bin/wiki.pl?Z
-http://wiki.flightgear.org/index.php/Using_Terragear
-http://www-formal.stanford.edu/jmc/history/lisp/node4.html
-
-http://www.cl.cam.ac.uk/~mgk25/unicode.html
-http://inamidst.com/stuff/unidata/
-
-http://www.dalnefre.com/wp/2010/10/evaluating-expressions-part-4-%E2%80%93-pattern-equations/
-http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
-http://www.pipeline.com/~hbaker1/CritLisp.html
-http://www.uphs.upenn.edu/news/News_Releases/2011/03/mathematical-sequence-brain-imaging/
-http://www.lucidcafe.com/library/96jul/teslaauto01.html
-
-
-Parser: http://arxiv.org/abs/1010.5023
-
-"Constraints Generalize Procedures"
-    http://groups.csail.mit.edu/mac/users/gjs/6.945/readings/robust-systems.pdf
-    http://totem.cc/onward2012/onward.pdf
-
-
-
-find . \( -name \*.lisp -o -name \*.asd \) -print \
-| while read f ; do
-   cp "${f}" "${f}~" \
-   && iconv -f iso-8859-1 -t utf-8 < "${f}~" \
-    | sed -e '1s/ *-\*- *$/; coding:utf-8 -*-/' \
-    > "${f}"
-  done
-
-
-#-(or abcl allegro clisp clozure cmu cormanlisp ecl gcl genera lispworks mcl sbcl scl xcl)
-(error "ASDF is not supported on your implementation. Please help us port it.")
-
-asdf/lisp-build:*uninteresting-conditions*
-
-(asdf/plan:plan-actions (asdf:make-plan asdf/plan:*default-plan-class* 'asdf:load-op system))
-
-  (mapcar 'asdf:component-pathname
-      (asdf::required-components :cleavir :keep-component 'asdf:cl-source-file))
-
-
-https://github.com/jdz/brians-brain/blob/master/display.lisp
-
-
-http://mpmap01.flightgear.org/?ll=35.90684930677121,-1.7962646484375&z=8&t=h&fg_server=mpserver12:5000,mpserver12.flightgear.org,5001&update_interval=5&pilot_label=always&icon_mode=normal
-tab nav
-uncheck show nbd awy vor fix (bottom right)
-click on the eye.
-
-
-Date de la transaction 	12 Avril 2012 05:36:21 (UTC/GMT)
-Adresse du web commerçant 	www.progonline.com
-Identifiant commerçant 	048101283900017
-Référence de la transaction 	073555
-Montant de la transaction 	287,04 €
-Numéro de la carte 	4150 #### #### ##51   06/13
-Autorisation 	191645
-Certificat de la transaction 	990e62687c51
-
-
-http://www.mendeley.com/research/clisp-conversational-lisp-1/
-
-
-pwgl
-cari madad
-
-
-
-aek@bitsavers.org
-
-
-posterdati http://code.google.com/p/circuit/
-        "Angelo Rossi <angelo.rossi.homelab@gmail.com>"
-
-
-
-+----------------------------------------------------------------------------
-| Patches generated by git are organized in hunks whose title contains
-| useful information about the context of the modification. For example,
-| in C files, the hunk title contains the name of the function where the
-| modification occurs.
-| .
-| Git doesn't have any specific rule to name hunks for Common Lisp
-| files, but we can provide a method ourselves.
-| .
-| First add a .gitattributes files at the root of your repository with
-| the following content:
-| .
-| *.lisp diff=lisp
-| .
-| This tells git to look at the diff.lisp section of the configuration
-| file to know how to handle lisp files for diffs.
-| .
-| Then edit your Git configuration file (for example ~/.gitconfig), and
-| add the following section:
-| .
-| [diff "lisp"] xfuncname="^(\\((def|test).*)$"
-| .
-| With this regexp, the title of each hunk will indicate the
-| corresponding top-level form, which most of the time starts with the
-| def prefix. I added test which is used to define 5am tests, and is
-| handy for diffs in test suites.
-+----------------------------------------------------------------------------
-
-
-
-mp-escape:
-- let's add planes at gudata (assume the base was taken with planes and pilots on ground).
-- let's add ground forces.
-- CAP missions should be releved when they land by other teams. Add loops too.
-- let's add some SAM.
-- start earlier.
-
-
-http://www.activistpost.com/2012/02/official-list-of-words-feds-monitor-on.html
-
-« Tout le monde habite le sixième dans cette affaire, c'est épuissant! »
-
-git remote add foo <url> ; git fetch foo; git log foo ; git cherry-pick <id>
-
-
-joelle: http://online.wsj.com/article/SB10001424052970203471004577140900388728374.html?mod=WSJ_hp_mostpop_read
-
-209.247.83.121:9229
-pass 1210479
-
 *** TODO [#C] install windows-number-mode                             :emacs:
 
 <myrkraverk> ,window-number-mode
@@ -3338,17 +3099,17 @@ pass 1210479
 <fsbot> http://www.emacswiki.org/emacs/WindowNumberingMode
 https://melpa.org/#/window-number
 
-*** TODO [#B] update nodes.el                                     :admin:dev:
-*** TODO [#B] CDR lisp reader                                        :cl:dev:
+*** TODO [#B] update nodes.el                                         :admin:
+*** TODO [#B] CDR lisp reader                                            :cl:
 Write a CDR to specify extension parse-token hook to the lisp reader.
 See also reader extension for hierarchical packages, etc.
-*** TODO [#B] move flpl to smallclpgms                               :cl:dev:
+*** TODO [#B] move flpl to smallclpgms                                   :cl:
 move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms
-*** TODO [#B] add usenet articles                                    :cl:dev:
+*** TODO [#B] add usenet articles                                        :cl:
 add http://groups.google.com/group/comp.lang.lisp/msg/aa9494a2f0c35f74?hl=en to articles
-*** TODO [#B] flood protection in erc                             :emacs:dev:
+*** TODO [#B] flood protection in erc                                 :emacs:
     :DEADLINE: <2016-06-01 -2m>
-*** TODO [#B] cll archive                                            :cl:dev:
+*** TODO [#B] cll archive                                                :cl:
 
 Gather and update a complete cll archive
 
@@ -3358,11 +3119,10 @@ here's an archive off aioe.org going back to around mid-2009 that may
 close your gap between the google archive and eternal-september.
 http://lib.euli.eu/cll-aioe.org.tar.bz2
 
-*** TODO [#B] Objective-C CFFI ObjCL                                 :cl:dev:
+*** TODO [#B] Objective-C CFFI ObjCL                                     :cl:
 
 Develop a portable Objective-C / Common-Lisp bridge over CFFI.
 Targets current gnu objc, cocoa objc, cocotron?
-
 
 **** http://www.common-lisp.net/project/cl-objc/
 
@@ -3372,7 +3132,6 @@ CFFI.
 The aim is to be able to build Cocoa applications on Mac OS X by using
 InterfaceBuilder to design the GUI and then implement the code in
 common-lisp.
-
 
 **** http://benkard.de/objective-cl
 
@@ -3387,12 +3146,12 @@ without major changes. (Testers welcome!)
 
 --> Uses an old gnu objc API.
 
-*** TODO [#B] check quicklisp descriptions                           :cl:dev:
+*** TODO [#B] check quicklisp descriptions                               :cl:
      http://www.quicklisp.org/beta/UNOFFICIAL/descriptions.txt
      http://common-lisp.net/project/cl-test-grid/library/
      http://common-lisp.net/project/cl-test-grid/quicklisp-diff.html
 
-*** TODO [#B] check quicklisp fails                                  :cl:dev:
+*** TODO [#B] check quicklisp fails                                      :cl:
 http://report.quicklisp.org/com.informatimago/2014-03-27/failtail.txt
 
 ;Compiler warnings for "home:quicklisp;dists;quicklisp;software;com.informatimago-20130312-git;common-lisp;data-encoding;ecp.lisp.newest" :
@@ -3435,19 +3194,12 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
 ;Compiler warnings for "home:quicklisp;local-projects;com;informatimago;common-lisp;data-encoding;bencode.lisp.newest" :
 ;   In an anonymous lambda form inside COM.INFORMATIMAGO.COMMON-LISP.DATA-ENCODING.BENCODE::TEST/STRING: Undefined function COM.INFORMATIMAGO.COMMON-LISP.DATA-ENCODING.BENCODE::HASHTABLEP
 
-*** TODO [#B] dmiles mc.                                                :dev:
+*** TODO [#B] dmiles mc.
     :DEADLINE: <2016-12-31 -6m>
 - Created a git repository for ~/works/ai/dmiles/mc on http://git.informatimago.com/srv/git/public/mc
 - ~/works/ai/dmiles/mc  minimal compiler: Added some macros to standard-macros.lisp
 "Daxtron Labs" dmiles.
 
-*** SUSPENDED [#C] [0/0] ABNotation                                      :ab:
-    :DEADLINE: <2018-12-31 -2y>
-    - State "SUSPENDED"  from "TODO"       [2015-10-19 Mon 15:20] \\
-      Suspended till further notice.
-
-**** TODO [#C] planifications modules
-**** TODO [#C] dessin des notes à barre
 *** TODO [0/3] Yellow Submarine                                   :submarine:
 **** TODO [0/4] implement a bare submarine simulator
 ***** TODO [#C] buyancy
@@ -3458,7 +3210,7 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
  and evaluate it for submarine simulation
 **** TODO [#C] integrate FlightGear video
 **** TODO [#C] integrate FlightGear flight models.
-*** TODO [#C] Xcode tools                                 :dxo:macosx:cl:dev:
+*** TODO [#C] Xcode tools                                     :dxo:macosx:cl:
    CLOSED: [2012-12-24 Mon 01:27]
    - State "TODO"       from "IN-PROGRESS" [2014-06-22 Sun 06:19] \\
      To be done.
@@ -3466,12 +3218,12 @@ Welcome to Clozure Common Lisp Version 1.9-r15757  (LinuxX8664)!
 - write pbxproj parser and tools (search files, explain targets, etc).
 http://www.monobjc.net/index.php?page=xcode-project-file-format
 
-*** TODO [#C] Publish HTML doc snippets for my packages              :cl:dev:
+*** TODO [#C] Publish HTML doc snippets for my packages                  :cl:
 eg. Extract from ASDF descriptions.
-*** TODO [#C] check http://ocmock.org/                             :objc:dev:
+*** TODO [#C] check http://ocmock.org/                                 :objc:
 and http://www.mockobjects.com/
 
-*** TODO [#C] LUA Parser                                             :cl:dev:
+*** TODO [#C] LUA Parser                                                 :cl:
 
 ~/src/git/public/lisp/lua/
 
@@ -3481,46 +3233,67 @@ and http://www.mockobjects.com/
   - to implement: a lua generator from sexps.
 - for data, sexp <-> lua
 
-*** TODO [#C] funconcurrency: extract documentation                     :dev:
+*** TODO [#C] funconcurrency: extract documentation
 - install a basilisk VM to run WriteNow and extract .txt and .ps documentations.
 FullWrite: Your Serial Number is — FREE-33333-33333
 
-*** TODO [#C] l-99 implement the missing solutions                   :cl:dev:
-*** TODO [#B] add to l-99, eg swap-kth.lisp                          :cl:dev:
-*** TODO [#C] check-pathnames followup                               :cl:dev:
+*** TODO [#C] l-99 implement the missing solutions                       :cl:
+*** TODO [#B] add to l-99, eg swap-kth.lisp                              :cl:
+*** TODO [#C] check-pathnames followup                                   :cl:
 - check-pathnames
 
-*** TODO [#C] clisp dbus for bonjour for mplayer synchronization        :dev:
+*** TODO [#C] clisp dbus for bonjour for mplayer synchronization
     ~/works/media-player/dbus-hi.lisp
 
-*** TODO [#C] claar drawing cons graphs.                             :cl:dev:
+*** TODO [#C] claar drawing cons graphs.                                 :cl:
    - State "TODO"       from "TODO"       [2009-07-25 Thu 00:00]
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
-*** TODO [#C] virtual-fs.lisp                                        :cl:dev:
-*** TODO [#C] what-implementation add 32-bit/64-bit criteria         :cl:dev:
+*** TODO [#C] virtual-fs.lisp                                            :cl:
+*** TODO [#C] what-implementation add 32-bit/64-bit criteria             :cl:
  (or is it i386/x86_64)?
 what-implementation is at telnet://clis.informatimago.com:8101
 *
-** Developments DONE
-*** DONE [#B] Merge  anevia stuff                                    :cl:dev:
+*** SUSPENDED [#C] [0/0] ABNotation                                      :ab:
+    :DEADLINE: <2018-12-31 -2y>
+    - State "SUSPENDED"  from "TODO"       [2015-10-19 Mon 15:20] \\
+      Suspended till further notice.
+
+**** TODO [#C] planifications modules
+**** TODO [#C] dessin des notes à barre
+** Developments DONE                                                    :dev:
+*** DONE [#B] Merge  anevia stuff                                        :cl:
     CLOSED: [2016-02-06 Sat 21:08]
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:08] \\
       Has been done.
 ~/firms/anevia/lisp-20090104T142949/encours/
-*** CANCELED [#A] Write  proposal for vitale                            :dev:
-    CLOSED: [2016-02-06 Sat 21:42] :DEADLINE: <2015-11-02 Mon -1w>
-    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
-      Done. Not followed up.
 *** DONE [#C] linc to git repository for quicklisp                    :admin:
    CLOSED: [2015-10-19 Mon 15:24] DEADLINE: <2012-12-31 -7d>
    - State "DONE"       from "TODO"       [2015-10-19 Mon 15:24] \\
      Moved to informatimago/languages/linc.
-*** DONE [#A] ~/bin/script.lisp message bug                          :cl:dev:
+*** DONE [#A] ~/bin/script.lisp message bug                              :cl:
    CLOSED: [2012-12-24 Mon 01:24]
    - CLOSING NOTE [2012-12-24 Mon 01:24] \\
      Done.
 ERROR: Missing arguments: INDEX  --> ERROR: option -s is missing an argument: INDEX
-*** CANCELED [#B] Ramon / programmer site ayudaparavivir.org            :dev:
+*** DONE [#B] ccl Obj-C reader macros                                    :cl:
+   CLOSED: [2014-02-07 Fri 00:18]
+   - State "DONE"       from "TODO"       [2014-02-07 Fri 00:18] \\
+     objective-cl done two years ago.
+- ccl objc reader macros.
+/home/pjb/works/abalone-macosx/Abalone-lisp
+--> Define nice macros to define classes and methods.-
+
+*** DONE lispdoc                                                         :cl:
+   CLOSED: [2012-12-15 Sat 20:33]
+   - State "DONE"       from ""           [2012-12-15 Sat 20:33] \\
+     Updated lispdoc and docstrings.
+- correct URI in package docstring.
+- regenerate & upload documentation.
+*** CANCELED [#A] Write  proposal for vitale
+    CLOSED: [2016-02-06 Sat 21:42] :DEADLINE: <2015-11-02 Mon -1w>
+    - State "DONE"       from "TODO"       [2016-02-06 Sat 21:42] \\
+      Done. Not followed up.
+*** CANCELED [#B] Ramon / programmer site ayudaparavivir.org
    CLOSED: [2012-12-12 Wed 22:26]
    - State "CANCELED"   from "DONE"       [2012-12-12 Wed 23:52]
    - CLOSING NOTE [2012-12-12 Wed 22:26] \\
@@ -3533,20 +3306,6 @@ phpGroupWare Setup/Config Admin password: marb3114
 mysql db GroupWare user GroupWare password group3423
 http://www.ayudaparavivir.com/admin/
 login ayudaparavivir password 5z2csasz
-
-*** DONE lispdoc                                                     :cl:dev:
-   CLOSED: [2012-12-15 Sat 20:33]
-   - State "DONE"       from ""           [2012-12-15 Sat 20:33] \\
-     Updated lispdoc and docstrings.
-- correct URI in package docstring.
-- regenerate & upload documentation.
-*** DONE [#B] ccl Obj-C reader macros                                :cl:dev:
-   CLOSED: [2014-02-07 Fri 00:18]
-   - State "DONE"       from "TODO"       [2014-02-07 Fri 00:18] \\
-     objective-cl done two years ago.
-- ccl objc reader macros.
-/home/pjb/works/abalone-macosx/Abalone-lisp
---> Define nice macros to define classes and methods.-
 
 * VENI SANCTE
 
@@ -3576,6 +3335,7 @@ login ayudaparavivir password 5z2csasz
   |                                      Jésus-Christ Notre Seigneur.      |
   |                                      Ainsi soit-il.                    |
   +------------------------------------------------------------------------+
+
     PATER NOSTER, qui es in caelis,
     sanctificetur nomen tuum.
     Adveniat regnum tuum.
@@ -3622,112 +3382,6 @@ http://www.timesonline.co.uk/multimedia/archive/00377/Travel_Silly_Signs__377652
 
 bandiera brochure confetti ->  --> banda di conduzione
 
-#
-Le maire est un ami de la tienne.
-#
-Ça doit être humiliant pour une femme, d'être mariée à un cocu.
-#
-The important point, and the one vital to constructing bugfree
-programs, is that one wants to think about the control structures
-of a system as control structures, not as individual branch
-statements. This way of thinking is a major step forward.
-    -- The Mythical Man Month
-#
-If I have seen farther than others, it is because I was standing on the
-shoulders of giants.
-     -- Isaac Newton
-#
-In the sciences, we are now uniquely priviledged to sit side by side with
-the giants on whose shoulders we stand.
-     -- Gerald Holton
-#
-If I have not seen as far as others, it is because giants were standing on
-my shoulders.
-     -- Hal Abelson
-#
-Mathematicians stand on each other's shoulders.
-     -- Gauss
-#
-Mathemeticians stand on each other's shoulders while computer scientists
-stand on each other's toes.
-     -- Richard Hamming
-#
-It has been said that physicists stand on one another's shoulders.  If
-this is the case, then programmers stand on one another's toes, and
-software engineers dig each other's graves.
-     -- Unknown
-#
-The  meta-Turing test counts  a thing  as intelligent  if it  seeks to
-devise and apply Turing tests to objects of its own creation.
-     -- Lew Mammel, Jr.
-#
-Capitalization is the difference between "I had to help my uncle Jack
-off a horse." and "I had to help my uncle jack off a horse."
-#
-La vecina se atormenta: se avecina la tormenta.
-#
-"As memory is becoming cheaper, even microcomputers could be built
-having these primitives, so that the prospect of controlling one's
-kitchen stove with LISP is not so far-fetched." H. Baker, 1977
-#
-Dijkstra spoke to Joel Aron (not Eyles), "head of IBM's Federal
-Systems Division which had been responsible for the software of the
-moonshot". It wasn't specifically in the lunar module, but somewhere
-in the 40,000 LoC. However, the bug was that the moon was repelling;
-and it was found by accident, 5 days before launch.
-
-See Dijkstra say it in person, at 15:00 in this interview (context
-starts at 13:40): http://www.cs.utexas.edu/users/EWD/video.html (I
-haven't linked directly to the 300MB download). Great interview BTW
-(dutch with subtitles).
-#
-Un pays qui se construit un mur dans son millieu, est ce que vous
-imaginez qu'il est possible qu'à un moment où à un autre, il ne se
-prenne pas le mur dans la figure?  -- Marion Sigaut
-#
-This is this inability to fix the building blocks that is one of the
-largest problems that computing has today. -- Alan Kay
-#
-Il y a trois bonnes façons pour se ruiner: - le jeu, les femmes, les
-bureaux d'étude.  J'ai choisi la moins marrante, le bureau d'étude!
-#
-According to Pliny, an artist presented the Roman Emperor Tiberius
-with a cup of glass that wouldn’t break when thrown on the
-ground. When Tiberius asked the artist if anyone else knew of this
-invention and the artist said no, Tiberius killed him—and so began
-the myth of the lost malleable glass.
-#
-Il faut laisser penser que ce que nous faisons est humain.
-Mais en même temps, ça doit être fait pour que les humains vivent mieux.
-Pas simplement pour qu'on les fasse rêver dans un imaginaire impossible.
--- François Hollande
----
-We must give the impression that what we do is human.
-At the same time, it must be done so that humans live better.
-Not just to let them dreaming in an impossible imaginary world.
--- François Hollande
-#
-All code is bad
-
-Every programmer occasionally, when nobody’s home, turns off the
-lights, pours a glass of scotch, puts on some light German
-electronica, and opens up a file on their computer. It’s a different
-file for every programmer. Sometimes they wrote it, sometimes they
-found it and knew they had to save it. They read over the lines, and
-weep at their beauty, then the tears turn bitter as they remember the
-rest of the files and the inevitable collapse of all that is good and
-true in the world.
-
-This file is Good Code. It has sensible and consistent names for
-functions and variables. It’s concise. It doesn’t do anything
-obviously stupid. It has never had to live in the wild, or answer to a
-sales team. It does exactly one, mundane, specific thing, and it does
-it well. It was written by a single person, and never touched by
-another. It reads like poetry written by someone over thirty.
-
--- Coding Sucks: Why a Job in Programming Is Absolute Hell
-   by Peter Welch
-#
 
 ** Test Driven Development -- Writing Tests
 
@@ -4601,6 +4255,27 @@ Vicyor Minuesa Cuenca|+34629402487
 Vincente De Robert|+34690010607
 
 * PROVIDERS
+** SFR
+
+sfr web pin=6599
+;; SFR
+;;
+;; Carte SIM n°89331036123640651403
+;;
+;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
+;; Votre contrat est le XFR460.
+;;
+;; samsung: pjb@ogamita.org | vih3doq9
+;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
+
+** Orange
+
+Orange fibre: my phone number: +33966872199
+
+Adresse mail : pascal.bourguignon03@orange.fr
+Numéro de compte : 713217363
+Numéro de téléphone : 09 66 87 21 99
+
 ** eFax
 
     Your Personal eFax Number is
@@ -5045,6 +4720,31 @@ acabada en 216 G6
 Coordenada recibida por SMS en su móvil acabado en 318
 
 * INFORMATIMAGO COMPUTERS
+** Neptune Network
+
+       voyager.informatimago.com.   3600  IN  A      88.198.62.69      ; hetzner hosting                           sonde
+        hubble.informatimago.com.   3600  IN  A      5.9.56.230        ; hetzner hosting                           astronomer
+  thalassa.lan.informatimago.com.   3600  IN  A      192.168.7.1       ;                                           child of poseidon
+   proteus.lan.informatimago.com.   3600  IN  A      192.168.7.2       ;                                           child of poseidon
+                                    3600  IN  A      192.168.7.3       ;
+   galatea.lan.informatimago.com.   3600  IN  A      192.168.7.4       ; HS MacMini, MacOSX 10.7                   specific nereid
+    triton.lan.informatimago.com.   3600  IN  A      192.168.7.5       ; PowerBook G4, MacOSX 10.5                 child of poseidon
+     galle.lan.informatimago.com.   3600  IN  A      192.168.7.6       ; Acer netbook Linux, MS-Windows-XP         ring
+   lassell.lan.informatimago.com.   3600  IN  A      192.168.7.7       ; Athlon 64, MS-Windows-7                   discoverer of triton
+   larissa.lan.informatimago.com.   3600  IN  A      192.168.7.8       ; MacBookAir 13", MacOSX 10.11.4            lover of poseidon
+    kuiper.lan.informatimago.com.   3600  IN  A      192.168.7.9       ; Mountain Linux workstation                discoverer of nereid
+   despina.lan.informatimago.com.   3600  IN  A      192.168.7.10      ; iMac, MacOSX 10.12.1                      child of poseidon
+     naiad.lan.informatimago.com.   3600  IN  A      192.168.7.11      ; iPad, iOS 5                               minor water deity
+    nereid.lan.informatimago.com.   3600  IN  A      192.168.7.12      ; Samsung Galaxy S4                         minor water deity
+  halimede.lan.informatimago.com.   3600  IN  A      192.168.7.13      ; Samsung Galaxy A5                         specific nereid
+      neso.lan.informatimago.com.   3600  IN  A      192.168.7.14      ; iPhone 6s plus, iOS 9.3.1                 specific nereid
+       sao.lan.informatimago.com.   3600  IN  A      192.168.7.15      ; iPad Pro, iOS 9.3.1                       specific nereid
+ laomedeia.lan.informatimago.com.   3600  IN  A      192.168.7.16      ;                                           specific nereid
+  psamathe.lan.informatimago.com.   3600  IN  A      192.168.7.17      ;                                           specific nereid
+le-verrier.lan.informatimago.com.   3600  IN  A      192.168.7.18      ; Samsung M2020 printer                     ring
+     adams.lan.informatimago.com.   3600  IN  A      192.168.7.19      ;                                           ring
+    router.lan.informatimago.com.   3600  IN  A      192.168.7.253     ; livebox
+
 ** voyager.informatimago.com
 
 Linux voyager.informatimago.com 2.6.18-6-k7 #1 SMP Mon Oct 13 16:52:47 UTC 2008 i686 GNU/Linux
@@ -5137,7 +4837,7 @@ NVIDIA GeForce GTX 460
 
 Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
 
-** backups
+** backups                                                          :virtual:
 *** TODO [#A] sauvegardes                                             :admin:
     :DEADLINE: <2016-02-13 Sat +1w>
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:45]
@@ -5216,14 +4916,23 @@ ordered:
       --> full galatea backup
 
 * INFORMATICS
+** newbie programmer
+
+    http://javarevisited.blogspot.co.il/2014/05/10-articles-every-programmer-must-read.html
+
+    http://www.yegor256.com/2014/04/27/typical-mistakes-in-java-code.html
+
 ** ALGORITHMS
 *** Floating  point numbers
+
     floating point numbers:
     http://www.exploringbinary.com/the-four-stages-of-floating-point-competence/
+
     What Every Computer Scientist Should Know About Floating-Point Arithmetic
     http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
     http://portal.acm.org/citation.cfm?id=103163
     http://focus.hut.fi/docs/WorkShop/common/ug/goldberg1.doc.html
+
 
     RealLib3:
     http://www.brics.dk/~barnie/RealLib/
@@ -6230,6 +5939,15 @@ http://www.employees.org/~satch/ssh/faq (Steve's)
 ** COMMANDS: XLI, PPM, LABEL:
 
     jpegtopnm acapulco-2.jpg  | ppmlabel -background '#C44' -x 20 -y 20 -text 'ESSAI Tralalere' -size 24 -text 'Ragnagna' > a.ppm ; xv a.ppm
+
+** metaprogramming
+http://fare.tunes.org/articles/ll99/index.en.html
+http://www.slideshare.net/DamienCassou/metaprogramming-and-reflection-in-common-lisp
+https://github.com/DamienCassou/DSLides
+
+** COMPILER METACOMPILERS
+http://www.bayfronttechnologies.com/mc_tutorial.html
+
 ** COMPILER COMPILATION SUPERCOMPILER SUPERCOMPILATION
 
    http://www.supercompilers.com/white_paper.shtml
@@ -6383,10 +6101,6 @@ other language... it's pity :-/
     http://www.merl.com/publications/TR1991-004/
     http://www.merl.com/publications/TR1993-017/
     http://lionel.suz.free.fr/index.php?id=run&sub=chikungunya
-
-** CRACK
-    mv run/Dhostname.N run/tempfilename
-    Crack -recover -fmt spf run/tempfilename
 
 ** CRYPTOGRAPHIE
 
@@ -6856,6 +6570,8 @@ http://scratch.mit.edu/
 
 ** EMACS:
 
+https://www.gnu.org/software/emacs/emacs-paper.html
+
 By the way, there are:
 
    erc-string-no-properties
@@ -7177,6 +6893,8 @@ A-< A->	begin/end text
 ** EMULATORS: virtualbox
 
 /usr/bin/xcode-select --install
+
+VBoxManage internalcommands createrawvmdk -filename "galatea-disk3.vmdk" -rawdisk /dev/disk3
 
 vboxmanage internalcommands sethduuid /path/to/virtualdisk.vdi
 vboxmanage clonehd  /path/to/virtualdisk.vdi  /path/to/copy.vdi
@@ -8085,8 +7803,19 @@ h is an optional "h" specifying that  d, i, o, u, x, or X corresponds
                                           \
                                            --> eval-time       defun
 
-
 *** URLS
+
+http://quickdocs.org
+http://l1sp.org
+http://lispdoc.com/
+http://buildyourownlisp.com
+
+quicklisp
+http://blog.quicklisp.org/2014/01/a-dist-for-testing.html
+https://github.com/quicklisp/quicklisp-projects/
+
+If you want to roll your own dist, take a look at
+https://github.com/Shirakumo/dist and https://github.com/orivej/quickdist
 
     L subset of Common Lisp for embedded
     http://www.cs.cmu.edu/~chuck/pubpg/luv95.pdf
@@ -8423,6 +8152,7 @@ http://rondam.blogspot.com/2009/08/global-variables-done-right.html
 
     nyquist http://www.cs.cmu.edu/~music/music.software.html
 
+    Public Domain Music http://imslp.org/
 
     The repository is "clozure.com:/usr/local/publiccvs", and the CVS module
     for the documentation and the rest of the website content is "website".
@@ -9112,6 +8842,8 @@ http://kogs-www.informatik.uni-hamburg.de/~moeller/symbolics-info/statice.html
 
       A Hacker's Introduction to Partial Evaluation
       http://www.lisp-p.org/htdocs/peval/peval.cgi
+
+      http://wry.me/misc/peval.html Partial Evaluation
 
     Well, you can read about Screamer, a system by Jeffrey Mark Siskind.
     This does what you are interested in, namely using a code walker to
@@ -10132,6 +9864,9 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
 
 ** LANGUAGES: COMMON LISP: LIBRARIES
 
+http://kuomarc.wordpress.com/2012/05/13/12-steps-to-build-and-deploy-common-lisp-in-the-cloud-and-comparing-rails/
+
+
 https://github.com/Hexstream/
 
 http://common-lisp.net/project/cl-org-mode/
@@ -10451,6 +10186,10 @@ uiop:run-program instead
     the inner backquote is evaluated, just use ,@(car s).)
 
 ** LANGUAGES: Scheme
+
+boot to guile in qemu:
+http://lists.gnu.org/archive/html/guile-user/2013-02/msg00131.html
+
 
     http://nhiro.org/learn_language/LISP-on-browser.html lisp in javascript.
     http://www.biwascheme.org/  scheme in javascript, scheme scripts in html
@@ -11014,6 +10753,7 @@ http://www.scilab.org/
 http://maxima.sourceforge.net/
 *** Music
 http://musescore.org/
+
 *** Office Productivity
 http://www.openoffice.org/
 http://www.libreoffice.org/
@@ -11139,6 +10879,8 @@ the apps I've tried.
     sudo port uninstall inactive      # remove the inactive ports.
     sudo port clean --all uninstalled # remove the non-installed distfiles
 
+** SYSTEM: Darwin on Linux: darling
+https://www.darlinghq.org/source-code/
 
 ** SYSTEM: EROS
 
@@ -11694,7 +11436,11 @@ sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
 sudo nvram boot-args='-v'
 dscl . -list /Users
 dscl . -read /Users/pjb
+
+sudo dseditgroup -o edit -a $USER -t user procmod
+
 #-END(src)
+
 
 *** MacOSX 10.10 root exploit:
 
@@ -12329,20 +12075,104 @@ Comments:
   "LOCATION="
   "COPYRIGHT="
 
+* PHYSICS
+** Radiation Belt
+
+Earth radiation = 1e-5 Sievert/day = 4e-7 Sievert/hour
+Fukushima hotest measured          = 2e-5 Sievert/hour
+Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
+Van Allen                          = 5e-1 Sievert/hour
+Fukushima inside plant             = 8e0  Sievert/hour
+
+33 hours on Moon surface = 3e-3 Sievert =
+16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
+
+
+
+Van Allen:
+
+  outer belt:
+      3 to 10 earth-radius-mean
+      electrons 0.1 to 10 MeV
+      ions
+
+  inner belt:
+      0.01 to 1.5 earth-radius-mean
+      protons    100 MeV
+      electrons  0.1 MeV
+
+      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
+             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
+
+
+      protons of 0.1 MeV penetrate 0.6 mm of Pb
+      protons of 400 MeV penetrate 143 mm of Pb
+
+radiation:  2500 rem/year
+              25 mS
+
+    apollo astronauts: 5 rem
+
+** Matter Energy Information
+
+    http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
+
+    E-M  E=mc²
+    E-I  E=hf
+    M-I  m=fh/c²  f=mc²/h
+    Bremermann's limit = 2e50  bit/kg/s
+    Bremermann's Limit is the maximum computational speed of a
+    self-contained system in the material universe.
+
+    What is a country? A country (~ France) ~= 1e12 m² * 1000 m * 2000
+    kg/m³ * 2000*31557600 s & Bremermann's limit = 1e50 bit/kg/s  ==>
+    A country ~= 1.3E29 * 1e50 = 1.3e79 bits.  TLA = (log (expt
+    26 3) 2) ~= 14 bits.  So you'd need about 1e78 TLA to make a
+    country.
+
+    1e12 neurons
+    1e4  connections
+
+    1e18 bit/kg/s
+
+* LINGUISTICS
+** CHINESE CHINOIS
+    http://www.mandarintools.com/cgi-bin/wordlook.pl
+    http://www.popjisyo.com/WebHint/Portal_e.aspx
+
+** Voynich
+
+    http://elias.weltretter.de/voyblog/wp-content/evahand1.zip
+
+    To detect patterns in those features, they used wavelet analysis,
+    a statistical technique used to identify patterns in geophysical
+    data such as significant warming of the surface of the ocean off
+    South America that causes El Niño climatic events. The wavelet
+    analysis of bacterial genomes yielded "scalograms," maps colored
+    to elucidate the strength of a variety of periodicities associated
+    with chromosome position. Just as the wavelet analysis identified
+    significant increases in sea surface temperatures; it also
+    revealed nonrandom patterns in the genomes of the 151
+    microorganisms studied.
+
 * DATA, DONNEES, DATOS
 ** Criminalité
 http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH93.html?Address=XX293DR
-** Paleodiet
+** Food
+http://www.naturallivingideas.com/17-foods-to-buy-once-and-regrow-forever/
+http://foodisforfuel.com/exercise/
 
-    http://homodiet.netfirms.com/index.html
-    http://www.second-opinions.co.uk/
-    http://www.agora-inc.com/reports/RCH/TrueGains/
+*** Paleodiet
 
-** Dukan Diet
+     http://homodiet.netfirms.com/index.html
+     http://www.second-opinions.co.uk/
+     http://www.agora-inc.com/reports/RCH/TrueGains/
 
-    http://thedukandiet.info
+*** Dukan Diet
 
-** Atkins Diet
+     http://thedukandiet.info
+
+*** Atkins Diet
 
 Meats: Bacon, Beef, Calf Liver, Chicken, Cornish Game Hen, Duck,
        Goose, Ham, Keilbasa, Lamb, Pork, Quail, Sausage,Steak, Turkey,
@@ -12789,95 +12619,6 @@ Saturn	313.0	21.000	1.7237e-03	121.823	1298.8	40.698	83.41
 Uranus	366.0	260.000	1.9651e-02	150.336	1353.5	332.598	87.68
 Neptune	360.0	283.000	2.1746e-02	117.192	1342.3	301.495	84.98
 Titan	94.0	1.500	5.5026e-03	20.074	194.3	58.887	89.99
-
-* PHYSICS
-** Radiation Belt
-
-Earth radiation = 1e-5 Sievert/day = 4e-7 Sievert/hour
-Fukushima hotest measured          = 2e-5 Sievert/hour
-Moon radiation = 1 Sievert/year    = 1e-4 Sievert/hour
-Van Allen                          = 5e-1 Sievert/hour
-Fukushima inside plant             = 8e0  Sievert/hour
-
-33 hours on Moon surface = 3e-3 Sievert =
-16 hours in Van Allen    = 8e0  Sievert = 1 hour in Fukushima plant.
-
-
-
-Van Allen:
-
-  outer belt:
-      3 to 10 earth-radius-mean
-      electrons 0.1 to 10 MeV
-      ions
-
-  inner belt:
-      0.01 to 1.5 earth-radius-mean
-      protons    100 MeV
-      electrons  0.1 MeV
-
-      flux:  electrons 0.5 MeV: 1.2e6 p/c²/s  to  9.4e9 p/c²/s
-             electrons 5.0 MeV: 3.8e4 p/c²/s  to  2.0e7 p/c²/s
-
-
-      protons of 0.1 MeV penetrate 0.6 mm of Pb
-      protons of 400 MeV penetrate 143 mm of Pb
-
-radiation:  2500 rem/year
-              25 mS
-
-    apollo astronauts: 5 rem
-
-** Matter Energy Information
-
-    http://www.gwu.edu/~umpleby/recent_papers/2004_physical_relationships_among_matter_energy_information_umpleby.htm
-
-    E-M  E=mc²
-    E-I  E=hf
-    M-I  m=fh/c²  f=mc²/h
-    Bremermann's limit = 2e50  bit/kg/s
-    Bremermann's Limit is the maximum computational speed of a
-    self-contained system in the material universe.
-
-    What is a country? A country (~ France) ~= 1e12 m² * 1000 m * 2000
-    kg/m³ * 2000*31557600 s & Bremermann's limit = 1e50 bit/kg/s  ==>
-    A country ~= 1.3E29 * 1e50 = 1.3e79 bits.  TLA = (log (expt
-    26 3) 2) ~= 14 bits.  So you'd need about 1e78 TLA to make a
-    country.
-
-    1e12 neurons
-    1e4  connections
-
-    1e18 bit/kg/s
-
-* LINGUISTICS
-** CHINESE CHINOIS
-    http://www.mandarintools.com/cgi-bin/wordlook.pl
-    http://www.popjisyo.com/WebHint/Portal_e.aspx
-
-** Voynich
-
-    http://elias.weltretter.de/voyblog/wp-content/evahand1.zip
-
-    To detect patterns in those features, they used wavelet analysis,
-    a statistical technique used to identify patterns in geophysical
-    data such as significant warming of the surface of the ocean off
-    South America that causes El Niño climatic events. The wavelet
-    analysis of bacterial genomes yielded "scalograms," maps colored
-    to elucidate the strength of a variety of periodicities associated
-    with chromosome position. Just as the wavelet analysis identified
-    significant increases in sea surface temperatures; it also
-    revealed nonrandom patterns in the genomes of the 151
-    microorganisms studied.
-
-* Test
-** Aaa
-aaa bot
-** Test-1
-** Test-2
-testy II
-** Zzz
-zzz top
 
 * Local Variables
 Local Variables:
