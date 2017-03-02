@@ -30,6 +30,9 @@
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
  '(diff-nonexistent ((t (:background "black" :foreground "light green"))))
+ '(ediff-even-diff-A ((t (:background "grey50"))))
+ '(ediff-odd-diff-A ((t (:background "Grey33"))))
+ '(ediff-odd-diff-B ((t (:background "grey30"))))
  '(erc-default-face ((t (:foreground "light blue"))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "cyan2"))))
@@ -77,7 +80,7 @@
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "dark green")))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "light green")))))
 
 
 
@@ -172,7 +175,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#python-unregistered" "#ecl" "#SCONS" "#python" "#bash" "#emacs" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -251,6 +254,7 @@
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
  '(grep-command "grep -niH -e ")
+ '(gud-gdb-command-name "gdb --annotate=1")
  '(hl-paren-colors (quote ("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray")))
  '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
  '(ido-enable-flex-matching nil)
@@ -267,6 +271,7 @@
  '(kept-new-versions 9)
  '(kept-old-versions 0)
  '(kill-whole-line t)
+ '(large-file-warning-threshold nil)
  '(line-number-mode t)
  '(lpr-page-header-switches (quote ("-F" "-t")))
  '(mail-archive-file-name nil)
@@ -328,7 +333,7 @@ X-Accept-Language:         fr, es, en
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
- '(package-selected-packages (quote (paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
+ '(package-selected-packages (quote (inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -365,7 +370,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((eval cl-indent (quote defmeth) 3) (more . org) (Package . BORDEAUX-FFT) (Package . XLIB) (Lowercase . Yes) (Package . gambol) (Package . C) (package . rune-dom) (Package . Hemlock) (Package . GUI) (view-mode t) (eval buttonize-buffer) (bug-reference-url-format . clisp-bug-reference-url-format) (tab-always-indent . t) (electric-indent-mode) (Package . cl-user) (Syntax . common-lisp) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (sentence-end-double-space . t) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t) (Package . DRAKMA) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((package . net\.mail) (package . net\.post-office) (eval cl-indent (quote defmeth) 3) (more . org) (Package . BORDEAUX-FFT) (Package . XLIB) (Lowercase . Yes) (Package . gambol) (Package . C) (package . rune-dom) (Package . Hemlock) (Package . GUI) (view-mode t) (eval buttonize-buffer) (bug-reference-url-format . clisp-bug-reference-url-format) (tab-always-indent . t) (electric-indent-mode) (Package . cl-user) (Syntax . common-lisp) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (sentence-end-double-space . t) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t) (Package . DRAKMA) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
  '(send-mail-function (quote smtpmail-send-it))
@@ -581,31 +586,40 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
-  (goto-char (point-min))
-  (when (re-search-forward "[ \t\v]$" nil t)
-    (case (ignore-errors
-           (if (fboundp 'x-popup-dialog)
-               (x-popup-dialog t '("There are trailing whitespaces."
-                                   ("Remove them, save file and vc-next-action" . 1)
-                                   ("Remove them, and go on editing" . 2)
-                                   ("Go on editing" . 3)))
-               (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
-      ((1)
-       (let ((delete-trailing-lines t))
-         (delete-trailing-whitespace))
-       (save-buffer)
-       (vc-next-action t))
-      ((2) (let ((delete-trailing-lines t))
-             (delete-trailing-whitespace)))
-      ((3)))))
+  (let ((home (cond (user-init-file  (dirname user-init-file))
+                    ((getenv "HOME") (concat (getenv "HOME") "/"))
+                    (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
+        (file-name (buffer-file-name)))
+    (when (and file-name
+               (string-match (format "^%s" home) file-name)
+               (vc-workfile-version file-name))
+      (goto-char (point-min))
+      (when (re-search-forward "[ \t]$" nil t)
+        (case (ignore-errors
+               (if (fboundp 'x-popup-dialog)
+                   (x-popup-dialog t '("There are trailing whitespaces."
+                                       ("Remove them, save file and vc-next-action" . 1)
+                                       ("Remove them, and go on editing" . 2)
+                                       ("Go on editing" . 3)))
+                   (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
+          ((1)
+           (let ((delete-trailing-lines t))
+             (delete-trailing-whitespace))
+           (save-buffer)
+           (vc-next-action nil))
+          ((2) (let ((delete-trailing-lines t))
+                 (delete-trailing-whitespace)))
+          ((3)))))))
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (let ((delete-trailing-lines t))
-    (delete-trailing-whitespace)))
+  (when (vc-workfile-version (buffer-file-name))
+    (let ((delete-trailing-lines t))
+      (delete-trailing-whitespace))))
 
 (add-hook 'find-file-hook 'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
+
 
 (defun pjb-find-file-meat/log ()
   "Log the path of the visited file."
