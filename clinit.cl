@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             Common-Lisp
 ;;;;USER-INTERFACE:     NONE
 ;;;;DESCRIPTION
-;;;;    
+;;;;
 ;;;;    This is the Allegro Common Lisp initialization file.
-;;;;    
+;;;;
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal J. Bourguignon <pjb@informatimago.com>
 ;;;;MODIFICATIONS
@@ -15,25 +15,25 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL
-;;;;    
+;;;;
 ;;;;    Copyright Pascal J. Bourguignon 2010 - 2010
-;;;;    
+;;;;
 ;;;;    This program is free software; you can redistribute it and/or
 ;;;;    modify it under the terms of the GNU General Public License
 ;;;;    as published by the Free Software Foundation; either version
 ;;;;    2 of the License, or (at your option) any later version.
-;;;;    
+;;;;
 ;;;;    This program is distributed in the hope that it will be
 ;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
 ;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 ;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;    
+;;;;
 ;;;;    You should have received a copy of the GNU General Public
 ;;;;    License along with this program; if not, write to the Free
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;**************************************************************************
-;;;;    
+;;;;
 
 (format *terminal-io* "~%; Loading home ~a~@[.~a~] file.~%"
 	(pathname-name *load-pathname*)
@@ -74,7 +74,7 @@
 ;;; Set up a top-level alias.
 (top-level:alias ("shell" 1 :case-sensitive) (&rest args)
   "`:sh args' will execute the shell command in `args'"
-  (let ((cmd 
+  (let ((cmd
          (apply #'concatenate 'simple-string
                 (mapcar #'(lambda (x)
                             (concatenate 'simple-string
@@ -106,12 +106,12 @@
 
 ;; ;; (|CL|:|SETF| |CUSTOM|:|*LOAD-ECHO*| |CL|:|T|)
 ;; (IN-PACKAGE "COMMON-LISP-USER")
-;; 
+;;
 ;; ;;----------------------------------------------------------------------
 ;; ;; Setting environment -- Allegro Lisp specific --
 ;; ;; -----------------------------------------------
-;; 
-;; 
+;;
+;;
 ;; (SETF *print-length*                  nil
 ;;       *print-level*                   nil
 ;;       EXCL:*DEFAULT-EXTERNAL-FORMAT*  :utf-8
@@ -135,8 +135,8 @@
 ;;                                           (format t "~%~78,,78,'-A~%" "")
 ;;                                           (excl:run-shell-command "fortune")
 ;;                                           (format t "~&~78,,78,'-A~2%" "")))
-;; 
-;; 
+;;
+;;
 ;; (defun set-prompt-label (label)
 ;;   "Add a fixed label to the prompt, to identify the lisp instance.
 ;; RETURN: LABEL"
@@ -155,14 +155,14 @@
 ;; ~~]~~
 ;; ~:[~;~:*~A/~]~~a(~~d): " label))
 ;;   label)
-;; 
-;; 
+;;
+;;
 ;; #- (and)
 ;; (let ((*terminal-io* (make-broadcast-stream)))
 ;;    (TOP-LEVEL:do-command "zoom" :verbose t :all t)
 ;;    (princ #\newline)
 ;;    (values))
-;; 
+;;
 ;; ;; clisp like aliases:
 ;; (top-level:alias "a"    ()                      "pop"      (TOP-LEVEL:do-command "pop"))
 ;; (top-level:alias "q"    ()                      "reset"    (TOP-LEVEL:do-command "reset"))
@@ -170,20 +170,20 @@
 ;; (top-level:alias "u"    (&optional (count 1))   "up"       (TOP-LEVEL:do-command "up" count))
 ;; (top-level:alias "d"    (&optional (count 1))   "dn"       (TOP-LEVEL:do-command "dn" count))
 ;; (top-level:alias "down" (&optional (count 1))   "dn"       (TOP-LEVEL:do-command "dn" count))
-;; 
+;;
 ;; (top-level:alias "dl"   (&optional (count 1))
 ;;   "dn + local"
 ;;   (TOP-LEVEL:do-command "dn" count)
 ;;   (TOP-LEVEL:do-command "local"))
-;; 
+;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;; Debugging stuff
 ;; ;;;;;;;;;;;;;;;;;;;;;;;
-;; 
-;; 
-;; 
+;;
+;;
+;;
 ;; ;;; A list with a cursor:
-;; 
+;;
 ;; (defun make-malcolm (&key above below)
 ;;   "
 ;; RETURN: A new Malcolm in the Middle.
@@ -192,15 +192,15 @@
 ;; NOTE:   The middle is taken as the top-most below.
 ;; "
 ;;   (cons above below))
-;; 
+;;
 ;; (defun malcolm-above         (malcolm) (car malcolm))
 ;; (defun malcolm-below         (malcolm) (cdr malcolm))
 ;; (defun copy-malcolm          (malcolm) (cons (car malcolm) (cdr malcolm)))
 ;; (defun malcolm-at-top-p      (malcolm) (null (car malcolm)))
 ;; (defun malcolm-at-bottom-p   (malcolm) (null (cdr malcolm)))
 ;; (defun malcolm-in-the-middle (malcolm) (cadr malcolm))
-;; 
-;; 
+;;
+;;
 ;; (defun malcolm-move-up (malcolm)
 ;;   "
 ;; DO:     Modify the malcolm moving up (unless it's already at the top)
@@ -210,8 +210,8 @@
 ;;     (setf (cdr malcolm) (cons (caar malcolm) (cdr malcolm))
 ;;           (car malcolm) (cdar malcolm)))
 ;;   malcolm)
-;; 
-;; 
+;;
+;;
 ;; (defun malcolm-move-down (malcolm)
 ;;   "
 ;; DO:     Modify the malcolm moving down (unless it's already at the bottom).
@@ -221,13 +221,13 @@
 ;;     (setf (car malcolm) (cons (cadr malcolm) (car malcolm))
 ;;           (cdr malcolm) (cddr malcolm)))
 ;;   malcolm)
-;; 
-;; 
-;; 
+;;
+;;
+;;
 ;; ;;; Getting the stack frames:
-;; 
+;;
 ;; (require :sundebug)
-;; 
+;;
 ;; (defun list-stack-frames (&key from-end only-interesting
 ;;                           (process (function identity)))
 ;;   (macrolet ((with-functions (flist &body body)
@@ -257,35 +257,35 @@
 ;;                        (if only-interesting
 ;;                          (function debug:frame-visible-p)
 ;;                          (function identity)))))))
-;; 
-;; 
+;;
+;;
 ;; ;; (LIST-STACK-FRAMES :process  (lambda (f) (ignore-errors (debug:frame-name f))))
-;; 
-;; 
+;;
+;;
 ;; (defmacro handling-errors (&body body)
 ;;   `(HANDLER-CASE (progn ,@body)
-;;      (simple-condition 
-;;          (ERR) 
+;;      (simple-condition
+;;          (ERR)
 ;;        (format *error-output* "~%ERROR: ~A~%" err)
 ;;        (finish-output *error-output*))
-;;      (condition 
-;;          (ERR) 
+;;      (condition
+;;          (ERR)
 ;;        (format *error-output* "~%ERROR: ~A~%       ~A~%"
 ;;                (class-name (class-of err)) err)
 ;;        (finish-output *error-output*))))
-;; 
-;; 
+;;
+;;
 ;; ;;; A REPL to inspect stack frames:
-;; 
+;;
 ;; (defparameter *whitespaces*
 ;;   #(#\space #\newline #\tab #\return #\linefeed #\vt #\ff)
 ;;   "White spaces.")
-;; 
-;; 
+;;
+;;
 ;; (defparameter *current-frame* nil
 ;;   "IDEBUG binds it to its current frame (set with :top, :up, :down, :bottom).")
-;; 
-;; 
+;;
+;;
 ;; (defun idebug ()
 ;;   (let ((frames
 ;;          (make-malcolm
@@ -453,19 +453,19 @@
 ;;                 (shiftf *** ** * (first /)))
 ;;               (format *debug-io* "~& --> ~{~S~^ ;~%     ~}~%" /))))
 ;;          (finish-output *debug-io*))))))
-;; 
-;; 
+;;
+;;
 ;; (setf *debugger-hook*
 ;;       (lambda (condition debugger-hook)
 ;;           (format *debug-io* "~2%:focus '~S~2%"
 ;;                   (mp:process-name mp:*current-process*))
 ;;         (values)))
-;; 
-;; 
-;; 
-;; 
-;; 
-;; 
+;;
+;;
+;;
+;;
+;;
+;;
 ;; ;; (defun clisp-version (&optional (version-string (LISP-IMPLEMENTATION-VERSION)))
 ;; ;;   (loop
 ;; ;;      :with r = '()
@@ -477,11 +477,11 @@
 ;; ;;                    (char= #\space (aref version-string p)))
 ;; ;;                (return-from clisp-version (nreverse r))
 ;; ;;                (setf start (1+ p))))))
-;; ;; 
+;; ;;
 ;; ;; (defun version= (a b)
 ;; ;;   (equal (if (stringp a) (clisp-version a) a)
 ;; ;;          (if (stringp b) (clisp-version b) b)))
-;; ;; 
+;; ;;
 ;; ;; (defun version< (a b)
 ;; ;;   (setf a (if (stringp a) (clisp-version a) a)
 ;; ;;         b (if (stringp b) (clisp-version b) b))
@@ -491,21 +491,21 @@
 ;; ;;     ((< (car a) (car b)) t)
 ;; ;;     ((= (car a) (car b)) (version< (cdr a) (cdr b)))
 ;; ;;     (t                   nil)))
-;; ;; 
+;; ;;
 ;; ;; (defun version<= (a b)
 ;; ;;   (setf a (if (stringp a) (clisp-version a) a)
 ;; ;;         b (if (stringp b) (clisp-version b) b))
 ;; ;;   (or (version= a b) (version< a b)))
-;; ;; 
+;; ;;
 ;; ;; (defun rt-version=  (a b) (if (version=  a b) '(and) '(or)))
 ;; ;; (defun rt-version<  (a b) (if (version<  a b) '(and) '(or)))
 ;; ;; (defun rt-version<= (a b) (if (version<= a b) '(and) '(or)))
-;; ;; 
+;; ;;
 ;; ;; (export '(clisp-version
 ;; ;;           version=    version<    version<=
 ;; ;;           rt-version= rt-version< rt-version<=))
-;; ;; 
-;; ;; 
+;; ;;
+;; ;;
 ;; ;; (let ((counter 0))
 ;; ;;   (defun prompt-body ()
 ;; ;;     (format nil "~A[~D]"
@@ -515,13 +515,13 @@
 ;; ;;                              (function <=) :key (function length)))
 ;; ;;                 "#<INVALID *PACKAGE*>")
 ;; ;;             (incf counter))))
-;; 
-;; 
-;;      
+;;
+;;
+;;
 ;; ;;----------------------------------------------------------------------
 ;; ;; Setting environment -- clisp part --
 ;; ;; ------------------------------------
-;; 
+;;
 ;; (DEFUN X-POST-PROCESS-LOGICAL-PATHNAME-TRANSLATIONS (HOST)
 ;;   (FLET ((PSTRING (X) (IF (PATHNAMEP X) (NAMESTRING X) (STRING X))))
 ;;     (SETF (LOGICAL-PATHNAME-TRANSLATIONS HOST)
@@ -534,47 +534,47 @@
 ;;             :KEY (FUNCTION FIRST))
 ;;                 (LAMBDA (A B) (> (LENGTH (PSTRING (FIRST A)))
 ;;                                  (LENGTH (PSTRING (FIRST B)))))))))
-;; 
-;; 
-;; 
+;;
+;;
+;;
 ;; ;;----------------------------------------------------------------------
 ;; ;; Setting environment -- COMMON-LISP part --
 ;; ;; ------------------------------------------
-;; 
+;;
 ;; (SETF *LOAD-VERBOSE* NIL)
 ;; (LOAD (MERGE-PATHNAMES
 ;;        (MAKE-PATHNAME :NAME ".common" :TYPE "lisp") (USER-HOMEDIR-PATHNAME)))
-;; 
+;;
 ;; (IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 ;; ;; additional export at the end.
-;; 
-;; 
+;;
+;;
 ;; ;;----------------------------------------------------------------------
 ;; ;; Setting environment -- Allegro Lisp specific --
 ;; ;; -----------------------------------------------
-;; 
-;; 
-;; (SETF *EDITOR* 
+;;
+;;
+;; (SETF *EDITOR*
 ;;       (LAMBDA (ARG &KEY (WAIT T))
 ;;         (IF (OR (FUNCTIONP ARG) (SYMBOLP ARG))
 ;;             (ED ARG)
 ;;             (Excl:run-SHELL-command
 ;;              (FORMAT NIL "/usr/local/bin/emacsclient ~
 ;;                           ~:[-n~;~] ~A" WAIT ARG)))))
-;; 
+;;
 ;; ;; in .common.lisp
 ;; ;; (DEFUN QUIT () (excl:exit))
 ;; ;; (EXPORT 'QUIT)
-;; 
+;;
 ;; (PUSH (FUNCTION Excl:current-directory)
 ;;       COM.INFORMATIMAGO.COMMON-LISP.BROWSER:*CHANGE-DIRECTORY-HOOK*)
 ;; (CD (Excl:current-directory))
-;; 
-;; 
-;; 
+;;
+;;
+;;
 ;; (import 'excl:shell)
 ;; (export 'shell)
-;; 
+;;
 ;; (defmacro eval-string-in-unlocked-package (package string)
 ;;   `(excl:without-package-locks
 ;;      (let ((*package* (find-package ',package)))
@@ -584,20 +584,20 @@
 ;;             :until (eq sexp input)
 ;;             :do (print (eval sexp)))))))
 ;; (export 'eval-string-in-unlocked-package)
-;; 
-;; 
+;;
+;;
 ;; (defun ps ()
-;;   (with-open-stream (in (excl:run-shell-command "ps axf" 
+;;   (with-open-stream (in (excl:run-shell-command "ps axf"
 ;;                                                 :wait nil
-;;                                                 :output :stream)) 
-;;     (loop for line = (read-line in nil nil) 
+;;                                                 :output :stream))
+;;     (loop for line = (read-line in nil nil)
 ;;        while line do (princ line ) (terpri))))
 ;; (export 'ps)
-;; 
+;;
 ;; (defun netstat (&optional (args "-tnpl"))
 ;;   (shell (format nil "netstat ~A" args)))
 ;; (export 'netstat)
-;; 
+;;
 ;; (IN-PACKAGE "COMMON-LISP-USER")
 ;; (USE-PACKAGE "COM.INFORMATIMAGO.PJB")
 ;; (USE-PACKAGE "EXCL")

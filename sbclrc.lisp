@@ -5,9 +5,9 @@
 ;;;;SYSTEM:             SBCL
 ;;;;USER-INTERFACE:     None
 ;;;;DESCRIPTION
-;;;;    
+;;;;
 ;;;;    The SBCL init file.
-;;;;    
+;;;;
 ;;;;AUTHORS
 ;;;;    <PJB> Pascal Bourguignon
 ;;;;MODIFICATIONS
@@ -15,20 +15,20 @@
 ;;;;BUGS
 ;;;;LEGAL
 ;;;;    GPL
-;;;;    
+;;;;
 ;;;;    Copyright Pascal Bourguignon 2003 - 2003
 ;;;;    mailto:pjb@informatimago.com
-;;;;    
+;;;;
 ;;;;    This program is free software; you can redistribute it and/or
 ;;;;    modify it under the terms of the GNU General Public License
 ;;;;    as published by the Free Software Foundation; either version
 ;;;;    2 of the License, or (at your option) any later version.
-;;;;    
+;;;;
 ;;;;    This program is distributed in the hope that it will be
 ;;;;    useful, but WITHOUT ANY WARRANTY; without even the implied
 ;;;;    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 ;;;;    PURPOSE.  See the GNU General Public License for more details.
-;;;;    
+;;;;
 ;;;;    You should have received a copy of the GNU General Public
 ;;;;    License along with this program; if not, write to the Free
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
@@ -265,7 +265,7 @@
 
 
 (defun edit-1 (arg)
-  (sb-EXT:run-program "emacsclient" 
+  (sb-EXT:run-program "emacsclient"
     (list (format nil "~A" (if (pathnamep arg)
                                (namestring arg) arg)))
     :search t :wait t :pty nil :input t :output t))
@@ -309,11 +309,11 @@
 ;;--------------------
 ;; (setf (logical-pathname-translations "clg")
 ;;       '(("**;*.*.*" "/home/pjb/works/patchwork/src/clg-0.93/**/")))
-;; 
+;;
 ;; (push #+sbcl(truename #p"clg:systems;")
 ;;       #+cmu(concatenate 'string (unix-namestring #p"clg:systems") "/")
 ;;       asdf:*central-registry*)
-;; 
+;;
 ;; (require 'gtk)
 ;;--------------------
 
