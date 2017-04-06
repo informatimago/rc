@@ -598,6 +598,7 @@
 ;;; (global-set-key (kbd "H-;")     'trustonic-insert-todo-comment)
 ;;; (setf *trustonic-user-name* "PreNom01")
 
+
 (defvar *trustonic-user-name* nil
   "Set it to your Trustonic user name if it is different from the variable `user-login-name'.")
 

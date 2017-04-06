@@ -2,10 +2,11 @@
 (.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
 (when (require 'package nil t)
   ;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
-  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                           ("marmalade" . "https://marmalade-repo.org/packages/")
-                           ("melpa" . "http://stable.melpa.org/packages/")
-                           ("org" . "http://orgmode.org/elpa/")))
+  (setq package-archives '(("gnu"           . "https://elpa.gnu.org/packages/")
+                           ("marmalade"     . "https://marmalade-repo.org/packages/")
+                           ("melpa-stable"  . "https://stable.melpa.org/packages/")
+                           ("melpa"         . "http://stable.melpa.org/packages/")
+                           ("org"           . "http://orgmode.org/elpa/")))
 
   (package-initialize)
   (package-refresh-contents)
