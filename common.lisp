@@ -83,7 +83,8 @@
   (:use "COMMON-LISP")
   (:shadow "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME")
   (:export "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME" "TRANSLATE-LOGICAL-PATHNAME"
-           "LOAD-ASDF3" "ASDF-CONFIGURATION" "LOAD-QUICKLISP" "INFORMATIMAGO-PACKAGES")
+           "LOAD-ASDF3" "ASDF-CONFIGURATION" "LOAD-QUICKLISP" "INFORMATIMAGO-PACKAGES"
+           "*ORIGINAL-READTABLE*")
   (:documentation "
 
 Utilities for the com.informatimago.pjb package.
@@ -122,14 +123,16 @@ License:
   (:export "LIST-DIRECTORIES"   "GET-DIRECTORY"
            "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
            "START-DRIBBLE"
-           "DEFAUTOLOAD"
+           "DEFINE-AUTOLOAD"
            "HOSTNAME"
            "SCHEME"
            "*INP*" "*OUT*"
            "SELF"
            "IT" "THIS" "THAT"
            "THEM" "THESE" "THOSE"
-           "IS" "WAS" "WERE")
+           "IS" "WAS" "WERE"
+           "DEFINE-COMMAND"
+           "QUIT" "EXIT")
   (:documentation "
 
 This package contains REPL utilities, defined in ~/rc/common.lisp,
@@ -169,6 +172,7 @@ License:
 
 (in-package "COM.INFORMATIMAGO.PJB.UTILITY")
 
+(defvar *original-readtable* (copy-readtable *readtable*))
 
 ;;;----------------------------------------------------------------------
 ;;;
@@ -568,7 +572,7 @@ The HOST is added to the list of logical hosts defined.
 
 ;;;----------------------------------------------------------------------
 
-(defmacro defautoload (name arguments loader)
+(defmacro define-autoload (name arguments loader)
   "Defines a function that will load the LOADER file, before calling itself again."
   `(progn
      (declaim (notinline ,name))
@@ -578,7 +582,7 @@ The HOST is added to the list of logical hosts defined.
        (,name ,@arguments))))
 
 #-ccl
-(defautoload scheme () (translate-logical-pathname #P"LOADERS:PSEUDO"))
+(define-autoload scheme () (translate-logical-pathname #P"LOADERS:PSEUDO"))
 
 ;;;----------------------------------------------------------------------
 
@@ -702,9 +706,48 @@ The HOST is added to the list of logical hosts defined.
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
 
+
+(defun command-read-arguments ()
+  "Read the arguments following the expression that has just been read and that is being evaluated."
+  (#+swank let #+swank ((*argument-stream* swank:*argument-stream*))
+   #-swank with-input-from-string #-swank(*argument-stream*  (if (listen *standard-input*)
+                                                                 (read-line *standard-input*)
+                                                                 ""))
+   (loop :for argument := (read *argument-stream* nil *argument-stream*)
+         :until (eq argument *argument-stream*)
+         :collect argument)))
+
+(defun call-command (command)
+  "
+DO:     Call the command with the arguments read from the following line.
+RETURN: No value.
+"
+  (apply command (command-read-arguments))
+  (values))
+
+(defmacro define-command (name (&rest lambda-list) &body docstring-declarations-and-body)
+  "
+DO:         Define a REPL command that can be invoked by name, without surrounding it with parentheses.
+
+EXAMPLE:
+            (define-command cmdt (&rest arguments)
+              (prin1 (append arguments arguments))
+              (terpri))
+
+            cl-user> cmdt 1 2 3
+            (1 2 3 1 2 3)
+            ; No value
+            cl-user>
+"
+  `(progn
+     (defun ,name ,lambda-list ,@docstring-declarations-and-body)
+     (define-symbol-macro ,name (call-command ',name))))
+
+
 ;;;----------------------------------------------------------------------
 (push :com.informatimago.pjb *features*)
 ;;;----------------------------------------------------------------------
+
 (defun clean-up-package (package)
   (mapc (lambda (used-package) (unuse-package used-package package))
         (package-use-list package))
@@ -712,9 +755,13 @@ The HOST is added to the list of logical hosts defined.
     (unintern s package))
   (use-package "COMMON-LISP" package)
   package)
+
 (clean-up-package "CL-USER")
 
+
+;;;----------------------------------------------------------------------
 (in-package "CL-USER")
+;;;----------------------------------------------------------------------
 
 (let ((v (find-symbol "VERSION"))
       (p (package-name *package*)))
@@ -759,6 +806,12 @@ The HOST is added to the list of logical hosts defined.
 ;; (use-package :com.informatimago.pjb)
 
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
+
+
+(define-command cdui () (cd #P"~/works/patchwork/src/mclgui/")    (prin1 (pwd)) (terpri))
+(define-command cdpa () (cd #P"~/works/patchwork/src/patchwork/") (prin1 (pwd)) (terpri))
+(define-command ll   () (load "loader.lisp"))
+(define-command qu   () (prin1 "Good Bye!") (terpri)  (quit))
 
 (when (probe-file "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py")
   (defparameter cl-user::*clpython-module-search-paths*
