@@ -384,6 +384,7 @@ function be_generate(){
         fi
     fi
 
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8'
     if [ -d /opt/local/share/java/gradle ] ; then
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
@@ -1260,7 +1261,6 @@ if [[ -d "$HOME/opt/bin" ]] ; then
     export "PATH=$HOME/opt/bin:$PATH"
 fi
 ulimit -c unlimited
-
 
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
 #### THE END ####
