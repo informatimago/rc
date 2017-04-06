@@ -282,9 +282,9 @@ function be_generate(){
         if [ 1 = "$(mfod -l|wc -l)" ] ; then
             mfod -s 1
         fi
-        # socket=()
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        # alias ec="$e --no-wait"
+        # socket=(--socket-name=/tmp/emacs${UID}/server)
+        # EDITOR, VISUAL, etc, take only the command, no arguments.
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
