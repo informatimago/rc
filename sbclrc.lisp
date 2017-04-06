@@ -264,15 +264,41 @@
   (com.informatimago.common-lisp.cesarum.PACKAGE:ADD-NICKNAME  "SB-PCL"           "CLOS"))
 
 
-(defun edit-1 (arg)
-  (sb-EXT:run-program "emacsclient"
-    (list (format nil "~A" (if (pathnamep arg)
-                               (namestring arg) arg)))
-    :search t :wait t :pty nil :input t :output t))
-(push (function edit-1) SB-EXT:*ED-FUNCTIONS*)
+(defun edit/emacsclient (arg)
+  (handler-case
+      (sb-ext:run-program "emacsclient"
+                          (list (format nil "~A" (if (pathnamep arg)
+                                                     (namestring arg)
+                                                     arg)))
+                          :search t :wait t :pty nil :input t :output t)
+    (:no-error (&rest values)
+      t)
+    (error (err)
+      (format t "~&~A~%" err)
+      nil)))
+
+;; (push 'edit/emacsclient sb-ext:*ed-functions*)
+
+
+(defun edit/editor (arg)
+  (handler-case
+      (sb-ext:run-program (sb-posix:getenv "EDITOR")
+                          (print (list (format nil "~A" (if (pathnamep arg)
+                                                      (namestring arg)
+                                                      arg))))
+                          :search t :wait t :pty nil :input t :output t)
+    (:no-error (&rest values)
+      t)
+    (error (err)
+      (format t "~&~A~%" err)
+      nil)))
+
+(push 'edit/editor sb-ext:*ed-functions*)
+
+
 (setf *editor* (lambda (arg) (if (or (functionp arg) (symbolp arg))
                                  (ed arg)
-                                 (edit-1 arg))))
+                                 (edit/editor arg))))
 
 (defun quit () (sb-ext:quit))
 
@@ -319,4 +345,3 @@
 
 (format t "~~/.sbclrc loaded~%")
 ;;;; THE END ;;;;
-
