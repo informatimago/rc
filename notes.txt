@@ -2,6 +2,22 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 
+sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
+
+
+FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
+La brique internet
+TAILS - The Anonymous Incognito Live System https://tails.boum.org
+POND
+NEO900 Nokia
+
+
+
+/opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
+
+http://incudine.sourceforge.net/tutorial_jackmidi.html
+
+
 | System         | Xcode | iOS targets     |
 |----------------+-------+-----------------|
 | 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
@@ -423,7 +439,8 @@ appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
 jpaizier@gmail.com|Titiminou88|
 jpaizier@yahoo.fr|
 skype|aizier42|
-Titicoco88
+titicoco88@yahoo.fr|TitiMinou88
+
 
 ** NOTES 3
 http://darling.dolezel.info/en/Darling
@@ -971,8 +988,8 @@ is likely to be a wild ride.
 
 *** telnet ascii art videos
 
-pong, brick, tetris      telnet milek7.pl
-adventure, kind of.      telnet yay.tim.org 5440
+OFF pong, brick, tetris      telnet milek7.pl
+ON  adventure, kind of.      telnet yay.tim.org 5440
 
 Telehack:                telnet://telehack.com
 Telehack (web):          http://telehack.com
@@ -993,6 +1010,10 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 *** Real                                                               :real:
 **** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
 **** TODO [#A] Carte d'Identité & Passeport                           :admin:
+**** TODO [#A] Donner Ordinateur                                      :admin:
+**** TODO [#A] Donner CDs                                             :admin:
+**** TODO [#A] Dentiste - references implant                          :admin:
+**** TODO [#A] Résilier abonnements                                   :admin:
 **** TODO [#A] Impôts                                          :impots:admin:
      :DEADLINE: <2016-03-15 -15d>
 
@@ -1009,17 +1030,33 @@ msa.fr -> cotisant de solidarité
 IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
 ~/jobs/free-lance/aeat/aeat-2008
 
+***** DONE [#A] TVA 2017T1
+      CLOSED: [2017-04-04 Tue 03:19] :DEADLINE: <2017-04-01>
+      - State "DONE"       from "TODO"       [2017-04-04 Tue 03:19] \\
+        3310CA3 Déclaration 3310CA3 initiale déposée le 04 Avril 2017 à 03:10 25/04/2017 3 826,00 € 3 826,00 € 0,00 €
+        Votre ordre de paiement a bien été enregistré le 04/04/2017 à 03:10 :
+        sous le numéro 700048652350 sur le compte bancaire FR7630004021900001005698318 (établissement teneur du compte : BNPPARB ISSY MOULX OUEST
+        et titulaire du compte : MONSIEUR BOURGUIGNON PASCAL)
+        pour un montant de 3 826,00 €.
+        Le mandat qui autorise ce prélèvement porte la Référence Unique de Mandat (RUM) n°
+        Le prélèvement interviendra à compter du 25/04/2017
+        Ces références vous seront réclamées en cas de contestation.
+        Nous vous conseillons de noter les informations ou d'imprimer cette page.
+        Les détails relatifs à vos paiements sont consultables dans votre compte fiscal
+        au sein de votre espace abonné, 24 heures après la validation de l'ordre de paiement.
+        nn348673146DGFIP2016839501IO93AWZD
+***** TODO [#A] TVA 2017T2
+     :DEADLINE: <2017-07-01>
+***** TODO [#A] TVA 2017T3
+     :DEADLINE: <2017-10-01>
+***** TODO [#A] TVA 2017T4
+     :DEADLINE: <2018-01-01>
 ***** TODO [#A] Taxe d'habitation 2015
 ***** TODO [#A] Taxe d'habitation 2016
 ***** TODO [#A] Impôt sur le revenu 2012
 ***** TODO [#A] Impôt sur le revenu 2013
 ***** TODO [#A] Impôt sur le revenu 2014
 ***** TODO [#A] Impôt sur le revenu 2015
-***** TODO [#A] TVA 2016
-**** TODO [#A] Rendez vous Dentiste                                   :admin:
-**** TODO [#A] plomberie                                              :admin:
-**** TODO [#B] sell the CDs and DVDs to Gibert Jeune.                 :admin:
-     :DEADLINE: <2016-12-07 -12m>
 **** TODO [#A] [0/6] Emploi                                             :job:
      :DEADLINE: <2016-06-30 -1m>
 
@@ -1195,7 +1232,13 @@ http://www.unilibro.it/libro/vaske-paul-riggert-johann-h-/esercizi-costruzioni-e
 ---
 370
 
-**** TODO [#A] cable usb sata                                        :amazon:
+**** TODO [#A] Korg Kronos 2 88-key                               :woodbrass:
+https://www.woodbrass.com
+Identifiant du marchand :	97308598
+Numéro de transaction :	769500
+Référence commande :	170405210430
+Montant :	4 148,00 EUR
+
 **** TODO [#C] warthog hotas                                         :amazon:
 *** A-VOIR                                                            :watch:
 **** TODO [#C] Movies to Get with mldonkey                            :admin:
@@ -2063,6 +2106,9 @@ Year   Infl.Corr/Year   Total Remaining  Spared
 
 ** FAIT, DONE
 *** Achats Achetés                                                   :bought:
+**** DONE [#A] cable usb sata                                        :amazon:
+     CLOSED: [2017-04-02 Sun 19:54]
+     - State "DONE"       from "TODO"       [2017-04-02 Sun 19:54]
 **** DONE [#C] Track IR 3D
       CLOSED: [2016-11-20 Sun 16:27]
       - State "DONE"       from "TODO"       [2016-11-20 Sun 16:27] \\
@@ -2114,7 +2160,8 @@ Facture TVA: 0800 046 046
 Votre paiement a été effectué.
 
 Le numéro de transaction pour ce paiement est le suivant : 66X52110TD680102S.
-Nous enverrons un email de confirmation à pjb+paypal-fr@informatimago.com. Cette transaction apparaîtra sur votre relevé de carte sous l'intitulé PayPal *LAURENTLOUI.
+Nous enverrons un email de confirmation à pjb+paypal-fr@informatimago.com.
+Cette transaction apparaîtra sur votre relevé de carte sous l'intitulé PayPal *LAURENTLOUI.
 
 Vous venez d'effectuer un paiement de
 €29,45 EUR
@@ -2240,22 +2287,20 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
        Bought.
 
 *** Comptabilité                                                 :accounting:
-**** TODO [#B] payer loyer          679 €
-     :DEADLINE: <2013-03-01 Fri +1m>
+**** TODO [#A] payer loyer          672.77 €
+     :DEADLINE: <2013-04-01 Mon +1m>
+     - State "DONE"       from "TODO"       [2017-04-02 Sun 05:39]
      - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
        Fait par virement de la BNP.
-     - CLOSING NOTE [2012-12-04 Wed 22:13] \\
-       Done.
-    - CLOSING NOTE [2010-12-03 Fri 04:46] \\
-      Done on 2010-12-02.
-    - CLOSING NOTE [2010-11-15 Mon 06:25] \\
-      Done.
-    - CLOSING NOTE [2010-10-11 Mon 12:31] \\
-      Done on 2010-10-11.
-    - CLOSING NOTE [2010-06-25 Fri 21:19] \\
-      Done today.
     :PROPERTIES:
-    :LAST_REPEAT: [2014-02-17 Mon 03:35]
+    :LAST_REPEAT: [2017-04-02 Sun 05:39]
+    :END:
+**** TODO [#A] émettre facture
+     :DEADLINE: <2013-04-01 Mon +1m>
+     - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
+       Fait par virement de la BNP.
+    :PROPERTIES:
+    :LAST_REPEAT: [2017-03-01 Sun 00:00]
     :END:
 **** TODO [#C] Envoyer attestation assurance habitation               :admin:
      :DEADLINE: <2017-10-15 Sun +1y -15d>
@@ -6836,16 +6881,8 @@ A-< A->	begin/end text
 
     http://telehack.com/
 
-
     http://anapnea.net/
 
-    http://cyberspace.org/shell.xhtml
-
-    http://www.cray-cyber.org/access/obtain_guestpwd.php
-
-
-    telnet cyberspace.org        (OpenBSD)
-    telnet login.cray-cyber.org  (A real cray YMP!)
 
     http://www.imsai8080.com/computers/s100/northstar.html
     http://www.pdpplanet.com/
