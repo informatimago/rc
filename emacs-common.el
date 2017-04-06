@@ -1845,7 +1845,9 @@ URL in a new window."
 ;;;----------------------------------------------------------------------------
 
 (defparameter *pjb-erc-answers*
-  '((geb
+  '((extensions
+     . "https://www.talisman.org/~erlkonig/documents/commandname-extensions-considered-harmful/")
+    (geb
      . "the most important book of the XX century: \"Gödel, Escher and Bach: An Eternal Golden Braid\" http://www.amazon.com/G%C3%B6del-Escher-Bach-Eternal-Golden/dp/0465026567")
     (lisp-applications
      . "“Please don't assume Lisp is only useful for Animation and Graphics, AI, Bioinformatics, B2B and Ecommerce, Data Mining, EDA/Semiconductor applications, Expert Systems, Finance, Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and Simulation, Natural Language, Optimization, Research, Risk Analysis, Scheduling, Telecom, and Web Authoring just because these are the only things they happened to list.”")
@@ -1871,9 +1873,9 @@ URL in a new window."
     (getting-started
      . "Start with http://www.cliki.net/Getting%20Started  or  http://articulate-lisp.com/" )
     (emacs-lisp-intro
-     . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
+     . "An Introduction to Programming in Emacs Lisp  https://www.gnu.org/software/emacs/manual/eintr.html  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp
-     . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
+     . "Emacs Lisp Manual  http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
     (emacs-manual
      . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
     (the-art-of-unix-programming
