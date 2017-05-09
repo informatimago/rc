@@ -2,7 +2,7 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 set +o posix # not POSIX: allow function-names-with-dashes
-
+echo .bashrc
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
 
@@ -228,7 +228,7 @@ function be_generate(){
     local editors
     local list
     local value
-    
+
     bindirs=(
         $HOME/bin
         $HOME/opt/bin
@@ -457,7 +457,7 @@ function be_generate(){
     be_variable MAILHOST                mail.informatimago.com
     case "${uname}" in
     (Darwin)
-        be_variable MAIL                    "/var/mail/$USER" 
+        be_variable MAIL                    "/var/mail/$USER"
         ;;
     (*)
         be_variable MAIL                    "/var/spool/mail/$USER"  # It's the default.
