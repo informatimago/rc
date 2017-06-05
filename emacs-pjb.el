@@ -12,15 +12,14 @@
 ;;; Customization
 ;;;----------------------------------------------------------------------------
 
-
 (.EMACS "custom faces")
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(3dbutton ((t (:background "grey33" :foreground "black" :box (:line-width 2 :color "white" :style released-button)))))
- '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "black" :box (:line-width 2 :color "grey75" :style pressed-button)))))
+ '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
+ '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
  '(android-mode-debug-face ((t (:foreground "cyan"))))
  '(android-mode-info-face ((t (:foreground "chartreuse"))))
  '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
@@ -29,7 +28,7 @@
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
  '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
  '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
- '(diff-nonexistent ((t (:background "black" :foreground "light green"))))
+ '(diff-nonexistent ((t (:background "grey11" :foreground "light green"))))
  '(ediff-even-diff-A ((t (:background "grey50"))))
  '(ediff-odd-diff-A ((t (:background "Grey33"))))
  '(ediff-odd-diff-B ((t (:background "grey30"))))
@@ -68,8 +67,8 @@
  '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
  '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
- '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
- '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "black" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
+ '(mode-line ((((class color) (min-colors 88)) (:background "grey11" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
+ '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey11" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(read-only-face ((t (:background "gray30"))) t)
@@ -175,7 +174,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#acl2" "#lispweb" "#lisp-fr" "#ccl" "#bash" "#ecl" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#acl2" "#lispweb" "#ccl" "#ecl" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -598,11 +597,13 @@ X-Accept-Language:         fr, es, en
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
                (if (fboundp 'x-popup-dialog)
-                   (x-popup-dialog t '("There are trailing whitespaces."
-                                       ("Remove them, save file and vc-next-action" . 1)
-                                       ("Remove them, and go on editing" . 2)
-                                       ("Go on editing" . 3)))
-                   (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit? ")))
+                   (x-popup-dialog t (list (format "There are trailing whitespaces in %S."
+                                                   file-name)
+                                           '("Remove them, save file and vc-next-action" . 1)
+                                           '("Remove them, and go on editing"            . 2)
+                                           '("Go on editing"                             . 3)
+                                           '("Abort"                                     . 4)))
+                   (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit; 4->abort?")))
           ((1)
            (let ((delete-trailing-lines t))
              (delete-trailing-whitespace))
@@ -610,15 +611,16 @@ X-Accept-Language:         fr, es, en
            (vc-next-action nil))
           ((2) (let ((delete-trailing-lines t))
                  (delete-trailing-whitespace)))
-          ((3)))))))
+          ((3))
+          ((4) (kill-buffer)))))))
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
   (when (vc-workfile-version (buffer-file-name))
     (let ((delete-trailing-lines t))
-      (delete-trailing-whitespace))))
+      (delete-trailing-whitespace (point-min) (point-max)))))
 
-(add-hook 'find-file-hook 'pjb-find-file-meat/warn-trailing-whitespace)
+(add-hook 'find-file-hook   'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
 
 
