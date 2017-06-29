@@ -1,8 +1,9 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
+Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
 
-sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
 
 
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
@@ -12,8 +13,13 @@ POND
 NEO900 Nokia
 
 
+#+BEGIN_SRC(shell)
+sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
+
+function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
 
 /opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
+#+END_SRC
 
 http://incudine.sourceforge.net/tutorial_jackmidi.html
 
@@ -23,16 +29,15 @@ http://incudine.sourceforge.net/tutorial_jackmidi.html
 | 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
 |                |       |                 |
 
-
 * Lisp Tasks
-** locate old libraries, evaluate them and if interesting, upgrade them (asdf, quicklisp). Document on cliki.net.
-
-
+** TODO locate old libraries, evaluate them and if interesting, upgrade them (asdf, quicklisp). Document on cliki.net.
 * NOTES
 ** Coupons
 *** http://www.synthmaster.com/synthmasterone.aspx?referrer=adwords&campaign=springsale2017inthemarket
 Your 10% OFF discount coupon code is: JAN1720PCTOFF
 You can use this coupon immediately for purchasing SynthMaster or expansions on our web site!
+SM2WSS-667D8936-EEQ3-F883-3JND-F6D9-5B95H544
+SM2WSS-667D8936-EEQ3-F883-3JND-F6D9-5B95H544
 SM2WSS-667D8936-EEQ3-F883-3JND-F6D9-5B95H544
 
 ** Notes
@@ -452,7 +457,6 @@ jpaizier@gmail.com|Titiminou88|
 jpaizier@yahoo.fr|
 skype|aizier42|
 titicoco88@yahoo.fr|TitiMinou88
-
 
 ** NOTES 3
 http://darling.dolezel.info/en/Darling
@@ -1023,6 +1027,38 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 *** Real                                                               :real:
 **** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
 **** TODO [#A] Carte d'Identité & Passeport                           :admin:
+
+Passeport:
+
+- Une photo d'identité conforme aux normes
+
+- Justificatif de domicile : original + photocopie
+
+- Votre passeport sécurisé (biométrique ou électronique) valide ou
+  périmé depuis moins de 5 ans ou ou passeport Delphine valide ou
+  périmé depuis moins de 2 ans : original + photocopie
+
+- Acte de naissance (copie intégrale ou extrait avec filiation) de
+  moins de 3 mois : original
+
+
+Carte d'identité:
+
+- Une photo d'identité conforme aux normes
+
+- Numéro de pré-demande ou formulaire cartonné remis sur place
+
+- 86 € en timbre fiscal : achat en ligne
+
+- Justificatif du domicile : original + photocopie
+
+- Carte d'identité (valide ou périmée depuis moins de 5 ans) : original + photocopie
+
+- Acte de naissance (copie intégrale ou extrait avec filiation) de moins de 3 mois : original
+
+
+
+
 **** TODO [#A] Donner Ordinateur                                      :admin:
 **** TODO [#A] Donner CDs                                             :admin:
 **** TODO [#A] Dentiste - references implant                          :admin:
@@ -1261,6 +1297,8 @@ Identifiant du marchand :	97308598
 Numéro de transaction :	769500
 Référence commande :	170405210430
 Montant :	4 148,00 EUR
+
+**** TODO Moog Subsequent 37 CV                                   :woodbrass:
 
 **** TODO [#C] warthog hotas                                         :amazon:
 *** A-VOIR                                                            :watch:
@@ -2319,11 +2357,11 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
     :PROPERTIES:
     :LAST_REPEAT: [2017-05-08 Mon 15:56]
     :END:
-**** TODO [#A] émettre facture
-     :DEADLINE: <2013-04-01 Mon +1m>
-     - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22]
+**** DONE [#A] émettre facture
+     CLOSED: [2017-05-27 Sat 03:28] :DEADLINE: <2013-05-01 Wed>
+     - State "DONE"       from "TODO"       [2017-05-27 Sat 03:28]
     :PROPERTIES:
-    :LAST_REPEAT: [2017-03-01 Sun 00:00]
+    :LAST_REPEAT: [2017-05-27 Sat 03:28]
     :END:
 **** TODO [#C] Envoyer attestation assurance habitation               :admin:
      :DEADLINE: <2017-10-15 Sun +1y -15d>
@@ -4906,13 +4944,14 @@ Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
 
 ** backups                                                          :virtual:
 *** TODO [#A] sauvegardes                                             :admin:
-    :DEADLINE: <2016-02-13 Sat +1w>
+    :DEADLINE: <2016-02-20 Sat +1w>
+    - State "DONE"       from "TODO"       [2017-05-27 Sat 03:29]
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:45]
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:38] \\
       larissa backup 2.
     - State "DONE"       from "TODO"       [2012-12-13 Thu 00:47]
     :PROPERTIES:
-    :LAST_REPEAT: [2016-02-06 Sat 21:45]
+    :LAST_REPEAT: [2017-05-27 Sat 03:29]
     :END:
 Backup kuiper to external hard disks.
 *** TODO [#B] Implement an incremental backup for hubble              :admin:
@@ -5601,6 +5640,9 @@ http://tinydns.org/ (inofficial contributions; FAQ, documents)
     -Wmissing-declarations -Wredundant-decls -Wnested-externs -Winline \
 
 ** COMMANDS: GDB
+
+You will need to codesign /opt/local/bin/ggdb
+See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
 
 break foo / commands / continue / end
 If not, add "info locals" before continue. And use "finish" instead of "continue"
