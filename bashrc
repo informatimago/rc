@@ -465,6 +465,9 @@ function be_generate(){
     esac
     be_variable MAILPATH                "${MAIL}" # "${MAIL}:/larissa/root/var/spool/mail/$USER"
 
+    if [ -r /usr/local/share/file/magic.mgc ] ; then
+        be_variable MAGIC                   /usr/local/share/file/magic.mgc
+    fi
 
     be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
@@ -477,6 +480,8 @@ function be_generate(){
 
 
     be_comment 'Application environments:'
+
+    be_variable HDF5_USE_FILE_LOCKING FALSE # for nfs file accesses.
 
     be_variable WRITE_ASF          1 # aviplay record:
     if [[ -d /usr/local/apps/netscape ]] ; then
@@ -1164,7 +1169,7 @@ function screen-size     (){
 function xauth-add       (){ xauth add $(echo "${DISPLAY:-DISPLAY-UNSET}" | sed 's/.*\(:.*\)/\1/') . $(mcookie) ; }
 function xset-on         (){ ( export DISPLAY=:0.0 ; xset s 7200 0 ; xset dpms force on ; xset dpms 7200 8000 9000 ) ; }
 
-function yls             (){ /bin/ls -1 $@ | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
+function yls             (){ /bin/ls -1 $@ | sed -e 's/\(.*-\([12][90][0-9][0-9]\)\([-.].*\)\?\)$/\2 \1/'| sort -n ; }
 # function wls(){  COLUMNS=$(stty -a|sed -n  -e '/columns;/s/.* \([0-9]*\) columns;.*/\1/p' -e '/; columns/s/.*columns \([0-9]\+\);.*/\1/p') ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${COLUMNS:-80}  columnify ; }
 function wls(){  c=$COLUMNS ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${c:-80}  columnify ; }
 function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else find "$@" -type f -print ; fi | sort ; }
