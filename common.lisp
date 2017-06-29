@@ -131,7 +131,7 @@ License:
            "IT" "THIS" "THAT"
            "THEM" "THESE" "THOSE"
            "IS" "WAS" "WERE"
-           "DEFINE-COMMAND"
+           "DEFINE-COMMAND" "HELP"
            "QUIT" "EXIT")
   (:documentation "
 
@@ -341,6 +341,7 @@ License:
 (ql:quickload "com.informatimago.common-lisp"              :verbose nil)
 (ql:quickload "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
 (ql:quickload "com.informatimago.clmisc"                   :verbose nil)
+(ql:quickload "com.informatimago.common-lisp.lisp-sexp"    :verbose nil)
 
 ;; (ql:quickload "com.informatimago.tools")
 (ql:quickload '("com.informatimago.tools.pathname"
@@ -706,16 +707,50 @@ The HOST is added to the list of logical hosts defined.
 (defvar *out* (make-synonym-stream '*standard-output*) "Synonym to *standard-output*")
 
 
+;; ;; Patch swank:
+;; (defvar *swank-patched-p* nil)
+;; (defun check-and-patch-swank ()
+;;   (when (and (member :swank *features*)
+;;              (find-package "SWANK")
+;;              (not (eq :external  (find-symbol "*ARGUMENT-STREAM*" "SWANK")))
+;;              (not *swank-patched-p*))
+;;     (let ((as (intern "*ARGUMENT-STREAM*" "SWANK"))
+;;           (er (intern "EVAL-REGION"       "SWANK")))
+;;       (proclaim `(special ,as))
+;;       (eval `(setf ,as nil))
+;;       (eval `(defun ,er (string)
+;;                "Evaluate STRING.
+;; Return the results of the last form as a list and as secondary value the
+;; last form."
+;;                (with-input-from-string (,as string)
+;;                  (let (- values)
+;;                    (loop
+;;                      (let ((form (read ,as nil ,as)))
+;;                        (when (eq form ,as)
+;;                          (finish-output)
+;;                          (return (values values -)))
+;;                        (setq - form)
+;;                        (setq values (multiple-value-list (eval form)))
+;;                        (finish-output)))))))
+;;       (setf *swank-patched-p* t))))
+;;
+
 
 (defun command-read-arguments ()
   "Read the arguments following the expression that has just been read and that is being evaluated."
-  (#+swank let #+swank ((*argument-stream* swank:*argument-stream*))
-   #-swank with-input-from-string #-swank(*argument-stream*  (if (listen *standard-input*)
-                                                                 (read-line *standard-input*)
-                                                                 ""))
-   (loop :for argument := (read *argument-stream* nil *argument-stream*)
-         :until (eq argument *argument-stream*)
-         :collect argument)))
+  (flet ((read-arguments (stream)
+           (loop :for argument := (read stream nil stream)
+                 :until (eq argument stream)
+                 :collect argument)))
+    (if (and (member :swank *features*)
+             (find-package "SWANK")
+             (eq :external (nth-value 1 (find-symbol "*ARGUMENT-STREAM*" "SWANK")))
+             (streamp (symbol-value (intern "*ARGUMENT-STREAM*" "SWANK"))))
+        (read-arguments (symbol-value (intern "*ARGUMENT-STREAM*" "SWANK")))
+        (with-input-from-string (stream  (if (listen *standard-input*)
+                                             (read-line *standard-input*)
+                                             ""))
+          (read-arguments stream)))))
 
 (defun call-command (command)
   "
@@ -725,9 +760,25 @@ RETURN: No value.
   (apply command (command-read-arguments))
   (values))
 
+(defvar *commands* '()
+  "List of commands, with their lambda-list and docstring.")
+
+(defmacro command-error-handling (&body body)
+  `(handler-case
+       (progn ,@body)
+     (error (err)
+       (format *error-output* "~&~A~%" err))))
+
 (defmacro define-command (name (&rest lambda-list) &body docstring-declarations-and-body)
   "
-DO:         Define a REPL command that can be invoked by name, without surrounding it with parentheses.
+DO:         Define a REPL command that can be invoked by name, without
+            surrounding it with parentheses.
+
+NOTE:       Commands are defined as functions, associated with a
+            symbol-macro expanding to a call-command call.
+            Call-command will parse the rest of the line  as arguments
+            for the command.  Errors are handled and printed.  No
+            value is returned.  Commands must print their results.
 
 EXAMPLE:
             (define-command cmdt (&rest arguments)
@@ -739,10 +790,49 @@ EXAMPLE:
             ; No value
             cl-user>
 "
-  `(progn
-     (defun ,name ,lambda-list ,@docstring-declarations-and-body)
-     (define-symbol-macro ,name (call-command ',name))))
+  (multiple-value-bind (docstrings declarations body)
+      (parse-body :lambda docstring-declarations-and-body)
+    `(progn
+       (setf *commands* (cons (list ',name ',lambda-list ',(car docstrings))
+                              (delete ',name *commands* :key (function first))))
+       (defun ,name ,lambda-list
+         ,@docstrings ,@declarations
+         (command-error-handling ,@body))
+       (define-symbol-macro ,name (call-command ',name)))))
 
+(defun fmt-lambda-list (stream lambda-list at colon  &rest parameters)
+  "Formats a lambda list using [] for optional and parameters."
+  (declare (ignore at colon parameters))
+  (let ((lh (make-help (parse-lambda-list lambda-list :ordinary))))
+    (write-string
+     (mapconcat (lambda (p)
+                  (case (car p)
+                    (:key (let ((*print-circle* nil))  (format nil "[:~A ~:*~A]" (cdr p))))
+                    (otherwise (cdr p))))
+                (if (and (find :key  lh :key (function car))
+                         (find :rest lh :key (function car)))
+                    (delete :rest lh :key (function car))
+                    lh)
+                " ")
+     stream)))
+
+(define-command help (&optional (command nil commandp))
+  "With a command argument, prints the docstring of the specified command.
+without, lists all the commands with their docstrings."
+  (flet ((format-help (help)
+           (format t "~%~S~@[ ~/com.informatimago.pjb:fmt-lambda-list/~]~%~@[~A~%~]"
+                   (first help) (second help)
+                   (mapconcat (lambda (line) (format nil "  ~A" line))
+                              (split-string (third help) #(#\newline))
+                              (coerce #(#\newline) 'string)))))
+    (if commandp
+        (let ((help (find command *commands* :key (function first) :test (function string-equal))))
+          (if help
+              (format-help help)
+              (format t "~%No help for ~S~%" command)))
+        (dolist (help (setf *commands* (sort *commands* (function string<) :key (function first))))
+          (format-help help))))
+  (terpri))
 
 ;;;----------------------------------------------------------------------
 (push :com.informatimago.pjb *features*)
@@ -808,10 +898,69 @@ EXAMPLE:
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 
 
-(define-command cdui () (cd #P"~/works/patchwork/src/mclgui/")    (prin1 (pwd)) (terpri))
-(define-command cdpa () (cd #P"~/works/patchwork/src/patchwork/") (prin1 (pwd)) (terpri))
-(define-command ll   () (load "loader.lisp"))
-(define-command qu   () (prin1 "Good Bye!") (terpri)  (quit))
+(shadow '(grep make mv cp less more cat ls mkdir popd pushd pwd cd browse
+          date))
+
+(defmacro forward-command-macro (name)
+  `(define-command ,name (&rest arguments)
+     ,(format nil "Invokes unix ~(~A~)." name)
+     (eval (cons ',(intern (symbol-name name) "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER")
+                 arguments))))
+
+(defmacro forward-command-function (name (&rest lambda-list))
+  (let ((ll (parse-lambda-list lambda-list :ordinary)))
+    `(define-command ,name ,lambda-list
+       ,(format nil "Invokes the ~(~A~) command." name)
+       (apply (function ,(intern (symbol-name name) "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER"))
+              ,@(make-argument-list ll)))))
+
+
+(forward-command-macro cp)
+(forward-command-macro mv)
+(forward-command-macro make)
+(forward-command-macro grep)
+
+(forward-command-function less   (&rest paths))
+(forward-command-function more   (&rest paths))
+(forward-command-function cat    (&rest paths))
+(forward-command-function ls     (&rest args))
+(forward-command-function cd     (&optional path))
+
+(define-command pwd ()
+  "Prints the current working directory."
+  (format t "~&~A~%" (com.informatimago.common-lisp.interactive.browser:pwd)))
+
+(forward-command-function popd   ())
+(forward-command-function pushd  (&optional path))
+(forward-command-function mkdir  (dir &rest other-dirs))
+(forward-command-function browse ())
+
+
+(define-command date ()
+  "Prints the date-time."
+  (com.informatimago.common-lisp.interactive.interactive:date))
+
+(define-command cdui ()
+  "Change current working directory to MCLGUI sources."
+  (cd #P"~/works/patchwork/src/mclgui/")
+  (prin1 (com.informatimago.common-lisp.interactive.browser:pwd))
+  (terpri))
+
+(define-command cdpa ()
+  "Change current working directory to Patchwork sources."
+  (cd #P"~/works/patchwork/src/patchwork/")
+  (prin1 (com.informatimago.common-lisp.interactive.browser:pwd))
+  (terpri))
+
+(define-command ll   ()
+  "Load loader.lisp"
+  (load "loader.lisp"))
+
+(define-command qu   ()
+  "Quit!"
+  (prin1 "Good Bye!")
+  (terpri)
+  (quit))
 
 (when (probe-file "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py")
   (defparameter cl-user::*clpython-module-search-paths*
