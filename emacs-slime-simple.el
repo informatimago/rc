@@ -56,7 +56,15 @@
 
 
 
-(load (expand-file-name "~/quicklisp/slime-helper.el") t)
+;; (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+
+(let* ((slime-directory "~/quicklisp/local-projects/slime/"))
+  (add-to-list 'load-path slime-directory)
+  (require 'slime-autoloads)
+  (setq slime-backend (expand-file-name "swank-loader.lisp" slime-directory))
+  (setq slime-path    slime-directory)
+  (slime-setup '(slime-fancy)))
+
 (load-library "slime")
 (slime-setup '(slime-fancy
                slime-asdf
