@@ -164,7 +164,6 @@
  '(ecb-auto-activate nil)
  '(ecb-cedet-url "http://sourceforge.net/project/showfiles.php?group_id=17484")
  '(ecb-options-version "2.32")
- '(ecb-source-path (quote ("/home/pjb/src/")))
  '(emms-info-functions (quote (emms-info-id3v2 emms-info-ogginfo emms-info-mp3info)))
  '(emms-info-mp3info-coding-system (quote iso-8859-1))
  '(emms-lyrics-display-on-minibuffer t)
@@ -205,7 +204,7 @@
  '(erc-nick (quote ("pjb")))
  '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ("bolet.*" "dmiles" "Posterdati" "AWizzard")))
+ '(erc-pals (quote ("bolet.*" "Posterdati")))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-password t)
@@ -470,6 +469,10 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info)))))
 
+;;;----------------------------------------------------------------------------
+
+(defvar ecb-source-path)
+(setf ecb-source-path (expand-file-name "~/src/"))
 
 ;;;----------------------------------------------------------------------------
 (load "~/rc/emacs-font.el")
@@ -490,17 +493,16 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
-(add-to-list 'auto-mode-alist '("/Users/pjb/works/abalone/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
-(add-to-list 'auto-mode-alist '("/Users/pjb/src/ios/.*\\.\\(h\\|m\\mm\\)$" . objc-mode))
-(add-to-list 'auto-mode-alist '("/home/pjb/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
-
-(add-to-list 'auto-mode-alist '("/Users/pjb/.*/coursera-robotics/.*\\.m$" . matlab-mode))
+(add-to-list 'auto-mode-alist `(,(expand-file-name "~/works/abalone/.*\\.\\(h\\|m\\mm\\)$")   . objc-mode))
+(add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
+(add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
+(add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
 
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
 
-(ignore-errors (set-sources "/home/pjb/works/patchwork/src/patchwork/"))
+(ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
 (require 'flycheck)
 (global-flycheck-mode)
 ;;;----------------------------------------------------------------------------
