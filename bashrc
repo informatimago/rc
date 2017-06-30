@@ -2,7 +2,7 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 set +o posix # not POSIX: allow function-names-with-dashes
-echo .bashrc
+
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
 
