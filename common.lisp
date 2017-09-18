@@ -55,6 +55,7 @@
                     (find-package "COMMON-LISP")
                     (find-package "IMAGE-BASED-COMMON-LISP")))))
 
+
 (setf *print-circle* t
       *print-length* nil
       *print-level*  nil
@@ -115,7 +116,7 @@ License:
   (:nicknames "PJB")
   (:use "COMMON-LISP"
         "COM.INFORMATIMAGO.PJB.UTILITY")
-  (:shadow "ED")                       ; from com.informatimago.common-lisp.cesarum.ecma048
+  (:shadow "ED" "REP")                 ; from com.informatimago.common-lisp.cesarum.ecma048
   (:shadow "APROPOS" "APROPOS-LIST")   ; from com.informatimago.tools.symbol
   (:shadowing-import-from "COM.INFORMATIMAGO.PJB.UTILITY"
                           "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME"
@@ -140,7 +141,7 @@ which is loaded from the various rc files of the various CL
 implementations.
 
 It also re-exports the exported symbols of
-COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE.
+most COM.INFORMATIMAGO.* packages, but a few.
 
 
 License:
@@ -325,7 +326,8 @@ License:
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GRAPH"
                             "COM.INFORMATIMAGO.COMMON-LISP.DATA.CONSTANT"
                             "COM.INFORMATIMAGO.COMMON-LISP.UNIX.OPTION"
-                            "COM.INFORMATIMAGO.COMMON-LISP.ED.ED" )
+                            "COM.INFORMATIMAGO.COMMON-LISP.ED.ED"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.ECMA048")
                      :test (function string=))))))
    (list-all-packages)))
 
@@ -378,7 +380,7 @@ License:
     (handler-case (use-package package)
       (error (err)
         (princ err) (terpri))))
-  (shadowing-import '(com.informatimago.common-lisp.cesarum.ecma048:ed))
+  (shadowing-import '(com.informatimago.common-lisp.interactive.interactive:rep))
   (shadowing-import '(com.informatimago.tools.symbol:apropos
                       com.informatimago.tools.symbol:apropos-list))
   (dolist (package (informatimago-packages))
@@ -966,6 +968,8 @@ without, lists all the commands with their docstrings."
   (defparameter cl-user::*clpython-module-search-paths*
     '("/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/")))
 
+;; (setf com.informatimago.common-lisp.cesarum.package::*package-verbose* t)
+(com.informatimago.common-lisp.cesarum.package:add-nickname "COMMON-LISP-USER" "U")
 
 ;; Not really: call-in should be in some package.
 #-mocl (declaim (declaration call-in))
