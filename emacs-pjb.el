@@ -32,7 +32,7 @@
  '(ediff-even-diff-A ((t (:background "grey50"))))
  '(ediff-odd-diff-A ((t (:background "Grey33"))))
  '(ediff-odd-diff-B ((t (:background "grey30"))))
- '(erc-default-face ((t (:foreground "light blue"))))
+ '(erc-default-face ((t (:foreground "dark green"))))
  '(erc-fool-face ((t (:foreground "#ffffee"))))
  '(erc-input-face ((t (:foreground "cyan2"))))
  '(erc-notice-face ((t (:foreground "gray70"))))
@@ -69,6 +69,7 @@
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "grey11" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
  '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey11" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
+ '(org-agenda-dimmed-todo-face ((t (:foreground "yellow"))))
  '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
  '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
  '(read-only-face ((t (:background "gray30"))) t)
@@ -79,7 +80,7 @@
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "light green")))))
+ '(slime-repl-output-face ((t (:inherit font-lock-string-face :foreground "dark green")))))
 
 
 
@@ -173,7 +174,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#acl2" "#lispweb" "#ccl" "#ecl" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp-es" "##lisp" "#acl2" "#lispweb" "#ccl" "#ecl" "#lisp" "#scheme" "#hn" "#lispcafe" "#clnoobs" "#quicklisp") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
@@ -251,6 +252,7 @@
  '(gnus-use-nocem nil)
  '(gnus-uu-post-encode-method (quote gnus-uu-post-encode-mime))
  '(gnus-visible-headers (quote ("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:" "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:" "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:" "^X-Sent:")))
+ '(gnutls-verify-error t)
  '(grep-command "grep -niH -e ")
  '(gud-gdb-command-name "gdb --annotate=1")
  '(hl-paren-colors (quote ("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray")))
@@ -368,7 +370,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package ARM :use CL) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (Lowercase . T) (Package ANSI-LOOP "COMMON-LISP") (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (package . net\.mail) (package . net\.post-office) (eval cl-indent (quote defmeth) 3) (more . org) (Package . BORDEAUX-FFT) (Package . XLIB) (Lowercase . Yes) (Package . gambol) (Package . C) (package . rune-dom) (Package . Hemlock) (Package . GUI) (view-mode t) (eval buttonize-buffer) (bug-reference-url-format . clisp-bug-reference-url-format) (tab-always-indent . t) (electric-indent-mode) (Package . cl-user) (Syntax . common-lisp) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (sentence-end-double-space . t) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t) (Package . DRAKMA) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . bind) (Package ARM :use CL) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (Lowercase . T) (Package ANSI-LOOP "COMMON-LISP") (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (package . net\.mail) (package . net\.post-office) (eval cl-indent (quote defmeth) 3) (more . org) (Package . BORDEAUX-FFT) (Package . XLIB) (Lowercase . Yes) (Package . gambol) (Package . C) (package . rune-dom) (Package . Hemlock) (Package . GUI) (view-mode t) (eval buttonize-buffer) (bug-reference-url-format . clisp-bug-reference-url-format) (tab-always-indent . t) (electric-indent-mode) (Package . cl-user) (Syntax . common-lisp) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (sentence-end-double-space . t) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t) (Package . DRAKMA) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
  '(send-mail-function (quote smtpmail-send-it))
@@ -398,6 +400,7 @@ X-Accept-Language:         fr, es, en
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 4)
  '(tags-table-list (quote nil))
+ '(tls-checktrust t)
  '(tnt-use-timestamps t)
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tool-bar-mode nil)
@@ -473,6 +476,32 @@ X-Accept-Language:         fr, es, en
 
 (defvar ecb-source-path)
 (setf ecb-source-path (expand-file-name "~/src/"))
+
+;;;----------------------------------------------------------------------------
+
+(let ((trustfile (string-trim (shell-command-to-string "python -m certifi"))))
+  (setf tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "")
+                 trustfile)))
+  (push trustfile gnutls-trustfiles))
+
+(defun test-tls-configuration ()
+  (let ((bad-hosts
+          (loop for bad
+                  in `("https://wrong.host.badssl.com/"
+                       "https://self-signed.badssl.com/")
+                if (condition-case e
+                                   (url-retrieve
+                                    bad (lambda (retrieved) t))
+                                   (error nil))
+                  collect bad)))
+    (if bad-hosts
+        (error (format "tls misconfigured; retrieved %s ok"
+                       bad-hosts))
+        (url-retrieve "https://badssl.com"
+                      (lambda (retrieved) t)))))
 
 ;;;----------------------------------------------------------------------------
 (load "~/rc/emacs-font.el")

@@ -250,7 +250,7 @@
     (format stream "~2%S/~A[~D]> "
             (if (packagep *package*)
                 (first (sort (cons (package-name *package*)
-                                   (package-nicknames *package*))
+                                   (copy-list (package-nicknames *package*)))
                              (function <=) :key (function length)))
                 "#<INVALID *PACKAGE*>")
             (incf counter))))
