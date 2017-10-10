@@ -71,7 +71,7 @@
 
 
 
-(declaim (optimize (safety 3) (debug 3) (space 0) (speed 0)))
+(declaim (optimize (safety 3) (debug 3) (space 0) (speed 0) (compilation-speed 3)))
 
 
 ;;;----------------------------------------------------------------------
@@ -957,6 +957,10 @@ without, lists all the commands with their docstrings."
 (define-command ll   ()
   "Load loader.lisp"
   (load "loader.lisp"))
+
+(define-command ql   (&rest systems)
+  "Quickload systems"
+  (apply (function ql:quickload) systems))
 
 (define-command qu   ()
   "Quit!"
