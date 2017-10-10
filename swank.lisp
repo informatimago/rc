@@ -15,7 +15,7 @@
 (defparameter *dont-close* t)
 
 (defparameter swank::*asdf-path* (merge-pathnames #p"quicklisp/asdf.lisp" (user-homedir-pathname)))
-  
+
 #+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
 #-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
 

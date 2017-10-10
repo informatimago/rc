@@ -643,6 +643,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "<A-up>")      'backward-up-list)
   (local-set-key (kbd "<A-down>")    'down-list)
   (paredit-mode +1)
+  (local-set-key (kbd "<M-up>")      'paredit-splice-sexp-killing-backward)
+  (local-set-key (kbd "<M-down>")    'paredit-splice-sexp-killing-forward)
+  (local-set-key (kbd "<A-up>")      'paredit-splice-sexp-killing-backward)
+  (local-set-key (kbd "<A-down>")    'paredit-splice-sexp-killing-forward)
   (local-set-key (kbd "s-A-<left>")  'paredit-backward-barf-sexp)
   (local-set-key (kbd "s-A-<right>") 'paredit-backward-slurp-sexp)
   (local-set-key (kbd "A-<right>")   'paredit-forward-slurp-sexp)
@@ -810,11 +814,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun clisp-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-<f5> step into
-<f6> next
-<f7> step over
-<f8> continue
-"
+                      <f5> step into
+                      <f6> next
+                      <f7> step over
+                      <f8> continue
+                      "
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":s"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ":n"))
@@ -824,11 +828,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun ecl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-<f5> step into
-<f6> next
-<f7> step over
-<f8> continue
-"
+                      <f5> step into
+                      <f6> next
+                      <f7> step over
+                      <f8> continue
+                      "
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ""))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ""))
@@ -838,11 +842,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun sbcl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-<f5> step into
-<f6> next
-<f7> step over
-<f8> continue
-"
+                      <f5> step into
+                      <f6> next
+                      <f7> step over
+                      <f8> continue
+                      "
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender "step"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender "next"))
@@ -852,10 +856,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun allegro-debug-keys ()
   "Binds locally some keys to send allegro debugger commands to the inferior-lisp
-<f5> step into
-<f7> step over
-<f8> continue
-"
+                      <f5> step into
+                      <f7> step over
+                      <f8> continue
+                      "
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":scont 1"))
   ;; (local-set-key (kbd "<f6>") (make-lisp-command-sender ))
@@ -943,13 +947,13 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;
 ;; to see the report after running.
 
-(when (fboundp 'slime-repl-bol)
-  (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
-  (defun slime-repl-bol ()
-    (interactive)
-    (if (eql 'home last-input-event)
-        (beginning-of-buffer)
-        (funcall *slime-repl-bol*))))
+                                       (when (fboundp 'slime-repl-bol)
+                                         (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+                                         (defun slime-repl-bol ()
+                                           (interactive)
+                                           (if (eql 'home last-input-event)
+                                               (beginning-of-buffer)
+                                               (funcall *slime-repl-bol*))))
 
 
 ;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
@@ -1095,8 +1099,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;      (require 'slime)
 ;;      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl))
 ;;
-     (add-hook 'lisp-mode-hook
-               (lambda () (slime-mode t) (slime-autodoc-mode t)))
+                                       (add-hook 'lisp-mode-hook
+                                                 (lambda () (slime-mode t) (slime-autodoc-mode t)))
 ;;      ;;(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 ;;      ;; (modify-syntax-entry ?$ "'" lisp-mode-syntax-table)
 ;;
@@ -1445,23 +1449,23 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "emacs<->Common Lisp RPC with slime/swank")
+                                       (.EMACS "emacs<->Common Lisp RPC with slime/swank")
 
 ;;; In emacs, we can execute Common Lisp expressions:
 
 ;; (require 'slime)
 ;; (slime)
 
-(setf slime-enable-evaluate-in-emacs t)
+                                       (setf slime-enable-evaluate-in-emacs t)
 
-(defun eval-in-cl (cl-expression-string process-result-values)
-  (slime-eval-with-transcript
-   `(swank:eval-and-grab-output ,cl-expression-string)
-   (lexical-let  ((here (current-buffer))
-                  (process-result-values process-result-values))
-     (lambda (result-values)
-       (set-buffer here)
-       (funcall process-result-values result-values)))))
+                                       (defun eval-in-cl (cl-expression-string process-result-values)
+                                         (slime-eval-with-transcript
+                                          `(swank:eval-and-grab-output ,cl-expression-string)
+                                          (lexical-let  ((here (current-buffer))
+                                                         (process-result-values process-result-values))
+                                                        (lambda (result-values)
+                                                          (set-buffer here)
+                                                          (funcall process-result-values result-values)))))
 
 ;; (eval-in-cl "(values 1 * (ext:! 20) (package-name *package*))"
 ;;             (lambda (values)

