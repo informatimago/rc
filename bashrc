@@ -36,15 +36,16 @@ function bashrc_clean_XDG_DATA_DIRS(){
 }
 
 function bashrc_set_prompt(){
+    # Thanks Twitter @climagic for the # prefix advice.
     if ((UID==0)) ; then
-        export PS1='[\u@\h $DISPLAY \W]# '
+        export PS1='# [\u@\h $DISPLAY \W]# '
     elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1="\n\\w\n[\\u@\\h $DISPLAY]\\$ "
+        export PS1="\n# \\w\n# [\\u@\\h $DISPLAY]\\$ "
     elif type -path period-cookie >/dev/null 2>&1 ; then
         local pc="$(type -path period-cookie)"
-        export PS1='$('"$pc"')[\u@\h $DISPLAY \W]\$ '
+        export PS1='$('"$pc"')# [\u@\h $DISPLAY \W]\$ '
     else
-        export PS1='[\u@\h $DISPLAY \W]$ '
+        export PS1='# [\u@\h $DISPLAY \W]$ '
     fi
 }
 
@@ -422,13 +423,12 @@ function be_generate(){
         fi
     fi
 
-    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8'
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx4g'
     value=/opt/local/share/java/gradle
     if [ -d $value/. ] ; then
         be_variable GRADLE_HOME "$value"
     fi
 
-    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
     if [ "${uname}" = Darwin ] ; then
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
