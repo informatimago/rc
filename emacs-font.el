@@ -352,6 +352,4 @@
 ;;   (when (fboundp 'single-frame) (single-frame)))
 
 
-(ignore-errors (progn (setf *pjb-current-font-index* 13) (set-current-font)))
-
 ;;;; THE END ;;;;
