@@ -1417,8 +1417,9 @@ URL in a new window."
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
-(require 'w3m-load)
-(when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
+
+(when (and (require 'w3m-load nil t)
+	   (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
   (.EMACS "w3m mode")
@@ -2035,15 +2036,38 @@ License:
         (indent-for-tab-command))))
 
 
-;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
+(defvar auto-c-style-alist
+  '(("/.*FreeRDP.*/.*\\.[hc]" . ("freerdp"))
+    ("." . "pjb")))
 
 (defun c-mode-meat ()
   (interactive)
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (infer-indentation-style)
+  (let ((path (buffer-file-name)))
+    (when path
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
+        (when c-style
+          (c-set-style c-style)
+
+          (when (string= c-style "freerdp")
+            (local-set-key "," 'freerdp-electric-space-after)
+            (local-set-key "=" 'freerdp-electric-space-before-after-=)
+            (dolist (key '("<" ">" "+" "-" "&" "|"))
+              (local-set-key key 'freerdp-electric-space-before-after-double))
+            (dolist (key '("*" "/" "%" "^"))
+              (local-set-key key 'freerdp-electric-space-before-after))
+            (local-set-key "{" 'freerdp-electric-brace-open)
+            (local-set-key "}" 'freerdp-electric-brace-close)
+            (local-set-key "(" 'freerdp-electric-paren-open)
+            (local-set-key ")" 'freerdp-electric-paren-close))))))
+
   (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  (define-key c-mode-map "{" 'self-insert-command)
+  ;; (define-key c-mode-map "{" 'self-insert-command)
   (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
+;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
 
 (add-hook 'c-mode-hook 'c-mode-meat)
 
@@ -2834,6 +2858,7 @@ list or vector, the length of the sequence."
   (when erc-fill-mode
     (erc-fill-mode -1)))
 
+(defvar erc-fill-mode-hook '())
 (push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
 ;; (set-frame-parameter (selected-frame) 'alpha 0)
