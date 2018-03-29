@@ -1266,6 +1266,27 @@ function bashrc_delete_bashrc_functions(){
 }
 
 
+function bash_patch_622655(){
+    # https://bugzilla.redhat.com/show_bug.cgi?id=622655
+    # Jean-Baptiste Poittevin 2012-10-21 14:19:55 EDT
+    # Append word to current word
+    #BEGIN HACK
+    if shopt failglob >/dev/null; then
+        INVERTGLOB=1
+        shopt -u failglob
+    else
+        INVERTGLOB=0
+    fi
+    #END HACK
+    eval $2[$j]=\${!ref}\${COMP_WORDS[i]}
+    #BEGIN HACK
+    if [ $INVERTGLOB -eq 1 ]; then
+        shopt -s failglob
+    fi
+    #END HACK
+    # Remove optional whitespace + word from line copy
+}
+
 function bashrc(){
     bashrc_set_host_uname
     bashrc_set_mask
@@ -1285,6 +1306,7 @@ function bashrc(){
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
 
     bashrc_delete_bashrc_functions
+    shopt -u failglob
 }
 
 bashrc
