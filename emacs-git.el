@@ -6,7 +6,7 @@
   (interactive)
   (font-lock-add-keywords
    nil
-   '(( "\\([0-9a-f]+\\) \\(([^)]*) \\)?\\(<[^>]*>\\)"
+   '(( "\\([0-9a-f]+\\) \\(\\(([^)]*) \\)?\\)\\(<[^>]*>\\)"
       (1 font-lock-comment-face)
       (2 font-lock-string-face)
-      (3 font-lock-function-name-face)))))
+      (4 font-lock-function-name-face)))))

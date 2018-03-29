@@ -2036,8 +2036,18 @@ License:
         (indent-for-tab-command))))
 
 
+(defun infer-indentation-style ()
+  (let ((spc-count (how-many "^ "  (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (setf indent-tab-mode (cond ((< spc-count tab-count) t)
+                                ((> spc-count tab-count) nil)
+                                (t                       indent-tab-mode)))))
+
+
+(require 'freerdp-c-style)
+
 (defvar auto-c-style-alist
-  '(("/.*FreeRDP.*/.*\\.[hc]" . ("freerdp"))
+  '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
     ("." . "pjb")))
 
 (defun c-mode-meat ()
@@ -2048,6 +2058,7 @@ License:
     (when path
       (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
         (when c-style
+          (message "Setting C style %s" c-style)
           (c-set-style c-style)
 
           (when (string= c-style "freerdp")
@@ -2055,7 +2066,9 @@ License:
             (local-set-key "=" 'freerdp-electric-space-before-after-=)
             (dolist (key '("<" ">" "+" "-" "&" "|"))
               (local-set-key key 'freerdp-electric-space-before-after-double))
-            (dolist (key '("*" "/" "%" "^"))
+            (dolist (key '("*" "/"))
+              (local-set-key key 'freerdp-electric-space-before-after-*/))
+            (dolist (key '("%" "^"))
               (local-set-key key 'freerdp-electric-space-before-after))
             (local-set-key "{" 'freerdp-electric-brace-open)
             (local-set-key "}" 'freerdp-electric-brace-close)
