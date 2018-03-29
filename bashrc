@@ -1283,7 +1283,7 @@ function bashrc(){
 
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
-
+    shopt -u failglob
     bashrc_delete_bashrc_functions
 }
 
