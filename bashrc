@@ -36,16 +36,27 @@ function bashrc_clean_XDG_DATA_DIRS(){
 }
 
 function bashrc_set_prompt(){
+    local prompt='\$ '
+    local prefix=''
+    local pc=''
+    local ibam=''
+
     if ((UID==0)) ; then
-        export PS1='[\u@\h $DISPLAY \W]# '
-    elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1="\n\\w\n[\\u@\\h $DISPLAY]\\$ "
-    elif type -path period-cookie >/dev/null 2>&1 ; then
-        local pc="$(type -path period-cookie)"
-        export PS1='$('"$pc"')[\u@\h $DISPLAY \W]\$ '
-    else
-        export PS1='[\u@\h $DISPLAY \W]$ '
+        prompt='# '
     fi
+
+    if [[ "$TERM" = "emacs" ]] ; then
+        prefix="\n\\w\n"
+    fi
+
+    if type -path period-cookie >/dev/null 2>&1 ; then
+        pc='$('"$(type -path period-cookie)"')'
+    fi
+
+    if type -p ibam 2>/dev/null ; then
+        ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//')"
+    fi
+    export PS1="${pc}${prefix}${ibam}[\u@\h $DISPLAY \W]${prompt}"
 }
 
 
