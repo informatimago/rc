@@ -19,7 +19,7 @@ function bashrc_set_host_uname(){
     if [ -r ~/.config/host ] ; then
         hostname=$(cat ~/.config/host)
     else
-        hosname=$(hostname -f)
+        hostname=$(hostname -f)
     fi
 }
 
@@ -27,7 +27,7 @@ function bashrc_set_DISPLAY(){
     # case "$DISPLAY" in
     # /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
     # esac
-    export DISPLAY=:0.0
+    export DISPLAY=${DISPLAY:-:0.0}
 }
 
 function bashrc_clean_XDG_DATA_DIRS(){
@@ -513,6 +513,8 @@ function be_generate(){
 
     be_comment 'antialiasing in QT applications'
     be_variable QT_XFT             1
+    # ~/Qt/5.8/clang_64/bin
+
     be_variable SHOOPSH            /usr/local/share/shoop/shoop.sh
     be_variable SHOOPMOD           /usr/local/share/shoop/modules
     be_variable SHOOPPATH          "$SHOOPMOD"
@@ -1283,6 +1285,7 @@ function bashrc(){
 
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
+    shopt -u failglob
 
     bashrc_delete_bashrc_functions
 }
