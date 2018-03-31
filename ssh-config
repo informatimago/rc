@@ -14,7 +14,17 @@
 Host github.com
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/github-id_ed25519
+    IdentityFile            ~/.ssh/github
+
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab
+
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
 
 Host patchy+github.com
     HostName                github.com
@@ -25,17 +35,6 @@ Host ubudu+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
-
-
-Host gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/gitlab-id_ed25519
-
-Host framagit.org
-    HostName                framagit.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit-id_ed25519
 
 
 
