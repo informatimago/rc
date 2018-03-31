@@ -67,15 +67,15 @@ Host *
     ForwardX11              no
     ForwardX11Trusted       yes
     HostbasedAuthentication yes
-    RhostsRSAAuthentication yes
-    RSAAuthentication       yes
+#    RhostsRSAAuthentication yes
+#    RSAAuthentication       yes
     PubkeyAuthentication    yes
     PasswordAuthentication  yes
     BatchMode               no
     CheckHostIP             yes
     StrictHostKeyChecking   ask
     Compression             yes
-    CompressionLevel        3
+#   CompressionLevel        3
     KeepAlive               yes
     GatewayPorts            no
 
