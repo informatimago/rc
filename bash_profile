@@ -16,6 +16,4 @@ esac
 # Get the aliases and functions
 [ -f ~/.bashrc ] && . ~/.bashrc
 
-shopt -s failglob
-
 #### THE END ####

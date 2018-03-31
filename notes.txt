@@ -6864,6 +6864,12 @@ spliting a subtree:
     git diff adab4ab^ 6da161b
     git diff --name-only adab4ab^ 6da161b
     git diff --name-status adab4ab^ 6da161b
+*** git remove last commit
+#+BEGIN_EXAMPLE
+git stash other-changes
+git reset --hard HEAD^
+#+END_EXAMPLE
+
 ** DVCS: github
 *** multiple github accounts
 

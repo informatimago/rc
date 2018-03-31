@@ -538,7 +538,8 @@ WELCOME TO EMACS!
 (require 'highlight-flet nil t)
 (require 'rst nil t)
 (require 'rst-mode nil t)
-(mouse-avoidance-mode 'cat-and-mouse)
+(when window-system
+  (mouse-avoidance-mode 'cat-and-mouse))
 
 
 
