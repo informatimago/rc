@@ -14,7 +14,22 @@
 Host github.com
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/github-id_ed25519
+    IdentityFile            ~/.ssh/github
+
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab
+
+Host gitlab.ogamita.com
+    HostName                gitlab.ogamita.com
+    User                    git
+    IdentityFile            ~/.ssh/ogamita
+
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
 
 Host patchy+github.com
     HostName                github.com
@@ -25,17 +40,6 @@ Host ubudu+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
-
-
-Host gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/gitlab-id_ed25519
-
-Host framagit.org
-    HostName                framagit.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit-id_ed25519
 
 
 
@@ -67,15 +71,15 @@ Host *
     ForwardX11              no
     ForwardX11Trusted       yes
     HostbasedAuthentication yes
-    # RhostsRSAAuthentication yes
-    # RSAAuthentication       yes
+#    RhostsRSAAuthentication yes
+#    RSAAuthentication       yes
     PubkeyAuthentication    yes
     PasswordAuthentication  yes
     BatchMode               no
     CheckHostIP             yes
     StrictHostKeyChecking   ask
     Compression             yes
-    # CompressionLevel        3
+#   CompressionLevel        3
     KeepAlive               yes
     GatewayPorts            no
 
