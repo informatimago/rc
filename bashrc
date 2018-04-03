@@ -53,8 +53,8 @@ function bashrc_set_prompt(){
         pc='$('"$(type -path period-cookie)"')'
     fi
 
-    if type -p ibam 2>/dev/null ; then
-        ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//')"
+    if type -p ibam >/dev/null 2>&1 ; then
+        ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
     export PS1="${pc}${prefix}${ibam}[\u@\h $DISPLAY \W]${prompt}"
 }
