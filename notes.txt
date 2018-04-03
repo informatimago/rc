@@ -11221,6 +11221,31 @@ the apps I've tried.
      sudo port uninstall inactive      # remove the inactive ports.
      sudo port clean --all uninstalled # remove the non-installed distfiles
 
+
+  mysql57 has the following notes:
+    On activation if no /opt/local/etc/mysql57/my.cnf file exists one
+    will be created which loads
+    /opt/local/etc/mysql57/macports-default.cnf.
+
+    If a /opt/local/etc/mysql57/my.cnf file exists MacPorts does not
+    touch it and any changes you make to /opt/local/etc/mysql57/my.cnf
+    will be preserved (e.g., during port upgrades, deactivations or
+    activations). /opt/local/etc/mysql57/my.cnf is a good place to
+    customize your mysql57 installation.
+
+    Any changes made to /opt/local/etc/mysql57/macports-default.cnf
+    will be lost during port upgrades, deactivations or activations so you
+    are advised to not make changes here. Currently
+    /opt/local/etc/mysql57/macports-default.cnf contains only one
+    directive; to disable networking. With disabled networking it is
+    possible to install and have running all the MacPorts mysql ports
+    simultaneously.
+  mysql57-server has the following notes:
+    If this is a new install you might want to run:
+
+    $ sudo /opt/local/lib/mysql57/bin/mysqld --initialize --user=_mysql
+    $ /opt/local/lib/mysql57/bin/mysql_secure_installation
+
 ** SYSTEM: Darwin on Linux: darling
 https://www.darlinghq.org/source-code/
 
