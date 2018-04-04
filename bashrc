@@ -1135,6 +1135,24 @@ function get-directory   (){ awk '{if($1=="'"$1"'"){print $2}}' ~/directories.tx
 function timestamp       (){ date +%Y%m%dT%H%M%S ; }
 function ip-address      (){ ifconfig|awk '/inet /{if($2!="127.0.0.1"){print $2;exit;}}' ; }
 
+function ip-broadcast-address () {
+    local mac="$1"
+    ifconfig |grep -i Bcast | tr ' ' '\012' | awk -F: '/Bcast/{print $2}'
+}
+
+function get_ip_address_from_MAC(){
+    local remote_MAC="$1"
+    local bcast="$(mac-to-ip-address)"
+    case "$ip" in
+    (*\ *)
+        printf "Multiple broadcast addresses! %s\n" "$bcast"
+        return 1
+        ;;
+    esac
+    ping -c 3 "$bcast" >/dev/null 2>&1
+    arp -n | awk  "/$remote_MAC/"'{print $1;}'
+}
+
 function sort-host       (){ tr '.' '@' | sort -t@ -n +0 -1 +1 -2 +2 -3 +3 -4 | tr '@' '.' ; }
     # We have to replace dots by something else since they are taken for
     # decimal points by sort -n.
