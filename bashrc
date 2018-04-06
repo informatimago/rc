@@ -37,15 +37,18 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
+    local pc
+    local display
+    display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     if ((UID==0)) ; then
-        export PS1='# [\u@\h $DISPLAY \W]# '
+        export PS1="# [\u@\h ${display} \W]# "
     elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1="\n# \\w\n# [\\u@\\h $DISPLAY]\\$ "
+        export PS1='\n# \\w\n# [\\u@\\h '"${display}"']\\$ '
     elif type -path period-cookie >/dev/null 2>&1 ; then
-        local pc="$(type -path period-cookie)"
-        export PS1='$('"$pc"')# [\u@\h $DISPLAY \W]\$ '
+        pc="$(type -path period-cookie)"
+        export PS1='$('"$pc"')# [\u@\h '"${display}"' \W]\$ '
     else
-        export PS1='# [\u@\h $DISPLAY \W]$ '
+        export PS1='# [\u@\h '"${display}"' \W]$ '
     fi
 }
 
