@@ -21,8 +21,18 @@ Host gitlab.com
     User                    git
     IdentityFile            ~/.ssh/gitlab
 
+Host gitlab.ogamita.com
+    HostName                gitlab.ogamita.com
+    User                    git
+    IdentityFile            ~/.ssh/ogamita
+
 Host framagit.org
     HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
+
+Host git.framasoft.org
+    HostName                git.framasoft.org
     User                    git
     IdentityFile            ~/.ssh/framagit
 
