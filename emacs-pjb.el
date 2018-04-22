@@ -538,7 +538,7 @@ X-Accept-Language:         fr, es, en
                               :key (function car)))
 (ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
 
-(when (require 'flycheck t)
+(when (require 'flycheck nil t)
   (global-flycheck-mode))
 ;;;----------------------------------------------------------------------------
 
