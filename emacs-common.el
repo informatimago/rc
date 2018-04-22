@@ -279,6 +279,21 @@ WELCOME TO EMACS!
 ;;                         x-encoding  "iso8859-15"))
 ;;   (t (error "Invalid value for my-latin variable.")))
 
+(unless (fboundp 'digit-char-p)
+  (defun digit-char-p (ch)
+    "Return the value of the digit if ch is a digit character, or nil."
+    (case ch
+      ((?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) (- ch ?0))
+      (otherwise nil))))
+
+(defun octal (n)
+  "N is a decimal numbers whose digits are taken as octal digits
+and converted as such."
+  (loop
+     for d across (format "%d" n)
+     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
+     finally (return r)))
+
 (progn
   (case system-type
     (darwin
@@ -294,24 +309,6 @@ WELCOME TO EMACS!
      (set-next-selection-coding-system        'utf-8-unix)
      (set-selection-coding-system             'utf-8-unix)
      (set-terminal-coding-system              'utf-8-unix)
-
-<<<<<<< HEAD
-(unless (fboundp 'digit-char-p)
-  (defun digit-char-p (ch)
-    "Return the value of the digit if ch is a digit character, or nil."
-    (case ch
-      ((?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) (- ch ?0))
-      (otherwise nil))))
-
-(defun octal (n)
-  "N is a decimal numbers whose digits are taken as octal digits
-and converted as such."
-  (loop
-     for d across (format "%d" n)
-     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-     finally (return r)))
-=======
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
 
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
@@ -945,7 +942,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;; some more global key map are defined after loading my personal files below.
 
 
-<<<<<<< HEAD
+
 ;;;----------------------------------------------------------------------------
 (.EMACS "Loading my personal files -- My own stuff.")
 (unless (load "pjb-loader.el" t)
@@ -1474,10 +1471,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (defun called-interactively-p () (interactive-p))))
 
 
-=======
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
-
-
 ;;;----------------------------------------------------------------------------
 (.EMACS "debug")
 (require 'debug)
@@ -1637,7 +1630,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (.EMACS "darcs")
 (load "vc-darcs" t nil)
 
-<<<<<<< HEAD
+
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "INFERIOR LISP")
@@ -2166,10 +2159,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (interactive)
   (ignore-errors (paredit-backward-up 1000)))
 
-(defun paredit-end-of-toplevel-form ()
-=======
+
 (defun jump-to-real-file-from-darcs ()
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
   (interactive)
   (let* ((f (buffer-file-name (current-buffer)))
          (match (string-match "_darcs/current" f)))
@@ -2203,7 +2194,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
             (push item result))
      finally (return (nreverse result))))
 
-<<<<<<< HEAD
+
 (defun ensure-list (x) (if (listp x) x (list x)))
 ;; (defun comint-output-filter (process string)
 ;;   (let ((oprocbuf (process-buffer process)))
@@ -2300,105 +2291,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;                     (overlay-put comint-last-prompt-overlay
 ;;                                  'font-lock-face 'comint-highlight-prompt))))
 ;;             (goto-char saved-point)))))))
-=======
-(defvar comint-last-prompt-overlay nil)
-(defun comint-output-filter (process string)
-  (let ((oprocbuf (process-buffer process)))
-    ;; First check for killed buffer or no input.
-    (when (and string oprocbuf (buffer-name oprocbuf))
-      (with-current-buffer oprocbuf
-        ;; Run preoutput filters
-        (let ((functions (splice (default-value 'comint-preoutput-filter-functions)
-                                 t
-                                 comint-preoutput-filter-functions))
-              (strings (list string)))
 
-          (while (and functions strings)
-            (setf strings (loop
-                             with result = ()
-                             for string in strings
-                             do (setf result (revappend (ensure-list (funcall (car functions) string)) result))
-                             finally (return (nreverse result))))
-            (setq functions (cdr functions)))
-          (setf string strings))
-
-        ;; Insert STRING
-        (let ((inhibit-read-only t)
-              ;; The point should float after any insertion we do.
-              (saved-point (copy-marker (point) t)))
-
-          ;; We temporarly remove any buffer narrowing, in case the
-          ;; process mark is outside of the restriction
-          (save-restriction
-            (widen)
-
-            (goto-char (process-mark process))
-            (set-marker comint-last-output-start (point))
-
-            ;; insert-before-markers is a bad thing. XXX
-            ;; Luckily we don't have to use it any more, we use
-            ;; window-point-insertion-type instead.
-            (loop
-               for item in string
-               do (cond
-                    ((stringp item) (insert item))
-                    ((consp   item) (insert-image (first item) (second item)))
-                    (t (error "Unexpected kind of insert %S" item))))
-
-
-            ;; Advance process-mark
-            (set-marker (process-mark process) (point))
-            (setf string (buffer-substring comint-last-output-start (point)))
-            (unless comint-inhibit-carriage-motion
-              ;; Interpret any carriage motion characters (newline, backspace)
-              (comint-carriage-motion comint-last-output-start (point)))
-
-            ;; Run these hooks with point where the user had it.
-            (goto-char saved-point)
-            (run-hook-with-args 'comint-output-filter-functions string)
-            (set-marker saved-point (point))
-
-            (goto-char (process-mark process)) ; in case a filter moved it
-
-            (unless comint-use-prompt-regexp
-              (let ((inhibit-read-only t)
-                    (inhibit-modification-hooks t))
-                (add-text-properties comint-last-output-start (point)
-                                     '(front-sticky
-                                       (field inhibit-line-move-field-capture)
-                                       rear-nonsticky t
-                                       field output
-                                       inhibit-line-move-field-capture t))))
-
-            ;; Highlight the prompt, where we define `prompt' to mean
-            ;; the most recent output that doesn't end with a newline.
-            (let ((prompt-start (save-excursion (forward-line 0) (point)))
-                  (inhibit-read-only t)
-                  (inhibit-modification-hooks t))
-              (when comint-prompt-read-only
-                (or (= (point-min) prompt-start)
-                    (get-text-property (1- prompt-start) 'read-only)
-                    (put-text-property
-                     (1- prompt-start) prompt-start 'read-only 'fence))
-                (add-text-properties
-                 prompt-start (point)
-                 '(read-only t rear-nonsticky t front-sticky (read-only))))
-              (when (boundp 'comint-last-prompt-overlay)
-               (unless (and (bolp) (null comint-last-prompt-overlay))
-                 ;; Need to create or move the prompt overlay (in the case
-                 ;; where there is no prompt ((bolp) == t), we still do
-                 ;; this if there's already an existing overlay).
-                 (if comint-last-prompt-overlay
-                     ;; Just move an existing overlay
-                     (move-overlay comint-last-prompt-overlay
-                                   prompt-start (point))
-                     ;; Need to create the overlay
-                     (setq comint-last-prompt-overlay
-                           (make-overlay prompt-start (point)))
-                     (overlay-put comint-last-prompt-overlay
-                                  'font-lock-face 'comint-highlight-prompt)))))
-            (goto-char saved-point)))))))
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
 
 
 (defun pjb-comint-preoutput-insert-image (string)
@@ -2612,7 +2505,6 @@ URL in a new window."
   ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
   (setf common-lisp-hyperspec-browser (function w3m-browse-url))
   ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
-<<<<<<< HEAD
   
   ) ;;when
 
@@ -3554,8 +3446,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;;; 	       (do-applescript (concat "open location \""
 ;;; 				       url "\"")))))
 
-=======
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
 
   ) ;;when
 
@@ -4484,24 +4374,6 @@ License:
   (let ((prefix "."))
     (format  "-I%s -L%s" prefix prefix)))
 
-<<<<<<< HEAD
-(defun compile-and-run (mode)
-  (interactive "p")
-  (cl-flet ((name (path)
-              (when (string-match "^.*/\\([^./]*\\)\\.[^/.]*$" path)
-                (match-string 1 path)))
-            (type (path)
-              (when (string-match "^.*/[^./]*\\.\\([^/.]*\\)$" path)
-                (match-string 1 path))))
-    (let* ((src (buffer-file-name (current-buffer)))
-           (compiler (or (cdr (assoc* (type src)
-                                      '(("c++" . "g++")
-                                        ("cpp" . "g++")
-                                        ("cxx" . "g++")
-                                        ("C" . "g++"))
-                                      :test (function string=)))
-                         "gcc")))
-=======
 (defun compile-and-run-file (src mode)
   (interactive "fC or C++ source file to compile and run:
 p")
@@ -4518,7 +4390,6 @@ p")
                                        ("C" . "g++"))
                                      :test (function string=)))
                         "gcc")))
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
       ;; (message "src=%S" src)
       ;; (message "exe=%S"  (name src))
       ;; (message "mode=%S" mode)
