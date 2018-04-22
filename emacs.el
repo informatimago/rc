@@ -12,10 +12,14 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+<<<<<<< HEAD
+(message "Pascal J. Bourguignon's emacs startup file.")
+=======
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
 
 ;; (setf debug-on-quit t
 ;;       debug-on-error t)
+>>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
 
 (setq message-log-max 5000)
 (when (< emacs-major-version 24)
