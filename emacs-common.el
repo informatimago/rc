@@ -3447,8 +3447,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;;; 				       url "\"")))))
 
 
-  ) ;;when
-
 
 ;;;----------------------------------------------------------------------------
 (when (require 'column-marker nil t)
