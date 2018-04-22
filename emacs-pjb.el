@@ -524,30 +524,22 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
-<<<<<<< HEAD
+
 (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
     (ignore-errors (set-frame-font "terminus-18")))
 
-(add-to-list 'auto-mode-alist '("~/works/abalone/.*\\.\\(h\\|m\\mm\\)$"   . objc-mode))
-(add-to-list 'auto-mode-alist '("~/private/etudes/stanford/.*\\.\\(m\\)$" . octave-mode))
-(setf auto-mode-alist  (sort* auto-mode-alist
-                              (function string<)
-                              :key (function car)))
-(set-sources "~/works/patchwork/patchwork/")
-=======
 (add-to-list 'auto-mode-alist `(".swift$" . swift-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/works/abalone/.*\\.\\(h\\|m\\mm\\)$")   . objc-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
-
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
-
 (ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
-(require 'flycheck)
-(global-flycheck-mode)
+
+(when (require 'flycheck t)
+  (global-flycheck-mode))
 ;;;----------------------------------------------------------------------------
 
 ;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
@@ -557,7 +549,7 @@ X-Accept-Language:         fr, es, en
 ;;                              (shell-command-to-string
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
->>>>>>> a2803bedf9398fd7eedf70bac2308db21c716795
+
 (push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
 
 (dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
