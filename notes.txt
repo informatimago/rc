@@ -1411,8 +1411,8 @@ clisp scripts to index and set mp3info to new mp3 files:
     /data/sound/music-flac/the-surfaris.index
     /data/sound/music-mp3/the-chantays.index
     /data/sound/music-mp3/the-ventures.index
-***** TODO [#B] Rename Schubert files and MP3 Info.
-***** TODO [#B] Name Johan Sebastian Bach files, using cddb.txt files.
+***** TODO [#B] Rename Schubert files and MP3 Info.*
+**** TODO [#B] Name Johan Sebastian Bach files, using cddb.txt files.
 **** DONE [#A] HTTPS on kuiper
      CLOSED: [2017-05-08 Mon 15:49]
      - State "DONE"       from "TODO"       [2017-05-08 Mon 15:49] \\
