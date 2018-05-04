@@ -1142,7 +1142,7 @@ function ip-broadcast-address () {
 
 function get_ip_address_from_MAC(){
     local remote_MAC="$1"
-    local bcast="$(mac-to-ip-address)"
+    local bcast="$(ip-broadcast-address)"
     case "$ip" in
     (*\ *)
         printf "Multiple broadcast addresses! %s\n" "$bcast"
