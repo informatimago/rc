@@ -535,6 +535,10 @@ X-Accept-Language:         fr, es, en
 (ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
 (when (require 'flycheck nil t)
  (global-flycheck-mode))
+
+(autoload 'cflow-mode "cflow-mode")
+(setq auto-mode-alist (append auto-mode-alist
+                              '(("\\.cflow$" . cflow-mode))))
 ;;;----------------------------------------------------------------------------
 
 ;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
