@@ -1,6 +1,7 @@
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
+(push "~/.emacs.d" load-path)
 (require 'paredit)
 
 (defvar pjb-paredit-space-for-delimiter-predicates '()
