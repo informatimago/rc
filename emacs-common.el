@@ -2060,25 +2060,13 @@ License:
         (when c-style
           (message "Setting C style %s" c-style)
           (c-set-style c-style)
-
           (when (string= c-style "freerdp")
-            (local-set-key "," 'freerdp-electric-space-after)
-            (local-set-key "=" 'freerdp-electric-space-before-after-=)
-            (dolist (key '("<" ">" "+" "-" "&" "|"))
-              (local-set-key key 'freerdp-electric-space-before-after-double))
-            (dolist (key '("*" "/"))
-              (local-set-key key 'freerdp-electric-space-before-after-*/))
-            (dolist (key '("%" "^"))
-              (local-set-key key 'freerdp-electric-space-before-after))
-            (local-set-key "{" 'freerdp-electric-brace-open)
-            (local-set-key "}" 'freerdp-electric-brace-close)
-            (local-set-key "(" 'freerdp-electric-paren-open)
-            (local-set-key ")" 'freerdp-electric-paren-close))))))
-
+            (freerdp-style-set-local-bindings))))))
   (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   ;; (define-key c-mode-map "{" 'self-insert-command)
   (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
 
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
 
