@@ -283,6 +283,7 @@
 
         "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
         "fixed"
+        "terminus-32"
         ))
 
      ;; (otherwise
