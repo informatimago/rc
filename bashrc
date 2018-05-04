@@ -687,7 +687,7 @@ function ds() {
 function cdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
@@ -702,7 +702,7 @@ function cdd(){
 function pushdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
