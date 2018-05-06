@@ -39,16 +39,17 @@ function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
     local pc
     local display
+    # shellcheck disable=SC2016
     display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     if ((UID==0)) ; then
-        export PS1="# [\u@\h ${display} \W]# "
+        export PS1="${NORMAL}# [\u@\h ${display} \W]# "
     elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1='\n# \\w\n# [\\u@\\h '"${display}"']\\$ '
+        export PS1="${NORMAL}"'\n# \w\n# [\u@\h '"${display}"']\$ '
     elif type -path period-cookie >/dev/null 2>&1 ; then
         pc="$(type -path period-cookie)"
-        export PS1='$('"$pc"')# [\u@\h '"${display}"' \W]\$ '
+        export PS1="${NORMAL}"'$('"$pc"')# [\u@\h '"${display}"' \W]\$ '
     else
-        export PS1='# [\u@\h '"${display}"' \W]$ '
+        export PS1="${NORMAL}"'# [\u@\h '"${display}"' \W]$ '
     fi
 }
 
