@@ -1,6 +1,7 @@
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
+(push "~/.emacs.d" load-path)
 (require 'paredit)
 
 (defvar pjb-paredit-space-for-delimiter-predicates '()
@@ -50,6 +51,7 @@ Useful for Objective-CL reader macros."
                      pjb-paredit-space-for-delimiter-predicates)))
             t)))
 
+(defvar paredit-space-for-delimiter-predicates '())
 (push 'pjb-dispatching-reader-macros-p          pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-comma-at-p                           pjb-paredit-space-for-delimiter-predicates)
 (push 'pjb-at-p                                 pjb-paredit-space-for-delimiter-predicates)
