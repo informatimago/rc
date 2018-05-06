@@ -1,6 +1,8 @@
 ;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 (.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
-(when (require 'package nil t)
+
+(when (and (zerop (length (shell-command-to-string "git config --global http.proxy")))
+	   (require 'package nil t))
   ;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
   (setq package-archives '(("gnu"           . "https://elpa.gnu.org/packages/")
                            ("marmalade"     . "https://marmalade-repo.org/packages/")
@@ -31,11 +33,11 @@
   ;;           package-alist)))
 
   (when (fboundp 'run-lac-functions)
-    (run-lac-functions)))
+    (run-lac-functions))
 
 
-(defvar *packages* '())
-(setq *packages* '(
+  (defvar *packages* '())
+  (setq *packages* '(
 
                      paredit
 
@@ -47,10 +49,10 @@
 
                      ))
 
-(defun pjb-install-packages ()
-  (interactive)
-  (mapc (function package-install) *packages*))
+  (defun pjb-install-packages ()
+    (interactive)
+    (mapc (function package-install) *packages*))
 
-(pjb-install-packages)
+  (pjb-install-packages))
 
 ;;;; The End ;;;;
