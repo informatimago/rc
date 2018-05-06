@@ -1896,7 +1896,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
   (defun %lisp-buffer-name-number (buffer-name)
     (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
-      (parse-integer (match-string 1 buffer-name))))
+      (cl:parse-integer (match-string 1 buffer-name))))
   (defun inferior-lisp-buffers-list ()
     "RETURN: a list of the inferior-lisp buffers."
     (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
@@ -3249,20 +3249,24 @@ in the current directory, or in a parent."
     ((file-readable-p "/tmp/no-internet")
      nil)
     (t
-     (zerop (parse-integer
+     (zerop (cl:parse-integer
              (shell-command-to-string
               (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
                       url)))))))
 
 
 ;; (require 'clhs)
-(require 'hyperspec)
+;; (require 'hyperspec)
+
 
 (defvar *lw-clhs*)
 (setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
 (defvar *hyperspec-path*)
-(setf   *hyperspec-path*   (or (ignore-errors (get-directory :hyperspec))
-                               (concat "/usr/local/html/local/lisp/" *lw-clhs*))
+(setf   *hyperspec-path*   (first-existing-file
+			    (list
+			     (ignore-errors (get-directory :hyperspec))
+			     (concat "/usr/local/html/local/lisp/" *lw-clhs*)
+			     "/opt/local/share/doc/lisp/HyperSpec-7-0/"))
         common-lisp-hyperspec-root
         (dolist
             (url (list
