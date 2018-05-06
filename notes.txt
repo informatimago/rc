@@ -5934,6 +5934,13 @@ break foo / commands / continue / end
 If not, add "info locals" before continue. And use "finish" instead of "continue"
 ""to finish the stackframe.
 
+** COMMANDS: GPG
+
+#+BEGIN_EXAMPLE
+exec 7<passwd
+gpg -c -passphrase-fd 7
+#+END_EXAMPLE
+
 ** COMMANDS: GNU Parted
     http://www.mcc.ac.uk/gnu/parted-1.6.1/html_node/parted_toc.html
 
