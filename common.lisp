@@ -52,8 +52,8 @@
       (set-difference
        (copy-seq (package-use-list "COMMON-LISP-USER"))
        (delete nil (list ;; A list of all the "CL" packages possible:
-                    (find-package "COMMON-LISP")
-                    (find-package "IMAGE-BASED-COMMON-LISP")))))
+                         (find-package "COMMON-LISP")
+                         (find-package "IMAGE-BASED-COMMON-LISP")))))
 
 
 (setf *print-circle* t
@@ -191,8 +191,8 @@ License:
 
 
 (defun make-pathname (&key (host nil hostp) (device nil devicep) (directory nil directoryp)
-                       (name nil namep) (type nil typep) (version nil versionp)
-                       (defaults nil defaultsp) (case :local casep))
+                        (name nil namep) (type nil typep) (version nil versionp)
+                        (defaults nil defaultsp) (case :local casep))
   (declare (ignorable casep))
   #+(or abcl ccl allegro)
   (labels ((localize (object)
@@ -239,36 +239,36 @@ License:
 
 (defun asdf-configuration ()
   "Creates the ~/.config/common-lisp/asdf-output-translations.conf file."
- (let ((asdf-conf-path (merge-pathnames
-                        (make-pathname :directory '(:relative ".config" "common-lisp")
-                                       :name "asdf-output-translations"
-                                       :type "conf"
-                                       :case :local
-                                       :defaults (user-homedir-pathname))
-                        (user-homedir-pathname) nil))
-       (common-path *load-truename*))
-   (when (or (not (ignore-errors (probe-file asdf-conf-path)))
-             (null (file-write-date asdf-conf-path))
-             (and common-path
-                  (or (null (file-write-date common-path))
-                      (< (file-write-date asdf-conf-path)
-                         (file-write-date common-path)))))
-     (ensure-directories-exist asdf-conf-path)
-     (with-open-file (asdfconf asdf-conf-path
-                               :direction :output
-                               :if-does-not-exist :create
-                               :if-exists nil
-                               :external-format :default)
-       (write-string ";; -*- mode:lisp -*-" asdfconf)
-       (print '(:OUTPUT-TRANSLATIONS
-                :ignore-invalid-entries
-                ;; :ignore-inherited-configuration
-                ;; TODO: Replace :hostname which doesn't seem to be supported anymore by a function.
-                (T (:HOME ".cache" "common-lisp" :HOSTNAME :IMPLEMENTATION))
-                (T (:HOME ".cache" "common-lisp" :IMPLEMENTATION))
-                :INHERIT-CONFIGURATION)
-              asdfconf)
-       (terpri asdfconf)))))
+  (let ((asdf-conf-path (merge-pathnames
+                         (make-pathname :directory '(:relative ".config" "common-lisp")
+                                        :name "asdf-output-translations"
+                                        :type "conf"
+                                        :case :local
+                                        :defaults (user-homedir-pathname))
+                         (user-homedir-pathname) nil))
+        (common-path *load-truename*))
+    (when (or (not (ignore-errors (probe-file asdf-conf-path)))
+              (null (file-write-date asdf-conf-path))
+              (and common-path
+                   (or (null (file-write-date common-path))
+                       (< (file-write-date asdf-conf-path)
+                          (file-write-date common-path)))))
+      (ensure-directories-exist asdf-conf-path)
+      (with-open-file (asdfconf asdf-conf-path
+                                :direction :output
+                                :if-does-not-exist :create
+                                :if-exists nil
+                                :external-format :default)
+        (write-string ";; -*- mode:lisp -*-" asdfconf)
+        (print '(:OUTPUT-TRANSLATIONS
+                 :ignore-invalid-entries
+                 ;; :ignore-inherited-configuration
+                 ;; TODO: Replace :hostname which doesn't seem to be supported anymore by a function.
+                 (T (:HOME ".cache" "common-lisp" :HOSTNAME :IMPLEMENTATION))
+                 (T (:HOME ".cache" "common-lisp" :IMPLEMENTATION))
+                 :INHERIT-CONFIGURATION)
+               asdfconf)
+        (terpri asdfconf)))))
 
 
 ;;;----------------------------------------------------------------------
@@ -276,7 +276,7 @@ License:
 ;;; QuickLisp
 ;;;
 
-(defun load-quicklisp ()
+(defun load-quicklisp (&key (if-does-not-exist :error))
   "Loads quicklisp."
   (let ((quicklisp (merge-pathnames
                     (make-pathname :directory '(:relative "QUICKLISP")
@@ -289,7 +289,11 @@ License:
                     nil)))
     (if (probe-file quicklisp)
         (load quicklisp)
-        (error "Please install quicklisp.  I expect it in ~S" quicklisp))))
+        (case if-does-not-exist
+          ((:error)
+           (error "Please install quicklisp.  I expect it in ~S" quicklisp))
+          (otherwise
+           if-does-not-exist)))))
 
 
 ;;;----------------------------------------------------------------------
@@ -338,37 +342,94 @@ License:
 
 (load-asdf3)
 (asdf-configuration)
-(load-quicklisp)
-(push #P"~/src/public/lisp/" ql:*local-project-directories*)
-(ql:quickload "com.informatimago.common-lisp"              :verbose nil)
-(ql:quickload "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
-(ql:quickload "com.informatimago.clmisc"                   :verbose nil)
-(ql:quickload "com.informatimago.common-lisp.lisp-sexp"    :verbose nil)
 
-;; (ql:quickload "com.informatimago.tools")
-(ql:quickload '("com.informatimago.tools.pathname"
-                "com.informatimago.tools.manifest"
-                "com.informatimago.tools.symbol"
-                "com.informatimago.tools.source"
-                "com.informatimago.tools.summary"
-                "com.informatimago.tools.thread"
-                "com.informatimago.tools.quicklisp"
-                "com.informatimago.tools.make-depends"
-                "com.informatimago.tools.script"
-                "com.informatimago.tools.check-asdf")
-              :verbose nil)
+(defparameter *ql-present*  (load-quicklisp :if-does-not-exist nil))
+
+(unless *ql-present*
+  (defpackage "QUICKLISP"
+    (:use)
+    (:nicknames "QL" "QL-CONFIG")
+    (:export "*LOCAL-PROJECT-DIRECTORIES*"
+             "QUICKLOAD"
+             "CONFIG-VALUE")))
+
+(defvar ql:*local-project-directories* '())
+
+;; (when *ql-present*
+;;   (setf (ql-config:config-value "proxy-url")
+;;         (with-open-file (proxy-url #P"~/.proxy") (read-line proxy-url))))
+
+
+(defun load-one-way-or-another (system &key (verbose t))
+  (if *ql-present*
+      (ql:quickload system :verbose verbose)
+      (asdf:oos 'asdf:load-op system :verbose verbose)))
+
+(defun find-directories-with-asd-files (root-pathname)
+  ;; going around a bug in clisp where (directory "…/../…") takes too long.
+  (loop
+    :with old-set := '()
+    :for dir := (make-pathname :name nil :type nil :version nil :defaults root-pathname)
+    :then (make-pathname :directory (append (pathname-directory dir) '(:wild))
+                         :name :wild
+                         :type "asd"
+                         :case :local
+                         :defaults dir)
+    :do (let ((new-set (sort (append old-set (directory dir))
+                             (lambda (a b) (string< (namestring a) (namestring b))))))
+          (if (= (length new-set) (length old-set))
+              (return-from find-directories-with-asd-files new-set)
+              (setf old-set new-set)))))
+
+(defun register-system-location (directory-pathname)
+  (if *ql-present*
+      (progn
+        (push directory-pathname ql:*local-project-directories*)
+        (ql:register-local-projects))
+      (setf asdf:*central-registry*
+            (append (directory (make-pathname :directory (append (pathname-directory directory-pathname)
+                                                                 '(:wild-inferiors))
+                                              :name :wild
+                                              :type "asd"
+                                              :case :local
+                                              :defaults directory-pathname))
+                    asdf:*central-registry*))))
+
+
+
+;; #+#.(cl:if *ql-present* '(:and) '(:or))
+;; (progn
+
+(register-system-location #P"~/src/public/lisp/")
+(load-one-way-or-another "com.informatimago.common-lisp"              :verbose nil)
+(load-one-way-or-another "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
+(load-one-way-or-another "com.informatimago.clmisc"                   :verbose nil)
+(load-one-way-or-another "com.informatimago.common-lisp.lisp-sexp"    :verbose nil)
+
+;; (load-one-way-or-another "com.informatimago.tools")
+(load-one-way-or-another '("com.informatimago.tools.pathname"
+                           "com.informatimago.tools.manifest"
+                           "com.informatimago.tools.symbol"
+                           "com.informatimago.tools.source"
+                           "com.informatimago.tools.summary"
+                           "com.informatimago.tools.thread"
+                           "com.informatimago.tools.quicklisp"
+                           "com.informatimago.tools.make-depends"
+                           "com.informatimago.tools.script"
+                           "com.informatimago.tools.check-asdf")
+                         :verbose nil)
 
 #-(or ccl cmu ecl sbcl)
-(ql:quickload "com.informatimago.clext")
+(load-one-way-or-another "com.informatimago.clext")
 
 #+clisp
-(ql:quickload "com.informatimago.clisp")
+(load-one-way-or-another "com.informatimago.clisp")
 
 #+disabled-temporarily-for-bitrot
-(ql:quickload "com.informatimago.susv3")
+(load-one-way-or-another "com.informatimago.susv3")
 
 
-(ql:quickload "alexandria" :verbose nil)
+(load-one-way-or-another "alexandria" :verbose nil)
 
 
 (defun informatimago-import-export ()
@@ -436,16 +497,16 @@ selected by KEY, and the given SUBPATH.
                           :if-does-not-exist nil)
       (if dirs
           (handler-case
-           (loop
-             :for k = (read dirs nil dirs)
-             :until (eq k dirs)
-             :do (push (string-trim " " (read-line dirs)) *directories*)
-             :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
+              (loop
+                :for k = (read dirs nil dirs)
+                :until (eq k dirs)
+                :do (push (string-trim " " (read-line dirs)) *directories*)
+                :do (push (intern (substitute #\- #\_ (string k)) "KEYWORD") *directories*))
             (error (err)
               (warn "Error while reading directories.txt file: ~A" err)))
-       (progn
-         (warn "No directories.txt file.")
-         (setf *directories* *default-directories*)))))
+          (progn
+            (warn "No directories.txt file.")
+            (setf *directories* *default-directories*)))))
   (unless (getf *directories* key)
     (error "~S: No directory keyed ~S" 'get-directory key))
   (merge-pathnames subpath (getf *directories* key) nil))
@@ -592,33 +653,33 @@ The HOST is added to the list of logical hosts defined.
 (defun start-dribble ()
   "We dribble to a timestamped file in a specific #P\"HOME:DRIBBLE;\" directory."
   (let ((path
-         (merge-pathnames
-          (make-pathname
-           :directory '(:relative "DRIBBLES")
-           :name (flet ((implementation-id ()
-                          (flet ((first-word (text)
-                                   (let ((pos (position (character " ") text)))
-                                     (remove (character ".")
-                                             (if pos (subseq text 0 pos) text)))))
-                            (format
-                             nil
-                             "~A-~A-~A"
-                             (cond
-                               ((string-equal
-                                 "International Allegro CL Enterprise Edition"
-                                 (lisp-implementation-type))
-                                "ACL")
-                               (t (first-word (lisp-implementation-type))))
-                             (first-word (lisp-implementation-version))
-                             (first-word (machine-type))))))
-                   (multiple-value-bind (se mi ho da mo ye)
-                       (decode-universal-time (get-universal-time))
-                     (format nil "~4,'0D~2,'0D~2,'0DT~2,'0D~2,'0D~2,'0D-~A"
-                             ye mo da ho mi se (implementation-id))))
-           :type "DRIBBLE"
-           :version nil
-           :defaults (user-homedir-pathname))
-          (user-homedir-pathname) nil)))
+          (merge-pathnames
+           (make-pathname
+            :directory '(:relative "DRIBBLES")
+            :name (flet ((implementation-id ()
+                           (flet ((first-word (text)
+                                    (let ((pos (position (character " ") text)))
+                                      (remove (character ".")
+                                              (if pos (subseq text 0 pos) text)))))
+                             (format
+                              nil
+                              "~A-~A-~A"
+                              (cond
+                                ((string-equal
+                                  "International Allegro CL Enterprise Edition"
+                                  (lisp-implementation-type))
+                                 "ACL")
+                                (t (first-word (lisp-implementation-type))))
+                              (first-word (lisp-implementation-version))
+                              (first-word (machine-type))))))
+                    (multiple-value-bind (se mi ho da mo ye)
+                        (decode-universal-time (get-universal-time))
+                      (format nil "~4,'0D~2,'0D~2,'0DT~2,'0D~2,'0D~2,'0D-~A"
+                              ye mo da ho mi se (implementation-id))))
+            :type "DRIBBLE"
+            :version nil
+            :defaults (user-homedir-pathname))
+           (user-homedir-pathname) nil)))
     (ensure-directories-exist path)
     (dribble path)))
 
@@ -660,10 +721,10 @@ The HOST is added to the list of logical hosts defined.
   #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
   #+ccl
   (let ((process
-         (ccl:run-program "/bin/bash"
-                          (list "-c" (format nil "~?" control-string arguments))
-                          :output :stream
-                          :error :stream)))
+          (ccl:run-program "/bin/bash"
+                           (list "-c" (format nil "~?" control-string arguments))
+                           :output :stream
+                           :error :stream)))
     (com.informatimago.common-lisp.cesarum.stream:copy-stream
      (ccl:external-process-output-stream process)
      *standard-output*)
@@ -675,10 +736,10 @@ The HOST is added to the list of logical hosts defined.
   #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
   #+ccl
   (let ((process
-         (ccl:run-program "/bin/bash"
-                          (list "-c" (format nil "~?" control-string arguments))
-                          :output :stream
-                          :error :stream)))
+          (ccl:run-program "/bin/bash"
+                           (list "-c" (format nil "~?" control-string arguments))
+                           :output :stream
+                           :error :stream)))
     (values (with-output-to-string (out)
               (com.informatimago.common-lisp.cesarum.stream:copy-stream
                (ccl:external-process-output-stream process) out))
@@ -871,29 +932,29 @@ without, lists all the commands with their docstrings."
 (defun print-variables ()
   "Prints the *print-…* and *read-…* variables."
   (com.informatimago.common-lisp.interactive.interactive:show
-    *print-array*
-    *print-base*
-    *print-case*
-    *print-circle*
-    *print-escape*
-    *print-gensym*
-    *print-length*
-    *print-level*
-    *print-lines*
-    *print-miser-width*
-    *print-pprint-dispatch*
-    *print-pretty*
-    *print-radix*
-    *print-readably*
-    *print-right-margin*
-    *read-base*
-    *read-default-float-format*
-    *read-eval*
-    *read-suppress*
-    (readtable-case *readtable*)))
+   *print-array*
+   *print-base*
+   *print-case*
+   *print-circle*
+   *print-escape*
+   *print-gensym*
+   *print-length*
+   *print-level*
+   *print-lines*
+   *print-miser-width*
+   *print-pprint-dispatch*
+   *print-pretty*
+   *print-radix*
+   *print-readably*
+   *print-right-margin*
+   *read-base*
+   *read-default-float-format*
+   *read-eval*
+   *read-suppress*
+   (readtable-case *readtable*)))
 
 
-;; (ql:quickload :com.informatimago.common-lisp.lisp.ibcl)
+;; (load-one-way-or-another :com.informatimago.common-lisp.lisp.ibcl)
 ;; (in-package :ibcl-user)
 ;; (use-package :com.informatimago.pjb)
 
@@ -960,7 +1021,7 @@ without, lists all the commands with their docstrings."
 
 (define-command ql   (&rest systems)
   "Quickload systems"
-  (apply (function ql:quickload) systems))
+  (apply (function load-one-way-or-another) systems))
 
 (define-command qu   ()
   "Quit!"
@@ -980,19 +1041,22 @@ without, lists all the commands with their docstrings."
 
 #-(and) (
 ;;; Add local include dirs for grovellers.
-      (unless (find-package "IOLIB-GROVEL")
-        (defpackage "IOLIB-GROVEL"
-          (:use "COMMON-LISP")
-          (:intern "*CC-FLAGS*")))
-      (unless (find-package "CFFI-GROVEL")
-        (defpackage "CFFI-GROVEL"
-          (:use "COMMON-LISP")
-          (:intern "*CC-FLAGS*")))
-      (defvar iolib-grovel::*cc-flags* '())
-      (defvar  cffi-grovel::*cc-flags* '())
-      (dolist (include-dir '("/opt/local/include/" "/usr/local/include/"))
-        (dolist (var '(iolib-grovel::*cc-flags* cffi-grovel::*cc-flags*))
-          (unless (member include-dir (symbol-value var) :test (function string=))
-            (set var (list* "-I" include-dir (symbol-value var)))))))
+         (unless (find-package "IOLIB-GROVEL")
+           (defpackage "IOLIB-GROVEL"
+             (:use "COMMON-LISP")
+             (:intern "*CC-FLAGS*")))
+         (unless (find-package "CFFI-GROVEL")
+           (defpackage "CFFI-GROVEL"
+             (:use "COMMON-LISP")
+             (:intern "*CC-FLAGS*")))
+         (defvar iolib-grovel::*cc-flags* '())
+         (defvar  cffi-grovel::*cc-flags* '())
+         (dolist (include-dir '("/opt/local/include/" "/usr/local/include/"))
+           (dolist (var '(iolib-grovel::*cc-flags* cffi-grovel::*cc-flags*))
+             (unless (member include-dir (symbol-value var) :test (function string=))
+               (set var (list* "-I" include-dir (symbol-value var)))))))
+
+;; );;when quicklisp
+
 
 ;;;; THE END ;;;;
