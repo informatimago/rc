@@ -1256,6 +1256,9 @@ function bashrc_load_host_specific_bashrc(){
     (*trustonic.local)
         source ~/rc/bashrc-trustonic
         ;;
+    (larissa*)
+        source ~/rc/bashrc-nvidia
+        ;;
     *)
         source ~/rc/bashrc-pjb
         ;;
