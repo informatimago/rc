@@ -174,11 +174,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
-<<<<<<< HEAD
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#gentoo-lisp" "#swift-lang" "#swift-linux" "##objc" "#iphonedev-discuss" "#iCommunity" "#CocoaDev" "#MacOSX" "#macdev" "#iphonedev" "#iOSdev" "##apple" "##mac" "##iphone" "#iphonedev-chat" "#macports" "#macosforge" "##computerscience") ("irc.oftc.net" "#uml"))))
-=======
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#swift-lang" "#swift-linux" "#MacOSX") ("irc.oftc.net" "#uml"))))
->>>>>>> fbefd80424c79c2fb61042103d47b5fcbffe1120
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
  '(erc-echo-notices-in-current-buffer t)
