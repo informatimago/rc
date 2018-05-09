@@ -11925,6 +11925,15 @@ sudo dseditgroup -o edit -a $USER -t user procmod
 
 #-END(src)
 
+#+BEGIN_EXAMPLE
+  libomp has the following notes:
+    To use this OpenMP library:
+     * For clang-3.8+, or clang-3.7 with +openmp variant:
+        add "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+        "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+#+END_EXAMPLE
+
 *** MacOSX 10.10 root exploit:
 
 #+BEGIN(src)
