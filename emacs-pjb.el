@@ -482,7 +482,7 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 
 (defvar gnutls-trustfiles '())
-(let ((trustfile (string-trim " " (shell-command-to-string "python -m certifi"))))
+(let ((trustfile (string-trim (shell-command-to-string "python -m certifi"))))
   (setf tls-program
         (list
          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
