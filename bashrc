@@ -748,7 +748,11 @@ function function-source(){
 function bashrc_define_aliases(){
 
     ## general aliases:
-
+    if type -p tree 2>/dev/null 1>&2 ; then
+        alias lstree=tree
+    else
+        alias lstree='ls -R'
+    fi
     alias more=less
     alias vi='emacs -nw -q'
     alias nano='emacs -nw -q'
