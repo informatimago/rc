@@ -19,7 +19,7 @@ function bashrc_set_host_uname(){
     if [ -r ~/.config/host ] ; then
         hostname=$(cat ~/.config/host)
     else
-        hosname=$(hostname -f)
+        hostname=$(hostname -f)
     fi
 }
 
@@ -27,7 +27,7 @@ function bashrc_set_DISPLAY(){
     # case "$DISPLAY" in
     # /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
     # esac
-    export DISPLAY=:0.0
+    export DISPLAY=${DISPLAY:-:0.0}
 }
 
 function bashrc_clean_XDG_DATA_DIRS(){
@@ -36,10 +36,14 @@ function bashrc_clean_XDG_DATA_DIRS(){
 }
 
 function bashrc_set_prompt(){
+    # Thanks Twitter @climagic for the # prefix advice.
     local prompt='\$ '
     local prefix=''
     local pc=''
     local ibam=''
+    local normal='[0m'
+    # shellcheck disable=SC2016
+    local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
 
     if ((UID==0)) ; then
         prompt='# '
@@ -48,15 +52,17 @@ function bashrc_set_prompt(){
     if [[ "$TERM" = "emacs" ]] ; then
         prefix="\n\\w\n"
     fi
+    prefix="${normal}${prefix}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
+        # shellcheck disable=SC2016
         pc='$('"$(type -path period-cookie)"')'
     fi
 
     if type -p ibam >/dev/null 2>&1 ; then
         ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
-    export PS1="${pc}${prefix}${ibam}[\u@\h $DISPLAY \W]${prompt}"
+    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}"
 }
 
 
@@ -433,13 +439,12 @@ function be_generate(){
         fi
     fi
 
-    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8'
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx4g'
     value=/opt/local/share/java/gradle
     if [ -d $value/. ] ; then
         be_variable GRADLE_HOME "$value"
     fi
 
-    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
     if [ "${uname}" = Darwin ] ; then
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
@@ -524,6 +529,8 @@ function be_generate(){
 
     be_comment 'antialiasing in QT applications'
     be_variable QT_XFT             1
+    # ~/Qt/5.8/clang_64/bin
+
     be_variable SHOOPSH            /usr/local/share/shoop/shoop.sh
     be_variable SHOOPMOD           /usr/local/share/shoop/modules
     be_variable SHOOPPATH          "$SHOOPMOD"
@@ -1280,6 +1287,9 @@ function bashrc_load_host_specific_bashrc(){
     (*trustonic.local)
         source ~/rc/bashrc-trustonic
         ;;
+    (larissa*)
+        source ~/rc/bashrc-nvidia
+        ;;
     *)
         source ~/rc/bashrc-pjb
         ;;
@@ -1333,6 +1343,7 @@ function bashrc(){
 
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
+    shopt -u failglob
 
     bashrc_delete_bashrc_functions
     shopt -u failglob
