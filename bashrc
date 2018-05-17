@@ -41,6 +41,7 @@ function bashrc_set_prompt(){
     local prefix=''
     local pc=''
     local ibam=''
+    local normal='[0m'
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
 
@@ -51,7 +52,7 @@ function bashrc_set_prompt(){
     if [[ "$TERM" = "emacs" ]] ; then
         prefix="\n\\w\n"
     fi
-    prefix="${NORMAL}${prefix}"
+    prefix="${normal}${prefix}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
@@ -1289,6 +1290,9 @@ function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
     (*trustonic.local)
         source ~/rc/bashrc-trustonic
+        ;;
+    (larissa*)
+        source ~/rc/bashrc-nvidia
         ;;
     *)
         source ~/rc/bashrc-pjb
