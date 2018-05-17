@@ -2,8 +2,17 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 Les juifs qui ont du quitter l'Allemagne en 1933 sont revenus pour soumettre ceux qui étaient au pouvoir au tribunal de Nuremberg 12 ans plus tard.  De nos jours, les rabbins conseillent aux juifs de quitter l'Europe.  Qui sera les accusés dans 12 ans?
+Ursula Haverbke
 
 LLVM IR to CL transpiler: https://github.com/froggey/Iota
+
+* SBDE
+
+https://www.aimljobs.com
+http://www.fast.ai/2018/05/07/part2-launch/
+
+* Généalogie - Genealogy
+Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
 * freenode.org
 
@@ -401,7 +410,7 @@ Fill in:  http://wiki.alu.org/Consultant
 
 /local/srv/mirrors/lisp/www.unlambda.com
 
-Soeur de Kasimiera Chilkowy : Mariette en Argentine.
+
 
 
 Dear Customer,
@@ -4423,9 +4432,11 @@ Mme Thérèse Chilkowy
 57700 Hayange
 
 Mme Christiane Chilkowy
-19, Grande Rue
+19bis, Grande Rue
 88340 Le Val d'Ajol
-0785017461 christianeckw@orange.fr ct2pj4bf6ag8
+0785017461  0670727620
+Ce compte ne semble plus exister: christianeckw@orange.fr ct2pj4bf6ag8
+ctd.fr|christianeckw@icloud.com|mon$or1passe
 
 
 Mme Bourguignon Joëlle
