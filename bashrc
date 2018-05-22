@@ -293,6 +293,7 @@ function be_generate(){
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib
+        /usr/local/lib64
         /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
