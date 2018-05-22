@@ -41,16 +41,18 @@
 (defparameter *clhs-map-sym*   "Data/Map_Sym.txt")
 (defparameter common-lisp-hyperspec-root
   (dolist (url (list (concat "file://" (get-directory :hyperspec))
+                     "file:///usr/local/share/doc/cl/HyperSpec/"
                      (concat "file:///usr/local/html/local/lisp/" *clhs-lispworks*)
                      "file:///data/lisp/hyperspec-7.0/HyperSpec/"
                      "file:///opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"
                      "file:///usr/share/doc/hyperspec/HyperSpec/"
                      (concat "file://" (expand-file-name "~/quicklisp/dists/quicklisp/software/clhs-0.6.1/HyperSpec-7-0/HyperSpec/"))
-                     "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/"
+                     (when (not (string= (hostname) "proteus"))
+                       "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
                      (concat "http://" *clhs-lispworks*)
                      "http://www.harlequin.com/education/books/HyperSpec/")
                nil)
-    (when (probe-url (concat url *clhs-map-sym*))
+    (when (and url (probe-url (concat url *clhs-map-sym*)))
       (return url)))
   "The root of the Common Lisp HyperSpec URL.
 If you copy the HyperSpec to your local system, set this variable to
