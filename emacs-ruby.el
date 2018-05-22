@@ -10,8 +10,8 @@
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
 
-(require 'smartparens-config)
-(require 'smartparens-ruby)
+(require 'smartparens-config nil t)
+(require 'smartparens-ruby nil t)
 ;; (smartparens-global-mode)
 ;; (show-smartparens-global-mode t)
 ;; (sp-with-modes '(rhtml-mode)
@@ -19,18 +19,18 @@
 ;;                (sp-local-pair ""))
 
 
- (require 'highlight-indentation)
- (add-hook 'enh-ruby-mode-hook
-           (lambda () (highlight-indentation-current-column-mode)))
+(when (require 'highlight-indentation nil t)
+  (add-hook 'enh-ruby-mode-hook
+            (lambda () (highlight-indentation-current-column-mode)))
 
- (add-hook 'coffee-mode-hook
-           (lambda () (highlight-indentation-current-column-mode)))
+  (add-hook 'coffee-mode-hook
+            (lambda () (highlight-indentation-current-column-mode))))
 
 
-(require 'robe)
-(add-hook 'ruby-mode-hook 'robe-mode)
+(when (require 'robe nil t)
+ (add-hook 'ruby-mode-hook 'robe-mode))
 
 ;; (require 'dash-at-point)
-(require 'textmate)
+(require 'textmate nil t)
 
 ;;;; THE END ;;;;

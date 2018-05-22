@@ -283,6 +283,7 @@
 
         "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
         "fixed"
+        "terminus-32"
         ))
 
      ;; (otherwise
@@ -351,7 +352,5 @@
 ;;      *default-font*))
 ;;   (when (fboundp 'single-frame) (single-frame)))
 
-
-(ignore-errors (progn (setf *pjb-current-font-index* 13) (set-current-font)))
 
 ;;;; THE END ;;;;
