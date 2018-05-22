@@ -293,6 +293,7 @@ function be_generate(){
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib
+        /usr/local/lib64
         /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
@@ -694,7 +695,7 @@ function ds() {
 function cdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
@@ -709,7 +710,7 @@ function cdd(){
 function pushdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
