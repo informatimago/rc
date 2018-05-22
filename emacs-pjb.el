@@ -482,6 +482,9 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 
 (defvar gnutls-trustfiles '())
+(unless (fboundp 'string-trim)
+  (defun string-trim (string)
+    (cl:string-trim " \n\t" string)))
 (let ((trustfile (string-trim (shell-command-to-string "python -m certifi"))))
   (setf tls-program
         (list
