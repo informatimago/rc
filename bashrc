@@ -37,19 +37,32 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-    local pc
-    local display
-    display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
+    local prompt='\$ '
+    local prefix=''
+    local pc=''
+    local ibam=''
+    local normal='[0m'
+    # shellcheck disable=SC2016
+    local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
+
     if ((UID==0)) ; then
-        export PS1="# [\u@\h ${display} \W]# "
-    elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1='\n# \w\n# [\u@\h '"${display}"']\$ '
-    elif type -path period-cookie >/dev/null 2>&1 ; then
-        pc="$(type -path period-cookie)"
-        export PS1='$('"$pc"')# [\u@\h '"${display}"' \W]\$ '
-    else
-        export PS1='# [\u@\h '"${display}"' \W]$ '
+        prompt='# '
     fi
+
+    if [[ "$TERM" = "emacs" ]] ; then
+        prefix="\n\\w\n"
+    fi
+    prefix="${normal}${prefix}"
+
+    if type -path period-cookie >/dev/null 2>&1 ; then
+        # shellcheck disable=SC2016
+        pc='$('"$(type -path period-cookie)"')'
+    fi
+
+    if type -p ibam >/dev/null 2>&1 ; then
+        ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
+    fi
+    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}"
 }
 
 
@@ -283,6 +296,7 @@ function be_generate(){
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib
+        /usr/local/lib64
         /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
@@ -684,7 +698,7 @@ function ds() {
 function cdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
@@ -699,7 +713,7 @@ function cdd(){
 function pushdd(){
     local diri
     local i=1
-    dirs
+    ds
     read -p "Change to what directory? " diri
     for dir in "${DIRSTACK[@]}" ; do
         if [ "$diri" -eq "$i" ] ; then
@@ -739,7 +753,11 @@ function function-source(){
 function bashrc_define_aliases(){
 
     ## general aliases:
-
+    if type -p tree 2>/dev/null 1>&2 ; then
+        alias lstree=tree
+    else
+        alias lstree='ls -R'
+    fi
     alias more=less
     alias vi='emacs -nw -q'
     alias nano='emacs -nw -q'
@@ -1132,6 +1150,24 @@ function get-directory   (){ awk '{if($1=="'"$1"'"){print $2}}' ~/directories.tx
 function timestamp       (){ date +%Y%m%dT%H%M%S ; }
 function ip-address      (){ ifconfig|awk '/inet /{if($2!="127.0.0.1"){print $2;exit;}}' ; }
 
+function ip-broadcast-address () {
+    local mac="$1"
+    ifconfig |grep -i Bcast | tr ' ' '\012' | awk -F: '/Bcast/{print $2}'
+}
+
+function get_ip_address_from_MAC(){
+    local remote_MAC="$1"
+    local bcast="$(ip-broadcast-address)"
+    case "$ip" in
+    (*\ *)
+        printf "Multiple broadcast addresses! %s\n" "$bcast"
+        return 1
+        ;;
+    esac
+    ping -c 3 "$bcast" >/dev/null 2>&1
+    arp -n | awk  "/$remote_MAC/"'{print $1;}'
+}
+
 function sort-host       (){ tr '.' '@' | sort -t@ -n +0 -1 +1 -2 +2 -3 +3 -4 | tr '@' '.' ; }
     # We have to replace dots by something else since they are taken for
     # decimal points by sort -n.
@@ -1259,6 +1295,9 @@ function bashrc_load_host_specific_bashrc(){
     (*trustonic.local)
         source ~/rc/bashrc-trustonic
         ;;
+    (larissa*)
+        source ~/rc/bashrc-nvidia
+        ;;
     *)
         source ~/rc/bashrc-pjb
         ;;
@@ -1273,6 +1312,27 @@ function bashrc_delete_bashrc_functions(){
     done
 }
 
+
+function bash_patch_622655(){
+    # https://bugzilla.redhat.com/show_bug.cgi?id=622655
+    # Jean-Baptiste Poittevin 2012-10-21 14:19:55 EDT
+    # Append word to current word
+    #BEGIN HACK
+    if shopt failglob >/dev/null; then
+        INVERTGLOB=1
+        shopt -u failglob
+    else
+        INVERTGLOB=0
+    fi
+    #END HACK
+    eval $2[$j]=\${!ref}\${COMP_WORDS[i]}
+    #BEGIN HACK
+    if [ $INVERTGLOB -eq 1 ]; then
+        shopt -s failglob
+    fi
+    #END HACK
+    # Remove optional whitespace + word from line copy
+}
 
 function bashrc(){
     bashrc_set_host_uname
@@ -1294,6 +1354,7 @@ function bashrc(){
     shopt -u failglob
 
     bashrc_delete_bashrc_functions
+    shopt -u failglob
 }
 
 bashrc
