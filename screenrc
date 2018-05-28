@@ -48,6 +48,7 @@ defscrollback 10000
 term screen-256color
 attrcolor b ".I"    # allow bold colors - necessary for some reason
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+
 defbce on    # use current bg color for erased chars
 
 defutf8 on
@@ -62,7 +63,15 @@ terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
 
 #80/132 column switching must be enabled for ^AW to work
 #change init sequence to not switch width
-termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l
+
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm-256color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+termcapinfo xterm*         'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+
 
 # Make the output buffer large for (fast) xterms.
 termcapinfo xterm* OL=10000
