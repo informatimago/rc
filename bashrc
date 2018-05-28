@@ -43,7 +43,7 @@ function bashrc_set_prompt(){
     if ((UID==0)) ; then
         export PS1="# [\u@\h ${display} \W]# "
     elif [[ "$TERM" = "emacs" ]] ; then
-        export PS1='\n# \\w\n# [\\u@\\h '"${display}"']\\$ '
+        export PS1='\n# \w\n# [\u@\h '"${display}"']\$ '
     elif type -path period-cookie >/dev/null 2>&1 ; then
         pc="$(type -path period-cookie)"
         export PS1='$('"$pc"')# [\u@\h '"${display}"' \W]\$ '
@@ -234,9 +234,12 @@ function be_generate(){
     local value
 
     bindirs=(
-        $HOME/bin
-        $HOME/opt/bin
-        $HOME/.rvm/bin # Add RVM to PATH for scripting
+
+        "$HOME/anaconda3/bin"
+
+        "$HOME/bin"
+        "$HOME/opt/bin"
+        "$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
         /usr/local/bin
         /usr/local/sbin
@@ -1401,3 +1404,4 @@ bashrc
 # Note:  No interactive stuff here, ~/.bashrc is loaded by all scripts
 #        thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+
