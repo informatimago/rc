@@ -1896,7 +1896,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
   (defun %lisp-buffer-name-number (buffer-name)
     (when (string-match "^\\([0-9]+\\)lisp" buffer-name)
-      (parse-integer (match-string 1 buffer-name))))
+      (cl:parse-integer (match-string 1 buffer-name))))
   (defun inferior-lisp-buffers-list ()
     "RETURN: a list of the inferior-lisp buffers."
     (delete-if (lambda (name) (not (%lisp-buffer-name-match-p name)))
@@ -2490,8 +2490,9 @@ URL in a new window."
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
-(require 'w3m-load)
-(when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
+
+(when (and (require 'w3m-load nil t)
+	   (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
   (.EMACS "w3m mode")
@@ -3249,20 +3250,24 @@ in the current directory, or in a parent."
     ((file-readable-p "/tmp/no-internet")
      nil)
     (t
-     (zerop (parse-integer
+     (zerop (cl:parse-integer
              (shell-command-to-string
               (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
                       url)))))))
 
 
 ;; (require 'clhs)
-(require 'hyperspec)
+;; (require 'hyperspec)
+
 
 (defvar *lw-clhs*)
 (setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
 (defvar *hyperspec-path*)
-(setf   *hyperspec-path*   (or (ignore-errors (get-directory :hyperspec))
-                               (concat "/usr/local/html/local/lisp/" *lw-clhs*))
+(setf   *hyperspec-path*   (first-existing-file
+			    (list
+			     (ignore-errors (get-directory :hyperspec))
+			     (concat "/usr/local/html/local/lisp/" *lw-clhs*)
+			     "/opt/local/share/doc/lisp/HyperSpec-7-0/"))
         common-lisp-hyperspec-root
         (dolist
             (url (list
@@ -4047,15 +4052,39 @@ License:
         (indent-for-tab-command))))
 
 
-;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
+(defun infer-indentation-style ()
+  (let ((spc-count (how-many "^ "  (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (setf indent-tab-mode (cond ((< spc-count tab-count) t)
+                                ((> spc-count tab-count) nil)
+                                (t                       indent-tab-mode)))))
+
+
+(require 'freerdp-c-style)
+
+(defvar auto-c-style-alist
+  '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
+    ("." . "pjb")))
 
 (defun c-mode-meat ()
   (interactive)
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (infer-indentation-style)
+  (let ((path (buffer-file-name)))
+    (when path
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
+        (when c-style
+          (message "Setting C style %s" c-style)
+          (c-set-style c-style)
+          (when (string= c-style "freerdp")
+            (freerdp-style-set-local-bindings))))))
   (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  (define-key c-mode-map "{" 'self-insert-command)
+  ;; (define-key c-mode-map "{" 'self-insert-command)
   (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
+
+;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
 
 (add-hook 'c-mode-hook 'c-mode-meat)
 
@@ -4846,6 +4875,7 @@ list or vector, the length of the sequence."
   (when erc-fill-mode
     (erc-fill-mode -1)))
 
+(defvar erc-fill-mode-hook '())
 (push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
 ;; (set-frame-parameter (selected-frame) 'alpha 0)
