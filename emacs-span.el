@@ -16,3 +16,9 @@
 (add-hook 'focus-out-hook 'turn-on-mouse)
 (add-hook 'delete-frame-functions 'turn-on-mouse)
 (setf browse-url-browser-function 'browse-url-firefox2)
+
+(global-set-key (kbd "s-s")   'git-search-symbol-at-point)
+(global-set-key (kbd "C-s-s") 'git-search)
+(global-set-key (kbd "M-s-s") 'git-search-region)
+
+
