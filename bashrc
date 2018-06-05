@@ -37,7 +37,7 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-    local prompt='\$ '
+    local prompt='$ '
     local prefix=''
     local pc=''
     local ibam=''
@@ -88,6 +88,7 @@ function bashrc_set_prompt(){
         ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
     export PS1="${black_back}${cyan}${pc}${yellow}${prefix}${black}${yellow_back}${ibam}${blue}${white_back}[\u@\h ${display} \W]${red}${black_back}${prompt}${normal}"
+    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}${normal}"
 }
 
 
