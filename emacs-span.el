@@ -4,21 +4,34 @@
 (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
 (setf *pjb-intervention-firm* '((minint)))
 
-(defun turn-off-mouse (&optional frame)
-  (interactive)
-  (shell-command "xinput disable \"ImPS/2 Generic Wheel Mouse\""))
+(defun mice ()
+  (split-string
+   (string-trim
+    (shell-command-to-string  "xinput list  --name-only|grep -i mouse"))
+   "\n"))
 
-(defun turn-on-mouse (&optional frame)
-  (interactive)
-  (shell-command "xinput enable \"ImPS/2 Generic Wheel Mouse\""))
+(defun touchpads ()
+  (split-string
+   (string-trim
+    (shell-command-to-string  "xinput list  --name-only|grep -i touchpad"))
+   "\n"))
 
-(add-hook 'focus-in-hook 'turn-off-mouse)
-(add-hook 'focus-out-hook 'turn-on-mouse)
-(add-hook 'delete-frame-functions 'turn-on-mouse)
+(defun turn-off-trackpad (&optional frame)
+  (interactive)
+  (dolist (pad (touchpads))
+    (shell-command (format "xinput disable %S" pad))))
+
+(defun turn-on-trackpad (&optional frame)
+  (interactive)
+  (dolist (pad (touchpads))
+    (shell-command (format "xinput enable %S" pad))))
+
+(add-hook 'focus-in-hook          'turn-off-trackpad)
+(add-hook 'focus-out-hook         'turn-on-trackpad)
+(add-hook 'delete-frame-functions 'turn-on-trackpad)
 (setf browse-url-browser-function 'browse-url-firefox2)
 
 (global-set-key (kbd "s-s")   'git-search-symbol-at-point)
 (global-set-key (kbd "C-s-s") 'git-search)
 (global-set-key (kbd "M-s-s") 'git-search-region)
-
 
