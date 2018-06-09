@@ -249,6 +249,7 @@ function be_generate(){
     bindirs=(
 
         "$HOME/anaconda3/bin"
+        "/opt/anaconda3/bin"
 
         "$HOME/bin"
         "$HOME/opt/bin"
