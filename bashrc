@@ -37,11 +37,36 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-    local prompt='\$ '
+    local prompt='$ '
     local prefix=''
     local pc=''
     local ibam=''
-    local normal='[0m'
+    local escape=''
+    local bold="${escape}"'[1m'
+    local underline="${escape}"'[4m'
+    local blink="${escape}"'[5m'
+    local invert="${escape}"'[7m'
+    local no_bold="${escape}"'[22m'
+    local no_underline="${escape}"'[24m'
+    local no_blink="${escape}"'[25m'
+    local no_invert="${escape}"'[27m'
+    local black="${escape}"'[30m'
+    local red="${escape}"'[31m'
+    local green="${escape}"'[32m'
+    local yellow="${escape}"'[33m'
+    local blue="${escape}"'[34m'
+    local magenta="${escape}"'[35m'
+    local cyan="${escape}"'[36m'
+    local white="${escape}"'[37m'
+    local black_back="${escape}"'[40m'
+    local red_back="${escape}"'[41m'
+    local green_back="${escape}"'[42m'
+    local yellow_back="${escape}"'[43m'
+    local blue_back="${escape}"'[44m'
+    local magenta_back="${escape}"'[45m'
+    local cyan_back="${escape}"'[46m'
+    local white_back="${escape}"'[47m'
+    local normal="${escape}"'[0m'
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
 
@@ -52,7 +77,7 @@ function bashrc_set_prompt(){
     if [[ "$TERM" = "emacs" ]] ; then
         prefix="\n\\w\n"
     fi
-    prefix="${normal}${prefix}"
+    prefix="${prefix}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
@@ -62,7 +87,8 @@ function bashrc_set_prompt(){
     if type -p ibam >/dev/null 2>&1 ; then
         ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
-    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}"
+    export PS1="${black_back}${cyan}${pc}${yellow}${prefix}${black}${yellow_back}${ibam}${blue}${white_back}[\u@\h ${display} \W]${red}${black_back}${prompt}${normal}"
+    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}${normal}"
 }
 
 
@@ -777,6 +803,9 @@ function bashrc_define_aliases(){
     alias ...='cd ../..'
     alias …='cd ../..'
     alias sl=ls
+
+    alias gss='git status --short'
+    alias gdiff='git diff'
 
     # System Specific Aliases:
     # if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi

@@ -256,7 +256,19 @@ http://www.hypersynth.com/xenophone.html
 *** KAWAI                   K4R                         200 €
 
 ** Synthesizers
+*** MIDI
 
+| Korg    | Kronos-2 88      |  1 |       |
+| AKAI    | EWI-5000         |  7 |       |
+| Schmidt | Synthesizer      |  8 |       |
+| Moog    | Subsequent 37 cv |  9 |       |
+| Korg    | Kronos-2 88      | 10 | Drums |
+| Korg    | DSS-1            | 11 |       |
+| Korg    | DW-8000          | 12 |       |
+| Korg    | EX-8000          | 13 |       |
+| Korg    | MS2000R          | 14 |       |
+
+*** Calculs
 (* 70 4)280
 (+ 5.9 10 24.1 17.5 10.9)68.4
 (+ 5.9 10.0 24.1 17.5 10.9 7.5)75.9
@@ -282,6 +294,7 @@ though. When you say "google setup" do you mean that behind the scenes it
 might search googlegroups and get the message from there ?
 
 * Lisp Tasks
+** https://www.youtube.com/channel/UCufkSSu1trzm9nB-jYOPuvw and http://www.uio.no/studier/emner/matnat/ifi/INF4820/h17/timeplan/index.html#2-2
 ** TODO locate old libraries, evaluate them and if interesting, upgrade them (asdf, quicklisp). Document on cliki.net.
 * NOTES
 ** MidiQuest
