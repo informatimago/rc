@@ -2,8 +2,17 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 Les juifs qui ont du quitter l'Allemagne en 1933 sont revenus pour soumettre ceux qui étaient au pouvoir au tribunal de Nuremberg 12 ans plus tard.  De nos jours, les rabbins conseillent aux juifs de quitter l'Europe.  Qui sera les accusés dans 12 ans?
+Ursula Haverbke
 
 LLVM IR to CL transpiler: https://github.com/froggey/Iota
+
+* SBDE
+
+https://www.aimljobs.com
+http://www.fast.ai/2018/05/07/part2-launch/
+
+* Généalogie - Genealogy
+Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
 * freenode.org
 
@@ -247,7 +256,19 @@ http://www.hypersynth.com/xenophone.html
 *** KAWAI                   K4R                         200 €
 
 ** Synthesizers
+*** MIDI
 
+| Korg    | Kronos-2 88      |  1 |       |
+| AKAI    | EWI-5000         |  7 |       |
+| Schmidt | Synthesizer      |  8 |       |
+| Moog    | Subsequent 37 cv |  9 |       |
+| Korg    | Kronos-2 88      | 10 | Drums |
+| Korg    | DSS-1            | 11 |       |
+| Korg    | DW-8000          | 12 |       |
+| Korg    | EX-8000          | 13 |       |
+| Korg    | MS2000R          | 14 |       |
+
+*** Calculs
 (* 70 4)280
 (+ 5.9 10 24.1 17.5 10.9)68.4
 (+ 5.9 10.0 24.1 17.5 10.9 7.5)75.9
@@ -273,6 +294,7 @@ though. When you say "google setup" do you mean that behind the scenes it
 might search googlegroups and get the message from there ?
 
 * Lisp Tasks
+** https://www.youtube.com/channel/UCufkSSu1trzm9nB-jYOPuvw and http://www.uio.no/studier/emner/matnat/ifi/INF4820/h17/timeplan/index.html#2-2
 ** TODO locate old libraries, evaluate them and if interesting, upgrade them (asdf, quicklisp). Document on cliki.net.
 * NOTES
 ** MidiQuest
@@ -401,7 +423,7 @@ Fill in:  http://wiki.alu.org/Consultant
 
 /local/srv/mirrors/lisp/www.unlambda.com
 
-Soeur de Kasimiera Chilkowy : Mariette en Argentine.
+
 
 
 Dear Customer,
@@ -2410,24 +2432,42 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
       http://www.tomadivx.com
 
 *** TODO Earn retirement money
-----   ---------------  ---------------  ---------------
-Year   Infl.Corr/Year   Total Remaining  Spared
-----   ---------------  ---------------  ---------------
-2015:        18.179,66       343.270,80
-2016:        19.270,44       325.091,12         21417.00
-2017:        20.426,67       305.820,68         21417.00
-2018:        21.652,27       285.394,04
-2019:        22.951,40       263.741,76
-2020:        24.328,49       240.790,34
-2021:        25.788,19       216.461,86
-2022:        27.335,48       190.673,68
-2023:        28.975,61       163.338,19
-2024:        30.714,14       134.362,58
-2025:        32.556,99       103.648,43
-2026:        34.510,41        71.091,44
-2027:        36.581,03        36.581,03
-----   ---------------  ---------------  ---------------
-(+ (* 100 209.72) (* 100 4.45))
+
+|------+----------------+-----------------+--------------+--------------|
+| Year | Infl.Corr/Year | Total Remaining |      Capital |              |
+|------+----------------+-----------------+--------------+--------------|
+|  <r> |            <r> |             <r> |          <r> |          <r> |
+| 2018 |      21,652.27 |      285,394.04 |   766,416.73 | 1,051,810.77 |
+| 2019 |      22,951.40 |      263,741.76 |   789,409.23 | 1,053,150.99 |
+| 2020 |      24,328.49 |      240,790.34 |   813,091.51 | 1,053,881.85 |
+| 2021 |      25,788.19 |      216,461.86 |   837,484.26 | 1,053,946.12 |
+| 2022 |      27,335.48 |      190,673.68 |   862,608.78 | 1,053,282.46 |
+| 2023 |      28,975.61 |      163,338.19 |   888,487.05 | 1,051,825.24 |
+| 2024 |      30,714.14 |      134,362.58 |   915,141.66 | 1,049,504.24 |
+| 2025 |      32,556.99 |      103,648.43 |   942,595.91 | 1,046,244.34 |
+| 2026 |      34,510.41 |       71,091.44 |   970,873.79 | 1,041,965.23 |
+| 2027 |      36,581.03 |       36,581.03 | 1,000,000.00 | 1,036,581.03 |
+#+TBLFM: $5='(if (equal $3 "<r>") "<r>" (format-money (+ (from-money $3) (from-money $4))))
+
+(defun from-money (money)
+  (first (read-from-string (remove ?, money))))
+
+(defun format-money (amount &optional group-width separator)
+  (let ((group-width (or group-width 3))
+        (separator   (or separator ",")))
+    (destructuring-bind (int fra) (split-string (format "%.2f" amount) "\\.")
+       (concat
+         (mapconcat (function identity)
+                    (reverse
+                      (loop
+                        for end from (length int) by (- group-width)
+                        for start = (max 0 (- end group-width))
+                        collect (subseq int start end)
+                        until (zerop start)))
+                      separator)
+          "." fra))))
+
+(loop repeat 10 for c = 1000000.0 then (/ c 1.03) do (insert (format "%.2f\n" c)))
 
 ** FAIT, DONE
 *** Achats Achetés                                                   :bought:
@@ -4423,9 +4463,11 @@ Mme Thérèse Chilkowy
 57700 Hayange
 
 Mme Christiane Chilkowy
-19, Grande Rue
+19bis, Grande Rue
 88340 Le Val d'Ajol
-0785017461 christianeckw@orange.fr ct2pj4bf6ag8
+0785017461  0670727620
+Ce compte ne semble plus exister: christianeckw@orange.fr ct2pj4bf6ag8
+ctd.fr|christianeckw@icloud.com|mon$or1passe
 
 
 Mme Bourguignon Joëlle
