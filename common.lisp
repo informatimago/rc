@@ -328,6 +328,8 @@ License:
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BSET"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.BRELATION"
                             "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.GRAPH"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.MERSENNE"
+                            "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.XOROSHIRO128"
                             "COM.INFORMATIMAGO.COMMON-LISP.DATA.CONSTANT"
                             "COM.INFORMATIMAGO.COMMON-LISP.UNIX.OPTION"
                             "COM.INFORMATIMAGO.COMMON-LISP.ED.ED"
@@ -1021,7 +1023,7 @@ without, lists all the commands with their docstrings."
 
 (define-command ql   (&rest systems)
   "Quickload systems"
-  (apply (function load-one-way-or-another) systems))
+  (apply (function com.informatimago.pjb::load-one-way-or-another) systems))
 
 (define-command qu   ()
   "Quit!"
