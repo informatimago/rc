@@ -1033,7 +1033,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (defparameter *pjb-font-list*
   '(
     "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
-    
+
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
     "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-*-*"
@@ -1067,7 +1067,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-LFP-Bright-normal-normal-normal-*-9-*-*-*-c-60-*-*"
     "-LFP-Smooth-normal-normal-normal-*-9-*-*-*-c-60-*-*"
     "-LFP-LucidaTerminal-normal-normal-normal-*-9-*-*-*-c-90-*-*"
-    
+
     "-LFP-Computer-normal-normal-normal-*-11-*-*-*-c-90-*-*"
     "-LFP-Computer Alt-normal-normal-normal-*-9-*-*-*-c-90-iso10646-1"
 
@@ -1078,7 +1078,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-15-*-*-*-m-0-*-*"
     "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-17-*-*-*-m-0-*-*"
 
-    
+
     "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
     "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
     "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
@@ -1087,7 +1087,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
 
     "-Schumacher-Clean-normal-normal-normal-*-12-*-*-*-c-60-*-*"
-    
+
     "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
     "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
     "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
@@ -1097,7 +1097,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "-unknown-Becker-normal-normal-normal-*-16-*-*-*-*-0-*-*"
     "-unknown-Caligula-normal-normal-normal-*-19-*-*-*-*-0-*-*"
 
-    
+
     "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
     "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
     "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
@@ -1154,19 +1154,19 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
    ;; *** Which font backends to use can be specified by the X resource
    ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
-   ;; 
+   ;;
    ;; Emacs.FontBackend: x,xft
-   ;; 
+   ;;
    ;; If this resource is not set, Emacs tries to use all font backends
    ;; available on your graphic device.
-   ;; 
+   ;;
    ;; *** New frame parameter `font-backend' specifies a list of
    ;; font-backends supported by the frame's graphic device.  On X, they are
    ;; currently `x' and `xft'.
 
 
 ;; (when (eq window-system 'x)
-;;   (set-frame-font 
+;;   (set-frame-font
 ;;    (if (fboundp 'font-exists-p)
 ;;      (cond
 ;;       ((font-exists-p  "7x13") "7x13")
@@ -1192,7 +1192,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
   ;; ----------------------------------------
   (.EMACS "defining palettes")
-  
+
   (defvar *palettes* '())
   (defvar *current-palette* nil)
 
@@ -1213,7 +1213,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
        (when (eq ',name *current-palette*)
          (set-palette ',name))
        ',name))
-  
+
 
   (defun set-palette (palette)
     (interactive
@@ -1247,7 +1247,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 
   ;; (apply 'format "#%02x%02x%02x" (mapcar (lambda (x) (* 0.199219 x)) '( 42 203 243)))
-  
+
   ;;          name              foreground     background      cursor   region           mouse
   (defpalette pal-default       "White"        "Black"         "Red"     "blue3"         "#444444")
   (defpalette pal-white         "#000000"      "#ffffff"       "#555555" "#aaaaaa"       "#444444")
@@ -1275,7 +1275,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (defpalette pal-blueprint     "white"        "#392b8d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint2    "white"        "#06104d"       "yellow"  "cadetblue4"    "yellow")
   (defpalette pal-blueprint3    "white"        "#080635"       "yellow"  "cadetblue4"    "yellow")
-  
+
   (set-palette  pal-default)
 
 
@@ -1345,8 +1345,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
                                                                  :registry "ISO8859"
                                                                  :encoding "1")))
                                    (if (font-exists-p fixed) fixed font))))
-                   
-                   (("larissa") 
+
+                   (("larissa")
                     (setq palette            pal-larissa
                           Width              81
                           height             70))
@@ -1453,7 +1453,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
       (when (zerop (user-uid))
         (set-foreground-color "Red"))))
 
-  
+
   ;; (set-default-frame-alist *default-font*)
   (.EMACS "set-default-frame-alist done"))
 
@@ -1636,7 +1636,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (.EMACS "INFERIOR LISP")
 
 (progn ;; unless (fboundp 'mdi)
-  
+
   (.EMACS " define-lisp-implementation")
   (defvar slime-lisp-implementations    nil)
   (defvar *default-lisp-implementation* nil)
@@ -1711,12 +1711,12 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     iso-8859-1)
 
 
-  
+
   (define-lisp-implementation abcl
       (first-existing-file '("/data/languages/abcl/abcl"))
     "^.*([0-9]+): "
     iso-8859-1)
-  
+
   (define-lisp-implementation allegro
       "/data/languages/acl82express/alisp"
     "^\[[0-9]*\]> "
@@ -1738,7 +1738,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
       (if (prefixp home path)
           (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
           (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
-  
+
   (defun slime-init-ccl-win-cygwin (port-filename coding-system)
     "Return a string to initialize Lisp."
     (let ((loader (if (file-name-absolute-p slime-backend)
@@ -1747,7 +1747,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
       ;; Return a single form to avoid problems with buffered input.
       (format "%S\n\n"
               `(progn
-                 (load ,(windoize-pathname (expand-file-name loader)) 
+                 (load ,(windoize-pathname (expand-file-name loader))
                        :verbose t)
                  (funcall (read-from-string "swank-loader:init"))
                  (funcall (read-from-string "swank:start-server")
@@ -1762,7 +1762,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     :init  'slime-init-ccl-win-cygwin)
 
 
-  
+
   (define-lisp-implementation openmcl
       "/usr/local/bin/openmcl"
     "^\[[0-9]*\]> "
@@ -1814,17 +1814,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     "^\* "
     utf-8)
 
-  
+
   (define-lisp-implementation ecl
       (first-existing-file '("/data/languages/ecl/bin/ecl"
                              "/usr/local/bin/ecl"
                              "/opt/local/bin/usr"
                              "/usr/bin/ecl"))
-    
+
     "^> "
     utf-8)
 
-  
+
   (define-lisp-implementation sbcl
       (list (first-existing-file '("/data/languages/sbcl/bin/sbcl"
                                    "/usr/local/bin/sbcl"
@@ -1833,7 +1833,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
             "--noinform")
     "^\[[0-9]*\]> "
     utf-8)
-  
+
 
 
   (defun set-inferior-lisp-implementation (impl)
@@ -1889,8 +1889,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   ;;                 (set-default-lisp-implementation 'clisp)))
 
   (set-default-lisp-implementation 'ccl)
-  
-  
+
+
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
     (string-match (if number (format "^%dlisp" number) "^[0-9]+lisp") buffer-name))
@@ -2009,10 +2009,10 @@ of `inferior-lisp-program').  Runs the hooks from
 ;;   (if (boundp 'inferior-lisp-buffer)
 ;;       inferior-lisp-buffer
 ;;       (process-buffer (or process (inferior-lisp-proc)))))
-;; 
+;;
 ;; (defun inferior-lisp-package (&optional process)
 ;;   (symbol-value-in-buffer 'package (inferior-lisp-buffer process)))
-;; 
+;;
 ;; ;; (defun lisp-eval-region (start end &optional and-go)
 ;; ;;   "Send the current region to the inferior Lisp process.
 ;; ;; Prefix argument means switch to the Lisp buffer afterwards."
@@ -2020,8 +2020,8 @@ of `inferior-lisp-program').  Runs the hooks from
 ;; ;;   (comint-send-region (inferior-lisp-proc) start end)
 ;; ;;   (comint-send-string (inferior-lisp-proc) "\n")
 ;; ;;   (if and-go (switch-to-lisp t)))
-;; 
-;; (defadvice lisp-eval-region (before ler-in-package activate) 
+;;
+;; (defadvice lisp-eval-region (before ler-in-package activate)
 ;;   (when (and (boundp 'package) (not (eq package (inferior-lisp-package))))
 ;;     (comint-send-string (inferior-lisp-proc)
 ;;                         (upcase (format "(CL:IN-PACKAGE #:%s)\n" package)))
@@ -2206,7 +2206,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;                                  t
 ;;                                  comint-preoutput-filter-functions))
 ;;               (strings (list string)))
-;;           
+;;
 ;;           (while (and functions strings)
 ;;             (setf strings (loop
 ;;                              with result = ()
@@ -2215,20 +2215,20 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;                              finally (return (nreverse result))))
 ;;             (setq functions (cdr functions)))
 ;;           (setf string strings))
-;;         
+;;
 ;;         ;; Insert STRING
 ;;         (let ((inhibit-read-only t)
 ;;               ;; The point should float after any insertion we do.
 ;;               (saved-point (copy-marker (point) t)))
-;; 
+;;
 ;;           ;; We temporarly remove any buffer narrowing, in case the
 ;;           ;; process mark is outside of the restriction
 ;;           (save-restriction
 ;;             (widen)
-;; 
+;;
 ;;             (goto-char (process-mark process))
 ;;             (set-marker comint-last-output-start (point))
-;; 
+;;
 ;;             ;; insert-before-markers is a bad thing. XXX
 ;;             ;; Luckily we don't have to use it any more, we use
 ;;             ;; window-point-insertion-type instead.
@@ -2238,22 +2238,22 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;                     ((stringp item) (insert item))
 ;;                     ((consp   item) (insert-image (first item) (second item)))
 ;;                     (t (error "Unexpected kind of insert %S" item))))
-;; 
-;;             
+;;
+;;
 ;;             ;; Advance process-mark
 ;;             (set-marker (process-mark process) (point))
 ;;             (setf string (buffer-substring comint-last-output-start (point)))
 ;;             (unless comint-inhibit-carriage-motion
 ;;               ;; Interpret any carriage motion characters (newline, backspace)
 ;;               (comint-carriage-motion comint-last-output-start (point)))
-;; 
+;;
 ;;             ;; Run these hooks with point where the user had it.
 ;;             (goto-char saved-point)
 ;;             (run-hook-with-args 'comint-output-filter-functions string)
 ;;             (set-marker saved-point (point))
-;; 
+;;
 ;;             (goto-char (process-mark process)) ; in case a filter moved it
-;; 
+;;
 ;;             (unless comint-use-prompt-regexp
 ;;               (let ((inhibit-read-only t)
 ;;                     (inhibit-modification-hooks t))
@@ -2263,7 +2263,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;;                                        rear-nonsticky t
 ;;                                        field output
 ;;                                        inhibit-line-move-field-capture t))))
-;; 
+;;
 ;;             ;; Highlight the prompt, where we define `prompt' to mean
 ;;             ;; the most recent output that doesn't end with a newline.
 ;;             (let ((prompt-start (save-excursion (forward-line 0) (point)))
@@ -2506,7 +2506,7 @@ URL in a new window."
   ;; (setf common-lisp-hyperspec-browser (function pjb-w3m-browse-url-in-another-frame))
   (setf common-lisp-hyperspec-browser (function w3m-browse-url))
   ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
-  
+
   ) ;;when
 
 
@@ -2520,7 +2520,7 @@ URL in a new window."
 ;; (require 'slime)
 ;; (slime)
 
-(setf slime-enable-evaluate-in-emacs t) 
+(setf slime-enable-evaluate-in-emacs t)
 
 (defun eval-in-cl (cl-expression-string process-result-values)
   (slime-eval-with-transcript
@@ -2548,7 +2548,7 @@ URL in a new window."
 
 
 ;; ;;; In Common Lisp, we can execute emacs lisp expressions:
-;; 
+;;
 ;; (defparameter *emacs-readtable* (copy-readtable))
 ;; (setf (readtable-case *emacs-readtable*) :preserve)
 ;; (set-syntax-from-char #\> #\) *emacs-readtable*)
@@ -2557,28 +2557,28 @@ URL in a new window."
 ;;  (lambda (stream subchar dispchar)
 ;;    `(emacs-unreadable ,@(read-delimited-list #\> stream t)))
 ;;  *emacs-readtable*)
-;; 
+;;
 ;; ;; Probably more readtable patching would be in order.
 ;; ;;
 ;; ;; We could define CLOS proxies for emacs objects for a more seamless
 ;; ;; integration. swank::eval-in-emacs process the CL form to make it
 ;; ;; "emacs" (eg. downcase symbols, etc).  It could convert CLOS proxies
 ;; ;; to emacs lisp forms returning the corresponding emacs object.
-;; 
+;;
 ;; (defun eval-in-emacs (form &optional nowait)
 ;;   (let ((result (SWANK::EVAL-IN-EMACS `(format "%S" ,form) nowait))
 ;;         (*readtable* *emacs-readtable*))
 ;;     (with-input-from-string (in result)
 ;;       (let ((result (read in nil in)))
 ;;         result))))
-;; 
-;; 
+;;
+;;
 ;; (eval-in-emacs `(progn
 ;;                   (switch-to-buffer (buffer-named "*scratch*"))
 ;;                   (goto-char (point-max))
 ;;                   (insert ,(format nil "~%Hello~%"))
 ;;                   (list 42 (current-buffer))))
-;; 
+;;
 ;; ;; Switch to the *scratch* buffer,
 ;; ;; goto the last position, and
 ;; ;; inserts \nHello\n
@@ -2915,7 +2915,7 @@ RETURN: (path point)
               (let ((start (prog1 (point) (forward-sexp)))
                     (end   (prog1 (point) (backward-sexp))))
                 (forward-char)
-                (forward-sexp) 
+                (forward-sexp)
                 (loop
                    with target = (if (and (< start pt) (< pt end))
                                      pt ; current point inside the export.
@@ -3151,7 +3151,7 @@ a 'lisp-indent-function property set to NUM-FORMS.
 
 (defmacro* do-directories-up ((var dir-path &optional result) &body body)
   "
-DO:     Evaluates body with var bound to dir-path, then dir-path's parent, 
+DO:     Evaluates body with var bound to dir-path, then dir-path's parent,
         and so on up to the root directory.
 RETURN: The evaluation of the result form.
 "
@@ -3171,7 +3171,7 @@ RETURN: The evaluation of the result form.
 
 
 (defun load-lisp-indentations ()
-  "Processes a lisp.indentations file, 
+  "Processes a lisp.indentations file,
 in the current directory, or in a parent."
   (interactive)
   (do-directories-up (dir default-directory)
@@ -3318,7 +3318,7 @@ a symbol as a valid THING."
           result)
         (try-completion string common-lisp-hyperspec-symbols predicate)))
 
-  
+
   (defun clhs-entry (symbol-designator)
     (let ((symbol (intern-soft (downcase (etypecase symbol-designator
                                            (symbol (symbol-name symbol-designator))
@@ -3328,7 +3328,7 @@ a symbol as a valid THING."
           (symbol-value symbol)
           nil)))
 
-  
+
   (defun common-lisp-hyperspec (symbol-name)
     "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
 If SYMBOL-NAME has more than one definition, all of them are displayed with
@@ -3374,7 +3374,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
           (error "The symbol `%s' is not defined in Common Lisp"
                  symbol-name))
       :test (function equal))))
-  
+
 
   (defun gcl-hyperspec (symbol-name)
     (interactive
