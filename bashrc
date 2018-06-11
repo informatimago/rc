@@ -273,9 +273,13 @@ function be_generate(){
     local value
 
     bindirs=(
-        $HOME/bin
-        $HOME/opt/bin
-        $HOME/.rvm/bin # Add RVM to PATH for scripting
+
+        "$HOME/anaconda3/bin"
+        "/opt/anaconda3/bin"
+
+        "$HOME/bin"
+        "$HOME/opt/bin"
+        "$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
         /usr/local/bin
         /usr/local/sbin
@@ -1491,3 +1495,4 @@ bashrc
 # Note:  No interactive stuff here, ~/.bashrc is loaded by all scripts
 #        thru ~/.profile and ~/.bash_profile!
 #### THE END ####
+
