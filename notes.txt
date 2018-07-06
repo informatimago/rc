@@ -6,6 +6,25 @@ Ursula Haverbke
 
 LLVM IR to CL transpiler: https://github.com/froggey/Iota
 
+
+Armes biologiques employées par les envahisseurs:
+
+- siphylis,
+- tuberculose,
+- herpes,
+- galle,
+- lèpre,
+- paludisme (souches multi-résistante).
+
+
+
+* FreeBSD
+
+Hi! I've got some contradictory information about CredSSP and SPNEGO.  In the MS-CSSP specification, it says that SPNEGO can be used WITHOUT kerberos or ntlm.  On the Microsoft web site, it says that CredSSP uses SPNEGO with EITHER kerberos or ntlm. It also says there that CredSSP supports password or smartcard based on BOTH x509 and pkinit.
+I'd want to implement smartcard logon (with x509 certificates) thru NLA, WITHOUT kerberos or ntlm.
+Would that be possible?
+I fancy that it should be possible, using CredSSP, with SPNEGO, without kerberos or ntlm, by creating a pure SPNEGO token from the x509 certificate.  Am I wrong?
+
 * SBDE
 
 https://www.aimljobs.com
