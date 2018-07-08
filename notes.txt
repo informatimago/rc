@@ -13,6 +13,25 @@ https://framablog.org/tag/peertube/
 https://mediagoblin.org
 http://peerstorage.org﻿
 
+Armes biologiques employées par les envahisseurs:
+
+- siphylis,
+- tuberculose,
+- herpes,
+- galle,
+- lèpre,
+- paludisme (souches multi-résistante).
+
+
+
+* FreeRDP
+
+Hi! I've got some contradictory information about CredSSP and SPNEGO.  In the MS-CSSP specification, it says that SPNEGO can be used WITHOUT kerberos or ntlm.  On the Microsoft web site, it says that CredSSP uses SPNEGO with EITHER kerberos or ntlm. It also says there that CredSSP supports password or smartcard based on BOTH x509 and pkinit.
+I'd want to implement smartcard logon (with x509 certificates) thru NLA, WITHOUT kerberos or ntlm.
+Would that be possible?
+I fancy that it should be possible, using CredSSP, with SPNEGO, without kerberos or ntlm, by creating a pure SPNEGO token from the x509 certificate.  Am I wrong?
+
+
 * SBDE
 
 https://www.aimljobs.com
@@ -6991,6 +7010,31 @@ spliting a subtree:
 git stash other-changes
 git reset --hard HEAD^
 #+END_EXAMPLE
+
+*** git rebase
+1- rewind head to replay work on to of it:
+#+BEGIN_EXAMPLE
+git checkout experiment
+git rebase master
+#+END_EXAMPLE
+2- go back to master and fast-forward merge:
+(done by upstream)
+#+BEGIN_EXAMPLE
+git checkout master
+git merge experiment
+#+END_EXAMPLE
+
+'feature' implemented from 'divergent', branched out from 'master'.
+rebase 'feature' to 'master':
+#+BEGIN_EXAMPLE
+git rebase --onto master divergent feature
+#+END_EXAMPLE
+(done by upstream)
+#+BEGIN_EXAMPLE
+git checkout master
+git merge experiment
+#+END_EXAMPLE
+
 
 ** DVCS: github
 *** multiple github accounts
