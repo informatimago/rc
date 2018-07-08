@@ -6,10 +6,22 @@ Ursula Haverbke
 
 LLVM IR to CL transpiler: https://github.com/froggey/Iota
 
+https://ec.europa.eu/eusurvey/runner/2018-summertime-arrangements?surveylanguage=EN
+
+https://holochain.or
+https://framablog.org/tag/peertube/
+https://mediagoblin.org
+http://peerstorage.org﻿
+
 * SBDE
 
 https://www.aimljobs.com
 http://www.fast.ai/2018/05/07/part2-launch/
+
+** Trello
+@duval97 @starnawski @jess92320
+
+trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
 
 * Généalogie - Genealogy
 Soeur de Kasimiera Chilkowy : Mariette en Argentine.
@@ -1294,7 +1306,7 @@ Nasium LSE:              telnet://voyager.informatimago.com:8115
 ** Combat
 
 1488 We must secure the existence of our people and a future for white children. HH.
-     Nous devons assurer l\'existence de notre peuple et un futur pour les enfants blancs. HH.
+     Nous devons assurer l'existence de notre peuple et un futur pour les enfants blancs. HH.
 
 * ACTIONS
 ** A-FAIRE, TODO, ENCOURS
@@ -5367,6 +5379,14 @@ we value theitems on the left more.
     http://portal.acm.org/citation.cfm?id=103163
     http://focus.hut.fi/docs/WorkShop/common/ug/goldberg1.doc.html
 
+    What Every Computer Scientist Should Know About Floating-Point Arithmetic http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
+    What Every Programmer Should Know About Floating-Point Arithmetic http://floating-point-gui.de/
+
+    printing floating point numbers:
+    http://www.ryanjuckett.com/programming/printing-floating-point-numbers/
+
+    Easy Accurate Reading and Writing of Floating-Point Numbers
+    https://arxiv.org/pdf/1310.8121.pdf
 
     RealLib3:
     http://www.brics.dk/~barnie/RealLib/
@@ -9822,31 +9842,9 @@ Welcome to Clozure Common Lisp Version 1.7-dev-r14422  (DarwinX8664)!
 ./dx86cl -n
 (ccl:rebuild-ccl :full t)
 
-** LANGUAGES: COMMON LISP: CLISP ENCODINGS
-
-    #+clisp ext:convert-string-to-bytes
-    #+clisp ext:convert-string-from-bytes
-
-    #+sbcl sb-ext:octets-to-string
-    #+sbcl sb-ext:string-to-octets
-    ;; both of which take an external-format
-
-** LANGUAGES: COMMON LISP: CLISP FFI
-
-    This is not supported syntax. The official syntax to access
-    foreign-variable objects is
-
-    (with-c-place (my s1) ; "my" place name chosen arbitrarily
-      (slot my 'my-str)
-      (setf (slot my 'my-str) foo)))
-
-    (defmacro with-foreign-structure ((lisp foreign) &body body)
-       `(ffi:with-c-place (,lisp ,foreign) ,@body))
-
-
-   #0Y UTF-8 ;;;  This file is Unicode/UTF-8 encoded.  -*- coding: utf-8 -*-
-
 ** LANGUAGES: COMMON LISP: CLISP:
+
+git clone git@gitlab.com:gnu-clisp/clisp.git
 
 So what to do with CLISP and testing?  It seems CLISP is prevented from
 entering testing due to bugs #751005 and #752726, i.e. segfaults on
@@ -10065,6 +10063,30 @@ returned for the total of 5 values.
 
     - iso-8859-1 because that's what I found out Emacs sends to the
       CLISP process in my environment.
+
+** LANGUAGES: COMMON LISP: CLISP ENCODINGS
+
+    #+clisp ext:convert-string-to-bytes
+    #+clisp ext:convert-string-from-bytes
+
+    #+sbcl sb-ext:octets-to-string
+    #+sbcl sb-ext:string-to-octets
+    ;; both of which take an external-format
+
+** LANGUAGES: COMMON LISP: CLISP FFI
+
+    This is not supported syntax. The official syntax to access
+    foreign-variable objects is
+
+    (with-c-place (my s1) ; "my" place name chosen arbitrarily
+      (slot my 'my-str)
+      (setf (slot my 'my-str) foo)))
+
+    (defmacro with-foreign-structure ((lisp foreign) &body body)
+       `(ffi:with-c-place (,lisp ,foreign) ,@body))
+
+
+   #0Y UTF-8 ;;;  This file is Unicode/UTF-8 encoded.  -*- coding: utf-8 -*-
 
 ** LANGUAGES: COMMON LISP: ECL
 
@@ -11745,17 +11767,17 @@ debian versions
      * man page to learn how to update config files.
     root@kuiper ~ #
 
-** SYSTEMS: Linux Ubuntu
+** SYSTEM: Linux Ubuntu
 
 software-center
 gnome-nm-network-editor
 
-** SYSTEMS: Linux: ramdisk
+** SYSTEM: Linux: ramdisk
 
     /sbin/mke2fs -vm0 /dev/ram 2048
     /sbin/mount /dev/ram /tmp
 
-** SYSTEMS: Linux: UML, USER-MODE-LINUX,  USERMODELINUX:
+** SYSTEM: Linux: UML, USER-MODE-LINUX,  USERMODELINUX:
 
     user-mode-linux /proc/cmdline
     http://umlsim.sf.net/
@@ -11764,7 +11786,7 @@ gnome-nm-network-editor
            con1=fd:0,fd:1
            con=pts (or was it pty?)
 
-** SYSTEMS: Macintosh
+** SYSTEM: Macintosh
 *** Boot keys
 
 +--------------------------------------+-------------------------------------------------------+
@@ -11804,11 +11826,11 @@ gnome-nm-network-editor
 
 1 Available on Macs that ship with OS X Lion. Some CPUs require an EFI BootROM update to support this feature.
 
-** SYSTEMS: MacOnLinux
+** SYSTEM: MacOnLinux
 
     http://www.maconlinux.org/
 
-** SYSTEMS: MacOSX
+** SYSTEM: MacOSX
 *** MacPorts ports port
 
 sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
@@ -12314,13 +12336,13 @@ fi
     License name: Pascal Bourguignon
     License code: GDAL
 
-** SYSTEMS: Microsoft Windows
+** SYSTEM: Microsoft Windows
 
 # to manage waking up devices:
 powercfg -devicedisablewake "Mouse compatible con HID (001)"
 powercfg -devicequery wake_armed
 
-** SYSTEMS: Modula-2, LUMOS, LUMOS-2
+** SYSTEM: Modula-2, LUMOS, LUMOS-2
 
 the Sources of LUMOS-2 (Laurentian University Modula-2 Operating
 System. (c) 1992 Grant R. Guenther) are freely available from the
@@ -12331,7 +12353,7 @@ http://groups.google.com/group/comp.lang.modula2/msg/82b57a202e0e8c57?output=gpl
 
 http://modula2.net/resources/Modula-2.xclangspec
 
-** SYSTEMS: NEXTSTEP
+** SYSTEM: NEXTSTEP
 
 
     http://www.blackholeinc.com/specials/blackhardware.shtml
@@ -12525,7 +12547,7 @@ http://modula2.net/resources/Modula-2.xclangspec
     sheet of paper. Printer is now working normally. (I did clean the whole
     roller) I'll see for how long.
 
-** SYSTEMS: POSIX
+** SYSTEM: POSIX
 
     http://www.knosof.co.uk/poschk.html
 
@@ -12534,7 +12556,7 @@ http://modula2.net/resources/Modula-2.xclangspec
     http://www.laputan.org/brant/brant.html
     http://www-db.stanford.edu/~paepcke/shared-documents/mopintro.ps
 
-** SYSTEMS: SECURITY, CAPABILITY
+** SYSTEM: SECURITY, CAPABILITY
 
     http://www.schneier.com/book-sandl.html
     http://www.cs.berkeley.edu/~daw/talks/TRUST07.pdf
@@ -12549,7 +12571,7 @@ http://modula2.net/resources/Modula-2.xclangspec
     http://www.cl.cam.ac.uk/~rja14/book.html
     http://www.amazon.com/Building-Secure-Software-Addison-Wesley-Professional/dp/020172152X
 
-** SYSTEMS: UNIX:
+** SYSTEM: UNIX:
 
     http://cr.yp.to/daemontools.html
 
@@ -12671,9 +12693,26 @@ Andrew.
 
 comp.unix.programmer FAQ: see <URL: http://www.erlenstar.demon.co.uk/unix/>
 
+*** Unix scripts should not have any file extension.
 
+They unnecessarily expose implementation detail (breaking encapsulation).
+They uselessly and incompletely mimic detail from the #! line.
+They capture insufficient detail to be useful at the system level (and aren't used).
+They clash with recommended Unix (and Linux) practice.
+They add noise to the command-level API.
+They are very commonly technically incorrect for the script.
+They give incorrect impressions about the use of the files they adorn.
+They aren't validated even for what little info is present in them.
+They interfere with switching scripting languages.
+They interfere with changing scripting language versions.
+They interfere with changing to presumably-faster compiled forms.
+They encourage naively running scripts with the extension-implied interpreter.
+They infect novice scripters with misinformation about Unix scripting.
+They ironically are only a problem when interpreted by humans.
+See more at:
 
-------------------------------------------------------------------------------
+http://www.talisman.org/~erlkonig/documents/commandname-extensions-considered-harmful
+
 ** Text
 
     It's been a vexed issue on this list, and others, but the Text Encoding
