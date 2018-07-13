@@ -3,6 +3,10 @@
 (load "~/rc/emacs-pjb.el")
 (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
 (setf *pjb-intervention-firm* '((minint)))
+(require 'freerdp-c-style)
+
+(require 'asn1-mode)
+(add-to-list 'auto-mode-alist '("\.asn1$" . asn1-mode))
 
 (defun mice ()
   (split-string
