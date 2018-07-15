@@ -407,6 +407,7 @@ X-Accept-Language:         fr, es, en
  '(tnt-username-alist (quote (("matimago") ("ogamita"))))
  '(tool-bar-mode nil)
  '(tooltip-frame-parameters (quote ((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1))))
+ '(tramp-default-method "ssh")
  '(truncate-partial-width-windows nil)
  '(url-be-asynchronous t)
  '(url-honor-refresh-requests nil)
