@@ -755,6 +755,11 @@ X-Accept-Language:         fr, es, en
 
 (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (latex . t)
+   (dot . t)))
+
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
-
