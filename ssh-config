@@ -47,23 +47,6 @@ Host ubudu+github.com
     IdentityFile            ~/.ssh/ubudu+id_rsa
 
 
-
-# ----------------------------------------
-# Anonix:
-
-Host anonix.net
-    User                    hf
-    Protocol                2
-
-
-# ----------------------------------------
-# Andre Reinald:
-
-Host bolet.no-ip.com
-    Protocol                1,2
-    StrictHostKeyChecking	no
-    CheckHostIP             no
-
 # ----------------------------------------
 # Default:
 
