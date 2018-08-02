@@ -2,10 +2,10 @@
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
-(load "~/rc/emacs-common.el")
+
+(load "~/rc/emacs-common.el") ; defines .EMACS
 (.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
-
 
 
 ;;;----------------------------------------------------------------------------
