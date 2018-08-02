@@ -94,6 +94,8 @@
 ;; byte-compile-warnings
 ;; (not cl-functions)
 
+(require 'tramp-sh nil t)
+(setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
 
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))

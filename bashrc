@@ -1,6 +1,12 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+
+if [ ! -z ${TRAMP-x} ] ; then
+    return
+fi
+
+
 set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
