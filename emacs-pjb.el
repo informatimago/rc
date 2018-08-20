@@ -2,10 +2,10 @@
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file.
 
-(load "~/rc/emacs-common.el")
+
+(load "~/rc/emacs-common.el") ; defines .EMACS
 (.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
-
 
 
 ;;;----------------------------------------------------------------------------
@@ -332,6 +332,7 @@ X-Accept-Language:         fr, es, en
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
  '(org-agenda-files (quote ("~/rc/notes.txt" "~/src/pjb/nasium-lse/ISSUES.txt" "~/works/abnotation/abnotation/todo.txt" "~/works/enolaba/macosx/src/TODO" "~/works/manif/TODO.org" "~/works/ops/TODO.org" "~/works/patchwork/src/mclgui/TODO.org" "~/works/patchwork/src/patchwork/notes.txt")))
+ '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
