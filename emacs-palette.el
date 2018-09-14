@@ -123,6 +123,7 @@
 
 (defpalette pal-default       "White"        "Black"         "Red"           "blue3"          "#444444")
 (defpalette pal-white         "#000000"      "#ffffff"       "#555555"       "#aaaaaa"        "#444444")
+(defpalette pal-whiteblueish  "#000020"      "#f0f0f0"       "#0080f0"       "#4000e0"        "#406080")
 (defpalette pal-whiteish      "gray20"       "gray90"        "gray30"        "gray70"         "#444444")
 (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff"       "#555555"        "#444444")
 (defpalette pal-dkgray        "#ffffff"      "#555555"       "#000000"       "#aaaaaa"        "#444444")
