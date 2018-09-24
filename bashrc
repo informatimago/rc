@@ -2,7 +2,7 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 
-if [ ! -z ${TRAMP-x} ] ; then
+if [ -z ${TRAMP-x} ] ; then
     return
 fi
 
