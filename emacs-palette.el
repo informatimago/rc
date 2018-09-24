@@ -131,7 +131,7 @@
 (defpalette pal-lukhas        "#fff8dc"      "#537182"       "Red"           "#ddd"           "#444444")
 (defpalette pal-thalassa      "MidnightBlue" "#e0f8ff"       "Pink4"         "orchid1"        "#444444")
 (defpalette pal-larissa       "DarkOrchid4"  "#f8e8ff"       "Pink4"         "orchid1"        "#444444")
-(defpalette pal-lassell       "green         yellow"         "#08350F"       "yellow"         "#0f0835"       "#444444")
+(defpalette pal-lassell       "green yellow" "#08350F"       "yellow"        "#0f0835"        "#444444")
 (defpalette pal-triton        "#929982"      "#2d4e4e"       "cyan"          "#336666"        "#444444")
 (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"         "orchid1"        "#444444")
 (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"         "orchid1"        "#444444")
