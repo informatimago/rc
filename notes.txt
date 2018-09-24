@@ -21,16 +21,16 @@ Armes biologiques employées par les envahisseurs:
 - galle,
 - lèpre,
 - paludisme (souches multi-résistante).
-
+- cholera
 
 expected dates of extinction from primary extraction
-copper   (Chili)        2040-2060
-lithium  (Chili)        2020-2030
-cobalt   (Congo)        2080+
-Uraniumf ()             2070-2100
+Copper   (Chili)        2040-2060
+Lithium  (Chili)        2020-2030
+Cobalt   (Congo)        2080+
+Uranium  ()             2070-2100
 Silver   (Peru)         2025-2035
-oil      ()             2040-2070
-platinum (South-Africa) 2050-2070
+Oil      ()             2040-2070
+Platinum (South-Africa) 2050-2070
 
 * Blockchain
 
