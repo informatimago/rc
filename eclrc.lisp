@@ -184,3 +184,5 @@
 
 
 (USE-PACKAGE "COM.INFORMATIMAGO.PJB")
+(defpackage "FOO" (:use "CL"))
+(in-package "FOO")
