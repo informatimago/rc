@@ -1,6 +1,10 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+visa la banque postale:  09 69 320 004
+
+Research identifies key weakness in modern computer vision systems <https://news.brown.edu/articles/2018/07/same-different>
+
 Les juifs qui ont du quitter l'Allemagne en 1933 sont revenus pour soumettre ceux qui étaient au pouvoir au tribunal de Nuremberg 12 ans plus tard.  De nos jours, les rabbins conseillent aux juifs de quitter l'Europe.  Qui sera les accusés dans 12 ans?
 Ursula Haverbke
 
@@ -32,6 +36,10 @@ Silver   (Peru)         2025-2035
 oil      ()             2040-2070
 platinum (South-Africa) 2050-2070
 
+
+I collected 62 ready-to-use designs for iOS apps [free UI kits]
+https://flawlessapp.io/blog/60-great-ui-kits-for-ios-engineers/
+
 * Blockchain
 
 Votre identifiant de portefeuille est f56067de-b5ee-4787-9a2d-06b3871eb6c6
@@ -47,9 +55,33 @@ Would that be possible?
 I fancy that it should be possible, using CredSSP, with SPNEGO, without kerberos or ntlm, by creating a pure SPNEGO token from the x509 certificate.  Am I wrong?
 
 * SBDE
+** Address
+
+SBDE SAS àCV
+SBDE Société par Actions Simplifiée à Capital Variable de 2,200 euros
+Siège Social:
+21, boulevard de la Liberté
+92320 Châtillon
+France
+
+** Compte OVH
+Pascal
+Bourguignon
+buNbAp8nY+SIM{zu
+SBDE SASàCV
+21 bd de la Liberté
+92320 Châtillon
+TVA:
+pjb@sbde.fr
+informatimago+sbde@gmail.fr
+
+
+** AI Stuff
 
 https://www.aimljobs.com
 http://www.fast.ai/2018/05/07/part2-launch/
+
+
 
 ** Trello
 @duval97 @starnawski @jess92320
@@ -279,27 +311,35 @@ https://megacase.com/fr/produit/rack-19-pro/
 (18 7/8" x 5 5/12" x 15 2/3")
 
 ** Future Synthesizers
-*** Doepfer                 A-100                      2500 €               modular
-http://www.doepfer.de/a100e.htm
-
-*** Dave Smith Instruments  Prophet Rev2-16 Desktop    2219 €  20170910     16 voices
-https://www.davesmithinstruments.com/product/prophet-rev2-desktop/
-
-*** Dave Smith Instruments  Prophet Rev2-8  Desktop    1399 €  20170910      8 voices
-https://www.davesmithinstruments.com/product/prophet-rev2-desktop/
-
-*** Novation                Peak                       1325 €  20170929      8 voices
-*** Futuresonus             Parva                      1000 €                8 voices
-https://futureson.us
-
+*** Akai                    MPC X                      1999 €
 *** Asturia                 MatrixBrute                1999 €               mono CV in/out
 https://www.arturia.com/products/matrixbrute/overview
+*** Dave Smith Instruments  Prophet Rev2-16            1936 €
+*** Dave Smith Instruments  Prophet Rev2-16 Desktop    2219 €  20170910     16 voices
+https://www.davesmithinstruments.com/product/prophet-rev2-desktop/
+*** Dave Smith Instruments  Prophet Rev2-8  Desktop    1399 €  20170910      8 voices
+*** Doepfer                 A-100                      2500 €               modular
+http://www.doepfer.de/a100e.htm
+*** Doepfer                 A-100BS2-P9 PSU3           2199 €               modular
+*** Futuresonus             Parva                      1000 €                8 voices
+https://futureson.us
 *** HyperSynth              Xenophone                   975 €               mono
 http://www.hypersynth.com/xenophone.html
-
-*** MFB                     Dominion
 *** KAWAI                   K4R                         200 €
-
+*** Korg                    Prologue 16                1685 €
+*** MFB                     Dominion 1                 1359 €
+*** Modal Electronics       Modal 008                  4650 €
+*** Novation                Peak                       1119 €               8 voices
+*** Polyend                 SEQ                         985 €
+*** Roger Linn Design       LinnStrument               1499 €
+*** Strymon                 Big Sky                     499 €
+*** Waldorf                 Blofeld Black               439 €
+*** Waldorf                 Quantum                    3995 €
+*** Waldorf                 Streichfett                 222 €
+*** ESI                     U168XT                      457 €               ADC/DAC
+*** MOTU                    8A AVB                      829 €               ADC/DAC
+*** MOTU                    16A AVB                    1398 €               ADC/DAC
+*** MOTU                    828x                        777 €               ADC/DAC
 ** Synthesizers
 *** MIDI
 
@@ -3267,6 +3307,8 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
 ** Developments TODO                                                    :dev:
+*** TODO [#B] add libecl to life-saver                                   :cl:
+https://www.informatimago.com/articles/life-saver.html
 *** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
 *** TODO [#A] build robot, and implement robot software                  :pi:
