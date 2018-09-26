@@ -1060,5 +1060,7 @@ without, lists all the commands with their docstrings."
 
 ;; );;when quicklisp
 
+(when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
+  (format t ";; There's a quicklisp update available.~%"))
 
 ;;;; THE END ;;;;
