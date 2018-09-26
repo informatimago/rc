@@ -123,6 +123,7 @@
 
 (defpalette pal-default       "White"        "Black"         "Red"           "blue3"          "#444444")
 (defpalette pal-white         "#000000"      "#ffffff"       "#555555"       "#aaaaaa"        "#444444")
+(defpalette pal-whiteblueish  "#000020"      "#f0f0f0"       "#0080f0"       "#4000e0"        "#406080")
 (defpalette pal-whiteish      "gray20"       "gray90"        "gray30"        "gray70"         "#444444")
 (defpalette pal-ltgray        "#000000"      "#aaaaaa"       "#ffffff"       "#555555"        "#444444")
 (defpalette pal-dkgray        "#ffffff"      "#555555"       "#000000"       "#aaaaaa"        "#444444")
@@ -130,7 +131,7 @@
 (defpalette pal-lukhas        "#fff8dc"      "#537182"       "Red"           "#ddd"           "#444444")
 (defpalette pal-thalassa      "MidnightBlue" "#e0f8ff"       "Pink4"         "orchid1"        "#444444")
 (defpalette pal-larissa       "DarkOrchid4"  "#f8e8ff"       "Pink4"         "orchid1"        "#444444")
-(defpalette pal-lassell       "green         yellow"         "#08350F"       "yellow"         "#0f0835"       "#444444")
+(defpalette pal-lassell       "green yellow" "#08350F"       "yellow"        "#0f0835"        "#444444")
 (defpalette pal-triton        "#929982"      "#2d4e4e"       "cyan"          "#336666"        "#444444")
 (defpalette pal-naiad         "MidnightBlue" "DarkSeaGreen1" "Pink3"         "orchid1"        "#444444")
 (defpalette pal-galatea       "#3080ff"      "#030828"       "Pink4"         "orchid1"        "#444444")

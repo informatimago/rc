@@ -502,6 +502,7 @@ function be_generate(){
     be_variable LC_CTYPE                  C
     # If the above are not defined:
     be_variable LANG                      en_US.UTF-8
+    be_unset    LANGUAGE
 
     be_unset XMODIFIERS
 
