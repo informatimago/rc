@@ -1,6 +1,7 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+
 visa la banque postale:  09 69 320 004
 
 Research identifies key weakness in modern computer vision systems <https://news.brown.edu/articles/2018/07/same-different>
@@ -39,6 +40,9 @@ Platinum (South-Africa) 2050-2070
 
 I collected 62 ready-to-use designs for iOS apps [free UI kits]
 https://flawlessapp.io/blog/60-great-ui-kits-for-ios-engineers/
+
+
+
 
 * Blockchain
 
@@ -165,13 +169,6 @@ http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page
  Les coordonnées du client viennent de vous être envoyées également par mail.
 
 * new notes
-WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
-Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
-
-UVI
-UVX80
-UVISC58-CEACE57A
-
 
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
 La brique internet
@@ -181,7 +178,6 @@ NEO900 Nokia
 
 
 #+BEGIN_SRC(shell)
-
 function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
 
 /opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
@@ -251,11 +247,6 @@ You’ve got it! If you don’t want to play, tell a joke or dance, but in any c
 Whatever you think can’t be done, somebody will come along & do it. A genius is the one most like himself.
 
 They tried to get me to hate white people, but someone would always come along & spoil it.
-
-** Triadex
-
-http://till.com/articles/muse/
-http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
 
 * Synthesizers
 ** Rack-19
@@ -365,6 +356,23 @@ http://www.hypersynth.com/xenophone.html
 *** Korg DW-8000                          10.9 kg     998 x 338 x 101 mm
 *** Korg EX-8000                           7.5 kg     430 x 413 x  90 mm
 *** Korg MEX-8000
+** Soft Synths
+
+WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
+Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
+
+UVI
+UVX80
+UVISC58-CEACE57A
+
+*** Audiaire VST
+http://www.audiaire.com/download/#trial
+
+*** Triadex
+
+http://till.com/articles/muse/
+http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
+
 * nntp usenet news : old articles
 > If you have the message id you can try your luck at
 >  (concat
