@@ -10,6 +10,11 @@
 # Thus, host-specific definitions should be at the beginning of the
 # configuration file, and defaults at the end.
 
+# Host lenomdemonhote
+#      HostName X.X.X.X
+#      User     user
+#      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
+#      ServerAliveInterval 15
 
 Host github.com
     HostName                github.com
