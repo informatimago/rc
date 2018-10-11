@@ -355,7 +355,7 @@ License:
              "QUICKLOAD"
              "CONFIG-VALUE")))
 
-(defvar ql:*local-project-directories* '())
+(defvar ql:*local-project-directories* (directory #P "~/quicklisp/local-projects/**/"))
 
 ;; (when *ql-present*
 ;;   (setf (ql-config:config-value "proxy-url")
