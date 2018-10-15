@@ -42,7 +42,7 @@
                                         ("^uiserver"                  . "~/rc/emacs-employer-c.el")
                                         ("^ubudair"                   . "~/rc/emacs-employer-c.el")
                                         ("^employer-c-vm-mac-[0-9]"        . "~/rc/emacs-employer-c.el")
-                                        ("^\\(.*span\\|[wl][0-9]\\{7\\}$\\)"   . "~/rc/emacs-employer-f.el")))
+                                        ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\)"   . "~/rc/emacs-employer-f.el")))
                                     (hostname  (hostname))
                                     (conf  hostname-configuration-map))
                                (while (and conf (not (let ((case-fold-search t))
