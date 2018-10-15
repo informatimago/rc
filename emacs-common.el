@@ -3320,6 +3320,7 @@ License:
 (require 'message)
 (defalias 'rot13-region 'message-caesar-region)
 
+(defalias 'widden       'widen)
 (defalias 'scratch      'pjb-scratch)
 (defalias 'eurotunnel   'pjb-eurotunnel)
 (defalias 'address      'pjb-address)
