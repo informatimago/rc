@@ -74,7 +74,6 @@ http://www.fast.ai/2018/05/07/part2-launch/
 
 trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
 
-
 * Généalogie - Genealogy
 Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
@@ -368,7 +367,6 @@ http://www.audiaire.com/download/#trial
 
 http://till.com/articles/muse/
 http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
-
 
 * nntp usenet news : old articles
 > If you have the message id you can try your luck at
