@@ -17,7 +17,7 @@
 (defun touchpads ()
   (split-string
    (string-trim
-    (shell-command-to-string  "xinput list  --name-only|grep -i touchpad"))
+    (shell-command-to-string  "xinput list  --name-only|grep -i -e 'touchpad\\|DLL07A0:01'"))
    "\n"))
 
 (defun turn-off-trackpad (&optional frame)
