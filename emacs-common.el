@@ -378,7 +378,7 @@ and converted as such."
 (standard-display-ascii #o211 (vector (decode-char 'ucs #x2514)))
 (standard-display-ascii #o212 (vector (decode-char 'ucs #x2500)))
 (standard-display-ascii #o214 (vector (decode-char 'ucs #x2518)))
-(standard-display-ascii #o220 [? ])
+(standard-display-ascii #o220 [?\ ])
 (standard-display-ascii #o221 [?\` ])
 (standard-display-ascii #o222 [?\'])
 (standard-display-ascii #o223 [?\"])
@@ -2698,8 +2698,8 @@ variable `common-lisp-hyperspec-root' to point to that location."
     'lac-emms)
   (.EMACS "Load and configure emms complete."))
 
-(add-lac 'lac-emms)
-(lac-emms)
+;; (add-lac 'lac-emms)
+;; (lac-emms)
 
 
 ;;;----------------------------------------------------------------------------
