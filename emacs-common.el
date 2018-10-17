@@ -25,9 +25,10 @@
 ;; Mince   Is Not Complete Emacs.
 ;; FRED    Resembles Emacs Deliberately
 
-;;(when (= (user-uid) 0)
-;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
-;;  (error "~/.emacs: Cannot load ~/.emacs under root account."))
+(when (= (user-uid) 0)
+  ;; (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
+  ;; (error "~/.emacs: Cannot load ~/.emacs under root account.")
+  (set-face-background 'fringe "red"))
 
 
 ;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
