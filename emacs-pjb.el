@@ -6,7 +6,8 @@
 (load "~/rc/emacs-common.el") ; defines .EMACS
 (.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
-
+(require 'vc)
+(require 'vc-hooks)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -683,6 +684,8 @@ X-Accept-Language:         fr, es, en
              (dotimes (i n)
                (insert result)))))))))
 
+(when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
+  (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
@@ -692,7 +695,7 @@ X-Accept-Language:         fr, es, en
         (file-name (buffer-file-name)))
     (when (and file-name
                (string-match (format "^%s" home) file-name)
-               (vc-workfile-version file-name))
+               (vc-workfile-revision file-name))
       (goto-char (point-min))
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
@@ -716,7 +719,7 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (when (vc-workfile-version (buffer-file-name))
+  (when (vc-workfile-revision (buffer-file-name))
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 
