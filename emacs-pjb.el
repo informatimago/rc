@@ -175,7 +175,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#ccl" "#ecl" "#lispcafe" "#clschool" "##lisp" "#scheme" "#hn") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#clnoobs" "#clschool" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn") ("irc.oftc.net" "#uml"))))
  '(erc-autojoin-channels-alist-full (quote (("freenode.net" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#gentoo-lisp" "#swift-lang" "#swift-linux" "##objc" "#iphonedev-discuss" "#iCommunity" "#CocoaDev" "#MacOSX" "#macdev" "#iphonedev" "#iOSdev" "##apple" "##mac" "##iphone" "#iphonedev-chat" "#macports" "#macosforge" "##computerscience") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))

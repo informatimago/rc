@@ -38,7 +38,6 @@ Silver   (Peru)         2025-2035
 Oil      ()             2040-2070
 Platinum (South-Africa) 2050-2070
 
-
 I collected 62 ready-to-use designs for iOS apps [free UI kits]
 https://flawlessapp.io/blog/60-great-ui-kits-for-ios-engineers/
 
@@ -74,6 +73,9 @@ http://www.fast.ai/2018/05/07/part2-launch/
 @duval97 @starnawski @jess92320
 
 trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
+
+* Généalogie - Genealogy
+Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
 * freenode.org
 
@@ -125,6 +127,37 @@ https://www.youtube.com/watch?v=jSo5v5t4OQM
 Dr. John Philippe Rushton - Race and IQ
 https://www.youtube.com/watch?v=yZ65PSrSgAo
 
+* Angelo
+
+Dott. Ing. Angelo Rossi
+Via delle Albizzie, 21
+00172 Roma, Italia
+3293516963
+
+* progonline prospection
+** Tableau Server - Tableau Software - Paris
+
+http://www.progonline.com/mypage.php?quoi=voir_projet&id=21725
+http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page=projet&id=21725&accord_conso_credit=1
+
+ Nom du client : Michel BALDELLON
+
+ Email : michel.baldellon@checkndo.com
+
+ Numéro de téléphone fixe : (+33)143251500
+
+ Numéro de téléphone portable : (+33)673845775
+
+ Les coordonnées du client viennent de vous être envoyées également par mail.
+
+* new notes
+WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
+Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
+
+UVI
+UVX80
+UVISC58-CEACE57A
+
 * new notes
 
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
@@ -136,7 +169,6 @@ NEO900 Nokia
 
 #+BEGIN_SRC(shell)
 function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
-
 /opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
 #+END_SRC
 
@@ -204,6 +236,11 @@ You’ve got it! If you don’t want to play, tell a joke or dance, but in any c
 Whatever you think can’t be done, somebody will come along & do it. A genius is the one most like himself.
 
 They tried to get me to hate white people, but someone would always come along & spoil it.
+
+** Triadex
+
+http://till.com/articles/muse/
+http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
 
 * Synthesizers
 ** Rack-19
@@ -288,6 +325,7 @@ http://www.hypersynth.com/xenophone.html
 *** MOTU                    8A AVB                      829 €               ADC/DAC
 *** MOTU                    16A AVB                    1398 €               ADC/DAC
 *** MOTU                    828x                        777 €               ADC/DAC
+
 ** Synthesizers
 *** MIDI
 
@@ -382,7 +420,6 @@ Java AbstractSingletonProxyFactoryBean.
 http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/aop/framework/AbstractSingletonProxyFactoryBean.html
 
 sort out /srv/ftp/pub/mirrors/ftp.cs.indiana.edu/pub/
-
 
 http://hightechhistory.com/category/stanford/
 
@@ -997,7 +1034,6 @@ http://www.karlmarx.fr/
 
 
 
-
 flying eagle: https://www.youtube.com/watch?v=QwNc0SFIp-o
 student OS writing: http://xosnitc.github.io/index.html
 
@@ -1089,7 +1125,6 @@ it will then be used by default by the server when you start it.
 ** NOTES 9
 
 (alexandria:hash-table-alist asdf/source-registry::*source-registry*)
-
 
 
 
@@ -3232,8 +3267,6 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
 ** Developments TODO                                                    :dev:
-*** TODO [#B] add libecl to life-saver                                   :cl:
-https://www.informatimago.com/articles/life-saver.html
 *** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
 *** TODO [#A] build robot, and implement robot software                  :pi:
@@ -4409,7 +4442,301 @@ russian-typewriter:
    Я Ч С М И Т Ь Б Ю Ё
    я ч с м и т ь б ю ё
 
+
+Я не хочу это видеть．
+
+* ADDRESSES AND PHONE NUMBERS
+
+Cognesys GmbH
+z.H. André Thieme
+Theater straße, 90
+52062 Aachen
+Alemania
+
+
+PJB MSN account:  m647312@hotmail.com
+PJB AOL account:  matimago @ login.icq.com
+André Reinald:         ICQ#  10424726
+André Thieme:          ICQ#  48445345
+informatimago|roploplo ICQ# 126307903
+
+AIM: matimago
+MSN: m647312@hotmail.com
+ICQ: 126307903
+Skype: informatimago | 4nefolete2
+
+
+http://bolet.no-ip.com/annonce/
+
+
+
+Pascal Bourguignon  +33 637 191 327
+Pascal Bourguignon  +33 623 171 770
+Pascal Bourguignon  +34 636 653 318
+
+
+    joelle         0 632 527 125
+    joelle         0 387 786 324
+    anais          0 679 014 792  anais3675@wanadoo.fr         03-17
+    manon          0 676 819 043                               03-16
+    jean-françois  0 683 812 405  j-f.rauber@wanadoo.fr
+    Denis Jonquel                 jonquel.denis@wanadoo.fr
+    6, rue des Treize, 57000 Metz
+
+    jfr:  libre: jeudi 1400-1800
+
+    vente@websiteout.net
+    commande: 670h429906
+    date:     13 septembre 2003
+
+    François                      / mari de Karine Nouvet
+
+    Bernard        0 344 661 422
+    Bernard Bourguignon & Jacqueline Ledoux
+    Appartement 32, 19 rue de la Paix, 60180 Nogent sur Oise, 03 44 66 14 22
+
+Bernard Bourguignon +33 296 701 636
+5, rue Maéziou,
+22290 Lanvollon
+
+alain/wacjalquloca
+Alain Bourguignon   +33 296 703 498  +33 661 765 866
+4, allée au garde
+22410 Treveneuc
+
+Mme Thérèse Chilkowy
+22, rue Saint Hélène
+57700 Hayange
+
+Mme Christiane Chilkowy
+19bis, Grande Rue
+88340 Le Val d'Ajol
+0785017461  0670727620
+Ce compte ne semble plus exister: christianeckw@orange.fr ct2pj4bf6ag8
+ctd.fr|christianeckw@icloud.com|mon$or1passe
+
+
+Mme Bourguignon Joëlle
+6, rue des treize
+57000 Bas de Queuleu
+
+M. & Mme Stoecklin Jean & Paulette
+15, rue de Lorry
+57160 Châtel Saint-Germain
+France
+
+Anaïs Nouvet
+mailto:anais3675@gmail.com
+
+
+Chirurgien Dentiste:
+Dr. Hervé Mignon
+mailto:herve.mignon@gmail.com
+
+Orthoptiste:
+Marie Hélène Abadie
+0143317485
+40 rue Michel Peter
+75013 Paris
+
+Intego
+41 rue Condorcet
+Metro Cadet
+
+Franck Poullain
+franck@poullain.net
++33 631 789 378
+
+Misha Tavkhelidze
+email: misha.tavkhelidze@gmail.com
+skype: misha.tavkhelidze
+mobile: +46 76 558 7458
+
+
+SOS Maman
+BP 70114
+95210 Saint Gracien
+http://laportelatine.org/associations/SOSMamans/SOSMamans.php
+
+** Phone Book
+
+Agathe De Robert|+34679451950
+Alain Bourguignon|+33296703498
+Alain Bourguignon|+33620255649
+Alain Bourguignon|+33661765866
+Alberto Sole|+33961318677
+Alberto Sole|+34661645897
+Alberto Sole|+34961318677
+Alberto Sole|961318677
+Alexander Nazarenko|+3752926322002
+Alexis Bosch|+33652247248
+Alexis Bosch|+33950261348
+Alexis Bosch|+33951870196
+Alexis Bosch|0950261348
+Alexis Bosch|0951870196
+Alexis Delattre|+33699089245
+Alexis de Lattre|+33699089245
+Ali Alsaleh|+966506814613
+Anaïs Nouvet|+336463407101
+André Reinald|+33177695665
+André Reinald|+33652452554
+André Reinald|+33950669403
+André Thieme|+4915117897070
+André Thieme|+491717008954
+Anevia|+33141983240
+Angelo Rossi|+393293516963
+Antoine Engster|+447921801319
+Antoine Engster|00447921801319
+Arnaud Decherf|+33148241482
+Arnaud Decherf|0148241482
+BNP|+33141460409
+BNP|0141460409
+Bastien Guerry|+33666683436
+Bastien Guerry|0666683436
+Benzaquen|+33141927190
+Bernard Bourguignon|+33296701636
+Bettina Barth|+34616439816
+Bnp Issy Ouest|+33141460404
+Bnp Issy Ouest|0141460404
+Brieuc Jeunhomme|+33630768196
+Bruno Bawol|+33602223522
+Bruno Bawol|+33674881116
+Bruno Bawol|0602223522
+Bruno Bawol|0674881116
+Bus ALSA|+34902422242
+Bus ALSA|5567
+Bus Cartagena|+34968505656
+Bus Gg|+34968291911
+Bus Murcia|+34968292211
+Cajamar Tarjeta|+34901511000
+Camille Saubot|+34625983508
+Camille Saubot|+34646240085
+Camille Saubot|+34968556691
+Camille Saubot|0034625983508
+Camille Saubot|0034968556691
+Carlos|+34968337046
+Celestino Conesa|+34968569225
+Chloe Scheuber|0121631587507833050284
+Christiane Chilkowy|+33329665297
+Christiane Chilkowy|+33785017461
+Colin Carr, CSM|9193356889
+Dan Lentz|6092025797
+Dany CHAN|+33633297776
+Dave Azria|+33611080810
+David Boukari|+33661223446
+David Braquart|+33139143477
+De Robert|+34968146250
+Dr Karen Choukroun|+33146422562
+Dr Karen Choukroun|0146422562
+Eric Gharbi|+33658365309
+Eric Gharbi|0658365309
+Erman Kaya|+905413232784
+Famille De Robert|+34968146250
+Fernando Rodriguez|+34610965332
+Florent Xuereb|+33683728168
+Florent Xuereb|0683728168
+Franck Poullain|+33631789378
+François Alter|+33153442252
+François Kruta|+33614519206
+François Kruta|+33659098436
+Frédéric Colomina|+33672569797
+Frédérique Saubot|+33145030179
+Frédérique Saubot|+33145049621
+Frédérique Saubot|+33682948109
+Gabriel De Robert|+34646111756
+Gharbi Eric|+33658365309
+Gharbi Eric|0658365309
+Grégoire Saubot|+33674915872
+Guillaume De Robert|+34626540903
+Guillaume De Robert|+34649357740
+Guillaume De Robert|+34968137376
+Gábor Melis|+36303076507
+Henry Saubot|+33682316575
+Ilker Yenice|+905305172121
+Impot|+33820326326
+Info services|7000
+Info. Internac|11825
+Info. Nacional|11822
+Isabel Aznar Acosta|+34649509902
+JAIME FIOL SANS|+33610799801
+JAIME FIOL SANS|+33669269760
+JAIME FIOL SANS|610799801
+JAIME FIOL SANS|669269760
+Jason Cornez|+34607217161
+Jean-Baptiste Quesney|+33676671665
+Jean-Philippe Capy|+33604016157
+Jean-Philippe Capy|+33950666678
+Jerome Goubier|+971508831129
+Jimmy Nimo|00353000000000
+Jonathan Bouaziz|+33782480616
+Jonathan Bouaziz|0782480616
+Jose Luis Cruz Cañete|+34655666353
+Jose Luis Cruz Cañete|0034655666353
+Jose Manual Urtasun|+34699370494
+Jose Manual Urtasun|+34968563054
+Joseph Reinald|+33613291911
+José Manuel Sánchez Ruiz|+33639650090
+José Manuel Sánchez Ruiz|639650090
+Joëlle Bourguignon|+33672415839
+Levente Mészáros|+36205413889
+Lionel Bringuier|+15032008809
+Lionel Bringuier|+33603611970
+Lionel Thevenard|+33616774371
+Malik Jamali|+33616678471
+Malik Jamali|0616678471
+Mano Sadeghi|+33603234411
+Mano Sadeghi|0603234411
+Mariusz Saramak|+33792016612
+Mariusz Saramak|792016612
+Martin LUTTON|+33175435370
+Martin LUTTON|0175435370
+Martin Lutton|+33678414402
+Martin Lutton|0678414402
+Misha Tavkhelidze|+995599000313
+Mon Compte|963
+Mélanie Rousseau|+33778511321
+Nicoleta Reinald|+33627194908
+Olivier Revon|+33689638439
+Pascal J. Bourguignon|+33623171770
+Pascal J. Bourguignon|+33781556432
+Patricia Guitard|+33663712299
+Patricia Guitard|0663712299
+Patrick MIMOUN|+33760485614
+Patrick MIMOUN|0760485614
+Paul Le Merrer|+33668542601
+Pierpaolo Bernardi|+393924459291
+Pierre-Yves Reynaert|+33619190274
+Ramón Burgueńo|+34676087136
+Recruteur Ios|+33659640699
+Recruteur Ios|0659640699
+Rogelio Serrano|+447624429872
+Répondeur|123
+Slobodan Blazeski|+38971281646
+Séverine Verriez|+33670803977
+Thomas Chauchard|+33619984611
+Thomas Haas|+436641140862
+Thomas M. Hermann|3162850120
+Thomas Saphir|+33616885760
+Tommy Lee Zet|+33604506105
+Tommy Lee Zet|604506105
+Ubudu Project Beacon|+33178090351
+Vicyor Minuesa Cuenca|+34629402487
+Vincente De Robert|+34690010607
+
 * PROVIDERS
+** SFR
+
+sfr web pin=6599
+;; SFR
+;;
+;; Carte SIM n°89331036123640651403
+;;
+;; Votre option est activée. Vous pouvez désormais profiter de MultiSurf.
+;; Votre contrat est le XFR460.
+;;
+;; samsung: pjb@ogamita.org | vih3doq9
+;; http://www.dropbox.com|pjb@ogamita.org|Ryv1kIhZeS#CAJ3
+
 ** Orange
 
 Orange fibre: my phone number: +33966872199
@@ -4436,8 +4763,6 @@ http://www.kimsufi.com/fr/ks/                  15 €/mois à  50 €/mois
 
     http://www.association-sdf.com/aider.html
     http://www.droitdenaitre.com/bulletins.html
-    http://lanturluland.free.fr/lanturluland/francais/4_cd_rom_fr/bon_commande_fr.htm
-
 ** Imdb
     http://www.imdb.com/interfaces
     ftp://ftp.fu-berlin.de/pub/misc/movies/database/README
@@ -6527,8 +6852,6 @@ A-< A->	begin/end text
 
     Free Shell:
     http://www.freeshell.org
-    http://sdf.lonestar.org
-
 
     http://telehack.com/
 

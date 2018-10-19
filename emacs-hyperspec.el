@@ -41,13 +41,14 @@
 (defparameter *clhs-map-sym*   "Data/Map_Sym.txt")
 (defparameter common-lisp-hyperspec-root
   (dolist (url (list (concat "file://" (get-directory :hyperspec))
+                     "file:///usr/share/doc/hyperspec/HyperSpec/"
+                     "file:///usr/share/doc/hyperspec/"
                      "file:///usr/local/share/doc/cl/HyperSpec/"
                      (concat "file:///usr/local/html/local/lisp/" *clhs-lispworks*)
                      "file:///data/lisp/hyperspec-7.0/HyperSpec/"
                      "file:///opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"
-                     "file:///usr/share/doc/hyperspec/HyperSpec/"
                      (concat "file://" (expand-file-name "~/quicklisp/dists/quicklisp/software/clhs-0.6.1/HyperSpec-7-0/HyperSpec/"))
-                     (when (not (string= (hostname) "proteus"))
+                     (unless (string= (hostname) "proteus")
                        "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
                      (concat "http://" *clhs-lispworks*)
                      "http://www.harlequin.com/education/books/HyperSpec/")
