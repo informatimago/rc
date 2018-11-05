@@ -1326,6 +1326,8 @@ function update-localized-xibs() {
 
 function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
 function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
+function cdsm(){    cd "$HOME/works/sbde/smt/sources"        ; }
+function cdsb(){    cd "$HOME/works/sbde"                    ; }
 
 
 
