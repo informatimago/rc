@@ -1,6 +1,7 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+==> write utility to check certificate of Carte Agent vs. official CA certificates.
 * Scrapbook
 
 visa la banque postale:  09 69 320 004
@@ -74,6 +75,13 @@ http://www.fast.ai/2018/05/07/part2-launch/
 
 trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
 
+* Angelo
+
+Dott. Ing. Angelo Rossi
+Via delle Albizzie, 21
+00172 Roma, Italia
+3293516963
+
 * Généalogie - Genealogy
 Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
@@ -126,13 +134,6 @@ https://www.youtube.com/watch?v=jSo5v5t4OQM
 
 Dr. John Philippe Rushton - Race and IQ
 https://www.youtube.com/watch?v=yZ65PSrSgAo
-
-* Angelo
-
-Dott. Ing. Angelo Rossi
-Via delle Albizzie, 21
-00172 Roma, Italia
-3293516963
 
 * progonline prospection
 ** Tableau Server - Tableau Software - Paris
@@ -5389,6 +5390,14 @@ Flux OsKit.
   ;; space in ~^ is important to obtain line breaking.
   (format t "~@<~{~a~^, ~}~:@>" (loop for i below 100 collect i)))
 #+END(src)
+
+** Code Review
+The purpose of Code Reviews is fourfold:
+
+- To ensure the work performed matches the work requested.
+- To catch as many bugs as possible before they get to production.
+- To keep the complexity of the system low.
+- To ensure best practices are followed.
 
 ** COMMANDS:
 
