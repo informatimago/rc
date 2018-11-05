@@ -1,6 +1,42 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+* Synchronization
+
+/Users/pjb/works/gsharp/other-src/gsharp-1
+fatal: refusing to merge unrelated histories
+
+cd /Users/pjb/works/patchwork/src-20141013/patchwork
+cd /Users/pjb/works/patchwork/src-20141013/mclgui
+cd /Users/pjb/works/patchwork/src-others/midishare-origin
+cd /Users/pjb/works/patchwork/src-others/cmn
+cd /Users/pjb/works/patchwork/src-others/cmpl-code
+cd /Users/pjb/works/patchwork/src-others/david-cope-cmmc
+
+cd /Users/pjb/works/patchwork-before-midishare
+
+* Installation
+
+- configure the global proxy (ubuntu settings network proxy) automatic: http://config.mi:8888/config
+- configure /etc/apt/sources.lst with local mirror 10.237.25.150
+- apt-get update && apt-get upgrade
+
+
+* Postgresql 10.5
+
+  postgresql10-server has the following notes:
+    To create a database instance, after install do
+     sudo mkdir -p /opt/local/var/db/postgresql10/defaultdb
+     sudo chown postgres:postgres /opt/local/var/db/postgresql10/defaultdb
+     sudo su postgres -c 'cd /opt/local/var/db/postgresql10 && /opt/local/lib/postgresql10/bin/initdb -D
+    /opt/local/var/db/postgresql10/defaultdb'
+
+    A startup item has been generated that will aid in starting postgresql10-server with launchd. It is disabled by default. Execute the
+    following command to start it, and to cause it to launch at startup:
+
+    /opt/local/lib/postgresql10/bin/pg_ctl -D /opt/local/var/db/postgresql10/defaultdb -l logfile start
+        sudo port load postgresql10-server
+
 * Scrapbook
 
 visa la banque postale:  09 69 320 004
@@ -6216,7 +6252,6 @@ git checkout master
 git merge experiment
 #+END_EXAMPLE
 
-
 ** DVCS: github
 *** multiple github accounts
 
@@ -8993,6 +9028,27 @@ hammer.
     a high-level operating system for graphical programs.
 
     http://www.cs.brown.edu/~sk/Publications/Papers/Published/ffkf-mred/paper.ps
+
+** LANGUAGES: COMMON LISP: OPEN arguments
+
+|--------------------+--------------------|
+| :direction         | :input             |
+|                    | :output            |
+|                    | :io                |
+|--------------------+--------------------|
+| :if-does-not-exist | :create            |
+|                    | :error             |
+|                    | nil                |
+|--------------------+--------------------|
+| :if-exists         | :error             |
+|                    | :new-version       |
+|                    | :rename            |
+|                    | :rename-and-delete |
+|                    | :overwrite         |
+|                    | :append            |
+|                    | :supersede         |
+|                    | nil.               |
+|--------------------+--------------------|
 
 ** LANGUAGES: COMMON LISP: macros for non standard special operators
 https://bugs.launchpad.net/sbcl/+bug/1032643
