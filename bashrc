@@ -408,7 +408,9 @@ function be_generate(){
 
     be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
     be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
-
+    if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
+        be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+    fi
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
@@ -717,7 +719,7 @@ function bashrc_load_optionals(){
 ## bash specific aliases:
 
 function rehash(){ hash -r ; }
-function which(){ type -path "$@" ; }
+alias which='type -path'
 
 
 function ds() {
@@ -1325,6 +1327,8 @@ function update-localized-xibs() {
 
 function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
 function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
+function cdsm(){    cd "$HOME/works/sbde/smt/sources"        ; }
+function cdsb(){    cd "$HOME/works/sbde"                    ; }
 
 function cdsb(){    cd "$HOME/works/sbde/ball" ; }
 function cdsm(){    cd "$HOME/works/sbde/smt" ; }

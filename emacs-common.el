@@ -1,4 +1,46 @@
-;; -*- mode:emacs;coding:utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;;;
+;;;; Pascal J. Bourguignon's emacs startup file.
+;;;;
+;;;; We only run GNU emacs.
+;;;;
+
+;;; Code:
+
+;; Emacs   Makes All Computing Simple.
+;; Eine    Is Not Emacs.
+;; Zwei    Was Eine Initially.
+;; Drei    Ressembled Emacs Intelligently.
+;; Vier    Integrates Emacs Regexps.
+;; Vier    Is Emacs Rewritten.
+;; Vier    Improves Eine's Revisions.
+;; Fünf    Überly New Framework.
+;; Sechs   Sechs Emacs Can Handle Strings.
+;; Sieben  Is Even Better Emacs Now
+;; Acht    Can Handle Text.
+;; Neun    Emacs Usually .
+;; Zehn    Emacs Handles News.
+;; Hemlock Emacs Made Laughically Overly Capably Kidding.
+;; Climacs Common Lisp Interface Manager Application Creating Sources.
+;; Mince   Is Not Complete Emacs.
+;; FRED    Resembles Emacs Deliberately
+
+(when (= (user-uid) 0)
+  ;; (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
+  ;; (error "~/.emacs: Cannot load ~/.emacs under root account.")
+  (set-face-background 'fringe "red"))
+
+
+;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
+;; tramp hops: /ssh:you@remotehost:/path
+
+
+;;;----------------------------------------------------------------------------
+;;; Start up.
+;;;----------------------------------------------------------------------------
+(setq-default lexical-binding t)
+(setq byte-compile-warnings '(not obsolete))
+(defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 
@@ -17,8 +59,8 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
-  ;; (if (file-exists-p "--version.lock")
-  ;;   (error "version lock"))
+  (if (file-exists-p "--version.lock")
+    (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -3279,6 +3321,7 @@ License:
 (require 'message)
 (defalias 'rot13-region 'message-caesar-region)
 
+(defalias 'widden       'widen)
 (defalias 'scratch      'pjb-scratch)
 (defalias 'eurotunnel   'pjb-eurotunnel)
 (defalias 'address      'pjb-address)
