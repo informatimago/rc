@@ -334,12 +334,9 @@ function be_generate(){
     )
 
     editors=(
-        /opt/local/bin/emacsclient
-        /usr/local/bin/emacsclient
-        /usr/bin/emacsclient
-        /bin/emacsclient
-        /bin/ed
-        /usr/bin/vi
+        emacsclient
+        ed
+        vi
     )
 
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
