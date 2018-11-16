@@ -59,8 +59,9 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
-  (if (file-exists-p "--version.lock")
-    (error "version lock"))
+  (when (file-exists-p "--version.lock")
+    (message "Deleting version lock!")
+    (delete-file  "--version.lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -96,7 +97,8 @@
 ;; (not cl-functions)
 
 (require 'tramp-sh nil t)
-(setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
+(setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' " tramp-ssh-controlmaster-options))
+
 
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))
