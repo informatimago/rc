@@ -294,6 +294,7 @@ function be_generate(){
         /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
+        /opt/local/lib/postgresql10/bin  # on larissa
 
         /opt/bin
         /opt/sbin
@@ -1323,7 +1324,11 @@ function update-localized-xibs() {
 
 function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
 function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
+function cdsm(){    cd "$HOME/works/client-c/smt/sources"        ; }
+function cdsb(){    cd "$HOME/works/client-c"                    ; }
 
+function cdsb(){    cd "$HOME/works/client-c/ball" ; }
+function cdsm(){    cd "$HOME/works/client-c/smt" ; }
 
 
 function bashrc_load_host_specific_bashrc(){
