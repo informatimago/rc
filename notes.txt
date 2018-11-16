@@ -1,6 +1,44 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+
+==> write utility to check certificate of Carte Agent vs. official CA certificates.
+
+* Synchronization
+
+/Users/pjb/works/gsharp/other-src/gsharp-1
+fatal: refusing to merge unrelated histories
+
+cd /Users/pjb/works/patchwork/src-20141013/patchwork
+cd /Users/pjb/works/patchwork/src-20141013/mclgui
+cd /Users/pjb/works/patchwork/src-others/midishare-origin
+cd /Users/pjb/works/patchwork/src-others/cmn
+cd /Users/pjb/works/patchwork/src-others/cmpl-code
+cd /Users/pjb/works/patchwork/src-others/david-cope-cmmc
+
+cd /Users/pjb/works/patchwork-before-midishare
+
+* Installation
+
+- configure the global proxy (ubuntu settings network proxy) automatic: http://config.mi:8888/config
+- configure /etc/apt/sources.lst with local mirror 10.237.25.150
+- apt-get update && apt-get upgrade
+
+* Postgresql 10.5
+
+  postgresql10-server has the following notes:
+    To create a database instance, after install do
+     sudo mkdir -p /opt/local/var/db/postgresql10/defaultdb
+     sudo chown postgres:postgres /opt/local/var/db/postgresql10/defaultdb
+     sudo su postgres -c 'cd /opt/local/var/db/postgresql10 && /opt/local/lib/postgresql10/bin/initdb -D
+    /opt/local/var/db/postgresql10/defaultdb'
+
+    A startup item has been generated that will aid in starting postgresql10-server with launchd. It is disabled by default. Execute the
+    following command to start it, and to cause it to launch at startup:
+
+    /opt/local/lib/postgresql10/bin/pg_ctl -D /opt/local/var/db/postgresql10/defaultdb -l logfile start
+        sudo port load postgresql10-server
+
 * Scrapbook
 
 visa la banque postale:  09 69 320 004
@@ -74,6 +112,13 @@ http://www.fast.ai/2018/05/07/part2-launch/
 
 trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
 
+* Angelo
+
+Dott. Ing. Angelo Rossi
+Via delle Albizzie, 21
+00172 Roma, Italia
+3293516963
+
 * Généalogie - Genealogy
 Soeur de Kasimiera Chilkowy : Mariette en Argentine.
 
@@ -126,13 +171,6 @@ https://www.youtube.com/watch?v=jSo5v5t4OQM
 
 Dr. John Philippe Rushton - Race and IQ
 https://www.youtube.com/watch?v=yZ65PSrSgAo
-
-* Angelo
-
-Dott. Ing. Angelo Rossi
-Via delle Albizzie, 21
-00172 Roma, Italia
-3293516963
 
 * progonline prospection
 ** Tableau Server - Tableau Software - Paris
@@ -5390,6 +5428,14 @@ Flux OsKit.
   (format t "~@<~{~a~^, ~}~:@>" (loop for i below 100 collect i)))
 #+END(src)
 
+** Code Review
+The purpose of Code Reviews is fourfold:
+
+- To ensure the work performed matches the work requested.
+- To catch as many bugs as possible before they get to production.
+- To keep the complexity of the system low.
+- To ensure best practices are followed.
+
 ** COMMANDS:
 
     for f in $(cd ../spool/mail ; echo *) ; do (echo $f ; zgrep -e "pop.*$f" mail-2006*|sed -e 's/.*gz://'|awk 'BEGIN{m["Jan"]=1;m["Feb"]=2;m["Mar"]=3;m["Apr"]=4;m["May"]=5;m["Jun"]=6;m["Jul"]=7;m["Aug"]=8;m["Sep"]=9;m["Oct"]=10;m["Nov"]=11;m["Dec"]=12;}{print m[$1],$2,"--";}'|sort -u)|fmt ; done
@@ -6540,7 +6586,6 @@ git rebase --onto master divergent feature
 git checkout master
 git merge experiment
 #+END_EXAMPLE
-
 
 ** DVCS: github
 *** multiple github accounts
@@ -9316,6 +9361,27 @@ hammer.
     a high-level operating system for graphical programs.
 
     http://www.cs.brown.edu/~sk/Publications/Papers/Published/ffkf-mred/paper.ps
+
+** LANGUAGES: COMMON LISP: OPEN arguments
+
+|--------------------+--------------------|
+| :direction         | :input             |
+|                    | :output            |
+|                    | :io                |
+|--------------------+--------------------|
+| :if-does-not-exist | :create            |
+|                    | :error             |
+|                    | nil                |
+|--------------------+--------------------|
+| :if-exists         | :error             |
+|                    | :new-version       |
+|                    | :rename            |
+|                    | :rename-and-delete |
+|                    | :overwrite         |
+|                    | :append            |
+|                    | :supersede         |
+|                    | nil.               |
+|--------------------+--------------------|
 
 ** LANGUAGES: COMMON LISP: macros for non standard special operators
 https://bugs.launchpad.net/sbcl/+bug/1032643
