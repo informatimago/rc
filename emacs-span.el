@@ -1,7 +1,8 @@
 (message "Hi SPAN!")
 ;; (load "~/src/public/emacs/freerdp-c-style.el")
 (load "~/rc/emacs-pjb.el")
-(ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
+;; (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
+(set-frame-font "terminus-13")
 (setf *pjb-intervention-firm* '((minint)))
 (require 'freerdp-c-style)
 
@@ -32,6 +33,7 @@
 
 (add-hook 'focus-in-hook          'turn-off-trackpad)
 (add-hook 'focus-out-hook         'turn-on-trackpad)
+
 (add-hook 'delete-frame-functions 'turn-on-trackpad)
 (setf browse-url-browser-function 'browse-url-firefox2)
 
@@ -150,6 +152,7 @@
  '(erc-insert-away-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-insert-timestamp-function (quote erc-insert-timestamp-left))
  '(erc-interpret-mirc-color t)
+ '(erc-join-buffer (quote bury))
  '(erc-keywords (quote ("^\\(<.*>\\|\\* \\)")))
  '(erc-log-write-after-insert t)
  '(erc-log-write-after-send t)
