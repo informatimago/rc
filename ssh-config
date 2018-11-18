@@ -46,6 +46,11 @@ Host git.framasoft.org
     User                    git
     IdentityFile            ~/.ssh/framagit
 
+Host common-lisp.net
+    HostName                common-lisp.net
+    User                    git
+    IdentityFile            ~/.ssh/common-lisp-net
+
 Host patchy+github.com
     HostName                github.com
     User                    git

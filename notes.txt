@@ -4,6 +4,13 @@
 
 ==> write utility to check certificate of Carte Agent vs. official CA certificates.
 
+http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
+
+https://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/code/syntax/infix/infix.cl
+
+European Criminal Records Information System (ECRIS) <https://ec.europa.eu/info/law/cross-border-cases/judicial-cooperation/tools-judicial-cooperation/european-criminal-records-information-system-ecris_en>
+STESTA: Secure Trans European Services for Telematics Between Administrations <http://ec.europa.eu/idabc/en/document/2097/5644.html>
+
 * Synchronization
 
 /Users/pjb/works/gsharp/other-src/gsharp-1
