@@ -1017,6 +1017,12 @@ without, lists all the commands with their docstrings."
   (prin1 (com.informatimago.common-lisp.interactive.browser:pwd))
   (terpri))
 
+(define-command cdia ()
+  "Change current working directory to Patchwork sources."
+  (cd #P"~/works/sbde/smt/sources/")
+  (prin1 (com.informatimago.common-lisp.interactive.browser:pwd))
+  (terpri))
+
 (define-command ll   ()
   "Load loader.lisp"
   (load "loader.lisp"))
