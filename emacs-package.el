@@ -44,14 +44,18 @@
                      emms json popup
 
                      company auto-complete inf-ruby enh-ruby-mode
-                     smartparens highlight-indentation robe textmate
+                     smartparens highlight-indentation textmate
                      flycheck
+
+		     ; robe not on emacs-24.4 ?
 
                      ))
 
   (defun pjb-install-packages ()
     (interactive)
-    (mapc (function package-install) *packages*))
+    (mapc (lambda (package)
+	    (ignore-errors (package-install package)))
+	  *packages*))
 
   (pjb-install-packages))
 

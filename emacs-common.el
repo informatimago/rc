@@ -60,7 +60,8 @@
 
 (defun .EMACS (fctl &rest args)
   (if (file-exists-p "--version.lock")
-    (error "version lock"))
+      (warn "version lock"))
+  (delete-file  "--version.lock")
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -68,6 +69,8 @@
         (insert text "\n")
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
+  
+    
 
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (load "~/rc/emacs-package.el")
@@ -96,6 +99,7 @@
 ;; (not cl-functions)
 
 (require 'tramp-sh nil t)
+(defvar tramp-ssh-controlmaster-options "")
 (setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
 
 (.EMACS "STARTING...")
