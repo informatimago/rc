@@ -1,12 +1,6 @@
 (message "Hi SPAN!")
 ;; (load "~/src/public/emacs/freerdp-c-style.el")
 (load "~/rc/emacs-pjb.el")
-(ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
-(setf *pjb-intervention-firm* '((minint)))
-(require 'freerdp-c-style)
-
-(require 'asn1-mode)
-(add-to-list 'auto-mode-alist '("\.asn1$" . asn1-mode))
 
 (defun mice ()
   (split-string
@@ -17,7 +11,7 @@
 (defun touchpads ()
   (split-string
    (string-trim
-    (shell-command-to-string  "xinput list  --name-only|grep -i -e 'touchpad\\|DLL07A0:01'"))
+    (shell-command-to-string  "xinput list  --name-only|grep -i -e 'touchpad\\|DLL07A0:01\\|VirtualBox USB Tablet'"))
    "\n"))
 
 (defun turn-off-trackpad (&optional frame)
@@ -30,9 +24,17 @@
   (dolist (pad (touchpads))
     (shell-command (format "xinput enable %S" pad))))
 
+;; (list focus-in-hook focus-out-hook)
 (add-hook 'focus-in-hook          'turn-off-trackpad)
 (add-hook 'focus-out-hook         'turn-on-trackpad)
 (add-hook 'delete-frame-functions 'turn-on-trackpad)
+
+(ignore-errors (progn (setf *pjb-current-font-index* 1) (set-current-font)))
+(cond ((string-match "^vm-" (hostname)) (set-palette pal-dark-amber)))
+(setf *pjb-intervention-firm* '((minint)))
+(require 'freerdp-c-style)
+(require 'asn1-mode)
+(add-to-list 'auto-mode-alist '("\.asn1$" . asn1-mode))
 (setf browse-url-browser-function 'browse-url-firefox2)
 
 (global-set-key (kbd "s-s")   'git-search-symbol-at-point)
