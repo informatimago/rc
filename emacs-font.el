@@ -151,7 +151,7 @@
 
 
 (defun remove-unknown-fonts (font-list)
-  (let ((current-font (frame-font (selected-frame))))
+  (let ((current-font (pjb-frame-font (selected-frame))))
     (unwind-protect
          (remove-if-not (lambda (font)
                           (ignore-errors (progn (set-frame-font font) t)))
