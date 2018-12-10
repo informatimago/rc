@@ -5,10 +5,11 @@
 	   (require 'package nil t))
   ;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
   (setq package-archives '(("gnu"           . "https://elpa.gnu.org/packages/")
-                           ("marmalade"     . "https://marmalade-repo.org/packages/")
-                           ("melpa-stable"  . "https://stable.melpa.org/packages/")
-                           ("melpa"         . "https://stable.melpa.org/packages/")
-                           ("org"           . "https://orgmode.org/elpa/")))
+                           ;; ("marmalade"     . "https://marmalade-repo.org/packages/")
+                           ;; ("melpa-stable"  . "https://stable.melpa.org/packages/")
+                           ;; ("melpa"         . "https://stable.melpa.org/packages/")
+                           ;; ("org"           . "https://orgmode.org/elpa/")
+			   ))
 
   (package-initialize)
   (package-refresh-contents)

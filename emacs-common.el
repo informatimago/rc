@@ -1541,7 +1541,7 @@ URL in a new window."
   (save-excursion
     (raise-frame
      (select-frame
-      (or (find-if (lambda (frame) (equalp (frame-name frame) *browse-frame-name*))
+      (or (find-if (lambda (frame) (equalp (pjb-frame-name frame) *browse-frame-name*))
                    (frame-list))
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
