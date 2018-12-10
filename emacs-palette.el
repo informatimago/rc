@@ -171,9 +171,9 @@
                        system-name
                        (substring display 0 colon))))
          ;; --- default values ---
-         (font                 (or font (frame-font)))
-         (width                (frame-width))
-         (height               (frame-height))
+         (font                 (or font (pjb-frame-font)))
+         (width                (pjb-frame-width))
+         (height               (pjb-frame-height))
          (top                  1)
          (left                 1)
          (cursor-type            'box)
@@ -304,8 +304,8 @@
       (setq palette (copy-palette palette))
       (setf (palette-foreground palette) "Red"))
 
-    (when (fboundp 'max-frame-line-number)
-      (setf height (- (max-frame-line-number (car (frame-list))) 2)))
+    (when (fboundp 'pjb-frame-max-line-number)
+      (setf height (- (pjb-frame-max-line-number (car (frame-list))) 2)))
 
     (setq default-frame-alist
           `(
