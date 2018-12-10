@@ -70,6 +70,8 @@
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
 
+
+
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (load "~/rc/emacs-package.el")
 
@@ -97,8 +99,8 @@
 ;; (not cl-functions)
 
 (require 'tramp-sh nil t)
-(setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' " tramp-ssh-controlmaster-options))
-
+(defvar tramp-ssh-controlmaster-options "")
+(setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
 
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))
