@@ -402,6 +402,8 @@ License:
 ;; #+#.(cl:if *ql-present* '(:and) '(:or))
 ;; (progn
 
+(load-one-way-or-another "uiop")
+
 (register-system-location #P"~/src/public/lisp/")
 (load-one-way-or-another "com.informatimago.common-lisp"              :verbose nil)
 (load-one-way-or-another "com.informatimago.common-lisp.lisp.stepper" :verbose nil)
