@@ -42,7 +42,8 @@
                                         ("^uiserver"                  . "~/rc/emacs-ubudu.el")
                                         ("^ubudair"                   . "~/rc/emacs-ubudu.el")
                                         ("^ubudu-vm-mac-[0-9]"        . "~/rc/emacs-ubudu.el")
-                                        ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\)"   . "~/rc/emacs-span.el")))
+                                        ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\|vm-u[0-9]*$\\)"
+                                         . "~/rc/emacs-span.el")))
                                     (hostname  (hostname))
                                     (conf  hostname-configuration-map))
                                (while (and conf (not (let ((case-fold-search t))
