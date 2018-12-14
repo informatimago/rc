@@ -21,6 +21,7 @@
                      (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
                              url))))))))
 
+
 (defun pjb-get-resource-at-url (url)
   "Fetches a resource at URL, and returns it."
   (cond
@@ -48,11 +49,13 @@
                      "file:///data/lisp/hyperspec-7.0/HyperSpec/"
                      "file:///opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"
                      (concat "file://" (expand-file-name "~/quicklisp/dists/quicklisp/software/clhs-0.6.1/HyperSpec-7-0/HyperSpec/"))
-                     (unless (string= (hostname) "proteus")
+                     (unless (member* (hostname) '("hubble.informatimago.com" "proteus")
+                                     :test (function string=))
                        "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
                      (concat "http://" *clhs-lispworks*)
                      "http://www.harlequin.com/education/books/HyperSpec/")
                nil)
+    (message "url = %S" url)
     (when (and url (probe-url (concat url *clhs-map-sym*)))
       (return url)))
   "The root of the Common Lisp HyperSpec URL.
