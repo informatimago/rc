@@ -1339,6 +1339,9 @@ function bashrc_load_host_specific_bashrc(){
     (larissa*)
         source ~/rc/bashrc-nvidia
         ;;
+    (vm-u1404|employer-f-host)
+        source ~/rc/bashrc-employer-f
+        ;;
     *)
         source ~/rc/bashrc-pjb
         ;;
