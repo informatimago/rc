@@ -747,6 +747,11 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[23~"  'disabled)  ; <f11>
   (global-set-key "[24~"  'disabled)  ; <f12>
 
+  (define-key input-decode-map "\M-[A" [up])
+  (define-key input-decode-map "\M-[B" [down])
+  (define-key input-decode-map "\M-[C" [right])
+  (define-key input-decode-map "\M-[D" [left])
+
   (define-key input-decode-map "\M-[1;5A" [C-up])
   (define-key input-decode-map "\M-[1;5B" [C-down])
   (define-key input-decode-map "\M-[1;5C" [C-right])
