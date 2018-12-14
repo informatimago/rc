@@ -335,12 +335,9 @@ function be_generate(){
     )
 
     editors=(
-        /opt/local/bin/emacsclient
-        /usr/local/bin/emacsclient
-        /usr/bin/emacsclient
-        /bin/emacsclient
-        /bin/ed
-        /usr/bin/vi
+        emacsclient
+        ed
+        vi
     )
 
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
@@ -1341,6 +1338,9 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     (larissa*)
         source ~/rc/bashrc-nvidia
+        ;;
+    (vm-u1404|L0253344)
+        source ~/rc/bashrc-span
         ;;
     *)
         source ~/rc/bashrc-pjb

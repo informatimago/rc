@@ -1,0 +1,29 @@
+
+function trim_spaces(){
+    local string="$1"
+    # ${a## } or ${a%% } doesn't work! (in bash 4.3).
+    string="$(echo "$string" | sed -e 's/^ *//' -e 's/ *$//')"
+    echo -n "${string}"
+}
+
+function trim_colons(){
+    local string="$1"
+    string="$(echo "$string" | sed -e 's/^:*//' -e 's/:*$//')"
+    echo -n "${string}"
+}
+
+function set_gcc_env(){
+    gcc_prefix="/usr/local/gcc"
+    export CC="${gcc_prefix}/bin/gcc"
+    export GSS_ROOT_DIR="/usr"
+    export GSS_ROOT_FLAVOUR="MIT"
+    export PATH=$(trim_colons "${gcc_prefix}/bin:${PATH}")
+    export CFLAGS=$(trim_spaces "-I${gcc_prefix}/include ${CFLAGS:-}")
+    export CXXFLAGS=$(trim_spaces "-I${gcc_prefix}/include ${CXXFLAGS:-}")
+    export LDFLAGS=$(trim_spaces "-L${gcc_prefix}/lib64 -L${gcc_prefix}/lib ${LDFLAGS:-}")
+    export LD_LIBRARY_PATH="${gcc_prefix}/lib64:${gcc_prefix}/lib:/usr/local/lib64:/usr/local/lib:/usr/lib:/lib"
+    export DYLD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+    export PKG_CONFIG_PATH="${gcc_prefix}/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
+}
+
+set_gcc_env

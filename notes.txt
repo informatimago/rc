@@ -1,8 +1,21 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+https://pastebin.com/iSjaYKddj
+https://bitbucket.org/elderK/k.binary
+
+Compiling Clozure CL
+https://github.com/Homebrew/homebrew-core/pull/34416
+
 
 ==> write utility to check certificate of Carte Agent vs. official CA certificates.
+
+http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
+
+https://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/code/syntax/infix/infix.cl
+
+European Criminal Records Information System (ECRIS) <https://ec.europa.eu/info/law/cross-border-cases/judicial-cooperation/tools-judicial-cooperation/european-criminal-records-information-system-ecris_en>
+STESTA: Secure Trans European Services for Telematics Between Administrations <http://ec.europa.eu/idabc/en/document/2097/5644.html>
 
 * Synchronization
 
@@ -101,6 +114,8 @@ Siège Social:
 21, boulevard de la Liberté
 92320 Châtillon
 France
+
+eliwell|pjb@sbde.fr|KA6Meh2VAxSeh
 
 ** AI Stuff
 
@@ -9670,6 +9685,21 @@ returned for the total of 5 values.
     http://www.den.rcast.u-tokyo.ac.jp/~salvi/archive/snippets/ecl-test.cc
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
+
+** link statically libecl in libraries for non-lisp.
+
+ https://groups.google.com/d/msg/comp.lang.lisp/Iq8rn6uSxZQ/9t0QOAJgne8J
+<mitigate> I don't know at all, but I imagine it is not designed to be used without ecl_init
+<jackdaniel> pjb: bdwgc replaces malloc with its own version for static libraries, afaik it doesn't do that with dynamic ones (when linked against libgc.so). *but* if you link libgc statically in libecl it shouldn't interfere
+<jackdaniel> but it will still scan memory which is not collected (conversatively), so if you reference lisp object from C it won't get removed
+<pjb> Yes, and we would want to statically link libecl with our library anyways.
+<pjb> Oh, good!
+<pjb> Very good indeed.
+<jackdaniel> pjb: in general: it depends on how you configure bdwgc when you build it
+<jackdaniel> ECL always uses explicit GC_malloc_ functions
+<jackdaniel> and whenever bdwgc redefines stdlibc functions is configured on its own accord
+<jackdaniel> *and* when ECL builds with bdwgc statically (that is compiles it to libgc.a) then it disables such redefinition and this compiled-in libgc doesn't conflict with system libgc.so whatsoever
+
 
 *** garbage collector statistics
 
