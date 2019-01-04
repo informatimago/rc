@@ -1,6 +1,7 @@
 -*- mode:org; coding:utf-8 -*-
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
+
 https://pastebin.com/iSjaYKddj
 https://bitbucket.org/elderK/k.binary
 
@@ -117,10 +118,23 @@ France
 
 eliwell|pjb@sbde.fr|KA6Meh2VAxSeh
 
+** Compte OVH
+Pascal
+Bourguignon
+buNbAp8nY+SIM{zu
+SBDE SASàCV
+21 bd de la Liberté
+92320 Châtillon
+TVA:
+pjb@sbde.fr
+informatimago+sbde@gmail.fr
+
 ** AI Stuff
 
 https://www.aimljobs.com
 http://www.fast.ai/2018/05/07/part2-launch/
+
+
 
 ** Trello
 @duval97 @starnawski @jess92320
@@ -204,6 +218,7 @@ http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page
  Les coordonnées du client viennent de vous être envoyées également par mail.
 
 * new notes
+
 WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
 Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
 
@@ -211,7 +226,7 @@ UVI
 UVX80
 UVISC58-CEACE57A
 
-* new notes
+* FreedomBox
 
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
 La brique internet
@@ -219,7 +234,7 @@ TAILS - The Anonymous Incognito Live System https://tails.boum.org
 POND
 NEO900 Nokia
 
-
+* new notes
 #+BEGIN_SRC(shell)
 function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
 /opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
@@ -289,11 +304,6 @@ You’ve got it! If you don’t want to play, tell a joke or dance, but in any c
 Whatever you think can’t be done, somebody will come along & do it. A genius is the one most like himself.
 
 They tried to get me to hate white people, but someone would always come along & spoil it.
-
-** Triadex
-
-http://till.com/articles/muse/
-http://www.synthtopia.com/content/2017/09/06/triadex-muse-synthesizer-in-your-web-browser/
 
 * Synthesizers
 ** Rack-19
@@ -378,7 +388,6 @@ http://www.hypersynth.com/xenophone.html
 *** MOTU                    8A AVB                      829 €               ADC/DAC
 *** MOTU                    16A AVB                    1398 €               ADC/DAC
 *** MOTU                    828x                        777 €               ADC/DAC
-
 ** Synthesizers
 *** MIDI
 
@@ -3320,6 +3329,8 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 - started claar/gml.lisp to interface with OGDF to draw the cons graphs.
 
 ** Developments TODO                                                    :dev:
+*** TODO [#B] add libecl to life-saver                                   :cl:
+https://www.informatimago.com/articles/life-saver.html
 *** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
 *** TODO [#A] build robot, and implement robot software                  :pi:
