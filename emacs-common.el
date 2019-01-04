@@ -62,6 +62,8 @@
   (when (file-exists-p "--version.lock")
     (message "Deleting version lock!")
     (delete-file  "--version.lock"))
+  ;; (if (file-exists-p "--version.lock")
+  ;;   (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
