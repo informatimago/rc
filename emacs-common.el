@@ -556,6 +556,9 @@ and converted as such."
 ;;;----------------------------------------------------------------------------
 
 
+(require 'epa-file)
+(epa-file-enable)
+
 (require 'highlight-flet nil t)
 (require 'rst nil t)
 (require 'rst-mode nil t)
@@ -3120,7 +3123,8 @@ License:
         (tab-count (how-many "^\t" (point-min) (point-max))))
     (setf indent-tab-mode (cond ((< spc-count tab-count) t)
                                 ((> spc-count tab-count) nil)
-                                (t                       indent-tab-mode)))))
+                                (t                       (when (boundp 'indent-tab-mode)
+                                                           indent-tab-mode))))))
 
 
 (require 'freerdp-c-style)
