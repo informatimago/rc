@@ -6,7 +6,8 @@
 (load "~/rc/emacs-common.el") ; defines .EMACS
 (.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
-
+(require 'vc)
+(require 'vc-hooks)
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -174,7 +175,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#lisp" "#ccl" "#ecl" "#lispcafe" "#clschool" "##lisp" "#scheme" "#hn") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#nEXT-Browser" "#krbdev" "#gcc" "#lisp" "#freerdp" "#clschool" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn") ("irc.oftc.net" "#uml"))))
  '(erc-autojoin-channels-alist-full (quote (("freenode.net" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#gentoo-lisp" "#swift-lang" "#swift-linux" "##objc" "#iphonedev-discuss" "#iCommunity" "#CocoaDev" "#MacOSX" "#macdev" "#iphonedev" "#iOSdev" "##apple" "##mac" "##iphone" "#iphonedev-chat" "#macports" "#macosforge" "##computerscience") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
@@ -394,7 +395,7 @@ X-Accept-Language:         fr, es, en
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 587)
  '(smtpmail-smtp-user "pjb@informatimago.com")
- '(smtpmail-stream-type (quote ssl))
+ '(smtpmail-stream-type (quote starttls))
  '(smtpmail-warn-about-unknown-extensions t)
  '(spam-autodetect-recheck-messages t)
  '(speedbar-show-unknown-files t)
@@ -683,6 +684,8 @@ X-Accept-Language:         fr, es, en
              (dotimes (i n)
                (insert result)))))))))
 
+(when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
+  (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
@@ -692,7 +695,7 @@ X-Accept-Language:         fr, es, en
         (file-name (buffer-file-name)))
     (when (and file-name
                (string-match (format "^%s" home) file-name)
-               (vc-workfile-version file-name))
+               (vc-workfile-revision file-name))
       (goto-char (point-min))
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
@@ -716,7 +719,7 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (when (vc-workfile-version (buffer-file-name))
+  (when (vc-workfile-revision (buffer-file-name))
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 

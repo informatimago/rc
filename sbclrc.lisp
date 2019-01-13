@@ -50,6 +50,8 @@
 ;; (setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :us-ascii)
 (setf SB-IMPL::*DEFAULT-EXTERNAL-FORMAT* :utf-8)
 
+(sb-ext:restrict-compiler-policy 'safety 1)
+
 ;;;---------------------------------------------------------------------------
 ;;;
 
