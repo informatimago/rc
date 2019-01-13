@@ -1,4 +1,46 @@
-;; -*- mode:emacs;coding:utf-8 -*-
+;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;;;
+;;;; Pascal J. Bourguignon's emacs startup file.
+;;;;
+;;;; We only run GNU emacs.
+;;;;
+
+;;; Code:
+
+;; Emacs   Makes All Computing Simple.
+;; Eine    Is Not Emacs.
+;; Zwei    Was Eine Initially.
+;; Drei    Ressembled Emacs Intelligently.
+;; Vier    Integrates Emacs Regexps.
+;; Vier    Is Emacs Rewritten.
+;; Vier    Improves Eine's Revisions.
+;; Fünf    Überly New Framework.
+;; Sechs   Sechs Emacs Can Handle Strings.
+;; Sieben  Is Even Better Emacs Now
+;; Acht    Can Handle Text.
+;; Neun    Emacs Usually .
+;; Zehn    Emacs Handles News.
+;; Hemlock Emacs Made Laughically Overly Capably Kidding.
+;; Climacs Common Lisp Interface Manager Application Creating Sources.
+;; Mince   Is Not Complete Emacs.
+;; FRED    Resembles Emacs Deliberately
+
+(when (= (user-uid) 0)
+  ;; (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
+  ;; (error "~/.emacs: Cannot load ~/.emacs under root account.")
+  (set-face-background 'fringe "red"))
+
+
+;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
+;; tramp hops: /ssh:you@remotehost:/path
+
+
+;;;----------------------------------------------------------------------------
+;;; Start up.
+;;;----------------------------------------------------------------------------
+(setq-default lexical-binding t)
+(setq byte-compile-warnings '(not obsolete))
+(defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 
@@ -19,6 +61,9 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
+  (when (file-exists-p "--version.lock")
+    (message "Deleting version lock!")
+    (delete-file  "--version.lock"))
   ;; (if (file-exists-p "--version.lock")
   ;;   (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
@@ -28,6 +73,8 @@
         (insert text "\n")
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
+
+
 
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (load "~/rc/emacs-package.el")
@@ -56,6 +103,7 @@
 ;; (not cl-functions)
 
 (require 'tramp-sh nil t)
+(defvar tramp-ssh-controlmaster-options "")
 (setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
 
 (.EMACS "STARTING...")
@@ -706,6 +754,11 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[21~"  'disabled)  ; <f10>
   (global-set-key "[23~"  'disabled)  ; <f11>
   (global-set-key "[24~"  'disabled)  ; <f12>
+
+  (define-key input-decode-map "\M-[A" [up])
+  (define-key input-decode-map "\M-[B" [down])
+  (define-key input-decode-map "\M-[C" [right])
+  (define-key input-decode-map "\M-[D" [left])
 
   (define-key input-decode-map "\M-[1;5A" [C-up])
   (define-key input-decode-map "\M-[1;5B" [C-down])
@@ -1499,7 +1552,7 @@ URL in a new window."
   (save-excursion
     (raise-frame
      (select-frame
-      (or (find-if (lambda (frame) (equalp (frame-name frame) *browse-frame-name*))
+      (or (find-if (lambda (frame) (equalp (pjb-frame-name frame) *browse-frame-name*))
                    (frame-list))
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
@@ -3281,6 +3334,7 @@ License:
 (require 'message)
 (defalias 'rot13-region 'message-caesar-region)
 
+(defalias 'widden       'widen)
 (defalias 'scratch      'pjb-scratch)
 (defalias 'eurotunnel   'pjb-eurotunnel)
 (defalias 'address      'pjb-address)

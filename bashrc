@@ -294,6 +294,7 @@ function be_generate(){
         /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
+        /opt/local/lib/postgresql10/bin  # on larissa
 
         /opt/bin
         /opt/sbin
@@ -334,12 +335,9 @@ function be_generate(){
     )
 
     editors=(
-        /opt/local/bin/emacsclient
-        /usr/local/bin/emacsclient
-        /usr/bin/emacsclient
-        /bin/emacsclient
-        /bin/ed
-        /usr/bin/vi
+        emacsclient
+        ed
+        vi
     )
 
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
@@ -407,7 +405,9 @@ function be_generate(){
 
     be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
     be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
-
+    if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
+        be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+    fi
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
@@ -716,7 +716,7 @@ function bashrc_load_optionals(){
 ## bash specific aliases:
 
 function rehash(){ hash -r ; }
-function which(){ type -path "$@" ; }
+alias which='type -path'
 
 
 function ds() {
@@ -1324,7 +1324,11 @@ function update-localized-xibs() {
 
 function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
 function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
+function cdsm(){    cd "$HOME/works/sbde/smt/sources"        ; }
+function cdsb(){    cd "$HOME/works/sbde"                    ; }
 
+function cdsb(){    cd "$HOME/works/sbde/ball" ; }
+function cdsm(){    cd "$HOME/works/sbde/smt" ; }
 
 
 function bashrc_load_host_specific_bashrc(){
@@ -1334,6 +1338,9 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     (larissa*)
         source ~/rc/bashrc-nvidia
+        ;;
+    (vm-u1404|L0253344)
+        source ~/rc/bashrc-span
         ;;
     *)
         source ~/rc/bashrc-pjb
@@ -1385,6 +1392,10 @@ function bashrc(){
     bashrc_linux_functions
     bashrc_define_aliases
     bashrc_flightgear_aliases
+
+    if [ -x /usr/local/gcc/bin/gcc ] ; then
+        source ~/bin/with-gcc-8.bash
+    fi
 
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
