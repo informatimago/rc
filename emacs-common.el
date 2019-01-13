@@ -2,6 +2,8 @@
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 
+
+
 ;;;----------------------------------------------------------------------------
 ;;; Message Log
 ;;;----------------------------------------------------------------------------
@@ -3890,9 +3892,6 @@ list or vector, the length of the sequence."
 (defvar erc-fill-mode-hook '())
 (push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
-;; (set-frame-parameter (selected-frame) 'alpha 0)
-;; (set-frame-parameter (selected-frame) 'alpha 96)
-;; (set-frame-parameter (selected-frame) 'alpha 100)
-;;;----------------------------------------------------------------------------
+
 (.EMACS "emacs-common complete.")
 ;;;; THE END ;;;;
