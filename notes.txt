@@ -2,6 +2,59 @@
 (setf org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
 
 
+https://pastebin.com/iSjaYKddj
+https://bitbucket.org/elderK/k.binary
+
+Compiling Clozure CL
+https://github.com/Homebrew/homebrew-core/pull/34416
+
+
+==> write utility to check certificate of Carte Agent vs. official CA certificates.
+
+http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
+
+https://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/code/syntax/infix/infix.cl
+
+European Criminal Records Information System (ECRIS) <https://ec.europa.eu/info/law/cross-border-cases/judicial-cooperation/tools-judicial-cooperation/european-criminal-records-information-system-ecris_en>
+STESTA: Secure Trans European Services for Telematics Between Administrations <http://ec.europa.eu/idabc/en/document/2097/5644.html>
+
+* Synchronization
+
+/Users/pjb/works/gsharp/other-src/gsharp-1
+fatal: refusing to merge unrelated histories
+
+cd /Users/pjb/works/patchwork/src-20141013/patchwork
+cd /Users/pjb/works/patchwork/src-20141013/mclgui
+cd /Users/pjb/works/patchwork/src-others/midishare-origin
+cd /Users/pjb/works/patchwork/src-others/cmn
+cd /Users/pjb/works/patchwork/src-others/cmpl-code
+cd /Users/pjb/works/patchwork/src-others/david-cope-cmmc
+
+cd /Users/pjb/works/patchwork-before-midishare
+
+* Installation
+
+- configure the global proxy (ubuntu settings network proxy) automatic: http://config.mi:8888/config
+- configure /etc/apt/sources.lst with local mirror 10.237.25.150
+- apt-get update && apt-get upgrade
+
+* Postgresql 10.5
+
+  postgresql10-server has the following notes:
+    To create a database instance, after install do
+     sudo mkdir -p /opt/local/var/db/postgresql10/defaultdb
+     sudo chown postgres:postgres /opt/local/var/db/postgresql10/defaultdb
+     sudo su postgres -c 'cd /opt/local/var/db/postgresql10 && /opt/local/lib/postgresql10/bin/initdb -D
+    /opt/local/var/db/postgresql10/defaultdb'
+
+    A startup item has been generated that will aid in starting postgresql10-server with launchd. It is disabled by default. Execute the
+    following command to start it, and to cause it to launch at startup:
+
+    /opt/local/lib/postgresql10/bin/pg_ctl -D /opt/local/var/db/postgresql10/defaultdb -l logfile start
+        sudo port load postgresql10-server
+
+* Scrapbook
+
 visa la banque postale:  09 69 320 004
 
 Research identifies key weakness in modern computer vision systems <https://news.brown.edu/articles/2018/07/same-different>
@@ -37,18 +90,13 @@ Silver   (Peru)         2025-2035
 Oil      ()             2040-2070
 Platinum (South-Africa) 2050-2070
 
-
 I collected 62 ready-to-use designs for iOS apps [free UI kits]
 https://flawlessapp.io/blog/60-great-ui-kits-for-ios-engineers/
-
-
-
 
 * Blockchain
 
 Votre identifiant de portefeuille est f56067de-b5ee-4787-9a2d-06b3871eb6c6
 Utilisez votre identifiant Wallet unique pour vous connecter à votre portefeuille Blockchain.
-
 (Malheureusement, j'ai oublié le mot de passe; Heureusement, il ne restait pas beaucoup de BTC…)
 
 * FreeRDP
@@ -68,6 +116,8 @@ Siège Social:
 92320 Châtillon
 France
 
+eliwell|pjb@sbde.fr|KA6Meh2VAxSeh
+
 ** Compte OVH
 Pascal
 Bourguignon
@@ -78,7 +128,6 @@ SBDE SASàCV
 TVA:
 pjb@sbde.fr
 informatimago+sbde@gmail.fr
-
 
 ** AI Stuff
 
@@ -91,6 +140,13 @@ http://www.fast.ai/2018/05/07/part2-launch/
 @duval97 @starnawski @jess92320
 
 trello+veill@sbde.fr -> informatimago+e2suifvamlajmfypfuht@boards.trello.com
+
+* Angelo
+
+Dott. Ing. Angelo Rossi
+Via delle Albizzie, 21
+00172 Roma, Italia
+3293516963
 
 * Généalogie - Genealogy
 Soeur de Kasimiera Chilkowy : Mariette en Argentine.
@@ -145,13 +201,6 @@ https://www.youtube.com/watch?v=jSo5v5t4OQM
 Dr. John Philippe Rushton - Race and IQ
 https://www.youtube.com/watch?v=yZ65PSrSgAo
 
-* Angelo
-
-Dott. Ing. Angelo Rossi
-Via delle Albizzie, 21
-00172 Roma, Italia
-3293516963
-
 * progonline prospection
 ** Tableau Server - Tableau Software - Paris
 
@@ -170,16 +219,24 @@ http://www.progonline.com/mypage.php?quoi=coordonnees_client&nick=baldellon&page
 
 * new notes
 
+WaveLab LE 9 activation code: 0240 7CVN NVUM VTSU TTYF EJ00 158F 8F3E
+Cubase  LE 9 activation code: 0240 7CDE CVHZ UMHW WBKC GB00 16C1 8928
+
+UVI
+UVX80
+UVISC58-CEACE57A
+
+* FreedomBox
+
 FreedomBox  Personal Server Web, Email, chat, vpn, image, etc.
 La brique internet
 TAILS - The Anonymous Incognito Live System https://tails.boum.org
 POND
 NEO900 Nokia
 
-
+* new notes
 #+BEGIN_SRC(shell)
 function playEachFlacInDirectories(){ export COLUMNS ; for d in "$@" ; do for f in "$d"/*.flac ; do banner "$(echo $(basename $f .flac)|sed -e 's/^[0-9]*-*//' -e 's/-/ /g')" ; mplayer "$f" ; done ; done ; }
-
 /opt/local/apache2/bin/apachectl -t && sudo port unload apache2 && sudo port load apache2
 #+END_SRC
 
@@ -426,8 +483,6 @@ http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/aop/fra
 
 sort out /srv/ftp/pub/mirrors/ftp.cs.indiana.edu/pub/
 
-http://tecnoempleo.es/|pjb@informatimago.com|Wuwutecow1
-
 http://hightechhistory.com/category/stanford/
 
 
@@ -508,10 +563,6 @@ Theory of Harmony
 clall -r '(let ((r nil)) (do-all-symbols (s) (when (and (special-operator-p s) (not (cl:macro-function s))) (push s r))) (sort (set-difference (remove-duplicates r) (quote (block catch eval-when flet function go if labels let let* load-time-value locally macrolet multiple-value-call multiple-value-prog1 progn progv quote return-from setq symbol-macrolet tagbody the throw unwind-protect))) (function string<)))'
 
 
-http://vWorker.com|pjb@informatimago.com|zuqzadb1m
-http://vWorker.com|pjb@informatimago.com|zuqzadb1m
-
-
 Fill in:  http://wiki.alu.org/Consultant
 
 /local/srv/mirrors/lisp/www.unlambda.com
@@ -570,11 +621,6 @@ Eight Stages of Debugging
 8. One day we will write tests.
 
 
-Apple ID = pjb@informatimago.com|SOMaTyT
-http://adc.apple.com/|pjb@informatimago.com|SOMaTyT
-
-mercadona 963468446
-
 payment movies 1 €/life/person
     identification movie (producer / title / date / legal number).
     identification person (name / birthdate / birthplace).
@@ -616,23 +662,6 @@ http://ensmp.net/pdf/1971/mercouroff.html
 
 
 IVA: http://ec.europa.eu/taxation_customs/vies/vieshome.do
-
-
-savannah.gnu.org|informatimago|fend6Clip=Modem)
-
-savannah.gnu.org|informatimago|fend6Clip=Modem)
-
-1lofc2 http://www.youtube.com/watch?v=y2VE4C0tZkY
-
-Another job opportunity at EyeCarePro.net
-
-EyeCarePro.net (www.eyecarepro.net) is looking for another full time
-SBCL programmer to help manage and improve our main website builder
-application. No relocation required – North American working hours, 5+
-years of SBCL experience (Hunchentoot / Debian) with strong
-communication skills. Contact DanielR@eyecarepro.net for more details.
-
-
 
 trieur de cartes perforées
 http://www.youtube.com/watch?v=2RCgIrZiC6c
@@ -859,13 +888,6 @@ MidiNote -> fichier midi.
 Carole Sagon
 Karim Haddad
 
-** jean-Pierre Aizier
-appleid|jean-pierreaizier@orange.fr|Titiminou88|1146
-jpaizier@gmail.com|Titiminou88|
-jpaizier@yahoo.fr|
-skype|aizier42|
-titicoco88@yahoo.fr|TitiMinou88
-
 ** NOTES 3
 http://darling.dolezel.info/en/Darling
 
@@ -1071,7 +1093,6 @@ http://kukuruku.co/hub/programming/do-not-wake-the-programmer
 http://theanarchistlibrary.org/library/l-susan-brown-does-work-really-work
 http://www.karlmarx.fr/
 
-http://sourceforge.net/|informatimago/RypvUx5GAJSYjiNOn2
 
 
 
@@ -1168,7 +1189,6 @@ it will then be used by default by the server when you start it.
 (alexandria:hash-table-alist asdf/source-registry::*source-registry*)
 
 
-http://www.digitalcombatsimulator.com/|pjb@informatimago.com|Multiplayer3
 
 
 http://www.artinfo-musinfo.org/en/issues/index.html
@@ -1332,9 +1352,6 @@ http://www.progweb.com/modules/blackberry/index-en.html
 ** CNIL
 https://groupes.renater.fr/droit-net/fom-serve/cache/49.html
 ** GOLD
-
-deglet.com|compra$oro
-
 
 2009/04/01 napoleons 20F   10 * 145.00  = 1450.00
 2012/09/06 napoleons 20F    6 * 245.00  = 1470.00
@@ -2814,9 +2831,6 @@ BIC / SWIFT Code..................:      CCRIES2A
     :PROPERTIES:
     :LAST_REPEAT: [2012-11-26 Mon 21:12]
     :END:
-     kelassur.com|1131673|poporoplo
-     1 64 03 57 306 155 53
-     1640357306155 53
 
 **** DONE [#B] pagar alquiler valencia                  ~870 €   :accounting:
      CLOSED: [2012-12-12 Wed 22:12] DEADLINE: <2012-12-04 -8d>
@@ -4492,6 +4506,7 @@ russian-typewriter:
    Я Ч С М И Т Ь Б Ю Ё
    я ч с м и т ь б ю ё
 
+
 Я не хочу это видеть．
 
 * ADDRESSES AND PHONE NUMBERS
@@ -4794,67 +4809,9 @@ Adresse mail : pascal.bourguignon03@orange.fr
 Numéro de compte : 713217363
 Numéro de téléphone : 09 66 87 21 99
 
-** eFax
-
-    Your Personal eFax Number is
-    faxto:+447053450164
-    PIN: 6714
-    All received eFaxes will be sent to informatimag@free.fr
-    http://www.efax.com/
-    To setup your password visit:
-    http://mx2.efax.com/redir3/4PAr0MJDB!http://www.efax.com/login
-    http://mx2.efax.com/survey3/4PAr0MJDB!10
-
-** Barclay
-------------------------------------------------------------------------
-assurance barclay 902930065 stone bridge
-barclaycard cobros : 917497522
-Barclay Card: contraseña telefóno: JMCRMSSJ
-134062/rf91esym
-bestfriend/bestfriend/internet/lisp
-------------------------------------------------------------------------
-
 ** Domains Domain Names
 
 http://www.afnic.fr/outils/whois
-
-** Godaddy
-
-    Renew 5 years
-    Your Customer Number is: 1898145
-    Order Number: 101812850
-
-    https://www.godaddy.com
-    1898145/informatimago/ecsvRWUv
-
-    intergruas.com             2014
-    informatimago.com          2014
-    ogamita.com                2015
-    ogamita.org                2015
-    parroquias-manga.org       2014
-    lavirgenmadre.org
-
-
-    NS5.SECURESERVER.NET  208.109.78.180
-    NS6.SECURESERVER.NET  208.109.80.75
-
-** Domainedesnoms
-
-    www.domainedesnoms.com
-    compte DDN:  14012-DDN / 1e12neurons
-
-    http://www.ddn.fr/
-    informatique@afaa.asso.fr|1e12neurons
-    compte DDN:  14012-DDN|1e12neurons
-
-    Vous pouvez nous contacter par téléphone de 9h30 à 12h30 du lundi au
-    vendredi au  04.98.05.03.83
-
-    Vous devez nous retourner le document par fax au 04.94.78.89.22 ou par
-    courrier à :
-    Action Giratoire - Domaine Des Noms
-    Quartier les gatiers
-    83170 Tourves
 
 ** Dedicated Hosting
 
@@ -4862,380 +4819,17 @@ http://www.ovh.com/fr/serveurs_dedies/         70 €/mois à 300 €/mois
 http://express.ikoula.com/serveur-dedie        20 €/mois à  90 €/mois
 http://www.kimsufi.com/fr/ks/                  15 €/mois à  50 €/mois
 
-** NEWS.INDIVIDUAL.NET
-
-    Support: mailto:news@individual.net
-    news.individual.net|bourguignon|tuphahwohjah
-    user-id: 304469
-
-** DELL
-
-Pedido DELL: ES0132-5293-94854
-|11-30|01114694|DELL Pantalla 22" 2209WA             |   409.48|        409.48|
-DELL 2009WA
-CN-0H735H-72872-98V-226L
-REV A01
-Made in China on August 2009
-Support: ESJ-00000714020016000-098W01284-A
-
-** Acer
-
-Acer Aspire One
-número de registro STDREG.9306446
-
-** Mountain Systems
-
-MOUNTAIN SYSTEMS
-la caixa 2100 1446 91 0200288792
-informatimago|novusvo8
-numero de pedido 12250
-** ONO
-
-12 Mb/s / 1.5 Mb/s IP Fija
-
-    router 192.168.1.1:8080
-           user:
-           password:admin
-
-telefono-w:
-telefono-p:
-
-** TERRA
-
-    Nombre de usuario                     COMPUMAGO@telelineb
-    Servidor DNS primario                 195.235.113.3
-    Servidor DNS secundario               195.235.96.90
-    Número de telefono para
-    conectarte a Internet                 908200290
-
-    COMPUMAGO@terra.es/gaiagaia
-    Nombre de cuenta de correo            COMPUMAGO.terra.es
-    Servidor de correo saliente (SMTP)    mailhost.terra.es
-    Servidor de correo entrante (POP3)    pop3.terra.es
-    Servidor de noticias (news)           news.terra.es
-
-** TELEFONICA
-
-    PASCAL JACQUES BOURGUIGNON
-    no de seguridad social: 30 1026271826
-    DNI:                    X3156225G
-    movil:                  +34 636 653 318
-
-
-    Comunidad de propietarios edificio monaco  968 140 309
-                                               968 140 934
-                                               968 142 358
-
-    pagé a telefonica 147.69 no se porque
-
-
-    Sr. Pascal Bourguignon
-    C/ Monaco
-    Murcia Manga del Mar Menor San Javier
-
-
-    Sr. Pascal Bourguignon
-    Avenida de la Gran Via de La Manga, S/N
-    (Enfrente Hotel Doblemar)
-    Edif.Monaco, Esc.D, Piso.13, Apto.1308
-    30730 San Javier
-
-    Sr. Pascal Bourguignon
-    Gran Via, S/N (Enfrente Hotel Doblemar)
-    Edif.Monaco, Esc.D, Piso.13, Apto.1308
-    30380 La Manga del Mar Menor, San Janvier
-
-    Sr. Pascal Bourguignon
-    C/ Isaac Peral, 28
-    30385 Los Belones - Murcia
-
-
-    Sr. Pascal Bourguignon
-    C/ José María Bergamin, 7; 2°4
-    29660 Marbella - Nueva Andalucia
-    952 811 048 (cancelado)
-
-
-
-    MIS NUMEROS DE TELEFONO:
-    636 653 318 -             Los Belones,                       GSM Movistar
-    952 811 048 - (cancelado) Nueva Andalucia, Marbella          ADSL Telefonica
-    968 143 198 - (cancelado) La Manga del Mar Menor, San Javer, ADSL Easynet
-    968 140 492 - (cancelado) La Manga del Mar Menor, San Javer, RTC
-    968 143 074 - (cancelado) La Manga del Mar Menor, San Javer, RDSI -> RTC
-    669 155 386 - (cancelado)                                    GSM Movistar
-
-
-
-    telefonica ADSL 6MB/s
-
-    Telefonica Internet 900600800
-    Telefonica RDSI     900111002 (problemes techniques)
-    telefonica-empresa: 900555022  8h30 - 18h30
-    telefonica          1004      (novacom)
-
-    telefonica net
-    902357000 centro tecnico adsl
-    902357333 asistencia tecnica ADSL usuario
-
-    Telefonica / France   20:00 08:00 fin de semana
-
-    Telefonica-Data     902230240
-        MegaViá ADSL Acceso Premium
-
-        El servicio MegaVía ADSL se factura con Tarifa Plana independiente
-        del tráfico cursado, según tipo de acceso contratado: Estándar, Class o
-        Premium.
-
-        Las cuotas a aplicar son:
-
-    telefonica          1004      (novacom)
-
-    ADSL 512/128
-    enrutador         183.33  75.00         +IVA
-    inteface ADSL/USB 143       "
-
-    ADSL 2000/300
-    enrutador         183.33 155.57        10diaz
-
-
-
-
-    telefonica megavia:
-        El contrato del Servicio MegaVía ADSL que se establece entre
-        Telefónica Data España y el cliente tiene carácter anual.
-
-        En la Provisión del Servicio MegaVía ADSL se distinguen tres fases:
-        oferta o preventa, instalación y prestación o post-venta. En cada una de
-        estas etapas se identifican en Telefónica Data España unos
-        procedimientos y unos interlocutores que garantizan la calidad del servicio
-        y una completa atención al cliente.
-
-        En la siguiente tabla se detallan los teléfonos disponibles de atención al
-        cliente para el servicio MegaVía ADSL:
-
-        Teléfono
-                   Horario Atención
-                                      Objetivo
-        902 230 240
-                   Lunes a Viernes de
-                   9:00 a 20:00
-                                      Información sobre el servicio
-        902 210 240
-                   Lunes a Viernes de
-                   9:00 a 20:00
-                                      Consultas postventa (información
-                                      sobre la provisión del servicio)
-        902 230 210
-                   24 horas/día, 365
-                   días/año
-                                      Recogida de incidencias (averías)
-
-    1004
-    X3156225G
-    900555022
-
-** tele2 / vodafone
-
-   800 760 770
-   1444
-   NIE: x 3156225 G
-
-** COBERTURA ADSL
-
-
-    RESULTADO DE LA CONSULTA
-    El teléfono 968143074 pertenece a la demarcación ADSL de Cartagena
-
-
-    ADSL sobre líneas analógicas    :       Activo
-    ADSL sobre accesos básicos RDSI :       No Activo
-    Además, su línea es potencialmente apta(*) para soportar servicios ADSL.
-
-    (*) El resultado de la consulta debe interpretarse en sentido
-    aproximado. Tenga en cuenta que únicamente es posible asegurar la
-    validez de la línea telefónica realizando medidas desde el propio
-    domicilio del usuario final, por personal especializado.
-
-** EASYNET ES
-
-    Mi nombre es Betty Grimaldo y a partir de la fecha soy tu nuevo soporte
-    comercial en Easynet España
-    Mi número telefónico es: 91-7894620
-    Mi cuenta de correo:  betty.grimaldo@easynet.es
-
-    917 894 647 easynet support technique ADSL
-    917 894 600 easynet support technique
-    620 876 255 easynet ADSL Srta. Begoña
-    968 079 454 easynet POP easynet Murcia
-
-    Telefono : 902 888 724
-    E-mail : soporte@es.easynet.net
-
-
-
-    MIS NUMEROS DE TELEFONO:
-    968 143 198 - RTC+ADSL Easynet
-    636 653 318 - GSM Movistar
-    669 155 386 - GSM (cancelado)
-    968 140 492 - RTC (cancelado)
-
-    recarga: 901 123 609
-        4 IP fija   62.93.174.77 (62.93.174.76,62.93.174.78,62.93.174.79)
-        ADLS 512kb/s 128kb/s
-        router
-
-    (900*6)-2700-(345.11*4)-(200*6)
-     119.55999999999995
-
-    ITV:           1
-    ICV:           32
-    Encapsulación: PPPoA VC mux
-    Usuario:       pascal
-    Contraseña:    uiw10shj
-    Auth:          PAP
-
-    2006-04-26 numero de incidencia: 19194
-    2006-05-08 numero de incidencia: 19396
-    2006-05-25 numero de incidencia: 19655
-    2006-11-11 numero de incidencia: 22512
-    2007-02-09 numero de incidencia: 24224
-
-** GONUTS4FREE:
-
-
-    901929200
-    connectinspain@free32
-    123456
-    dns:
-    193.152.63.197
-    80.58.0.33
-    gonuts4free.com
-    conexion651@gratis  123456
-    conexion652@gratis  123456
-    conexion653@gratis  123456
-    conexion750@gratis  123456
-
 ** BOOK PUBLISHING
 
     http://www.lulu.com
-
-** RADIO
-
-    Internet Radio:  kohina.com slayradio.org
-
-    mplayer http://195.10.10.107:80/cope/copefm.asf
-    mplayer mms://wm.live.tv-radio.com/radiocourtoisie_20k
-
-    http://www.tv-radio.com/cgi-bin/tagger.pl?tag=site&metafile=direct/direct-20k.ram
-                                                                DirectFM Metz
-    http://www.tv-radio.com/162/pepperplayer/radios/courtoisie.mov
-
-** Radio Courtoisie
-61, Boulevard Murat
-75016 Paris
-mailto:contact@radiocourtoisie.com
-
-Cotisations:
-2013-06-02 150
 
 ** Associations
 
     http://www.association-sdf.com/aider.html
     http://www.droitdenaitre.com/bulletins.html
-
-    http://lanturluland.free.fr/lanturluland/francais/4_cd_rom_fr/bon_commande_fr.htm
-
-** NASA TV
-http://science.ksc.nasa.gov/cgi-bin/rrg2.pl?encoder/nasatv.rm   broadband
-http://science.ksc.nasa.gov/cgi-bin/rr.pl?kscnasa.rm            dialup
-http://science.ksc.nasa.gov/cgi-bin/rr.pl?nasatv.ra             audio
-
 ** Imdb
     http://www.imdb.com/interfaces
     ftp://ftp.fu-berlin.de/pub/misc/movies/database/README
-
-** hamstersfabric Paypal
-    billing@hamstersfabric.com
-    i1BLrie18dtA
-    City of Birth:Granagrove
-    Pet's name:   Chubawookie
-    ..........................
-    8082PAYPAL
-    https://www.paypal.com/PREFS-NOTI
-
-    paypal qht0XQMg
-    716518
-    MHRJ228075
-
-** boursorama
-
-boursorama W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
-
-Boursorama Banque
-
-    * Comment
-      ça marche
-    * Identification
-      vocale
-    * Signature
-      électronique
-    * Pièce
-      justificative
-
-Enregistrement de vos pièces justificatives
-
-Un conseiller vous aide
-à remplir votre dossier
-Ou
-Un conseiller vous rappelle
-immédiatement et gratuitement
-		OK
-Votre conseiller remplit votre convention d'ouverture
-de compte avec vous par téléphone en fonction de
-vos attentes et de vos besoins.
-Vous la recevrez immédiatement par email
-ou par courrier, vous n'aurez qu'à signer et nous la faire parvenir accompagnée des pièces justificatives.
-
-Monsieur Pascal BOURGUIGNON
-
-Votre demande d’ouverture d’un compte Boursorama Essentiel+ nous est bien parvenue. Votre contrat électronique a été déposé, vous pourrez le retrouver avec votre numéro de transaction sur demande à Boursorama Banque.
-
-NOTEZ BIEN VOTRE NUMÉRO DE TRANSACTION
-W0ESSENT-11-00003227012547-2013.5.3_20.11.50-1229
-Nous venons de vous envoyer un nouvel email dans lequel vous trouverez un lien vous permettant d’accéder à votre dossier.
-FINALISEZ VOTRE SOUSCRIPTION, JOIGNEZ NOUS VOS PIÈCES JUSTIFICATIVES
-Si vous n'avez pas réuni toutes
-vos pièces justificatives
-
-    * Une copie de pièce d'identité du ou des titulaires en cours de validité
-    * Un justificatif de domicile ou un document fiscal de moins de 6 mois :
-      facture d'électricité, de gaz, d'eau, de téléphone fixe ou internet à l'adresse du client, avis d'imposition, taxe d'habitation, taxe foncière, tiers prévisionnel ou quittances de loyer qui émanent d'institutionnels.
-      Attention, ne sont pas acceptés : les factures de téléphone mobile ou les quittances de loyer qui n'émanent pas d'institutionnels.
-      Les échéanciers sont autorisés pendant toute la durée couverte.
-    * Une relevé d'identité bancaire (R.I.B)
-    * Si vous choisissez de souscrire une carte bancaire :
-      - Salarié : vos 2 derniers bulletins de salaire
-      - Non salarié : votre dernier avis d'imposition
-      Attention : vous ne recevrez pas votre carte bancaire à l'ouverture de votre compte si ces documents ne sont pas joints à votre dossier.
-    * Votre premier versement par chèque à l'ordre de Boursorama d'un montant minimum de 300€, ce montant sera disponible dès l'ouverture de votre compte.
-    * Votre signature manuscrite sur une feuille blanche
-
-(au format électronique), vous pourrez vous reconnecter ultérieurement en utilisant le lien dans l'email que nous venons de vous envoyer.
-
-Les données ci-dessus pourront être utilisées afin de vous faire bénéficier d'offres émanant de nos partenaires. Pour en savoir plus veuillez consulter l'article 2 du contrat d'utilisation. Nous vous rappelons que vous disposez d'un droit d'accès, de rectification et d'opposition au traitement des données vous concernant (articles 38, 39 et 40 de la loi "Informatique et Libertés" modifiée). Nous allons implanter un cookie dans votre ordinateur afin que vous puissiez bénéficier des services personnalisés offerts par Boursorama et d'assurer un bon fonctionnement du site. Pour en savoir plus, veuillez consulter notre contrat d'utilisation.
-------------------------------------------------------------------------
-
-** cajamar
-
-Ha utilizado por completo su tarjeta personal de claves. Puede seguir
-realizando operaciones con esta tarjeta, aunque, como medida de
-seguridad, le recomendamos que solicite una nueva en su oficina.
-
-Introduzca las siguientes coordenadas de su tarjeta personal de claves
-acabada en 216 G6
-
-Coordenada recibida por SMS en su móvil acabado en 318
 
 * INFORMATIMAGO COMPUTERS
 ** Neptune Network
@@ -5263,97 +4857,9 @@ le-verrier.lan.informatimago.com.   3600  IN  A      192.168.7.18      ; Samsung
      adams.lan.informatimago.com.   3600  IN  A      192.168.7.19      ;                                           ring
     router.lan.informatimago.com.   3600  IN  A      192.168.7.253     ; livebox
 
-** voyager.informatimago.com
-
-Linux voyager.informatimago.com 2.6.18-6-k7 #1 SMP Mon Oct 13 16:52:47 UTC 2008 i686 GNU/Linux
-GNU/Linux debian 6.0.6
-
-
-The following servers use the same ssl certificate and private key for
-voyager.informatimago.com
-Notice that it's pound that's listening on 443.
-
-pound   /usr/local/etc/pound.conf
-apache  /etc/apache2/site-available/default-ssl
-postfix /etc/postfix/main.cf
-imap    /etc/courier/imapd{,-ssl,.cnf}
-pop3d   /etc/courier/pop3d{,-ssl,.cnf}
-
-ssl     /etc/ssl/certs /etc/ssl/private
-        /etc/ssl/certs/starcom-com.informatimago.voyager.pem
-        /etc/ssl/certs/starcom-com.informatimago.voyager.ssl.cert
-        /etc/ssl/private/starcom-com.informatimago.voyager.private-key.ssl.key
-
-starcom
-certificate passwords: IreadYOURemail42
-
-
-
-  * the X509 standard defines certificates, and RSA and DSA are two of
-    the public key algorithms that can be used in those certificates;
-
-  * certificates are used to hold public keys, and never private keys.
-
-  * PKCS#12 is a standard for a container which can hold an X509
-    client certificates and the corresponding private keys, as well as
-    (optionally) the X509 certificates of the CAs that signed the X509
-    client certificate(s).
-
-So, if you're examining a PKCS#12 file (typically .p12 extension), then you already know:
-
-    It contains at least one X509 client certificate, which contains a public key; and
-    It contains the corresponding private keys.
-
-All you don't know is whether those certificate & private key are RSA
-or DSA. You can check this by extracting the certificate(s), and then
-examine them:
-
-openssl pkcs12 -in mycert.p12 -clcerts -nokeys -out mycert.crt
-openssl x509 -in mycert.crt -text
-
-The text output of the openssl x509 command should include a Subject
-Public Key section, which will include fields that let you see if it's
-an RSA or DSA key (along with the key size).
-
-------------------------------------------------------------------------
-
-voyager|awstat|admin|voy!stat
-voyager|linux|lse|fyLxIqmuC
-lassell|cygwin|lse|fyLxIqmuC
-lassell|cygwin|cyg_server|VYwJali9
-
-telnet voyager 8105
-
-voyager postgresql-8.4
-voyager|linux|trac|su/CAs&Ze
-voyager|postgresql|trac|nE9zuTiJ
-
-voyager|nasium-lse.fossil|project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
-voyager|nasium-lse.fossil|server-id:  4faf1e63ce049b8165d027fd0e52e22a67df82b5
-voyager|nasium-lse.fossil|admin-user: pjb (password is "bfd622")
-http://www.cliki.net/Programming%20language
-
-
-voyager|patchwork.fossil|admin-user: pjb (initial password is "fe564e")
-fossil init patchwork.fossil
-project-id: 8da4fbae771061b0d45af1a298df4c4439092371
-server-id:  e22aca008c3639340f2081887a9f2ef462f054b8
-admin-user: pjb (initial password is "fe564e")
-
-http://fossil.informatimago.com:8002/patchwork/timeline
-
-~/src/pjb/nasium-lse.fossil
-project-id: 78211b485d42d89fe1fabc02960257f6c0f21e08
-server-id:  4f108d173b909c86d7ca90659ca5e1991b156c9c
-admin-user: pjb (password is "67eb63")
-
 ** Nvidia:
 
 NVIDIA GeForce GTX 460
-
-** lassell MSWindows
-
-Contraseǹa Grupo en hogar en la red: uD7nx4tJ6F
 
 ** backups                                                          :virtual:
 *** TODO [#A] sauvegardes                                             :admin:
@@ -5947,6 +5453,14 @@ Flux OsKit.
   ;; space in ~^ is important to obtain line breaking.
   (format t "~@<~{~a~^, ~}~:@>" (loop for i below 100 collect i)))
 #+END(src)
+
+** Code Review
+The purpose of Code Reviews is fourfold:
+
+- To ensure the work performed matches the work requested.
+- To catch as many bugs as possible before they get to production.
+- To keep the complexity of the system low.
+- To ensure best practices are followed.
 
 ** COMMANDS:
 
@@ -7099,7 +6613,6 @@ git checkout master
 git merge experiment
 #+END_EXAMPLE
 
-
 ** DVCS: github
 *** multiple github accounts
 
@@ -7386,13 +6899,6 @@ A-< A->	begin/end text
 
     http://open360.copyleft.de/VM370/VM370.html
 
-    C'était sur naiad/macosx-1...
-    vm-370.informatimago.com|ibmuser|dyno-e
-    vm-370.informatimago.com|herc01|sys-I       CUL8TR
-    vm-370.informatimago.com|herc02|sys-II      CUL8TR
-    vm-370.informatimago.com|herc03|dyno-III    PASS4U
-    vm-370.informatimago.com|herc04|dyno-IV     PASS4U
-
     http://simh.trailing-edge.com/
 
     PDP: SOLO:                    http://www.spies.com/aek/solo
@@ -7417,9 +6923,6 @@ A-< A->	begin/end text
 
     Free Shell:
     http://www.freeshell.org
-    pjb@hackbox.coastfx.com 7x3hcsth
-    http://sdf.lonestar.org 7x3hcsth
-    ssh pjb@sdf.org 7x3hcsth
 
     http://telehack.com/
 
@@ -7432,38 +6935,6 @@ A-< A->	begin/end text
 
     Z/OS: TSO
     http://zos.efglobe.com/cgi-bin/mainframe/mainuser
-    OGAMITA|QIBSUQ|PASCAL BOURGUIGNON|pjb@informatimago.com
-
-    Host Name                      fandezhi.efglobe.com         The TN3270 telnet hostname
-    TN3270 Telnet Port             23                           Use this port to logon to TSO
-    Your TSO User ID               OGAMITA                      Use this userid to logon to TSO
-    Your Inital Password           OO6PPMUK                     You have to change it at first logon
-                                   AM5IVRTI
-    Your Higher Level Qualifier    OGAMITA.**                   You own these datasets
-    Your UNIX System Service home  /u/ogamita                   Use 'TSO OMVS' to go to UNIX System Service
-    Your account number            123456768                    Used in your job
-    Your logon procedure           SYSUSER                      Used in your TSO logon.
-    Your Datasets                  OGAMITA.JCL.CNTL             Your JCL library.
-                                   OGAMITA.ISPF.ISPPROF         Your ISPF profile.
-    Your Job Card                  OGAMITA.JCL.CNTL(JOBCARD)    Use this job card in this system.
-
-
-    <p_l> pjb: among somewhat accessible, is the FANDEZHI mainframe system, which actually
-    runs off Hercules S/370 emulator
-    <p_l> you can also find a copy of ADCD 1.10 preinstalled for Hercules on TPB
-
-
-    OpenVMS cluster:
-    ssh demo@dahmer.vistech.net
-    ssh pjb@dahmer.vistech.net 2x4gasdh
-    mailto:pjb@dahmer.vistech.net
-    ssh ogamita@dahmer.vistech.net fEk-ZA'NI
-
-    ssh demo@dahmer.vistech.net
-    ssh pjb@dahmer.vistech.net 2x4gasdh
-    mailto:pjb@dahmer.vistech.net
-    ssh ogamita@dahmer.vistech.net fEk-ZA'NI
-
 
     Validation of Content Accessibility:
     http://www.cynthiasays.com/
@@ -9917,6 +9388,27 @@ hammer.
 
     http://www.cs.brown.edu/~sk/Publications/Papers/Published/ffkf-mred/paper.ps
 
+** LANGUAGES: COMMON LISP: OPEN arguments
+
+|--------------------+--------------------|
+| :direction         | :input             |
+|                    | :output            |
+|                    | :io                |
+|--------------------+--------------------|
+| :if-does-not-exist | :create            |
+|                    | :error             |
+|                    | nil                |
+|--------------------+--------------------|
+| :if-exists         | :error             |
+|                    | :new-version       |
+|                    | :rename            |
+|                    | :rename-and-delete |
+|                    | :overwrite         |
+|                    | :append            |
+|                    | :supersede         |
+|                    | nil.               |
+|--------------------+--------------------|
+
 ** LANGUAGES: COMMON LISP: macros for non standard special operators
 https://bugs.launchpad.net/sbcl/+bug/1032643
 http://sourceforge.net/p/ecls/bugs/198/
@@ -10204,6 +9696,21 @@ returned for the total of 5 values.
     http://www.den.rcast.u-tokyo.ac.jp/~salvi/archive/snippets/ecl-test.cc
 
     (ext:set-limit 'ext:heap-size (* 1024 1024 1024))
+
+** link statically libecl in libraries for non-lisp.
+
+ https://groups.google.com/d/msg/comp.lang.lisp/Iq8rn6uSxZQ/9t0QOAJgne8J
+<mitigate> I don't know at all, but I imagine it is not designed to be used without ecl_init
+<jackdaniel> pjb: bdwgc replaces malloc with its own version for static libraries, afaik it doesn't do that with dynamic ones (when linked against libgc.so). *but* if you link libgc statically in libecl it shouldn't interfere
+<jackdaniel> but it will still scan memory which is not collected (conversatively), so if you reference lisp object from C it won't get removed
+<pjb> Yes, and we would want to statically link libecl with our library anyways.
+<pjb> Oh, good!
+<pjb> Very good indeed.
+<jackdaniel> pjb: in general: it depends on how you configure bdwgc when you build it
+<jackdaniel> ECL always uses explicit GC_malloc_ functions
+<jackdaniel> and whenever bdwgc redefines stdlibc functions is configured on its own accord
+<jackdaniel> *and* when ECL builds with bdwgc statically (that is compiles it to libgc.a) then it disables such redefinition and this compiled-in libgc doesn't conflict with system libgc.so whatsoever
+
 
 *** garbage collector statistics
 
@@ -13188,19 +12695,6 @@ Vegetable: Asparagus, Avocado, Bamboo Shoots, Bean Sprouts, Beet
     http://www.bigmen.com/
     http://www.kingsizedirect.com/
 
-kingbarcelona.com
-informatimago|comprabici
-
-Su pago se ha enviado correctamente.
-
-Id. de transacción: 11A33061LS3638740
-Se ha enviado la autorización para su compra a KING BARCELONA S.L..
-
-Conserve este Id. del recibo y la información de contacto por si necesita ponerse en contacto con el vendedor o PayPal. PayPal también le ha enviado un recibo de esta transacción por correo electrónico.
-Información de contacto del vendedor
-KING BARCELONA S.L.
-info@kingbarcelona.com
-00 34 93 192 97 78
 
 ** Light
    700 nm  rouge; 580 nm  jaune; 550 nm  vert; 475 nm  bleu
