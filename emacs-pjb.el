@@ -483,7 +483,7 @@ X-Accept-Language:         fr, es, en
     (view-mode t))))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
- '(send-mail-function (quote mailclient-send-it))
+ '(send-mail-function (quote sendmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -872,5 +872,7 @@ X-Accept-Language:         fr, es, en
    (latex . t)
    (dot . t)))
 
+(when (file-exists-p "~/rc/emacs-patches.el")
+  (load "~/rc/emacs-patches.el"))
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
