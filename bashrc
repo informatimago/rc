@@ -1393,6 +1393,10 @@ function bashrc(){
     bashrc_define_aliases
     bashrc_flightgear_aliases
 
+    if [ -x /usr/local/gcc/bin/gcc ] ; then
+        source ~/bin/with-gcc-8.bash
+    fi
+
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'
     shopt -u failglob
