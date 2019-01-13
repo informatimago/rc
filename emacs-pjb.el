@@ -765,5 +765,7 @@ X-Accept-Language:         fr, es, en
    (latex . t)
    (dot . t)))
 
+(when (file-exists-p "~/rc/emacs-patches.el")
+  (load "~/rc/emacs-patches.el"))
 (load "~/rc/emacs-epilog.el")
 ;;;; THE END ;;;;
