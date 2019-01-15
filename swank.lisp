@@ -99,6 +99,8 @@
     (dolist (var variables)
       (set var *swank-bindings*))))
 
+(defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
+(defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
 (set-swank-bindings)
 
 #-(and) (

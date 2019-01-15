@@ -2,7 +2,7 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 
-if [ -z ${TRAMP-x} ] ; then
+if [  ${TRAMP:-no} = yes ] ; then
     return
 fi
 
@@ -1392,6 +1392,10 @@ function bashrc(){
     bashrc_linux_functions
     bashrc_define_aliases
     bashrc_flightgear_aliases
+
+    if [ -x /usr/local/gcc/bin/gcc ] ; then
+        source ~/bin/with-gcc-8.bash
+    fi
 
     # display function and alias duplicates:
     compgen -A alias -A function | awk 'seen[$1]++ == 1'

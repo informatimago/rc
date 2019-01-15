@@ -55,16 +55,18 @@
 ;; to see the report after running.
 
 
-
-;; (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-
-(defvar slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
-(setq   slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
-(add-to-list 'load-path slime-directory)
-(ignore-errors (require 'slime-autoloads))
-(load-library "slime")
-(setq slime-backend (expand-file-name "swank-loader.lisp" slime-directory))
-(setq slime-path    slime-directory)
+(if (file-exists-p "~/quicklisp/slime-helper.el")
+    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+  (progn
+    (defvar slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
+    (setq   slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
+    (add-to-list 'load-path slime-directory)
+    (ignore-errors (require 'slime-autoloads))
+    (load-library "slime")
+    (defvar slime-backend)
+    (defvar slime-path)
+    (setq slime-backend (expand-file-name "swank-loader.lisp" slime-directory))
+    (setq slime-path    slime-directory)))
 
 (slime-setup '(slime-fancy
                slime-asdf
