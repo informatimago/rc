@@ -313,7 +313,7 @@ X-Accept-Language:         fr, es, en
  '(mspools-update t)
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
- '(org-agenda-files (quote ("~/notes.txt")))
+ '(org-agenda-files (quote ()))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "IN-REVIEW(r@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
