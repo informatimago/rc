@@ -1,16 +1,4 @@
 (message "Hi SPAN!")
-;; (load "~/src/public/emacs/freerdp-c-style.el")
-(load "~/rc/emacs-pjb.el")
-
-;; (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
-;; (set-frame-font "terminus-13")
-(set-frame-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1")
-
-(setf *pjb-intervention-firm* '((minint)))
-(require 'freerdp-c-style)
-
-(require 'asn1-mode)
-(add-to-list 'auto-mode-alist '("\.asn1$" . asn1-mode))
 
 (defun mice ()
   (split-string
@@ -40,6 +28,10 @@
 
 (add-hook 'delete-frame-functions 'turn-on-trackpad)
 
+
+(load "~/rc/emacs-pjb.el")
+
+(set-frame-font "terminus-13")
 (ignore-errors (progn (setf *pjb-current-font-index* 1) (set-current-font)))
 (cond ((string-match "^vm-" (hostname)) (set-palette pal-dark-amber)))
 (setf *pjb-intervention-firm* '((minint)))
@@ -51,6 +43,7 @@
 (global-set-key (kbd "s-s")   'git-search-symbol-at-point)
 (global-set-key (kbd "C-s-s") 'git-search)
 (global-set-key (kbd "M-s-s") 'git-search-region)
+
 
 (custom-set-variables
  '(ad-redefinition-action (quote accept))
@@ -108,7 +101,7 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-holidays (quote ((holiday-fixed 1 1 "New Year's Day") (holiday-fixed 2 2 "Groundhog Day") (holiday-fixed 2 14 "Valentine's Day") (holiday-fixed 3 17 "St. Patrick's Day") (holiday-fixed 4 1 "April Fools' Day") (holiday-float 5 0 2 "Mother's Day") (holiday-fixed 6 14 "Flag Day") (holiday-float 6 0 3 "Father's Day") (holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 14 "Fête Nationale France") (holiday-easter-etc) (holiday-fixed 12 25 "Christmas") (if calendar-christian-all-holidays-flag (append (holiday-fixed 1 6 "Epiphany") (holiday-julian 12 25 "Christmas (Julian calendar)") (holiday-greek-orthodox-easter) (holiday-fixed 8 15 "Assumption") (holiday-advent 0 "Advent"))) (solar-equinoxes-solstices) (holiday-sexp calendar-daylight-savings-starts (format "Daylight Saving Time Begins %s" (solar-time-string (/ calendar-daylight-savings-starts-time . #1=((float 60))) calendar-standard-time-zone-name))) (holiday-sexp calendar-daylight-savings-ends (format "Daylight Saving Time Ends %s" (solar-time-string (/ calendar-daylight-savings-ends-time . #1#) calendar-daylight-time-zone-name))))))
  '(calendar-mark-holidays-flag t)
- '(calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))))
+ '(calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))) t)
  '(calendar-view-holidays-initially-flag t)
  '(calendar-week-start-day 1)
  '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
@@ -195,6 +188,7 @@
  '(eval-expression-print-length nil)
  '(eval-expression-print-level nil)
  '(file-precious-flag t)
+ '(fireplace-smoke-char 37)
  '(focus-follows-mouse nil)
  '(font-lock-extra-types (quote ("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN")) t)
  '(font-lock-maximum-decoration t)
@@ -226,7 +220,7 @@
  '(grep-command "grep -niH -e ")
  '(gud-gdb-command-name "gdb --annotate=1")
  '(hl-paren-colors (quote ("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray")))
- '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))))
+ '(holiday-other-holidays (quote ((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France"))) t)
  '(ido-enable-flex-matching nil)
  '(indent-tabs-mode nil)
  '(inferior-lisp-filter-regexp "\\`\\s*\\'")
@@ -512,3 +506,46 @@ X-Accept-Language:         fr, es, en
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:foreground "yellow green"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#115511")))))
+
+
+(defun string-to-asn1-octet-string (string)
+  (format "'%s'H" (mapconcat
+                   (lambda (ch)
+                     (format "%02X%02X"
+                             (mod ch 256)
+                             (truncate ch 256)))
+                   string
+                   "")))
+
+(defun string-to-asn1-octet-string-at-point ()
+  (interactive)
+  (let ((string (sexp-at-point)))
+    (if (stringp string)
+        (progn
+          (kill-sexp)
+          (insert (string-to-asn1-octet-string string)))
+        (error "Not a string at point: %S" string))))
+
+(defun string-from-asn1-octet-string (os)
+  (let ((os (if (and (string= "'"  (subseq os 0 1))
+                     (string= "'H" (subseq os (- (length os) 2))))
+                (subseq os 1 (- (length os) 2))
+                os)))
+    (coerce (loop
+              for i below (length os) by 4
+              for l = (car (read-from-string (concat "#x" (subseq os i (+ i 2)))))
+              for h = (car (read-from-string (concat "#x" (subseq os (+ i 2) (+ i 4)))))
+              for c = (+ (* h 256) l)
+              collect c)
+            'string)))
+
+(defun convert-all-asn1-octet-string-to-string (start end)
+  (interactive "r")
+  (goto-char start)
+  (while (re-search-forward "'[0-9A-Fa-f]*'H" end t)
+    (let ((os (match-string 0)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert (format "%S" (string-from-asn1-octet-string os))))))
+
+(string-from-asn1-octet-string "'4900410053002D00450043004300'H")
+"IAS-ECC"
