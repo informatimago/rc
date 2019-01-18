@@ -72,7 +72,7 @@ Host *
     EscapeChar              ~
     ForwardAgent            no
     ForwardX11              no
-    ForwardX11Trusted       yes
+    ForwardX11Trusted       no
     HostbasedAuthentication yes
 #    RhostsRSAAuthentication yes
 #    RSAAuthentication       yes
