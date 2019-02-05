@@ -44,6 +44,8 @@
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
 
+
+
 ;;;----------------------------------------------------------------------------
 ;;; Message Log
 ;;;----------------------------------------------------------------------------
@@ -62,6 +64,8 @@
   (when (file-exists-p "--version.lock")
     (message "Deleting version lock!")
     (delete-file  "--version.lock"))
+  ;; (if (file-exists-p "--version.lock")
+  ;;   (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -555,6 +559,9 @@ and converted as such."
 ;;; Other packages.
 ;;;----------------------------------------------------------------------------
 
+
+(require 'epa-file)
+(epa-file-enable)
 
 (require 'highlight-flet nil t)
 (require 'rst nil t)
@@ -3120,7 +3127,8 @@ License:
         (tab-count (how-many "^\t" (point-min) (point-max))))
     (setf indent-tab-mode (cond ((< spc-count tab-count) t)
                                 ((> spc-count tab-count) nil)
-                                (t                       indent-tab-mode)))))
+                                (t                       (when (boundp 'indent-tab-mode)
+                                                           indent-tab-mode))))))
 
 
 (require 'freerdp-c-style)
@@ -3942,9 +3950,6 @@ list or vector, the length of the sequence."
 (defvar erc-fill-mode-hook '())
 (push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
-;; (set-frame-parameter (selected-frame) 'alpha 0)
-;; (set-frame-parameter (selected-frame) 'alpha 96)
-;; (set-frame-parameter (selected-frame) 'alpha 100)
-;;;----------------------------------------------------------------------------
+
 (.EMACS "emacs-common complete.")
 ;;;; THE END ;;;;
