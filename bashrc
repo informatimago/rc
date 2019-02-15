@@ -482,12 +482,8 @@ function be_generate(){
         be_variable GRADLE_HOME "$value"
     fi
 
-<<<<<<< HEAD
     be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx6g'
-    if [ "$uname" = Darwin ] ; then
-=======
     if [ "${uname}" = Darwin ] ; then
->>>>>>> 4756c038dd51948dbe0f4f6e9d25b4317fe805c4
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
 
@@ -1518,4 +1514,3 @@ bashrc
 # Note:  No interactive stuff here, ~/.bashrc is loaded by all scripts
 #        thru ~/.profile and ~/.bash_profile!
 #### THE END ####
-
