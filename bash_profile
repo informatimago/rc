@@ -18,11 +18,8 @@ esac
 
 #### THE END ####
 
-##
-# Your previous /Users/pjb/.bash_profile file was backed up as /Users/pjb/.bash_profile.macports-saved_2016-10-16_at_16:35:49
-##
+# added by Anaconda3 5.2.0 installer
+export PATH="/anaconda3/bin:$PATH"
 
-# MacPorts Installer addition on 2016-10-16_at_16:35:49: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
+# added by Anaconda3 5.2.0 installer
+export PATH="/opt/anaconda3/bin:$PATH"
