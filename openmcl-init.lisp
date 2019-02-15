@@ -50,6 +50,7 @@
 (in-package "COM.INFORMATIMAGO.PJB")
 (export '(EDIT QUIT))
 
+(setf *shell* 'uiop:run-program)
 
 ;; ---------------------------------------------------------------------
 ;; clocc defsystem is erroneous for clisp --

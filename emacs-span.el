@@ -1,92 +1,50 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
+(message "Hi SPAN!")
+
+(defun mice ()
+  (split-string
+   (string-trim
+    (shell-command-to-string  "xinput list  --name-only|grep -i mouse"))
+   "\n"))
+
+(defun touchpads ()
+  (split-string
+   (string-trim
+    (shell-command-to-string  "xinput list  --name-only|grep -i -e 'touchpad\\|DLL07A0:01\\|VirtualBox USB Tablet'"))
+   "\n"))
+
+(defun turn-off-trackpad (&optional frame)
+  (interactive)
+  (dolist (pad (touchpads))
+    (shell-command (format "xinput disable %S" pad))))
+
+(defun turn-on-trackpad (&optional frame)
+  (interactive)
+  (dolist (pad (touchpads))
+    (shell-command (format "xinput enable %S" pad))))
+
+;; (list focus-in-hook focus-out-hook)
+(add-hook 'focus-in-hook          'turn-off-trackpad)
+(add-hook 'focus-out-hook         'turn-on-trackpad)
+
+(add-hook 'delete-frame-functions 'turn-on-trackpad)
 
 
-(load "~/rc/emacs-common.el") ; defines .EMACS
-(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
-(require 'cc-mode)
-(require 'vc)
-(require 'vc-hooks)
+(load "~/rc/emacs-pjb.el")
 
-;;;----------------------------------------------------------------------------
-;;; Customization
-;;;----------------------------------------------------------------------------
+(set-frame-font "terminus-13")
+(ignore-errors (progn (setf *pjb-current-font-index* 1) (set-current-font)))
+(cond ((string-match "^vm-" (hostname)) (set-palette pal-dark-amber)))
+(setf *pjb-intervention-firm* '((minint)))
+(require 'freerdp-c-style)
+(require 'asn1-mode)
+(add-to-list 'auto-mode-alist '("\.asn1$" . asn1-mode))
+(setf browse-url-browser-function 'browse-url-firefox2)
 
-(.EMACS "custom faces")
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
- '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
- '(android-mode-debug-face ((t (:foreground "cyan"))))
- '(android-mode-info-face ((t (:foreground "chartreuse"))))
- '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
- '(android-mode-warning-face ((t (:foreground "pink"))))
- '(column-marker-1-face ((t (:background "AntiqueWhite"))))
- '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
- '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
- '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
- '(diff-nonexistent ((t (:background "grey11" :foreground "light green"))))
- '(ediff-even-diff-A ((t (:background "grey50"))))
- '(ediff-odd-diff-A ((t (:background "Grey33"))))
- '(ediff-odd-diff-B ((t (:background "grey30"))))
- '(erc-default-face ((t (:foreground "#55ffaa"))))
- '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan2"))))
- '(erc-notice-face ((t (:foreground "gray70"))))
- '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
- '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
- '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
- '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
- '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
- '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
- '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
- '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
- '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
- '(font-lock-string-face ((t (:foreground "Orchid"))))
- '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
- '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
- '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
- '(gnus-cite-2 ((((class color) (background light)) (:foreground "yellow1"))))
- '(gnus-cite-3 ((((class color) (background light)) (:foreground "lightblue2"))))
- '(gnus-cite-4 ((((class color) (background light)) (:foreground "yellow2"))))
- '(gnus-cite-5 ((((class color) (background light)) (:foreground "lightblue3"))))
- '(gnus-cite-6 ((((class color) (background light)) (:foreground "yellow3"))))
- '(gnus-cite-7 ((((class color) (background light)) (:foreground "lightblue4"))))
- '(gnus-cite-8 ((((class color) (background light)) (:foreground "yellow4"))))
- '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
- '(gnus-group-mail-3 ((t (:foreground "cyan" :weight bold))))
- '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
- '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
- '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
- '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
- '(match ((t (:background "#3a3a3e"))))
- '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
- '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
- '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
- '(mmm-default-submode-face ((t (:foreground "cyan"))))
- '(mode-line ((((class color) (min-colors 88)) (:background "grey11" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
- '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey11" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
- '(org-agenda-dimmed-todo-face ((t (:foreground "yellow"))))
- '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
- '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
- '(read-only-face ((t (:background "gray30"))) t)
- '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
- '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
- '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
- '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
- '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
- '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
- '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:foreground "yellow green")))))
+(global-set-key (kbd "s-s")   'git-search-symbol-at-point)
+(global-set-key (kbd "C-s-s") 'git-search)
+(global-set-key (kbd "M-s-s") 'git-search-region)
 
 
-
-
-(.EMACS "custom variables")
 (custom-set-variables
  '(ad-redefinition-action (quote accept))
  '(auto-compression-mode t nil (jka-compr))
@@ -141,6 +99,7 @@
  '(calendar-date-display-form (quote ((if dayname (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day dayname) (format "%4s-%2s-%2s  %-9s %2s %-9s" year month day monthname day "")))))
  '(calendar-date-style (quote iso))
  '(calendar-hebrew-all-holidays-flag nil)
+ '(calendar-holidays (quote ((holiday-fixed 1 1 "New Year's Day") (holiday-fixed 2 2 "Groundhog Day") (holiday-fixed 2 14 "Valentine's Day") (holiday-fixed 3 17 "St. Patrick's Day") (holiday-fixed 4 1 "April Fools' Day") (holiday-float 5 0 2 "Mother's Day") (holiday-fixed 6 14 "Flag Day") (holiday-float 6 0 3 "Father's Day") (holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 14 "Fête Nationale France") (holiday-easter-etc) (holiday-fixed 12 25 "Christmas") (if calendar-christian-all-holidays-flag (append (holiday-fixed 1 6 "Epiphany") (holiday-julian 12 25 "Christmas (Julian calendar)") (holiday-greek-orthodox-easter) (holiday-fixed 8 15 "Assumption") (holiday-advent 0 "Advent"))) (solar-equinoxes-solstices) (holiday-sexp calendar-daylight-savings-starts (format "Daylight Saving Time Begins %s" (solar-time-string (/ calendar-daylight-savings-starts-time . #1=((float 60))) calendar-standard-time-zone-name))) (holiday-sexp calendar-daylight-savings-ends (format "Daylight Saving Time Ends %s" (solar-time-string (/ calendar-daylight-savings-ends-time . #1#) calendar-daylight-time-zone-name))))))
  '(calendar-mark-holidays-flag t)
  '(calendar-time-display-form (quote (24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))) t)
  '(calendar-view-holidays-initially-flag t)
@@ -175,7 +134,7 @@
  '(emms-source-playlist-formats (quote (native pls m3u)))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query (quote window))
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#nEXT-Browser" "#krbdev" "#gcc" "#lisp" "#freerdp" "#clschool" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn") ("irc.oftc.net" "#uml"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#macosx" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#swift-lang" "#swift-linux" "#MacOSX") ("irc.oftc.net" "#uml"))))
  '(erc-autojoin-channels-alist-full (quote (("freenode.net" "#lisp" "#clnoobs" "#ccl" "#ecl" "#lispcafe" "##lisp" "#scheme" "#hn" "#gentoo-lisp" "#swift-lang" "#swift-linux" "##objc" "#iphonedev-discuss" "#iCommunity" "#CocoaDev" "#MacOSX" "#macdev" "#iphonedev" "#iOSdev" "##apple" "##mac" "##iphone" "#iphonedev-chat" "#macports" "#macosforge" "##computerscience") ("irc.oftc.net" "#uml"))))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types (quote (current-nick keyword pal)))
@@ -206,7 +165,7 @@
  '(erc-minibuffer-notice t)
  '(erc-modules (quote (autoaway autojoin button completion irccontrols log match netsplit readonly replace ring services stamp track truncate)))
  '(erc-nick (quote ("pjb")))
- '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite") ("pjb" . "let's-chat"))))))
+ '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite"))))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals (quote ("bolet.*" "Posterdati")))
  '(erc-port 6667)
@@ -229,6 +188,7 @@
  '(eval-expression-print-length nil)
  '(eval-expression-print-level nil)
  '(file-precious-flag t)
+ '(fireplace-smoke-char 37)
  '(focus-follows-mouse nil)
  '(font-lock-extra-types (quote ("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN")) t)
  '(font-lock-maximum-decoration t)
@@ -375,10 +335,10 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method (quote latin-1-prefix)) (eval add-hook (quote before-save-hook) (quote time-stamp)) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent (quote defmeth) 3) (eval buttonize-buffer) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (eval when (fboundp (quote asm7090)) (asm7090)) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (eval cl-indent (quote dolist/separator) 1) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (tab-stop . 4) (view-mode t))))
+ '(safe-local-variable-values (quote ((whitespace-check-buffer-indent) (eval activate-input-method (quote latin-1-prefix)) (default-input-method . latin-1-prefix) (flycheck-mode) (eval add-hook (quote before-save-hook) (quote time-stamp)) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (Lowercase . T) (Package ANSI-LOOP "COMMON-LISP") (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (package . net\.mail) (package . net\.post-office) (eval cl-indent (quote defmeth) 3) (more . org) (Package . BORDEAUX-FFT) (Package . XLIB) (Lowercase . Yes) (Package . gambol) (Package . C) (package . rune-dom) (Package . Hemlock) (Package . GUI) (view-mode t) (eval buttonize-buffer) (bug-reference-url-format . clisp-bug-reference-url-format) (tab-always-indent . t) (electric-indent-mode) (Package . cl-user) (Syntax . common-lisp) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (sentence-end-double-space . t) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t) (Package . DRAKMA) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (c-file-style . ruby) (eval cl-indent (quote ffi:with-c-place) 1) (Package . CL-WHO) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (Package . LISP-UNIT) (eval when (fboundp (quote asm7090)) (asm7090)) (Package . Hemlock-Internals) (Log . hemlock\.log) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (eval cl-indent (quote dolist/separator) 1) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Syntax . Common-Lisp) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package X8664 :use CL) (Syntax . Common-lisp) (package . WILBUR) (Package . SERROR) (Package . CL-PPCRE) (Syntax . COMMON-LISP) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
- '(send-mail-function (quote sendmail-send-it))
+ '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
  '(sh-indent-for-case-alt (quote +))
@@ -396,7 +356,7 @@ X-Accept-Language:         fr, es, en
  '(smtpmail-smtp-server "hubble.informatimago.com")
  '(smtpmail-smtp-service 587)
  '(smtpmail-smtp-user "pjb@informatimago.com")
- '(smtpmail-stream-type (quote starttls))
+ '(smtpmail-stream-type (quote ssl))
  '(smtpmail-warn-about-unknown-extensions t)
  '(spam-autodetect-recheck-messages t)
  '(speedbar-show-unknown-files t)
@@ -477,297 +437,115 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-tab-menubar nil)
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info)))))
-
-;; '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "hubble.informatimago.com"))))
-;;;----------------------------------------------------------------------------
-
-(defvar ecb-source-path)
-(setf ecb-source-path (expand-file-name "~/src/"))
-
-;;;----------------------------------------------------------------------------
-
-(defvar gnutls-trustfiles '())
-(unless (fboundp 'string-trim)
-  (defun string-trim (string)
-    (cl:string-trim " \n\t" string)))
-(let ((trustfile (string-trim (shell-command-to-string "python -m certifi"))))
-  (setf tls-program
-        (list
-         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                 (if (eq window-system 'w32) ".exe" "")
-                 trustfile)))
-  (push trustfile gnutls-trustfiles))
-
-(defun test-tls-configuration ()
-  (let ((bad-hosts
-          (loop for bad
-                  in `("https://wrong.host.badssl.com/"
-                       "https://self-signed.badssl.com/")
-                if (condition-case e
-                                   (url-retrieve
-                                    bad (lambda (retrieved) t))
-                                   (error nil))
-                  collect bad)))
-    (if bad-hosts
-        (error (format "tls misconfigured; retrieved %s ok"
-                       bad-hosts))
-        (url-retrieve "https://badssl.com"
-                      (lambda (retrieved) t)))))
-
-;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-patches.el")
-(load "~/rc/emacs-font.el")
-(load "~/rc/emacs-paredit.el")
-(when (not *pjb-pvs-is-running*)
-  (load "~/rc/emacs-palette.el"))
-;; (load "~/rc/emacs-slime.el")
-;; (load "~/rc/emacs-cl-indent.el")
-(load "~/rc/emacs-slime-simple.el")
-(load "~/rc/emacs-hyperspec.el")
-(load "~/rc/emacs-redshank.el")
-(load "~/rc/emacs-objective-c.el")
-(load "~/rc/emacs-android.el")
-(load "~/rc/emacs-ruby.el")
-
-;;;----------------------------------------------------------------------------
-(display-time-mode 1)
-(setf visible-bell nil
-      ring-bell-function nil)
-;;;----------------------------------------------------------------------------
-
-(or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
-    (ignore-errors (set-frame-font "terminus-18")))
-
-(add-to-list 'auto-mode-alist `(".swift$" . swift-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/works/abalone/.*\\.\\(h\\|m\\mm\\)$")   . objc-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
-(setf auto-mode-alist  (sort* auto-mode-alist
-                              (function string<)
-                              :key (function car)))
-(ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
-
-(when (require 'flycheck nil t)
-  (global-flycheck-mode))
-
-(autoload 'cflow-mode "cflow-mode")
-(setq auto-mode-alist (append auto-mode-alist
-                              '(("\\.cflow$" . cflow-mode))))
-
-;;;----------------------------------------------------------------------------
-
-;; (when (and (file-exists-p "/data/sound/beeps/Macintosh_Question.wav")
-;;            (file-exists-p "/usr/bin/mplayer"))
-;;   (setf visible-bell nil
-;;         ring-bell-function (lambda ()
-;;                              (shell-command-to-string
-;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
+ '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
+ '(android-mode-debug-face ((t (:foreground "cyan"))))
+ '(android-mode-info-face ((t (:foreground "chartreuse"))))
+ '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
+ '(android-mode-warning-face ((t (:foreground "pink"))))
+ '(column-marker-1-face ((t (:background "AntiqueWhite"))))
+ '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
+ '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
+ '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
+ '(diff-nonexistent ((t (:background "grey11" :foreground "light green"))))
+ '(ediff-even-diff-A ((t (:background "grey50"))))
+ '(ediff-odd-diff-A ((t (:background "Grey33"))))
+ '(ediff-odd-diff-B ((t (:background "grey30"))))
+ '(erc-default-face ((t (:foreground "#55ffaa"))))
+ '(erc-fool-face ((t (:foreground "#ffffee"))))
+ '(erc-input-face ((t (:foreground "cyan2"))))
+ '(erc-notice-face ((t (:foreground "gray70"))))
+ '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
+ '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
+ '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
+ '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
+ '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
+ '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
+ '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
+ '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
+ '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
+ '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
+ '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
+ '(gnus-cite-2 ((((class color) (background light)) (:foreground "yellow1"))))
+ '(gnus-cite-3 ((((class color) (background light)) (:foreground "lightblue2"))))
+ '(gnus-cite-4 ((((class color) (background light)) (:foreground "yellow2"))))
+ '(gnus-cite-5 ((((class color) (background light)) (:foreground "lightblue3"))))
+ '(gnus-cite-6 ((((class color) (background light)) (:foreground "yellow3"))))
+ '(gnus-cite-7 ((((class color) (background light)) (:foreground "lightblue4"))))
+ '(gnus-cite-8 ((((class color) (background light)) (:foreground "yellow4"))))
+ '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
+ '(gnus-group-mail-3 ((t (:foreground "cyan" :weight bold))))
+ '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
+ '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
+ '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
+ '(match ((t (:background "#3a3a3e"))))
+ '(message-cited-text ((((class color) (background light)) (:foreground "blue"))))
+ '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
+ '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
+ '(mmm-default-submode-face ((t (:foreground "cyan"))))
+ '(mode-line ((((class color) (min-colors 88)) (:background "grey11" :foreground "cyan" :box (:line-width -1 :color "cyan" :style released-button)))))
+ '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey11" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
+ '(org-agenda-dimmed-todo-face ((t (:foreground "yellow"))))
+ '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
+ '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+ '(read-only-face ((t (:background "gray30"))) t)
+ '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
+ '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
+ '(rst-level-3-face ((t (:background "grey20" :height 1.4))) t)
+ '(rst-level-4-face ((t (:background "grey20" :height 1.2))) t)
+ '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
+ '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
+ '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
+ '(slime-repl-output-face ((t (:foreground "yellow green"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#115511")))))
 
 
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+(defun string-to-asn1-octet-string (string)
+  (format "'%s'H" (mapconcat
+                   (lambda (ch)
+                     (format "%02X%02X"
+                             (mod ch 256)
+                             (truncate ch 256)))
+                   string
+                   "")))
 
-(dolist (hooks  '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
-                  c-mode-hook c++-mode-hook))
-  (add-hook hooks 'sexp-movement))
-
-(defun pjb-w3m-mode-meat ()
+(defun string-to-asn1-octet-string-at-point ()
   (interactive)
-  (local-set-key (kbd "<up>") 'previous-line)
-  (local-set-key (kbd "<down>") 'next-line)
-  (local-set-key (kbd "<left>") 'backward-char)
-  (local-set-key (kbd "<right>") 'forward-char)
-  (local-set-key (kbd "C-<left>") 'w3m-view-previous-page)
-  (local-set-key (kbd "C-<right>") 'w3m-view-this-url))
+  (let ((string (sexp-at-point)))
+    (if (stringp string)
+        (progn
+          (kill-sexp)
+          (insert (string-to-asn1-octet-string string)))
+        (error "Not a string at point: %S" string))))
 
-(defvar w3m-mode-hook '())
-(pushnew 'pjb-w3m-mode-meat w3m-mode-hook)
-;; (setf w3m-mode-hook (delete 'pjb-w3m-mode-meat w3m-mode-hook))
+(defun string-from-asn1-octet-string (os)
+  (let ((os (if (and (string= "'"  (subseq os 0 1))
+                     (string= "'H" (subseq os (- (length os) 2))))
+                (subseq os 1 (- (length os) 2))
+                os)))
+    (coerce (loop
+              for i below (length os) by 4
+              for l = (car (read-from-string (concat "#x" (subseq os i (+ i 2)))))
+              for h = (car (read-from-string (concat "#x" (subseq os (+ i 2) (+ i 4)))))
+              for c = (+ (* h 256) l)
+              collect c)
+            'string)))
 
+(defun convert-all-asn1-octet-string-to-string (start end)
+  (interactive "r")
+  (goto-char start)
+  (while (re-search-forward "'[0-9A-Fa-f]*'H" end t)
+    (let ((os (match-string 0)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert (format "%S" (string-from-asn1-octet-string os))))))
 
-;; (setf (getenv "EMACS_USE") "erc")
-;; (setf (getenv "EMACS_USE") "gnus")
-;; (setf (getenv "EMACS_USE") "pgm")
-
-
-(cond
-  (*pjb-pvs-is-running*)
-  ((string= (getenv "EMACS_USE") "erc")
-   (when (fboundp 'set-palette) (set-palette pal-dark-blue))
-   (set-frame-name "ERC")
-   (erc-select))
-  ((string= (getenv "EMACS_USE") "gnus")
-   (when (fboundp 'set-palette) (set-palette pal-dark-amber))
-   (gnus))
-  (t
-   (when (fboundp 'set-palette)
-     (if (string= (hostname) "larissa.local")
-         (set-palette pal-stripe1)
-         (set-palette pal-green)))))
-
-
-(cond
-  (*pjb-pvs-is-running*)
-  ((member "(gnus)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 7 60))
-   (setf *activity-tag* "GNUS")
-   (push '(name . "GNUS") default-frame-alist)
-   (set-background-color "#ccccfefeebb7"))
-  ((member "(irc)"  command-line-args)
-   (setf uptimes-auto-save-interval (* 11 60))
-   (setf *activity-tag* "ERC")
-   (push '(name . "ERC") default-frame-alist))
-  (t
-   (setf *activity-tag* "EMACS")
-   (setf uptimes-auto-save-interval (* 13 60))
-   (push '(name . "PGM") default-frame-alist)
-   (server-start)
-   (setf (getenv "CVSEDITOR")  "emacsclient"
-         (getenv "EDITOR")     "emacsclient"
-         (getenv "VISUAL")     "emacsclient")))
-
-(global-set-key (kbd "<f25>")
-                (lambda ()
-                  (interactive)
-                  (let ((file  (ffap-file-at-point)))
-                    (unless (endp (rest (window-list)))
-                      (other-window 1))
-                    (find-file file))))
-
-(global-set-key (kbd "C-c M-o") 'erase-buffer)
-(global-set-key (kbd "C-c m")   'set-mark-command)
-(global-set-key (kbd "C-c C-m") 'set-mark-command)
-
-(when nil
- (dolist (multi '(("`" (("a" "à") ("e" "è") ("i" "ì") ("o" "ò") ("u" "ù")
-                        ("A" "À") ("E" "È") ("I" "Ì") ("O" "Ò") ("U" "Ù")))
-                  ("'" (("a" "á") ("e" "é") ("i" "í") ("o" "ó") ("u" "ú") ("y" "ý")
-                        ("A" "Á") ("E" "É") ("I" "Í") ("O" "Ó") ("U" "Ú") ("Y" "Ý")))
-                  ("^" (("a" "â") ("e" "ê") ("i" "î") ("o" "ô") ("u" "û")
-                        ("A" "Â") ("E" "Ê") ("I" "Î") ("O" "Ô") ("U" "Û")))
-                  ("~" (("A" "Ã") ("N" "Ñ") ("O" "Õ")
-                        ("a" "ã") ("n" "ñ") ("o" "õ")))
-                  ("\"" (("a" "ä") ("e" "ë") ("i" "ï") ("o" "ö") ("u" "ü") ("y" "ÿ")
-                         ("A" "Ä") ("E" "Ë") ("I" "Ï") ("O" "Ö") ("U" "Ü")))
-                  ("s" (("s" "ß")))
-                  ("t" (("h" "þ") ("H" "þ")))
-                  ("T" (("h" "Þ") ("H" "Þ")))
-                  ("d" (("h" "ð") ("H" "ð")))
-                  ("D" (("h" "Ð") ("H" "Ð")))
-                  ("A" (("E" "Æ") ("e" "Æ") ("o" "Å")("O" "Å")))
-                  ("a" (("E" "æ") ("e" "æ") ("o" "å")("O" "å")))
-                  ("/" ((":" "÷") ("o" "ø") ("O" "Ø")))
-                  ("," (("C" "Ç") ("c" "ç")))))
-   (let* ((first (first multi))
-          (name  (intern (format "hyper-%s-map"
-                                 (cond
-                                   ((string= "`" first) "grave")
-                                   ((string= "'" first) "acute")
-                                   ((string= "^" first) "circumflex")
-                                   ((string= "~" first) "tilde")
-                                   ((string= "\"" first) "umlaut")
-                                   ((string= "/" first) "slash")
-                                   ((string= "," first) "comma")
-                                   (t first)))))
-          (table (define-prefix-command name)))
-     (message "%S" `(global-set-key (kbd ,(format "H-%s" first)) ,name))
-     (global-set-key (kbd (format "H-%s" first)) name)
-     (dolist (entry (second multi))
-       (let ((second (first entry))
-             (result (second entry)))
-         (message "%S" `(define-key ,name (kbd ,(format "%s" first second))
-                          (lambda (n)
-                            (interactive "p")
-                            (dotimes (i n)
-                              (insert ,result)))))
-         (define-key name (kbd (format "%s" first second))
-           (lambda (n)
-             (interactive "p")
-             (dotimes (i n)
-               (insert result)))))))))
-
-(when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
-  (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
-
-(defun pjb-find-file-meat/warn-trailing-whitespace ()
-  "Meat for find-file-hook: warn about trailing whitespace."
-  (let ((home (cond (user-init-file  (dirname user-init-file))
-                    ((getenv "HOME") (concat (getenv "HOME") "/"))
-                    (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
-        (file-name (buffer-file-name)))
-    (when (and file-name
-               (string-match (format "^%s" home) file-name)
-               (vc-workfile-revision file-name))
-      (goto-char (point-min))
-      (when (re-search-forward "[ \t]$" nil t)
-        (case (ignore-errors
-               (if (fboundp 'x-popup-dialog)
-                   (x-popup-dialog t (list (format "There are trailing whitespaces in %S."
-                                                   file-name)
-                                           '("Remove them, save file and vc-next-action" . 1)
-                                           '("Remove them, and go on editing"            . 2)
-                                           '("Go on editing"                             . 3)
-                                           '("Abort"                                     . 4)))
-                   (read-minibuffer "Trailing whitespaces alert! 1->remove,save,vc-next; 2->remove,edit; 3->edit; 4->abort?")))
-          ((1)
-           (let ((delete-trailing-lines t))
-             (delete-trailing-whitespace))
-           (save-buffer)
-           (vc-next-action nil))
-          ((2) (let ((delete-trailing-lines t))
-                 (delete-trailing-whitespace)))
-          ((3))
-          ((4) (kill-buffer)))))))
-
-(defun pjb-before-save-meat/delete-trailing-whitespace ()
-  "Meat for before-save-hook: delete trailing whitespace."
-  (when (vc-workfile-revision (buffer-file-name))
-    (let ((delete-trailing-lines t))
-      (delete-trailing-whitespace (point-min) (point-max)))))
-
-(add-hook 'find-file-hook   'pjb-find-file-meat/warn-trailing-whitespace)
-(add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
-
-
-(defun pjb-find-file-meat/log ()
-  "Log the path of the visited file."
-  (message "find-file %S" (buffer-file-name)))
-
-(defun pjb-save-buffer-meat/log ()
-  "Log the path of the killed file."
-  (when (buffer-file-name)
-    (message "save-buffer %S" (buffer-file-name))))
-
-(defun pjb-kill-buffer-meat/log ()
-  "Log the path of the killed file."
-  (when (buffer-file-name)
-    (message "kill-buffer %S" (buffer-file-name))))
-
-(add-hook 'find-file-hook   'pjb-find-file-meat/log)
-(add-hook 'after-save-hook  'pjb-save-buffer-meat/log)
-(add-hook 'kill-buffer-hook 'pjb-kill-buffer-meat/log)
-
-
-;; (setf org-finish-function 'org-store-log-note)
-;; org-finish-function
-;; org-store-log-note
-;; <YoungFrog> igam: In org-add-log-note there is (org-set-local 'org-finish-function
-;; 'org-store-log-note). I'd try adding a (message "Curbuf %S" (current-buffer)) in there to
-;; see in which buffer that goes... probably not the Org Note buffer as it should be.
-
-;;  irc://artigue.org.es
-(cd (user-homedir-pathname))
-;; (slime)
-
-(ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (latex . t)
-   (dot . t)))
-
-(when (file-exists-p "~/rc/emacs-patches.el")
-  (load "~/rc/emacs-patches.el"))
-(load "~/rc/emacs-epilog.el")
-;;;; THE END ;;;;
+(string-from-asn1-octet-string "'4900410053002D00450043004300'H")
+"IAS-ECC"

@@ -61,7 +61,7 @@
 (setf ccl::*pathname-translations-pathname* #P"LOGHOSTS:")
 
 (in-package "COM.INFORMATIMAGO.PJB")
-(export '(EDIT QUIT))
+
 
 (setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 ;; (setf ccl:*save-definitions*  t) ; for function-lambda-expression
@@ -227,6 +227,7 @@ RETURN:     The first word of the string, or the empty string.
       (port (+ 4005 (random 123))))
   (swank:create-server :port port))
 
+;; https://codeshare.io/anXKbY
 (defun start-swank-server (&key (port 4006))
   "Starts a swank-server on the localhost interface."
   (unless (find-package "SWANK")

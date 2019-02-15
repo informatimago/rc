@@ -15,9 +15,11 @@
 (defparameter *dont-close* t)
 
 (defparameter swank::*asdf-path* (merge-pathnames #p"quicklisp/asdf.lisp" (user-homedir-pathname)))
-  
+
 #+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
 #-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
+
+(defvar swank:*communication-style* nil)
 
 (defparameter swank::*sldb-initial-frames*             40)
 (defparameter swank::*auto-abbreviate-dotted-packages* t)
@@ -97,6 +99,8 @@
     (dolist (var variables)
       (set var *swank-bindings*))))
 
+(defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
+(defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
 (set-swank-bindings)
 
 #-(and) (
