@@ -515,7 +515,7 @@ and converted as such."
 (pjb-setup-load-path)
 (unless (load "pjb-loader.el" ) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 (load "~/rc/emacs-directories")
-
+(load "pjb-loader.el" )
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
@@ -1335,9 +1335,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (.EMACS "ORG-MODE")
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
-(setf org-agenda-files '("~/notes.txt"
-                         ;; "~/notes-kuiper.txt"
-                         ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+(setf org-agenda-files '(;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
                          ;; "~/firms/wizards/notes.txt"
                          ;; "~/firms/willcom/notes.txt"
                          ;; "~/firms/secur.net/notes.txt"
@@ -3367,7 +3365,7 @@ License:
 (defun* notes ()
   (interactive)
   (do-directories-up (dir default-directory)
-    (dolist (file '("NOTES.txt" "notes.txt" "NOTES.*[a-z]" "notes.*[a-z]"
+    (dolist (file '("rc/notes.gpg" "NOTES.txt" "notes.txt" "NOTES.*[a-z]" "notes.*[a-z]"
                     ".notes.utf-8" ".notes*[a-z]"))
       (let ((files (file-expand-wildcards (concat dir file) t)))
         (when files
