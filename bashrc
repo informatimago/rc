@@ -1,68 +1,148 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+
+if [  ${TRAMP:-no} = yes ] ; then
+    return
+fi
+
+
 set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
 
+function bashrc_set_mask(){
+    if ((UID==0)) ; then
+        umask 022 # rwxr-xr-x
+    else
+        umask 022 # rwxr-xr-x And we'll set the access rights of the directories...
+    fi
+}
 
-if [ $UID -eq 0 ] ; then
-    umask 022 # rwxr-xr-x
-else
-    umask 022 # rwxr-xr-x And we'll set the access rights of the directories...
-fi
+function bashrc_set_host_uname(){
+    uname="$(uname -s)"
+    if [ -r ~/.config/host ] ; then
+        hostname=$(cat ~/.config/host)
+    else
+        hostname=$(hostname -f)
+    fi
+}
 
-if [ -r ~/.config/host ] ; then
-    host=$(cat ~/.config/host)
-else
-    host=$(hostname -f)
-fi
+function bashrc_set_DISPLAY(){
+    # case "$DISPLAY" in
+    # /tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
+    # esac
+    export DISPLAY=${DISPLAY:-:0.0}
+}
 
-export INPUTRC="$HOME/.inputrc"
+function bashrc_clean_XDG_DATA_DIRS(){
+    # Remove prefix or suffix :* and duplicate ::* -> :
+    XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+/:/g')"
+}
 
-case "$DISPLAY" in
-/tmp/launch-*/org.x:0) export DISPLAY=:0.0 ;;
-esac
-export DISPLAY=:0.0
+function bashrc_set_prompt(){
+    # Thanks Twitter @climagic for the # prefix advice.
+    local prompt='$ '
+    local prefix=''
+    local pc=''
+    local ibam=''
+    local escape=''
+    local bold="${escape}"'[1m'
+    local underline="${escape}"'[4m'
+    local blink="${escape}"'[5m'
+    local invert="${escape}"'[7m'
+    local no_bold="${escape}"'[22m'
+    local no_underline="${escape}"'[24m'
+    local no_blink="${escape}"'[25m'
+    local no_invert="${escape}"'[27m'
+    local black="${escape}"'[30m'
+    local red="${escape}"'[31m'
+    local green="${escape}"'[32m'
+    local yellow="${escape}"'[33m'
+    local blue="${escape}"'[34m'
+    local magenta="${escape}"'[35m'
+    local cyan="${escape}"'[36m'
+    local white="${escape}"'[37m'
+    local black_back="${escape}"'[40m'
+    local red_back="${escape}"'[41m'
+    local green_back="${escape}"'[42m'
+    local yellow_back="${escape}"'[43m'
+    local blue_back="${escape}"'[44m'
+    local magenta_back="${escape}"'[45m'
+    local cyan_back="${escape}"'[46m'
+    local white_back="${escape}"'[47m'
+    local normal="${escape}"'[0m'
+    # shellcheck disable=SC2016
+    local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
 
-XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+/:/g')"
+    if ((UID==0)) ; then
+        prompt='# '
+    fi
+
+    if [[ "$TERM" = "emacs" ]] ; then
+        prefix="\n\\w\n"
+    fi
+    prefix="${prefix}"
+
+    if type -path period-cookie >/dev/null 2>&1 ; then
+        # shellcheck disable=SC2016
+        pc='$('"$(type -path period-cookie)"')'
+    fi
+
+    if type -p ibam >/dev/null 2>&1 ; then
+        ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
+    fi
+    export PS1="${black_back}${cyan}${pc}${yellow}${prefix}${black}${yellow_back}${ibam}${blue}${white_back}[\u@\h ${display} \W]${red}${black_back}${prompt}${normal}"
+    export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W]${prompt}${normal}"
+}
 
 
-unset LS_COLORS
-if [ $UID -eq 0 ] ; then
-    export PS1='[\u@\h $DISPLAY \W]# '
-elif [ "$TERM" = "emacs" ] ; then
-    export PS1="\n\\w\n[\\u@\\h $DISPLAY]\\$ "
-elif type -path period-cookie >/dev/null 2>&1 ; then
-    pc="$(type -path period-cookie)"
-    export PS1='$('"$pc"')[\u@\h $DISPLAY \W]\$ '
-else
-    export PS1='[\u@\h $DISPLAY \W]$ '
-fi
-
-# WARNING: CDPATH is quite a strong setting!
-# PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
-
-uname="$(uname -s)"
-case "$uname" in
-Darwin)
-    ulimit -s 32768
-    stty erase  >/dev/null 2>&1
-    defaults write org.macosxforge.xquartz.X11 enable_test_extensions -boolean true
-    ;;
-*)
-    case $(uname -o) in
-    Cygwin)
-        true
+function bashrc_set_ulimit(){
+    case "${uname}" in
+    Darwin)
+        ulimit -s 32768
+        stty erase  >/dev/null 2>&1
+        defaults write org.macosxforge.xquartz.X11 enable_test_extensions -boolean true
         ;;
     *)
-        ulimit -s 32768
-        ;;
+        case $(uname -o) in
+        Cygwin)
+            true
+            ;;
+        *)
+            ulimit -s 32768
+            ;;
+        esac
     esac
-esac
+    ulimit -c unlimited
+}
 
 
+################################################################################
+###
+### Utility
+###
+
+
+function quote(){
+    # concatenate all the arguments and shell-quote them.
+    printf '%s\n' "$*" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/"
+    # printf '%s\n' "$*" | sed -e 's,\([^-+=:/_,.~^A-Za-z0-9]\),\\\1,g'
+}
+
+
+function quoteRegexp(){
+    # concatenate all the arguments and regexp-quote them.
+    printf '%s\n' "$*" | sed 's/\(.\)/[\1]/g'
+}
+
+
+
+################################################################################
+###
+### List processing
+###
 
 function member(){
     local item="$1" ; shift
@@ -144,7 +224,6 @@ function prependNewToStringVariableDirectoryIfExists(){
 }
 
 
-
 function prependIfDirectoryExists(){
     local dir
     local result=()
@@ -159,32 +238,31 @@ function prependIfDirectoryExists(){
 }
 
 
-# User specific environment and startup programs
-export BASH_ENV="$HOME/.bash_env"
-export ENV="$BASH_ENV"
-########################################################################
+################################################################################
+###
 ### Generation of bash_env
+###
 
-be=$HOME/.bash_env.$$
+be="$HOME/.bash_env.$$"
+
 
 function be_comment(){
     printf "# %s\n" "$@" >> "$be"
 }
 
-function quote_shell_argument(){
-    echo "$1" | sed -e 's,\([^-+=:/_,.~^A-Za-z0-9]\),\\\1,g'
-}
 
 function be_variable(){
     local name="$1"
     local value="$2"
-    printf "%s=%s\nexport %s\n" "$name" "$(quote_shell_argument "$value")" "$name" >> "$be"
+    printf "%s=%s\nexport %s\n" "$name" "$(quote "$value")" "$name" >> "$be"
 }
+
 
 function be_unset(){
     local name="$1"
     printf "unset %s\n" "$name" >> "$be"
 }
+
 
 function be_terminate(){
     mv "$be" "$BASH_ENV"
@@ -194,14 +272,20 @@ function be_terminate(){
 function be_generate(){
     local bindirs
     local mandirs
+    local sharedirs
     local lddirs
     local editors
     local list
+    local value
 
     bindirs=(
-        $HOME/bin
-        $HOME/opt/bin
-        $HOME/.rvm/bin # Add RVM to PATH for scripting
+
+        "$HOME/anaconda3/bin"
+        "/opt/anaconda3/bin"
+
+        "$HOME/bin"
+        "$HOME/opt/bin"
+        "$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
         /usr/local/bin
         /usr/local/sbin
@@ -210,6 +294,7 @@ function be_generate(){
         /opt/local/sbin
         /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
+        /opt/local/lib/postgresql10/bin  # on larissa
 
         /opt/bin
         /opt/sbin
@@ -245,16 +330,14 @@ function be_generate(){
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib
+        /usr/local/lib64
         /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
     )
 
     editors=(
-        /opt/local/bin/emacsclient
-        /usr/local/bin/emacsclient
-        /usr/bin/emacsclient
-        /bin/emacsclient
-        /bin/ed
-        /usr/bin/vi
+        emacsclient
+        ed
+        vi
     )
 
     be_comment '-*- mode:shell-script;coding:iso-8859-1 -*-'
@@ -270,6 +353,11 @@ function be_generate(){
     be_comment 'file will be generated from ~/.bashrc from time to time...'
     be_comment ''
 
+    # WARNING: CDPATH is quite a strong setting!
+    # PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
+    be_variable INPUTRC "$HOME/.inputrc"
+    be_unset LS_COLORS
+
     be_variable USERNAME "$USER"
 
     be_comment 'My compilation environment:'
@@ -277,14 +365,15 @@ function be_generate(){
     be_variable MAKEDIR "$COMMON/makedir"
     be_variable COMPILATION_TARGET  "$(uname)"
 
-    case "$uname" in
+    local e
+    case "${uname}" in
     Darwin)
         if [ 1 = "$(mfod -l|wc -l)" ] ; then
             mfod -s 1
         fi
-        # socket=()
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=/tmp/emacs${UID}/server"
-        # alias ec="$e --no-wait"
+        # socket=(--socket-name=/tmp/emacs${UID}/server)
+        # EDITOR, VISUAL, etc, take only the command, no arguments.
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -316,7 +405,9 @@ function be_generate(){
 
     be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
     be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
-
+    if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
+        be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+    fi
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
@@ -350,9 +441,9 @@ function be_generate(){
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
-
-    if [ -d /usr/share/kaffe/. ] ; then
-        be_variable KAFFEHOME /usr/share/kaffe
+    value=/usr/share/kaffe
+    if [[ -d $value/. ]] ; then
+        be_variable KAFFEHOME "$value"
         list=''
         appendNewToStringVariableDirectoryIfExists list \
             "$JAVA_HOME"/lib/java.io.zip \
@@ -366,8 +457,9 @@ function be_generate(){
         be_variable PATH "$JAVA_HOME"/bin:"$PATH"
     fi
 
-    if [ -d /usr/local/languages/java/. ] ; then
-        be_variable JAVA_BASE /usr/local/languages/java
+    value=/usr/local/languages/java
+    if [ -d $value/. ] ; then
+        be_variable JAVA_BASE "$value"
         be_variable JAVA_HOME "$JAVA_BASE"/jdk1.1.6/
         list=''
         appendNewToStringVariableDirectoryIfExists list \
@@ -384,12 +476,18 @@ function be_generate(){
         fi
     fi
 
-    if [ -d /opt/local/share/java/gradle ] ; then
-        be_variable GRADLE_HOME /opt/local/share/java/gradle
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx4g'
+    value=/opt/local/share/java/gradle
+    if [ -d $value/. ] ; then
+        be_variable GRADLE_HOME "$value"
     fi
 
+<<<<<<< HEAD
     be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx6g'
     if [ "$uname" = Darwin ] ; then
+=======
+    if [ "${uname}" = Darwin ] ; then
+>>>>>>> 4756c038dd51948dbe0f4f6e9d25b4317fe805c4
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
 
@@ -399,7 +497,7 @@ function be_generate(){
     be_unset GNOME_KEYRING_CONTROL
 
     # Most prioritary:
-    be_variable LC_ALL                    C
+    be_unset    LC_ALL
     # If LC_ALL is not defined:
     be_unset    LC_MONETARY               fr_FR.UTF-8
     be_unset    LC_MESSAGES               en_US.UTF-8
@@ -409,24 +507,26 @@ function be_generate(){
     be_variable LC_CTYPE                  C
     # If the above are not defined:
     be_variable LANG                      en_US.UTF-8
+    be_unset    LANGUAGE
 
     be_unset XMODIFIERS
 
-    # if [ $(hostname) = iMac-Core-i5.local ] ; then
-    #
-    #     be_variable REPLYTO                 'Pascal Bourguignon <pbourguignon@dxo.com>'
-    #     be_variable MAILHOST                localhost
-    #     be_variable MAIL                    /var/spool/mail/$USER  # It's the default.
-    #     be_variable MAILPATH                ${MAIL} # ${MAIL}:/larissa/root/var/spool/mail/$USER
-    #
-    # else
-
-        be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
-        be_variable MAILHOST                mail.informatimago.com
+    # may be overriden by host specific bashrc.
+    be_variable REPLYTO                 'Pascal J. Bourguignon <pjb@informatimago.com>'
+    be_variable MAILHOST                mail.informatimago.com
+    case "${uname}" in
+    (Darwin)
+        be_variable MAIL                    "/var/mail/$USER"
+        ;;
+    (*)
         be_variable MAIL                    "/var/spool/mail/$USER"  # It's the default.
-        be_variable MAILPATH                "${MAIL}:/larissa/root/var/spool/mail/$USER"
+        ;;
+    esac
+    be_variable MAILPATH                "${MAIL}" # "${MAIL}:/larissa/root/var/spool/mail/$USER"
 
-    # fi
+    if [ -r /usr/local/share/file/magic.mgc ] ; then
+        be_variable MAGIC                   /usr/local/share/file/magic.mgc
+    fi
 
     be_variable SHELL                   /bin/bash # Seems it's not defined in cygwin bash...
     be_variable ESHELL                  /bin/bash
@@ -440,10 +540,12 @@ function be_generate(){
 
     be_comment 'Application environments:'
 
+    be_variable HDF5_USE_FILE_LOCKING FALSE # for nfs file accesses.
+
     be_variable WRITE_ASF          1 # aviplay record:
-    be_variable MOZILLA_HOME       /usr/local/apps/netscape
-    be_variable WGET_UA            "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513"
-    be_variable wgetua             "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513"
+    if [[ -d /usr/local/apps/netscape ]] ; then
+        be_variable MOZILLA_HOME       /usr/local/apps/netscape
+    fi
     be_variable MINICOM            '-M'
     be_variable CDR_DEVICE         0,0,0
     be_variable CDR_SPEED          4
@@ -458,7 +560,7 @@ function be_generate(){
 
     be_variable DTK_PROGRAM         espeak
 
-    be_variable cookiefiles         "${HOME}/all.cookies"
+    be_variable COOKIE_FILES        "${HOME}/all.cookies"
 
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5
@@ -470,6 +572,8 @@ function be_generate(){
 
     be_comment 'antialiasing in QT applications'
     be_variable QT_XFT             1
+    # ~/Qt/5.8/clang_64/bin
+
     be_variable SHOOPSH            /usr/local/share/shoop/shoop.sh
     be_variable SHOOPMOD           /usr/local/share/shoop/modules
     be_variable SHOOPPATH          "$SHOOPMOD"
@@ -481,76 +585,183 @@ function be_generate(){
 
     be_terminate
 }
-########################################################################
-if [ -f "$BASH_ENV" ] ; then
-    if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
+
+
+function bashrc_generate_and_load_environment(){
+    # User specific environment and startup programs
+    export BASH_ENV="$HOME/.bash_env"
+    export ENV="$BASH_ENV"
+    if [ -f "$BASH_ENV" ] ; then
+        if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
+            be_generate
+        fi
+    else
         be_generate
     fi
-else
-    be_generate
-fi
-source "$BASH_ENV"
+    source "$BASH_ENV"
+    unset be
+}
 
-case "$host" in
-    *macbook?trustonic.local)
+########################################################################
+
+function bashrc_load_completions(){
+    # ----------------------------------------
+    # Some commands in $HOME/bin/* have a bash auto-completion feature.
+    # ----------------------------------------
+    case "$BASH_VERSION" in
+    4.[1-9]*)
+        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+            source /opt/local/etc/profile.d/bash_completion.sh
+        fi
+        ;;
+    esac
+
+    if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
+        local script
+        for script in radio fpm new-password religion ; do
+	        eval $( "$script" --bash-completion-function )
+        done
+    fi
+
+
+}
+
+
+function bashrc_maybe_load_shelly(){
+    local shelly_home="$HOME/.shelly"
+    if [ -s "${shelly_home}/lib/shelly/init.sh" ] ; then
+        source "${shelly_home}/lib/shelly/init.sh"
+    fi
+}
+
+
+function bashrc_maybe_load_gnustep(){
+    # ----------------------------------------
+    # GNUstep environment:
+    # ----------------------------------------
+    local gsr
+    if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
+        for gsr in /usr/lib/GNUstep /usr/share/GNUstep / /GNUstep /opt/local/GNUstep/share/GNUstep/ ; do
+            #echo "$gsr/System/Makefiles"
+            if [[ -d $gsr/System/Makefiles ]] ; then
+                gsr=$gsr/System
+                break
+            fi
+            [[ -d $gsr/Makefiles ]] && break
+        done
+        [[ -f $gsr/Makefiles/GNUstep.sh ]] && source "$gsr/Makefiles/GNUstep.sh"
+    fi
+    if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib"
+        export MANPATH="$GNUSTEP_SYSTEM_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}"
+    fi
+    if [ -s "$GNUSTEP_LOCAL_ROOT" ] ; then
+        export MANPATH="$GNUSTEP_LOCAL_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}"
+    fi
+
+    # alias gsgdb=/usr/local/GNUstep/System/Tools/ix86/linux-gnu/gdb
+    # alias dread="defaults read "
+    # alias dwrite="defaults write "
+
+    function wmdock (){
+        wmweather -s LELC -metric -kPa &
+        wmglobe &
+        wmspaceweather &
+        wmsun -lat 42 -lon 0 &
+    }
+
+    function _gopen (){
+        local cur app
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        # shellcheck disable=SC2034
+        app=$(for i in $GNUSTEP_LOCAL_ROOT/Applications/*.app  $GNUSTEP_SYSTEM_ROOT/Applications/*.app ; do basename "$i" ; done)
+        # shellcheck disable=SC2016
+        COMPREPLY=($(compgen -W '$app' |grep "^$cur"))
+        return 0
+    }
+    complete -F _gopen -o dirnames gopen
+    complete -f -X '!*.@(app)' openapp
+}
+
+
+function bashrc_maybe_load_rvm(){
+    if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+        source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    fi
+}
+
+
+function bashrc_load_optionals(){
+    # Load if available:
+    bashrc_maybe_load_rvm
+
+    # Load if available, unless on some specific hosts:
+    case "${hostname}" in
+    *trustonic.local)
         true ;;
     *)
-        wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513' --cookies=on  --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
-        export wget_cookies
-        SHELLY_HOME=/home/pjb/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
+        # wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513'
+        #                --cookies=on --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
+        # export wget_cookies
 
-
-        # GNUstep environment:
-        if [ "x$GNUSTEP_MAKEFILES" = "x" ] ; then
-            for gsr in /usr/lib/GNUstep /usr/share/GNUstep / /GNUstep /opt/local/GNUstep/share/GNUstep/ ; do
-                #echo "$gsr/System/Makefiles"
-                if [ -d $gsr/System/Makefiles ] ; then
-                    gsr=$gsr/System
-                    break
-                fi
-                [ -d $gsr/Makefiles ] && break
-            done
-            [ -f $gsr/Makefiles/GNUstep.sh ] && source $gsr/Makefiles/GNUstep.sh
-        fi
-        if [ -d "$GNUSTEP_SYSTEM_ROOT" ] ; then
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNUSTEP_SYSTEM_ROOT/lib
-            export MANPATH=$GNUSTEP_SYSTEM_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
-        fi
-        if [ -s "$GNUSTEP_LOCAL_ROOT" ] ; then
-            export MANPATH=$GNUSTEP_LOCAL_ROOT/Library/Documentation/man:${MANPATH:-/opt/local/share/man:/usr/share/man}
-        fi
-
+        bashrc_maybe_load_shelly
+        bashrc_maybe_load_gnustep
         ;;
-esac
+    esac
+}
 
 
-# Moved to rc/xsession. Perhaps there's an even better place for this?
-#
-# if [ -n "$DISPLAY" ] ; then
-#     export XAUTHORITY=$HOME/.Xauthority
-#     function xauth { if [ "$1" = "list" ] ; then command xauth list | awk '{printf "%-36s %-20s %s\n",$1,$2,$3;}' ; else command xauth $@ ; fi }
-#
-#     xrdb -merge ~/.Xresources
-#
-#     # On Darwin, we don't want to mess with X11 so much.
-#     # This is probably a hint we shouldn't do that here anyways.
-#     if [ $(uname) != Darwin ] ; then
-#         xrdb -merge ~/.Xresources
-#         xmodmap ~/.xmodmap
-#         # xset s 300
-#         xset dpms $(( 60 * 10 ))  $(( 60 * 15 ))  $(( 60 * 20 ))
-#     fi
-# fi
+################################################################################
+###
+### Interactive Commands
+###
 
 
+## bash specific aliases:
 
-function ds () {
-    local i=0
-    local f
-    for f in $(dirs) ; do
-        echo "$i $f"
+function rehash(){ hash -r ; }
+alias which='type -path'
+
+
+function ds() {
+    # Lists Directory Stack
+    local i=1
+    for dir in "${DIRSTACK[@]}" ; do
+        printf "%2d) %s\n" $i "$dir"
         ((i++))
     done
+}
+
+
+function cdd(){
+    local diri
+    local i=1
+    ds
+    read -p "Change to what directory? " diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" -eq "$i" ] ; then
+            cd "$dir"
+            return
+        fi
+        ((i++))
+    done
+    cd "$diri"
+}
+
+function pushdd(){
+    local diri
+    local i=1
+    ds
+    read -p "Change to what directory? " diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" -eq "$i" ] ; then
+            pushd "$dir"
+            return
+        fi
+        ((i++))
+    done
+    pushd "$diri"
 }
 
 
@@ -577,241 +788,234 @@ function function-source(){
     done
 }
 
-# alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
-# alias difference='grep -vFxf'
 
-# bash specific aliases:
-alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x"'
-alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
-alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
-alias rehash='hash -r'
-alias which='type -path'
-alias mplayer='mplayer -quiet'
-# general aliases:
-alias more=less
-alias vi='emacs -nw -q'
-alias nano='emacs -nw -q'
-case "$uname" in
+function bashrc_define_aliases(){
+
+    ## general aliases:
+    if type -p tree 2>/dev/null 1>&2 ; then
+        alias lstree=tree
+    else
+        alias lstree='ls -R'
+    fi
+    alias more=less
+    alias vi='emacs -nw -q'
+    alias nano='emacs -nw -q'
+    case "${uname}" in
     Darwin)
         alias df='df -h'
         ;;
     *)
         alias df='df -ah'
         ;;
-esac
-alias duh='du -h'
-# alias sbcl='sbcl --noinform'
-# alias nslookup='nslookup -silent'
-# alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
-alias sdiff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
+    esac
+    alias duh='du -h'
+    alias sdiff='diff --exclude \#\*  --exclude \*~   --exclude \*TAGS   --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs   --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so    --exclude \*.orig --exclude \*.rej    --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex  --exclude \*.jar  --exclude \*.zip    --exclude \*.png --exclude \*.jpg --exclude \*.jpeg  --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
 
-alias basilisk=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
-alias macos=/data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII
+    alias ..='cd ..'
+    alias ...='cd ../..'
+    alias …='cd ../..'
+    alias sl=ls
 
-alias vboxmanage='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage'
-alias vbm='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage'
+    alias gss='git status --short'
+    alias gdiff='git diff'
 
-# alias dw='darcs whatsnew -sl'
-# alias dr='darcs record -am'
-# alias ds='darcs push'
-# alias dl='darcs pull'
+    # System Specific Aliases:
+    # if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
+    case "$(uname)" in
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias …='cd ../..'
-alias sl=ls
+    (Darwin)
 
-alias play='mplayer -quiet -nojoystick -noconsolecontrols -nomouseinput -nolirc -noar'
-alias mplayer='mplayer -nojoystick'
+        local ou
+        ou="$(umask)"
+        umask 077
+        env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/env.$$
+        source /tmp/env.$$
+        rm /tmp/env.$$
+        umask "$ou"
 
-function dirs(){
-    local i=1
-    for dir in "${DIRSTACK[@]}" ; do
-        printf "%2d) %s\n" $i "$dir"
-        ((i++))
-    done
-}
-
-function cdd(){
-    local diri
-    local i=1
-    dirs
-    read -p "Change to what directory? " diri
-    for dir in "${DIRSTACK[@]}" ; do
-        if [ "$diri" -eq "$i" ] ; then
-            cd "$dir"
-            return
+        if [ -x /opt/local/bin/gls ] ; then
+	        alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
+	        alias lsv='LC_COLLATE="C" /opt/local/bin/gls -BCFN'
+        else
+	        alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
+	        alias lsv='LC_COLLATE="C" /bin/ls -CF'
         fi
-        ((i++))
-    done
-    cd "$diri"
-}
+        alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
+        alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
+        alias mysqlping='/opt/local/bin/mysqladmin5 -u root -p ping'
+        alias mysql='/opt/local/bin/mysql5'
+        alias mysqlshow='/opt/local/bin/mysqlshow5'
 
-function pushdd(){
-    local diri
-    local i=1
-    dirs
-    read -p "Change to what directory? " diri
-    for dir in "${DIRSTACK[@]}" ; do
-        if [ "$diri" -eq "$i" ] ; then
-            pushd "$dir"
-            return
-        fi
-        ((i++))
-    done
-    pushd "$diri"
-}
+        ;;
+    (*)
+
+        alias ls='LC_COLLATE="C" /bin/ls -aBCFN'
+        alias lsv='LC_COLLATE="C" /bin/ls -BCFN'
+
+        ;;
+    esac
+
+    # alias intersection='grep -Fxf' # Nope, doesn't work eg. on (armv7 armv7s arm64)inter(armv7 armv7s arm64).
+    # alias difference='grep -vFxf'
+    # alias dw='darcs whatsnew -sl'
+    # alias dr='darcs record -am'
+    # alias ds='darcs push'
+    # alias dl='darcs pull'
+    # alias sbcl='sbcl --noinform'
+    # alias nslookup='nslookup -silent'
+    # alias torrent='/usr/local/src/BitTornado-CVS/btdownloadheadless.py'
+
+    alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x"'
+    alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
+    alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
 
 
-# system specific aliases:
-#if type -path qpkg >/dev/null 2>&1 ; then alias qpkg="$(type -p qpkg) -nC" ; fi
-if [ "$(uname)" = Darwin ] ; then
-    ou="$(umask)";umask 077
-    env|sed -n -e '/^LC.*=.*UTF-8$/d' -e'/^LC.*=C$/d' -e 's/^/export /' -e '/LC_/s/$/.UTF-8/p' >/tmp/$$
-    . /tmp/$$ ; rm /tmp/$$
-    umask "$ou"
-    if [ -x /opt/local/bin/gls ] ; then
-	alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
-	alias lsv='LC_COLLATE="C" /opt/local/bin/gls -BCFN'
-    else
-	alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
-	alias lsv='LC_COLLATE="C" /bin/ls -CF'
+    if [[ -x /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII ]] ; then
+        function basilisk(){ /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII "$@" ; }
+        function macos(){    /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII "$@" ; }
     fi
-    alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
-    alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
-    alias mysqlping='/opt/local/bin/mysqladmin5 -u root -p ping'
-    alias mysql='/opt/local/bin/mysql5'
-    alias mysqlshow='/opt/local/bin/mysqlshow5'
 
-else
-    alias ls='LC_COLLATE="C" /bin/ls -aBCFN'
-    alias lsv='LC_COLLATE="C" /bin/ls -BCFN'
-fi
+    if [[ -x /Applications/VirtualBox.app/Contents/MacOS/VBoxManage ]] ; then
+        function vboxmanage(){ /Applications/VirtualBox.app/Contents/MacOS/VBoxManage "$@" ; }
+        function vbox(){       /Applications/VirtualBox.app/Contents/MacOS/VBoxManage "$@" ; }
+    fi
 
-fgfs=false
-fgfs_other_root=/other/fgfs
-# fgfs_next_root=/data/src/simulation/fg/fgdata
+    function play(){    command mplayer -nojoystick -quiet \
+                                -noconsolecontrols -nomouseinput \
+                                -nolirc -noar "$@" ; }
+    function mplayer(){ command mplayer -nojoystick -quiet "$@" ; }
+}
 
 
+function bashrc_flightgear_aliases(){
 
-if [ -x /usr/games/bin/fgfs ] ; then
-    fgfs=/usr/games/bin/fgfs
-    fgfs_gentoo_root=/usr/games/share/FlightGear
-    fgfs_root=$fgfs_other_root
-fi
-
-
-# if [ -x /opt/fgfs/bin/fgfs ] ; then
-#     fgfs=/opt/fgfs/bin/fgfs
-#     fgfs_opt_root=/opt/fgfs/share/flightgear
-#     fgfs_opt_root=$fgfs_next_root
-#     fgfs_root=$fgfs_opt_root
-# fi
-
-if [ -x /opt/fgfs-240/bin/fgfs ] ; then
-    fgfs=/opt/fgfs-240/bin/fgfs
-    fgfs_opt_root=/opt/fgfs-240/share/flightgear
-    fgfs_root=$fgfs_opt_root
-fi
-
-
-if [ -s "$fgfs" ] ; then
-
-    fgfs_base_options=(
-        --enable-anti-alias-hud
-        --enable-clouds3d
-        --enable-distance-attenuation
-        --enable-enhanced-lighting
-        --enable-horizon-effect
-        --enable-hud-3d
-        --enable-mouse-pointer
-        --enable-real-weather-fetch
-        --enable-skyblend
-        --enable-sound
-        --enable-specular-highlight
-        --enable-splash-screen
-        --enable-textures
-        --enable-random-objects
-        --enable-skyblend
-    )
-
-    # fgfs_festival_options=(
-    #     --prop:/sim/sound/voices/enabled=true
-    # )
-
-    fgfs_default_options=(
-        ${fgfs_base_options[@]}
-        --enable-random-objects
-        --enable-ai-models
-    )
-
-
-    fgfs_scenery_options=(
-        --fg-root=$fgfs_root
-        --fg-scenery=$fgfs_other_root/Scenery-Airspace:$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_other_root/Scenery-Photo:$fgfs_root/Scenery
-    )
-
-    fgfs_scenery_options=(
-        --fg-root=$fgfs_root
-        --fg-scenery=$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_root/Scenery
-    )
-
-    fgfs_scenery_options=(
-        --fg-root=$fgfs_root
-        --fg-scenery=$fgfs_gentoo_root/Scenery:$fgfs_root/Scenery
-    )
-
-    fgfs_scenery_options=(
-        --fg-root=$fgfs_root
-        --fg-scenery=$fgfs_root/Scenery:$fgfs_other_root/Scenery
-    )
-
-
-    fgfs_nimitz_options=(
-        ${fgfs_base_options[@]}
-        ${fgfs_scenery_options[@]}
-    )
+    local fgfs=false
+    local fgfs_other_root=/other/fgfs
+    local fgfs_root
+    local fgfs_opt_root
+    local fgfs_gentoo_root
+    # fgfs_next_root=/data/src/simulation/fg/fgdata
 
 
 
-    # fgfs_scenery_options=(
-    #     --fg-root=/data/src/simulation/fg/fgdata
-    #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
-    # )
-    # fgfs=/opt/fgfs/bin/fgfs
-
-    fgfs_server=mpserver12.flightgear.org
-    fgfs_period=20
+    if [ -x /usr/games/bin/fgfs ] ; then
+        fgfs=/usr/games/bin/fgfs
+        fgfs_gentoo_root=/usr/games/share/FlightGear
+        fgfs_root=$fgfs_other_root
+    fi
 
 
-    fgfs_port_ac112p=5112
-    fgfs_port_ac112q=5113
-    fgfs_port_ac112r=5114
-    fgfs_port_bk1p=5115
-    # fgfs_port_f_pjb=5116
-    # fgfs_port_nimits=5117
+    # if [ -x /opt/fgfs/bin/fgfs ] ; then
+    #     fgfs=/opt/fgfs/bin/fgfs
+    #     fgfs_opt_root=/opt/fgfs/share/flightgear
+    #     fgfs_opt_root=$fgfs_next_root
+    #     fgfs_root=$fgfs_opt_root
+    # fi
+
+    if [ -x /opt/fgfs-240/bin/fgfs ] ; then
+        fgfs=/opt/fgfs-240/bin/fgfs
+        fgfs_opt_root=/opt/fgfs-240/share/flightgear
+        fgfs_root=$fgfs_opt_root
+    fi
+
+
+    if [ -s "$fgfs" ] ; then
+
+        fgfs_base_options=(
+            --enable-anti-alias-hud
+            --enable-clouds3d
+            --enable-distance-attenuation
+            --enable-enhanced-lighting
+            --enable-horizon-effect
+            --enable-hud-3d
+            --enable-mouse-pointer
+            --enable-real-weather-fetch
+            --enable-skyblend
+            --enable-sound
+            --enable-specular-highlight
+            --enable-splash-screen
+            --enable-textures
+            --enable-random-objects
+            --enable-skyblend
+        )
+
+        # fgfs_festival_options=(
+        #     --prop:/sim/sound/voices/enabled=true
+        # )
+
+        fgfs_default_options=(
+            ${fgfs_base_options[@]}
+            --enable-random-objects
+            --enable-ai-models
+        )
+
+
+        fgfs_scenery_options=(
+            --fg-root=$fgfs_root
+            --fg-scenery=$fgfs_other_root/Scenery-Airspace:$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_other_root/Scenery-Photo:$fgfs_root/Scenery
+        )
+
+        fgfs_scenery_options=(
+            --fg-root=$fgfs_root
+            --fg-scenery=$fgfs_other_root/Scenery-AirportsOverlay:$fgfs_root/Scenery
+        )
+
+        fgfs_scenery_options=(
+            --fg-root=$fgfs_root
+            --fg-scenery=$fgfs_gentoo_root/Scenery:$fgfs_root/Scenery
+        )
+
+        fgfs_scenery_options=(
+            --fg-root=$fgfs_root
+            --fg-scenery=$fgfs_root/Scenery:$fgfs_other_root/Scenery
+        )
+
+
+        fgfs_nimitz_options=(
+            ${fgfs_base_options[@]}
+            ${fgfs_scenery_options[@]}
+        )
 
 
 
-    function netfs1(){
-        cd ~/fgfs/
-        "$fgfs" \
-            "${fgfs_default_options[@]}" \
-            "${fgfs_scenery_options[@]}" \
-            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
-            "$@" ; # > /tmp/netfs1.$$.out 2>&1 ;
-    }
-    function netfs2(){
-        cd ~/fgfs/
-        "$fgfs" \
-            "${fgfs_default_options[@]}" \
-            "${fgfs_scenery_options[@]}" \
-            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
-            "$@" ; # > /tmp/netfs2.$$.out 2>&1  ;
-    }
+        # fgfs_scenery_options=(
+        #     --fg-root=/data/src/simulation/fg/fgdata
+        #     --fg-scenery=/other/fgfs/Scenery-AirportsOverlay:/other/fgfs/Scenery
+        # )
+        # fgfs=/opt/fgfs/bin/fgfs
+
+        fgfs_server=mpserver12.flightgear.org
+        fgfs_period=20
 
 
-cat > /dev/null <<EOF
+        fgfs_port_ac112p=5112
+        fgfs_port_ac112q=5113
+        fgfs_port_ac112r=5114
+        fgfs_port_bk1p=5115
+        # fgfs_port_f_pjb=5116
+        # fgfs_port_nimits=5117
+
+
+
+        function netfs1(){
+            cd ~/fgfs/
+            "$fgfs" \
+                "${fgfs_default_options[@]}" \
+                "${fgfs_scenery_options[@]}" \
+                --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
+                "$@" ; # > /tmp/netfs1.$$.out 2>&1 ;
+        }
+        function netfs2(){
+            cd ~/fgfs/
+            "$fgfs" \
+                "${fgfs_default_options[@]}" \
+                "${fgfs_scenery_options[@]}" \
+                --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port:-5001}" \
+                "$@" ; # > /tmp/netfs2.$$.out 2>&1  ;
+        }
+
+
+        cat > /dev/null <<EOF
 
 (defun gen-parking-positions (base-name heading start-lon start-lat &optional end-lon end-lat n)
   (flet ((gen (name lon lat)
@@ -838,197 +1042,146 @@ cat > /dev/null <<EOF
 
 EOF
 
-# KSUU_parking_1=(--heading=145.000000 --lon=-121.933639 --lat=38.266778)
-# KSUU_parking_2=(--heading=145.000000 --lon=-121.933194 --lat=38.267098)
-# KSUU_parking_3=(--heading=145.000000 --lon=-121.932750 --lat=38.267418)
-# KSUU_parking_4=(--heading=145.000000 --lon=-121.932306 --lat=38.267738)
-# KSUU_parking_5=(--heading=145.000000 --lon=-121.931861 --lat=38.268058)
-# KSUU_parking_6=(--heading=145.000000 --lon=-121.931417 --lat=38.268379)
-# KSUU_parking_7=(--heading=145.000000 --lon=-121.930972 --lat=38.268699)
-# KSUU_parking_8=(--heading=145.000000 --lon=-121.930528 --lat=38.269019)
-# KSUU_parking_9=(--heading=145.000000 --lon=-121.930083 --lat=38.269339)
-# KSUU_parking_10=(--heading=145.000000 --lon=-121.929639 --lat=38.269659)
-# KSUU_parking_11=(--heading=145.000000 --lon=-121.929194 --lat=38.269980)
-# KSUU_parking_12=(--heading=145.000000 --lon=-121.928750 --lat=38.270300)
-# KSUU_parking_13=(--heading=145.000000 --lon=-121.928306 --lat=38.270620)
-# KSUU_parking_14=(--heading=145.000000 --lon=-121.927861 --lat=38.270940)
-# KSUU_parking_15=(--heading=145.000000 --lon=-121.927417 --lat=38.271260)
-# KSUU_parking_16=(--heading=145.000000 --lon=-121.926972 --lat=38.271580)
-# KSUU_parking_17=(--heading=145.000000 --lon=-121.926528 --lat=38.271901)
-# KSUU_parking_18=(--heading=145.000000 --lon=-121.926083 --lat=38.272221)
-# KSUU_parking_19=(--heading=145.000000 --lon=-121.925639 --lat=38.272541)
-# KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
+        # KSUU_parking_1=(--heading=145.000000 --lon=-121.933639 --lat=38.266778)
+        # KSUU_parking_2=(--heading=145.000000 --lon=-121.933194 --lat=38.267098)
+        # KSUU_parking_3=(--heading=145.000000 --lon=-121.932750 --lat=38.267418)
+        # KSUU_parking_4=(--heading=145.000000 --lon=-121.932306 --lat=38.267738)
+        # KSUU_parking_5=(--heading=145.000000 --lon=-121.931861 --lat=38.268058)
+        # KSUU_parking_6=(--heading=145.000000 --lon=-121.931417 --lat=38.268379)
+        # KSUU_parking_7=(--heading=145.000000 --lon=-121.930972 --lat=38.268699)
+        # KSUU_parking_8=(--heading=145.000000 --lon=-121.930528 --lat=38.269019)
+        # KSUU_parking_9=(--heading=145.000000 --lon=-121.930083 --lat=38.269339)
+        # KSUU_parking_10=(--heading=145.000000 --lon=-121.929639 --lat=38.269659)
+        # KSUU_parking_11=(--heading=145.000000 --lon=-121.929194 --lat=38.269980)
+        # KSUU_parking_12=(--heading=145.000000 --lon=-121.928750 --lat=38.270300)
+        # KSUU_parking_13=(--heading=145.000000 --lon=-121.928306 --lat=38.270620)
+        # KSUU_parking_14=(--heading=145.000000 --lon=-121.927861 --lat=38.270940)
+        # KSUU_parking_15=(--heading=145.000000 --lon=-121.927417 --lat=38.271260)
+        # KSUU_parking_16=(--heading=145.000000 --lon=-121.926972 --lat=38.271580)
+        # KSUU_parking_17=(--heading=145.000000 --lon=-121.926528 --lat=38.271901)
+        # KSUU_parking_18=(--heading=145.000000 --lon=-121.926083 --lat=38.272221)
+        # KSUU_parking_19=(--heading=145.000000 --lon=-121.925639 --lat=38.272541)
+        # KSUU_parking_20=(--heading=145.000000 --lon=-121.925194 --lat=38.272861)
 
 
-    function typhoon-1(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
-    function typhoon(){   typhoon-1 --control=joystick "@" ; }
-    function f14-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=AC112P  --aircraft=f-14b   "$@" ; }
-    function f14-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=AC112Q  --aircraft=f-14b   "$@" ; }
-    function f14-3(){     fgfs_port=${fgfs_port_ac112r} ; netfs1  --callsign=AC112R  --aircraft=f-14b   "$@" ; }
-    function f14(){       f14-1 --control=joystick  "$@" ; }
-    function f16-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f16     "$@" ; }
-    function f16-1(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f16     "$@" ; }
-    function f16(){       f16-1 --control=joystick   "$@" ; }
-    function f18-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f18     "$@" ; }
-    function f18-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f18     "$@" ; }
-    function f18(){       f18-1 --control=joystick   "$@" ; }
+        function typhoon-1(){ fgfs_port=${fgfs_port_bk1p}   ; netfs1  --callsign=F-PJB   --aircraft=typhoon "$@" ; }
+        function typhoon(){   typhoon-1 --control=joystick "@" ; }
+        function f14-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=AC112P  --aircraft=f-14b   "$@" ; }
+        function f14-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=AC112Q  --aircraft=f-14b   "$@" ; }
+        function f14-3(){     fgfs_port=${fgfs_port_ac112r} ; netfs1  --callsign=AC112R  --aircraft=f-14b   "$@" ; }
+        function f14(){       f14-1 --control=joystick  "$@" ; }
+        function f16-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f16     "$@" ; }
+        function f16-1(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f16     "$@" ; }
+        function f16(){       f16-1 --control=joystick   "$@" ; }
+        function f18-1(){     fgfs_port=${fgfs_port_ac112p} ; netfs1  --callsign=BK1P    --aircraft=f18     "$@" ; }
+        function f18-2(){     fgfs_port=${fgfs_port_ac112q} ; netfs1  --callsign=BK1Q    --aircraft=f18     "$@" ; }
+        function f18(){       f18-1 --control=joystick   "$@" ; }
 
 
-    function f14main(){
-        local slaveIP=localhost
-        netfs2  --callsign=AC112M  --aircraft=f-14b  \
-            --native-fdm=socket,out,${fgfs_period},${slaveIP},5510,udp \
-            --native-ctrls=socket,out,${fgfs_period},${slaveIP},5511,udp \
-            "$@" ; }
+        function f14main(){
+            local slaveIP=localhost
+            netfs2  --callsign=AC112M  --aircraft=f-14b  \
+                    --native-fdm=socket,out,${fgfs_period},${slaveIP},5510,udp \
+                    --native-ctrls=socket,out,${fgfs_period},${slaveIP},5511,udp \
+                    "$@" ; }
 
-    function f14slave(){
-        (
-            # shellcheck disable=SC2030
-            export DISPLAY=192.168.7.160:0.0 ;
-            netfs2  --callsign=AC112S  --aircraft=f-14b  \
-                    --native-fdm=socket,in,${fgfs_period},,5510,udp \
-                    --native-ctrls=socket,in,${fgfs_period},,5511,udp \
-                    --fdm=null \
-                    --enable-panel \
-                    --disable-hud \
-                    --disable-sound \
-                    --prop:/sim/ai/enabled=false \
-                    --prop:/sim/ai-traffic/enabled=false \
-                    --prop:/sim/rendering/bump-mapping=false \
-                    --prop:/sim/rendering/draw-otw=false \
-                    "$@" ) ; }
+        function f14slave(){
+            (
+                # shellcheck disable=SC2030
+                export DISPLAY=192.168.7.160:0.0 ;
+                netfs2  --callsign=AC112S  --aircraft=f-14b  \
+                        --native-fdm=socket,in,${fgfs_period},,5510,udp \
+                        --native-ctrls=socket,in,${fgfs_period},,5511,udp \
+                        --fdm=null \
+                        --enable-panel \
+                        --disable-hud \
+                        --disable-sound \
+                        --prop:/sim/ai/enabled=false \
+                        --prop:/sim/ai-traffic/enabled=false \
+                        --prop:/sim/rendering/bump-mapping=false \
+                        --prop:/sim/rendering/draw-otw=false \
+                        "$@" ) ; }
 
 
-    fgfs_disable_everything=(
-        --disable-hud
-        --disable-anti-alias-hud
-        --disable-hud-3d
-        --disable-random-objects
-        # --disable-ai-models
-        --disable-ai-traffic
-        --disable-freeze
-        --disable-clock-freeze
-        --disable-sound
-        --disable-splash-screen
-        --fog-disable
-        --disable-enhanced-lighting
-        --disable-distance-attenuation
-        --disable-horizon-effect
-        --disable-specular-highlight
-        --disable-fullscreen
-        --disable-skyblend
-        --disable-textures
-        --disable-clouds
-        --disable-clouds3d
+        fgfs_disable_everything=(
+            --disable-hud
+            --disable-anti-alias-hud
+            --disable-hud-3d
+            --disable-random-objects
+            # --disable-ai-models
+            --disable-ai-traffic
+            --disable-freeze
+            --disable-clock-freeze
+            --disable-sound
+            --disable-splash-screen
+            --fog-disable
+            --disable-enhanced-lighting
+            --disable-distance-attenuation
+            --disable-horizon-effect
+            --disable-specular-highlight
+            --disable-fullscreen
+            --disable-skyblend
+            --disable-textures
+            --disable-clouds
+            --disable-clouds3d
         )
 
-    function nimitz(){
-        local cs=CVN68
-        cd ~/fgfs/
-        "$fgfs" \
-            "${fgfs_nimitz_options[@]}" \
-            --multiplay="out,${fgfs_period},${fgfs_server},5000"  --multiplay="in,${fgfs_period},,${fgfs_port_nimitz}" \
-            --callsign="$cs" \
-            --aircraft=nimitz \
-            --prop:/sim/mp-carriers/nimitz-callsign="$cs" \
-            "${fgfs_disable_everything[@]}" \
-            "$@"  # > /tmp/nimitz.$$.out 2>&1
-        # --ai-scenario=nimitz_demo \
-        #
-    }
+        function nimitz(){
+            local cs=CVN68
+            cd ~/fgfs/
+            "$fgfs" \
+                "${fgfs_nimitz_options[@]}" \
+                --multiplay="out,${fgfs_period},${fgfs_server},5000" \
+                --multiplay="in,${fgfs_period},,${fgfs_port}" \
+                --callsign="$cs" \
+                --aircraft=nimitz \
+                --prop:/sim/mp-carriers/nimitz-callsign="$cs" \
+                "${fgfs_disable_everything[@]}" \
+                "$@"
+            # > /tmp/nimitz.$$.out 2>&1
+            # --ai-scenario=nimitz_demo
+        }
 
-    function netfs1n(){ cd ~/fgfs/ ; /usr/games/bin/fgfs  "${fgfs_nimitz_options[@]}" "${fgfs_scenery_options[@]}" --multiplay=out,20,mpserver10.flightgear.org,5000  --multiplay=in,10,,5001 "$@" > /tmp/netfs1.$$.out 2>&1 ; }
-    function f14n(){  netfs1n  --callsign=AC112P  --aircraft=f-14b "$@" ; }
+        function netfs1n(){
+            cd ~/fgfs/
+            /usr/games/bin/fgfs  "${fgfs_nimitz_options[@]}" "${fgfs_scenery_options[@]}" \
+                                 --multiplay=out,20,mpserver10.flightgear.org,5000  \
+                                 --multiplay=in,10,,5001 "$@" \
+                                 > /tmp/netfs1.$$.out 2>&1 ; }
+        function f14n(){  netfs1n  --callsign=AC112P  --aircraft=f-14b "$@" ; }
 
-
-fi
-
-# ----------------------------------------
-# gnustep specific environment:
-# ----------------------------------------
-# alias gsgdb=/usr/local/GNUstep/System/Tools/ix86/linux-gnu/gdb
-# alias dread="defaults read "
-# alias dwrite="defaults write "
-
-function wmdock (){
-    wmweather -s LELC -metric -kPa &
-    wmglobe &
-    wmspaceweather &
-    wmsun -lat 42 -lon 0 &
+    fi
 }
 
-function _gopen (){
-    local cur app
-    COMPREPLY=()
-    cur=${COMP_WORDS[COMP_CWORD]}
-    # shellcheck disable=SC2034
-    app=$(for i in $GNUSTEP_LOCAL_ROOT/Applications/*.app  $GNUSTEP_SYSTEM_ROOT/Applications/*.app ; do basename "$i" ; done)
-    # shellcheck disable=SC2016
-    COMPREPLY=($(compgen -W '$app' |grep "^$cur"))
-    return 0
+
+function bashrc_linux_functions(){
+    if [[ $uname = Linux ]] ; then
+        # ----------------------------------------
+        # Linux rc
+        # ----------------------------------------
+        function status  (){ sudo "/etc/init.d/$1" status;  }
+        function start   (){ sudo "/etc/init.d/$1" start;   }
+        function stop    (){ sudo "/etc/init.d/$1" stop;    }
+        function restart (){ sudo "/etc/init.d/$1" restart; }
+        function reload  (){ sudo "/etc/init.d/$1" reload;  }
+
+
+        if [[ -r /etc/gentoo-release ]] ; then
+            # ----------------------------------------
+            # gentoo
+            # ----------------------------------------
+
+            function ew () {
+                local key="$1"
+                key="${key/\/}"
+                esearch -c -F "$key" | sed -e "s/$key//"
+            }
+        fi
+    fi
 }
-complete -F _gopen -o dirnames gopen
-complete -f -X '!*.@(app)' openapp
-
-
-# ----------------------------------------
-# gentoo
-# ----------------------------------------
-
-function ew () {
-    local key="$1"
-    key="${key/\/}"
-    esearch -c -F "$key" | sed -e "s/$key//"
-}
-
-# ----------------------------------------
-# Linux rc
-# ----------------------------------------
-function status  (){ "/etc/init.d/$1" status;  }
-function start   (){ "/etc/init.d/$1" start;   }
-function stop    (){ "/etc/init.d/$1" stop;    }
-function restart (){ "/etc/init.d/$1" restart; }
-function reload  (){ "/etc/init.d/$1" reload;  }
-
 #  export CFLAGS=-I/opt/local/include ; export LDFLAGS=-L/opt/local/lib
 
 
-# ----------------------------------------
-# Some commands in $HOME/bin/* have a bash auto-completion feature.
-# ----------------------------------------
-case "$BASH_VERSION" in
-    4.[1-9]*)
-        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-            . /opt/local/etc/profile.d/bash_completion.sh
-        fi
-        ;;
-esac
-
-# quote(){
-#     for arg ; do
-#         local slash=${arg//\\/\\\\}
-#         local quote=\'${slash//\'/\'\\\'\'}\' # no "${...}" here! It would break the \'
-#         printf "%s " ${quote}
-#     done
-#     printf "\n"
-# }
-
-function quote(){
-    # concatenate all the arguments and shell-quote them.
-    printf '%s\n' "$*" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/"
-}
-
-function quoteRegexp(){
-    # concatenate all the arguments and regexp-quote them.
-    printf '%s\n' "$*" | sed 's/\(.\)/[\1]/g'
-}
-
-
-if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
-    for script in radio fpm new-password religion ; do
-	eval $( "$script" --bash-completion-function )
-    done
-fi
 
 
 # ----------------------------------------
@@ -1039,32 +1192,70 @@ function get-directory   (){ awk '{if($1=="'"$1"'"){print $2}}' ~/directories.tx
 function timestamp       (){ date +%Y%m%dT%H%M%S ; }
 function ip-address      (){ ifconfig|awk '/inet /{if($2!="127.0.0.1"){print $2;exit;}}' ; }
 
+function ip-broadcast-address () {
+    local mac="$1"
+    ifconfig |grep -i Bcast | tr ' ' '\012' | awk -F: '/Bcast/{print $2}'
+}
+
+function get_ip_address_from_MAC(){
+    local remote_MAC="$1"
+    local bcast="$(ip-broadcast-address)"
+    case "$ip" in
+    (*\ *)
+        printf "Multiple broadcast addresses! %s\n" "$bcast"
+        return 1
+        ;;
+    esac
+    ping -c 3 "$bcast" >/dev/null 2>&1
+    arp -n | awk  "/$remote_MAC/"'{print $1;}'
+}
+
 function sort-host       (){ tr '.' '@' | sort -t@ -n +0 -1 +1 -2 +2 -3 +3 -4 | tr '@' '.' ; }
     # We have to replace dots by something else since they are taken for
     # decimal points by sort -n.
 
-function usb-devices     (){ awk 'BEGIN{line="======================================";line=line line;}
+function usb-devices     (){
+    case "${uname}" in
+    (Darwin)
+        system_profiler SPUSBDataType
+        ;;
+    (Linux)
+        awk 'BEGIN{line="======================================";line=line line;}
 /^T/{printf "\n%s\n",line;print $0;next;}
 /^[IC]/{printf "\n";print $0;next;}
 {print $0;}
 END{printf "\n%s\n",line;}
 ' < /proc/bus/usb/devices
+        ;;
+    (*)
+        printf "Error: unknown system type.\n"
+        return 1
+        ;;
+    esac
 }
 
 
 function mmencode        (){ base64 "$@" ; }
 function msum            (){ md5sum "$1" ; sumseg 9728000 "$1" ; }
 
-function rm-symlinks     (){ ls -l|grep -e '->'|awk '{print $9}'|xargs rm ; }
+function rm-symlinks     (){ find . -maxdepth 1 -type l -exec rm {} + ; }
 
 function all-disk-stat   (){ dstat -d -D total,$(cd /dev ; echo hd? sd? |tr ' ' ',') "$@" ; }
-function sysexits        (){ grep '#define' /usr/include/sysexits.h|sed -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/' ; }
+function sysexits        (){ sed -n -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/p' /usr/include/sysexits.h ; }
 
-function screen-size     (){ xwininfo -root|egrep 'Width|Height' ; }
+function screen-size     (){
+    if [[ -n "$DISPLAY" ]] ; then
+        xwininfo -root|egrep 'Width|Height'
+    fi
+    if [[ "${uname}" = "Darwin" ]] ; then
+        system_profiler SPDisplaysDataType | grep Resolution
+    fi
+}
+
 function xauth-add       (){ xauth add $(echo "${DISPLAY:-DISPLAY-UNSET}" | sed 's/.*\(:.*\)/\1/') . $(mcookie) ; }
 function xset-on         (){ ( export DISPLAY=:0.0 ; xset s 7200 0 ; xset dpms force on ; xset dpms 7200 8000 9000 ) ; }
 
-function yls             (){ /bin/ls -1 $@ | sed -e 's/\(.*-[12][90][0-9][0-9][-.].*\)/\1 \1/' -e 's/^.*-\([12][90][0-9][0-9]\)[-.][^ ]* /\1  /' | sort -n ; }
+function yls             (){ /bin/ls -1 $@ | sed -e 's/\(.*-\([12][90][0-9][0-9]\)\([-.].*\)\?\)$/\2 \1/'| sort -n ; }
 # function wls(){  COLUMNS=$(stty -a|sed -n  -e '/columns;/s/.* \([0-9]*\) columns;.*/\1/p' -e '/; columns/s/.*columns \([0-9]\+\);.*/\1/p') ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${COLUMNS:-80}  columnify ; }
 function wls(){  c=$COLUMNS ; ls -1 | sed -e 's/\(.................................\).*/\1/' |   COLUMNS=${c:-80}  columnify ; }
 function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else find "$@" -type f -print ; fi | sort ; }
@@ -1085,7 +1276,7 @@ function opencyc         (){ ( cd /opt/opencyc-1.0/scripts/ ; ./run-cyc.sh ) ; }
 function xvv             (){ xv -maxpect -smooth "$@" ;}
 
 function svn-changes     (){ svn status | grep -e '^[?AMD]' ; }
-function svn-status      (){ svn status --ignore-externals $1 | grep -v -e '^[?X]' ; }
+function svn-status      (){ svn status --ignore-externals "$1" | grep -v -e '^[?X]' ; }
 function svn-obsolete    (){ for f in "$@" ; do mv "$f" "$f"-obsolete && svn update "$f" ; diff "$f" "$f"-obsolete  ; done ; }
 function svn-keep        (){ for f ; do mv "${f}" "${f}-keep" && svn update "${f}" && mv "${f}" "${f}-old" && mv "${f}-keep" "${f}" ; done ; }
 
@@ -1126,16 +1317,104 @@ function update-localized-xibs() {
     fi
 }
 
+
+
 # ----------------------------------------
 # old one liners
 # ----------------------------------------
-function remote-nntp     (){ sudo ssh -L 119:news.free.fr:119 pjb@free.informatimago.com ; }
-function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medium-r-normal-*-*-140-75-*-*-*-iso8859-1' -T atc -e bash -c "while true ; do /usr/games/bin/atc -g ${1:-Atlantis} ; sleep 5 ; done" ; }
-function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
+# function remote-nntp     (){ sudo ssh -L 119:news.free.fr:119 pjb@free.informatimago.com ; }
+# function atc             (){ xterm -bg green -fg black +sb -fn '-misc-fixed-medium-r-normal-*-*-140-75-*-*-*-iso8859-1' -T atc -e bash -c "while true ; do /usr/games/bin/atc -g ${1:-Atlantis} ; sleep 5 ; done" ; }
+# function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
+function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
+function cdsm(){    cd "$HOME/works/sbde/smt/sources"        ; }
+function cdsb(){    cd "$HOME/works/sbde"                    ; }
 
+function cdsb(){    cd "$HOME/works/sbde/ball" ; }
+function cdsm(){    cd "$HOME/works/sbde/smt" ; }
+
+
+function bashrc_load_host_specific_bashrc(){
+    case "${hostname}" in
+    (*trustonic.local)
+        source ~/rc/bashrc-trustonic
+        ;;
+    (larissa*)
+        source ~/rc/bashrc-nvidia
+        ;;
+    (vm-u1404|L0253344)
+        source ~/rc/bashrc-span
+        ;;
+    *)
+        source ~/rc/bashrc-pjb
+        ;;
+    esac
+}
+
+
+function bashrc_delete_bashrc_functions(){
+    local subject
+    for subject in $(compgen -A function|grep '^\(be_\|bashrc\)') ; do
+        unset -f "$subject"
+    done
+}
+
+
+function bash_patch_622655(){
+    # https://bugzilla.redhat.com/show_bug.cgi?id=622655
+    # Jean-Baptiste Poittevin 2012-10-21 14:19:55 EDT
+    # Append word to current word
+    #BEGIN HACK
+    if shopt failglob >/dev/null; then
+        INVERTGLOB=1
+        shopt -u failglob
+    else
+        INVERTGLOB=0
+    fi
+    #END HACK
+    eval $2[$j]=\${!ref}\${COMP_WORDS[i]}
+    #BEGIN HACK
+    if [ $INVERTGLOB -eq 1 ]; then
+        shopt -s failglob
+    fi
+    #END HACK
+    # Remove optional whitespace + word from line copy
+}
+
+function bashrc(){
+    bashrc_set_host_uname
+    bashrc_set_mask
+    bashrc_set_ulimit
+    bashrc_set_prompt
+    bashrc_set_DISPLAY
+    bashrc_clean_XDG_DATA_DIRS
+    bashrc_load_host_specific_bashrc
+    bashrc_generate_and_load_environment
+    bashrc_load_completions
+    bashrc_load_optionals
+    bashrc_linux_functions
+    bashrc_define_aliases
+    bashrc_flightgear_aliases
+
+    if [ -x /usr/local/gcc/bin/gcc ] ; then
+        source ~/bin/with-gcc-8.bash
+    fi
+
+    # display function and alias duplicates:
+    compgen -A alias -A function | awk 'seen[$1]++ == 1'
+    shopt -u failglob
+
+    bashrc_delete_bashrc_functions
+    shopt -u failglob
+}
+
+bashrc
+
+################################################################################
+################################################################################
+################################################################################
 
 
 #    WHEN starting
@@ -1235,33 +1514,8 @@ function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-
 #       not reset.
 
 
-if [ -r ~/.config/host ] ; then
-    host=$(cat ~/.config/host)
-else
-    host=$(hostname -f)
-fi
 
-case "$host" in
-(*trustonic.local)
-    source ~/rc/bashrc-trustonic
-    ;;
-*)
-    source ~/rc/bashrc-pjb
-    ;;
-esac
-
-# display function and alias duplicates:
-compgen -A alias -A function | awk 'seen[$1]++ == 1'
-
-if [[ -d "$HOME/src/trustonic/bin" ]] ; then
-    export "PATH=$HOME/src/trustonic/bin:$PATH"
-fi
-if [[ -d "$HOME/opt/bin" ]] ; then
-    export "PATH=$HOME/opt/bin:$PATH"
-fi
-ulimit -c unlimited
-
-
-# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile and ~/.bash_profile!
+# Note:  No interactive stuff here, ~/.bashrc is loaded by all scripts
+#        thru ~/.profile and ~/.bash_profile!
 #### THE END ####
-ulimit -c unlimited
+

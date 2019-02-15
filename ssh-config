@@ -10,11 +10,46 @@
 # Thus, host-specific definitions should be at the beginning of the
 # configuration file, and defaults at the end.
 
+# Host lenomdemonhote
+#      HostName X.X.X.X
+#      User     user
+#      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
+#      ServerAliveInterval 15
 
 Host github.com
     HostName                github.com
     User                    git
-    IdentityFile            ~/.ssh/github-id_ed25519
+    IdentityFile            ~/.ssh/github
+
+Host gist.github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/github
+
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab
+
+Host gitlab.sbde.fr
+    HostName                gitlab.sbde.fr
+    User                    git
+    IdentityFile            ~/.ssh/sbde
+
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
+
+Host git.framasoft.org
+    HostName                git.framasoft.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
+
+Host common-lisp.net
+    HostName                common-lisp.net
+    User                    git
+    IdentityFile            ~/.ssh/common-lisp-net
 
 Host patchy+github.com
     HostName                github.com
@@ -26,34 +61,6 @@ Host ubudu+github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
 
-
-Host gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/gitlab-id_ed25519
-
-Host framagit.org
-    HostName                framagit.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit-id_ed25519
-
-
-
-# ----------------------------------------
-# Anonix:
-
-Host anonix.net
-    User                    hf
-    Protocol                2
-
-
-# ----------------------------------------
-# Andre Reinald:
-
-Host bolet.no-ip.com
-    Protocol                1,2
-    StrictHostKeyChecking	no
-    CheckHostIP             no
 
 # ----------------------------------------
 # Default:
@@ -67,15 +74,15 @@ Host *
     ForwardX11              no
     ForwardX11Trusted       yes
     HostbasedAuthentication yes
-    RhostsRSAAuthentication yes
-    RSAAuthentication       yes
+#    RhostsRSAAuthentication yes
+#    RSAAuthentication       yes
     PubkeyAuthentication    yes
     PasswordAuthentication  yes
     BatchMode               no
     CheckHostIP             yes
     StrictHostKeyChecking   ask
     Compression             yes
-    CompressionLevel        3
+#   CompressionLevel        3
     KeepAlive               yes
     GatewayPorts            no
 

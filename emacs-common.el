@@ -25,9 +25,10 @@
 ;; Mince   Is Not Complete Emacs.
 ;; FRED    Resembles Emacs Deliberately
 
-;;(when (= (user-uid) 0)
-;;  (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
-;;  (error "~/.emacs: Cannot load ~/.emacs under root account."))
+(when (= (user-uid) 0)
+  ;; (load "/root/.emacs" pjb:*load-noerror* pjb:*load-silent*)
+  ;; (error "~/.emacs: Cannot load ~/.emacs under root account.")
+  (set-face-background 'fringe "red"))
 
 
 ;; tramp hops: /ssh:bird@bastion|ssh:you@remotehost:/path
@@ -41,6 +42,8 @@
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
+
+
 
 
 ;;;----------------------------------------------------------------------------
@@ -58,8 +61,11 @@
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
-  (if (file-exists-p "--version.lock")
-    (error "version lock"))
+  (when (file-exists-p "--version.lock")
+    (message "Deleting version lock!")
+    (delete-file  "--version.lock"))
+  ;; (if (file-exists-p "--version.lock")
+  ;;   (error "version lock"))
   (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
     (when *pjb-save-log-file-p*
       (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
@@ -67,6 +73,8 @@
         (insert text "\n")
         (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
     (message text)))
+
+
 
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
 (load "~/rc/emacs-package.el")
@@ -94,6 +102,9 @@
 ;; byte-compile-warnings
 ;; (not cl-functions)
 
+(require 'tramp-sh nil t)
+(defvar tramp-ssh-controlmaster-options "")
+(setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
 
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))
@@ -279,6 +290,21 @@ WELCOME TO EMACS!
 ;;                         x-encoding  "iso8859-15"))
 ;;   (t (error "Invalid value for my-latin variable.")))
 
+(unless (fboundp 'digit-char-p)
+  (defun digit-char-p (ch)
+    "Return the value of the digit if ch is a digit character, or nil."
+    (case ch
+      ((?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) (- ch ?0))
+      (otherwise nil))))
+
+(defun octal (n)
+  "N is a decimal numbers whose digits are taken as octal digits
+and converted as such."
+  (loop
+     for d across (format "%d" n)
+     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
+     finally (return r)))
+
 (progn
   (case system-type
     (darwin
@@ -294,7 +320,6 @@ WELCOME TO EMACS!
      (set-next-selection-coding-system        'utf-8-unix)
      (set-selection-coding-system             'utf-8-unix)
      (set-terminal-coding-system              'utf-8-unix)
-
 
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
@@ -362,7 +387,7 @@ WELCOME TO EMACS!
 (standard-display-ascii #o211 (vector (decode-char 'ucs #x2514)))
 (standard-display-ascii #o212 (vector (decode-char 'ucs #x2500)))
 (standard-display-ascii #o214 (vector (decode-char 'ucs #x2518)))
-(standard-display-ascii #o220 [? ])
+(standard-display-ascii #o220 [?\ ])
 (standard-display-ascii #o221 [?\` ])
 (standard-display-ascii #o222 [?\'])
 (standard-display-ascii #o223 [?\"])
@@ -535,10 +560,14 @@ WELCOME TO EMACS!
 ;;;----------------------------------------------------------------------------
 
 
+(require 'epa-file)
+(epa-file-enable)
+
 (require 'highlight-flet nil t)
 (require 'rst nil t)
 (require 'rst-mode nil t)
-(mouse-avoidance-mode 'cat-and-mouse)
+(when window-system
+  (mouse-avoidance-mode 'cat-and-mouse))
 
 
 
@@ -728,6 +757,11 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[21~"  'disabled)  ; <f10>
   (global-set-key "[23~"  'disabled)  ; <f11>
   (global-set-key "[24~"  'disabled)  ; <f12>
+
+  (define-key input-decode-map "\M-[A" [up])
+  (define-key input-decode-map "\M-[B" [down])
+  (define-key input-decode-map "\M-[C" [right])
+  (define-key input-decode-map "\M-[D" [left])
 
   (define-key input-decode-map "\M-[1;5A" [C-up])
   (define-key input-decode-map "\M-[1;5B" [C-down])
@@ -928,6 +962,261 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 
 
+;;;----------------------------------------------------------------------------
+(.EMACS "Loading my personal files -- My own stuff.")
+(unless (load "pjb-loader.el" t)
+  (.EMACS "WARNING WARNING WARNING: Could not find and load 'My own stuff'!"))
+
+
+;;;----------------------------------------------------------------------------
+(.EMACS "setting up fonts")
+;; See also:
+;; (info "(emacs)Defining Fontsets")
+
+(when (< emacs-major-version 22)
+  (require 'font nil t)
+
+  (defun font-spatial-to-canonical (spec &optional device)
+    "Convert SPEC (in inches, millimeters, points, or picas) into points"
+    ;; 1 in = 6 pa = 25.4 mm = 72 pt
+    (cond
+      ((numberp spec)
+       spec)
+      ((null spec)
+       nil)
+      (t
+       (let ((num nil)
+             (type nil)
+             ;; If for any reason we get null for any of this, default
+             ;; to 1024x768 resolution on a 17" screen
+             (pix-width (float (or (device-pixel-width device) 1024)))
+             (mm-width (float (or (device-mm-width device) 293)))
+             (retval nil))
+         (cond
+           ((string-match "^ *\\([-+*/]\\) *" spec) ; math!  whee!
+            (let ((math-func (intern (match-string 1 spec)))
+                  (other (font-spatial-to-canonical
+                          (substring spec (match-end 0) nil)))
+                  (default (font-spatial-to-canonical
+                            (font-default-size-for-device device))))
+              (if (and default (fboundp math-func))
+                  (setq type "px"
+                        spec (int-to-string (funcall math-func default other)))
+                  (setq type "px"
+                        spec (int-to-string other)))))
+           ((string-match "[^0-9.]+$" spec)
+            (setq type (substring spec (match-beginning 0))
+                  spec (substring spec 0 (match-beginning 0))))
+           (t
+            (setq type "px"
+                  spec spec)))
+         (setq num (string-to-number spec))
+         (cond
+           ((member type '("pixel" "px" "pix"))
+            (setq retval (* num (/ pix-width mm-width) (/ 25.4 72.0))))
+           ((member type '("point" "pt"))
+            (setq retval num))
+           ((member type '("pica" "pa"))
+            (setq retval (* num 12.0)))
+           ((member type '("inch" "in"))
+            (setq retval (* num 72.0)))
+           ((string= type "mm")
+            (setq retval (* num (/ 72.0 25.4))))
+           ((string= type "cm")
+            (setq retval (* num 10 (/ 72.0 25.4))))
+           (t
+            (setq retval num)))
+         retval))))
+
+
+  (when  (boundp 'x-font-alist)
+    ;; Correct the font menu.
+    (setf x-font-alist
+          (let ((monop (find "monospaced fonts" (rest x-font-alist)
+                             :test (function string=)
+                             :key (function first))))
+            (cons (first x-font-alist)
+                  (loop for (a b) on (rest x-font-alist)
+                     unless (equalp a b)
+                     collect (cond
+                               (monop a)
+                               ((string= (first a) "proportional fonts")
+                                '("monospaced fonts"   nil))
+                               ((string= (first a) "non-proportional fonts")
+                                '("proportional fonts" nil))
+                               (t a)))))))
+  );; when emacs-major-version < 23
+
+
+
+(defparameter *pjb-font-list*
+  '(
+    "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
+
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-*-*"
+    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-*-*"
+
+    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
+
+    "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
+    "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
+
+    "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--12-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--13-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--14-130-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--15-150-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
+    "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
+
+
+    "-LFP-Bright-normal-normal-normal-*-9-*-*-*-c-60-*-*"
+    "-LFP-Smooth-normal-normal-normal-*-9-*-*-*-c-60-*-*"
+    "-LFP-LucidaTerminal-normal-normal-normal-*-9-*-*-*-c-90-*-*"
+
+    "-LFP-Computer-normal-normal-normal-*-11-*-*-*-c-90-*-*"
+    "-LFP-Computer Alt-normal-normal-normal-*-9-*-*-*-c-90-iso10646-1"
+
+
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-9-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-11-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-13-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-15-*-*-*-m-0-*-*"
+    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-17-*-*-*-m-0-*-*"
+
+
+    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
+
+    "-Schumacher-Clean-normal-normal-normal-*-12-*-*-*-c-60-*-*"
+
+    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
+    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
+    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
+
+
+    "-unknown-ArnoldBoecklin-extra-bold-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Becker-normal-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Caligula-normal-normal-normal-*-19-*-*-*-*-0-*-*"
+
+
+    "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
+    "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
+    "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
+
+    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
+    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
+
+    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
+    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
+    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
+
+    ))
+
+(defvar *pjb-current-font-index* 0)
+
+(defun sign (number)
+  (cond ((< number 0) -1)
+        ((> number 0) +1)
+        (t             0)))
+
+(defun* forward-font (&optional (increment 1))
+  (interactive "p")
+  (typecase increment
+    (integer
+     (let ((increment (if (zerop increment) 1 increment)))
+       (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
+                                           (length *pjb-font-list*)))))
+    (string
+     (setf *pjb-current-font-index* (or (position increment *pjb-font-list*
+                                                  :test (function string=))))))
+  (loop
+     for try below (length *pjb-font-list*)
+     do (ignore-errors
+          (return
+            (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
+                   (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
+     do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
+     do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
+                                            (length *pjb-font-list*)))))
+
+
+(global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
+(global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
+
+(global-set-key (kbd "H-<up>")    'backward-same-indent)
+(global-set-key (kbd "H-<down>")  'forward-same-indent)
+
+(global-set-key (kbd "H-`")  'next-error)
+
+
+   ;; *** Which font backends to use can be specified by the X resource
+   ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
+   ;;
+   ;; Emacs.FontBackend: x,xft
+   ;;
+   ;; If this resource is not set, Emacs tries to use all font backends
+   ;; available on your graphic device.
+   ;;
+   ;; *** New frame parameter `font-backend' specifies a list of
+   ;; font-backends supported by the frame's graphic device.  On X, they are
+   ;; currently `x' and `xft'.
+
+
+;; (when (eq window-system 'x)
+;;   (set-frame-font
+;;    (if (fboundp 'font-exists-p)
+;;      (cond
+;;       ((font-exists-p  "7x13") "7x13")
+;;       ((font-exists-p (make-font-pattern :foundry "lispm" :family "fixed"))
+;;        (create-fontset-from-fontset-spec
+;;         "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-fontset-lispm,
+;; ascii:,
+;; latin-iso8859-1:-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*,
+;; latin-iso8859-15:-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*")
+;;        ;; once the fontset has been defined, it can be invoked :
+;;        "fontset-lispm")
+;;       ((font-exists-p  "lucidasanstypewriter-12") "lucidasanstypewriter-12")
+;;       (t *default-font*))
+;;      *default-font*))
+;;   (when (fboundp 'single-frame) (single-frame)))
+
+;;;----------------------------------------------------------------------------
+
+
+;;;----------------------------------------------------------------------------
+(when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
+  (elscreen-toggle-display-tab))
+
+
+;;------------------------------
+(.EMACS "Miscellaneous patches")
+
+(when (< emacs-major-version 22)
+  (unless (fboundp 'called-interactively-p)
+    (defun called-interactively-p () (interactive-p))))
+
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "debug")
@@ -1046,9 +1335,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (.EMACS "ORG-MODE")
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
-(setf org-agenda-files '("~/notes.txt"
-                         ;; "~/notes-kuiper.txt"
-                         ;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
+(setf org-agenda-files '(;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
                          ;; "~/firms/wizards/notes.txt"
                          ;; "~/firms/willcom/notes.txt"
                          ;; "~/firms/secur.net/notes.txt"
@@ -1088,6 +1375,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (.EMACS "darcs")
 (load "vc-darcs" t nil)
 
+
 (defun jump-to-real-file-from-darcs ()
   (interactive)
   (let* ((f (buffer-file-name (current-buffer)))
@@ -1110,6 +1398,16 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 ;;;----------------------------------------------------------------------------
 
+
+(appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
+                           ("\\.j$"      . java-mode)))
+
+(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
+
+
+
+;;;----------------------------------------------------------------------------
+
 (defun splice (new-list old list)
   "Like substitute but replace the old by the elements in the new-list."
   (loop
@@ -1122,103 +1420,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
             (push item result))
      finally (return (nreverse result))))
 
-(defvar comint-last-prompt-overlay nil)
-(defun comint-output-filter (process string)
-  (let ((oprocbuf (process-buffer process)))
-    ;; First check for killed buffer or no input.
-    (when (and string oprocbuf (buffer-name oprocbuf))
-      (with-current-buffer oprocbuf
-        ;; Run preoutput filters
-        (let ((functions (splice (default-value 'comint-preoutput-filter-functions)
-                                 t
-                                 comint-preoutput-filter-functions))
-              (strings (list string)))
 
-          (while (and functions strings)
-            (setf strings (loop
-                             with result = ()
-                             for string in strings
-                             do (setf result (revappend (ensure-list (funcall (car functions) string)) result))
-                             finally (return (nreverse result))))
-            (setq functions (cdr functions)))
-          (setf string strings))
-
-        ;; Insert STRING
-        (let ((inhibit-read-only t)
-              ;; The point should float after any insertion we do.
-              (saved-point (copy-marker (point) t)))
-
-          ;; We temporarly remove any buffer narrowing, in case the
-          ;; process mark is outside of the restriction
-          (save-restriction
-            (widen)
-
-            (goto-char (process-mark process))
-            (set-marker comint-last-output-start (point))
-
-            ;; insert-before-markers is a bad thing. XXX
-            ;; Luckily we don't have to use it any more, we use
-            ;; window-point-insertion-type instead.
-            (loop
-               for item in string
-               do (cond
-                    ((stringp item) (insert item))
-                    ((consp   item) (insert-image (first item) (second item)))
-                    (t (error "Unexpected kind of insert %S" item))))
-
-
-            ;; Advance process-mark
-            (set-marker (process-mark process) (point))
-            (setf string (buffer-substring comint-last-output-start (point)))
-            (unless comint-inhibit-carriage-motion
-              ;; Interpret any carriage motion characters (newline, backspace)
-              (comint-carriage-motion comint-last-output-start (point)))
-
-            ;; Run these hooks with point where the user had it.
-            (goto-char saved-point)
-            (run-hook-with-args 'comint-output-filter-functions string)
-            (set-marker saved-point (point))
-
-            (goto-char (process-mark process)) ; in case a filter moved it
-
-            (unless comint-use-prompt-regexp
-              (let ((inhibit-read-only t)
-                    (inhibit-modification-hooks t))
-                (add-text-properties comint-last-output-start (point)
-                                     '(front-sticky
-                                       (field inhibit-line-move-field-capture)
-                                       rear-nonsticky t
-                                       field output
-                                       inhibit-line-move-field-capture t))))
-
-            ;; Highlight the prompt, where we define `prompt' to mean
-            ;; the most recent output that doesn't end with a newline.
-            (let ((prompt-start (save-excursion (forward-line 0) (point)))
-                  (inhibit-read-only t)
-                  (inhibit-modification-hooks t))
-              (when comint-prompt-read-only
-                (or (= (point-min) prompt-start)
-                    (get-text-property (1- prompt-start) 'read-only)
-                    (put-text-property
-                     (1- prompt-start) prompt-start 'read-only 'fence))
-                (add-text-properties
-                 prompt-start (point)
-                 '(read-only t rear-nonsticky t front-sticky (read-only))))
-              (when (boundp 'comint-last-prompt-overlay)
-               (unless (and (bolp) (null comint-last-prompt-overlay))
-                 ;; Need to create or move the prompt overlay (in the case
-                 ;; where there is no prompt ((bolp) == t), we still do
-                 ;; this if there's already an existing overlay).
-                 (if comint-last-prompt-overlay
-                     ;; Just move an existing overlay
-                     (move-overlay comint-last-prompt-overlay
-                                   prompt-start (point))
-                     ;; Need to create the overlay
-                     (setq comint-last-prompt-overlay
-                           (make-overlay prompt-start (point)))
-                     (overlay-put comint-last-prompt-overlay
-                                  'font-lock-face 'comint-highlight-prompt)))))
-            (goto-char saved-point)))))))
+(defun ensure-list (x) (if (listp x) x (list x)))
 
 
 (defun pjb-comint-preoutput-insert-image (string)
@@ -1236,65 +1439,6 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
             (setf string after))
        finally (push string result) (return (nreverse result)))))
 
-
-
-
-
-;; (defun find-definition-site-of-preloaded-function (function)
-;;   ;; Find the real def site of the preloaded function.
-;;   ;; This is necessary only for defaliases.
-;;   (let ((location
-;;          (condition-case nil
-;;              (find-function-search-for-symbol function nil "loaddefs.el")
-;;            (error nil))))
-;;     (when location
-;;       (with-current-buffer (car location)
-;;         (goto-char (cdr location))
-;;         (when (re-search-backward
-;;                "^;;; Generated autoloads from \\(.*\\)" nil t)
-;;           (match-string 1))))))
-;;
-;;
-;; (defun find-definition-site-of-subr-function (function)
-;;   ;; Find the C source file name.
-;;   nil)
-;;
-;;
-;; (defun find-function-source (function)
-;;   "Find the source of the emacs lisp FUNCTION (a symbol)."
-;;   (interactive
-;;    (let ((fn (function-called-at-point))
-;;          (enable-recursive-minibuffers t)
-;;          val)
-;;      (setq val (completing-read
-;;                 (if fn
-;;                     (format "Find source of function  (default %s): " fn)
-;;                     "Find source of function: ")
-;;                 obarray 'fboundp t nil nil
-;;                 (and fn (symbol-name fn))))
-;;      (list (if (equal val "")
-;;                fn (intern val)))))
-;;   (if (null function)
-;;       (.EMACS "You didn't specify a function")
-;;       (let* ((def (if (symbolp function)
-;;                       (symbol-function function)
-;;                       function))
-;;              file-name string
-;;              (beg (if (commandp def) "an interactive " "a ")))
-;;         (setq file-name (if (eq (car-safe def) 'autoload)
-;;                             (nth 1 def)
-;;                             (symbol-file function 'defun)))
-;;         (when (and file-name
-;;                    (equal (describe-simplify-lib-file-name file-name)
-;;                           "loaddefs.el"))
-;;           (setf file-name (find-definition-site-of-preloaded-function function)))
-;;         (when (and (null file-name) (subrp def))
-;;           (setq file-name (find-definition-site-of-subr-function function)))
-;;         (if file-name
-;;             (progn
-;;               (find-file file-name)
-;;               (re-search-forward (format "^ *(def.* %s" function) nil t))
-;;             (error "No source file for %s" function)))))
 
 
 (defun hide-brackets ()
@@ -1342,9 +1486,6 @@ Message-ID: <87irohiw7u.fsf@forcix.kollektiv-hamburg.de>
           (t
            (error "Bad token: %s (This is a CAN'T-HAPPEN type of error)"
                   bracket)))))))
-
-
-
 
 
 
@@ -1412,13 +1553,14 @@ URL in a new window."
   (save-excursion
     (raise-frame
      (select-frame
-      (or (find-if (lambda (frame) (equalp (frame-name frame) *browse-frame-name*))
+      (or (find-if (lambda (frame) (equalp (pjb-frame-name frame) *browse-frame-name*))
                    (frame-list))
           (make-frame (list (cons 'name *browse-frame-name*))))))
     (w3m-goto-url url)))
 
-(require 'w3m-load)
-(when (and (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
+
+(when (and (require 'w3m-load nil t)
+	   (or (<= 23 emacs-major-version) (require 'mime-parse nil t))
            (ignore-errors (require 'w3m        nil t))
            (or (<= 23 emacs-major-version) (require 'mime-w3m   nil t)))
   (.EMACS "w3m mode")
@@ -1434,6 +1576,949 @@ URL in a new window."
   ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
 
   ) ;;when
+
+
+
+
+;;;----------------------------------------------------------------------------
+(.EMACS "emacs<->Common Lisp RPC with slime/swank")
+
+;;; In emacs, we can execute Common Lisp expressions:
+
+;; (require 'slime)
+;; (slime)
+
+(setf slime-enable-evaluate-in-emacs t)
+
+(defun eval-in-cl (cl-expression-string process-result-values)
+  (slime-eval-with-transcript
+   `(swank:eval-and-grab-output ,cl-expression-string)
+   (lexical-let  ((here (current-buffer))
+                  (process-result-values process-result-values))
+     (lambda (result-values)
+       (set-buffer here)
+       (funcall process-result-values result-values)))))
+
+;; (eval-in-cl "(values 1 * (ext:! 20) (package-name *package*))"
+;;             (lambda (values)
+;;               (dolist (v values)
+;;                 (insert (format "%s\n" v)))))
+;; Returns:
+;;
+;; nil
+;;
+;; then later inserts:
+;;
+;; 1
+;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
+;; 2432902008176640000
+;; "COMMON-LISP-USER"
+
+
+;; ;;; In Common Lisp, we can execute emacs lisp expressions:
+;;
+;; (defparameter *emacs-readtable* (copy-readtable))
+;; (setf (readtable-case *emacs-readtable*) :preserve)
+;; (set-syntax-from-char #\> #\) *emacs-readtable*)
+;; (set-dispatch-macro-character
+;;  #\# #\<
+;;  (lambda (stream subchar dispchar)
+;;    `(emacs-unreadable ,@(read-delimited-list #\> stream t)))
+;;  *emacs-readtable*)
+;;
+;; ;; Probably more readtable patching would be in order.
+;; ;;
+;; ;; We could define CLOS proxies for emacs objects for a more seamless
+;; ;; integration. swank::eval-in-emacs process the CL form to make it
+;; ;; "emacs" (eg. downcase symbols, etc).  It could convert CLOS proxies
+;; ;; to emacs lisp forms returning the corresponding emacs object.
+;;
+;; (defun eval-in-emacs (form &optional nowait)
+;;   (let ((result (SWANK::EVAL-IN-EMACS `(format "%S" ,form) nowait))
+;;         (*readtable* *emacs-readtable*))
+;;     (with-input-from-string (in result)
+;;       (let ((result (read in nil in)))
+;;         result))))
+;;
+;;
+;; (eval-in-emacs `(progn
+;;                   (switch-to-buffer (buffer-named "*scratch*"))
+;;                   (goto-char (point-max))
+;;                   (insert ,(format nil "~%Hello~%"))
+;;                   (list 42 (current-buffer))))
+;;
+;; ;; Switch to the *scratch* buffer,
+;; ;; goto the last position, and
+;; ;; inserts \nHello\n
+;; ;; then returns:
+;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
+
+
+(.EMACS "Redshank")
+(when (require 'redshank-loader "redshank/redshank-loader" t)
+  (eval-after-load "redshank-loader"
+    `(redshank-setup '(lisp-mode-hook
+                       slime-repl-mode-hook) t)))
+
+
+(defun redshank-looking-at-symbol (sym)
+  (forward-sexp)
+  (backward-sexp)
+  (string-equal* sym (symbol-at-point)))
+
+(defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
+  (paredit-wrap-sexp)
+  (insert (format "defgeneric %S %S" fname gf-lambda-list))
+  (when docstring (insert (format "\n  (:documentation %S)" docstring))))
+
+(defun redshank-generalize-lambda-list (specialized-lambda-list)
+  (let ((end (position '&aux specialized-lambda-list)))
+    (mapcar (lambda (item)
+              (if (atom item)
+                  item
+                  (let ((kv (first item)))
+                    (if (atom kv)
+                        kv
+                        (second kv)))))
+            (if end
+                (subseq specialized-lambda-list 0 end)
+                specialized-lambda-list))))
+
+(defun redshank-current-sexp ()
+  (forward-sexp)
+  (backward-sexp)
+  (sexp-at-point))
+
+(defun redshank-next-sexp ()
+  (forward-sexp 2)
+  (backward-sexp)
+  (sexp-at-point))
+
+
+(defun pjb-cl-equal-cl-symbol (cl-symbol item)
+  (and  (char/= ?: (aref (prin1-to-string item) 0))
+   (or (string-equal* item cl-symbol)
+       (string-equal* item (format "CL:%s"           cl-symbol))
+       (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
+       (string-equal* item (format "CL::%s"          cl-symbol))
+       (string-equal* item (format "COMMON-LISP::%s" cl-symbol)))))
+
+
+(defun pjb-cl-equal-cl-keyword (cl-keyword item)
+  (and (string-equal* cl-keyword item)
+       (string-equal* "KEYWORD" (symbol-package item))))
+
+
+
+(defun parse-body (where body)
+  "
+WHERE:          (member :lambda :locally :progn) specifies where the
+                body is found, that is whether it may contains
+                docstrings and declarations, or just declarations, or
+                none.
+
+BODY:           A list of forms.
+
+RETURN:         Three values: a docstring or nil, a list of declarations, a list of forms.
+"
+  (cl-flet ((progn-body (body)
+              (if (some (lambda (form) (and (consp form) (eq 'declare (first form))))
+                        body)
+                  (error "Found a declaration in the a progn body: ~S" body)
+                body)))
+    (ecase where
+      ((:lambda)
+       ;; {declaration} [docstring declaration {declaration}] {form}
+       ;; {declaration} [docstring] form {form}
+       (loop
+          with docstring    = nil
+          with declarations = '()
+          with actual-body  = '()
+          with state        = :opt-decl
+          for form in body
+          do (ecase state
+               (:opt-decl
+                (cond
+                  ((declarationp form) (push form declarations))
+                  ((stringp form)      (setf docstring form
+                                             state :seen-string))
+                  (t                   (push form actual-body)
+                                       (setf state :body))))
+               ((:seen-string :after-decl)
+                (if (declarationp form)
+                    (progn (push form declarations)
+                           (setf state :after-decl))
+                  (progn (push form actual-body)
+                         (setf state :body))))
+               (:body
+                (if (declarationp form)
+                    (error "Found a declaration ~S in the body ~S" form body)
+                  (push form actual-body))))
+          finally (return (ecase state
+                            (:opt-decl
+                             (values docstring declarations (nreverse actual-body)))
+                            (:seen-string
+                             (if actual-body
+                                 (values docstring declarations (nreverse actual-body))
+                               (values nil declarations (list docstring))))
+                            ((:after-decl :body)
+                             (values docstring declarations (nreverse actual-body)))))))
+      ((:locally)
+       ;; {declaration} {form}
+       (loop
+          for current on body
+          for form = (car current)
+          while (declarationp form)
+          collect form into declarations
+          finally (return  (values nil
+                                   declarations
+                                   (progn-body current)))))
+      ((:progn)
+       ;; {form}
+       (values nil
+               nil
+               (progn-body body))))))
+
+
+(defun redshank-make-defgeneric-from-defmethod ()
+  "
+The point must be before the defmethod form.
+The method is then wrapped in a defgeneric form.
+If there's a docstring, it's moved to the :documentation option of the
+defgeneric.
+"
+  (interactive)
+  (forward-sexp) (backward-sexp)
+  (let ((outerpt (point)))
+    (when (looking-at "(")
+      (forward-char)
+      (let ((startpt (point)))
+        (when (pjb-cl-equal-cl-symbol 'defmethod (redshank-current-sexp))
+          (let* ((fname          (redshank-next-sexp))
+                 (qualifier      (redshank-next-sexp))
+                 (endpt          (point))
+                 (gf-lambda-list (redshank-generalize-lambda-list
+                                  (if (symbolp qualifier)
+                                      (redshank-next-sexp)
+                                      qualifier)))
+                 ;; Note: this docstring stuff is bad. We should
+                 ;; implement the algorithm for CL bodies. See
+                 ;; parse-body above.
+                 (docstring      (let ((str (redshank-next-sexp)))
+                                   (when (stringp str)
+                                     str)))
+                 (doc-start      (when docstring
+                                   (point)))
+                 (doc-end        (when docstring
+                                   (redshank-next-sexp)
+                                   (point))))
+            (when doc-end
+              ;; check if there's something after the docstring. If
+              ;; not, it's not a docstring.
+              (goto-char doc-end)
+              (ignore-errors (forward-sexp))
+              (when (= (point) doc-end)
+                (setf docstring nil
+                      doc-start nil
+                      doc-end nil)))
+            ;; first delete the method docstring
+            (when (and doc-start doc-end)
+              (delete-region doc-start doc-end))
+            ;; then delete defmethod and fname
+            (delete-region startpt endpt)
+            ;; and insert :method instead
+            (goto-char startpt)
+            (insert ":method ")
+            ;; finally wrap the defgeneric
+            (goto-char outerpt)
+            (redshank-wrap-defgeneric fname
+                                      gf-lambda-list
+                                      docstring)
+            (insert "\n")
+            (paredit-reindent-defun)))))))
+
+
+
+
+(defun pjb-cl-find-defpackage-form (package-name)
+  "Find the defpackage form for the given `package-name' in the current buffer.
+RETURN:  The point at the start of the defpackage sexp, or NIL if not found.
+NOTE:    Excursion is saved.
+"
+  (save-excursion
+    (goto-char (point-min))
+    (forward-sexp)
+    (loop
+       do (let ((form (progn (backward-sexp) (redshank-current-sexp))))
+            (when (and (listp form)
+                       (pjb-cl-equal-cl-symbol 'defpackage (car form))
+                       (string-equal* (second form) package-name))
+              (return  (point)))
+            (forward-sexp 2))
+       while (< (point) (point-max))
+       finally (return nil))))
+
+
+(defun pjb-cl-package-files ()
+  "RETURN: A list of files named *package*.lisp and the current buffer file."
+  (let ((current-file (buffer-file-name)))
+    (append
+     (when current-file (list current-file))
+     (file-expand-wildcards
+      (replace-regexp-in-string "//" "/"
+                                (format "%s/*package*.lisp" default-directory))))))
+
+
+(defvar pjb-cl-package-files 'pjb-cl-package-files
+  "The function used to get a list of files where there are defpackage forms.
+The default function only searches in the current file and in
+\"*package*.lisp\" in the same directory.")
+
+
+(defun* pjb-cl-find-package-file (package-name &key (if-does-not-exist nil))
+  "Find the file where the current package is defined.
+Search the current buffer and files named *package*.lisp in the default directory.
+
+IF-DOES-NOT-EXIST:  can be :error, :file or another value.
+
+RETURN: If a defpackage form is found for the current package (path point).
+NOTE:   The searched files are left open.  Excursion is saved.
+"
+  (let ((pos (pjb-cl-find-defpackage-form package-name)))
+    (if pos
+        (list (buffer-file-name) pos)
+        (save-excursion
+          (loop
+             with files = (funcall pjb-cl-package-files)
+             for file in files
+             do (progn
+                  (find-file file)
+                  (let ((pos (pjb-cl-find-defpackage-form package-name)))
+                    (when pos
+                      (return (list file pos)))))
+             finally ; doesn't exist
+               (return (case if-does-not-exist
+                         (:error (error "No file with (defpackage %S) found." package-name))
+                         (:file  (or (first files) (buffer-file-name)))
+                         (otherwise if-does-not-exist))))))))
+
+
+(defun pjb-cl-package-designator (name)
+  (funcall redshank-canonical-package-designator-function
+           (etypecase name
+             (symbol (symbol-name name))
+             (string name))))
+
+
+(defun* pjb-cl-insert-defpackage (name &key
+                                       (nicknames '())
+                                       (documentation nil)
+                                       (use '("COMMON-LISP"))
+                                       (shadow '())
+                                       (shadowing-import-from '())
+                                       (import-from '())
+                                       (export '())
+                                       (intern '())
+                                       (size   nil))
+  (flet ((insert-option (option items)
+           (insert (format "\n  (%s" option))
+           (when (listp items)
+             (dolist (name items)
+               (insert (format  " %s" (pjb-cl-package-designator name)))))
+           (insert ")")))
+    (insert (format  "(defpackage %s" (pjb-cl-package-designator name)))
+    (when nicknames             (insert-option :nicknames nicknames))
+    (when documentation         (insert (format "\n  (:documentation %S)" documentation)))
+    (insert-option :use use)
+    (when shadow                (insert-option :shadow shadow))
+    (when shadowing-import-from (insert-option :shadowing-import-from shadowing-import-from))
+    (when import-from           (insert-option :import-from import-from))
+    (when export                (insert-option :export export))
+    (when intern                (insert-option :intern intern))
+    (when size                  (insert (format "\n  (:size %s)")))
+    (insert ")\n")))
+
+
+(defun pjb-cl-find-export-point ()
+  "Find the file where the current package is defined, and in it, the
+point where one can insert an exported symbol.  If there's no :export
+clause, add one in the defpackage form.  If there's no defpackage
+form, then error out.
+RETURN: (path point)
+"
+  (let* ((package-name   (first (read-from-string (slime-current-package))))
+         (file-defpackpt (pjb-cl-find-package-file package-name :if-does-not-exist :file)))
+    (when file-defpackpt
+      (save-excursion ; in case it's in the same file.
+        (destructuring-bind (file defpackpt)
+            (if (stringp file-defpackpt)
+                (progn ; a new defpackage form is needed in that file.
+                  (find-file file-defpackpt)
+                  (save-excursion
+                    (goto-char (point-min))
+                    (forward-sexp)
+                    (backward-sexp)
+                    (prog1 (list file-defpackpt (point))
+                      (pjb-cl-insert-defpackage package-name
+                                                :documentation "\nUndocumented yet.\n"
+                                                :export t)
+                      (insert "\n"))))
+                file-defpackpt)
+          ;; we can insert into that defpackage form.
+          (find-file file)
+          (let ((pt (point)))
+            (goto-char defpackpt) ; looking at the defpackage form.
+            (let ((defpack (redshank-current-sexp)))
+              (unless (ignore-errors (find :export (cddr defpack) :key (function first)))
+                ;; no export
+                (forward-char) (forward-sexp 2)
+                (insert "\n(:export)"))
+              ;; there's an export
+              (goto-char defpackpt)
+              (forward-char)
+              (forward-sexp)
+              (loop
+                 for sexp = (redshank-next-sexp)
+                 until (string-equal* (car sexp) :export))
+              (let ((start (prog1 (point) (forward-sexp)))
+                    (end   (prog1 (point) (backward-sexp))))
+                (forward-char)
+                (forward-sexp)
+                (loop
+                   with target = (if (and (< start pt) (< pt end))
+                                     pt ; current point inside the export.
+                                     (1- end)) ; current point ouside the export.
+                   for lastpt = (point)
+                   while (and (ignore-errors (progn (forward-sexp) t))
+                              (< (point) target))
+                   finally (return (list file lastpt)))))))))))
+
+
+(defun pjb-cl-export-symbols (symbol-list)
+  (destructuring-bind (file point) (pjb-cl-find-export-point)
+    (find-file file)
+    (goto-char point)
+    (dolist (sym symbol-list)
+      (insert (format "\n   %s" (pjb-cl-package-designator sym))))))
+
+
+(defun pjb-cl-export-symbol-at-point ()
+  "Insert into the defpackage form an export of the symbol following the point."
+  (interactive)
+  (save-window-excursion
+    (save-excursion
+     (forward-sexp) (backward-sexp)
+     (pjb-cl-export-symbols (list (symbol-at-point))))))
+
+
+(defun pjb-cl-function-name-symbol (name)
+  "RETURN: the symbol of a function name (either itself or the second element of (setf name))."
+  (cond ((and (listp name)
+              (<= 2 (length name))
+              (pjb-cl-equal-cl-symbol 'setf (first name))
+              (symbolp (second name)))
+         (second name))
+        ((symbolp name)
+         name)
+        (t
+         (error "~S is not a function name" name))))
+
+
+(defun pjb-cl-defstruct-symbols (form)
+  "Return a list of symbol names defined by the defstruct FORM."
+  (let* ((name         (second form))
+         (uname        (string-upcase (if (listp name)
+                                          (first name)
+                                          name)))
+         (conc-name    (format "%s-" uname))
+         (constructors (list (format "MAKE-%s" uname)))
+         (copier       (format "COPY-%s" uname))
+         (predicate    (format "%s-P" uname)))
+    (when (listp name)
+      (loop
+         for option in (rest name)
+         do (if (atom option)
+                (case option
+                  (:conc-name   (setf conc-name    ""))
+                  (:constructor (setf constructors (pushnew (format "MAKE-%s" uname) constructors
+                                                            :test (function string=))))
+                  (:copier      (setf copier       nil))
+                  (:predicate   (setf predicate    nil)))
+                (case (first option)
+                  (:conc-name   (setf conc-name (or (and (second option)
+                                                         (string-upcase (second option)))
+                                                    "")))
+                  (:constructor (cond
+                                  ((null (rest option))
+                                   (pushnew (format "MAKE-%s" uname) constructors
+                                            :test (function string=)))
+                                  ((null (second option))
+                                   (setf constructors '()))
+                                  (t
+                                   (pushnew (string-upcase (second option)) constructors
+                                            :test (function string=)))))
+                  (:copier      (setf copier       (and (second option)
+                                                        (string-upcase (second option)))))
+                  (:predicate   (setf predicate    (and (second option)
+                                                        (string-upcase (second option)))))))))
+    (append (list uname)
+            constructors
+            (when predicate (list predicate))
+            (when copier    (list copier))
+            (mapcar (lambda (field)
+                      (format "%s%s"
+                              conc-name
+                              (string-upcase
+                               (if (listp field)
+                                   (first field)
+                                   field))))
+                    (cddr form)))))
+
+
+(defun pjb-cl-defclass-symbols (form)
+  "Return a list of symbol names defined by the defclass or define-condition FORM."
+  (cons (second form)
+        (mapcan (lambda (slot)
+                  (when (listp slot)
+                    (loop
+                       for (key name) on (cdr slot) by (function cddr)
+                       when (or (pjb-cl-equal-cl-keyword :reader   key)
+                                (pjb-cl-equal-cl-keyword :writer   key)
+                                (pjb-cl-equal-cl-keyword :accessor key))
+                       collect (pjb-cl-function-name-symbol name))))
+                (fourth form))))
+
+
+(defun pjb-cl-export-definition-at-point ()
+  "Insert into the defpackage form an export of the symbols defined by the form the point."
+  (interactive)
+  (let* ((pt     (point))
+         (marker (make-marker)))
+    (set-marker marker pt)
+    (save-window-excursion
+      (forward-sexp)
+      (setf pt (point))
+      (set-marker marker pt)
+      (backward-sexp)
+      (let ((form (sexp-at-point)))
+        (cond
+          ((null form)    (error "Cannot find a sexp at point (possibly because of a reader macro in it)."))
+          ((symbolp form) (pjb-cl-export-symbols (list form)))
+          ((atom form)    (error "Cannot export a %S" (type-of form)))
+          (t (cond
+               ((and (pjb-cl-equal-cl-symbol 'defstruct (first form))
+                     (<= 2 (length form)))
+                (pjb-cl-export-symbols (pjb-cl-defstruct-symbols form)))
+               ((and (or (pjb-cl-equal-cl-symbol 'defclass         (first form))
+                         (pjb-cl-equal-cl-symbol 'define-condition (first form)))
+                     (<= 4 (length form)))
+                (pjb-cl-export-symbols (pjb-cl-defclass-symbols form)))
+               ((and (or (pjb-cl-equal-cl-symbol 'defun      (first form))
+                         (pjb-cl-equal-cl-symbol 'defmacro   (first form))
+                         (pjb-cl-equal-cl-symbol 'defmethod  (first form))
+                         (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
+                     (<= 2 (length form)))
+                (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
+               ((and (string-equal* "def" (first form)
+                                    :end2 (min 3 (length (prin1-to-string (first form)))))
+                     (<= 2 (length form))
+                     (symbolp (second form)))
+                (pjb-cl-export-symbols (list (second form))))
+               (t
+                (error "No recognized form.")))))))
+    (goto-char marker)))
+
+
+
+;;;----------------------------------------------------------------------------
+(.EMACS "Common Lisp indenting")
+
+(require 'lisp-mode)
+(load-library "cl-indent")
+
+(setq lisp-indent-function 'common-lisp-indent-function)
+
+(defun lisp-indent-function (indent-point state)
+  "This function is the normal value of the variable `lisp-indent-function'.
+It is used when indenting a line within a function call, to see if the
+called function says anything special about how to indent the line.
+
+INDENT-POINT is the position where the user typed TAB, or equivalent.
+Point is located at the point to indent under (for default indentation)
+STATE is the `parse-partial-sexp' state for that position.
+
+If the current line is in a call to a Lisp function
+which has a non-nil property `lisp-indent-function',
+that specifies how to do the indentation.  The property value can be
+* `defun', meaning indent `defun'-style
+* an integer N, meaning indent the first N arguments specially
+  like ordinary function arguments and then indent any further
+  arguments like a body
+* a function to call just as this function was called.
+  If that function returns nil, that means it doesn't specify
+  the indentation.
+
+This function also returns nil meaning don't specify the indentation."
+  (let ((normal-indent (current-column)))
+    (goto-char (1+ (elt state 1)))
+    (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
+    (if (and (elt state 2)
+             (or (looking-at ":") (not (looking-at "\\sw\\|\\s_"))))
+        (progn ; car of form doesn't seem to be a symbol, or is a keyword
+          (if (not (> (save-excursion (forward-line 1) (point))
+                      calculate-lisp-indent-last-sexp))
+              (progn (goto-char calculate-lisp-indent-last-sexp)
+                     (beginning-of-line)
+                     (parse-partial-sexp (point)
+                                         calculate-lisp-indent-last-sexp 0 t)))
+          ;; Indent under the list or under the first sexp on the same
+          ;; line as calculate-lisp-indent-last-sexp.  Note that first
+          ;; thing on that line has to be complete sexp since we are
+          ;; inside the innermost containing sexp.
+          (backward-prefix-chars)
+          (current-column))
+        (let ((function (buffer-substring (point)
+                                          (progn (forward-sexp 1) (point))))
+              method)
+          (setq method (or (get (intern-soft function) 'lisp-indent-function)
+                           (get (intern-soft function) 'lisp-indent-hook)))
+          (cond ((or (eq method 'defun)
+                     (and (null method)
+                          (> (length function) 3)
+                          (string-match "\\`def" function)))
+                 (lisp-indent-defform state indent-point))
+                ((integerp method)
+                 (lisp-indent-specform method state
+                                       indent-point normal-indent))
+                (method
+                 (funcall method indent-point state)))))))
+
+;; (setq lisp-indent-function 'common-lisp-indent-function)
+
+(defun cl-indent (symbol num-forms)
+  "
+Put on the SYMBOL and its lower case and upper case variants
+a 'lisp-indent-function property set to NUM-FORMS.
+"
+  (dolist (property '(lisp-indent-function common-lisp-indent-function))
+    (put symbol property num-forms)
+    (put (intern (string-downcase (symbol-name symbol))) property num-forms)
+    (put (intern (string-upcase   (symbol-name symbol))) property num-forms)))
+
+
+(defun %batch-cl-indent (&rest indent-symbols-list)
+  (dolist (item indent-symbols-list)
+    (let ((indent (car item)))
+      (dolist (sym (cdr item))
+        (cl-indent sym indent)
+        (let ((p (position (character ":") (symbol-name sym))))
+          (when p
+            (cl-indent (intern (subseq (symbol-name sym) (1+ p)))
+                       indent)))))))
+
+
+(defmacro* do-directories-up ((var dir-path &optional result) &body body)
+  "
+DO:     Evaluates body with var bound to dir-path, then dir-path's parent,
+        and so on up to the root directory.
+RETURN: The evaluation of the result form.
+"
+  `(do ((,var ,dir-path
+              (if (string-match "^\\(.*/\\)[^/]+/$" ,var)
+                  (match-string 1 ,var)
+                  "")))
+       ((string-equal "" ,var) ,result)
+     ,@body))
+
+
+(defun* read* (stream &optional (eof-error-p t) eof-value ignored)
+  (handler-case (read stream)
+    (end-of-file (err)  (if eof-error-p
+                            (error err)
+                            eof-value))))
+
+
+(defun load-lisp-indentations ()
+  "Processes a lisp.indentations file,
+in the current directory, or in a parent."
+  (interactive)
+  (do-directories-up (dir default-directory)
+    (let ((file (concat dir "lisp.indentations")))
+      ;; (message "file = %S" file)
+      (when (file-exists-p file)
+        (save-excursion
+          (let ((count (length (buffer-list)))) ; is there a better way?
+            (find-file file)
+            (goto-char (point-min))
+            (let ((killp (/= count (length (buffer-list)))))
+              (unwind-protect
+                   (loop
+                      for clause = (read* (current-buffer) nil (current-buffer))
+                      until (eql clause (current-buffer))
+                      do (message "(%%batch-cl-indent '%S)" clause)
+                      do (%batch-cl-indent clause))
+                (when killp (kill-buffer (current-buffer)))))))))))
+
+;; (defmacro batch-cl-indent (&rest indent-symbols-list)
+;;   `(%batch-cl-indent ,@(mapcar (lambda (x) `(quote ,x)) indent-symbols-list)))
+
+(defun batch-cl-indent ()
+  (interactive)
+  (warn "The new command is load-lisp-indentations")
+  (load-lisp-indentations))
+
+
+(let ((html '(DOCTYPE A ABBR ACRONYM ADDRESS APPLET AREA B BASE
+              BASEFONT  BDO BIG BLOCKQUOTE BODY BR BUTTON CAPTION
+              CENTER CITE CODE COL COLGROUP DD DEL DFN DIR DIV DL
+              DT EM FIELDSET FONT  FORM FRAME FRAMESET H1 H2 H3 H4
+              H5 H6 HEAD HR HTML I  IFRAME IMG INPUT INS ISINDEX
+              KBD LABEL LEGEND LI LINK MAP MENU  META NOFRAMES
+              NOSCRIPT OBJECT OL OPTGROUP OPTION P PARAM PRE Q S
+              SAMP SCRIPT SELECT SMALL SPAN STRIKE STRONG STYLE SUB
+              SUP TABLE TBODY TD TEXTAREA TFOOT TH THEAD TITLE TR
+              TT  U UL VAR)))
+  (%batch-cl-indent
+   (cons 1 (mapcar (lambda (sym) (intern (concat "HTML:" (symbol-name sym)))) html))
+   (cons 0 (mapcar (lambda (sym) (intern (concat "<:"    (symbol-name sym)))) html))
+   (cons 2 '(<:div))))
+
+(defun eval-last-sexp-lisp ()
+  (interactive)
+  (forward-sexp -1)
+  (let ((current-prefix-arg '-))
+    (eval-next-sexp-lisp)))
+
+
+(defun pjb-lisp-remove-end-comment ()
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "^\\([^;\"]*\\)\n[ \t]*\\())+\\) *;.*" nil t)
+    (let ((a (match-string 1))
+          (b (match-string 2)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert a b)))
+  (goto-char (point-min))
+  (while (re-search-forward "^\\([^;\"]*\\)\\())+\\) *;.*" nil t)
+    (let ((a (match-string 1))
+          (b (match-string 2)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert a b))))
+
+
+;;;----------------------------------------------------------------------------
+(.EMACS "Common-Lisp Hyperspec")
+;; common-lisp-hyperspec-symbols
+
+
+(defun probe-url (url)
+  (cond
+    ((string= "file://" (subseq url 0 (min (length url) 7)))
+     (file-readable-p (subseq url 7)))
+    ((file-readable-p "/tmp/no-internet")
+     nil)
+    (t
+     (zerop (cl:parse-integer
+             (shell-command-to-string
+              (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
+                      url)))))))
+
+
+;; (require 'clhs)
+;; (require 'hyperspec)
+
+
+(defvar *lw-clhs*)
+(setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
+(defvar *hyperspec-path*)
+(setf   *hyperspec-path*   (first-existing-file
+			    (list
+			     (ignore-errors (get-directory :hyperspec))
+			     (concat "/usr/local/html/local/lisp/" *lw-clhs*)
+			     "/opt/local/share/doc/lisp/HyperSpec-7-0/"))
+        common-lisp-hyperspec-root
+        (dolist
+            (url (list
+                  (concat "file://" *hyperspec-path*)
+                  "file:///usr/share/doc/hyperspec/HyperSpec/"
+                  ;; (concat "http://thalassa.lan.informatimago.com/lisp/" *lw-clhs*)
+                  (concat "http://" *lw-clhs*)))
+          (when (probe-url url)
+            (return url))))
+
+(defvar common-lisp-hyperspec-browser (function ignore))
+(defvar common-lisp-hyperspec-frame   (selected-frame))
+(load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
+
+;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
+;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
+
+(defun thing-at-point-no-properties (thing)
+  "Return the THING at point.
+THING is a symbol which specifies the kind of syntactic entity you want.
+Possibilities include `symbol', `list', `sexp', `defun', `filename', `url',
+`word', `sentence', `whitespace', `line', `page' and others.
+
+See the file `thingatpt.el' for documentation on how to define
+a symbol as a valid THING."
+  (if (get thing 'thing-at-point)
+      (funcall (get thing 'thing-at-point))
+      (let ((bounds (bounds-of-thing-at-point thing)))
+        (if bounds
+            (buffer-substring-no-properties (car bounds) (cdr bounds))))))
+
+
+
+
+(when (or t  (boundp 'common-lisp-hyperspec-symbols))
+
+  (defun common-lisp-hyperspec-complete (string predicate allp)
+    (if allp
+        (let ((result '()))
+          (mapatoms
+           (lambda (symbol)
+             (let ((name (symbol-name symbol)))
+               (when (or (and (<= (length string) (length name))
+                              (string-equal* string name :end2 (length string)))
+                         (search (concat "-" string) name :test (function equalp)))
+                 (push name result))))
+           common-lisp-hyperspec-symbols)
+          result)
+        (try-completion string common-lisp-hyperspec-symbols predicate)))
+
+
+  (defun clhs-entry (symbol-designator)
+    (let ((symbol (intern-soft (downcase (etypecase symbol-designator
+                                           (symbol (symbol-name symbol-designator))
+                                           (string  symbol-designator)))
+                               common-lisp-hyperspec-symbols)))
+      (if (and symbol (boundp symbol))
+          (symbol-value symbol)
+          nil)))
+
+
+  (defun common-lisp-hyperspec (symbol-name)
+    "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
+If SYMBOL-NAME has more than one definition, all of them are displayed with
+your favorite browser in sequence.  The browser should have a \"back\"
+function to view the separate definitions.
+The Common Lisp HyperSpec is the full ANSI Standard Common Lisp, provided
+by Kent Pitman and Xanalys Inc.  By default, the Xanalys Web site is
+visited to retrieve the information.  Xanalys Inc. allows you to transfer
+the entire Common Lisp HyperSpec to your own site under certain conditions.
+Visit http://www.xanalys.com/software_tools/reference/HyperSpec/ for more
+information.  If you copy the HyperSpec to another location, customize the
+variable `common-lisp-hyperspec-root' to point to that location."
+    (interactive
+     (list (let ((completion-ignore-case t)
+                 (symbol-at-point (thing-at-point-no-properties 'symbol)))
+             (completing-read
+              "Look up symbol in Common Lisp HyperSpec: "
+              (function common-lisp-hyperspec-complete) #'boundp
+              t symbol-at-point
+              'common-lisp-hyperspec-history))))
+    (maplist
+     (lambda (entry)
+       (case system-type
+         ((darwin)
+          (case window-system
+            ((x)
+             (browse-url (concat common-lisp-hyperspec-root
+                                 "Body/" (car entry))))
+            ((mac ns nil)
+             (let ((browse-url-browser-function (cons '("." . browse-url-generic) browse-url-browser-function))
+                   (browse-url-generic-program "/usr/bin/open"))
+               (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))))
+            (otherwise
+             (error "Unknown window-system"))))
+         ((gnu/linux)
+          (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry))))
+         (otherwise
+          (error "Unknown system-type.")))
+       (if (cdr entry)
+           (sleep-for 1.5)))
+     (delete-duplicates
+      (or (clhs-entry symbol-name)
+          (error "The symbol `%s' is not defined in Common Lisp"
+                 symbol-name))
+      :test (function equal))))
+
+
+  (defun gcl-hyperspec (symbol-name)
+    (interactive
+     (list (let ((completion-ignore-case t)
+                 (symbol-at-point (thing-at-point-no-properties 'symbol)))
+             (completing-read
+              "Look up symbol in Common Lisp HyperSpec: "
+              common-lisp-hyperspec-symbols #'boundp
+              t symbol-at-point
+              'common-lisp-hyperspec-history))))
+    (maplist
+     (lambda (entry)
+       (info (format "(gcl)%s" (car entry)))
+       (if (cdr entry)
+           (sleep-for 1.5)))
+     (delete-duplicates
+      (let ((symbol (intern-soft (downcase symbol-name)
+                                 common-lisp-hyperspec-symbols)))
+        (if (and symbol (boundp symbol))
+            (list symbol)
+            (error "The symbol `%s' is not defined in Common Lisp"
+                   symbol-name)))
+      :test (function equal))))
+
+
+  (defalias 'clhs               'common-lisp-hyperspec)
+  (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
+  (global-set-key (kbd "C-h y") 'hyperspec-lookup)
+
+  ) ;;(boundp 'common-lisp-hyperspec-symbols)
+
+
+(defun random-hyperspec ()
+  (interactive)
+  (let* ((random-hyperspec-symbol
+          (let ((syms '()))
+            (do-symbols (sym common-lisp-hyperspec-symbols) (push sym syms))
+            (nth (random (length syms)) syms)))
+         (random-page (let ((pages (symbol-value random-hyperspec-symbol)))
+                        (nth (random (length pages)) pages))))
+    (browse-url (concat common-lisp-hyperspec-root "Body/" random-page))))
+
+
+
+
+;;   (defun send-url-to-safari (url)
+;;     "Sends URL to Safari, using Apple's Open Scripting Architecture."
+;;     (with-temp-buffer
+;;       (insert "tell application \"Safari\"\n")
+;;       (insert "  activate\n")
+;;       (insert "  make new document at the beginning of documents\n")
+;;       (insert (format "  set the URL of the front document to \"%s\"\n" url))
+;;       (insert "end tell\n")
+;;       (call-process-region (point-min) (point-max) "/usr/bin/osascript")))
+
+;;; (setq common-lisp-hyperspec-root
+;;;       "file://Users/ayank/Documents/text/computer/lisp/HyperSpec/")
+;;; (setq common-lisp-hyperspec-symbol-table
+;;;       "file://Users/ayank/Documents/text/computer/lisp/HyperSpec/Data/Map_Sym.txt")
+
+;;; (load-library
+;;;  "file://Users/ayank/Documents/text/computer/lisp/ilisp/extra/hyperspec")
+
+;;; (global-set-key [(shift f1)]
+;;;                 '(lambda ()
+;;;                    (interactive)
+;;;                    (common-lisp-hyperspec
+;;;                     (thing-at-point 'symbol))))
+
+
+;;; or:
+;;;       (push browse-url-browser-function
+;;; 	    '("."  . (lambda (url &optional new-win)
+;;; 	       (do-applescript (concat "open location \""
+;;; 				       url "\"")))))
+
 
 
 ;;;----------------------------------------------------------------------------
@@ -1628,8 +2713,8 @@ URL in a new window."
     'lac-emms)
   (.EMACS "Load and configure emms complete."))
 
-(add-lac 'lac-emms)
-(lac-emms)
+;; (add-lac 'lac-emms)
+;; (lac-emms)
 
 
 ;;;----------------------------------------------------------------------------
@@ -1845,7 +2930,9 @@ URL in a new window."
 ;;;----------------------------------------------------------------------------
 
 (defparameter *pjb-erc-answers*
-  '((geb
+  '((extensions
+     . "https://www.talisman.org/~erlkonig/documents/commandname-extensions-considered-harmful/")
+    (geb
      . "the most important book of the XX century: \"Gödel, Escher and Bach: An Eternal Golden Braid\" http://www.amazon.com/G%C3%B6del-Escher-Bach-Eternal-Golden/dp/0465026567")
     (lisp-applications
      . "“Please don't assume Lisp is only useful for Animation and Graphics, AI, Bioinformatics, B2B and Ecommerce, Data Mining, EDA/Semiconductor applications, Expert Systems, Finance, Intelligent Agents, Knowledge Management, Mechanical CAD, Modeling and Simulation, Natural Language, Optimization, Research, Risk Analysis, Scheduling, Telecom, and Web Authoring just because these are the only things they happened to list.”")
@@ -1871,9 +2958,9 @@ URL in a new window."
     (getting-started
      . "Start with http://www.cliki.net/Getting%20Started  or  http://articulate-lisp.com/" )
     (emacs-lisp-intro
-     . "An Introduction to Programming in Emacs Lisp  http://www.gnu.org/software/emacs/emacs-lisp-intro/  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
+     . "An Introduction to Programming in Emacs Lisp  https://www.gnu.org/software/emacs/manual/eintr.html  or  M-: (info \"(eintr)Top\") RET (for non-programmers)")
     (emacs-lisp
-     . "Emacs Lisp Manual http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
+     . "Emacs Lisp Manual  http://www.gnu.org/software/emacs/manual/elisp.html  or  M-: (info \"(elisp)Top\") RET")
     (emacs-manual
      . "Emacs Manual http://www.gnu.org/software/emacs/manual/   or  M-: (info \"(emacs)Top\") RET")
     (the-art-of-unix-programming
@@ -2033,15 +3120,40 @@ License:
         (indent-for-tab-command))))
 
 
-;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
+(defun infer-indentation-style ()
+  (let ((spc-count (how-many "^ "  (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (setf indent-tab-mode (cond ((< spc-count tab-count) t)
+                                ((> spc-count tab-count) nil)
+                                (t                       (when (boundp 'indent-tab-mode)
+                                                           indent-tab-mode))))))
+
+
+(require 'freerdp-c-style)
+
+(defvar auto-c-style-alist
+  '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
+    ("." . "pjb")))
 
 (defun c-mode-meat ()
   (interactive)
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (infer-indentation-style)
+  (let ((path (buffer-file-name)))
+    (when path
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
+        (when c-style
+          (message "Setting C style %s" c-style)
+          (c-set-style c-style)
+          (when (string= c-style "freerdp")
+            (freerdp-style-set-local-bindings))))))
   (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
   (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  (define-key c-mode-map "{" 'self-insert-command)
+  ;; (define-key c-mode-map "{" 'self-insert-command)
   (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+
+
+;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
 
 (add-hook 'c-mode-hook 'c-mode-meat)
 
@@ -2196,14 +3308,14 @@ License:
 (setq Info-default-directory-list
       (remove
        "/usr/share/info/emacs-21"
-       (labels ((flatten
-                    (tree)
-                  "collect in a simple list all the non-nil atoms in the tree."
-                  (cond
-                    ((null tree) nil)
-                    ((atom tree) (list tree))
-                    (t (nconc (flatten (car tree))
-                              (and (cdr tree) (flatten (cdr tree))))))))
+       (cl-labels ((flatten
+                       (tree)
+                     "collect in a simple list all the non-nil atoms in the tree."
+                     (cond
+                       ((null tree) nil)
+                       ((atom tree) (list tree))
+                       (t (nconc (flatten (car tree))
+                                 (and (cdr tree) (flatten (cdr tree))))))))
          (flatten (mapcar (function find-subdirs-with-dir)
                           '("/usr/local/share/emacs/"
                             "/usr/local/share/info/"
@@ -2224,6 +3336,7 @@ License:
 (require 'message)
 (defalias 'rot13-region 'message-caesar-region)
 
+(defalias 'widden       'widen)
 (defalias 'scratch      'pjb-scratch)
 (defalias 'eurotunnel   'pjb-eurotunnel)
 (defalias 'address      'pjb-address)
@@ -2252,7 +3365,7 @@ License:
 (defun* notes ()
   (interactive)
   (do-directories-up (dir default-directory)
-    (dolist (file '("NOTES.txt" "notes.txt" "NOTES.*[a-z]" "notes.*[a-z]"
+    (dolist (file '("rc/notes.gpg" "NOTES.txt" "notes.txt" "NOTES.*[a-z]" "notes.*[a-z]"
                     ".notes.utf-8" ".notes*[a-z]"))
       (let ((files (file-expand-wildcards (concat dir file) t)))
         (when files
@@ -2832,11 +3945,9 @@ list or vector, the length of the sequence."
   (when erc-fill-mode
     (erc-fill-mode -1)))
 
+(defvar erc-fill-mode-hook '())
 (push 'pjb-disable-erc-fill-mode-meat erc-fill-mode-hook)
 
-;; (set-frame-parameter (selected-frame) 'alpha 0)
-;; (set-frame-parameter (selected-frame) 'alpha 96)
-;; (set-frame-parameter (selected-frame) 'alpha 100)
-;;;----------------------------------------------------------------------------
+
 (.EMACS "emacs-common complete.")
 ;;;; THE END ;;;;
