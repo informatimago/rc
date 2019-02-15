@@ -516,7 +516,7 @@ X-Accept-Language:         fr, es, en
                       (lambda (retrieved) t)))))
 
 ;;;----------------------------------------------------------------------------
-(load "~/rc/emacs-patches.el")
+(when (file-exists-p "~/rc/emacs-patches.el") (load "~/rc/emacs-patches.el"))
 (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-paredit.el")
 (when (not *pjb-pvs-is-running*)
