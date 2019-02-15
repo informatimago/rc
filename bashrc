@@ -388,7 +388,7 @@ function be_generate(){
         be_variable GRADLE_HOME /opt/local/share/java/gradle
     fi
 
-    be_variable JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+    be_variable JAVA_TOOL_OPTIONS '-Dfile.encoding=UTF8 -Xmx6g'
     if [ "$uname" = Darwin ] ; then
         be_variable JAVA_HOME "$(/usr/libexec/java_home)"
     fi
