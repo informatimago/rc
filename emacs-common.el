@@ -515,7 +515,7 @@ and converted as such."
 (pjb-setup-load-path)
 (unless (load "pjb-loader.el" ) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 (load "~/rc/emacs-directories")
-
+(load "pjb-loader.el" )
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
