@@ -11,6 +11,8 @@
 
 ;; When there's a NAT: (setf swank:*use-dedicated-output-stream* nil)
 ;; (or with clisp).
+;;
+;; (list  swank:*communication-style* swank:*use-dedicated-output-stream* swank:*globally-redirect-io*)
 
 (defparameter *dont-close* t)
 
@@ -101,7 +103,7 @@
 
 (defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
 (defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
-(set-swank-bindings)
+(set-swank-bindings-code) ; (set-swank-bindings)
 
 #-(and) (
          (set-swank-bindings *swank-bindings*)

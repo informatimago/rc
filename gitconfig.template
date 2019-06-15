@@ -1,9 +1,15 @@
+# -*- mode:conf -*-
+
 [user]
     name = Pascal J. Bourguignon
     email = pjb@informatimago.com
 
+[core]
+    pager = cat
+
 [push]
     default = matching
+    followTags = true
 
 [color]
     ui = auto
@@ -21,3 +27,4 @@
     slog   = log --pretty=format:'%Cred%h%C(yellow)%d %C(bold blue)<%an>%Creset %s%n' --abbrev-commit --date=relative
     ss     = status --short
     st     = status
+
