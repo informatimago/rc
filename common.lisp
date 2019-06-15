@@ -132,7 +132,7 @@ License:
            "IT" "THIS" "THAT"
            "THEM" "THESE" "THOSE"
            "IS" "WAS" "WERE"
-           "DEFINE-COMMAND" "HELP"
+           "DEFINE-COMMAND" "HELP" "IMPORT-COMMANDS"
            "QUIT" "EXIT")
   (:documentation "
 
@@ -836,6 +836,16 @@ RETURN: No value.
      (error (err)
        (format *error-output* "~&~A~%" err))))
 
+(defun import-commands ()
+  ;; See forward-command-{macro,function}
+  ;; (use-package '("COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER"
+  ;;                "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.INTERACTIVE"))
+  (dolist (command (mapcar (function first) *commands*))
+    (let ((new-name (intern (symbol-name command))))
+      (unless (eq new-name command)
+        (setf (symbol-function new-name) (symbol-function command))
+        (eval `(define-symbol-macro ,new-name (call-command ',command)))))))
+
 (defmacro define-command (name (&rest lambda-list) &body docstring-declarations-and-body)
   "
 DO:         Define a REPL command that can be invoked by name, without
@@ -1002,6 +1012,20 @@ without, lists all the commands with their docstrings."
 (forward-command-function mkdir  (dir &rest other-dirs))
 (forward-command-function browse ())
 
+(define-command cc (source &key output (to :executable) options)
+  (uiop:run-program (append (list "gcc" (file-namestring source))
+                                  (when output
+                                    (list "-o" (file-namestring output)))
+                                  (ecase to
+                                    (:executable   '())
+                                    (:preprocessed '("-E"))
+                                    (:assembly     '("-S"))
+                                    (:object       '("-c")))
+                                  options)
+                          :input        nil
+                          :output       *standard-output*
+                          :error-output *error-output*
+                          :wait         t))
 
 (define-command date ()
   "Prints the date-time."

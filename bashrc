@@ -284,7 +284,10 @@ function be_generate(){
     local list
     local value
 
+
     bindirs=(
+
+        "$HOME/esp/xtensa-esp32-elf/bin"
 
         "$HOME/anaconda3/bin"
         "/opt/anaconda3/bin"
@@ -446,6 +449,8 @@ function be_generate(){
 
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
+
+    be_variable IDF_PATH           "$HOME/esp/esp-idf"
 
     value=/usr/share/kaffe
     if [[ -d $value/. ]] ; then
