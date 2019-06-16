@@ -213,6 +213,7 @@ xterm*font6:   Menlo-34
 ! xterm*font5:   -*-courier-medium-r-normal-*-24-*-*-*-*-*-*-*
 ! xterm*font6:   -*-courier-medium-r-normal-*-34-*-*-*-*-*-*-*
 
+xterm*geometry: 132x48
 
 !! -----------------------------
 !! Xterm other options:
