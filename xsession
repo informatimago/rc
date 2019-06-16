@@ -144,6 +144,7 @@ else
         )
     else
         wms=(
+            /usr/bin/wmaker
             /usr/bin/stumpwm
             /usr/bin/ratpoison
             /opt/local/bin/ratpoison
