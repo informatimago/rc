@@ -1,4 +1,7 @@
-;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
+;;; emacs-russian -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 ;; This doesn't work exactly like I want.
 
@@ -71,3 +74,7 @@ the OS keyboard is english or russian"
 
 ;;(add-hook 'text-mode-hook (lambda () (literal-insert-mode 1)))
 
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

@@ -1,9 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
-;;;;
-;;;; We only run GNU emacs.
-;;;;
+;;; emacs -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 
 ;; Added by Package.el.  This must come before configurations of
@@ -59,4 +57,6 @@
         (setq custom-file (or file custom-file)))
       (message "Found no configuration to load for %s" (hostname))))
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

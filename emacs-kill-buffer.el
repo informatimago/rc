@@ -1,3 +1,7 @@
+;;; emacs-kill-buffer -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (defun mode-line--kill-buffer (event)
   (interactive "e")
@@ -18,3 +22,7 @@
 
 
 (set-default 'mode-line-format (append mode-line-format mode-line-kill-buffer))
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

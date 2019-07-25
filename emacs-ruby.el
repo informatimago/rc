@@ -1,6 +1,7 @@
-;;;; -*- Mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file for ruby development.
+;;; emacs-ruby -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (.EMACS "~/rc/emacs-ruby.el %s" "Pascal J. Bourguignon's emacs ruby stuff.")
 
@@ -33,4 +34,6 @@
 ;; (require 'dash-at-point)
 (require 'textmate nil t)
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

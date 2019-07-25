@@ -1,4 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; emacs-femnam -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 ;; (push (cons "#lisp" (format "^%s[0-9]+$" (regexp-opt *femnams*))) erc-ignore-per-channel-alist)
 ;; (progn (string-match (format "^%s[0-9]+$" (mapcar 'capitalize (regexp-opt *femnams*))) "Mya29") (match-data))(0 5)
@@ -144,3 +147,7 @@
     "xiomara" "yadira" "yajaira" "yaritza" "yasmeen" "yasmin" "yasmine"
     "yazmin" "yesenia" "yessenia" "yolanda" "yvette" "yvonne" "zoe"
     "zoey"))
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

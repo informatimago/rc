@@ -1,7 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's hyperspec stuff.
-;;;;----------------------------------------------------------------------------
+;;; emacs-hyperspec -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 (.EMACS "emacs-hyperspec.el")
 (require 'cl)
 (require 'browse-url)			;you need the Emacs 20 version
@@ -174,4 +175,6 @@ variable `common-lisp-hyperspec-root' to point to that location."
                            (nth (random (length syms)) syms))))
 
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

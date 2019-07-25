@@ -1,7 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs android startup file.
-;;;;----------------------------------------------------------------------------
+;;; emacs-palette -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (.EMACS "~/rc/emacs-palette.el %s" "Pascal Bourguignon's palette stuff.")
 
@@ -350,4 +350,6 @@
 (set-palette  pal-default)
 ;; (set-default-frame-alist *default-font*)
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

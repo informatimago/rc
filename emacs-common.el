@@ -1,4 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; emacs-common -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8; -*-
+;;; Commentary:
+;;; Code:
+
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file.
 ;;;;
@@ -104,7 +108,15 @@
 
 (require 'tramp-sh nil t)
 (defvar tramp-ssh-controlmaster-options "")
-(setf tramp-ssh-controlmaster-options (concat "-o SendEnv TRAMP=yes " tramp-ssh-controlmaster-options))
+;; (setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' " tramp-ssh-controlmaster-options))
+;; (setf tramp-ssh-controlmaster-options "")
+;; (setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' -o 'SendEnv TERM=dumb' " tramp-ssh-controlmaster-options))
+
+(setf shell-prompt-pattern "^[^#$%>\n]*[#$%>] *")
+(setf shell-prompt-pattern "^\\[.*\\][#$%>] *")
+(setf tramp-shell-prompt-pattern "\\(?:^\\|\\)[^]#$%>\n]*#?[]#$%>] *\\(\\[[0-9;]*[a-zA-Z] *\\)*")
+(setf tramp-shell-prompt-pattern shell-prompt-pattern)
+
 
 (.EMACS "STARTING...")
 (mapc (lambda (f) (when (fboundp (car f)) (apply (function funcall) f)))
@@ -729,8 +741,9 @@ SIDE must be the symbol `left' or `right'."
 
 (defun translate-powerbook-keyboard ()
   (interactive)
-  (keyboard-translate ?\§ ?\`)
-  (keyboard-translate ?\± ?\~))
+  ;; (keyboard-translate ?\§ ?\`)
+  ;; (keyboard-translate ?\± ?\~)
+  )
 (defalias 'translate-macbook-keyboard  'translate-powerbook-keyboard)
 
 (defmacro define-force-justification (direction)
@@ -3192,7 +3205,6 @@ License:
 ;; (global-set-key (kbd "SPC") 'pjb-electric-space-rebound)
 
 
-
 (defun pjb-electric-ellipsis (p)
   (interactive "P")
   (cond
@@ -3950,4 +3962,9 @@ list or vector, the length of the sequence."
 
 
 (.EMACS "emacs-common complete.")
+(provide 'pjb-emacs-common)
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:
 ;;;; THE END ;;;;

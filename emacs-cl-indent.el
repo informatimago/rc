@@ -1,5 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;----------------------------------------------------------------------------
+;;; emacs-cl-indent -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 (.EMACS "emacs-cl-indent.el")
 
 (require 'lisp-mode)
@@ -168,3 +170,7 @@ in the current directory, or in a parent."
           (b (match-string 2)))
       (delete-region (match-beginning 0) (match-end 0))
       (insert a b))))
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:
