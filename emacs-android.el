@@ -1,7 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs android startup file.
-;;;;----------------------------------------------------------------------------
+;;; emacs-android -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 
 (.EMACS "~/rc/emacs-android.el %s" "Android Development Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)
@@ -118,4 +119,8 @@
                                  (android-filter-match-message "ubudu\\|AndroidRuntime\\|Volley\\|Exception")))
 
   )
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:
 ;;;; THE END ;;;;

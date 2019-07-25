@@ -1,3 +1,8 @@
+;;; emacs-paredit -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 ;;;----------------------------------------------------------------------------
 ;;; PAREDIT: essential!
 ;;;----------------------------------------------------------------------------
@@ -66,3 +71,6 @@ Useful for Objective-CL reader macros."
 
 
 
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

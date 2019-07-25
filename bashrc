@@ -289,8 +289,8 @@ function be_generate(){
 
         "$HOME/esp/xtensa-esp32-elf/bin"
 
-        "$HOME/anaconda3/bin"
-        "/opt/anaconda3/bin"
+        # "$HOME/anaconda3/bin"
+        # "/opt/anaconda3/bin"
 
         "$HOME/bin"
         "$HOME/opt/bin"

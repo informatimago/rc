@@ -1,6 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
+;;; emacs-font -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (.EMACS "~/rc/emacs-font.el %s" "Pascal Bourguignon's emacs font stuff.")
 
@@ -356,4 +357,6 @@
 ;;   (when (fboundp 'single-frame) (single-frame)))
 
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

@@ -1,6 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
+;;; emacs-pjb -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 
 (load "~/rc/emacs-common.el") ; defines .EMACS
@@ -339,6 +340,7 @@ X-Accept-Language:         fr, es, en
  '(org-agenda-files (quote ("~/src/pjb/nasium-lse/ISSUES.txt" "~/works/abnotation/abnotation/todo.txt" "~/works/enolaba/macosx/src/TODO" "~/works/manif/TODO.org" "~/works/ops/TODO.org" "~/works/patchwork/src/mclgui/TODO.org" "~/works/patchwork/src/patchwork/notes.txt")))
  '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
+ '(org-latex-remove-logfiles nil)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
  '(package-selected-packages (quote (cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
@@ -793,7 +795,19 @@ X-Accept-Language:         fr, es, en
 (setq org-plantuml-jar-path
       (expand-file-name "/opt/local/share/java/plantuml.jar"))
 
+
+(require 'cmake-mode nil t)
+(setq auto-mode-alist (append auto-mode-alist
+                              '(("CMakeLists.txt$" . cmake-mode))))
+
+(defun gnus (&rest ignored)
+  (interactive)
+  (error "We don't have a NNTP server anymore."))
+
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))
 (load "~/rc/emacs-epilog.el")
-;;;; THE END ;;;;
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

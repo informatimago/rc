@@ -1,5 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;; PJB's Aquamacs rc file.
+;;; emacs-aquamacs -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 (.EMACS "~/rc/emacs-aquamacs.el PJB's Aquamacs rc file.")
 
 (defun mac-vanilla-keys ()
@@ -34,3 +36,6 @@
 
 (find-file "~/rc/emacs-aquamacs.el")
 
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

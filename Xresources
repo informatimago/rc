@@ -132,19 +132,19 @@ xterm*activeIcon:               false
 ! xterm*font5.Label: lycidatypewriter-21
 ! xterm*font6.Label: lycidatypewriter-24
 
-xterm*font1.Label: Very Small
-xterm*font2.Label: Small
-xterm*font3.Label: Normal
-xterm*font4.Label: Big
-xterm*font5.Label: Very Big
-xterm*font6.Label: Really Very Big
-
-xterm*font1:   Menlo-14
-xterm*font2:   Menlo-17
-xterm*font3:   Menlo-20
-xterm*font4:   Menlo-22
-xterm*font5:   Menlo-25
-xterm*font6:   Menlo-34
+! xterm*font1.Label: Very Small
+! xterm*font2.Label: Small
+! xterm*font3.Label: Normal
+! xterm*font4.Label: Big
+! xterm*font5.Label: Very Big
+! xterm*font6.Label: Really Very Big
+!
+! xterm*font1:   fixed-10
+! xterm*font2:   fixed-13
+! xterm*font3:   fixed-14
+! xterm*font4:   fixed-15
+! xterm*font5:   fixed-18
+! xterm*font6:   fixed-20
 
 
 ! xterm*font1:   -b&h-lucidatypewriter-medium-r-normal-sans-14-100-100-100-m-80-iso10646-1
