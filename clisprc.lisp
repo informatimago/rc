@@ -34,6 +34,10 @@
 ;;;;    Software Foundation, Inc., 59 Temple Place, Suite 330,
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
+;; (eval-when (:compile-toplevel :load-toplevel :execute)
+;;  (setf *load-echo* t
+;;        *load-verbose* t
+;;        *load-print* t))
 
 (dolist (module '("linux" "threads" "regexp"))
   (ignore-errors (require module)))
@@ -338,7 +342,9 @@
        (make-pathname :directory '(:relative "RC") :name "COMMON" :type "LISP"
                       :case :common)
        (user-homedir-pathname)
-       nil))
+       nil)
+      :print t
+      :verbose t)
 
 (in-package "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.

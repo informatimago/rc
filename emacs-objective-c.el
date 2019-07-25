@@ -1,3 +1,8 @@
+;;; emacs-objective-c -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 (defvar *xcode-developer-path* "/Applications/Xcode.app/Contents/Developer/")
 (defvar *osx-base-path* (concat *xcode-developer-path* "Platforms/"))
 
@@ -38,3 +43,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (global-set-key (kbd "M-/") 'company-complete)
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

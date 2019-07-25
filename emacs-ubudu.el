@@ -1,6 +1,7 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file.
+;;; emacs-ubudu -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-ubudu.el %s" "At UBUDU Pascal Bourguignon's emacs startup file.")
@@ -665,4 +666,7 @@ X-Accept-Language:         fr, es, en
 ;; (ubudu-reindent-all-java "~/src/Android-SDK/")
 
 (load "~/rc/emacs-epilog.el")
-;;;; THE END ;;;;
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

@@ -1,4 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; emacs-dxo -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 ;;;;
 ;;;; Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.
 
@@ -477,4 +481,7 @@
 (find-library "outline-mode-easy-bindings")
 
 (load "~/rc/emacs-epilog.el")
-;;;; THE END ;;;;
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

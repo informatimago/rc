@@ -1,6 +1,7 @@
-;;;; -*- Mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
-;;;;
-;;;; Pascal J. Bourguignon's emacs startup file at DxO Consumers SAS.
+;;; emacs-trustonic -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
 
 (load "~/rc/emacs-common.el")
 (.EMACS "~/rc/emacs-trustonic.el %s" "Pascal J. Bourguignon's emacs startup file at Trustonic SA.")
@@ -685,4 +686,7 @@ END is the end of the region."
 
 (load "~/rc/emacs-epilog.el")
 (provide 'emacs-trustonic)
-;;;; THE END ;;;;
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

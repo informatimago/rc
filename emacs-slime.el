@@ -1,4 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; emacs-slime -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-slime.el
 ;;;;LANGUAGE:           emacs lisp
@@ -1520,3 +1524,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;; ;; inserts \nHello\n
 ;; ;; then returns:
 ;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

@@ -1,4 +1,8 @@
-;;;; -*- mode:emacs-lisp;coding:utf-8 -*-
+;;; emacs-directories -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-directories.el
 ;;;;LANGUAGE:           emacs lisp
@@ -78,4 +82,6 @@ NOTE:   ~/directories.txt is cached in *directories*.
                 (concat dir "/" subpath)))))))
 
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

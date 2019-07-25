@@ -1,3 +1,8 @@
+;;; emacs-span -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 (message "Hi SPAN!")
 
 (defun mice ()
@@ -549,3 +554,7 @@ X-Accept-Language:         fr, es, en
 
 (string-from-asn1-octet-string "'4900410053002D00450043004300'H")
 "IAS-ECC"
+
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

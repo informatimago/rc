@@ -1,4 +1,8 @@
+;;; emacs-redshank -- Pascal J. Bourguignon's emacs startup files.
 ;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 ;;;;**************************************************************************
 ;;;;FILE:               emacs-redshank.el
 ;;;;LANGUAGE:           emacs lisp
@@ -841,4 +845,6 @@ RETURN: (path point)
 
 ;; (global-set-key (kbd "<f13>")'pjb-insert-niy-method)
 
-;;;; THE END ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:

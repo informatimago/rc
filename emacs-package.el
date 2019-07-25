@@ -1,4 +1,8 @@
-;;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; emacs-package -- Pascal J. Bourguignon's emacs startup files.
+;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
+;;; Commentary:
+;;; Code:
+
 (.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
 
 (when (and (zerop (length (shell-command-to-string "git config --global http.proxy")))
@@ -60,4 +64,6 @@
 
   (pjb-install-packages))
 
-;;;; The End ;;;;
+;; Local Variables:
+;; coding: utf-8
+;; End Variables:
