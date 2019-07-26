@@ -211,7 +211,7 @@
  '(erc-nick (quote ("pjb")))
  '(erc-nickserv-passwords (quote ((freenode (("ogamita" . "ogre-a-mite") ("pjb" . "let's-chat"))))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals (quote ("bolet.*" "Posterdati")))
+ '(erc-pals (quote ("bolet.*" "Posterdati" "martinl")))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-nickserv-password nil)
@@ -483,6 +483,8 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-tab-menubar nil)
  '(w3m-use-title-buffer-name t)
  '(warning-suppress-types (quote ((undo discard-info)))))
+
+;; To reset w3m-cookies: (setf w3m-cookies nil)
 
 ;; '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "hubble.informatimago.com"))))
 ;;;----------------------------------------------------------------------------
