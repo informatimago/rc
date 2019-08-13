@@ -1334,13 +1334,20 @@ function update-localized-xibs() {
 # function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
 
-function cdpa(){    cd "$HOME/works/patchwork/src/patchwork" ; }
-function cdui(){    cd "$HOME/works/patchwork/src/mclgui"    ; }
-function cdsm(){    cd "$HOME/works/sbde/smt/sources"        ; }
-function cdsb(){    cd "$HOME/works/sbde"                    ; }
+function cdpa(){         cd "$HOME/works/patchwork/src/patchwork"       ; }
+function cdui(){         cd "$HOME/works/patchwork/src/mclgui"          ; }
 
-function cdsb(){    cd "$HOME/works/sbde/ball" ; }
-function cdsm(){    cd "$HOME/works/sbde/smt" ; }
+function cdsb(){         cd "$HOME/works/sbde"                          ; }
+function cdsmt(){        cd "$HOME/works/sbde/smt"                      ; }
+function cdball(){       cd "$HOME/works/sbde/ball"                     ; }
+function cdbox(){        cd "$HOME/works/sbde/laboite"                  ; }
+function cdmini(){       cd "$HOME/works/sbde/stockme-minidemo-ios"     ; }
+function cdmicro(){      cd "$HOME/works/sbde/stockme-microdemo-ios"    ; }
+
+function cdschmidt(){    cd "$HOME/works/synth/schmidt"                 ; }
+function cdschmidtlib(){ cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesizerLibrarian/SchmidtSynthesizerLibrarian"  ; }
+
+function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
 
 function bashrc_load_host_specific_bashrc(){

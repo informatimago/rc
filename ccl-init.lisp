@@ -218,23 +218,6 @@ RETURN:     The first word of the string, or the empty string.
 (use-package "COM.INFORMATIMAGO.PJB")
 (setf *print-right-margin* 110)
 
-
-;; Temporarily, while developping from kuiper for galatea:
-(when (string= (com.informatimago.pjb:hostname) "galatea.local")
-  (ql:quickload :swank))
-#+#.(cl:if (cl:find-package "SWANK") '(:and) '(:or))
-(let ((swank::*loopback-interface* (ccl::primary-ip-interface-address))
-      (port (+ 4005 (random 123))))
-  (swank:create-server :port port))
-
-;; https://codeshare.io/anXKbY
-(defun start-swank-server (&key (port 4006))
-  "Starts a swank-server on the localhost interface."
-  (unless (find-package "SWANK")
-    (ql:quickload :swank))
-  (funcall (intern "CREATE-SERVER" "SWANK") :port port)
-  (values))
-
 (defun cls ()
   "Clears the terminal screen."
   (princ "c")
@@ -249,6 +232,10 @@ RETURN:     The first word of the string, or the empty string.
          (list 'compilation-speed ccl::*nx-cspeed*)))
 
 (format t "~&~S~%" (optimization))
+
+;; Temporarily, while developping from kuiper for galatea:
+(when (string= (com.informatimago.pjb:hostname) "galatea.local")
+  (load #P"~/rc/swank-server.lisp"))
 
 ;;----------------------------------------------------------------------
 ;; (format *trace-output* "~&.openmcl-init.lisp loaded~%")

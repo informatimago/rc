@@ -40,16 +40,26 @@
 
 (when (require 'slime nil t)
 
+  ;; (defun slime-eval-last-expression-on-all-connections ()
+  ;;   "Evaluate the expression preceding point."
+  ;;   (interactive)
+  ;;   (let ((slime-default-connection slime-default-connection))
+  ;;     (dolist (process slime-net-processes)
+  ;;       (slime-select-connection process)
+  ;;       (slime-interactive-eval (slime-last-expression)))))
+  ;; (define-key slime-mode-indirect-map (kbd "C-x C-e")
+  ;;   'slime-eval-last-expression-on-all-connections)
+
   (defparameter *pjb-slime-contribs* '(slime-fancy
-                                 slime-xref-browser
-                                 slime-asdf
-                                 slime-banner
-                                 slime-repl
-                                 slime-indentation
-                                 slime-fuzzy
-                                 slime-autodoc
-                                 slime-presentations
-                                 slime-presentation-streams))
+                                       slime-xref-browser
+                                       slime-asdf
+                                       slime-banner
+                                       slime-repl
+                                       slime-indentation
+                                       slime-fuzzy
+                                       slime-autodoc
+                                       slime-presentations
+                                       slime-presentation-streams))
 
   (defun slime-eval-print (string)
     "Eval STRING in Lisp; insert any output and the result
