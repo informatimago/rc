@@ -3377,7 +3377,7 @@ License:
 (defun* notes ()
   (interactive)
   (do-directories-up (dir default-directory)
-    (dolist (file '("rc/notes.gpg" "NOTES.txt" "notes.txt" "NOTES.*[a-z]" "notes.*[a-z]"
+    (dolist (file '("rc/notes.txt" "rc/notes.gpg" "NOTES.txt" "NOTES.*[a-z]" "notes.*[a-z]"
                     ".notes.utf-8" ".notes*[a-z]"))
       (let ((files (file-expand-wildcards (concat dir file) t)))
         (when files

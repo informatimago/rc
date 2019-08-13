@@ -337,14 +337,15 @@
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
-(setf *load-verbose* t)
+
+;; (setf *load-verbose* t)
 (load (merge-pathnames
        (make-pathname :directory '(:relative "RC") :name "COMMON" :type "LISP"
                       :case :common)
        (user-homedir-pathname)
        nil)
-      :print t
-      :verbose t)
+      :print *load-verbose*
+      :verbose *load-verbose*)
 
 (in-package "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
