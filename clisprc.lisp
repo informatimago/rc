@@ -213,27 +213,6 @@
 ;; )
 
 
-;; When launched with slime, the standard streams are replaced
-;; by swank streams, and macros such as CUSTOM:*PATHNAME-ENCODING*
-;; cannot work on them anymore.
-
-(defmacro ignoring-each-error (&body body)
-  `(progn
-     ,@(mapcar (lambda (expression)`(ignore-errors ,expression ))
-               body)))
-
-#-(and unix macos)
-(ignoring-each-error
- (setf custom:*pathname-encoding*     (ext:make-encoding :charset charset:iso-8859-1
-                                                         :line-terminator :unix))
- (setf custom:*default-file-encoding* (ext:make-encoding :charset charset:utf-8
-                                                         :line-terminator :unix))
- (setf custom:*terminal-encoding*     (ext:make-encoding :charset charset:utf-8
-                                                         :line-terminator :unix))
- (setf custom:*misc-encoding*         (ext:make-encoding :charset charset:utf-8
-                                                         :line-terminator :unix))
- #+ffi (setf custom:*foreign-encoding* (ext:make-encoding :charset charset:iso-8859-1
-                                                          :line-terminator :unix)))
 
 ;; Breaks stdin/stdout...
 ;; #+(and unix macos)
@@ -277,6 +256,26 @@
  ;; CUSTOM:*FORWARD-REFERENCED-CLASS-MISDESIGN*     NIL
  )
 
+;; When launched with slime, the standard streams are replaced
+;; by swank streams, and macros such as CUSTOM:*PATHNAME-ENCODING*
+;; cannot work on them anymore.
+
+(defmacro ignoring-each-error (&body body)
+  `(progn
+     ,@(mapcar (lambda (expression)`(ignore-errors ,expression ))
+               body)))
+
+(ignoring-each-error
+ (setf custom:*pathname-encoding*     (ext:make-encoding :charset charset:iso-8859-1
+                                                         :line-terminator :unix))
+ (setf custom:*default-file-encoding* (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ (setf custom:*terminal-encoding*     (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ (setf custom:*misc-encoding*         (ext:make-encoding :charset charset:utf-8
+                                                         :line-terminator :unix))
+ #+ffi (setf custom:*foreign-encoding* (ext:make-encoding :charset charset:iso-8859-1
+                                                          :line-terminator :unix)))
 
 ;;----------------------------------------------------------------------
 ;; Setting environment -- clisp part --
@@ -338,14 +337,17 @@
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 
-;; (setf *load-verbose* t)
+
+
+(setf *load-verbose* nil)
 (load (merge-pathnames
        (make-pathname :directory '(:relative "RC") :name "COMMON" :type "LISP"
                       :case :common)
        (user-homedir-pathname)
        nil)
       :print *load-verbose*
-      :verbose *load-verbose*)
+      :verbose *load-verbose*
+      :external-format custom:*default-file-encoding*)
 
 (in-package "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
