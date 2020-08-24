@@ -97,9 +97,9 @@ function bashrc_set_prompt(){
     fi
 
     if $use_color ; then
-        export PS1="${black_back}${cyan}${pc}${yellow}${prefix}${black}${yellow_back}${ibam}${blue}${white_back}[\u@\h ${display} \W ${available}]${red}${black_back}${prompt}${normal}"
+        export PS1="\[${black_back}${cyan}\]${pc}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}\[${blue}${white_back}\][\u@\h ${display} \W ${available}]\[${red}${black_back}\]${prompt}\[${normal}\]"
     else
-        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}${normal}"
+        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
     fi
 }
 
