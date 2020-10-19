@@ -50,9 +50,9 @@
                      "file:///data/lisp/hyperspec-7.0/HyperSpec/"
                      "file:///opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"
                      (concat "file://" (expand-file-name "~/quicklisp/dists/quicklisp/software/clhs-0.6.1/HyperSpec-7-0/HyperSpec/"))
-                     (unless (member* (hostname) '("hubble.informatimago.com" "proteus")
-                                     :test (function string=))
-                       "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
+                     ;; (unless (member* (hostname) '("hubble.informatimago.com" "proteus")
+                     ;;                  :test (function string=))
+                     ;;   "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
                      (concat "http://" *clhs-lispworks*)
                      "http://www.harlequin.com/education/books/HyperSpec/")
                nil)
@@ -177,4 +177,5 @@ variable `common-lisp-hyperspec-root' to point to that location."
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:

@@ -1537,4 +1537,5 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:

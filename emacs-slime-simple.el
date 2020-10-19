@@ -495,7 +495,6 @@ of `inferior-lisp-program').  Runs the hooks from
 (defsetf symbol-value-in-buffer set-symbol-value-in-buffer)
 
 
-
 (defun lisp-eval-last-sexp (&optional and-go)
   "Send the previous sexp to the inferior Lisp process.
 Prefix argument means switch to the Lisp buffer afterwards."
@@ -503,11 +502,12 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (lisp-eval-region (save-excursion (backward-sexp) (point)) (point) and-go))
 
 
-(appendf interpreter-mode-alist '(("sbcl"  . lisp-mode)
-                                  ("abcl"  . lisp-mode)
-                                  ("gcl"   . lisp-mode)
+(appendf interpreter-mode-alist '(("ccl"   . lisp-mode)
                                   ("ecl"   . lisp-mode)
+                                  ("abcl"  . lisp-mode)
+                                  ("sbcl"  . lisp-mode)
                                   ("cmucl" . lisp-mode)
+                                  ("gcl"   . lisp-mode)
                                   ("alisp" . lisp-mode)))
 
 (appendf auto-mode-alist '(("\\.lisp$" . lisp-mode)
@@ -664,8 +664,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "A-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "A-s")         'pjb-cl-export-symbol-at-point)
 
-  ;; (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp)
-
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
@@ -684,10 +682,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
                                 ("(\\(\\<[-A-Za-z0-9]+-define-[-A-Za-z0-9]+\\>\\)" 1 font-lock-keyword)))
   (.EMACS "pjb-lisp-meat on %S done" (buffer-name))
   (values))
-
-
-(setf lisp-indent-function 'common-lisp-indent-function)
-
 
 
 ;; (load-library "cl")
@@ -874,6 +868,16 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 
 
+(defun pjb-lisp-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp))
+(defun pjb-scheme-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp))
+(defun pjb-emacs-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'eval-last-sexp))
+
 
 ;;;
 ;;; Hooks
@@ -889,14 +893,20 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       ilisp-mode-hook            nil
       scheme-mode-hook           nil)
 
-(add-hook 'lisp-mode-hook 'slime-mode)
-(add-hook 'lisp-mode-hook 'slime-autodoc-mode)
-
-(add-hook 'scheme-mode-hook      'pjb-lisp-meat)
 
 (add-hook 'lisp-mode-hook        'pjb-lisp-meat)
+(add-hook 'lisp-mode-hook        'pjb-lisp-set-keys)
+(add-hook 'lisp-mode-hook        'slime-mode)
+(add-hook 'lisp-mode-hook        'slime-autodoc-mode)
+
 (add-hook 'common-lisp-mode-hook 'pjb-lisp-meat)
+(add-hook 'common-lisp-mode-hook 'pjb-lisp-set-keys)
+
+(add-hook 'scheme-mode-hook      'pjb-lisp-meat)
+(add-hook 'scheme-mode-hook      'pjb-scheme-meat)
+
 (add-hook 'emacs-lisp-mode-hook  'pjb-lisp-meat)
+(add-hook 'emacs-lisp-mode-hook  'pjb-emacs-set-keys)
 (add-hook 'emacs-lisp-mode-hook  'eldoc-mode)
 
 
@@ -981,6 +991,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
 
 
+
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:

@@ -307,6 +307,7 @@ function be_generate(){
 
         /opt/bin
         /opt/sbin
+        /opt/haskell-language-server/bin
 
         /usr/local/opt/coreutils/libexec/gnubin
         /usr/local/opt/findutils/libexec/gnubin
