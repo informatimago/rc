@@ -5,18 +5,22 @@
 
 (.EMACS "~/rc/emacs-package.el %s" "Loading elpa.")
 
+(require 'gnutls)
+(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem")
+
 (when (and (zerop (length (shell-command-to-string "git config --global http.proxy")))
-	   (require 'package nil t))
+           (require 'package nil t))
   ;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
-  (setq package-archives '(("gnu"           . "https://elpa.gnu.org/packages/")
+  (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
+                           ("melpa"         . "https://melpa.org/packages/")
                            ;; ("marmalade"     . "https://marmalade-repo.org/packages/")
                            ;; ("melpa-stable"  . "https://stable.melpa.org/packages/")
-                           ;; ("melpa"         . "https://stable.melpa.org/packages/")
                            ;; ("org"           . "https://orgmode.org/elpa/")
-			   ))
+                           ))
 
   (package-initialize)
   (package-refresh-contents)
+
 
   ;; (defun package-update-load-path ()
   ;;   "Update the load path for newly installed packages."
@@ -52,18 +56,46 @@
                      smartparens highlight-indentation textmate
                      flycheck
 
-		     ; robe not on emacs-24.4 ?
+                     ;; intero
+                     stack
+                     ;; ormolu
+                     ;; retrie
+                     ;; shm
+                     ;; ghc
+                     ;; ghc-imported-from
+                     ;; ghci-completion
+                     ;; ac-haskell-process
+                     ;; dante
+                     ;; flycheck-ghcmod
+                     ;; flycheck-haskell
+                     ;; flycheck-hdevtools
+                     ;; flycheck-liquidhs
+                     ;; haskell-emacs
+                     ;; haskell-emacs-base
+                     ;; haskell-emacs-text
+                     ;; haskell-mode
+                     ;; haskell-snippets
+                     ;; haskell-tab-indent
+                     ;; hi2
+                     ;; hindent
+                     ;; hyai
+                                        ; robe not on emacs-24.4 ?
+                     cobol-mode
+
+                     lsp-mode
+                     lsp-haskell
 
                      ))
 
   (defun pjb-install-packages ()
     (interactive)
     (mapc (lambda (package)
-	    (ignore-errors (package-install package)))
-	  *packages*))
+            (ignore-errors (package-install package)))
+          *packages*))
 
   (pjb-install-packages))
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:
