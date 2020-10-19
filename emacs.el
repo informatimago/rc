@@ -19,6 +19,11 @@
 (when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
+(setf default-directory
+      (file-name-directory (cond (user-init-file  user-init-file)
+                                 ((getenv "HOME") (concat (getenv "HOME") "/"))
+                                 (t                (first (file-expand-wildcards "~/.emacs"))))))
+
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
 

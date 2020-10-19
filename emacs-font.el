@@ -308,14 +308,6 @@
 ;; ------------------------------------------------------------------------
 
 
-(case window-system
-  ((ns)
-   (global-set-key (kbd "A-<next>")   (lambda () (interactive) (forward-font +1)))
-   (global-set-key (kbd "A-<prior>")  (lambda () (interactive) (forward-font -1))))
-  (otherwise
-   (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
-   (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))))
-
 
 
 ;; ------------------------------------------------------------------------
@@ -359,4 +351,5 @@
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:
