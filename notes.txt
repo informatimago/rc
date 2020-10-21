@@ -7010,24 +7010,6 @@ http://www.fema.gov/areyouready/
 
     http://www-aig.jpl.nasa.gov/public/home/gat/lisp-study.html
 
-    Monads:
-    http://haskell.readscheme.org/monads.html
-    http://dorophone.blogspot.com/2011/04/deep-emacs-part-1.html
-    http://dorophone.blogspot.com/2011/05/hyperturtle-monad-makes-pretty-pictures.html
-
-    http://drewc.org/interface/monads.html#sec-2-7
-    http://drewc.org/interface/monads.html#sec-5
-    https://raw.github.com/drewc/smug/master/doc/monparsing.org
-    http://common-lisp.net/~dcrampsie/smug.html#sec-5.8
-
-    http://berger-files.blogspot.com/2011/05/fully-typed-lisp.html
-
-    Haskell 98 Report
-      http://haskell.org/haskellwiki/Language_and_library_specification
-      http://haskell.org/tutorial/
-    The sources of Hugs <http://haskell.org/hugs/> have a Bison .y file.
-    http://learnyouahaskell.com/chapters
-
 
     http://www.iddqd.org/~chandler/documents/startingwithcl.html
 
@@ -8767,6 +8749,30 @@ uiop:run-program instead
     outer backquote is evaluated.'' (To splice the element of the value of
     s that is available at the time of second evaluation, that is, when
     the inner backquote is evaluated, just use ,@(car s).)
+
+** LANGUAGES: Haskell
+
+    Monads:
+    http://haskell.readscheme.org/monads.html
+    http://dorophone.blogspot.com/2011/04/deep-emacs-part-1.html
+    http://dorophone.blogspot.com/2011/05/hyperturtle-monad-makes-pretty-pictures.html
+
+    http://drewc.org/interface/monads.html#sec-2-7
+    http://drewc.org/interface/monads.html#sec-5
+    https://raw.github.com/drewc/smug/master/doc/monparsing.org
+    http://common-lisp.net/~dcrampsie/smug.html#sec-5.8
+
+    http://berger-files.blogspot.com/2011/05/fully-typed-lisp.html
+
+    Haskell 98 Report
+      http://haskell.org/haskellwiki/Language_and_library_specification
+      http://haskell.org/tutorial/
+    The sources of Hugs <http://haskell.org/hugs/> have a Bison .y file.
+    http://learnyouahaskell.com/chapters
+
+pure $ (num == 1)
+is
+return (num==1)
 
 ** LANGUAGES: Scheme
 
