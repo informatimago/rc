@@ -506,6 +506,14 @@ WELCOME TO EMACS!
                               base-load-path)))))
 
 
+
+
+(.EMACS "Loading my personal files -- My own stuff.")
+(pjb-setup-load-path)
+(load "~/rc/emacs-directories")
+(unless (load "pjb-loader.el" )
+  (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
+
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
                       (cons (expand-file-name "~/bin/")
@@ -514,14 +522,12 @@ WELCOME TO EMACS!
                               "/opt/local/sbin" "/opt/local/bin")))
   (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
 
-
-
-(.EMACS "Loading my personal files -- My own stuff.")
-(pjb-setup-load-path)
 (pjb-setup-exec-path)
-(load "~/rc/emacs-directories")
-(unless (load "pjb-loader.el" )
-  (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
+
+
+(setf *pjb-tab-width-alist*
+      '(("^/Applications/Emacs.app/Contents/Resources/" . 8)
+        ("^/usr/local/src/ccl-.*/" . 8)))
 
 ;;------------------------------------------------------------------------
 (.EMACS "setting up fonts")
@@ -968,8 +974,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
    (global-set-key (kbd "A-<next>")   (lambda () (interactive) (forward-font +1)))
    (global-set-key (kbd "A-<prior>")  (lambda () (interactive) (forward-font -1)))
    (global-set-key (kbd "A-<up>")    'backward-same-indent)
-   (global-set-key (kbd "A-<down>")  'forward-same-indent)
-   (global-set-key (kbd "A-`")       'next-error)))
+   (global-set-key (kbd "A-<down>")  'forward-same-indent)))
 
 ;;;----------------------------------------------------------------------------
 (when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
@@ -1873,63 +1878,6 @@ RETURN: (path point)
 (load-library "cl-indent")
 
 (setq lisp-indent-function 'common-lisp-indent-function)
-
-(defun lisp-indent-function (indent-point state)
-  "This function is the normal value of the variable `lisp-indent-function'.
-It is used when indenting a line within a function call, to see if the
-called function says anything special about how to indent the line.
-
-INDENT-POINT is the position where the user typed TAB, or equivalent.
-Point is located at the point to indent under (for default indentation)
-STATE is the `parse-partial-sexp' state for that position.
-
-If the current line is in a call to a Lisp function
-which has a non-nil property `lisp-indent-function',
-that specifies how to do the indentation.  The property value can be
-* `defun', meaning indent `defun'-style
-* an integer N, meaning indent the first N arguments specially
-  like ordinary function arguments and then indent any further
-  arguments like a body
-* a function to call just as this function was called.
-  If that function returns nil, that means it doesn't specify
-  the indentation.
-
-This function also returns nil meaning don't specify the indentation."
-  (let ((normal-indent (current-column)))
-    (goto-char (1+ (elt state 1)))
-    (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
-    (if (and (elt state 2)
-             (or (looking-at ":") (not (looking-at "\\sw\\|\\s_"))))
-        (progn ; car of form doesn't seem to be a symbol, or is a keyword
-          (if (not (> (save-excursion (forward-line 1) (point))
-                      calculate-lisp-indent-last-sexp))
-              (progn (goto-char calculate-lisp-indent-last-sexp)
-                     (beginning-of-line)
-                     (parse-partial-sexp (point)
-                                         calculate-lisp-indent-last-sexp 0 t)))
-          ;; Indent under the list or under the first sexp on the same
-          ;; line as calculate-lisp-indent-last-sexp.  Note that first
-          ;; thing on that line has to be complete sexp since we are
-          ;; inside the innermost containing sexp.
-          (backward-prefix-chars)
-          (current-column))
-        (let ((function (buffer-substring (point)
-                                          (progn (forward-sexp 1) (point))))
-              method)
-          (setq method (or (get (intern-soft function) 'lisp-indent-function)
-                           (get (intern-soft function) 'lisp-indent-hook)))
-          (cond ((or (eq method 'defun)
-                     (and (null method)
-                          (> (length function) 3)
-                          (string-match "\\`def" function)))
-                 (lisp-indent-defform state indent-point))
-                ((integerp method)
-                 (lisp-indent-specform method state
-                                       indent-point normal-indent))
-                (method
-                 (funcall method indent-point state)))))))
-
-;; (setq lisp-indent-function 'common-lisp-indent-function)
 
 (defun cl-indent (symbol num-forms)
   "
