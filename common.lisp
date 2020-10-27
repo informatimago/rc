@@ -447,7 +447,8 @@ License:
         (princ err) (terpri))))
   (shadowing-import '(com.informatimago.common-lisp.interactive.interactive:rep))
   (shadowing-import '(com.informatimago.tools.symbol:apropos
-                      com.informatimago.tools.symbol:apropos-list))
+                      com.informatimago.tools.symbol:apropos-list
+                      ))
   (dolist (package (informatimago-packages))
     (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package))))
 

@@ -476,8 +476,8 @@ X-Accept-Language:         fr, es, en
              :key (function car)))
 
 
-(when (require 'yasnippet nil t)
-  (yas-global-mode 1))
+;; (when (require 'yasnippet nil t)
+;;   (yas-global-mode 1))
 
 
 (require 'auto-complete nil t)
@@ -669,4 +669,5 @@ X-Accept-Language:         fr, es, en
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:
