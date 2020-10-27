@@ -104,13 +104,29 @@
 (defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
 (defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
 (set-swank-bindings-code) ; (set-swank-bindings)
-
+;; (set-swank-bindings-data)
 #-(and) (
          (set-swank-bindings *swank-bindings*)
          (set-swank-bindings *swank-bindings-code*)
          (set-swank-bindings *swank-bindings-data*)
 
          (swank::set-swank-binding '*print-circle* nil))
+#-(and) (set-swank-bindings   `((*PRINT-PRETTY* . nil)
+                                (*PRINT-LEVEL* . nil)
+                                (*PRINT-LENGTH* . nil)
+                                (*PRINT-CIRCLE* . T)
+                                (*PRINT-CASE* . :upcase)
+                                (*PRINT-READABLY*)
+                                (*PRINT-GENSYM* . T)
+                                (*PRINT-BASE* . 10.)
+                                (*PRINT-RADIX* . nil)
+                                (*PRINT-ARRAY* . T)
+                                (*PRINT-LINES* . nil)
+                                (*PRINT-ESCAPE* . T)
+                                (*PRINT-RIGHT-MARGIN* . 120)
+                                (*random-state* . ,(make-random-state t))
+                                (*SLDB-BITVECTOR-LENGTH* . nil)
+                                (*SLDB-STRING-LENGTH* . nil)))
 
 ;; Before saving a core with swank, if slime uses options:
 ;; (swank:swank-require '(swank-repl swank-asdf swank-fuzzy swank-indentation swank-media))

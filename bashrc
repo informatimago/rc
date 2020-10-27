@@ -97,9 +97,9 @@ function bashrc_set_prompt(){
     fi
 
     if $use_color ; then
-        export PS1="${black_back}${cyan}${pc}${yellow}${prefix}${black}${yellow_back}${ibam}${blue}${white_back}[\u@\h ${display} \W ${available}]${red}${black_back}${prompt}${normal}"
+        export PS1="\[${black_back}${cyan}\]${pc}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}\[${blue}${white_back}\][\u@\h ${display} \W ${available}]\[${red}${black_back}\]${prompt}\[${normal}\]"
     else
-        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}${normal}"
+        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
     fi
 }
 
@@ -307,6 +307,7 @@ function be_generate(){
 
         /opt/bin
         /opt/sbin
+        /opt/haskell-language-server/bin
 
         /usr/local/opt/coreutils/libexec/gnubin
         /usr/local/opt/findutils/libexec/gnubin
@@ -567,7 +568,7 @@ function be_generate(){
 
     be_variable DTK_PROGRAM         espeak
 
-    be_variable COOKIE_FILES        "${HOME}/all.cookies"
+    be_variable COOKIE_FILES        "${HOME}/ALL.cookies"
 
     # be_variable ORACLE_BASE       /home/oracle/app/oracle
     # be_variable ORACLE_HOME       "$ORACLE_BASE"/product/8.0.5

@@ -2,6 +2,33 @@
 
 pullman: HO cleaning cars Maerklin 46010
 
+<Harag> Hi, I am looking for a individual or group to implement the quic protocol in portable cl. Please contact me with an estimate in $ and time. The estimates is so I can see if we can afford it both in $ and time (lapsed).
+<pjb> Harag: there are already a lot of QUIC implementations in various implementations, including in C. Are you sure you need one in Lisp (and not just a FFI to one of the C libraries)?
+<Harag> pjb: I would like it to be portable cl because the project will be open sourced in the end. But if its going to be out of my budget then the C lib will have to do.
+<Harag> and once the quic protocol is done and useable then I want to see if I can scrape together the budget for http3 lib
+<pjb> I'll have to look at the protocol more closely to give an estimation. Can you PM your email?
+<Harag> phil@mtsholdings.co.za
+<Harag> https://tools.ietf.org/html/draft-ietf-quic-transport-29
+<Harag> https://tools.ietf.org/html/draft-ietf-quic-tls-29
+<Harag> https://tools.ietf.org/html/draft-ietf-quic-recovery-29
+<Harag> not sure if all of those need to be implemented.
+<pjb> For TLS, I assume you want to use ironclad, as pure CL implementation?
+<Harag> use what ever there is in cl yes
+
+erp cms
+icloud christiane
+
+Add to informatimago.com this link: http://hocwp.free.fr/glmf/2-article_serveur/article_serveur.html
+
+tatouche mort à 62 ans…
+
+/msg alis list * -topic *makefile*
+
+smalltalk http://stephane.ducasse.free.fr/FreeBooks.html
+
+orangebank support 0143600152   09:00 17:00
+outillage maquette: https://www.multirex.net/outillage-modele-reduit-train,fr,3,167.cfm
+flutes: https://www.kirstein.de/index.php?shp=oxbaseshop&anid=c1416330d9a0ca27c28a8210d34e1a19&cl=review&lang=2&reviewuserhash=81d3167d5031321bb250b479d1926069&utm_source=transactional&utm_campaign=shop_bewertung&utm_medium=email
 
 https://smalldata.tech/blog/2020/04/07/imap-email-backup
 
@@ -20,6 +47,19 @@ Référence de votre commande : BMWIIQIXB
 <05:08:11><ober> that was suppose to be one line
 <05:09:42><thrig> irc has a line length limit
 <05:20:34><ober> yeah line wrap off here, sorry about that.
+
+<botihn> baltimoresun URL      https://www\.baltimoresun\.com/.*
+<botihn> bi           URL      https://www\.businessinsider\.com/.*
+<botihn> telegraph    URL      https://www\.telegraph\.co\.uk/.*
+<botihn> climate      TITLE    .*[Cc]limate.*
+<botihn> wsj          URL      https://www\.wsj\.com/.*
+<botihn> mcsweeneys   URL      https://www\.mcsweeneys\.net/.*
+<botihn> ft           URL      https://www\.ft\.com/.*
+<botihn> medium       URL      https://medium\.com/.*
+<botihn> bloomberg    URL      https://www\.bloomberg\.com/.*
+<botihn> wp           URL      https://www\.washingtonpost\.com/.*
+<botihn> nytimes      URL      https://www\.nytimes\.com/.*
+
 
 * SBDE
 ** Address
@@ -570,6 +610,9 @@ Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
 http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
 
 *** A-ACHETER                                                           :buy:
+**** Synthesizers
+***** phonicboom glo http://phonicbloom.com/#product-choose
+***** moog one
 **** Livres à acheter                                                  :book:
 ***** TODO Au coeur du pouvoir : Enquête sur le club le plus puissant de France
 Émmanuel Ratier
@@ -683,6 +726,7 @@ http://www.cs.cornell.edu/home/ulfar/cuba/paper/
 
 
 *** A-LIRE, LECTURES                                                   :read:
+**** Plato's Republic and Machiavelli's The Prince for an analysis of the problems of direct democracies in through history
 **** IN-PROGRESS [#B] Reading Natural Language Processing in Lisp
      - State "IN-PROGRESS" from "TODO"       [2016-12-03 Sat 22:12]
      Natural Language Processing in Lisp
@@ -2384,6 +2428,13 @@ http://torrents.thepiratebay.org/5550739/FreeFalcon_5.5.5550739.TPB.torrent
 
 
 +------------------------------------------------------------------------------
+| C - necessary evil;
+| C++ - unnecessary evil;
+| Objective-c - fun evil.
++------------------------------------------------------------------------------
+
+
++------------------------------------------------------------------------------
 | Eight Stages of Debugging
 | 1. That can't happen.
 | 2. That doesn't happen on my machine.
@@ -2936,6 +2987,7 @@ http://invisible-island.net/xterm/xterm.faq.html
 !              Up ↑∩                     End     1   Down  2   Next  3    Ent
 !  Left ←⊂    Down ↓∪    Right →⊃     Insert 0              Delete .    er
 
+Colons: ⍠꛴𒑲𒑱⩴≕፥፦：꞉ˑ˸ː᠄︓𝪊﹕܆܇܅܄܉܃܈󠀺⫶⦂
 
 Math chars:
 
@@ -2947,6 +2999,7 @@ Math chars:
 
 
 ℕ⊂ℤ⊂ℝ⊂ℂ but z=(n₁,n₂) and r=(zᵢ) and c=(r₁,r₂)
+ℕℤℚℝℂℍℙ
 S⊂C₁∩C₂∩…∩Cᵣ
 
 ♥♡❥❥❥❥❥❥❥❥❥❥❥♡♥
@@ -5020,6 +5073,15 @@ git checkout master
 git merge experiment
 #+END_EXAMPLE
 
+*** git create branch
+
+#+BEGIN_EXAMPLE
+git branch      ${new_branch_name}
+git checkout    ${new_branch_name}
+# equivalent to:
+git checkout -b ${new_branch_name}
+#+END_EXAMPLE
+
 ** DVCS: github
 *** multiple github accounts
 
@@ -6964,7 +7026,6 @@ http://www.fema.gov/areyouready/
       http://haskell.org/tutorial/
     The sources of Hugs <http://haskell.org/hugs/> have a Bison .y file.
 
-
     http://www.iddqd.org/~chandler/documents/startingwithcl.html
 
    http://www.psychologie.uni-trier.de:8000/projects/ELM/elmart.html
@@ -8704,6 +8765,30 @@ uiop:run-program instead
     s that is available at the time of second evaluation, that is, when
     the inner backquote is evaluated, just use ,@(car s).)
 
+** LANGUAGES: Haskell
+
+    Monads:
+    http://haskell.readscheme.org/monads.html
+    http://dorophone.blogspot.com/2011/04/deep-emacs-part-1.html
+    http://dorophone.blogspot.com/2011/05/hyperturtle-monad-makes-pretty-pictures.html
+
+    http://drewc.org/interface/monads.html#sec-2-7
+    http://drewc.org/interface/monads.html#sec-5
+    https://raw.github.com/drewc/smug/master/doc/monparsing.org
+    http://common-lisp.net/~dcrampsie/smug.html#sec-5.8
+
+    http://berger-files.blogspot.com/2011/05/fully-typed-lisp.html
+
+    Haskell 98 Report
+      http://haskell.org/haskellwiki/Language_and_library_specification
+      http://haskell.org/tutorial/
+    The sources of Hugs <http://haskell.org/hugs/> have a Bison .y file.
+    http://learnyouahaskell.com/chapters
+
+pure $ (num == 1)
+is
+return (num==1)
+
 ** LANGUAGES: Scheme
 
 boot to guile in qemu:
@@ -9908,7 +9993,6 @@ gnome-nm-network-editor
 ** SYSTEM: MacOSX
 *** MacPorts ports port
 
-
 sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
 
 export GRADLE_HOME=/opt/local/share/java/gradle
@@ -9941,6 +10025,23 @@ Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolea
 MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
 defaults read  org.macports.X11 enable_test_extensions
 defaults read  org.x.X11        enable_test_extensions
+**** port gdb notes
+  gdb has the following notes:
+    You will need to codesign /opt/local/bin/ggdb
+
+    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
+    for more information.
+
+https://sourceware.org/gdb/wiki/PermissionsDarwin
+
+certificate=gdb-cert
+security find-certificate -c $certificate |grep System.keychain
+security find-certificate -p -c $certificate | openssl x509 -checkend 0
+
+security dump-trust-settings -d
+
+codesign -vv $(which gdb)
+codesign -d --entitlements - $(which gdb)|grep -a com.apple.security.cs.debugger
 
 **** port notes 20190106
 

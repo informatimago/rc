@@ -689,4 +689,5 @@ END is the end of the region."
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:

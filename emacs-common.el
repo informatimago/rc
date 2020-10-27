@@ -44,9 +44,8 @@
 ;;;----------------------------------------------------------------------------
 (setq-default lexical-binding t)
 (setq byte-compile-warnings '(not obsolete))
-(defvar *emacs-start-time*       (current-time) "For (emacs-uptime).")
+(defvar *emacs-start-time* (current-time) "For (emacs-uptime).")
 (setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
-
 
 
 
@@ -95,6 +94,7 @@
 (require 'tramp nil t)
 (require 'cc-mode)
 (require 'bytecomp)
+
 (when (fboundp 'byte-compile-disable-warning)
   (byte-compile-disable-warning 'cl-functions))
 
@@ -208,14 +208,6 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;; window-system ==> (display-multi-frame-p)
 ;; xterm-mouse-mode ;; To use the mouse inside xterm!
 
-(defvar *hostname*
-  (or (and (boundp 'system-name) system-name)
-      (and (fboundp 'system-name) (system-name))
-      (ignore-errors
-        (shell-command-to-string
-         "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )")
-        "localhost")))
-
 
 (.EMACS "enabling features")
 (put 'narrow-to-region 'disabled nil)
@@ -308,14 +300,6 @@ WELCOME TO EMACS!
     (case ch
       ((?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) (- ch ?0))
       (otherwise nil))))
-
-(defun octal (n)
-  "N is a decimal numbers whose digits are taken as octal digits
-and converted as such."
-  (loop
-     for d across (format "%d" n)
-     for r = (digit-char-p d) then (+ (* 8 r) (digit-char-p d))
-     finally (return r)))
 
 (progn
   (case system-type
@@ -523,11 +507,12 @@ and converted as such."
 
 
 
+
 (.EMACS "Loading my personal files -- My own stuff.")
 (pjb-setup-load-path)
-(unless (load "pjb-loader.el" ) (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 (load "~/rc/emacs-directories")
-(load "pjb-loader.el" )
+(unless (load "pjb-loader.el" )
+  (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
@@ -537,10 +522,17 @@ and converted as such."
                               "/opt/local/sbin" "/opt/local/bin")))
   (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
 
-
 (pjb-setup-exec-path)
 
 
+(setf *pjb-tab-width-alist*
+      '(("^/Applications/Emacs.app/Contents/Resources/" . 8)
+        ("^/usr/local/src/ccl-.*/" . 8)))
+
+;;------------------------------------------------------------------------
+(.EMACS "setting up fonts")
+(load "~/rc/emacs-font.el")
+;;------------------------------------------------------------------------
 
 ;; (message "old load-path = %S" (with-output-to-string (dump-load-path)))
 ;; (message "new load-path = %S" (with-output-to-string (dump-load-path)))
@@ -576,11 +568,11 @@ and converted as such."
 (epa-file-enable)
 
 (require 'highlight-flet nil t)
+
 (require 'rst nil t)
 (require 'rst-mode nil t)
 (when window-system
   (mouse-avoidance-mode 'cat-and-mouse))
-
 
 
 ;;;----------------------------------------------------------------------------
@@ -969,254 +961,20 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (pjb-terminal-key-bindings)
 (pjb-global-key-bindings)
 (pjb-function-keys)
-;;------------------------------------------------------------------------
-
-;; some more global key map are defined after loading my personal files below.
-
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "Loading my personal files -- My own stuff.")
-(unless (load "pjb-loader.el" t)
-  (.EMACS "WARNING WARNING WARNING: Could not find and load 'My own stuff'!"))
-
-
-;;;----------------------------------------------------------------------------
-(.EMACS "setting up fonts")
-;; See also:
-;; (info "(emacs)Defining Fontsets")
-
-(when (< emacs-major-version 22)
-  (require 'font nil t)
-
-  (defun font-spatial-to-canonical (spec &optional device)
-    "Convert SPEC (in inches, millimeters, points, or picas) into points"
-    ;; 1 in = 6 pa = 25.4 mm = 72 pt
-    (cond
-      ((numberp spec)
-       spec)
-      ((null spec)
-       nil)
-      (t
-       (let ((num nil)
-             (type nil)
-             ;; If for any reason we get null for any of this, default
-             ;; to 1024x768 resolution on a 17" screen
-             (pix-width (float (or (device-pixel-width device) 1024)))
-             (mm-width (float (or (device-mm-width device) 293)))
-             (retval nil))
-         (cond
-           ((string-match "^ *\\([-+*/]\\) *" spec) ; math!  whee!
-            (let ((math-func (intern (match-string 1 spec)))
-                  (other (font-spatial-to-canonical
-                          (substring spec (match-end 0) nil)))
-                  (default (font-spatial-to-canonical
-                            (font-default-size-for-device device))))
-              (if (and default (fboundp math-func))
-                  (setq type "px"
-                        spec (int-to-string (funcall math-func default other)))
-                  (setq type "px"
-                        spec (int-to-string other)))))
-           ((string-match "[^0-9.]+$" spec)
-            (setq type (substring spec (match-beginning 0))
-                  spec (substring spec 0 (match-beginning 0))))
-           (t
-            (setq type "px"
-                  spec spec)))
-         (setq num (string-to-number spec))
-         (cond
-           ((member type '("pixel" "px" "pix"))
-            (setq retval (* num (/ pix-width mm-width) (/ 25.4 72.0))))
-           ((member type '("point" "pt"))
-            (setq retval num))
-           ((member type '("pica" "pa"))
-            (setq retval (* num 12.0)))
-           ((member type '("inch" "in"))
-            (setq retval (* num 72.0)))
-           ((string= type "mm")
-            (setq retval (* num (/ 72.0 25.4))))
-           ((string= type "cm")
-            (setq retval (* num 10 (/ 72.0 25.4))))
-           (t
-            (setq retval num)))
-         retval))))
-
-
-  (when  (boundp 'x-font-alist)
-    ;; Correct the font menu.
-    (setf x-font-alist
-          (let ((monop (find "monospaced fonts" (rest x-font-alist)
-                             :test (function string=)
-                             :key (function first))))
-            (cons (first x-font-alist)
-                  (loop for (a b) on (rest x-font-alist)
-                     unless (equalp a b)
-                     collect (cond
-                               (monop a)
-                               ((string= (first a) "proportional fonts")
-                                '("monospaced fonts"   nil))
-                               ((string= (first a) "non-proportional fonts")
-                                '("proportional fonts" nil))
-                               (t a)))))))
-  );; when emacs-major-version < 23
-
-
-
-(defparameter *pjb-font-list*
-  '(
-    "-sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1"
-
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-*-*"
-    "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-*-*"
-
-    "-bitstream-terminal-medium-r-normal--18-140-100-100-c-110-iso8859-1"
-
-    "-b&h-lucidatypewriter-medium-r-normal-sans-8-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-10-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-11-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-bold-r-normal-sans-12-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-14-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-bold-r-normal-sans-14-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-15-*-*-*-m-*-*-*"
-    "-b&h-lucidatypewriter-medium-r-normal-sans-17-*-*-*-m-*-*-*"
-
-    "-bitstream-courier 10 pitch-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--11-130-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--12-130-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--13-130-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--14-130-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--15-150-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--17-170-*-*-m-*-*-*"
-    "-bitstream-courier 10 pitch-medium-r-normal--19-170-*-*-m-*-*-*"
-
-
-    "-LFP-Bright-normal-normal-normal-*-9-*-*-*-c-60-*-*"
-    "-LFP-Smooth-normal-normal-normal-*-9-*-*-*-c-60-*-*"
-    "-LFP-LucidaTerminal-normal-normal-normal-*-9-*-*-*-c-90-*-*"
-
-    "-LFP-Computer-normal-normal-normal-*-11-*-*-*-c-90-*-*"
-    "-LFP-Computer Alt-normal-normal-normal-*-9-*-*-*-c-90-iso10646-1"
-
-
-    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-9-*-*-*-m-0-*-*"
-    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-11-*-*-*-m-0-*-*"
-    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-13-*-*-*-m-0-*-*"
-    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-15-*-*-*-m-0-*-*"
-    "-unknown-Droid Sans Mono Dotted-normal-normal-normal-*-17-*-*-*-m-0-*-*"
-
-
-    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
-
-    "-Schumacher-Clean-normal-normal-normal-*-12-*-*-*-c-60-*-*"
-
-    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
-    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
-    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
-
-
-    "-unknown-ArnoldBoecklin-extra-bold-normal-normal-*-16-*-*-*-*-0-*-*"
-    "-unknown-Becker-normal-normal-normal-*-16-*-*-*-*-0-*-*"
-    "-unknown-Caligula-normal-normal-normal-*-19-*-*-*-*-0-*-*"
-
-
-    "-unknown-Bandal-normal-normal-normal-*-16-*-*-*-*-0-*-*"
-    "-unknown-Penguin Attack-normal-normal-normal-*-19-*-*-*-*-0-*-*"
-    "-artwiz-glisp-medium-r-normal--11-110-75-75-p-90-*-*"
-
-    "-adobe-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-b&h-luxi mono-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-ibm-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-monotype-courier new-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-urw-courier-medium-r-normal--*-*-*-*-m-*-*-*"
-    "-urw-nimbus mono l-medium-r-normal--*-*-*-*-m-*-*-*"
-
-    "-urw-Nimbus Mono L-normal-normal-normal-*-15-*-*-*-m-0-fontset-auto25"
-    "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
-    "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
-
-    ))
-
-(defvar *pjb-current-font-index* 0)
-
-(defun sign (number)
-  (cond ((< number 0) -1)
-        ((> number 0) +1)
-        (t             0)))
-
-(defun* forward-font (&optional (increment 1))
-  (interactive "p")
-  (typecase increment
-    (integer
-     (let ((increment (if (zerop increment) 1 increment)))
-       (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* increment)
-                                           (length *pjb-font-list*)))))
-    (string
-     (setf *pjb-current-font-index* (or (position increment *pjb-font-list*
-                                                  :test (function string=))))))
-  (loop
-     for try below (length *pjb-font-list*)
-     do (ignore-errors
-          (return
-            (progn (set-frame-font (elt *pjb-font-list* *pjb-current-font-index*))
-                   (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
-     do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
-     do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
-                                            (length *pjb-font-list*)))))
 
 
 (global-set-key (kbd "H-<right>") (lambda () (interactive) (forward-font +1)))
 (global-set-key (kbd "H-<left>")  (lambda () (interactive) (forward-font -1)))
-
 (global-set-key (kbd "H-<up>")    'backward-same-indent)
 (global-set-key (kbd "H-<down>")  'forward-same-indent)
-
 (global-set-key (kbd "H-`")  'next-error)
 
-
-   ;; *** Which font backends to use can be specified by the X resource
-   ;; "FontBackend".  For instance, to use both X core fonts and Xft fonts:
-   ;;
-   ;; Emacs.FontBackend: x,xft
-   ;;
-   ;; If this resource is not set, Emacs tries to use all font backends
-   ;; available on your graphic device.
-   ;;
-   ;; *** New frame parameter `font-backend' specifies a list of
-   ;; font-backends supported by the frame's graphic device.  On X, they are
-   ;; currently `x' and `xft'.
-
-
-;; (when (eq window-system 'x)
-;;   (set-frame-font
-;;    (if (fboundp 'font-exists-p)
-;;      (cond
-;;       ((font-exists-p  "7x13") "7x13")
-;;       ((font-exists-p (make-font-pattern :foundry "lispm" :family "fixed"))
-;;        (create-fontset-from-fontset-spec
-;;         "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-fontset-lispm,
-;; ascii:,
-;; latin-iso8859-1:-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*,
-;; latin-iso8859-15:-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*")
-;;        ;; once the fontset has been defined, it can be invoked :
-;;        "fontset-lispm")
-;;       ((font-exists-p  "lucidasanstypewriter-12") "lucidasanstypewriter-12")
-;;       (t *default-font*))
-;;      *default-font*))
-;;   (when (fboundp 'single-frame) (single-frame)))
-
-;;;----------------------------------------------------------------------------
-
+(case window-system
+  ((ns)
+   (global-set-key (kbd "A-<next>")   (lambda () (interactive) (forward-font +1)))
+   (global-set-key (kbd "A-<prior>")  (lambda () (interactive) (forward-font -1)))
+   (global-set-key (kbd "A-<up>")    'backward-same-indent)
+   (global-set-key (kbd "A-<down>")  'forward-same-indent)))
 
 ;;;----------------------------------------------------------------------------
 (when (and (boundp 'elscreen-display-tab) elscreen-display-tab)
@@ -1385,37 +1143,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (add-to-list 'vc-handled-backends 'Fossil))
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "darcs")
-(load "vc-darcs" t nil)
 
-
-(defun jump-to-real-file-from-darcs ()
-  (interactive)
-  (let* ((f (buffer-file-name (current-buffer)))
-         (match (string-match "_darcs/current" f)))
-    (and f match
-         (find-alternate-file
-          (concat (substring f 0 (match-beginning 0))
-                  (substring f (match-end 0)))))))
-
-(defun warn-if-darcs-file ()
-  (let ((f (buffer-file-name (current-buffer))))
-    (and f (string-match "_darcs" f)
-         (if (y-or-n-p "This is a _darcs file, open the real file? ")
-             (jump-to-real-file-from-darcs)
-             (push '(:propertize "_DARCS-FILE:" face font-lock-warning-face)
-                   mode-line-buffer-identification)))))
-
-(add-hook 'find-file-hooks 'warn-if-darcs-file)
-
-
-;;;----------------------------------------------------------------------------
-
-
-(appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
-                           ("\\.j$"      . java-mode)))
-
-(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 
 
@@ -2151,63 +1879,6 @@ RETURN: (path point)
 
 (setq lisp-indent-function 'common-lisp-indent-function)
 
-(defun lisp-indent-function (indent-point state)
-  "This function is the normal value of the variable `lisp-indent-function'.
-It is used when indenting a line within a function call, to see if the
-called function says anything special about how to indent the line.
-
-INDENT-POINT is the position where the user typed TAB, or equivalent.
-Point is located at the point to indent under (for default indentation)
-STATE is the `parse-partial-sexp' state for that position.
-
-If the current line is in a call to a Lisp function
-which has a non-nil property `lisp-indent-function',
-that specifies how to do the indentation.  The property value can be
-* `defun', meaning indent `defun'-style
-* an integer N, meaning indent the first N arguments specially
-  like ordinary function arguments and then indent any further
-  arguments like a body
-* a function to call just as this function was called.
-  If that function returns nil, that means it doesn't specify
-  the indentation.
-
-This function also returns nil meaning don't specify the indentation."
-  (let ((normal-indent (current-column)))
-    (goto-char (1+ (elt state 1)))
-    (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
-    (if (and (elt state 2)
-             (or (looking-at ":") (not (looking-at "\\sw\\|\\s_"))))
-        (progn ; car of form doesn't seem to be a symbol, or is a keyword
-          (if (not (> (save-excursion (forward-line 1) (point))
-                      calculate-lisp-indent-last-sexp))
-              (progn (goto-char calculate-lisp-indent-last-sexp)
-                     (beginning-of-line)
-                     (parse-partial-sexp (point)
-                                         calculate-lisp-indent-last-sexp 0 t)))
-          ;; Indent under the list or under the first sexp on the same
-          ;; line as calculate-lisp-indent-last-sexp.  Note that first
-          ;; thing on that line has to be complete sexp since we are
-          ;; inside the innermost containing sexp.
-          (backward-prefix-chars)
-          (current-column))
-        (let ((function (buffer-substring (point)
-                                          (progn (forward-sexp 1) (point))))
-              method)
-          (setq method (or (get (intern-soft function) 'lisp-indent-function)
-                           (get (intern-soft function) 'lisp-indent-hook)))
-          (cond ((or (eq method 'defun)
-                     (and (null method)
-                          (> (length function) 3)
-                          (string-match "\\`def" function)))
-                 (lisp-indent-defform state indent-point))
-                ((integerp method)
-                 (lisp-indent-specform method state
-                                       indent-point normal-indent))
-                (method
-                 (funcall method indent-point state)))))))
-
-;; (setq lisp-indent-function 'common-lisp-indent-function)
-
 (defun cl-indent (symbol num-forms)
   "
 Put on the SYMBOL and its lower case and upper case variants
@@ -2540,6 +2211,13 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (column-marker-1  80)
   (column-marker-2 120)
   (column-marker-3 132))
+
+;;;----------------------------------------------------------------------------
+
+(appendf auto-mode-alist '(("\\.jmf$"    . java-mode)
+                           ("\\.j$"      . java-mode)))
+
+(appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 ;;;----------------------------------------------------------------------------
 (when (file-exists-p "/usr/local/share/emacs/bigloo/")
@@ -3479,6 +3157,23 @@ License:
 (add-hook 'compilation-mode-hook 'pjb-compilation-meat)
 
 ;;;----------------------------------------------------------------------------
+(defvar *compile-and-run-compiler-alist*
+  (case system-type
+    ((darwin)
+     '(("c"   . "clang")
+       ("m"   . "clang")
+       ("c++" . "clang")
+       ("cpp" . "clang")
+       ("cxx" . "clang")
+       ("C"   . "clang")))
+    (otherwise
+     '(("c"   . "gcc")
+       ("m"   . "gcc")
+       ("c++" . "g++")
+       ("cpp" . "g++")
+       ("cxx" . "g++")
+       ("C"   . "g++")))))
+
 (defvar *compile-and-run-cflags*
   (let ((prefix "."))
     (format  "-I%s -L%s" prefix prefix)))
@@ -3492,20 +3187,23 @@ p")
          (type (path)
            (when (string-match "^.*/[^./]*\\.\\([^/.]*\\)$" path)
              (match-string 1 path))))
-    (let ((compiler (or (cdr (assoc* (type src)
-                                     '(("c++" . "g++")
-                                       ("cpp" . "g++")
-                                       ("cxx" . "g++")
-                                       ("C" . "g++"))
-                                     :test (function string=)))
-                        "gcc")))
+    (let* ((compiler (or (cdr (assoc* (type src)
+                                      *compile-and-run-compiler-alist*
+                                      :test (function string=)))
+                         "gcc"))
+           (options (if (and (eq system-type 'darwin)
+                             (string= compiler "gcc"))
+                        '("-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+                          "-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib")
+                        '())))
       ;; (message "src=%S" src)
       ;; (message "exe=%S"  (name src))
       ;; (message "mode=%S" mode)
+
       (compile
        (format ;; "SRC=%S ; EXE=%S ; cat $SRC ; echo '/*' ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $? ; echo '*/'"
-        "SRC=%S ; EXE=%S ; %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
-        src (name src) compiler *compile-and-run-cflags*
+        "SRC=%S ; EXE=%S ; %s %s %s -g3 -ggdb3 -o ${EXE} ${SRC} && %s ./${EXE} && echo status = $?"
+        src (name src) compiler (join options " ") *compile-and-run-cflags*
         (cond
           ((equal '(4) mode) "valgrind")
           ((equal '-1  mode) "xterm -hold -e")
@@ -3661,7 +3359,7 @@ or as \"emacs at <hostname>\"."
          (dolist (f (frame-list))
            (select-frame f)
            (set-frame-name (if hostnamep
-                               (format "%6s at %s" use *hostname*)
+                               (format "%6s at %s" use (hostname))
                                (string-upcase use))))
       (select-frame c))))
 
@@ -3966,5 +3664,5 @@ list or vector, the length of the sequence."
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
-;;;; THE END ;;;;
+;; eval: (flycheck-mode -1)
+;; End:
