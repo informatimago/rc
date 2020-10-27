@@ -96,3 +96,6 @@ symlink.xmodmap:
 
 showlinks:
 	cd     $$HOME ; ls -la |awk "/-> $(SRCDIR)/{printf "ln -sf %-30s $$    $$HOME/%s\n",$$11,$$9;}"
+
+clean::
+	-rm -rf *.elc *.o *.a

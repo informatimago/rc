@@ -84,4 +84,5 @@ NOTE:   ~/directories.txt is cached in *directories*.
 
 ;; Local Variables:
 ;; coding: utf-8
-;; End Variables:
+;; eval: (flycheck-mode -1)
+;; End:
