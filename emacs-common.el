@@ -527,7 +527,8 @@ WELCOME TO EMACS!
 
 (setf *pjb-tab-width-alist*
       '(("^/Applications/Emacs.app/Contents/Resources/" . 8)
-        ("^/usr/local/src/ccl-.*/" . 8)))
+        ("^/usr/local/src/ccl-.*/" . 8)
+        ("^/usr/local/src/emacs-.*/" . 8)))
 
 ;;------------------------------------------------------------------------
 (.EMACS "setting up fonts")
