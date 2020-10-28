@@ -383,7 +383,8 @@ function be_generate(){
         fi
         # socket=(--socket-name=/tmp/emacs${UID}/server)
         # EDITOR, VISUAL, etc, take only the command, no arguments.
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+        e=ec
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
