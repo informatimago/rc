@@ -1,7 +1,6 @@
 # -*- mode:org; coding:utf-8 -*-
 
-
-
+pullman: HO cleaning cars Maerklin 46010
 
 <Harag> Hi, I am looking for a individual or group to implement the quic protocol in portable cl. Please contact me with an estimate in $ and time. The estimates is so I can see if we can afford it both in $ and time (lapsed).
 <pjb> Harag: there are already a lot of QUIC implementations in various implementations, including in C. Are you sure you need one in Lisp (and not just a FFI to one of the C libraries)?
@@ -2998,6 +2997,7 @@ Math chars:
 ℍℙℚℤℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
 "─═┌╔┬╦┐╗├╠┼╬┤╣│║└╚┴╩┘╝"
 
+
 ℕ⊂ℤ⊂ℝ⊂ℂ but z=(n₁,n₂) and r=(zᵢ) and c=(r₁,r₂)
 ℕℤℚℝℂℍℙ
 S⊂C₁∩C₂∩…∩Cᵣ
@@ -5082,7 +5082,6 @@ git checkout    ${new_branch_name}
 git checkout -b ${new_branch_name}
 #+END_EXAMPLE
 
-
 ** DVCS: github
 *** multiple github accounts
 
@@ -5563,7 +5562,7 @@ Free PVS-Studio for those who develops C/C++/C# open source projects <https://ww
     you might be able to build one using quantum principles.
 
     http://www.amirrorclear.net/academic/hypercomputation.html
-6b17d384
+
 ** IA AI Artificial Intelligence
 
     http://nl.ijs.si/~damjan/fs-ai.html
@@ -7010,6 +7009,22 @@ http://www.fema.gov/areyouready/
 
     http://www-aig.jpl.nasa.gov/public/home/gat/lisp-study.html
 
+    Monads:
+    http://haskell.readscheme.org/monads.html
+    http://dorophone.blogspot.com/2011/04/deep-emacs-part-1.html
+    http://dorophone.blogspot.com/2011/05/hyperturtle-monad-makes-pretty-pictures.html
+
+    http://drewc.org/interface/monads.html#sec-2-7
+    http://drewc.org/interface/monads.html#sec-5
+    https://raw.github.com/drewc/smug/master/doc/monparsing.org
+    http://common-lisp.net/~dcrampsie/smug.html#sec-5.8
+
+    http://berger-files.blogspot.com/2011/05/fully-typed-lisp.html
+
+    Haskell 98 Report
+      http://haskell.org/haskellwiki/Language_and_library_specification
+      http://haskell.org/tutorial/
+    The sources of Hugs <http://haskell.org/hugs/> have a Bison .y file.
 
     http://www.iddqd.org/~chandler/documents/startingwithcl.html
 
@@ -9335,6 +9350,7 @@ http://www.untangle.com/
 http://live.gnome.org/Dia
 http://www.gimp.org/
 http://www.inkscape.org/
+*** Mathematics
 http://www.sagemath.org/tour.html
 http://www.jirka.org/genius.html
 http://www.scilab.org/
@@ -10026,7 +10042,6 @@ security dump-trust-settings -d
 
 codesign -vv $(which gdb)
 codesign -d --entitlements - $(which gdb)|grep -a com.apple.security.cs.debugger
-
 
 **** port notes 20190106
 
