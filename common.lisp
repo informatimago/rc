@@ -723,19 +723,24 @@ The HOST is added to the list of logical hosts defined.
 ;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
 
 (defun shell (control-string &rest arguments)
-  #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
-  #+ccl
-  (let ((process
-          (ccl:run-program "/bin/bash"
-                           (list "-c" (format nil "~?" control-string arguments))
-                           :output :stream
-                           :error :stream)))
-    (com.informatimago.common-lisp.cesarum.stream:copy-stream
-     (ccl:external-process-output-stream process)
-     *standard-output*)
-    (com.informatimago.common-lisp.cesarum.stream:copy-stream
-     (ccl:external-process-error-stream process)
-     *error-output*)))
+  (apply (function asdf:run-shell-command) control-string arguments)
+  ;; #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
+  ;; #+ccl
+  ;; (let ((process
+  ;;         (ccl:run-program "/bin/bash"
+  ;;                          (list "-c" (format nil "~?" control-string arguments))
+  ;;                          :output :stream
+  ;;                          :error :stream)))
+  ;;   (com.informatimago.common-lisp.cesarum.stream:copy-stream
+  ;;    (ccl:external-process-output-stream process)
+  ;;    *standard-output*)
+  ;;   (com.informatimago.common-lisp.cesarum.stream:copy-stream
+  ;;    (ccl:external-process-error-stream process)
+  ;;    *error-output*))
+  )
+(setf com.informatimago.common-lisp.interactive.browser:*shell*
+      (lambda (command)
+        (shell "~A" command)))
 
 (defun shell-command-to-string (control-string &rest arguments)
   #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
@@ -1031,6 +1036,12 @@ without, lists all the commands with their docstrings."
 (define-command date ()
   "Prints the date-time."
   (com.informatimago.common-lisp.interactive.interactive:date))
+
+(define-command cdns ()
+  "Change current working directory to MTS cl-naive-store sources."
+  (cd #P"~/works/mts/Harag/cl-naive-store/")
+  (prin1 (com.informatimago.common-lisp.interactive.browser:pwd))
+  (terpri))
 
 (define-command cdui ()
   "Change current working directory to MCLGUI sources."
