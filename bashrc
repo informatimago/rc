@@ -1336,6 +1336,8 @@ function update-localized-xibs() {
 # function atc-b           (){ xterm +sb -bg green -fg black -fn '-*-courier-bold-r-*-*-24-*-*-*-*-*-*-*' -e '/usr/games/bin/atc -g Atlantis' ; }
 
 
+function cdmts(){        cd "$HOME/works/mts/"                          ; }
+
 function cdpa(){         cd "$HOME/works/patchwork/src/patchwork"       ; }
 function cdui(){         cd "$HOME/works/patchwork/src/mclgui"          ; }
 
