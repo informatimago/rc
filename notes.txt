@@ -8,6 +8,10 @@ icloud christiane
 Add to informatimago.com this link: http://hocwp.free.fr/glmf/2-article_serveur/article_serveur.html
 
 tatouche mort à 62 ans…
+MAIRIE DE HAYANGE
+Hôtel de Ville - 1, place de la Résistance et de la Déportation
+BP 60517 - 57701 HAYANGE Cedex
+Téléphone : 03 82 82 49 49
 
 /msg alis list * -topic *makefile*
 
@@ -1726,7 +1730,7 @@ https://github.com/pasky/pachi/blob/master/ANDROID.txt
 https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
 http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
 https://github.com/ageneau/ecl-android
-
+https://wiki.debian.org/RaspberryPi
 
 Raspberry Pi OS:
 http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
