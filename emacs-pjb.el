@@ -725,15 +725,24 @@ X-Accept-Language:         fr, es, en
 (when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
   (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
 
+(defvar *pjb-trailing-whitespace-exclusions* '()
+  "A list of path regexps to exclude warning for trailing whitespaces.")
+
+(defun trailing-whitespace-candidate-p (file-name)
+  (and file-name
+       (string-match (format "^%s" home) file-name)
+       (vc-workfile-revision file-name)
+       (not-any (lambda (regexp)
+                  (string-match regexp file-name))
+                *pjb-trailing-whitespace-exclusions*)))
+
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
   (let ((home (cond (user-init-file  (dirname user-init-file))
                     ((getenv "HOME") (concat (getenv "HOME") "/"))
                     (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
         (file-name (buffer-file-name)))
-    (when (and file-name
-               (string-match (format "^%s" home) file-name)
-               (vc-workfile-revision file-name))
+    (when (trailing-whitespace-candidate-p file-name)
       (goto-char (point-min))
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
@@ -757,10 +766,11 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (when (vc-workfile-revision (buffer-file-name))
+  (when (trailing-whitespace-candidate-p (buffer-file-name))
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 
+(setf *pjb-trailing-whitespace-exclusions* '("/works/mts/Harag/"))
 (add-hook 'find-file-hook   'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
 
