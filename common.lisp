@@ -981,20 +981,35 @@ without, lists all the commands with their docstrings."
 ;; (format t "~2%asdf:*central-registry* = ~S~2%" asdf:*central-registry*)
 
 
-(shadow '(grep make mv cp less more cat ls mkdir popd pushd pwd cd browse
+(shadow '(grep make mv cp rm less more cat ls mkdir popd pushd pwd cd browse
           date))
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun browser-symbol (name)
+    (let ((name (string name)))
+      (multiple-value-bind (symbol where)
+          (find-symbol name "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER")
+        (case where
+          ((:external) symbol)
+          ((nil)       (error "No symbol named ~S in ~S"
+                              name
+                              "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER"))
+          (otherwise
+           (warn "Symbol named ~S is not exported from ~S"
+                 name
+                 "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER")
+           symbol))))))
 
 (defmacro forward-command-macro (name)
   `(define-command ,name (&rest arguments)
      ,(format nil "Invokes unix ~(~A~)." name)
-     (eval (cons ',(intern (symbol-name name) "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER")
-                 arguments))))
+     (eval (cons ',(browser-symbol name) arguments))))
 
 (defmacro forward-command-function (name (&rest lambda-list))
   (let ((ll (parse-lambda-list lambda-list :ordinary)))
     `(define-command ,name ,lambda-list
        ,(format nil "Invokes the ~(~A~) command." name)
-       (apply (function ,(intern (symbol-name name) "COM.INFORMATIMAGO.COMMON-LISP.INTERACTIVE.BROWSER"))
+       (apply (function ,(browser-symbol name))
               ,@(make-argument-list ll)))))
 
 
@@ -1003,11 +1018,14 @@ without, lists all the commands with their docstrings."
 (forward-command-macro make)
 (forward-command-macro grep)
 
+
 (forward-command-function less   (&rest paths))
 (forward-command-function more   (&rest paths))
 (forward-command-function cat    (&rest paths))
 (forward-command-function ls     (&rest args))
+(forward-command-function rm     (&rest args))
 (forward-command-function cd     (&optional path))
+
 
 (define-command pwd ()
   "Prints the current working directory."
