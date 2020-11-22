@@ -321,6 +321,8 @@ function be_generate(){
         #/data/languages/gcl-2.6.7/bin/
         #/data/languages/sbcl/bin/
 
+        /opt/*/bin
+        /opt/X11/bin
         /usr/X11R6/bin  /usr/X11/bin /usr/games
         /usr/bin        /usr/sbin
         /bin            /sbin
@@ -331,6 +333,7 @@ function be_generate(){
     )
 
     mandirs=(
+        /opt/*/man     /opt/*/share/man
         /opt/local/man /opt/local/share/man
         /usr/local/bin /usr/local/share/man
         /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man
