@@ -1,8 +1,11 @@
 # -*- mode:org; coding:utf-8 -*-
 
-pullman: HO cleaning cars Maerklin 46010
 
 erp cms
+
+
+update marklin stock: pullman: HO cleaning cars Maerklin 46010
+
 icloud christiane
 
 Add to informatimago.com this link: http://hocwp.free.fr/glmf/2-article_serveur/article_serveur.html
@@ -603,6 +606,8 @@ Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
 http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
 
 *** A-ACHETER                                                           :buy:
+**** Hyper 7 Keyboard r3
+https://groupbuys.mechboards.co.uk/shop/hyper-7-keyboard-r3/
 **** Bag Savotta Keikka 80 L
 **** Synthesizers
 ***** phonicboom glo http://phonicbloom.com/#product-choose
@@ -1526,128 +1531,6 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
 
 (loop repeat 10 for c = 1000000.0 then (/ c 1.03) do (insert (format "%.2f\n" c)))
 * DEVELOPMENTS
-
-** TODO Application Ideas                                             :ideas:
-
-    - dev: agloo
-    - dev: cdb
-    - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
-    - dev: lisp web surfer script
-    - dev: setiathome farm
-    - dev: tar-backup / raid-archive
-
-               OpenStep   GNUstep/linux    MacOSX/darwin   palm
-    Abalone       X              X               X           X
-    agloo                        X               X
-    cirrus        X
-    iTransfer                    X               X
-    metre                        X               X
-    minitel       X              X
-    convoy                       X               X
-    simanimals                   X               X           X
-    tour-de-france               X               X           X
-    safari                       X               X           X
-    Figurine                     X               X
-    asteroid3d                   X               X           X
-    LSE                          X               X
-    Mr.Do                        X               X           X
-    morphing-puzzle              X               X           X
-    raid-archive                 X               X
-    typogenetic
-    wallstreet
-
-
-    - Idées d'application :  APPLICATION IDEAS:
-
-        ------------------------------------------------------------------------
-        presence and communication manager:
-        A computer system centralizing communication notificiations (phone
-        calls, sms, emails, etc), and monitoring the user presence to report
-        him new notifications.
-        ------------------------------------------------------------------------
-        bluetooth:
-        a device to push informations to bluetooth devices.
-        ------------------------------------------------------------------------
-
-        - Minitel M1B bug reports
-          Porter en OS4.2 pour implimentation sur Mac OS X.
-          Emulateur Minitel :
-              - compteur suplimentaire pour le cout
-              - equivalents claviers
-              - sauvegarde en continu en videotex et en texte
-              - photo d'ecran
-              - edition souris sur l'ecran
-
-        - Abalone:
-            - Programmer v1.0 (jeu en riseau).
-            - Porter sur Linux/GNUstep.
-	        - Abalone update the URL in the About dialog
-
-        - Traveller
-            A purposeless game. A set of virtual planets to explore.
-            Several means of transport...
-
-        - Convoy
-            Similar to Traveller, but within an artificial environment
-            (space-station) and multi-users (thru Internet).
-
-        - Simulateur d'oiseau (et autre animaux).
-
-      	- Jeu Mr-Do /classique, /3d.  ---> Mr. It !!!
-      	- Jeu Tour de France.         ---> Vuelta 3D !!!
-
-  	    - Jeu Safari.
-
-  	    - Creature/Tiercé: générations de chevaux, gestion d'une écurie,
-	      simulation des courses, gestion des paris, en riseau TCP/IP.
-
-        - Collection de soldat de plomb virtuelle.
-            - Moules / simulation du coulage des soldats de plomb !
-            - Figurines virtuelles à "peindre", vitrine virtuelle.
-            - CAO de figurines virtuelle (style soldat de plomb).
-            - CAO de vêtements et accessoires, modèle virtuel
-              s'habillant automatiquement.
-
-    Gestion de parc / voisinage riseau:
-    Cela depend de ce que tu veux dire par "scanner"? et surtout quelles infos
-    tu veux avoir, nmap peut faire l'affaire ou Komba, gnomba... si tu veux
-    faire du "voisinage reseau"....
-
-
-      	- Application de Métré.
-
-        - Proxy Web/FTP/News optimisant les temps de connection.
-
-            +----------+      +----------+         +----------+
-            | Client   |      | Proxy    |         | Serveur  |
-            | Web,Mail |<---->|    Local |<--...-->| Proxy    |<-->(Internet)
-            | FTP,News |      | (cache)  |         | Connecti |
-            +----------+      +----------+         +----------+
-
-            Super-Compression d'email (mjme Mini-M, Inmarsat-C, etc !).
-
-
-        - AGLOO/Intelligent
-
-            - Analyse de spécifications et description de modèle en
-              langage naturel.
-
-            - Analyse de programmes sources ou objet et reconstruction
-              du modèle.
-
-            - Génération & transformation  automatique de modèles et
-              de programmes.
-
-            - Validation des modèles, Preuve de programme, Correction
-              des erreurs d'implimentation.
-
-            - Recherche de documentations, références et informations
-              sur Internet (FTP, Web, etc).
-
-            - Apprentissage automatique de langages de programmation.
-
-            - Portages, traduction entre langages de programmation.
-
 ** Developments TODO                                                    :dev:
 
 rav:                     718879 rlolc
@@ -1671,6 +1554,28 @@ cd /Users/pjb/works/patchwork/src-others/david-cope-cmmc
 
 cd /Users/pjb/works/patchwork-before-midishare
 
+*** TODO [#A] Patchwork                                                  :cl:
+--> 10,000 euro !
+
+Alexis Bosch
+
+chord sequence
+Editeur chord midi
+MidiNote -> fichier midi.
+
+Carole Sagon
+Karim Haddad
+
+*** TODO [#A] Abalone                                                   :ios:
+*** TODO [#A] Stonedge                                               :ios:cl:
+http://informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/playtomo-stonedge/index.html
+*** TODO [#B] Asteroid 3D                                               :ios:
+*** TODO [#B] Mr Do                                                     :ios:
+*** TODO [#A] hangman-ios                                    :hangman:ios:cl:
+    :DEADLINE: <2018-01-01 -4m>
+~/src/public/games/hangman-ios/
+
+*** TODO [#B] C11 compiler targetting CL                                 :cl:
 *** TODO [#C] write utility to check certificate of Carte Agent vs. official CA certificates.
 
 http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
@@ -1693,24 +1598,11 @@ http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
       - Debugging.
       - Search algorithm.
 
-*** TODO [#A] Patchwork                                                  :cl:
---> 10,000 euro !
-
-Alexis Bosch
-
-chord sequence
-Editeur chord midi
-MidiNote -> fichier midi.
-
-Carole Sagon
-Karim Haddad
-
 *** TODO [#B] Software Synthesizer                                       :cl:
 *** TODO [#A] clicc                                                      :cl:
 
 Update clicc, make it usable for Android and iOS.
 
-*** TODO [#B] C11 compiler targetting CL                                 :cl:
 *** TODO [#B] Translate/compile GNU emacs C sources to Lisp.       :emacs:cl:
 *** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
@@ -1743,14 +1635,6 @@ mke2fs -L home -j /dev/sdf4
 
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
-
-*** TODO [#A] hangman-ios                                    :hangman:ios:cl:
-    :DEADLINE: <2018-01-01 -4m>
-~/src/public/games/hangman-ios/
-
-*** TODO [#B] Implement "stonedge" game on iPad.                     :ios:cl:
-    :DEADLINE: <2018-01-01 -4m>
-- playtomo-stonedge.lisp
 
 *** TODO [#A] mocl test 2 (ios/android).                                 :cl:
     :DEADLINE: <2018-01-01 -4m>
@@ -1847,7 +1731,6 @@ https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 base
 *** TODO [#B] add to lisp-mirror                                      :admin:
  http://wcp.sdf-eu.org/software/
 *** TODO [#B] apps (iOS, Android): geofamily-like but free.
-*** TODO [#B] lispos (lire eros, prendre notes)                   :lispos:cl:
 *** TODO [0/4] LEP - Lisp Empowered Program                          :lep:cl:
 
 integrate a lisp linux distribution:
@@ -3013,6 +2896,20 @@ box drawing
 
 ==============================================================================
 See dasher below.
+** Hyper-7-Keyboard-r3
+https://groupbuys.mechboards.co.uk/shop/hyper-7-keyboard-r3/
+
+| Help  | Macro   |   | Terminal | Quote   | Over Strike | Clear Input | Clear Screen | Hold Output | Stop Input | Abort  | Break    | Resume |   | Call    | Reset     |
+| Local | Network |   | System   | Refresh | Buffers     | ▪           | ●            | triangle    | ◊          | Repeat | Transmit | Status |   | Suspend | Caps Lock |
+
+
+| close  | open  |   | escape   |      |        |       |       |         |       |   |       |         |       |       |       |        |       | complete |   |        |     |
+| find   | write |   | compose  |      |        |       |       |         |       |   |       |         |       |       |       |        |       | undo     |   |        |     |
+| mark   | undo  |   | paste    | cut  | tab    |       |       |         |       |   |       |         |       |       |       | bsp    | clear | begin    |   |        |     |
+| select | debug |   | function | mode | top    |       |       |         |       |   |       |         |       |       |       | return | line  | page     |   |        |     |
+| tty    | lock  |   | begin    | end  | symbol | shift |       |         |       |   |       |         |       |       | shift | symbol | up    | end      |   |        |     |
+| home   | eof   |   | prior    | next | smol   | alt   | super | control | space | ● | space | control | super | hyper | meta  | left   | down  | right    |   | delete | fun |
+
 
 ** Russian Keyboard
 
@@ -8212,6 +8109,7 @@ http://groups.google.com/group/comp.lang.lisp/browse_frm/thread/ba809b621e88da2b
 
 *** FORMAT
 
+#+BEGIN_SRC
     Format specifier
 
     ~((0-9+|V|'.)?,)*[:@]*.
@@ -8388,6 +8286,8 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
          ;;                     ^^^ put it here.
          '("mv" "/some/really/long/path/seriously/it/is/really/long"
  	      "/to/some/other/really/long/path"))
+#+END_SRC
+
 | # Shell Command:
 |   mv /some/really/long/path/seriously/it/is/really/long \
 |          /to/some/other/really/long/path
@@ -11382,5 +11282,3 @@ Local Variables:
 org-fontify-done-headline: t
 org-todo-keywords:  ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))
 End:
-
-
