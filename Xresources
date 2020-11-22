@@ -95,7 +95,7 @@ xterm*sunFunctionKeys:          false
 !! VT Options Menu:
 !! -----------------------------
 xterm*scrollBar:                false
-xterm*scrollBarBorder:              1
+xterm*scrollBarBorder:          1
 xterm*jumpScroll:               true
 xterm*reverseVideo:             false
 xterm*autoWrap:                 true
@@ -125,12 +125,12 @@ xterm*activeIcon:               false
 ! xterm*font5:   -*-lucidatypewriter-medium-r-normal-*-16-*-*-*-m-*-*-*
 ! xterm*font6:   -*-lucidatypewriter-medium-r-normal-*-18-*-*-*-m-*-*-*
 
-! xterm*font1.Label: lycidatypewriter-14
-! xterm*font2.Label: lycidatypewriter-16
-! xterm*font3.Label: lycidatypewriter-17
-! xterm*font4.Label: lycidatypewriter-19
-! xterm*font5.Label: lycidatypewriter-21
-! xterm*font6.Label: lycidatypewriter-24
+xterm*font1.Label: lucidasanstypewriter-8
+xterm*font2.Label: lucidasanstypewriter-10
+xterm*font3.Label: lucidasanstypewriter-12
+xterm*font4.Label: lucidasanstypewriter-14
+xterm*font5.Label: lucidasanstypewriter-18
+xterm*font6.Label: lucidasanstypewriter-24
 
 ! xterm*font1.Label: Very Small
 ! xterm*font2.Label: Small
