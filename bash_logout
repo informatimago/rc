@@ -3,5 +3,8 @@
 # bash login shell termination file.
 #
 
-set-xterm-title "xterm"
+case "$TERM" in
+(xterm*) set-xterm-title "xterm" ;;
+esac
+
 clear
