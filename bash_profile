@@ -2,20 +2,19 @@
 # .bash_profile
 # The  personal  initialization  file,  executed  for login shells
 
-if [  ${TRAMP:-no} = yes ] ; then
-    return
+if [  ${TRAMP:-no} = no ] ; then
+    tset -Q
+
+    case $TERM in
+    xterm*)
+        stty erase  2>/dev/null
+        ;;
+    linux)
+        [ $UID -eq 0 ] && loadkeys /root/pjb.kmap
+        ;;
+    esac
 fi
 
-tset -Q
-
-case $TERM in
-xterm*)
-    stty erase  2>/dev/null
-    ;;
-linux)
-    [ $UID -eq 0 ] && loadkeys /root/pjb.kmap
-    ;;
-esac
 
 # Get the aliases and functions
 [ -f ~/.bashrc ] && . ~/.bashrc
