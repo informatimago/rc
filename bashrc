@@ -2,11 +2,6 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 
-if [  ${TRAMP:-no} = yes ] ; then
-    return
-fi
-
-
 set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
