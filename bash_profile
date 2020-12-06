@@ -2,7 +2,7 @@
 # .bash_profile
 # The  personal  initialization  file,  executed  for login shells
 
-if [  ${TRAMP:-no} = no ] ; then
+function set_terminal(){
     tset -Q
 
     case $TERM in
@@ -13,8 +13,13 @@ if [  ${TRAMP:-no} = no ] ; then
         [ $UID -eq 0 ] && loadkeys /root/pjb.kmap
         ;;
     esac
+}
+
+if [  ${TRAMP:-no} = yes ] ; then
+    return
 fi
 
+set_terminal
 
 # Get the aliases and functions
 [ -f ~/.bashrc ] && . ~/.bashrc
