@@ -2,6 +2,10 @@
 # .bash_profile
 # The  personal  initialization  file,  executed  for login shells
 
+if [  ${TRAMP:-no} = yes ] ; then
+    return
+fi
+
 tset -Q
 
 case $TERM in
