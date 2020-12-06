@@ -7,4 +7,8 @@ case "$TERM" in
 (xterm*) set-xterm-title "xterm" ;;
 esac
 
-clear
+case "$TERM" in
+(emacs) true ;;
+(*)     clear ;;
+esac
+
