@@ -17,7 +17,7 @@
                          ;; ("org"           . "https://orgmode.org/elpa/")
                          ))
 
-(package-initialize)
+;; (package-initialize) in emacs.el
 (when (not package-archive-contents)
   (package-refresh-contents))
 
