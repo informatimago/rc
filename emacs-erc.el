@@ -12,8 +12,10 @@
      "#haskell-embedded" "#haskell-fr" "#haskell-lang"
      "#haskell-overflow" "#haskell-stack" "#haskell.nix" "#hn"
      "#iphonedev" "#iphonedev-chat" "#lisp-es" "#lispcafe" "#lispgames"
-     "#lispm" "#macports" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp"
+     "#lispm" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp"
      "#slime" "#space" "#swift-lang" "#synthesizers" "#tesla")
+
+    ("disabled.freenode.org" "#macports")
 
     ("esper.net" "#SpaceX")
     ("irc.sbde.fr" "#laboite" "#sbde")
