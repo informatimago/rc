@@ -116,24 +116,22 @@
         :do (decf i)
         :finally (return (subseq version 0 (1+ i)))))
 
-
 (defun sbcl-source-location ()
-  (let ((sbcl-file (make-pathname
-                    :directory (list :relative
-                                     (format nil "sbcl-~A"
-                                             (clean-version
-                                              (lisp-implementation-version))))
-                    :name "version"
-                    :type "lisp-expr"))
+  (let ((clean-version (clean-version (lisp-implementation-version)))
         (src-dirs '(#P"/usr/src/"
                     #P"/usr/local/src/"
                     #P"/opt/local/src/"
                     #P"/data/src/languages/sbcl/")))
-    (dolist (src-dir src-dirs nil)
-      (let ((path (merge-pathnames sbcl-file src-dir nil)))
-        (when (probe-file path)
-          (return (make-pathname :name nil :type nil :version nil :defaults path)))))))
-
+    (loop :for name :in '("version" "build-order")
+          :for sbcl-file := (make-pathname
+                             :directory (list :relative (format nil "sbcl-~A" clean-version))
+                             :name name
+                             :type "lisp-expr")
+          :do (dolist (src-dir src-dirs nil)
+                (let ((path (merge-pathnames sbcl-file src-dir nil)))
+                  (when (probe-file path)
+                    (return-from sbcl-source-location
+                      (make-pathname :name nil :type nil :version nil :defaults path))))))))
 
 (let ((sources  (sbcl-source-location)))
   (if sources
