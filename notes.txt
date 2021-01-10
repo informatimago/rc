@@ -1,8 +1,9 @@
 # -*- mode:org; coding:utf-8 -*-
-
+0966872199
 
 erp cms
 
+https://www.candysanbox.com/en/12-our-plans
 
 update marklin stock: pullman: HO cleaning cars Maerklin 46010
 
@@ -9518,7 +9519,21 @@ port select --set cython cython34
 #+END_SRC
 
 **** MacPorts ports notes
+***** postgresql
+#+BEGIN_SRC
+  postgresql13-server has the following notes:
+    To create a database instance, after install do
+     sudo mkdir -p /opt/local/var/db/postgresql13/defaultdb
+     sudo chown postgres:postgres /opt/local/var/db/postgresql13/defaultdb
+     sudo su postgres -c 'cd /opt/local/var/db/postgresql13 && /opt/local/lib/postgresql13/bin/initdb -D/opt/local/var/db/postgresql13/defaultdb'
 
+    A startup item has been generated that will aid in starting postgresql13-server with launchd. It is disabled by default. Execute the
+    following command to start it, and to cause it to launch at startup:
+
+        sudo port load postgresql13-server
+#+END_SRC
+
+***** mysql
 If this is a new install you might want to run:
 $ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
 
@@ -9527,7 +9542,11 @@ sudo port uninstall mysql5
 sudo port install mysql56
 sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
 
+***** cppunit
+
 sudo port upgrade cppunit configure.compiler=macports-gcc-4.8
+
+***** X11
 
 Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
 MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
