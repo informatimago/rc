@@ -3,5 +3,12 @@
 # bash login shell termination file.
 #
 
-set-xterm-title "xterm"
-clear
+case "$TERM" in
+(xterm*) set-xterm-title "xterm" ;;
+esac
+
+case "$TERM" in
+(emacs) true ;;
+(*)     clear ;;
+esac
+
