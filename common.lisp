@@ -703,62 +703,71 @@ The HOST is added to the list of logical hosts defined.
 
 ;;;----------------------------------------------------------------------
 
+(defun shell (control-string &rest arguments)
+  (uiop:run-program (format nil "~?" control-string arguments)
+                    :force-shell t :output t))
+
+(setf com.informatimago.common-lisp.interactive.browser:*shell*
+      (lambda (command) (shell "~A" command)))
+
+(defun shell-command-to-string (control-string &rest arguments)
+  (uiop:run-program (format nil "~?" control-string arguments)
+                    :force-shell t :output :string))
+
+(export '(shell shell-command-to-string)  :com.informatimago.pjb)
+
+;; (progn
+;;   (apply (function asdf:run-shell-command) control-string arguments) is deprecated.
+;;   #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
+;;   #+ccl
+;;   (let ((process
+;;           (ccl:run-program "/bin/bash"
+;;                            (list "-c" (format nil "~?" control-string arguments))
+;;                            :output :stream
+;;                            :error :stream)))
+;;     (com.informatimago.common-lisp.cesarum.stream:copy-stream
+;;      (ccl:external-process-output-stream process)
+;;      *standard-output*)
+;;     (com.informatimago.common-lisp.cesarum.stream:copy-stream
+;;      (ccl:external-process-error-stream process)
+;;      *error-output*))
+;; 
+;;   #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
+;;   #+ccl
+;;   (let ((process
+;;           (ccl:run-program "/bin/bash"
+;;                            (list "-c" (format nil "~?" control-string arguments))
+;;                            :output :stream
+;;                            :error :stream)))
+;;     (values (with-output-to-string (out)
+;;               (com.informatimago.common-lisp.cesarum.stream:copy-stream
+;;                (ccl:external-process-output-stream process) out))
+;;             (with-output-to-string (err)
+;;               (com.informatimago.common-lisp.cesarum.stream:copy-stream
+;;                (ccl:external-process-error-stream process) err)))))
+
+
+;;;----------------------------------------------------------------------
+
+(defmacro or-error (&body expressions)
+  (if (rest expressions)
+      `(handler-case ,(first expressions)
+         (error ()
+           (or-error ,@(rest expressions))))
+      (first expressions)))
+
 (fmakunbound 'hostname)
 (defun hostname ()
   "RETURN: The FQDN of the local host."
   (handler-case
-      (let ((outpath (format nil "/tmp/hostname-~8,'0X.txt" (random #x100000000))))
-        (unwind-protect
-             (progn
-               (asdf:run-shell-command "( hostname --fqdn 2>/dev/null || hostname --long 2>/dev/null || hostname ) > ~A"
-                                       outpath)
-               (with-open-file (hostname outpath)
-                 (read-line hostname)))
-          (delete-file outpath)))
-    (error ()
-      (warn "Cannot find hostname.")
+      (string-trim #(#\newline)
+                   (or-error
+                     (shell-command-to-string "hostname --fqdn")
+                     (shell-command-to-string "hostname --long")
+                     (shell-command-to-string "hostname")))
+    (error (err)
+      (warn "~A" err)
       "localhost")))
-
-;;;----------------------------------------------------------------------
-;; TODO: Make them nice DTRT, instead of Q&D shell and shell-command-to-string.
-
-(defun shell (control-string &rest arguments)
-  (apply (function asdf:run-shell-command) control-string arguments)
-  ;; #-ccl (error "~S is not implemented yet on ~A" 'shell (lisp-implementation-type))
-  ;; #+ccl
-  ;; (let ((process
-  ;;         (ccl:run-program "/bin/bash"
-  ;;                          (list "-c" (format nil "~?" control-string arguments))
-  ;;                          :output :stream
-  ;;                          :error :stream)))
-  ;;   (com.informatimago.common-lisp.cesarum.stream:copy-stream
-  ;;    (ccl:external-process-output-stream process)
-  ;;    *standard-output*)
-  ;;   (com.informatimago.common-lisp.cesarum.stream:copy-stream
-  ;;    (ccl:external-process-error-stream process)
-  ;;    *error-output*))
-  )
-(setf com.informatimago.common-lisp.interactive.browser:*shell*
-      (lambda (command)
-        (shell "~A" command)))
-
-(defun shell-command-to-string (control-string &rest arguments)
-  #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
-  #+ccl
-  (let ((process
-          (ccl:run-program "/bin/bash"
-                           (list "-c" (format nil "~?" control-string arguments))
-                           :output :stream
-                           :error :stream)))
-    (values (with-output-to-string (out)
-              (com.informatimago.common-lisp.cesarum.stream:copy-stream
-               (ccl:external-process-output-stream process) out))
-            (with-output-to-string (err)
-              (com.informatimago.common-lisp.cesarum.stream:copy-stream
-               (ccl:external-process-error-stream process) err)))))
-
-(export '(shell shell-command-to-string)  :com.informatimago.pjb)
-
 
 ;;;----------------------------------------------------------------------
 

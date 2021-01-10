@@ -107,9 +107,8 @@
 ;; (not cl-functions)
 
 (require 'tramp-sh nil t)
-(defvar tramp-ssh-controlmaster-options "")
-;; (setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' " tramp-ssh-controlmaster-options))
-;; (setf tramp-ssh-controlmaster-options "")
+;; (defvar tramp-ssh-controlmaster-options "")
+;; -o SendEnv has become useless since now OpenSSH filters them in the server configuration.
 ;; (setf tramp-ssh-controlmaster-options (concat "-o 'SendEnv TRAMP=yes' -o 'SendEnv TERM=dumb' " tramp-ssh-controlmaster-options))
 
 (setf shell-prompt-pattern "^[^#$%>\n]*[#$%>] *")
