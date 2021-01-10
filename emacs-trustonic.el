@@ -218,8 +218,7 @@
   (interactive)
   (when (fboundp 'auto-complete-mode)
     (auto-complete-mode 1))
-  (setf tab-stop 4
-        tab-width 4
+  (setf tab-width 4
         c-indent-level 4
         c-basic-offset 4
         c-tab-always-indent t))

@@ -1,26 +1,20 @@
 # -*- mode:org; coding:utf-8 -*-
 
-pullman: HO cleaning cars Maerklin 46010
-
-<Harag> Hi, I am looking for a individual or group to implement the quic protocol in portable cl. Please contact me with an estimate in $ and time. The estimates is so I can see if we can afford it both in $ and time (lapsed).
-<pjb> Harag: there are already a lot of QUIC implementations in various implementations, including in C. Are you sure you need one in Lisp (and not just a FFI to one of the C libraries)?
-<Harag> pjb: I would like it to be portable cl because the project will be open sourced in the end. But if its going to be out of my budget then the C lib will have to do.
-<Harag> and once the quic protocol is done and useable then I want to see if I can scrape together the budget for http3 lib
-<pjb> I'll have to look at the protocol more closely to give an estimation. Can you PM your email?
-<Harag> phil@mtsholdings.co.za
-<Harag> https://tools.ietf.org/html/draft-ietf-quic-transport-29
-<Harag> https://tools.ietf.org/html/draft-ietf-quic-tls-29
-<Harag> https://tools.ietf.org/html/draft-ietf-quic-recovery-29
-<Harag> not sure if all of those need to be implemented.
-<pjb> For TLS, I assume you want to use ironclad, as pure CL implementation?
-<Harag> use what ever there is in cl yes
 
 erp cms
+
+
+update marklin stock: pullman: HO cleaning cars Maerklin 46010
+
 icloud christiane
 
 Add to informatimago.com this link: http://hocwp.free.fr/glmf/2-article_serveur/article_serveur.html
 
 tatouche mort à 62 ans…
+MAIRIE DE HAYANGE
+Hôtel de Ville - 1, place de la Résistance et de la Déportation
+BP 60517 - 57701 HAYANGE Cedex
+Téléphone : 03 82 82 49 49
 
 /msg alis list * -topic *makefile*
 
@@ -48,6 +42,8 @@ Référence de votre commande : BMWIIQIXB
 <05:09:42><thrig> irc has a line length limit
 <05:20:34><ober> yeah line wrap off here, sorry about that.
 
+<botihn> entrepreneurshandbook URL      https://entrepreneurshandbook\.co/.*
+<botihn> economist-paywall URL      https://www\.economist\.com/.*
 <botihn> baltimoresun URL      https://www\.baltimoresun\.com/.*
 <botihn> bi           URL      https://www\.businessinsider\.com/.*
 <botihn> telegraph    URL      https://www\.telegraph\.co\.uk/.*
@@ -610,6 +606,9 @@ Configure MacOSX systems & Xcode of various versions in VirtualBox disk images.
 http://www.rolandziegler.de/StreckeUndLandschaft/transdemTrainz_Engl.htm
 
 *** A-ACHETER                                                           :buy:
+**** Hyper 7 Keyboard r3
+https://groupbuys.mechboards.co.uk/shop/hyper-7-keyboard-r3/
+**** Bag Savotta Keikka 80 L
 **** Synthesizers
 ***** phonicboom glo http://phonicbloom.com/#product-choose
 ***** moog one
@@ -1497,12 +1496,11 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
 
 *** TODO Earn retirement money
 
+
 |------+----------------+-----------------+--------------+--------------|
 | Year | Infl.Corr/Year | Total Remaining |      Capital |              |
 |------+----------------+-----------------+--------------+--------------|
 |  <r> |            <r> |             <r> |          <r> |          <r> |
-| 2019 |      22,951.40 |      263,741.76 |   789,409.23 | 1,053,150.99 |
-| 2020 |      24,328.49 |      240,790.34 |   813,091.51 | 1,053,881.85 |
 | 2021 |      25,788.19 |      216,461.86 |   837,484.26 | 1,053,946.12 |
 | 2022 |      27,335.48 |      190,673.68 |   862,608.78 | 1,053,282.46 |
 | 2023 |      28,975.61 |      163,338.19 |   888,487.05 | 1,051,825.24 |
@@ -1532,128 +1530,6 @@ http://www.newscientist.com/news/news.jsp?id=ns99992066
 
 (loop repeat 10 for c = 1000000.0 then (/ c 1.03) do (insert (format "%.2f\n" c)))
 * DEVELOPMENTS
-
-** TODO Application Ideas                                             :ideas:
-
-    - dev: agloo
-    - dev: cdb
-    - dev: cl-posix  CL-POSIX: see cffi-grovel, cffi-unix
-    - dev: lisp web surfer script
-    - dev: setiathome farm
-    - dev: tar-backup / raid-archive
-
-               OpenStep   GNUstep/linux    MacOSX/darwin   palm
-    Abalone       X              X               X           X
-    agloo                        X               X
-    cirrus        X
-    iTransfer                    X               X
-    metre                        X               X
-    minitel       X              X
-    convoy                       X               X
-    simanimals                   X               X           X
-    tour-de-france               X               X           X
-    safari                       X               X           X
-    Figurine                     X               X
-    asteroid3d                   X               X           X
-    LSE                          X               X
-    Mr.Do                        X               X           X
-    morphing-puzzle              X               X           X
-    raid-archive                 X               X
-    typogenetic
-    wallstreet
-
-
-    - Idées d'application :  APPLICATION IDEAS:
-
-        ------------------------------------------------------------------------
-        presence and communication manager:
-        A computer system centralizing communication notificiations (phone
-        calls, sms, emails, etc), and monitoring the user presence to report
-        him new notifications.
-        ------------------------------------------------------------------------
-        bluetooth:
-        a device to push informations to bluetooth devices.
-        ------------------------------------------------------------------------
-
-        - Minitel M1B bug reports
-          Porter en OS4.2 pour implimentation sur Mac OS X.
-          Emulateur Minitel :
-              - compteur suplimentaire pour le cout
-              - equivalents claviers
-              - sauvegarde en continu en videotex et en texte
-              - photo d'ecran
-              - edition souris sur l'ecran
-
-        - Abalone:
-            - Programmer v1.0 (jeu en riseau).
-            - Porter sur Linux/GNUstep.
-	        - Abalone update the URL in the About dialog
-
-        - Traveller
-            A purposeless game. A set of virtual planets to explore.
-            Several means of transport...
-
-        - Convoy
-            Similar to Traveller, but within an artificial environment
-            (space-station) and multi-users (thru Internet).
-
-        - Simulateur d'oiseau (et autre animaux).
-
-      	- Jeu Mr-Do /classique, /3d.  ---> Mr. It !!!
-      	- Jeu Tour de France.         ---> Vuelta 3D !!!
-
-  	    - Jeu Safari.
-
-  	    - Creature/Tiercé: générations de chevaux, gestion d'une écurie,
-	      simulation des courses, gestion des paris, en riseau TCP/IP.
-
-        - Collection de soldat de plomb virtuelle.
-            - Moules / simulation du coulage des soldats de plomb !
-            - Figurines virtuelles à "peindre", vitrine virtuelle.
-            - CAO de figurines virtuelle (style soldat de plomb).
-            - CAO de vêtements et accessoires, modèle virtuel
-              s'habillant automatiquement.
-
-    Gestion de parc / voisinage riseau:
-    Cela depend de ce que tu veux dire par "scanner"? et surtout quelles infos
-    tu veux avoir, nmap peut faire l'affaire ou Komba, gnomba... si tu veux
-    faire du "voisinage reseau"....
-
-
-      	- Application de Métré.
-
-        - Proxy Web/FTP/News optimisant les temps de connection.
-
-            +----------+      +----------+         +----------+
-            | Client   |      | Proxy    |         | Serveur  |
-            | Web,Mail |<---->|    Local |<--...-->| Proxy    |<-->(Internet)
-            | FTP,News |      | (cache)  |         | Connecti |
-            +----------+      +----------+         +----------+
-
-            Super-Compression d'email (mjme Mini-M, Inmarsat-C, etc !).
-
-
-        - AGLOO/Intelligent
-
-            - Analyse de spécifications et description de modèle en
-              langage naturel.
-
-            - Analyse de programmes sources ou objet et reconstruction
-              du modèle.
-
-            - Génération & transformation  automatique de modèles et
-              de programmes.
-
-            - Validation des modèles, Preuve de programme, Correction
-              des erreurs d'implimentation.
-
-            - Recherche de documentations, références et informations
-              sur Internet (FTP, Web, etc).
-
-            - Apprentissage automatique de langages de programmation.
-
-            - Portages, traduction entre langages de programmation.
-
 ** Developments TODO                                                    :dev:
 
 rav:                     718879 rlolc
@@ -1677,6 +1553,28 @@ cd /Users/pjb/works/patchwork/src-others/david-cope-cmmc
 
 cd /Users/pjb/works/patchwork-before-midishare
 
+*** TODO [#A] Patchwork                                                  :cl:
+--> 10,000 euro !
+
+Alexis Bosch
+
+chord sequence
+Editeur chord midi
+MidiNote -> fichier midi.
+
+Carole Sagon
+Karim Haddad
+
+*** TODO [#A] Abalone                                                   :ios:
+*** TODO [#A] Stonedge                                               :ios:cl:
+http://informatimago.com/develop/lisp/com/informatimago/small-cl-pgms/playtomo-stonedge/index.html
+*** TODO [#B] Asteroid 3D                                               :ios:
+*** TODO [#B] Mr Do                                                     :ios:
+*** TODO [#A] hangman-ios                                    :hangman:ios:cl:
+    :DEADLINE: <2018-01-01 -4m>
+~/src/public/games/hangman-ios/
+
+*** TODO [#B] C11 compiler targetting CL                                 :cl:
 *** TODO [#C] write utility to check certificate of Carte Agent vs. official CA certificates.
 
 http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
@@ -1699,24 +1597,11 @@ http://www.zytrax.com/tech/survival/ssl.html#self   X.509 certificates
       - Debugging.
       - Search algorithm.
 
-*** TODO [#A] Patchwork                                                  :cl:
---> 10,000 euro !
-
-Alexis Bosch
-
-chord sequence
-Editeur chord midi
-MidiNote -> fichier midi.
-
-Carole Sagon
-Karim Haddad
-
 *** TODO [#B] Software Synthesizer                                       :cl:
 *** TODO [#A] clicc                                                      :cl:
 
 Update clicc, make it usable for Android and iOS.
 
-*** TODO [#B] C11 compiler targetting CL                                 :cl:
 *** TODO [#B] Translate/compile GNU emacs C sources to Lisp.       :emacs:cl:
 *** TODO [#A] Update DDNS (and IPv6)                               :admin:cl:
 *** TODO [#A] raspberri pi CFFI CL library                               :pi:
@@ -1736,7 +1621,7 @@ https://github.com/pasky/pachi/blob/master/ANDROID.txt
 https://www.informatimago.com/articles/raspberrypi/ccl-sur-qemu.html
 http://nklein.com/2014/04/clozure-common-lisp-on-the-raspberry-pi/
 https://github.com/ageneau/ecl-android
-
+https://wiki.debian.org/RaspberryPi
 
 Raspberry Pi OS:
 http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/os/
@@ -1749,14 +1634,6 @@ mke2fs -L home -j /dev/sdf4
 
 **** ECL on iPhone/iPad
 http://funcall.posterous.com/ecl-on-iphone-redux
-
-*** TODO [#A] hangman-ios                                    :hangman:ios:cl:
-    :DEADLINE: <2018-01-01 -4m>
-~/src/public/games/hangman-ios/
-
-*** TODO [#B] Implement "stonedge" game on iPad.                     :ios:cl:
-    :DEADLINE: <2018-01-01 -4m>
-- playtomo-stonedge.lisp
 
 *** TODO [#A] mocl test 2 (ios/android).                                 :cl:
     :DEADLINE: <2018-01-01 -4m>
@@ -1853,7 +1730,6 @@ https://github.com/Nortey/TankDB  Lightweight OO local storage lib (sqlite3 base
 *** TODO [#B] add to lisp-mirror                                      :admin:
  http://wcp.sdf-eu.org/software/
 *** TODO [#B] apps (iOS, Android): geofamily-like but free.
-*** TODO [#B] lispos (lire eros, prendre notes)                   :lispos:cl:
 *** TODO [0/4] LEP - Lisp Empowered Program                          :lep:cl:
 
 integrate a lisp linux distribution:
@@ -3019,6 +2895,20 @@ box drawing
 
 ==============================================================================
 See dasher below.
+** Hyper-7-Keyboard-r3
+https://groupbuys.mechboards.co.uk/shop/hyper-7-keyboard-r3/
+
+| Help  | Macro   |   | Terminal | Quote   | Over Strike | Clear Input | Clear Screen | Hold Output | Stop Input | Abort  | Break    | Resume |   | Call    | Reset     |
+| Local | Network |   | System   | Refresh | Buffers     | ▪           | ●            | triangle    | ◊          | Repeat | Transmit | Status |   | Suspend | Caps Lock |
+
+
+| close  | open  |   | escape   |      |        |       |       |         |       |   |       |         |       |       |       |        |       | complete |   |        |     |
+| find   | write |   | compose  |      |        |       |       |         |       |   |       |         |       |       |       |        |       | undo     |   |        |     |
+| mark   | undo  |   | paste    | cut  | tab    |       |       |         |       |   |       |         |       |       |       | bsp    | clear | begin    |   |        |     |
+| select | debug |   | function | mode | top    |       |       |         |       |   |       |         |       |       |       | return | line  | page     |   |        |     |
+| tty    | lock  |   | begin    | end  | symbol | shift |       |         |       |   |       |         |       |       | shift | symbol | up    | end      |   |        |     |
+| home   | eof   |   | prior    | next | smol   | alt   | super | control | space | ● | space | control | super | hyper | meta  | left   | down  | right    |   | delete | fun |
+
 
 ** Russian Keyboard
 
@@ -8218,6 +8108,7 @@ http://groups.google.com/group/comp.lang.lisp/browse_frm/thread/ba809b621e88da2b
 
 *** FORMAT
 
+#+BEGIN_SRC
     Format specifier
 
     ~((0-9+|V|'.)?,)*[:@]*.
@@ -8394,6 +8285,8 @@ Print n times something:      (format t "~V@{~S~%~:*~}" n something")
          ;;                     ^^^ put it here.
          '("mv" "/some/really/long/path/seriously/it/is/really/long"
  	      "/to/some/other/really/long/path"))
+#+END_SRC
+
 | # Shell Command:
 |   mv /some/really/long/path/seriously/it/is/really/long \
 |          /to/some/other/really/long/path
@@ -9434,10 +9327,13 @@ http://www.w3.org/Amaya/Overview.html
 
 ** QuickTime Stream/RealServer
 
+
     http://service.real.com/help/library/blueprints/datatype/htmfiles/quickti6.htm
     http://developer.apple.com/darwin/projects/streaming/faq.html
     http://www.rtsp.org/2001/implementations.html
 
+** MISSILE
+https://www.youtube.com/watch?v=MaP_qTppD_c
 ** SATELLITE
 
     http://www.telesatellite.com/articles/NetParSat/
@@ -9506,11 +9402,30 @@ the apps I've tried.
 
 *** Macport on Darwin
 
-     sudo port selfupdate
-     sudo port upgrade outdated
-     sudo port uninstall inactive      # remove the inactive ports.
-     sudo port clean --all uninstalled # remove the non-installed distfiles
+#+BEGIN_SRC
+sudo port selfupdate
+sudo port upgrade outdated
+sudo port uninstall inactive      # remove the inactive ports.
+sudo port clean --all uninstalled # remove the non-installed distfiles
 
+sudo port install port_cutleaves
+sudo port_cutleaves
+sudo port upgrade outdated
+sudo port clean --all installed
+
+sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
+
+export GRADLE_HOME=/opt/local/share/java/gradle
+sudo port select --set maven maven3
+
+port select --set pip pip27
+port select --set pip pip33
+port select --set pip pip34
+port select --set cython cython27
+port select --set cython cython34
+#+END_SRC
+
+**** Notes:
 
   mysql57 has the following notes:
     On activation if no /opt/local/etc/mysql57/my.cnf file exists one
@@ -9530,11 +9445,375 @@ the apps I've tried.
     directive; to disable networking. With disabled networking it is
     possible to install and have running all the MacPorts mysql ports
     simultaneously.
+
   mysql57-server has the following notes:
     If this is a new install you might want to run:
 
     $ sudo /opt/local/lib/mysql57/bin/mysqld --initialize --user=_mysql
     $ /opt/local/lib/mysql57/bin/mysql_secure_installation
+
+  openjdk11 has the following notes:
+    If you have more than one JDK installed you can make openjdk11 the default
+    by adding the following line to your shell profile:
+
+        export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11/Contents/Home
+  openldap has the following notes:
+    A startup item has been generated that will aid in starting openldap with launchd. It is disabled by default. Execute the following
+    command to start it, and to cause it to launch at startup:
+
+        sudo port load openldap
+  py27-pip has the following notes:
+    To make the Python 2.7 version of pip the one that is run when you execute the commands without a version suffix, e.g. 'pip', run:
+    sudo port select --set pip pip27
+    sudo port select --set pip2 pip27
+
+**** MacPorts ports notes on larissa
+#+BEGIN_SRC
+--->  Some of the ports you installed have notes:
+  dbus has the following notes:
+    Startup items (named 'dbus-system, dbus-session') have been generated that will aid in starting dbus with launchd. They are disabled by
+    default. Execute the following command to start them, and to cause them to launch at startup:
+
+        sudo port load dbus
+  gdb has the following notes:
+    You will need to codesign /opt/local/bin/ggdb
+
+    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
+    for more information.
+  grep has the following notes:
+    This port previously installed itself without a g* prefix, thus overshadowing system binaries such as grep, fgrep, and egrep. The port is
+    now changed so that it does install with a g* prefix, like other GNU ports. This means that you'll now find GNU grep at
+    /opt/local/bin/ggrep. If you dislike typing ggrep, you can create a shell alias or you can add /opt/local/libexec/gnubin to your PATH,
+    wherein non-g* prefixed symlinks are installed. In other words, /opt/local/libexec/gnubin contains GNU binaries without any prefix to the
+    file names, so you can type grep and get GNU grep just as before.
+  libomp has the following notes:
+    To use this OpenMP library:
+     * For clang-3.8+, or clang-3.7 with +openmp variant:
+        add "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+        "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+  openldap has the following notes:
+    A startup item has been generated that will aid in starting openldap with launchd. It is disabled by default. Execute the following
+    command to start it, and to cause it to launch at startup:
+
+        sudo port load openldap
+  postgresql10 has the following notes:
+    To use the postgresql server, install the postgresql10-server port
+  postgresql10-server has the following notes:
+    To create a database instance, after install do
+     sudo mkdir -p /opt/local/var/db/postgresql10/defaultdb
+     sudo chown postgres:postgres /opt/local/var/db/postgresql10/defaultdb
+     sudo su postgres -c 'cd /opt/local/var/db/postgresql10 && /opt/local/lib/postgresql10/bin/initdb -D
+    /opt/local/var/db/postgresql10/defaultdb'
+
+    A startup item has been generated that will aid in starting postgresql10-server with launchd. It is disabled by default. Execute the
+    following command to start it, and to cause it to launch at startup:
+
+        sudo port load postgresql10-server
+  py38-pygments has the following notes:
+    To make the Python 3.8 version of Pygments the one that is run when you execute the commands without a version suffix, e.g. 'pygmentize',
+    run:
+
+    port select --set pygments py38-pygments
+#+END_SRC
+
+**** MacPorts ports notes
+
+If this is a new install you might want to run:
+$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
+
+sudo port uninstall mysql5-server
+sudo port uninstall mysql5
+sudo port install mysql56
+sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
+
+sudo port upgrade cppunit configure.compiler=macports-gcc-4.8
+
+Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
+MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
+defaults read  org.macports.X11 enable_test_extensions
+defaults read  org.x.X11        enable_test_extensions
+
+**** port gdb notes
+
+  gdb has the following notes:
+    You will need to codesign /opt/local/bin/ggdb
+
+    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
+    for more information.
+
+https://sourceware.org/gdb/wiki/PermissionsDarwin
+
+certificate=gdb-cert
+security find-certificate -c $certificate |grep System.keychain
+security find-certificate -p -c $certificate | openssl x509 -checkend 0
+
+security dump-trust-settings -d
+
+codesign -vv $(which gdb)
+codesign -d --entitlements - $(which gdb)|grep -a com.apple.security.cs.debugger
+
+**** port notes 20190106
+
+  gdb has the following notes:
+    You will need to codesign /opt/local/bin/ggdb
+
+    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
+    for more information.
+
+**** port notes 20170828:
+
+  ffmpeg has the following notes:
+    *******
+    ******* This build of ffmpeg includes GPLed code and
+    ******* is therefore licensed under GPL v2 or later.
+    *******
+    ******* The following modules are GPLed:
+    *******
+    *******      postproc
+    *******      libx264
+    *******      libx265
+    *******      libxvid
+    *******
+    ******* To include all nonfree, GPLed and LGPL code use variant +nonfree.
+    ******* To remove nonfree and GPLed code leaving only LGPL code remove the
+    ******* +gpl2 variant.
+    *******
+  gradle has the following notes:
+    Remember to set the environment variable GRADLE_HOME to the path to the gradle distribution: /opt/local/share/java/gradle
+  libomp has the following notes:
+    Use with clang-3.7 and up by adding "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+       "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+  postgresql96 has the following notes:
+    To use the postgresql server, install the postgresql96-server port
+  py35-pyflakes has the following notes:
+    To make the Python 3.5 version of py-pyflakes the one that is run when you execute the commands without a version suffix, e.g. 'pyflakes', run:
+
+    port select --set pyflakes py35-pyflakes
+  py35-sympy has the following notes:
+    To make the Python 3.5 version of py-sympy the one that is run when you execute the commands without a version suffix, e.g. 'isympy', run:
+
+    port select --set py-sympy py35-sympy
+  python34 has the following notes:
+    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
+
+        sudo port select --set python python34
+        sudo port select --set python3 python34
+
+    ##############################################################
+    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
+    #   py34-readline
+    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
+    # REF: https://trac.macports.org/ticket/48807
+    ##############################################################
+  python35 has the following notes:
+    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
+
+        sudo port select --set python python35
+        sudo port select --set python3 python35
+
+    ##############################################################
+    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
+    #   py35-readline
+    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
+
+
+sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
+
+dscacheutil -flushcache
+
+    Disable the quarantine bit:
+    cd Documents/HyperSpec
+    sudo xattr -d -r com.apple.quarantine .
+
+
+    # to put the macosx to sleep:
+    sudo pmset -a hibernatemode 1 ; osascript -e 'tell application "System Events" to sleep' ; sleep 5 ; sudo pmset -a hibernatemode 0
+
+
+    You can disable the "unexpectedly quit" dialog in Panther by changing
+    CrashReporter's settings. In Terminal.app, type:
+
+    defaults write com.apple.CrashReporter DialogType yourSetting
+
+    where yourSetting is one of:
+
+        * prompt -- Normal behaviour
+        * none -- No dialog at all
+        * crashreport -- Doesn't display the unexpectedly quit dialog but
+          immediately display the submission screen.
+
+
+
+    Try RCEnvironment from rubicode
+    http://www.rubicode.com/Software/RCEnvironment/
+    Which can set environment variables when you login to your Mac GUI
+    environment.
+    Basically the RCEnvironment System Preference panel is creating
+    and maintaining a  ~/.MacOSX/environment.plist file which gets
+    processed during the Mac OS X account GUI startup.
+
+    environment variables macosx Anyway, in newer OSX you need to use /etc/launchd.conf. See here:
+    http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x
+
+
+    Create a custom build rule:
+    http://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/XcodeBuildSystem/200-Build_Phases/bs_build_phases.html#//apple_ref/doc/uid/TP40002690-BBCCFEDJ
+
+#+BEGIN(src)
+sudo nvram boot-args='-v'
+dscl . -list /Users
+dscl . -read /Users/pjb
+
+sudo dseditgroup -o edit -a $USER -t user procmod
+
+#-END(src)
+
+#+BEGIN_EXAMPLE
+  libomp has the following notes:
+    To use this OpenMP library:
+     * For clang-3.8+, or clang-3.7 with +openmp variant:
+        add "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+        "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+#+END_EXAMPLE
+
+**** port
+
+ #+BEGIN(src)
+ ##########################################################
+ # Don't forget that dbus needs to be started as the local
+ # user (not with sudo) before any KDE programs will launch
+ # To start it run the following command:
+ launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+ ##########################################################
+
+ ######################################################
+ #  Programs will not start until you run the command
+ sudo chown -R $USER ~/Library/Preferences/KDE
+ open /Applications/MacPorts/KDE4/kdeinit4.app
+ ######################################################
+
+ ##########################################################
+ # Don't forget that dbus needs to be started as the local
+ # user (not with sudo) before any KDE programs will launch
+ # To start it run the following command:
+ # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+ ##########################################################
+
+ ######################################################
+ #  Programs will not start until you run the command
+ #  'sudo chown -R $USER ~/Library/Preferences/KDE'
+ #  replacing $USER with your username, followed by
+ #  'open /Applications/MacPorts/KDE4/kdeinit4.app'
+ #  in a Terminal.
+ ######################################################
+
+ ###########################################################
+ # A startup item has been generated that will aid in
+ # starting apache with launchd. It is disabled
+ # by default. Execute the following command to start it,
+ # and to cause it to launch at startup:
+ #
+ # sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache.plist
+ ###########################################################
+
+ ###########################################################
+ # A startup item has been generated that will aid in
+ # starting apache2 with launchd. It is disabled
+ # by default. Execute the following command to start it,
+ # and to cause it to launch at startup:
+ #
+ # sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache2.plist
+ ###########################################################
+
+ ##########################################################
+ # Don't forget that dbus needs to be started as the local
+ # user (not with sudo) before any KDE programs will launch
+ # To start it run the following command:
+ # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+ ##########################################################
+
+ ######################################################
+ #  Programs will not start until you run the command
+ #  'sudo chown -R $USER ~/Library/Preferences/KDE'
+ #  replacing $USER with your username.
+ ######################################################
+
+ ###########################################################
+ # A startup item has been generated that will aid in
+ # starting postfix with launchd. It is disabled
+ # by default. Execute the following command to start it,
+ # and to cause it to launch at startup:
+ #
+ # sudo port load postfix
+ ###########################################################
+
+ To get postfix working, you need to edit the configuration
+ files (/opt/local/etc/postfix/*).  You may also
+ want to turn off Apple's built-in MTA.  For example:
+
+ sudo launchctl unload -w /System/Library/LaunchDaemons/org.postfix.master.plist
+
+
+ To use the postgresql server, install the postgresql83-server port
+ ###########################################################
+ # A startup item has been generated that will aid in
+ # starting postgresql83-server with launchd. It is disabled
+ # by default. Execute the following command to start it,
+ # and to cause it to launch at startup:
+ #
+ # sudo port load postgresql83-server
+ ###########################################################
+
+ To create a database instance, after install do
+  sudo mkdir -p /opt/local/var/db/postgresql83/defaultdb
+  sudo chown postgres:postgres /opt/local/var/db/postgresql83/defaultdb
+  sudo su postgres -c '/opt/local/lib/postgresql83/bin/initdb -D /opt/local/var/db/postgresql83/defaultdb'
+
+ To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
+ ###########################################################
+ # A startup item has been generated that will aid in
+ # starting postgresql84-server with launchd. It is disabled
+ # by default. Execute the following command to start it,
+ # and to cause it to launch at startup:
+ #
+ # sudo port load postgresql84-server
+ ###########################################################
+
+ To create a database instance, after install do
+  sudo mkdir -p /opt/local/var/db/postgresql84/defaultdb
+  sudo chown postgres:postgres /opt/local/var/db/postgresql84/defaultdb
+  sudo su postgres -c '/opt/local/lib/postgresql84/bin/initdb -D /opt/local/var/db/postgresql84/defaultdb'
+
+ To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
+
+ ##########################################################
+ # Don't forget that dbus needs to be started as the local
+ # user (not with sudo) before any KDE programs will launch
+ # To start it run the following command:
+ # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+ ##########################################################
+
+ ######################################################
+ #  Programs will not start until you run the command
+ #  'sudo chown -R $USER ~/Library/Preferences/KDE'
+ #  replacing $USER with your username.
+ ######################################################
+
+
+ Before using qt3 (qmake),
+ please make sure to set environment variable QTDIR.
+
+   QTDIR=/opt/local/lib/qt3; export QTDIR
+
+
+
+ sudo cp /opt/local/etc/bitlbee/bitlbee.conf.sample /opt/local/etc/bitlbee/bitlbee.conf
+ and edit /opt/local/etc/bitlbee/bitlbee.conf to taste
+
+ #+END(src)
 
 ** SYSTEM: Darwin on Linux: darling
 https://www.darlinghq.org/source-code/
@@ -9991,408 +10270,6 @@ gnome-nm-network-editor
     http://www.maconlinux.org/
 
 ** SYSTEM: MacOSX
-*** MacPorts ports port
-
-sudo caffeinate port selfupdate && sudo caffeinate port upgrade outdated && sudo caffeinate port rev-upgrade
-
-export GRADLE_HOME=/opt/local/share/java/gradle
-sudo port select --set maven maven3
-
-port select --set pip pip27
-port select --set pip pip33
-port select --set pip pip34
-port select --set cython cython27
-port select --set cython cython34
-
-
-If this is a new install you might want to run:
-$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
-
-
-sudo port install port_cutleaves
-sudo port_cutleaves
-sudo port upgrade outdated
-sudo port clean --all installed
-
-sudo port uninstall mysql5-server
-sudo port uninstall mysql5
-sudo port install mysql56
-sudo port list select mysql56 mysql56 @5.6.21 databases/mysql56
-
-sudo port upgrade cppunit configure.compiler=macports-gcc-4.8
-
-Apple X11.app:    defaults write org.x.X11        enable_test_extensions -boolean true
-MacPorts X11.app: defaults write org.macports.X11 enable_test_extensions -boolean true
-defaults read  org.macports.X11 enable_test_extensions
-defaults read  org.x.X11        enable_test_extensions
-**** port gdb notes
-  gdb has the following notes:
-    You will need to codesign /opt/local/bin/ggdb
-
-    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
-    for more information.
-
-https://sourceware.org/gdb/wiki/PermissionsDarwin
-
-certificate=gdb-cert
-security find-certificate -c $certificate |grep System.keychain
-security find-certificate -p -c $certificate | openssl x509 -checkend 0
-
-security dump-trust-settings -d
-
-codesign -vv $(which gdb)
-codesign -d --entitlements - $(which gdb)|grep -a com.apple.security.cs.debugger
-
-**** port notes 20190106
-
-  gdb has the following notes:
-    You will need to codesign /opt/local/bin/ggdb
-
-    See https://sourceware.org/gdb/wiki/BuildingOnDarwin#Giving_gdb_permission_to_control_other_processes
-    for more information.
-  openldap has the following notes:
-    A startup item has been generated that will aid in starting openldap with launchd. It is disabled by default. Execute the following command to start it, and to cause it to launch at startup:
-
-        sudo port load openldap
-  py27-sphinx has the following notes:
-    To make the Python 2.7 version of Sphinx the one that is run when you execute the commands without a version suffix, e.g. 'sphinx-build', run:
-
-    port select --set sphinx py27-sphinx
-  python34 has the following notes:
-    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
-
-        sudo port select --set python python34
-        sudo port select --set python3 python34
-
-**** port: Installing ECL on MacOSX Yosemite
-http://stackoverflow.com/questions/27976312/how-to-cope-with-non-gcc-compatible-code-in-os-x-yosemite-core-headers/28014302#28014302
-
-> port install ecl
-
-fails like this when using a gcc version < 5.
-You can switch to gcc5:
-
->    port install gcc5
->    port select gcc mp-gcc5
->    port install ecl
-
-(but then, it looks like gcc5 can't compile mit-scheme, so you may have to switch back to gcc49 for mit-scheme.
-
-**** port notes 20170828:
-
-  ffmpeg has the following notes:
-    *******
-    ******* This build of ffmpeg includes GPLed code and
-    ******* is therefore licensed under GPL v2 or later.
-    *******
-    ******* The following modules are GPLed:
-    *******
-    *******      postproc
-    *******      libx264
-    *******      libx265
-    *******      libxvid
-    *******
-    ******* To include all nonfree, GPLed and LGPL code use variant +nonfree.
-    ******* To remove nonfree and GPLed code leaving only LGPL code remove the
-    ******* +gpl2 variant.
-    *******
-  gradle has the following notes:
-    Remember to set the environment variable GRADLE_HOME to the path to the gradle distribution: /opt/local/share/java/gradle
-  libomp has the following notes:
-    Use with clang-3.7 and up by adding "-fopenmp" during compilation / linking.
-     * For clang-3.7 without +openmp variant, use:
-       "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
-  postgresql96 has the following notes:
-    To use the postgresql server, install the postgresql96-server port
-  py35-pyflakes has the following notes:
-    To make the Python 3.5 version of py-pyflakes the one that is run when you execute the commands without a version suffix, e.g. 'pyflakes', run:
-
-    port select --set pyflakes py35-pyflakes
-  py35-sympy has the following notes:
-    To make the Python 3.5 version of py-sympy the one that is run when you execute the commands without a version suffix, e.g. 'isympy', run:
-
-    port select --set py-sympy py35-sympy
-  python34 has the following notes:
-    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
-
-        sudo port select --set python python34
-        sudo port select --set python3 python34
-
-    ##############################################################
-    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
-    #   py34-readline
-    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
-    # REF: https://trac.macports.org/ticket/48807
-    ##############################################################
-  python35 has the following notes:
-    To make this the default Python or Python 3 (i.e., the version run by the 'python' or 'python3' commands), run one or both of:
-
-        sudo port select --set python python35
-        sudo port select --set python3 python35
-
-    ##############################################################
-    # IF YOU ARE USING PYTHON FROM THE TERMINAL, PLEASE INSTALL:
-    #   py35-readline
-    # TO AVOID A LIBEDIT / PYTHON INTERACTION ISSUE.
-    # REF: https://trac.macports.org/ticket/48807
-    ##############################################################
-  virtuoso-7 has the following notes:
-    Some antivirus software can cause the virtuoso build to hang indefinitely. If you have any antivirus software installed, please disable it while building virtuoso;
-    it can be re-enabled after virtuoso has been installed.
-
-**** port notes:
-
-    sudo port select --set python python27
-    sudo port select --set python2 python27
-
-The mysql56 client has been installed.
-To install the mysql56 server, install the mysql56-server port.
-
-On activation if no /opt/local/etc/mysql56/my.cnf file exists one
-will be created which loads
-/opt/local/etc/mysql56/macports-default.cnf.
-
-If a /opt/local/etc/mysql56/my.cnf file exists MacPorts does not
-touch it and any changes you make to /opt/local/etc/mysql56/my.cnf
-will be preserved (e.g., during port upgrades, deactivations or
-activations). /opt/local/etc/mysql56/my.cnf is a good place to
-customize your mysql56 installation.
-
-Any changes made to /opt/local/etc/mysql56/macports-default.cnf
-will be lost during port upgrades, deactivations or activations so you
-are advised to not make changes here. Currently
-/opt/local/etc/mysql56/macports-default.cnf contains only one
-directive; to disable networking. With disabled networking it is
-possible to install and have running all the MacPorts mysql ports
-simultaneously.
-
-###########################################################
-# A startup item has been generated that will aid in
-# starting mysql56-server with launchd. It is disabled
-# by default. Execute the following command to start it,
-# and to cause it to launch at startup:
-#
-# sudo port load mysql56-server
-###########################################################
-
-If this is a new install you might want to run:
-
-$ sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
-
-
-
-As of version 6.00, libwww-perl has been broken up into multiple packages. If you were using
-p5.22-libwww-perl for just one or two of its modules before, you may be able to pare down your
-installation to just those modules now. Other important changes have been made that may affect
-your code; for details, please see: /opt/local/share/doc/p5.22-libwww-perl/Changes
-
-
-To make the Python 2.7 version of Sphinx the one that is run when you execute the commands
-without a version suffix, e.g. 'sphinx-build', run:
-
-port select --set sphinx py27-sphinx
-
-
-
-
-
-dscacheutil -flushcache
-
-sudo launchctl load -w /Library/LaunchDaemons/org.macports.slapd.plist
-
-
-    Disable the quarantine bit:
-    cd Documents/HyperSpec
-    sudo xattr -d -r com.apple.quarantine .
-
-
-    # to put the macosx to sleep:
-    sudo pmset -a hibernatemode 1 ; osascript -e 'tell application "System Events" to sleep' ; sleep 5 ; sudo pmset -a hibernatemode 0
-
-
-    You can disable the "unexpectedly quit" dialog in Panther by changing
-    CrashReporter's settings. In Terminal.app, type:
-
-    defaults write com.apple.CrashReporter DialogType yourSetting
-
-    where yourSetting is one of:
-
-        * prompt -- Normal behaviour
-        * none -- No dialog at all
-        * crashreport -- Doesn't display the unexpectedly quit dialog but
-          immediately display the submission screen.
-
-
-
-    Try RCEnvironment from rubicode
-    http://www.rubicode.com/Software/RCEnvironment/
-    Which can set environment variables when you login to your Mac GUI
-    environment.
-    Basically the RCEnvironment System Preference panel is creating
-    and maintaining a  ~/.MacOSX/environment.plist file which gets
-    processed during the Mac OS X account GUI startup.
-
-    environment variables macosx Anyway, in newer OSX you need to use /etc/launchd.conf. See here:
-    http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x
-
-
-    Create a custom build rule:
-    http://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/XcodeBuildSystem/200-Build_Phases/bs_build_phases.html#//apple_ref/doc/uid/TP40002690-BBCCFEDJ
-
-#+BEGIN(src)
-sudo nvram boot-args='-v'
-dscl . -list /Users
-dscl . -read /Users/pjb
-
-sudo dseditgroup -o edit -a $USER -t user procmod
-
-#-END(src)
-
-#+BEGIN_EXAMPLE
-  libomp has the following notes:
-    To use this OpenMP library:
-     * For clang-3.8+, or clang-3.7 with +openmp variant:
-        add "-fopenmp" during compilation / linking.
-     * For clang-3.7 without +openmp variant, use:
-        "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
-#+END_EXAMPLE
-
-**** port
-
- #+BEGIN(src)
- ##########################################################
- # Don't forget that dbus needs to be started as the local
- # user (not with sudo) before any KDE programs will launch
- # To start it run the following command:
- launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
- ##########################################################
-
- ######################################################
- #  Programs will not start until you run the command
- sudo chown -R $USER ~/Library/Preferences/KDE
- open /Applications/MacPorts/KDE4/kdeinit4.app
- ######################################################
-
- ##########################################################
- # Don't forget that dbus needs to be started as the local
- # user (not with sudo) before any KDE programs will launch
- # To start it run the following command:
- # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
- ##########################################################
-
- ######################################################
- #  Programs will not start until you run the command
- #  'sudo chown -R $USER ~/Library/Preferences/KDE'
- #  replacing $USER with your username, followed by
- #  'open /Applications/MacPorts/KDE4/kdeinit4.app'
- #  in a Terminal.
- ######################################################
-
- ###########################################################
- # A startup item has been generated that will aid in
- # starting apache with launchd. It is disabled
- # by default. Execute the following command to start it,
- # and to cause it to launch at startup:
- #
- # sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache.plist
- ###########################################################
-
- ###########################################################
- # A startup item has been generated that will aid in
- # starting apache2 with launchd. It is disabled
- # by default. Execute the following command to start it,
- # and to cause it to launch at startup:
- #
- # sudo launchctl load -w /Library/LaunchDaemons/org.macports.apache2.plist
- ###########################################################
-
- ##########################################################
- # Don't forget that dbus needs to be started as the local
- # user (not with sudo) before any KDE programs will launch
- # To start it run the following command:
- # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
- ##########################################################
-
- ######################################################
- #  Programs will not start until you run the command
- #  'sudo chown -R $USER ~/Library/Preferences/KDE'
- #  replacing $USER with your username.
- ######################################################
-
- ###########################################################
- # A startup item has been generated that will aid in
- # starting postfix with launchd. It is disabled
- # by default. Execute the following command to start it,
- # and to cause it to launch at startup:
- #
- # sudo port load postfix
- ###########################################################
-
- To get postfix working, you need to edit the configuration
- files (/opt/local/etc/postfix/*).  You may also
- want to turn off Apple's built-in MTA.  For example:
-
- sudo launchctl unload -w /System/Library/LaunchDaemons/org.postfix.master.plist
-
-
- To use the postgresql server, install the postgresql83-server port
- ###########################################################
- # A startup item has been generated that will aid in
- # starting postgresql83-server with launchd. It is disabled
- # by default. Execute the following command to start it,
- # and to cause it to launch at startup:
- #
- # sudo port load postgresql83-server
- ###########################################################
-
- To create a database instance, after install do
-  sudo mkdir -p /opt/local/var/db/postgresql83/defaultdb
-  sudo chown postgres:postgres /opt/local/var/db/postgresql83/defaultdb
-  sudo su postgres -c '/opt/local/lib/postgresql83/bin/initdb -D /opt/local/var/db/postgresql83/defaultdb'
-
- To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
- ###########################################################
- # A startup item has been generated that will aid in
- # starting postgresql84-server with launchd. It is disabled
- # by default. Execute the following command to start it,
- # and to cause it to launch at startup:
- #
- # sudo port load postgresql84-server
- ###########################################################
-
- To create a database instance, after install do
-  sudo mkdir -p /opt/local/var/db/postgresql84/defaultdb
-  sudo chown postgres:postgres /opt/local/var/db/postgresql84/defaultdb
-  sudo su postgres -c '/opt/local/lib/postgresql84/bin/initdb -D /opt/local/var/db/postgresql84/defaultdb'
-
- To tweak your DBMS, consider increasing kern.sysv.shmmax by adding an increased kern.sysv.shmmax .. to /etc/sysctl.conf
-
- ##########################################################
- # Don't forget that dbus needs to be started as the local
- # user (not with sudo) before any KDE programs will launch
- # To start it run the following command:
- # launchctl load /Library/LaunchAgents/org.freedesktop.dbus-session.plist
- ##########################################################
-
- ######################################################
- #  Programs will not start until you run the command
- #  'sudo chown -R $USER ~/Library/Preferences/KDE'
- #  replacing $USER with your username.
- ######################################################
-
-
- Before using qt3 (qmake),
- please make sure to set environment variable QTDIR.
-
-   QTDIR=/opt/local/lib/qt3; export QTDIR
-
-
-
- sudo cp /opt/local/etc/bitlbee/bitlbee.conf.sample /opt/local/etc/bitlbee/bitlbee.conf
- and edit /opt/local/etc/bitlbee/bitlbee.conf to taste
-
- #+END(src)
-
 *** MacOSX 10.10 root exploit:
 
 #+BEGIN(src)
@@ -11454,5 +11331,3 @@ Local Variables:
 org-fontify-done-headline: t
 org-todo-keywords:  ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))
 End:
-
-

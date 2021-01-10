@@ -44,6 +44,7 @@
  '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
+ '(fill-column-indicator ((t (:inherit shadow :background "gray33" :slant normal :weight normal))))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
@@ -166,6 +167,8 @@
  '(delete-old-versions t)
  '(delete-selection-mode nil)
  '(dired-kept-versions 4)
+ '(display-fill-column-indicator t)
+ '(display-fill-column-indicator-character 32)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
  '(display-time-mode t)
@@ -233,6 +236,7 @@
  '(eval-expression-print-length nil)
  '(eval-expression-print-level nil)
  '(file-precious-flag t)
+ '(flycheck-disabled-checkers '(emacs-lisp-checkdoc))
  '(focus-follows-mouse nil)
  '(font-lock-extra-types '("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN") t)
  '(font-lock-maximum-decoration t)
@@ -409,7 +413,6 @@ X-Accept-Language:         fr, es, en
  '(spam-autodetect-recheck-messages t)
  '(speedbar-show-unknown-files t)
  '(stack-trace-on-error nil)
- '(tab-stop 4 t)
  '(tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80))
  '(tab-width 4)
  '(tags-table-list 'nil)
@@ -724,15 +727,24 @@ X-Accept-Language:         fr, es, en
 (when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
   (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
 
+(defvar *pjb-trailing-whitespace-exclusions* '()
+  "A list of path regexps to exclude warning for trailing whitespaces.")
+
+(defun trailing-whitespace-candidate-p (file-name)
+  (and file-name
+       (string-match (format "^%s" home) file-name)
+       (vc-workfile-revision file-name)
+       (notany (lambda (regexp)
+                 (string-match regexp file-name))
+               *pjb-trailing-whitespace-exclusions*)))
+
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
   (let ((home (cond (user-init-file  (dirname user-init-file))
                     ((getenv "HOME") (concat (getenv "HOME") "/"))
                     (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
         (file-name (buffer-file-name)))
-    (when (and file-name
-               (string-match (format "^%s" home) file-name)
-               (vc-workfile-revision file-name))
+    (when (trailing-whitespace-candidate-p file-name)
       (goto-char (point-min))
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
@@ -756,10 +768,12 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (when (vc-workfile-revision (buffer-file-name))
+  (when (trailing-whitespace-candidate-p (buffer-file-name))
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 
+(push "/works/mts/Harag/"          *pjb-trailing-whitespace-exclusions*)
+(push "/works/mts/cl-naive-store/" *pjb-trailing-whitespace-exclusions*)
 (add-hook 'find-file-hook   'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
 

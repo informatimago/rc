@@ -114,8 +114,8 @@
 
 (setf shell-prompt-pattern "^[^#$%>\n]*[#$%>] *")
 (setf shell-prompt-pattern "^\\[.*\\][#$%>] *")
-(setf tramp-shell-prompt-pattern "\\(?:^\\|\\)[^]#$%>\n]*#?[]#$%>] *\\(\\[[0-9;]*[a-zA-Z] *\\)*")
-(setf tramp-shell-prompt-pattern shell-prompt-pattern)
+(setf tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(\e\\[[0-9;]*[a-zA-Z] *\\)*")
+;; (setf tramp-shell-prompt-pattern shell-prompt-pattern)
 
 
 (.EMACS "STARTING...")
@@ -527,7 +527,9 @@ WELCOME TO EMACS!
 
 (setf *pjb-tab-width-alist*
       '(("^/Applications/Emacs.app/Contents/Resources/" . 8)
-        ("^/usr/local/src/ccl-.*/" . 8)))
+        ("^/usr/local/src/ccl-.*/" . 8)
+        ("^/usr/local/src/emacs-.*/" . 8)
+        ("/pjb/works/mts/Harag/" . 8)))
 
 ;;------------------------------------------------------------------------
 (.EMACS "setting up fonts")

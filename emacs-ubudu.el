@@ -353,7 +353,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder (quote identity))
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values (quote ((Package . HUNCHENTOOT) (Package . CL-USER) (Syntax . COMMON-LISP) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (tab-stop . 4) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((Package . HUNCHENTOOT) (Package . CL-USER) (Syntax . COMMON-LISP) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (Package . ESA) (indent-tabs-mode . 1) (tab-always-indent) (Syntax . ANSI-Common-Lisp) (Base . 10) (Package . CCL) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (org-fontify-done-headline . t) (lexical-binding . t))))
  '(send-mail-function (quote smtpmail-send-it))
  '(sh-indent-after-case 0)
  '(sh-indent-after-switch 0)
@@ -374,7 +374,6 @@ X-Accept-Language:         fr, es, en
  '(smtpmail-starttls-credentials (quote (("smtp.googlemail.com" 465 nil nil))))
  '(spam-autodetect-recheck-messages t)
  '(stack-trace-on-error nil)
- '(tab-stop 2 t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80)))
  '(tab-width 2)
  '(tags-table-list (quote nil))
@@ -485,8 +484,7 @@ X-Accept-Language:         fr, es, en
   (interactive)
   (when (fboundp 'auto-complete-mode)
     (auto-complete-mode 1))
-  (setf tab-stop 2
-        tab-width 2
+  (setf tab-width 2
         c-indent-level 2
         c-basic-offset 2
         c-tab-always-indent t))
