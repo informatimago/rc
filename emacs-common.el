@@ -2752,7 +2752,8 @@ License:
     If not, see <a href=\\\"http://www.gnu.org/licenses/\\\">http://www.gnu.org/licenses/</a>.
 
 ")
-    (erc-unix . "To prevent erc to send out unix commands: http://paste.lisp.org/+3F18")))
+    (erc-unix . "To prevent erc to send out unix commands: http://paste.lisp.org/+3F18")
+    (ballad . "https://ashwinram.org/1986/01/28/a-short-ballad-dedicated-to-the-growth-of-programs/")))
 
 
 
