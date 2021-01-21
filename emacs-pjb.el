@@ -728,12 +728,15 @@ X-Accept-Language:         fr, es, en
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
 (defun trailing-whitespace-candidate-p (file-name)
-  (and file-name
-       (string-match (format "^%s" home) file-name)
-       (vc-workfile-revision file-name)
-       (notany (lambda (regexp)
-                 (string-match regexp file-name))
-               *pjb-trailing-whitespace-exclusions*)))
+  (let ((home (cond (user-init-file  (dirname user-init-file))
+                    ((getenv "HOME") (concat (getenv "HOME") "/"))
+                    (t               (dirname (first (file-expand-wildcards "~/.emacs")))))))
+    (and file-name
+         (string-match (format "^%s" home) file-name)
+         (vc-workfile-revision file-name)
+         (notany (lambda (regexp)
+                   (string-match regexp file-name))
+                 *pjb-trailing-whitespace-exclusions*))))
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
