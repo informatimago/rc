@@ -84,7 +84,7 @@ function bashrc_set_prompt(){
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
-        pc='$('"$(type -path period-cookie)"')'
+        pc='$('"$(type -path period-cookie)"')\n'
     fi
 
     if type -p ibam >/dev/null 2>&1 ; then
