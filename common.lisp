@@ -341,7 +341,6 @@ License:
 ;;;----------------------------------------------------------------------
 
 (in-package "COM.INFORMATIMAGO.PJB")
-
 (load-asdf3)
 (asdf-configuration)
 
@@ -437,6 +436,9 @@ License:
 
 
 (defun informatimago-import-export ()
+  ;; I can't find where those symbols are interned, but they collide with used packages…
+  (mapc (function unintern) '(version version< version<=
+                              split-string))
   (shadowing-import '(com.informatimago.tools.pathname:make-pathname
                       com.informatimago.tools.pathname:translate-logical-pathname
                       com.informatimago.tools.pathname:user-homedir-pathname))
@@ -444,11 +446,11 @@ License:
     (format *trace-output* "~&;; Using package ~A~%" (package-name package))
     (handler-case (use-package package)
       (error (err)
+        (invoke-debugger err)
         (princ err) (terpri))))
   (shadowing-import '(com.informatimago.common-lisp.interactive.interactive:rep))
   (shadowing-import '(com.informatimago.tools.symbol:apropos
-                      com.informatimago.tools.symbol:apropos-list
-                      ))
+                      com.informatimago.tools.symbol:apropos-list))
   (dolist (package (informatimago-packages))
     (export (com.informatimago.common-lisp.cesarum.package:list-external-symbols package))))
 
@@ -731,7 +733,7 @@ The HOST is added to the list of logical hosts defined.
 ;;     (com.informatimago.common-lisp.cesarum.stream:copy-stream
 ;;      (ccl:external-process-error-stream process)
 ;;      *error-output*))
-;; 
+;;
 ;;   #-ccl (error "~S is not implemented yet on ~A" 'shell-command-to-string (lisp-implementation-type))
 ;;   #+ccl
 ;;   (let ((process
