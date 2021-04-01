@@ -1175,4 +1175,18 @@ without, lists all the commands with their docstrings."
       (format t ";; There's a quicklisp update available.~%")))
 
 (in-package "CL-USER")
+
+(defun start-irclog ()
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.IRCLOG.MAIN" "START")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "ADD-PROMPT-FUNCTION" 'date)
+  (values))
+
+#-(and)
+(progn
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (com.informatimago.small-cl-pgms.irclog.main:start)
+  (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
+
+
 ;;;; THE END ;;;;
