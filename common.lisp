@@ -1175,4 +1175,55 @@ without, lists all the commands with their docstrings."
       (format t ";; There's a quicklisp update available.~%")))
 
 (in-package "CL-USER")
+
+(defun start-irclog ()
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.IRCLOG.MAIN" "START")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "ADD-PROMPT-FUNCTION" 'date)
+  (values))
+
+#-(and)
+(progn
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (com.informatimago.small-cl-pgms.irclog.main:start)
+  (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
+
+
+(defpackage "COM.INFORMATIMAGO.PJB.AUTHINFO"
+  (:use "COMMON-LISP"
+        "SPLIT-SEQUENCE"
+        "COM.INFORMATIMAGO.COMMON-LISP.CESARUM.FILE"))
+(in-package "COM.INFORMATIMAGO.PJB.AUTHINFO")
+
+(defun sget (entry key &optional default)
+  "Like getf, but with strings for key."
+  (loop
+    :for (k v) :on entry :by (function cddr)
+    :when (string= k key)
+      :do (return-from sget v))
+  default)
+
+(defun authinfo (&key machine port login)
+  (dolist (line (string-list-text-file-contents #P"~/.authinfo"))
+    (let ((entry (split-sequence #\space line :remove-empty-subseqs t)))
+      (when (and
+             (or (null machine) (string= machine (sget entry "machine")))
+             (or (null port)    (string= port    (sget entry "port")))
+             (or (null login)   (string= login   (sget entry "login"))))
+        (return-from authinfo (sget entry "password"))))))
+
+(if (search "span" (cl-user::hostname))
+
+    (let* ((proxy-host     "10.253.35.2")
+           (proxy-port     "3128")
+           (proxy-user     "bourguignonp")
+           (proxy-password (authinfo :machine proxy-host :port proxy-port :login proxy-user)))
+      (if proxy-password
+          (setf ql-http:*proxy-url* (format nil "http://~A:~A@~A:~A/" proxy-user proxy-password proxy-host proxy-port))
+          (cerror "Don't set the proxy." "Cannot find the proxy password.")))
+
+    (when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
+      (format t ";; There's a quicklisp update available.~%")))
+
+(in-package "CL-USER")
 ;;;; THE END ;;;;
