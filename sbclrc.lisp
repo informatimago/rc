@@ -246,7 +246,7 @@
 
 
 (let ((counter 0))
-  (defun prompt (stream)
+  (defun enclosed-prompt (stream)
     (format stream "~2%S/~A[~D]> "
             (if (packagep *package*)
                 (first (sort (cons (package-name *package*)
@@ -254,6 +254,9 @@
                              (function <=) :key (function length)))
                 "#<INVALID *PACKAGE*>")
             (incf counter))))
+
+(defun prompt (stream)
+  (enclosed-prompt stream))
 
 (setf SB-INT:*REPL-PROMPT-FUN* (function prompt))
 
