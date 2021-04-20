@@ -10,7 +10,8 @@
      "##trains" "##ufo" "##workingset"
 
      "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool"
-     "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr"
+     "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf"
+     ;; "#emacsfr"
      ;; "#ghc" "#ghc-mod" "#hackage"
      "#haskell"
      ;; "#haskell-apple" "#haskell-beginners"
@@ -21,7 +22,8 @@
      "#hn"
      "#iphonedev" "#iphonedev-chat"
 
-     "#lisp-es" "#lispcafe" "#lispgames" "#lispm" "#lispweb" "#lispx"
+     "#lisp-es" "#lispcafe" "#lispgames"  "#lispweb" "#lispx"
+     ;; "#lispm"
      "#macintosh" "#macos9lives"
      "#qlisp" "#sicl" "#sicp" "#slime" "#space"
      "#swift-lang" "#synthesizers" "#tesla")
