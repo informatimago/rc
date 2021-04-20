@@ -887,6 +887,16 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "H-<down>")  'forward-same-indent)
   (global-set-key (kbd "H-`")       'next-error)
 
+  (global-set-key (kbd "C-x 8 ^ -" ) (lambda () (interactive) (insert ?⁻)))
+  (global-set-key (kbd "C-x 8 ^ +" ) (lambda () (interactive) (insert ?⁺)))
+  (global-set-key (kbd "C-x 8 ^ 0" ) (lambda () (interactive) (insert ?⁰)))
+  (global-set-key (kbd "C-x 8 ^ 4" ) (lambda () (interactive) (insert ?⁴)))
+  (global-set-key (kbd "C-x 8 ^ 5" ) (lambda () (interactive) (insert ?⁵)))
+  (global-set-key (kbd "C-x 8 ^ 6" ) (lambda () (interactive) (insert ?⁶)))
+  (global-set-key (kbd "C-x 8 ^ 7" ) (lambda () (interactive) (insert ?⁷)))
+  (global-set-key (kbd "C-x 8 ^ 8" ) (lambda () (interactive) (insert ?⁸)))
+  (global-set-key (kbd "C-x 8 ^ 9" ) (lambda () (interactive) (insert ?⁹)))
+
   nil)
 
 ;;;----------------------------------------------------------------------------
