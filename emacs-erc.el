@@ -1,11 +1,12 @@
 (require 'erc)
 (require 'cl)
+(require 'pjb-cl)
 
 (defparameter *pjb-autojoin-channels-alist*
   '(("freenode.org"
 
      "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france"
-     "##lisp" "##lispm"
+     "#lisp" "##lisp" "##lispm"
      "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging"
      "##trains" "##ufo" "##workingset"
 
