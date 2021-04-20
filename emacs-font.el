@@ -125,11 +125,7 @@
              *pjb-current-font-index* new-index))))
   (loop
      for try below (length *pjb-font-list*)
-     do (ignore-errors
-          (return
-            (progn
-              (set-current-font)
-              (message "Set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*)))))
+     do (ignore-errors (return (set-current-font)))
      do (message "Failed to set frame font %S" (elt *pjb-font-list* *pjb-current-font-index*))
      do (setf *pjb-current-font-index* (mod (+ *pjb-current-font-index* (sign increment))
                                             (length *pjb-font-list*))))
