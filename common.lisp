@@ -232,6 +232,8 @@ License:
 ;;; ASDF-CONFIGURATION
 ;;;
 
+;; (setf asdf:*compile-file-failure-behaviour* :ignore)
+
 (defun load-asdf3 ()
   (unless (member :asdf3 *features*)
     (load (merge-pathnames #P"src/public/lisp/tools/asdf.lisp"
