@@ -798,6 +798,8 @@ RETURN: (path point)
       (setf pt (point))
       (set-marker marker pt)
       (backward-sexp)
+      ;; TODO: We should use (slime-parse-sexp-at-point) but then we'd have
+      ;; to perform the following in CL, not here.
       (let ((form (sexp-at-point)))
         (cond
           ((null form)    (error "Cannot find a sexp at point (possibly because of a reader macro in it)."))
