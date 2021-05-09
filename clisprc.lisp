@@ -262,7 +262,7 @@
 
 (defmacro ignoring-each-error (&body body)
   `(progn
-     ,@(mapcar (lambda (expression)`(ignore-errors ,expression ))
+     ,@(mapcar (lambda (expression) `(ignore-errors ,expression ))
                body)))
 
 (ignoring-each-error
