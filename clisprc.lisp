@@ -267,9 +267,11 @@
 
 (ignoring-each-error
 
- (setf custom:*pathname-encoding*     (ext:make-encoding :charset #+os-macosx charset:utf-8
-                                                                  #-os-macosx charset:iso-8859-1
+ ;; we just cannot modify it on os-macosx:
+ #-os-macosx
+ (setf custom:*pathname-encoding*     (ext:make-encoding :charset charset:iso-8859-1
                                                          :line-terminator :unix))
+
  (setf custom:*default-file-encoding* (ext:make-encoding :charset charset:utf-8
                                                          :line-terminator :unix))
  (setf custom:*terminal-encoding*     (ext:make-encoding :charset charset:utf-8
