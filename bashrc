@@ -842,7 +842,7 @@ function bashrc_define_aliases(){
 
         if [ -x /opt/local/bin/gls ] ; then
 	        alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
-	        alias lsv='LC_COLLATE="C" /opt/local/bin/gls -BCFN'
+	        alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
         else
 	        alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
 	        alias lsv='LC_COLLATE="C" /bin/ls -CF'
