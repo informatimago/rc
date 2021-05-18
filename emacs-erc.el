@@ -12,6 +12,7 @@
 
      "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool"
      "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf"
+     "#emacsfr-off"
      ;; "#emacsfr"
      ;; "#ghc" "#ghc-mod" "#hackage"
      "#haskell"
