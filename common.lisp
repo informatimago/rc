@@ -71,8 +71,6 @@
 
 
 
-(declaim (optimize (safety 3) (debug 3) (space 0) (speed 0) (compilation-speed 3)))
-
 
 ;;;----------------------------------------------------------------------
 ;;;
@@ -121,7 +119,8 @@ License:
   (:shadowing-import-from "COM.INFORMATIMAGO.PJB.UTILITY"
                           "USER-HOMEDIR-PATHNAME" "MAKE-PATHNAME"
                           "TRANSLATE-LOGICAL-PATHNAME")
-  (:export "LIST-DIRECTORIES"   "GET-DIRECTORY"
+  (:export "RESET-OPTIMIZATION"
+           "LIST-DIRECTORIES"   "GET-DIRECTORY"
            "LIST-LOGICAL-HOSTS" "DEFINE-LOGICAL-HOST-TRANSLATIONS"
            "START-DRIBBLE"
            "DEFINE-AUTOLOAD"
@@ -166,6 +165,12 @@ License:
 
 "))
 
+(in-package "COM.INFORMATIMAGO.PJB")
+
+(defun reset-optimization ()
+  (proclaim '(optimize (safety 3) (debug 3) (space 0) (speed 0) (compilation-speed 3))))
+
+(reset-optimization)
 
 
 ;;;----------------------------------------------------------------------
@@ -705,6 +710,31 @@ The HOST is added to the list of logical hosts defined.
 
 (set-dispatch-macro-character #\# #\! (function executable-reader))
 
+(defvar *shell-command-status* 0)
+(defun shell-escape (stream ch)
+  (declare (ignore ch))
+  `(progn
+     (setf *shell-command-status*
+           (nth-value 2
+                      (uiop:run-program
+                       ,(with-output-to-string (out)
+                          (write-string "source ~/.bashrc ; ( " out)
+                          (loop
+                            :for line := (read-line stream nil nil)
+                            :while (and line (char= #\\ (aref line (1- (length line)))))
+                            :do (write-line line out)
+                            :finally (write-string line out))
+                          (write-string " ) | expand -8" out))
+                       :input nil
+                       :output t
+                       :error-output t
+                       :ignore-error-status t
+                       :force-shell t)))
+     (values)))
+
+(set-macro-character #\! 'shell-escape)
+
+
 ;;;----------------------------------------------------------------------
 
 (defun shell (control-string &rest arguments)
@@ -1135,6 +1165,7 @@ without, lists all the commands with their docstrings."
 
 ;; );;when quicklisp
 
+
 ;;==============================================================================
 (in-package "COM.INFORMATIMAGO.PJB")
 
@@ -1178,18 +1209,6 @@ without, lists all the commands with their docstrings."
 
 (in-package "CL-USER")
 
-(defun start-irclog ()
-  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
-  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.IRCLOG.MAIN" "START")
-  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "ADD-PROMPT-FUNCTION" 'date)
-  (values))
-
-#-(and)
-(progn
-  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
-  (com.informatimago.small-cl-pgms.irclog.main:start)
-  (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
-
 
 (defpackage "COM.INFORMATIMAGO.PJB.AUTHINFO"
   (:use "COMMON-LISP"
@@ -1214,18 +1233,41 @@ without, lists all the commands with their docstrings."
              (or (null login)   (string= login   (sget entry "login"))))
         (return-from authinfo (sget entry "password"))))))
 
-(if (search "span" (cl-user::hostname))
+;; (if (search "span" (cl-user::hostname))
+;;
+;;     (let* ((proxy-host     "10.253.35.2")
+;;            (proxy-port     "3128")
+;;            (proxy-user     "bourguignonp")
+;;            (proxy-password (authinfo :machine proxy-host :port proxy-port :login proxy-user)))
+;;       (if proxy-password
+;;           (setf ql-http:*proxy-url* (format nil "http://~A:~A@~A:~A/" proxy-user proxy-password proxy-host proxy-port))
+;;           (cerror "Don't set the proxy." "Cannot find the proxy password.")))
+;;
+;;     (when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
+;;       (format t ";; There's a quicklisp update available.~%")))
 
-    (let* ((proxy-host     "10.253.35.2")
-           (proxy-port     "3128")
-           (proxy-user     "bourguignonp")
-           (proxy-password (authinfo :machine proxy-host :port proxy-port :login proxy-user)))
-      (if proxy-password
-          (setf ql-http:*proxy-url* (format nil "http://~A:~A@~A:~A/" proxy-user proxy-password proxy-host proxy-port))
-          (cerror "Don't set the proxy." "Cannot find the proxy password.")))
+(in-package "CL-USER")
 
-    (when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
-      (format t ";; There's a quicklisp update available.~%")))
+
+(defun start-reset-optimizations ()
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "INSTALL-PROMPT-FUNCTIONS")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "ADD-PROMPT-FUNCTION" 'reset-optimization)
+  (values))
+
+
+(defun start-irclog ()
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.IRCLOG.MAIN" "START")
+  (uiop:symbol-call "COM.INFORMATIMAGO.SMALL-CL-PGMS.PROMPTER" "ADD-PROMPT-FUNCTION" 'date)
+  (values))
+
+#-(and)
+(progn
+  (ql:quickload "com.informatimago.small-cl-pgms.irclog")
+  (com.informatimago.small-cl-pgms.irclog.main:start)
+  (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
+
 
 (in-package "CL-USER")
 ;;;; THE END ;;;;
