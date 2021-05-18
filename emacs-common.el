@@ -305,16 +305,18 @@ WELCOME TO EMACS!
     (darwin
 
      (set-language-environment                "utf-8")
-     (prefer-coding-system                    'utf-8-unix)
 
+     (prefer-coding-system                    'utf-8-unix)
+     ;; prefer-coding-system does the 3 following:
+     ;; (set-file-name-coding-system             'utf-8-unix)
+     ;; (set-keyboard-coding-system              'utf-8-unix)
+     ;; (set-terminal-coding-system              'utf-8-unix)
+
+     (set-clipboard-coding-system             'utf-8-unix)
+     (set-selection-coding-system             'utf-8-unix)
+     (set-next-selection-coding-system        'utf-8-unix)
      ;; (set-buffer-file-coding-system           'utf-8-unix)
      ;; (set-buffer-process-coding-system        'utf-8-unix)
-     (set-clipboard-coding-system             'utf-8-unix)
-     (set-file-name-coding-system             'utf-8-unix)
-     (set-keyboard-coding-system              'utf-8-unix)
-     (set-next-selection-coding-system        'utf-8-unix)
-     (set-selection-coding-system             'utf-8-unix)
-     (set-terminal-coding-system              'utf-8-unix)
 
      (setq default-buffer-file-coding-system  'utf-8-unix
            default-file-name-coding-system    'utf-8-unix
