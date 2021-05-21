@@ -2908,14 +2908,69 @@ License:
              (delete-region (- (point) 2) (point))
              (insert "…"))
            (insert "."))))
-    ((eq p '-))
-    ((integerp p)                       (insert (make-string p ?.)))
-    ((and (listp p) (integerp (car p))) (insert (make-string (car p) ?.)))
+    ((eq p '-)
+     (insert-char ?.))
+    ((integerp p)
+     (if (plusp p)
+         (insert-char ?. p)
+         (error "Negative prefix argument %d" p)))
+    ((and (listp p) (integerp (car p)))
+     (if (plusp (car p))
+         (insert-char ?. (car p))
+         (error "Negative prefix argument %d" (car p))))
     (t (error "Unknown raw prefix argument %S" p))))
 
 (global-set-key (kbd ".") 'pjb-electric-ellipsis)
 
 
+(defun pjb-insert-electric-character (prefix-char char code interactive-argument)
+  (cond
+    ((null interactive-argument)
+     (let ((recent (recent-keys)))
+       (if (and (equal (aref recent (- (length recent) 1)) prefix-char)
+                (equal (char-after (- (point) 1) (point)) prefix-char))
+           (progn
+             (delete-region (- (point) 1) (point))
+             (insert-char code))
+           (insert-char char))))
+    ((eq p '-)
+     (insert-char char))
+    ((integerp interactive-argument)
+     (if (plusp (integerp interactive-argument))
+         (insert-char char interactive-argument)
+         (error "Negative prefix argument %d" interactive-argument)))
+    ((and (listp interactive-argument) (integerp (car interactive-argument)))
+     (if (plusp (integerp (car interactive-argument)))
+         (insert-char char (car interactive-argument))
+         (error "Negative prefix argument %d" interactive-argument)))
+    (t (error "Unknown raw prefix argument %S" interactive-argument))))
+
+(defun pjb-add-electric (prefix char code)
+  (global-set-key (kbd (string char))
+                  (byte-compile `(lambda (p)
+                                   (interactive "P")
+                                   (pjb-insert-electric-character ,prefix ,char ,code p)))))
+
+;; Ill designed.  When we type a character, we must dispatch on the
+;; previous one, so the two loops would have to be merged, but perhaps
+;; also with others.
+;; Also, it should work for v_123 producing v₁₂₃
+;; See latex input method where we'd type v_{123}
+
+;; (loop
+;;   for char across "iruv0123456789+-=()aeoxhklmnpstj"
+;;   for code in '(7522 7523 7524 7525 8320 8321 8322 8323 8324 8325 8326
+;;                 8327 8328 8329 8330 8331 8332 8333 8334 8336 8337 8338
+;;                 8339 8341 8342 8343 8344 8345 8346 8347 8348 11388)
+;;   do (pjb-add-electric ?_ char code))
+;; (loop
+;;   for char across "2310i456789+-=()n"
+;;   for code in '(178 179 185 8304 8305 8308 8309 8310 8311 8312 8313
+;;                 8314 8315 8316 8317 8318 8319)
+;;   do (pjb-add-electric ?^ char code))
+;;
+;; (loop for ch across "iruv0123456789+-=()aeoxhklmnpstj2310i456789+-=()n"
+;;       do (global-set-key (kbd (string ch)) 'self-insert-command))
 
 
 ;; lisp modes
