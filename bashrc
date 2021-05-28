@@ -418,6 +418,9 @@ function be_generate(){
         be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
     fi
 
+    be_variable LD_RUNPATH_SEARCH_PATHS /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
+    be_variable DYLD_LIBRARY_PATH       /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
+
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
     be_variable MAGENTA_BACK       "[45m"
@@ -1351,6 +1354,7 @@ function cdschmidtlib(){ cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesize
 
 function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
+function panic(){ echo "[;5;35mDon't Panic[0m" ; }
 
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
