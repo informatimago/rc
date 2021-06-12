@@ -1,9 +1,31 @@
 (require 'erc)
+(require 'erc-join)
 (require 'cl)
 (require 'pjb-cl)
+(require 'tls)
 
 (defparameter *pjb-autojoin-channels-alist*
-  '(("freenode.org"
+  '(
+
+    ("irc.libera.chat"
+     "##kernel" "#linux-kernel"
+
+     "#lisp"
+     "#commonlisp"
+     "##lispm"
+
+     "#clschool"  "#lisp-es"
+     "#abcl" "#ccl" "#ecl" "#sicl"
+     "#clim" "#clcs" "#slime"
+     "#lispcafe"  "#lispweb" "#lispgames"
+     "#common-lisp.net"
+
+     "#emacs" "#emacs-beginners" "#org-mode" "#erc" "#gnus"
+
+     "#hn" "#space"
+     "#emacsfr-off")
+
+    ("freenode.org"
 
      "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france"
      "#lisp" "##lisp" "##lispm"
@@ -30,17 +52,27 @@
      "#qlisp" "#sicl" "#sicp" "#slime" "#space"
      "#swift-lang" "#synthesizers" "#tesla")
 
+
+
     ("disabled.freenode.org" "#macports")
 
     ("esper.net" "#SpaceX")
     ("irc.sbde.fr" "#laboite" "#sbde")
     ("irc.oftc.net" "#uml")))
 
+;; (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
+
 (defun pjb-join-channels ()
   (interactive)
-  (with-current-buffer "irc.freenode.org:6667"
-    (mapcar 'erc-join-channel
-            (cdr (assoc "freenode.org" *pjb-autojoin-channels-alist*)))))
+  ;; (when (buffer-named "irc.freenode.org:6667")
+  ;;   (with-current-buffer "irc.freenode.org:6667"
+  ;;     (mapcar 'erc-join-channel
+  ;;             (cdr (assoc "freenode.org" *pjb-autojoin-channels-alist*)))))
+  (let ((irc (buffer-named "irc.libera.chat:6697")))
+   (when irc
+       (with-current-buffer irc
+         (mapcar 'erc-join-channel
+                 (cdr (assoc "irc.libera.chat" *pjb-autojoin-channels-alist*)))))))
 
 
 (defvar *erc-cmd-BR-line* (make-string 72 ?=))
@@ -59,6 +91,14 @@
 
 (put 'erc-cmd-BR 'process-not-needed t)
 
+(defun start-irc ()
+  "Connect to IRC."
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697
+           :nick "pjb" :full-name "Pascal J. Bourguignon")
+  ;; (erc     :server "irc.freenode.net" :port 6667
+  ;;          :nick "pjb" :full-name "Pascal J. Bourguignon")
+  )
 
 ;; Local Variables:
 ;; coding: utf-8
