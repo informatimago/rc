@@ -693,9 +693,11 @@ function bashrc_maybe_load_gnustep(){
 
 
 function bashrc_maybe_load_rvm(){
-    if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
-        source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-    fi
+    # cannot set RVM without GEM .
+    # if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+    #     source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    # fi
+    true
 }
 
 
