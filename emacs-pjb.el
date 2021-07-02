@@ -21,6 +21,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 151 :width normal))))
  '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
  '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
  '(android-mode-debug-face ((t (:foreground "cyan"))))
@@ -102,7 +103,7 @@
  '(backup-by-copying-when-linked t)
  '(backup-by-copying-when-mismatch t)
  '(backup-by-copying-when-privileged-mismatch 1000)
- '(backup-directory-alist nil)
+ '(backup-directory-alist (quote (("." . "~/.backups"))))
  '(backup-file-version-format "%03d")
  '(bash-completion-initial-timeout 0.7)
  '(bash-completion-process-timeout 0.3)
@@ -217,7 +218,7 @@
  '(erc-nick '("pjb"))
  '(erc-nickserv-passwords '((freenode (("ogamita" . "ogre-a-mite") ("pjb" . "let's-chat")))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals '("bolet.*" "Posterdati" "martinl"))
+ '(erc-pals '("bolet.*" "Posterdati.*" "AWizzArd.*" "Harag.*"))
  '(erc-port 6667)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-nickserv-password nil)
