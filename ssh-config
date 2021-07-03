@@ -16,6 +16,22 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
+Host proteus.client-c.fr
+    HostName                proteus.client-c.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
+
+Host proteus.client-c.fr
+    HostName                proteus.client-c.fr
+    User                    admin
+    IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
+
+Host gitlab.client-c.fr
+    HostName                gitlab.client-c.fr
+    User                    git
+    IdentityFile            ~/.ssh/client-c
+
+
 Host github.com
     HostName                github.com
     User                    git
@@ -65,6 +81,12 @@ Host employer-c+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/employer-c+id_rsa
+
+
+Host vmdebian
+    HostName                vmdebian
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-vmdebian@despina
 
 
 # ----------------------------------------

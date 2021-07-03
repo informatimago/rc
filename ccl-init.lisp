@@ -211,6 +211,7 @@ RETURN:     The first word of the string, or the empty string.
 
 (defun ccl-cl (directory)
   (setf (ccl:current-directory) directory))
+
 (push 'ccl-cl com.informatimago.common-lisp.interactive.browser:*change-directory-hook*)
 (cd (ccl:current-directory))
 
