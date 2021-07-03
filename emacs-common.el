@@ -1191,7 +1191,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
             (push before result)
             (push (list (create-image path) " ") result)
             (setf string after))
-       finally (push string result) (return (nreverse result)))))
+       finally (push string result)
+               (return (apply (function concat) (nreverse result))))))
 
 
 
