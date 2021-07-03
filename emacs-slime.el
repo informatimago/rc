@@ -20,7 +20,7 @@
 ;;;;LEGAL
 ;;;;    GPL3
 ;;;;
-;;;;    Copyright Pascal J. Bourguignon 2013 - 2013
+;;;;    Copyright Pascal J. Bourguignon 2013 - 2021
 ;;;;
 ;;;;    This program is free software: you can redistribute it and/or modify
 ;;;;    it under the terms of the GNU General Public License as published by
@@ -38,81 +38,57 @@
 
 (.EMACS "emacs-slime.el")
 
-(when (require 'slime nil t)
+(require 'slime)
+(require 'slime-autoloads)
 
-  ;; (defun slime-eval-last-expression-on-all-connections ()
-  ;;   "Evaluate the expression preceding point."
-  ;;   (interactive)
-  ;;   (let ((slime-default-connection slime-default-connection))
-  ;;     (dolist (process slime-net-processes)
-  ;;       (slime-select-connection process)
-  ;;       (slime-interactive-eval (slime-last-expression)))))
-  ;; (define-key slime-mode-indirect-map (kbd "C-x C-e")
-  ;;   'slime-eval-last-expression-on-all-connections)
-
-  (defparameter *pjb-slime-contribs* '(slime-fancy
-                                       slime-xref-browser
-                                       slime-asdf
-                                       slime-banner
-                                       slime-repl
-                                       slime-indentation
-                                       slime-fuzzy
-                                       slime-autodoc
-                                       slime-presentations
-                                       slime-presentation-streams))
-
-  (defun slime-eval-print (string)
-    "Eval STRING in Lisp; insert any output and the result
-at point."
-    (message "current-prefix-arg = %S" current-prefix-arg)
-    (let ((commentp (and (listp current-prefix-arg)
-                         (integerp (first current-prefix-arg))
-                         (< 4 (first current-prefix-arg)))))
-      (slime-eval-async `(swank:eval-and-grab-output ,string)
-                        `(lambda (result)
-                           (destructuring-bind (output value) result
-                             (push-mark)
-                             (if ,commentp
-                                 (progn
-                                   (insert output)
-                                   (let ((lines (split-string value "\n")))
-                                     (insert "\n;; --> " (pop lines) "\n")
-                                     (dolist (line lines)
-                                       (insert ";;     " line "\n"))))
-                                 (insert output value)))))))
+(slime-setup '(slime-fancy
+               slime-asdf
+               slime-presentations
+               slime-sprof
+               slime-compiler-notes-tree
+               slime-hyperdoc
+               slime-indentation
+               slime-mrepl
+               slime-repl
+               slime-media))
 
 
-  (or (ignore-errors
-       (progn (slime-setup *pjb-slime-contribs*)
-              (setf slime-complete-symbol*-fancy   t
-                    slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-                    slime-load-failed-fasl         'never)
-              t))
-      (ignore-errors
-       (progn (slime-setup '(slime-fancy slime-indentation))
-              t))
-      (ignore-errors
-       (progn (slime-setup :autodoc t :typeout-frame t :highlight-edits t)
-              t))
-      (ignore-errors
-       (progn (slime-setup)
-              t))
-      (error ".EMACS: Cannot setup slime :-("))
+(setf slime-net-coding-system        'utf-8-unix)
+(setf slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+(pushnew 'paredit-mode slime-repl-mode-hook)
 
-  (defun reload-swank ()
+
+(when (fboundp 'slime-repl-bol)
+  (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+  (defun slime-repl-bol ()
     (interactive)
-    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-    (load-library "slime")
-    (slime-setup *pjb-slime-contribs*))
-
-  (reload-swank)
+    (if (eql 'home last-input-event)
+        (beginning-of-buffer)
+        (funcall *slime-repl-bol*))))
 
 
-  (setf slime-net-coding-system 'utf-8-unix)
-  (setf slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
-  (pushnew 'paredit-mode slime-repl-mode-hook)
+(defun slime-eval-print (string)
+  "Eval STRING in Lisp; insert any output and the result at point."
+  (message "current-prefix-arg = %S" current-prefix-arg)
+  (let ((commentp (and (listp current-prefix-arg)
+                       (integerp (first current-prefix-arg))
+                       (< 4 (first current-prefix-arg)))))
+    (slime-eval-async `(swank:eval-and-grab-output ,string)
+                      `(lambda (result)
+                         (destructuring-bind (output value) result
+                           (push-mark)
+                           (if ,commentp
+                               (progn
+                                 (insert output)
+                                 (let ((lines (split-string value "\n")))
+                                   (insert "\n;; --> " (pop lines) "\n")
+                                   (dolist (line lines)
+                                     (insert ";;     " line "\n"))))
+                               (insert output value)))))))
 
 
+
+(progn
 
   (.EMACS " define-lisp-implementation")
   (defvar *lisp-implementations* '() "List of defined lisp implementations.")
@@ -185,7 +161,7 @@ at point."
 
   (define-lisp-implementation mit-scheme
       '("/usr/local/languages/mit-scheme/bin/scheme")
-    "^\[[0-9]*\]> "
+    "^\\[[0-9]*\\]> "
     iso-8859-1)
 
   (define-lisp-implementation umb-scheme
@@ -202,13 +178,13 @@ at point."
 
   (define-lisp-implementation allegro
       '("/data/languages/acl82express/alisp")
-    "^\[[0-9]*\]> "
+    "^\\[[0-9]*\\]> "
     iso-8859-1)
 
   (define-lisp-implementation ccl
-      '("/data/languages/ccl/bin/ccl"
+      '("/opt/local/bin/ccl"
         "/usr/local/bin/ccl"
-        "/opt/local/bin/ccl"
+        "/data/languages/ccl/bin/ccl"
         "/usr/bin/ccl")
     "^? "
     utf-8)
@@ -244,10 +220,9 @@ at point."
     :init  'slime-init-ccl-win-cygwin)
 
 
-
   (define-lisp-implementation openmcl
       '("/usr/local/bin/openmcl")
-    "^\[[0-9]*\]> "
+    "^\\[[0-9]*\\]> "
     iso-8859-1)
 
 
@@ -259,7 +234,7 @@ at point."
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q"                ;"-m""32M""-I""-K""full"
+             "-ansi""-q"               ;"-m""32M""-I""-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "UTF-8"
@@ -273,7 +248,7 @@ at point."
                       "-Eterminal" "UTF-8"
                       "-Emisc"     "UTF-8" ; better be same as terminal
                       "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
-    "^\[[0-9]*\]> "
+    "^\\[[0-9]*\\]> "
     utf-8
     :argument-list-command
     "(let ((fn '%s))
@@ -293,7 +268,7 @@ at point."
         "/usr/local/bin/lisp"
         "/opt/local/bin/lisp"
         "/usr/bin/lisp")
-    "^\* "
+    "^\\* "
     utf-8)
 
 
@@ -303,7 +278,7 @@ at point."
                 "/usr/local/bin/sbcl"
                 "/opt/local/bin/sbcl"
                 "/usr/bin/sbcl"))
-    "^\[[0-9]*\]> "
+    "^\\[[0-9]*\\]> "
     utf-8)
 
 
@@ -323,10 +298,6 @@ at point."
         "/usr/bin/gcl")
     "^> "
     utf-8)
-
-
-
-
 
 
   (defun set-inferior-lisp-implementation (impl)
@@ -374,20 +345,13 @@ at point."
               lisp-describe-sym-command (lisp-implementation-describe-symbol-command limpl)))))
 
 
-  ;; Used both by ilisp and slime:
-  ;; (case system-type
-  ;;   ((darwin)     (set-default-lisp-implementation 'clisp)) ; openmcl))
-  ;;   ((gnu/linux)  (set-default-lisp-implementation 'clisp)) ; sbcl))
-  ;;   ((cygwin)     (set-default-lisp-implementation 'clisp))
-  ;;   (otherwise    (warn "unexpected system-type for inferior-lisp-program")
-  ;;                 (set-default-lisp-implementation 'clisp)))
-
   (loop
     for impl in '(ccl clisp sbcl ecl abcl)
     when (set-default-lisp-implementation impl)
       do (progn
            (message "Default Lisp implementations is %s" impl)
            (return impl)))
+
 
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
   (defun %lisp-buffer-name-match-p (buffer-name &optional number)
@@ -479,36 +443,25 @@ of `inferior-lisp-program').  Runs the hooks from
                (setf inferior-lisp-buffer (first lisp-buffers)))
               (nlisp ask-command))))))
 
+
+
+
+
 (defvar package 'common-lisp-user)
 
-;; (symbol-value-in-buffer 'inferior-lisp-buffer "a.lisp")
-;; (local-variable-p 'package)
-;; (inferior-lisp-package)
-;; (local-variable-p 'package)
+(defun symbol-value-in-buffer (symbol buffer)
+  (save-excursion
+   (set-buffer buffer)
+   (when (boundp symbol)
+     (symbol-value symbol))))
 
-;; Interfers with slime:
-;;
-;; (defun inferior-lisp-buffer (&optional process)
-;;   (if (boundp 'inferior-lisp-buffer)
-;;       inferior-lisp-buffer
-;;       (process-buffer (or process (inferior-lisp-proc)))))
-;;
-;; (defun inferior-lisp-package (&optional process)
-;;   (symbol-value-in-buffer 'package (inferior-lisp-buffer process)))
-;;
-;; ;; (defun lisp-eval-region (start end &optional and-go)
-;; ;;   "Send the current region to the inferior Lisp process.
-;; ;; Prefix argument means switch to the Lisp buffer afterwards."
-;; ;;   (interactive "r\nP")
-;; ;;   (comint-send-region (inferior-lisp-proc) start end)
-;; ;;   (comint-send-string (inferior-lisp-proc) "\n")
-;; ;;   (if and-go (switch-to-lisp t)))
-;;
-;; (defadvice lisp-eval-region (before ler-in-package activate)
-;;   (when (and (boundp 'package) (not (eq package (inferior-lisp-package))))
-;;     (comint-send-string (inferior-lisp-proc)
-;;                         (upcase (format "(CL:IN-PACKAGE #:%s)\n" package)))
-;;     (setf (symbol-value-in-buffer 'package (inferior-lisp-buffer)) package)))
+(defun set-symbol-value-in-buffer (symbol buffer value)
+  (save-excursion
+   (set-buffer buffer)
+   (make-local-variable symbol)
+   (setf (symbol-value symbol) value)))
+
+(defsetf symbol-value-in-buffer set-symbol-value-in-buffer)
 
 
 (defun lisp-eval-last-sexp (&optional and-go)
@@ -518,11 +471,12 @@ Prefix argument means switch to the Lisp buffer afterwards."
   (lisp-eval-region (save-excursion (backward-sexp) (point)) (point) and-go))
 
 
-(appendf interpreter-mode-alist '(("sbcl" . lisp-mode)
-                                  ("abcl" . lisp-mode)
-                                  ("gcl" . lisp-mode)
-                                  ("ecl" . lisp-mode)
+(appendf interpreter-mode-alist '(("ccl"   . lisp-mode)
+                                  ("ecl"   . lisp-mode)
+                                  ("abcl"  . lisp-mode)
+                                  ("sbcl"  . lisp-mode)
                                   ("cmucl" . lisp-mode)
+                                  ("gcl"   . lisp-mode)
                                   ("alisp" . lisp-mode)))
 
 (appendf auto-mode-alist '(("\\.lisp$" . lisp-mode)
@@ -580,8 +534,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 (defun indent-defun ()
   (interactive)
   (save-excursion
-    (indent-region (progn (beginning-of-defun) (point))
-                   (progn (end-of-defun) (point)))))
+   (indent-region (progn (beginning-of-defun) (point))
+                  (progn (end-of-defun) (point)))))
 
 (defun pjb-lisp-comment-region (beg end &optional arg)
   (let* ((numarg (prefix-numeric-value arg))
@@ -646,6 +600,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 (defun pjb-lisp-meat ()
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
+  (setf lisp-indent-function (function common-lisp-indent-function))
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
@@ -657,10 +612,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "<A-up>")      'backward-up-list)
   (local-set-key (kbd "<A-down>")    'down-list)
   (paredit-mode +1)
-  (local-set-key (kbd "<M-up>")      'paredit-splice-sexp-killing-backward)
-  (local-set-key (kbd "<M-down>")    'paredit-splice-sexp-killing-forward)
-  (local-set-key (kbd "<A-up>")      'paredit-splice-sexp-killing-backward)
-  (local-set-key (kbd "<A-down>")    'paredit-splice-sexp-killing-forward)
   (local-set-key (kbd "s-A-<left>")  'paredit-backward-barf-sexp)
   (local-set-key (kbd "s-A-<right>") 'paredit-backward-slurp-sexp)
   (local-set-key (kbd "A-<right>")   'paredit-forward-slurp-sexp)
@@ -673,10 +624,15 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (local-set-key (kbd "C-M-N")       'paredit-end-of-toplevel-form)
   (local-set-key (kbd "C-M-<backspace>") 'backwards-kill-sexp)
   (local-set-key (kbd "C-x C-r g")   'redshank-make-defgeneric-from-defmethod)
+  (local-set-key (kbd "H-g")         'redshank-make-defgeneric-for-defmethod)
+  (local-set-key (kbd "<f27>")       'redshank-make-defgeneric-from-defmethod)
+  (local-set-key (kbd "<f28>")       'redshank-make-defgeneric-for-defmethod)
+  (local-set-key (kbd "<f29>")       'redshank-split-defgeneric-to-defmethod)
   (local-set-key (kbd "H-e")         'pjb-cl-export-definition-at-point)
   (local-set-key (kbd "H-s")         'pjb-cl-export-symbol-at-point)
   (local-set-key (kbd "A-e")         'pjb-cl-export-definition-at-point)
-  (local-set-key (kbd "C-A-s")       'pjb-cl-export-symbol-at-point)
+  (local-set-key (kbd "A-s")         'pjb-cl-export-symbol-at-point)
+
   ;;   (setq skeleton-pair t)
   ;;   (local-set-key "("  'skeleton-pair-insert-maybe)
   ;;   (local-set-key "["  'skeleton-pair-insert-maybe)
@@ -697,13 +653,9 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (values))
 
 
-
-
-
-
 ;; (load-library "cl")
 ;; (setq indent-region-function (function lisp-indent-function))
-;; (setq lisp-indent-function   (function common-lisp-indent-function))
+(setq lisp-indent-function   (function common-lisp-indent-function))
 ;; (setq lisp-indent-function   (function lisp-indent-function))
 ;; (put 'let  'lisp-indent-function        '(&lambda &body))
 ;; (put 'let* 'lisp-indent-function        '(&lambda &body))
@@ -828,11 +780,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun clisp-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-                      <f5> step into
-                      <f6> next
-                      <f7> step over
-                      <f8> continue
-                      "
+<f5> step into
+<f6> next
+<f7> step over
+<f8> continue
+"
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":s"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ":n"))
@@ -842,11 +794,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun ecl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-                      <f5> step into
-                      <f6> next
-                      <f7> step over
-                      <f8> continue
-                      "
+<f5> step into
+<f6> next
+<f7> step over
+<f8> continue
+"
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ""))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender ""))
@@ -856,11 +808,11 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun sbcl-debug-keys ()
   "Binds locally some keys to send clisp debugger commands to the inferior-lisp
-                      <f5> step into
-                      <f6> next
-                      <f7> step over
-                      <f8> continue
-                      "
+<f5> step into
+<f6> next
+<f7> step over
+<f8> continue
+"
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender "step"))
   (local-set-key (kbd "<f6>") (make-lisp-command-sender "next"))
@@ -870,10 +822,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (defun allegro-debug-keys ()
   "Binds locally some keys to send allegro debugger commands to the inferior-lisp
-                      <f5> step into
-                      <f7> step over
-                      <f8> continue
-                      "
+<f5> step into
+<f7> step over
+<f8> continue
+"
   (interactive)
   (local-set-key (kbd "<f5>") (make-lisp-command-sender ":scont 1"))
   ;; (local-set-key (kbd "<f6>") (make-lisp-command-sender ))
@@ -883,23 +835,22 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 
 
-(loop for x in '(setf common-lisp-mode-hook      nil
-                 inferior-lisp-load-hook    nil
-                 inferior-lisp-mode-hook    nil
-                 lisp-interaction-mode-hook nil
-                 lisp-mode-hook             nil
-                 comint-mode-hook           nil
-                 comint-exec-hook           nil
-                 ilisp-mode-hook            nil
-                 scheme-mode-hook           nil)
-   for i from 0
-   when (oddp i)
-   collect x)
 
-(message (format  "hooks=%S"
-                  (mapcar (lambda (h)  (if (boundp h) (list h (symbol-value h)) (list h 'unbound)))
-                          '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook comint-exec-hook ilisp-mode-hook scheme-mode-hook))))
 
+(defun pjb-lisp-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp))
+(defun pjb-scheme-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'lisp-eval-last-sexp))
+(defun pjb-emacs-set-keys ()
+  (interactive)
+  (local-set-key (kbd "C-x C-e")     'eval-last-sexp))
+
+
+;;;
+;;; Hooks
+;;;
 
 (setf common-lisp-mode-hook      nil
       inferior-lisp-load-hook    nil
@@ -911,575 +862,47 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       ilisp-mode-hook            nil
       scheme-mode-hook           nil)
 
-(add-hook 'scheme-mode-hook      'pjb-lisp-meat)
-(add-hook 'scheme-mode-hook
-          (lambda () (local-set-key (kbd "C-x C-e") 'lisp-eval-last-sexp)))
+
 (add-hook 'lisp-mode-hook        'pjb-lisp-meat)
+(add-hook 'lisp-mode-hook        'pjb-lisp-set-keys)
+(add-hook 'lisp-mode-hook        'slime-mode)
+(add-hook 'lisp-mode-hook        'slime-autodoc-mode)
+
 (add-hook 'common-lisp-mode-hook 'pjb-lisp-meat)
+(add-hook 'common-lisp-mode-hook 'pjb-lisp-set-keys)
+
+(add-hook 'scheme-mode-hook      'pjb-lisp-meat)
+(add-hook 'scheme-mode-hook      'pjb-scheme-meat)
+
 (add-hook 'emacs-lisp-mode-hook  'pjb-lisp-meat)
+(add-hook 'emacs-lisp-mode-hook  'pjb-emacs-set-keys)
 (add-hook 'emacs-lisp-mode-hook  'eldoc-mode)
 
 
-
-
-
-;; slime-net-valid-coding-systems
-;; (map nil (lambda (n)
-;;            (format t "(~A-unix~VA~:[nil~;t  ~]  ~4:*:~A-unix)~%"
-;;                    n (- 32 (length n)) ""
-;;                    (ignore-errors (/= 1 (length (ext:convert-string-to-bytes
-;;                                   "A" (ext:make-encoding :charset n)))))))
-;;      (let ((l '()))
-;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
-
-
-;; swank-clisp.lisp find-encoding
-;; (map nil (lambda (n) (format t "(:~A-unix~VA\"~A\")~%" n (- 32 (length n)) "" n))
-;;      (let ((l '()))
-;;        (do-external-symbols (s :charset) (push (string-downcase  s) l))
-;;        (sort l (function string<=))))
-
-
-
-;; This is about the easiest profiling I've seen in any language. In
-;; fact, I think it's the only time I been able to make significant
-;; improvements based on the report.
-;;
-;;
-;;     M-x slime-toggle-profile-fdefinition
-;;
-;; on all the functions you want to
-;; profile,
-;;
-;;     M-x slime-profile-reset
-;;
-;; to clear any existing data, and
-;;
-;;
-;;     M-x slime-profile-report
-;;
-;; to see the report after running.
-
-                                       (when (fboundp 'slime-repl-bol)
-                                         (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
-                                         (defun slime-repl-bol ()
-                                           (interactive)
-                                           (if (eql 'home last-input-event)
-                                               (beginning-of-buffer)
-                                               (funcall *slime-repl-bol*))))
-
-
-;; (message (format ".EMACS:  Environment EMACS_INFERIOR_LISP = %S"
-;;            (getenv "EMACS_INFERIOR_LISP")))
-;; (setf (getenv "EMACS_INFERIOR_LISP")
-;;       (or
-;;        "inferior-lisp"
-;;        (getenv "EMACS_INFERIOR_LISP")
-;;        "inferior-lisp"
-;;        "minimum-slime"
-;;        "slime"
-;;        "allegro-fi"
-;;        "ILISP"))
-;; ;; (setf (getenv "EMACS_INFERIOR_LISP") "slime")
-;; (message (format ".EMACS:  Selected EMACS_INFERIOR_LISP = %S"
-;;            (getenv "EMACS_INFERIOR_LISP")))
-
-;; (progn
-;;   (add-to-list 'load-path (get-directory :share-lisp "packages/net/common-lisp/slime/slime/"))
-;;   (setf common-lisp-mode-hook      nil
-;;         inferior-lisp-load-hook    nil
-;;         inferior-lisp-mode-hook    nil
-;;         lisp-interaction-mode-hook nil
-;;         lisp-mode-hook             nil
-;;         comint-mode-hook           nil
-;;         comint-exec-hook           nil
-;;         ilisp-mode-hook            nil
-;;         scheme-mode-hook           nil)
-;;
-;;   (add-hook 'scheme-mode-hook      (function pjb-lisp-meat))
-;;   (add-hook 'scheme-mode-hook
-;;             (lambda () (local-set-key (kbd "C-x C-e") 'lisp-eval-last-sexp)))
-;;   (add-hook 'lisp-mode-hook        (function pjb-lisp-meat))
-;;   (add-hook 'common-lisp-mode-hook (function pjb-lisp-meat))
-;;   (add-hook 'emacs-lisp-mode-hook  (function pjb-lisp-meat))
-;;
-;;   ;; (list scheme-mode-hook lisp-mode-hook common-lisp-mode-hook emacs-lisp-mode-hook)
-;;
-;;   (cond
-;;
-;;     ((string-equal (getenv "EMACS_INFERIOR_LISP") "allegro-fi")
-;; ;;;----------------------------------------------------------------------------
-;; ;;; ALLEGRO FI interface.
-;;      (load "/usr/local/languages/acl80/eli/fi-site-init.el")
-;;      (add-hook 'lisp-mode-hook
-;;                (lambda () (local-set-key (kbd "C-x C-e") 'lisp-eval-last-sexp)))
-;;      (defun ficl-meat ()
-;;        (sexp-movement))
-;;      (add-hook 'fi:common-lisp-mode-hook 'ficl-meat))
-;;
-;;
-;;     ((string-equal (getenv "EMACS_INFERIOR_LISP") "inferior-lisp")
-;;      (.EMACS "inferior-lisp")
-;; ;;;----------------------------------------------------------------------------
-;; ;;; INFERIOR-LISP
-;;      (add-hook 'lisp-mode-hook
-;;                (lambda () (local-set-key (kbd "C-x C-e") 'lisp-eval-last-sexp)))
-;;      (setf inferior-lisp-mode-hook nil)
-;;
-;;
-;;      (add-hook 'inferior-lisp-mode-hook
-;;                (lambda ()
-;;                  (sexp-movement)
-;;                  (.EMACS "inferior-lisp-mode-hook done.")))
-;;      (add-hook 'comint-mode-hook
-;;                (lambda ()
-;;                  (sexp-movement)
-;;                  (.EMACS "comint-mode-hook done.")))
-;;      (add-hook 'comint-exec-hook
-;;                (lambda ()
-;;                  (sexp-movement)
-;;                  (.EMACS "comint-mode-hook done.")))
-;;      );; inferior-lisp
-;;
-;;
-;;     ((and (string-equal (getenv "EMACS_INFERIOR_LISP") "minimum-slime")
-;;           (require 'slime nil t))
-;;      (.EMACS "minimum-slime")
-;; ;;;----------------------------------------------------------------------------
-;; ;;; MINIMUM SLIME
-;; ;;; site-lisp configuration for slime-cvs
-;;
-;;      (slime-setup '(slime-repl))
-;;      (setf slime-net-coding-system 'utf-8-unix)
-;;      (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
-;;      (setf slime-space-information-p t)
-;;      (global-set-key (kbd "C-c s") 'slime-selector)
-;;      ;; this prevents us from requiring the user get dev-lisp/hyperspec
-;;      ;; (which is non-free) as a hard dependency
-;;
-;;
-;;      (defun newline-and-lisp-indent (&rest rest)
-;;        (interactive)
-;;        (newline)
-;;        (lisp-indent-line))
-;;      (define-key slime-mode-map (kbd "RET") 'newline-and-lisp-indent)
-;;
-;;
-;;
-;;      (defun inferior-lisp-buffer-name (name index)
-;;        (format "*slime inferior-lisp %d%s*" index name))
-;;
-;;      (defun slime-buffer-name (name index)
-;;        (format "%d%s (slime)" index name))
-;;
-;;      (defun get-next-buffer-name (name bnf)
-;;        (let ((i 0))
-;;          (while (get-buffer (funcall bnf name i)) (incf i))
-;;          (funcall bnf name i)))
-;;
-;;      (defun slime-repl-buffer (&optional create connection)
-;;        "Get the REPL buffer for the current connection; optionally create."
-;;        (funcall (if create
-;;                     (function get-buffer-create)
-;;                     (function get-buffer))
-;;                 ;; (format "*slime-repl %s*" (slime-connection-name connection))
-;;                 (get-next-buffer-name (slime-lisp-implementation-name connection)
-;;                                       (function slime-buffer-name))))
-;;
-;;
-;;      (defun slime (&optional command coding-system)
-;;        "Start an inferior^_superior Lisp and connect to its Swank server."
-;;        (interactive)
-;;        (let* ((args (slime-read-interactive-args))
-;;               (impl (get (getf args :name) :lisp-implementation)))
-;;          (if impl
-;;              (apply (function slime-start)
-;;                     :buffer (get-next-buffer-name
-;;                              (lisp-implementation-name impl)
-;;                              (function inferior-lisp-buffer-name))
-;;                     args)
-;;              (apply (function slime-start) args))))
-;;      ) ;; minimum-slime
-;;
-;;
-;;     ((and (string-equal (getenv "EMACS_INFERIOR_LISP") "slime")
-;;           (require 'slime nil t))
-;;      (.EMACS "slime")
-;; ;;;----------------------------------------------------------------------------
-;; ;;; SLIME
-;;
-;;      ;;(add-to-list 'load-path "/home/luke/slime")
-;;      (require 'slime)
-;;      (slime-setup '(slime-fancy slime-asdf slime-banner slime-repl))
-;;
-                                       (add-hook 'lisp-mode-hook
-                                                 (lambda () (slime-mode t) (slime-autodoc-mode t)))
-;;      ;;(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
-;;      ;; (modify-syntax-entry ?$ "'" lisp-mode-syntax-table)
-;;
-;;      (define-key slime-mode-map (kbd "[") 'insert-parentheses)
-;;      (define-key slime-mode-map (kbd "]") 'move-past-close-and-reindent)
-;;      ;;(define-key slime-mode-map (kbd "(") (lambda () (interactive) (insert "[")))
-;;      ;;(define-key slime-mode-map (kbd ")") (lambda () (interactive) (insert "]")))
-;;      (define-key slime-mode-map (kbd "(") (function self-insert-command))
-;;      (define-key slime-mode-map (kbd ")") (function self-insert-command))
-;;      (define-key slime-mode-map (kbd "\e\[") (lambda () (interactive) (insert "(")))
-;;      (define-key slime-mode-map (kbd "\e\]") (lambda () (interactive) (insert ")")))
-;;
-;;
-;;      (defun slime-send-dwim (arg)
-;;        "Send the appropriate forms to CL to be evaluated.
-;; http://bc.tech.coop/blog/070424.html
-;; "
-;;        (interactive "P")
-;;        (save-excursion
-;;          (cond
-;;            ;;Region selected - evaluate region
-;;            ((not (equal mark-active nil))
-;;             (copy-region-as-kill-nomark (mark) (point)))
-;;            ;; At/before sexp - evaluate next sexp
-;;            ((or (looking-at "\s(")
-;;                 (save-excursion
-;;                   (ignore-errors (forward-char 1))
-;;                   (looking-at "\s(")))
-;;             (forward-list 1)
-;;             (let ((end (point))
-;;                   (beg (save-excursion
-;;                          (backward-list 1)
-;;                          (point))))
-;;               (copy-region-as-kill-nomark beg end)))
-;;            ;; At/after sexp - evaluate last sexp
-;;            ((or (looking-at "\s)")
-;;                 (save-excursion
-;;                   (backward-char 1)
-;;                   (looking-at "\s)")))
-;;             (if (looking-at "\s)")
-;;                 (forward-char 1))
-;;             (let ((end (point))
-;;                   (beg (save-excursion
-;;                          (backward-list 1)
-;;                          (point))))
-;;               (copy-region-as-kill-nomark beg end)))
-;;            ;; Default - evaluate enclosing top-level sexp
-;;            (t (progn
-;;                 (while (ignore-errors (progn
-;;                                         (backward-up-list)
-;;                                         t)))
-;;                 (forward-list 1)
-;;                 (let ((end (point))
-;;                       (beg (save-excursion
-;;                              (backward-list 1)
-;;                              (point))))
-;;                   (copy-region-as-kill-nomark beg end)))))
-;;          (set-buffer (slime-output-buffer))
-;;          (unless (eq (current-buffer) (window-buffer))
-;;            (pop-to-buffer (current-buffer) t))
-;;          (goto-char (point-max))
-;;          (yank)
-;;          (if arg (progn
-;;                    (slime-repl-return)
-;;                    (other-window 1)))))
-;;
-;;
-;;      ;; (define-key lisp-mode-map [f7] 'slime-send-dwim)
-;;      ;; (define-key lisp-mode-map [f8] (lambda ()
-;;      ;;                                  (interactive)
-;;      ;;                                  (slime-send-dwim 1)))
-;;
-;;
-;;      (defun slime-version ()
-;;        (interactive)
-;;        (eval-in-cl "(swank-loader::slime-version-string)"
-;;                    (lambda (values)
-;;                      (if (null (cdr values))
-;;                          (message (format "%s" v))
-;;                          (dolist (v values)
-;;                            (message (format "%s\n" v)))))))
-;;
-;;
-;;
-;;      (defvar *pm* '() "process-marker alist")
-;;
-;;      (defun pjb-slime-net-filter (process string)
-;;        "Accept output from the socket and input all complete messages."
-;;        (with-current-buffer (process-buffer process)
-;;          (save-excursion
-;;            (let ((pma (assoc process *pm*)))
-;;              (when pma (goto-char (marker-position (cdr pma)))))
-;;            (insert string))
-;;          (slime-process-available-input)))
-;;
-;;
-;;      (defun pjb-slime-eval-with-transcript (form &optional fn wait)
-;;        "Send FROM and PACKAGE to Lisp and pass the result to FN.
-;; Display the result in the message area, if FN is nil."
-;;        (let* ((proc (slime-connection))
-;;               (spb (process-buffer proc))
-;;               (spf (process-filter proc)))
-;;          (let ((pma (assoc proc *pm*))
-;;                (m (let ((m (make-marker)))
-;;                     (set-marker m (point) (current-buffer))
-;;                     m)))
-;;            (if pma
-;;                (setf (cdr pma) m)
-;;                (push (cons proc m) *pm*)))
-;;          (set-process-buffer proc (current-buffer))
-;;          (set-process-filter proc 'pjb-slime-net-filter)
-;;          (unwind-protect (with-lexical-bindings (fn)
-;;                            (slime-eval-async  form
-;;                                               (lambda (value)
-;;                                                 (cond (fn (funcall fn value))
-;;                                                       (t (.EMACS "%s" value)))
-;;                                                 (slime-show-last-output))))
-;;            (set-process-buffer proc spb)
-;;            (set-process-filter proc spf)
-;;            (setf *pm* (delete (assoc proc *pm*) *pm*)))))
-;;
-;;
-;;      ;;   (defun pjb-slime-eval-last-expression ()
-;;      ;;     "Evaluate the expression preceding point."
-;;      ;;     (interactive)
-;;      ;;     (let* ((str  (slime-last-expression))
-;;      ;;            (sexp (read-from-string str)))
-;;      ;;       (if (and (listp sexp)
-;;      ;;                (symbolp (fisrt sexp))
-;;      ;;                (< 3 (LENGTH (SYMBOL-NAME (first sexp))))
-;;      ;;                (STRING-EQUAL "DEF"  (SYMBOL-NAME (first sexp)) :end2 3))
-;;      ;;         (slime-eval-last-expression str)
-;;      ;;         (slime-eval-print-last-expression str))))
-;;
-;;
-;;      (defun pjb-slime-eval-last-expression ()
-;;        "Evaluate the expression preceding point."
-;;        (interactive)
-;;        (if buffer-read-only
-;;            (slime-eval-last-expression)
-;;            (let ((str  (slime-last-expression)))
-;;              ;; (.EMACS "A DEF? %S" (STRING-EQUAL "(DEF"  str :end2 4))
-;;              (if (cl:string-equal "(DEF"  str :end2 4)
-;;                  (slime-interactive-eval str)
-;;                  (slime-eval-print-last-expression str)))))
-;;
-;;
-;;      (defun slime-restart-lisp-image ()
-;;        (interactive)
-;;        (when (slime-connected-p)
-;;          (dolist (buf (buffer-list))
-;;            (when (or (string= (buffer-name buf) slime-event-buffer-name)
-;;                      (string-match "^\\*inferior-lisp*" (buffer-name buf)))
-;;              (kill-buffer buf))))
-;;        (call-interactively 'slime)) ;;slime-restart-lisp-image
-;;
-;;
-;;      (defun pjb-slime-erase-buffer ()
-;;        "Reset the slime output buffer to initial state."
-;;        (interactive)
-;;        (with-current-buffer (slime-output-buffer)
-;;          (let ((inhibit-read-only t))
-;;            (erase-buffer)
-;;            (slime-repl-update-banner)))) ;;pjb-slime-erase-buffer
-;;
-;;
-;;      (defun slime-kill ()
-;;        (interactive)
-;;        (map nil (lambda (x) (when (buffer-named x) (kill-buffer x)))
-;;             '("*slime-repl[1]*" "*slime-events*" "*inferior-lisp*")))
-;;
-;;
-;;      (defun slime-relaunch ()
-;;        (interactive)
-;;        (slime-kill)
-;;        (sit-for 1)
-;;        (slime)) ;;slime-relaunch
-;;
-;;      (defalias 'slime-reload 'slime-relaunch)
-;;
-;;
-;;      (defun pjb-slime-reset-minor-mode ()
-;;        (dolist (slime-mode-vars '( slime-repl-read-mode
-;;                                   slime-temp-buffer-mode
-;;                                   inferior-slime-mode slime-mode))
-;;          (setf minor-mode-map-alist (delete-if (lambda (x) (eq (car x) slime-mode-vars))
-;;                                                minor-mode-map-alist)))
-;;        ) ;;pjb-slime-reset-minor-mode
-;;
-;;
-;;      (defvar *pjb-slime-keys-dynamic* nil)
-;;      (defun pjb-slime-substitute-command (key command &rest keys)
-;;        (unless  *pjb-slime-keys-dynamic*
-;;          (setf slime-keys (mapcar (function copy-seq) (copy-seq slime-keys))
-;;                *pjb-slime-keys-dynamic* t))
-;;        (let ((prefixedp (cadr (member :prefixed keys)))
-;;              (skeys slime-keys))
-;;          (while skeys
-;;            (when (and (string= key (first (car skeys)))
-;;                       (equiv prefixedp (cadr (member :prefixed (car skeys)))))
-;;              (setf (second (car skeys)) command
-;;                    skeys nil))
-;;            (pop skeys)))
-;;        (pjb-slime-reset-minor-mode)
-;;        (load "slime" *pjb-load-noerror* *pjb-load-silent*))
-;;
-;;
-;;      ;; (pjb-slime-substitute-command "\M-." 'slime-edit-definition-other-window)
-;;
-;;      ;; (pjb-slime-substitute-command "\C-e" 'pjb-slime-eval-last-expression
-;;      ;;                               :prefixed t)
-;;
-;;
-;;      (progn
-;;        (define-key sldb-mode-map  "\M-."     'slime-edit-definition-other-window)
-;;        (define-key slime-mode-map          "\C-ch"    'slime-hyperspec-lookup)
-;;        (define-key inferior-slime-mode-map "\C-ch"    'slime-hyperspec-lookup)
-;;        (define-key slime-mode-map  "\C-c\C-e" 'pjb-slime-eval-last-expression)
-;;        (define-key slime-mode-map  "\C-x\C-e" 'pjb-slime-eval-last-expression)
-;;        (define-key slime-mode-map          "\C-c\C-t" 'pjb-slime-erase-buffer)
-;;        (define-key slime-mode-map          " "        'slime-space) ;'cl-magic-space)
-;;        (define-key inferior-slime-mode-map "\C-c\C-t" 'pjb-slime-erase-buffer)
-;;        )
-;;
-;;      (defun slime-symbol-name-at-point ()
-;;        "Return the name of the symbol at point, otherwise nil."
-;;        (save-restriction
-;;          ;; Don't be tricked into grabbing the REPL prompt.
-;;          (when (and (eq major-mode 'slime-repl-mode)
-;;                     (>= (point) slime-repl-input-start-mark))
-;;            (narrow-to-region slime-repl-input-start-mark (point-max)))
-;;          (save-excursion
-;;            (skip-syntax-forward "w_")
-;;            (skip-syntax-backward "-")
-;;            (let ((string (let ((bounds (bounds-of-thing-at-point 'symbol)))
-;;                            (when bounds
-;;                              (buffer-substring (car bounds)
-;;                                                (progn
-;;                                                  (goto-char (1- (cdr bounds)))
-;;                                                  (if (looking-at "\\.\"")
-;;                                                      (1- (cdr bounds))
-;;                                                      (cdr bounds))))))))
-;;              (and string
-;;                   ;; In Emacs20 (thing-at-point 'symbol) returns "" instead
-;;                   ;; of nil when called from an empty (or
-;;                   ;; narrowed-to-empty) buffer.
-;;                   (not (equal string ""))
-;;                   (substring-no-properties   string)))))) ;;slime-symbol-name-at-point
-;;
-;;
-;;
-;;      ;; (trace slime-init-keymaps  slime-init-keymaps  slime-define-key)
-;;      ;; (trace pjb-slime-eval-last-expression)
-;;      ;; (show (assoc "" slime-keys))
-;;
-;;      (defun slime-hyperspec-lookup (symbol-name)
-;;        "A wrapper for `hyperspec-lookup'"
-;;        (interactive (list (let ((completion-ignore-case t)
-;;                                 (symbol-at-point (slime-symbol-name-at-point)))
-;;                             (if (and symbol-at-point
-;;                                      (intern-soft (downcase symbol-at-point)
-;;                                                   common-lisp-hyperspec-symbols))
-;;                                 symbol-at-point
-;;                                 (completing-read
-;;                                  "Look up symbol in Common Lisp HyperSpec: "
-;;                                  common-lisp-hyperspec-symbols #'boundp
-;;                                  t symbol-at-point
-;;                                  'common-lisp-hyperspec-history)))))
-;;        (hyperspec-lookup symbol-name)) ;;slime-hyperspec-lookup
-;;
-;;      ;; (setf sldb-hook nil)
-;;      (add-hook 'sldb-hook (lambda () (toggle-truncate-lines 1)))
-;;
-;;
-;;      (defun slime-macroexpand-in-place (&optional string)
-;;        (interactive)
-;;        (unless string
-;;          (setf string (slime-sexp-at-point-or-error)))
-;;        (lexical-let ((package (slime-current-package)))
-;;          (insert (slime-eval `(swank:swank-macroexpand-1 ,string)))))
-;;
-;;      ) ;;slime
-;;
-;;
-;;     ((string-equal (getenv "EMACS_INFERIOR_LISP") "ILISP")
-;;      (.EMACS "ilisp")
-;; ;;;----------------------------------------------------------------------------
-;; ;;; ILISP
-;;      (require 'ilisp)
-;;
-;;      (setq ilisp-*use-fsf-compliant-keybindings*  t)
-;;      (setq ilisp-*use-frame-for-arglist-output-p* nil)
-;;      (setq ilisp-*arglist-message-lisp-space-p*   nil)
-;;      (setq ilisp-arglist-output                   nil)
-;;      (setq ilisp-motd                             nil)
-;;      (setq ilisp-defpackage-command-string
-;;            "([Dd][Ee][Ff][-A-Za-z]*[Pp][Aa][Cc][Kk][Aa][Gg][Ee]  *\\([^ ][^ ]*\\)")
-;;      ;; ;; (setq ilisp-hash-form-regexp "\\(^[ \t]*#[+-].\\)\\|\\(^[ \t]*(\\(.*::?\\)?\\(defpackage\\|define-package\\)[ \t\n]\\)\\|\\(^[ \t]*(\\(.*::?\\)?in-package[ \t\n]*\\)")
-;;
-;;
-;;      ;; (setf ilisp-mode-hook nil lisp-mode-hook nil scheme-mode-hook nil clisp-hs-hook)
-;;      (let ((hook  (lambda () (require 'ilisp))))
-;;        (add-hook 'lisp-mode-hook   hook)
-;;        (add-hook 'ilisp-mode-hook  hook)
-;;        (add-hook 'scheme-mode-hook hook))
-;;
-;;      ;;(lambda () (set-buffer-process-coding-system 'mule-utf-8 'mule-utf-8)))
-;;      ;;(setf common-lisp-hook nil clisp-hs-hook nil)
-;;      (add-hook 'ilisp-init-hook
-;;                (lambda () (set-buffer-process-coding-system 'mule-utf-8 'mule-utf-8)))
-;;
-;;      (defun ilisp-eval-region (start end)
-;;        (interactive "r")
-;;        (let* ((form (lisp-defun-region-and-name))
-;;               (result
-;;                (eval-region-lisp start end  'result
-;;                                  (format "Evaluating %s" (car (cdr (cdr form)))))))
-;;          (goto-char end)
-;;          (lisp-display-output result))) ;;ilisp-eval-region
-;;
-;;
-;;      (defun pjb-output-to-current-buffer (output ilisp-output-sink)
-;;        "
-;; This function is used to display the output from ilisp.
-;; It's hooked by `ilisp-display-output-function'.
-;; "
-;;        (end-of-line)
-;;        (insert (if (string-match "\n" output) "\n" "\n;;"))
-;;        (insert output)
-;;        (unless (string-match "\n" output) (goto-char 0)))
-;;
-;;      (setq ilisp-display-output-function 'pjb-output-to-current-buffer)
-;;
-;;
-;;      (defadvice  ilisp-display-output-adaptively
-;;          (around pjb-ilisp-display-output-adaptively last
-;;                  (output ilisp-output-sink) activate)
-;;        "Always display output to the echo area: 21.2 can do with multiline strings"
-;;        (ilisp-display-output-in-echo-area output ilisp-output-sink)
-;;        ) ;;ilisp-display-output-adaptively
-;;      (ad-activate 'ilisp-display-output-adaptively)
-;;      ;;end ilisp
-;;      )
-;;     ))
+(dolist (h '(common-lisp-mode-hook inferior-lisp-load-hook inferior-lisp-mode-hook
+             lisp-interaction-mode-hook lisp-mode-hook comint-mode-hook
+             comint-exec-hook ilisp-mode-hook scheme-mode-hook))
+  (message "%-30s %S"  h (if (boundp h)
+                             (symbol-value h)
+                             'unbound)))
 
 
 
 ;;;----------------------------------------------------------------------------
-                                       (.EMACS "emacs<->Common Lisp RPC with slime/swank")
+(.EMACS "emacs<->Common Lisp RPC with slime/swank")
 
 ;;; In emacs, we can execute Common Lisp expressions:
 
-;; (require 'slime)
-;; (slime)
+(setf slime-enable-evaluate-in-emacs t)
 
-                                       (setf slime-enable-evaluate-in-emacs t)
-
-                                       (defun eval-in-cl (cl-expression-string process-result-values)
-                                         (slime-eval-with-transcript
-                                          `(swank:eval-and-grab-output ,cl-expression-string)
-                                          (lexical-let  ((here (current-buffer))
-                                                         (process-result-values process-result-values))
-                                                        (lambda (result-values)
-                                                          (set-buffer here)
-                                                          (funcall process-result-values result-values)))))
+(defun eval-in-cl (cl-expression-string process-result-values)
+  (slime-eval-with-transcript
+   `(swank:eval-and-grab-output ,cl-expression-string)
+   (lexical-let  ((here (current-buffer))
+                  (process-result-values process-result-values))
+                 (lambda (result-values)
+                   (set-buffer here)
+                   (funcall process-result-values result-values)))))
 
 ;; (eval-in-cl "(values 1 * (ext:! 20) (package-name *package*))"
 ;;             (lambda (values)
@@ -1495,6 +918,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
 ;; 2432902008176640000
 ;; "COMMON-LISP-USER"
+
 
 
 ;; ;;; In Common Lisp, we can execute emacs lisp expressions:
@@ -1534,6 +958,33 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;; ;; inserts \nHello\n
 ;; ;; then returns:
 ;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
+
+
+(defparameter *pjb-sldb-observe-variables*
+  '(cl:*compile-file-pathname*
+    cl:*load-pathname*
+    (package-name cl:*package*)))
+
+(defun pjb-sldb-insert-top-message (message)
+  (goto-char (point-min))
+  (let ((inhibit-read-only t))
+    (write-string (car (read-from-string (subseq message 3)))
+                  (current-buffer))
+    (insert (format "%s\n" (make-string 72 ?-)))))
+
+(defun pjb-sldb-observe-variables ()
+  (when sldb-backtrace-start-marker
+    (sldb-beginning-of-backtrace))
+  (let ((expression (format "(cl:format nil \"~{~32S = ~S~%%~}\" (cl:list %s))"
+                            (mapconcat (lambda (var)
+                                         (format "(quote %s) %s" var var))
+                                       *pjb-sldb-observe-variables* " ")))
+        (package    (slime-current-package))
+        (frame      0))
+    (slime-eval-async `(swank:eval-string-in-frame ,expression ,frame ,package)
+                      (function pjb-sldb-insert-top-message))))
+
+(add-hook 'sldb-hook 'pjb-sldb-observe-variables)
 
 ;; Local Variables:
 ;; coding: utf-8
