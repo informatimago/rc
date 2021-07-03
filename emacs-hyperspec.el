@@ -69,16 +69,6 @@ something like \"file:/usr/local/doc/HyperSpec/\".")
         ((boundp '*hyperspec-path*)
          *hyperspec-path*)))
 
-(defparameter common-lisp-hyperspec-browser (function ignore))
-(defparameter common-lisp-hyperspec-frame   (selected-frame))
-(defvar common-lisp-hyperspec-history nil
-  "History of symbols looked up in the Common Lisp HyperSpec.")
-
-(when (eq system-type 'darwin)
-  (setf browse-url-browser-function 'browse-url-default-macosx-browser))
-;; (setf common-lisp-hyperspec-browser 'browse-url-default-macosx-browser)
-;; (setf common-lisp-hyperspec-browser 'browse-url)
-;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
 
 (defparameter common-lisp-hyperspec-symbols
   (let ((symbols (make-vector 67 0)))
@@ -94,8 +84,6 @@ something like \"file:/usr/local/doc/HyperSpec/\".")
            ;; (message "%S %S" symbol page)
            (setf (get symbol 'common-lisp-hyperspec-page) page)))
     symbols))
-
-
 
 
 (defun thing-at-point-no-properties (thing)
@@ -137,6 +125,11 @@ a symbol as a valid THING."
     (and symbol (get symbol 'common-lisp-hyperspec-page))))
 
 
+(defparameter common-lisp-hyperspec-browser 'eww)
+(defvar common-lisp-hyperspec-history nil
+  "History of symbols looked up in the Common Lisp HyperSpec.")
+
+
 (defun common-lisp-hyperspec (symbol-name)
   "View the documentation on SYMBOL-NAME from the Common Lisp HyperSpec.
 If SYMBOL-NAME has more than one definition, all of them are displayed with
@@ -158,7 +151,8 @@ variable `common-lisp-hyperspec-root' to point to that location."
                               (get symbol 'common-lisp-hyperspec-page))
                             t symbol-at-point
                             'common-lisp-hyperspec-history))))
-  (let ((url  (concat common-lisp-hyperspec-root (clhs-page symbol-name))))
+  (let ((url  (concat common-lisp-hyperspec-root (clhs-page symbol-name)))
+        (browse-url-browser-function common-lisp-hyperspec-browser))
     (message "%s" url)
     (browse-url url)))
 
