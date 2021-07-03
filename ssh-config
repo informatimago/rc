@@ -36,6 +36,11 @@ Host gitlab.client-c.fr
     User                    git
     IdentityFile            ~/.ssh/client-c
 
+Host proteus.client-c.fr
+    HostName                proteus.client-c.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/proteus-client-c
+
 Host framagit.org
     HostName                framagit.org
     User                    git
@@ -68,7 +73,6 @@ Host employer-c+github.com
 Host *
     Protocol                2,1
     Port                    22
-    Cipher                  blowfish-cbc
     EscapeChar              ~
     ForwardAgent            no
     ForwardX11              no
