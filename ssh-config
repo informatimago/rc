@@ -47,6 +47,16 @@ Host gitlab.com
     User                    git
     IdentityFile            ~/.ssh/gitlab
 
+Host gitlab.sbde.fr
+    HostName                gitlab.sbde.fr
+    User                    git
+    IdentityFile            ~/.ssh/sbde
+
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/proteus-sbde
+
 Host framagit.org
     HostName                framagit.org
     User                    git
@@ -85,7 +95,6 @@ Host vmdebian
 Host *
     Protocol                2,1
     Port                    22
-    Cipher                  blowfish-cbc
     EscapeChar              ~
     ForwardAgent            no
     ForwardX11              no
