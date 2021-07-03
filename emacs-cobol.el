@@ -1,4 +1,4 @@
-(load "~/emacs/cobol-mode.el")
+(require 'cobol-mode)
 (setf auto-mode-alist
       (append auto-mode-alist '(("\\.cob$" . cobol-mode))))
 (add-hook 'cobol-mode-hook
