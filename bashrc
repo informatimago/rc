@@ -1,7 +1,7 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
-
+# set -x
 set +o posix # not POSIX: allow function-names-with-dashes
 
 # Source global definitions
@@ -96,6 +96,10 @@ function bashrc_set_prompt(){
     else
         export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
     fi
+
+    export SAVED_PS1="$PS1"
+    #PS1='$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}   1.8.32.41.49-5    ${NORMAL}")'"$SAVED_PS1"
+    #PS1="$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}       ${NORMAL}")$SAVED_PS1"
 }
 
 
@@ -417,6 +421,9 @@ function be_generate(){
     if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
         be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
     fi
+
+    be_variable LD_RUNPATH_SEARCH_PATHS /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
+    be_variable DYLD_LIBRARY_PATH       /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
@@ -1353,6 +1360,7 @@ function cdschmidtlib(){ cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesize
 
 function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
+function panic(){ echo "[;5;35mDon't Panic[0m" ; }
 
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in

@@ -103,7 +103,8 @@
 
 (defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
 (defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
-(set-swank-bindings-code) ; (set-swank-bindings)
+(set-swank-bindings-code)
+;; (set-swank-bindings)
 ;; (set-swank-bindings-data)
 #-(and) (
          (set-swank-bindings *swank-bindings*)
