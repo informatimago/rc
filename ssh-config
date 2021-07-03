@@ -16,6 +16,22 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    admin
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
+Host gitlab.sbde.fr
+    HostName                gitlab.sbde.fr
+    User                    git
+    IdentityFile            ~/.ssh/sbde
+
+
 Host github.com
     HostName                github.com
     User                    git
@@ -30,11 +46,6 @@ Host gitlab.com
     HostName                gitlab.com
     User                    git
     IdentityFile            ~/.ssh/gitlab
-
-Host gitlab.sbde.fr
-    HostName                gitlab.sbde.fr
-    User                    git
-    IdentityFile            ~/.ssh/sbde
 
 Host framagit.org
     HostName                framagit.org
@@ -60,6 +71,12 @@ Host ubudu+github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/ubudu+id_rsa
+
+
+Host vmdebian
+    HostName                vmdebian
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-vmdebian@despina
 
 
 # ----------------------------------------
