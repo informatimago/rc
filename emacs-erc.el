@@ -18,9 +18,10 @@
      "#abcl" "#ccl" "#ecl" "#sicl"
      "#clim" "#clcs" "#slime"
      "#lispcafe"  "#lispweb" "#lispgames"
-     "#common-lisp.net"
+     "#common-lisp.net" "#nyxt"
 
-     "#emacs" "#emacs-beginners" "#org-mode" "#erc" "#gnus"
+     ;; "#emacs"
+     "#emacs-beginners" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
      "#emacsfr-off")
@@ -90,6 +91,14 @@
   t)
 
 (put 'erc-cmd-BR 'process-not-needed t)
+
+(defun pjb-erc-clear-all-buffers  ()
+  (interactive)
+  (dolist (buf (erc-buffer-list))
+    (with-current-buffer buf
+      (erc-cmd-CLEAR)
+      (bury-buffer))))
+
 
 (defun start-irc ()
   "Connect to IRC."
