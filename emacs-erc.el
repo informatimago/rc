@@ -19,7 +19,8 @@
      "#clim" "#clcs" "#slime"
      "#lispcafe"  "#lispweb" "#lispgames"
      "#common-lisp.net" "#nyxt"
-
+     "#cl-naive"
+     
      ;; "#emacs"
      "#emacs-beginners" "#org-mode" "#erc" "#gnus"
 
