@@ -16,6 +16,11 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
+Host gitlab.officeapps.sevenhugs.com
+    HostName gitlab.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
