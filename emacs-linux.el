@@ -1,8 +1,10 @@
-(require 'c-mode)
+(require 'cc-styles)
+(require 'cc-defs)
+(require 'cc-vars)
 
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces"
-  (let* ((anchor (c-langelem-pos c-syntactic-element))
+  (let* ((anchor (c-langelem-pos     c-syntactic-element))
          (column (c-langelem-2nd-pos c-syntactic-element))
          (offset (- (1+ column) anchor))
          (steps (floor offset c-basic-offset)))
