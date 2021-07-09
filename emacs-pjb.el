@@ -609,6 +609,7 @@ X-Accept-Language:         fr, es, en
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
 
+(load "~/rc/emacs-linux.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
