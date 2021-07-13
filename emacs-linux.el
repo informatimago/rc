@@ -22,12 +22,30 @@
 (add-hook 'c-mode-common-hook 'linux-c-mode-common-meat)
 
 
+(pushnew (format "^%s" (expand-file-name "~/works/qorvo/"))
+         *pjb-c-mode-meat-blacklist*
+         :test (function equal))
+
 (defun linux-c-mode-meat ()
+  (let ((filename (buffer-file-name)))
+    (message "linux-c-mode-meat filename %S" filename)
+    ;; Enable kernel mode for the appropriate files
+    (message "linux-c-mode-meat match %S" (and filename (string-match (expand-file-name "~/works/qorvo/") filename)))
+    (when (and filename (string-match (expand-file-name "~/works/qorvo/") filename))
+      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (c-set-style "linux-tabs-only")
+      (setq tab-width 8)
+      (setq indent-tabs-mode t)
+      (setq show-trailing-whitespace t)
+      (ggtags-mode 1))))
+
+
+(defun linux-asm-mode-meat ()
   (let ((filename (buffer-file-name)))
     ;; Enable kernel mode for the appropriate files
     (when (and filename (string-match (expand-file-name "~/works/qorvo/") filename))
+      (setq tab-width 8)
       (setq indent-tabs-mode t)
-      (setq show-trailing-whitespace t)
-      (c-set-style "linux-tabs-only"))))
+      (setq show-trailing-whitespace t))))
 
-(add-hook 'c-mode-hook 'linux-c-mode-meat)
+(add-hook 'asm-mode-hook   'linux-asm-mode-meat)
