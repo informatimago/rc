@@ -16,6 +16,22 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
+Host 192.168.7.5?
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.68
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon*
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host db845c
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
     User                    pbourguignon

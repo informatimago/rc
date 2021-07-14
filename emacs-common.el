@@ -2837,30 +2837,34 @@ License:
 
 (require 'freerdp-c-style)
 
-(defvar auto-c-style-alist
+(defvar *auto-c-style-alist*
   '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
     ("." . "pjb")))
 
+(defvar *pjb-c-mode-meat-blacklist* '())
+
 (defun c-mode-meat ()
   (interactive)
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-  (infer-indentation-style)
-  (let ((path (buffer-file-name)))
-    (when path
-      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
+  (let ((filename (buffer-file-name)))
+    (when (and filename
+               (not (find-if (lambda (re) (string-match re filename))
+                             *pjb-c-mode-meat-blacklist*)))
+      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (infer-indentation-style)
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path))
+                                   *auto-c-style-alist*))))
         (when c-style
           (message "Setting C style %s" c-style)
           (c-set-style c-style)
           (when (string= c-style "freerdp")
-            (freerdp-style-set-local-bindings))))))
-  (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  ;; (define-key c-mode-map "{" 'self-insert-command)
-  (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+            (freerdp-style-set-local-bindings))))
+      (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+      (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+      ;; (define-key c-mode-map "{" 'self-insert-command)
+      (local-set-key (kbd "TAB") (quote c-indent-or-tab)))))
 
 
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
-
 (add-hook 'c-mode-hook 'c-mode-meat)
 
 ;;(add-hook 'c++-mode-hook (function pjb-c++-mode-hook))

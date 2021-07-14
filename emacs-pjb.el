@@ -77,6 +77,9 @@
  '(message-separator ((((class color) (min-colors 89)) (:foreground "#586e75" :slant italic))))
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
  '(mode-line ((((class color) (min-colors 89)) (:inverse-video unspecified :overline #1="#073642" :underline "#284b54" :foreground "#839496" :background #1# :box (:line-width 1 :color #1# :style unspecified)))))
+ '(mode-line-buffer-id ((t (:background "yellow" :weight bold))))
+ '(mode-line-emphasis ((t (:background "lavender" :weight bold))))
+ '(mode-line-highlight ((t (:background "red" :box (:line-width 2 :color "grey40" :style released-button)))))
  '(mode-line-inactive ((((class color) (min-colors 89)) (:inverse-video unspecified :overline "#073642" :underline "#284b54" :foreground "#586e75" :background #1="#002b36" :box (:line-width 1 :color #1# :style unspecified)))))
  '(org-agenda-dimmed-todo-face ((((class color) (min-colors 89)) (:foreground "#586e75"))))
  '(org-done ((((class color) (min-colors 89)) (:weight bold :foreground "#859900"))))
@@ -375,9 +378,9 @@ X-Accept-Language:         fr, es, en
  '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
  '(org-latex-remove-logfiles nil)
- '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
- '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(package-selected-packages (quote (ggtags smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -799,7 +802,8 @@ X-Accept-Language:         fr, es, en
 
 (defparameter *pjb-trailing-whitespace-exclusions*
   '("/pjb/works/mts/Harag/"
-    "/pjb/works/mts/cl-naive-store/")
+    "/pjb/works/mts/cl-naive-store/"
+    "/pjb/works/qorvo/")
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
 (defun trailing-whitespace-candidate-p (file-name)
