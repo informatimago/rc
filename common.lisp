@@ -405,30 +405,33 @@ License:
         :key (function namestring)))
 
 (defun register-system-location (directory-pathname &key (force nil))
-  (let* ((stem   (format nil "~8,'0X" (sxhash (namestring (truename directory-pathname)))))
-         (cached (merge-pathnames (make-pathname :directory '(:relative ".cache" "common-lisp" "rc")
-                                                 :name stem :type "sexp" :version nil)
-                                  (user-homedir-pathname))))
-    (flet ((scan-and-cache-directories ()
-             (format t "~&;; Scanning for .asd files directory ~S~%"
-                     directory-pathname)
-             (force-output)
-             (ensure-directories-exist cached)
-             (with-open-file (out cached :direction :output :if-does-not-exist :create :if-exists :supersede)
-               (let ((dirs (find-directories-with-asd-files directory-pathname)))
-                 (prin1 dirs out)
-                 (terpri out)
-                 dirs))))
-      (let ((dirs (if force
-                      (scan-and-cache-directories)
-                      (or (with-open-file (inp cached :direction :input :if-does-not-exist nil)
-                            (when inp
-                              (read inp)))
-                          (scan-and-cache-directories)))))
-        ;; forget quicklisp, symbolic links are ignored explicitely from local-projects.
-        ;; (push directory-pathname ql:*local-project-directories*)
-        ;; (ql:register-local-projects)
-        (setf asdf:*central-registry* (append asdf:*central-registry* dirs))))))
+  (let ((truename (ignore-errors (truename directory-pathname))))
+    (if truename
+      (let* ((stem   (format nil "~8,'0X" (sxhash (namestring (truename directory-pathname)))))
+             (cached (merge-pathnames (make-pathname :directory '(:relative ".cache" "common-lisp" "rc")
+                                                     :name stem :type "sexp" :version nil)
+                                      (user-homedir-pathname))))
+        (flet ((scan-and-cache-directories ()
+                 (format t "~&;; Scanning for .asd files directory ~S~%"
+                         directory-pathname)
+                 (force-output)
+                 (ensure-directories-exist cached)
+                 (with-open-file (out cached :direction :output :if-does-not-exist :create :if-exists :supersede)
+                   (let ((dirs (find-directories-with-asd-files directory-pathname)))
+                     (prin1 dirs out)
+                     (terpri out)
+                     dirs))))
+          (let ((dirs (if force
+                          (scan-and-cache-directories)
+                          (or (with-open-file (inp cached :direction :input :if-does-not-exist nil)
+                                (when inp
+                                  (read inp)))
+                              (scan-and-cache-directories)))))
+            ;; forget quicklisp, symbolic links are ignored explicitely from local-projects.
+            ;; (push directory-pathname ql:*local-project-directories*)
+            ;; (ql:register-local-projects)
+            (setf asdf:*central-registry* (append asdf:*central-registry* dirs)))))
+      (warn "~A does not exist" directory-pathname))))
 
 
 ;; #+#.(cl:if *ql-present* '(:and) '(:or))
@@ -1315,26 +1318,26 @@ without, lists all the commands with their docstrings."
         "~/src/cobol/lisp/"
 
         ;; alien projects
-        "~/src/s-expressionists/"
-        "~/src/robert-strandh/"
-        "~/src/mfiano/"
-        "~/src/massung/"
-        "~/src/edicl/"
-        "~/src/cl/snow/"
-        "~/src/cl/pavel.gik.kit.edu/"
-        "~/src/cl/incudine/"
-        "~/src/cl/imap/"
-        "~/src/cl/cpc/"
-        "~/src/cl/cormanlisp/"
-        "~/src/cl/clicc/"
-        "~/src/cl/cl-crypto/"
-        "~/src/cl-cuda/"
-        "~/src/agrostis/"
-        "~/src/stuij/"
-        "~/src/admich/"
-        "~/src/Shinmera/"
-        "~/src/McCLIM/"
-        "~/src/Apress/"
+        "~/src/others/common-lisp/s-expressionists/"
+        "~/src/others/common-lisp/robert-strandh/"
+        "~/src/others/common-lisp/mfiano/"
+        "~/src/others/common-lisp/massung/"
+        "~/src/others/common-lisp/edicl/"
+        "~/src/others/common-lisp/snow/"
+        "~/src/others/common-lisp/pavel.gik.kit.edu/"
+        "~/src/others/common-lisp/incudine/"
+        "~/src/others/common-lisp/imap/"
+        "~/src/others/common-lisp/cpc/"
+        "~/src/others/common-lisp/cormanlisp/"
+        "~/src/others/common-lisp/clicc/"
+        "~/src/others/common-lisp/cl-crypto/"
+        "~/src/others/common-lisp/cl-cuda/"
+        "~/src/others/common-lisp/agrostis/"
+        "~/src/others/common-lisp/stuij/"
+        "~/src/others/common-lisp/admich/"
+        "~/src/others/common-lisp/Shinmera/"
+        "~/src/others/common-lisp/McCLIM/"
+        "~/src/others/common-lisp/Apress/"
         ))
 ;;;
 
