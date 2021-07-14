@@ -28,6 +28,7 @@
     (when (and filename (string-match (expand-file-name "~/works/employer-e/") filename))
       (setq indent-tabs-mode t)
       (setq show-trailing-whitespace t)
+      (ggtags-mode 1)
       (c-set-style "linux-tabs-only"))))
 
 (add-hook 'c-mode-hook 'linux-c-mode-meat)
