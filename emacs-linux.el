@@ -36,6 +36,7 @@
 (add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
 
 
+(defvar *pjb-c-mode-meat-blacklist* '())
 (pushnew (format "^%s" (expand-file-name "~/works/qorvo/"))
          *pjb-c-mode-meat-blacklist*
          :test (function equal))
@@ -51,7 +52,8 @@
       (setq tab-width 8)
       (setq indent-tabs-mode t)
       (setq show-trailing-whitespace t)
-      (ggtags-mode 1))))
+      (ggtags-mode 1)
+      (c-set-style "linux-tabs-only"))))
 
 (add-hook 'c-mode-hook   'linux-c-mode-meat)
 
