@@ -1,6 +1,7 @@
 (require 'cc-styles)
 (require 'cc-defs)
 (require 'cc-vars)
+(require 'pjb-cl)
 
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces"
@@ -21,6 +22,19 @@
 
 (add-hook 'c-mode-common-hook 'linux-c-mode-common-meat)
 
+(defparameter *pjb-force-linux-tabulation*
+  '("/pjb/works/qorvo/")
+  "A list of path regexps to include.")
+
+(defun pjb-find-file-meat/force-linux-tabulation ()
+  "Meat for find-file-hook: force linux tabulation; no indent."
+  (let ((file-name (buffer-file-name)))
+    (when (find-if (lambda (re) (string-match re file-name))
+                   *pjb-force-linux-tabulation*)
+      (local-set-key (kbd "TAB") 'self-insert-command))))
+
+(add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
+
 
 (pushnew (format "^%s" (expand-file-name "~/works/qorvo/"))
          *pjb-c-mode-meat-blacklist*
@@ -39,6 +53,7 @@
       (setq show-trailing-whitespace t)
       (ggtags-mode 1))))
 
+(add-hook 'c-mode-hook   'linux-c-mode-meat)
 
 (defun linux-asm-mode-meat ()
   (let ((filename (buffer-file-name)))
@@ -49,3 +64,4 @@
       (setq show-trailing-whitespace t))))
 
 (add-hook 'asm-mode-hook   'linux-asm-mode-meat)
+
