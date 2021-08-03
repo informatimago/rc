@@ -36,6 +36,11 @@ Host gitlab.sbde.fr
     User                    git
     IdentityFile            ~/.ssh/sbde
 
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/sbde
+
 Host framagit.org
     HostName                framagit.org
     User                    git
