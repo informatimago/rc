@@ -132,7 +132,9 @@ License:
            "THEM" "THESE" "THOSE"
            "IS" "WAS" "WERE"
            "DEFINE-COMMAND" "HELP" "IMPORT-COMMANDS"
-           "QUIT" "EXIT")
+           "QUIT" "EXIT"
+           "ENABLE-SHELL-ESCAPE"
+           "DISABLE-SHELL-ESCAPE")
   (:documentation "
 
 This package contains REPL utilities, defined in ~/rc/common.lisp,
@@ -241,8 +243,10 @@ License:
 
 (defun load-asdf3 ()
   (unless (member :asdf3 *features*)
-    (load (merge-pathnames #P"src/public/lisp/tools/asdf.lisp"
-                           (user-homedir-pathname)))))
+    (or (ignore-errors (load (merge-pathnames #P"quicklisp/asdf.lisp"
+                               (user-homedir-pathname))))
+        (load (merge-pathnames #P"src/public/lisp/tools/asdf.lisp"
+                               (user-homedir-pathname))))))
 
 (defun asdf-configuration ()
   "Creates the ~/.config/common-lisp/asdf-output-translations.conf file."
@@ -344,14 +348,15 @@ License:
                      :test (function string=))))))
    (list-all-packages)))
 
+
 ;;;
 ;;;----------------------------------------------------------------------
 
 (in-package "COM.INFORMATIMAGO.PJB")
-(load-asdf3)
-(asdf-configuration)
 
 (defparameter *ql-present*  (load-quicklisp :if-does-not-exist nil))
+(load-asdf3)
+(asdf-configuration)
 
 (unless *ql-present*
   (defpackage "QUICKLISP"
@@ -361,7 +366,7 @@ License:
              "QUICKLOAD"
              "CONFIG-VALUE")))
 
-(defvar ql:*local-project-directories* (directory #P "~/quicklisp/local-projects/**/"))
+;; (defvar ql:*local-project-directories* (directory #P "~/quicklisp/local-projects/**/"))
 
 ;; (when *ql-present*
 ;;   (setf (ql-config:config-value "proxy-url")
@@ -373,6 +378,7 @@ License:
       (ql:quickload system :verbose verbose)
       (asdf:oos 'asdf:load-op system :verbose verbose)))
 
+#-(and)
 (defun find-directories-with-asd-files (root-pathname)
   ;; going around a bug in clisp where (directory "…/../…") takes too long.
   (loop
@@ -389,20 +395,43 @@ License:
               (return-from find-directories-with-asd-files new-set)
               (setf old-set new-set)))))
 
-(defun register-system-location (directory-pathname)
-  (if *ql-present*
-      (progn
-        (push directory-pathname ql:*local-project-directories*)
-        (ql:register-local-projects))
-      (setf asdf:*central-registry*
-            (append (directory (make-pathname :directory (append (pathname-directory directory-pathname)
-                                                                 '(:wild-inferiors))
-                                              :name :wild
-                                              :type "asd"
-                                              :case :local
-                                              :defaults directory-pathname))
-                    asdf:*central-registry*))))
+(defun find-directories-with-asd-files (root-pathname)
+  (sort (delete-duplicates
+         (mapcar (lambda (path)
+                   (make-pathname :name nil :type nil :version nil :defaults path))
+	             (directory (merge-pathnames "**/*.asd" root-pathname nil)))
+         :test (function equal))
+        (function string>=)
+        :key (function namestring)))
 
+(defun register-system-location (directory-pathname &key (force nil))
+  (let ((truename (ignore-errors (truename directory-pathname))))
+    (if truename
+      (let* ((stem   (format nil "~8,'0X" (sxhash (namestring (truename directory-pathname)))))
+             (cached (merge-pathnames (make-pathname :directory '(:relative ".cache" "common-lisp" "rc")
+                                                     :name stem :type "sexp" :version nil)
+                                      (user-homedir-pathname))))
+        (flet ((scan-and-cache-directories ()
+                 (format t "~&;; Scanning for .asd files directory ~S~%"
+                         directory-pathname)
+                 (force-output)
+                 (ensure-directories-exist cached)
+                 (with-open-file (out cached :direction :output :if-does-not-exist :create :if-exists :supersede)
+                   (let ((dirs (find-directories-with-asd-files directory-pathname)))
+                     (prin1 dirs out)
+                     (terpri out)
+                     dirs))))
+          (let ((dirs (if force
+                          (scan-and-cache-directories)
+                          (or (with-open-file (inp cached :direction :input :if-does-not-exist nil)
+                                (when inp
+                                  (read inp)))
+                              (scan-and-cache-directories)))))
+            ;; forget quicklisp, symbolic links are ignored explicitely from local-projects.
+            ;; (push directory-pathname ql:*local-project-directories*)
+            ;; (ql:register-local-projects)
+            (setf asdf:*central-registry* (append asdf:*central-registry* dirs)))))
+      (warn "~A does not exist" directory-pathname))))
 
 
 ;; #+#.(cl:if *ql-present* '(:and) '(:or))
@@ -421,6 +450,7 @@ License:
                            "com.informatimago.tools.manifest"
                            "com.informatimago.tools.symbol"
                            "com.informatimago.tools.source"
+                           "com.informatimago.tools.reader-macro"
                            "com.informatimago.tools.summary"
                            "com.informatimago.tools.thread"
                            "com.informatimago.tools.quicklisp"
@@ -707,7 +737,6 @@ The HOST is added to the list of logical hosts defined.
   #-clisp (progn
             (read-line stream)
             (values)))
-
 (set-dispatch-macro-character #\# #\! (function executable-reader))
 
 (defvar *shell-command-status* 0)
@@ -732,7 +761,14 @@ The HOST is added to the list of logical hosts defined.
                        :force-shell t)))
      (values)))
 
-(set-macro-character #\! 'shell-escape)
+(defmacro enable-shell-escape ()
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (set-macro-character #\! 'shell-escape)))
+
+(defmacro disable-shell-escape ()
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (set-macro-character #\! nil)
+     (set-syntax-from-char #\! #\a)))
 
 
 ;;;----------------------------------------------------------------------
@@ -824,33 +860,48 @@ The HOST is added to the list of logical hosts defined.
 
 
 ;; ;; Patch swank:
-;; (defvar *swank-patched-p* nil)
-;; (defun check-and-patch-swank ()
-;;   (when (and (member :swank *features*)
-;;              (find-package "SWANK")
-;;              (not (eq :external  (find-symbol "*ARGUMENT-STREAM*" "SWANK")))
-;;              (not *swank-patched-p*))
-;;     (let ((as (intern "*ARGUMENT-STREAM*" "SWANK"))
-;;           (er (intern "EVAL-REGION"       "SWANK")))
-;;       (proclaim `(special ,as))
-;;       (eval `(setf ,as nil))
-;;       (eval `(defun ,er (string)
-;;                "Evaluate STRING.
-;; Return the results of the last form as a list and as secondary value the
-;; last form."
-;;                (with-input-from-string (,as string)
-;;                  (let (- values)
-;;                    (loop
-;;                      (let ((form (read ,as nil ,as)))
-;;                        (when (eq form ,as)
-;;                          (finish-output)
-;;                          (return (values values -)))
-;;                        (setq - form)
-;;                        (setq values (multiple-value-list (eval form)))
-;;                        (finish-output)))))))
-;;       (setf *swank-patched-p* t))))
-;;
+(defvar *swank-patched-p* nil)
 
+(defun check-and-patch-swank ()
+  (when (and (member :swank *features*)
+             (find-package "SWANK")
+             (not (eq :external  (find-symbol "*EVAL-REGION-STREAM*" "SWANK")))
+             (not *swank-patched-p*))
+    (let ((package (find-package "SWANK")))
+      (unless package
+        (error "No package named SWANK. Go home and reconsider your life!"))
+      (let ((var (intern "*EVAL-REGION-STREAM*" package)))
+        (proclaim `(special ,var))
+        (setf (symbol-value var) nil)
+        (export var package))
+      (let ((*package* package))
+        (eval (read-from-string "
+             (defslimefun eval-and-grab-output (string)
+               (with-buffer-syntax ()
+                 (with-retry-restart (:msg \"Retry SLIME evaluation request.\")
+                   (let* ((*eval-region-stream* (make-string-output-stream))
+                          (*standard-output* *eval-region-stream*)
+                          (values (multiple-value-list (eval (from-string string)))))
+                     (list (get-output-stream-string *eval-region-stream*)
+                           (format nil \"~{~S~^~%~}\" values))))))"))
+        (eval (read-from-string "
+             (defun eval-region (string)
+               \"Evaluate STRING.
+Return the results of the last form as a list and as secondary value the
+last form.\"
+               (with-input-from-string (*eval-region-stream* string)
+                 (let (- values)
+                   (loop
+                      (let ((form (read *eval-region-stream* nil *eval-region-stream*)))
+                        (when (eq form *eval-region-stream*)
+                          (finish-output)
+                          (return (values values -)))
+                        (setq - form)
+                        (setq values (multiple-value-list (eval form)))
+                        (finish-output))))))"))))
+    (setf *swank-patched-p* t)))
+
+(check-and-patch-swank)
 
 (defun command-read-arguments ()
   "Read the arguments following the expression that has just been read and that is being evaluated."
@@ -860,13 +911,14 @@ The HOST is added to the list of logical hosts defined.
                  :collect argument)))
     (if (and (member :swank *features*)
              (find-package "SWANK")
-             (eq :external (nth-value 1 (find-symbol "*ARGUMENT-STREAM*" "SWANK")))
-             (streamp (symbol-value (intern "*ARGUMENT-STREAM*" "SWANK"))))
-        (read-arguments (symbol-value (intern "*ARGUMENT-STREAM*" "SWANK")))
+             (eq :external (nth-value 1 (find-symbol "*EVAL-REGION-STREAM*" "SWANK")))
+             (streamp (symbol-value (intern "*EVAL-REGION-STREAM*" "SWANK"))))
+        (read-arguments (symbol-value (intern "*EVAL-REGION-STREAM*" "SWANK")))
         (with-input-from-string (stream  (if (listen *standard-input*)
                                              (read-line *standard-input*)
                                              ""))
           (read-arguments stream)))))
+
 
 (defun call-command (command)
   "
@@ -1069,6 +1121,10 @@ without, lists all the commands with their docstrings."
 (forward-command-function rm     (&rest args))
 (forward-command-function cd     (&optional path))
 
+(define-command swd ()
+  "Select the working directory."
+  (com.informatimago.common-lisp.interactive.browser:select-working-directory))
+
 
 (define-command pwd ()
   "Prints the current working directory."
@@ -1206,6 +1262,85 @@ without, lists all the commands with their docstrings."
 
     (when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
       (format t ";; There's a quicklisp update available.~%")))
+
+
+
+;;; Register asd systems
+
+#-(and)
+(
+ ;; alien game
+ ("/Users/pjb/src/rouge/rouge/SRC/"
+  "/Users/pjb/src/rouge/rouge-linux/SRC/"
+  "/Users/pjb/src/rouge/rouge-1.61/SRC/"
+  )
+
+ ;; deprecated or test
+ (
+  "/Users/pjb/src/public/vfs/"
+  "/Users/pjb/src/public/test/"
+  "/Users/pjb/src/naiad/lisp/gatlopp_0.3/"
+  "/Users/pjb/src/naiad/lisp/gatlopp-0.3-pjb/"
+  "/Users/pjb/src/naiad/linc/verrazano/"
+  "/Users/pjb/src/naiad/linc/verrazano-support/"
+  "/Users/pjb/src/naiad/linc/split-sequence/"
+  "/Users/pjb/src/naiad/linc/s-xml/"
+  "/Users/pjb/src/naiad/linc/parse-number-1.0/"
+  "/Users/pjb/src/naiad/linc/cffi-luis-050908-0839/"
+  "/Users/pjb/src/naiad/linc/asdf/test/"
+  "/Users/pjb/src/naiad/linc/asdf/"
+  )
+ ;; old projects
+ (
+  "/Users/pjb/src/mocl/"
+  "/Users/pjb/src/tapioco71/lisp/"
+  "/Users/pjb/src/tapioco71/condominium-accounting-system/"
+  )
+ ;; out of date dependencies
+ (
+  "/Users/pjb/src/pjb/nasium-lse/"
+  ))
+
+(mapc (lambda (project)
+        (com.informatimago.pjb::register-system-location (pathname project) :force nil))
+      '(
+        ;; good projects
+        "~/src/public/bocl/"
+        "~/src/public/mc/"
+        "~/src/public/hw/"
+        "~/src/public/games/"
+        "~/src/public/fgfs/"
+        "~/src/public/domains/"
+        "~/src/public/common-lisp-exercises/"
+        "~/src/public/commands/"
+        "~/src/lisp-tidbits/count-words/"
+        "~/src/java/listeria/lisp/"
+        "~/src/cobol/lisp/"
+
+        ;; alien projects
+        "~/src/others/common-lisp/s-expressionists/"
+        "~/src/others/common-lisp/robert-strandh/"
+        "~/src/others/common-lisp/mfiano/"
+        "~/src/others/common-lisp/massung/"
+        "~/src/others/common-lisp/edicl/"
+        "~/src/others/common-lisp/snow/"
+        "~/src/others/common-lisp/pavel.gik.kit.edu/"
+        "~/src/others/common-lisp/incudine/"
+        "~/src/others/common-lisp/imap/"
+        "~/src/others/common-lisp/cpc/"
+        "~/src/others/common-lisp/cormanlisp/"
+        "~/src/others/common-lisp/clicc/"
+        "~/src/others/common-lisp/cl-crypto/"
+        "~/src/others/common-lisp/cl-cuda/"
+        "~/src/others/common-lisp/agrostis/"
+        "~/src/others/common-lisp/stuij/"
+        "~/src/others/common-lisp/admich/"
+        "~/src/others/common-lisp/Shinmera/"
+        "~/src/others/common-lisp/McCLIM/"
+        "~/src/others/common-lisp/Apress/"
+        ))
+;;;
+
 
 (in-package "CL-USER")
 
