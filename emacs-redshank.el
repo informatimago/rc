@@ -787,6 +787,13 @@ RETURN: (path point)
                 (fourth form))))
 
 
+
+(defun pjb-cl-defined-symbols (string)
+  (let ((string (or string (slime-sexp-at-point-or-error))))
+    (setq slime-eval-macroexpand-expression `(,expander ,string))
+    (slime-eval-async slime-eval-macroexpand-expression
+                      #'slime-initialize-macroexpansion-buffer)))
+
 (defun pjb-cl-export-definition-at-point ()
   "Insert into the defpackage form an export of the symbols defined by the form the point."
   (interactive)
@@ -794,38 +801,47 @@ RETURN: (path point)
          (marker (make-marker)))
     (set-marker marker pt)
     (save-window-excursion
-      (forward-sexp)
-      (setf pt (point))
-      (set-marker marker pt)
-      (backward-sexp)
-      ;; TODO: We should use (slime-parse-sexp-at-point) but then we'd have
-      ;; to perform the following in CL, not here.
-      (let ((form (sexp-at-point)))
-        (cond
-          ((null form)    (error "Cannot find a sexp at point (possibly because of a reader macro in it)."))
-          ((symbolp form) (pjb-cl-export-symbols (list form)))
-          ((atom form)    (error "Cannot export a %S" (type-of form)))
-          (t (cond
-               ((and (pjb-cl-equal-cl-symbol 'defstruct (first form))
-                     (<= 2 (length form)))
-                (pjb-cl-export-symbols (pjb-cl-defstruct-symbols form)))
-               ((and (or (pjb-cl-equal-cl-symbol 'defclass         (first form))
-                         (pjb-cl-equal-cl-symbol 'define-condition (first form)))
-                     (<= 4 (length form)))
-                (pjb-cl-export-symbols (pjb-cl-defclass-symbols form)))
-               ((and (or (pjb-cl-equal-cl-symbol 'defun      (first form))
-                         (pjb-cl-equal-cl-symbol 'defmacro   (first form))
-                         (pjb-cl-equal-cl-symbol 'defmethod  (first form))
-                         (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
-                     (<= 2 (length form)))
-                (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
-               ((and (cl:string-equal "def" (first form)
-                                    :end2 (min 3 (length (prin1-to-string (first form)))))
-                     (<= 2 (length form))
-                     (symbolp (second form)))
-                (pjb-cl-export-symbols (list (second form))))
-               (t
-                (error "No recognized form.")))))))
+     (forward-sexp)
+     (setf pt (point))
+     (set-marker marker pt)
+     (backward-sexp)
+     ;; TODO: We should use (slime-parse-sexp-at-point) but then we'd have
+     ;; to perform the following in CL, not here.
+     (let ((form (sexp-at-point)))
+       (cond
+         ((null form))
+         ((symbolp form) (slime-export-symbol-at-point))
+         ((atom form))
+         (t
+          (down-list)
+          (let ((op (sexp-at-point)))
+            (cond ((pjb-cl-equal-cl-symbol 'defstruct        op)
+                   (forward-sexp 2) (backward-sexp)
+                   (if (symbolp (sexp-at-point))
+                       (slime-export-class (slime-sexp-at-point))
+                       (progn           ; assume (name …)
+                         (down-list)
+                         (slime-export-symbol-at-point)
+                         (up-list))))
+                  ((or (pjb-cl-equal-cl-symbol 'defclass         op)
+                       (pjb-cl-equal-cl-symbol 'define-condition op))
+                   (forward-sexp 2) (backward-sexp)
+                   (slime-export-class (slime-sexp-at-point)))
+                  ((or (pjb-cl-equal-cl-symbol 'defun      op)
+                       (pjb-cl-equal-cl-symbol 'defmacro   op)
+                       (pjb-cl-equal-cl-symbol 'defmethod  op)
+                       (pjb-cl-equal-cl-symbol 'defgeneric op)
+                       (cl:string-equal "def" (first form)
+                                        :end2 (min 3 (length (prin1-to-string (first form))))))
+                   (forward-sexp 2) (backward-sexp)
+                   (if (symbolp (sexp-at-point))
+                       (slime-export-symbol-at-point)
+                       (progn           ; assume (setf foo)
+                         (down-list)
+                         (forward-sexp 2) (backward-sexp) 
+                         (slime-export-symbol-at-point)
+                         (up-list))))))
+          (up-list)))))
     (goto-char marker)))
 
 

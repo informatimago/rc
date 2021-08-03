@@ -1191,7 +1191,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
             (push before result)
             (push (list (create-image path) " ") result)
             (setf string after))
-       finally (push string result) (return (nreverse result)))))
+       finally (push string result)
+               (return (apply (function concat) (nreverse result))))))
 
 
 
@@ -2836,30 +2837,34 @@ License:
 
 (require 'freerdp-c-style)
 
-(defvar auto-c-style-alist
+(defvar *auto-c-style-alist*
   '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
     ("." . "pjb")))
 
+(defvar *pjb-c-mode-meat-blacklist* '())
+
 (defun c-mode-meat ()
   (interactive)
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-  (infer-indentation-style)
-  (let ((path (buffer-file-name)))
-    (when path
-      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path)) auto-c-style-alist))))
+  (let ((filename (buffer-file-name)))
+    (when (and filename
+               (not (find-if (lambda (re) (string-match re filename))
+                             *pjb-c-mode-meat-blacklist*)))
+      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (infer-indentation-style)
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path))
+                                   *auto-c-style-alist*))))
         (when c-style
           (message "Setting C style %s" c-style)
           (c-set-style c-style)
           (when (string= c-style "freerdp")
-            (freerdp-style-set-local-bindings))))))
-  (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
-  ;; (define-key c-mode-map "{" 'self-insert-command)
-  (local-set-key (kbd "TAB") (quote c-indent-or-tab)))
+            (freerdp-style-set-local-bindings))))
+      (define-key c-mode-map (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+      (local-set-key  (kbd "C-c p") 'pjb-ide-insert-tag-comment)
+      ;; (define-key c-mode-map "{" 'self-insert-command)
+      (local-set-key (kbd "TAB") (quote c-indent-or-tab)))))
 
 
 ;; (setf c-mode-hook nil c++-mode-hook nil objc-mode-hook nil )
-
 (add-hook 'c-mode-hook 'c-mode-meat)
 
 ;;(add-hook 'c++-mode-hook (function pjb-c++-mode-hook))
@@ -2908,14 +2913,69 @@ License:
              (delete-region (- (point) 2) (point))
              (insert "…"))
            (insert "."))))
-    ((eq p '-))
-    ((integerp p)                       (insert (make-string p ?.)))
-    ((and (listp p) (integerp (car p))) (insert (make-string (car p) ?.)))
+    ((eq p '-)
+     (insert-char ?.))
+    ((integerp p)
+     (if (plusp p)
+         (insert-char ?. p)
+         (error "Negative prefix argument %d" p)))
+    ((and (listp p) (integerp (car p)))
+     (if (plusp (car p))
+         (insert-char ?. (car p))
+         (error "Negative prefix argument %d" (car p))))
     (t (error "Unknown raw prefix argument %S" p))))
 
 (global-set-key (kbd ".") 'pjb-electric-ellipsis)
 
 
+(defun pjb-insert-electric-character (prefix-char char code interactive-argument)
+  (cond
+    ((null interactive-argument)
+     (let ((recent (recent-keys)))
+       (if (and (equal (aref recent (- (length recent) 1)) prefix-char)
+                (equal (char-after (- (point) 1) (point)) prefix-char))
+           (progn
+             (delete-region (- (point) 1) (point))
+             (insert-char code))
+           (insert-char char))))
+    ((eq p '-)
+     (insert-char char))
+    ((integerp interactive-argument)
+     (if (plusp (integerp interactive-argument))
+         (insert-char char interactive-argument)
+         (error "Negative prefix argument %d" interactive-argument)))
+    ((and (listp interactive-argument) (integerp (car interactive-argument)))
+     (if (plusp (integerp (car interactive-argument)))
+         (insert-char char (car interactive-argument))
+         (error "Negative prefix argument %d" interactive-argument)))
+    (t (error "Unknown raw prefix argument %S" interactive-argument))))
+
+(defun pjb-add-electric (prefix char code)
+  (global-set-key (kbd (string char))
+                  (byte-compile `(lambda (p)
+                                   (interactive "P")
+                                   (pjb-insert-electric-character ,prefix ,char ,code p)))))
+
+;; Ill designed.  When we type a character, we must dispatch on the
+;; previous one, so the two loops would have to be merged, but perhaps
+;; also with others.
+;; Also, it should work for v_123 producing v₁₂₃
+;; See latex input method where we'd type v_{123}
+
+;; (loop
+;;   for char across "iruv0123456789+-=()aeoxhklmnpstj"
+;;   for code in '(7522 7523 7524 7525 8320 8321 8322 8323 8324 8325 8326
+;;                 8327 8328 8329 8330 8331 8332 8333 8334 8336 8337 8338
+;;                 8339 8341 8342 8343 8344 8345 8346 8347 8348 11388)
+;;   do (pjb-add-electric ?_ char code))
+;; (loop
+;;   for char across "2310i456789+-=()n"
+;;   for code in '(178 179 185 8304 8305 8308 8309 8310 8311 8312 8313
+;;                 8314 8315 8316 8317 8318 8319)
+;;   do (pjb-add-electric ?^ char code))
+;;
+;; (loop for ch across "iruv0123456789+-=()aeoxhklmnpstj2310i456789+-=()n"
+;;       do (global-set-key (kbd (string ch)) 'self-insert-command))
 
 
 ;; lisp modes

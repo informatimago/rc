@@ -16,6 +16,43 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
+Host 192.168.7.5?
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.68
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon*
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host db845c
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host gitlab.officeapps.sevenhugs.com
+    HostName gitlab.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    admin
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
+Host gitlab.sbde.fr
+    HostName                gitlab.sbde.fr
+    User                    git
+    IdentityFile            ~/.ssh/sbde
+
+
 Host github.com
     HostName                github.com
     User                    git
@@ -39,7 +76,7 @@ Host gitlab.sbde.fr
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
-    IdentityFile            ~/.ssh/sbde
+    IdentityFile            ~/.ssh/proteus-sbde
 
 Host framagit.org
     HostName                framagit.org
@@ -67,13 +104,18 @@ Host ubudu+github.com
     IdentityFile            ~/.ssh/ubudu+id_rsa
 
 
+Host vmdebian
+    HostName                vmdebian
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-vmdebian@despina
+
+
 # ----------------------------------------
 # Default:
 
 Host *
     Protocol                2,1
     Port                    22
-    Cipher                  blowfish-cbc
     EscapeChar              ~
     ForwardAgent            no
     ForwardX11              no

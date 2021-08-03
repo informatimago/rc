@@ -23,62 +23,67 @@
  ;; If there is more than one, they won't work right.
  '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
  '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
- '(android-mode-debug-face ((t (:foreground "cyan"))))
- '(android-mode-info-face ((t (:foreground "chartreuse"))))
- '(android-mode-verbose-face ((t (:foreground "medium spring green"))))
- '(android-mode-warning-face ((t (:foreground "pink"))))
+ '(android-mode-debug-face ((((class color) (min-colors 89)) (:foreground "#859900"))))
+ '(android-mode-info-face ((((class color) (min-colors 89)) (:foreground "#839496"))))
+ '(android-mode-verbose-face ((((class color) (min-colors 89)) (:foreground "#586e75"))))
+ '(android-mode-warning-face ((((class color) (min-colors 89)) (:foreground "#b58900"))))
  '(column-marker-1 ((t (:background "gray22"))))
  '(column-marker-1-face ((t (:background "AntiqueWhite"))))
  '(custom-comment ((((class grayscale color) (background dark)) (:background "light green"))))
- '(custom-group-tag ((t (:foreground "blue" :weight bold :height 1.2))))
- '(custom-variable-tag ((t (:inherit variable-pitch :foreground "cadet blue" :weight bold :height 1.2))))
+ '(custom-group-tag ((((class color) (min-colors 89)) (:inherit variable-pitch :foreground "#268bd2" :height 1.2))))
+ '(custom-variable-tag ((((class color) (min-colors 89)) (:inherit variable-pitch :foreground "#2aa198" :height 1.2))))
  '(diff-nonexistent ((t (:background "grey11" :foreground "light green"))))
- '(ediff-even-diff-A ((t (:background "grey50"))))
- '(ediff-odd-diff-A ((t (:background "Grey33"))))
- '(ediff-odd-diff-B ((t (:background "grey30"))))
- '(erc-default-face ((t (:foreground "#55ffaa"))))
- '(erc-fool-face ((t (:foreground "#ffffee"))))
- '(erc-input-face ((t (:foreground "cyan2"))))
- '(erc-notice-face ((t (:foreground "gray70"))))
- '(erc-pal-face ((t (:foreground "cadetblue4" :weight bold))))
- '(erc-timestamp-face ((t (:foreground "dark green" :weight bold))))
+ '(ediff-even-diff-A ((t (:background "#073642"))))
+ '(ediff-odd-diff-A ((t (:background "#073642"))))
+ '(ediff-odd-diff-B ((t (:background "#073642"))))
+ '(erc-action-face ((t (:foreground "DodgerBlue3" :weight bold))))
+ '(erc-default-face ((t (:foreground "turquoise3"))))
+ '(erc-fool-face ((((class color) (min-colors 89)) (:inherit erc-default-face))))
+ '(erc-input-face ((t (:foreground "spring green"))))
+ '(erc-notice-face ((t (:foreground "salmon4"))))
+ '(erc-pal-face ((t (:foreground "purple2" :weight bold))))
+ '(erc-timestamp-face ((((class color) (min-colors 89)) (:foreground "#859900"))))
  '(fg:erc-color-face12 ((t (:foreground "cyan" :weight bold))))
  '(fg:erc-color-face2 ((t (:foreground "LightBlue1"))))
- '(fill-column-indicator ((t (:inherit shadow :background "gray33" :slant normal :weight normal))))
+ '(fill-column-indicator ((((class color) (min-colors 89)) :foreground "#073642" :weight semilight)))
  '(font-lock-cl-function-face ((t (:foreground "DodgerBlue" :weight bold))))
  '(font-lock-cl-standard-generic-function-face ((t (:foreground "turquoise" :weight bold))))
- '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face :foreground "red")) (((class color) (min-colors 16)) nil)))
- '(font-lock-comment-face ((t (:foreground "red" :slant italic))))
- '(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground "darkviolet"))))
- '(font-lock-string-face ((t (:foreground "Orchid"))))
+ '(font-lock-comment-delimiter-face ((((class color) (min-colors 89)) (:foreground "#586e75" :slant normal))))
+ '(font-lock-comment-face ((t (:foreground "DarkOliveGreen1"))))
+ '(font-lock-doc-face ((((class color) (min-colors 89)) (:foreground "#2aa198" :slant normal))))
+ '(font-lock-string-face ((((class color) (min-colors 89)) (:foreground "#2aa198"))))
+ '(font-lock-warning-face ((t (:inherit error :foreground "red" :weight bold))))
  '(frdg-yellow-face ((t (:foreground "yellow"))) t)
- '(fringe ((t (:background "yellow"))))
- '(gnus-cite-1 ((((class color) (background light)) (:foreground "blue"))))
- '(gnus-cite-10 ((((class color) (background light)) (:foreground "brown"))))
- '(gnus-cite-11 ((((class color) (background light)) (:foreground "red"))))
- '(gnus-cite-2 ((((class color) (background light)) (:foreground "yellow1"))))
- '(gnus-cite-3 ((((class color) (background light)) (:foreground "lightblue2"))))
- '(gnus-cite-4 ((((class color) (background light)) (:foreground "yellow2"))))
- '(gnus-cite-5 ((((class color) (background light)) (:foreground "lightblue3"))))
- '(gnus-cite-6 ((((class color) (background light)) (:foreground "yellow3"))))
- '(gnus-cite-7 ((((class color) (background light)) (:foreground "lightblue4"))))
- '(gnus-cite-8 ((((class color) (background light)) (:foreground "yellow4"))))
- '(gnus-cite-9 ((((class color) (background light)) (:foreground "steelblue3"))))
- '(gnus-group-mail-3 ((t (:foreground "cyan" :weight bold))))
- '(gnus-summary-normal-read ((((class color) (background light)) (:foreground "green"))))
- '(gnus-summary-selected ((t (:foreground "green2" :underline t))))
+ '(fringe ((t (:background "black" :foreground "#93a1a1"))))
+ '(gnus-cite-1 ((((class color) (min-colors 89)) (:foreground "#268bd2"))))
+ '(gnus-cite-10 ((((class color) (min-colors 89)) (:foreground "#b58900"))))
+ '(gnus-cite-11 ((((class color) (min-colors 89)) (:foreground "#b58900"))))
+ '(gnus-cite-2 ((((class color) (min-colors 89)) (:foreground "#268bd2"))))
+ '(gnus-cite-3 ((((class color) (min-colors 89)) (:foreground "#268bd2"))))
+ '(gnus-cite-4 ((((class color) (min-colors 89)) (:foreground "#859900"))))
+ '(gnus-cite-5 ((((class color) (min-colors 89)) (:foreground "#859900"))))
+ '(gnus-cite-6 ((((class color) (min-colors 89)) (:foreground "#859900"))))
+ '(gnus-cite-7 ((((class color) (min-colors 89)) (:foreground "#dc322f"))))
+ '(gnus-cite-8 ((((class color) (min-colors 89)) (:foreground "#dc322f"))))
+ '(gnus-cite-9 ((((class color) (min-colors 89)) (:foreground "#dc322f"))))
+ '(gnus-group-mail-3 ((((class color) (min-colors 89)) (:weight bold :inherit gnus-group-mail-3-empty))))
+ '(gnus-summary-normal-read ((((class color) (min-colors 89)) (:foreground "#859900"))))
+ '(gnus-summary-selected ((((class color) (min-colors 89)) (:foreground "#b58900" :weight bold))))
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))))
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))))
- '(match ((t (:background "#3a3a3e"))))
- '(message-cited-text-1 ((((class color) (background light)) (:foreground "blue"))))
- '(message-header-xheader ((((class color) (background dark)) (:foreground "DodgerBlue"))))
- '(message-separator ((((class color) (background dark)) (:foreground "DodgerBlue" :weight bold))))
+ '(match ((((class color) (min-colors 89)) (:background "#073642" :foreground "#93a1a1" :weight bold))))
+ '(message-cited-text-1 ((((class color) (min-colors 89)) (:foreground "#586e75"))))
+ '(message-header-xheader ((((class color) (min-colors 89)) (:foreground "#2aa198"))))
+ '(message-separator ((((class color) (min-colors 89)) (:foreground "#586e75" :slant italic))))
  '(mmm-default-submode-face ((t (:foreground "cyan"))))
- '(mode-line ((t (:background "green" :foreground "black" :box (:line-width -1 :color "green" :style released-button)))))
- '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background dark)) (:background "grey11" :foreground "gray30" :box (:line-width -1 :color "cyan") :weight light))))
- '(org-agenda-dimmed-todo-face ((t (:foreground "yellow"))))
- '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
- '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+ '(mode-line ((((class color) (min-colors 89)) (:inverse-video unspecified :overline #1="#073642" :underline "#284b54" :foreground "#839496" :background #1# :box (:line-width 1 :color #1# :style unspecified)))))
+ '(mode-line-buffer-id ((t (:background "yellow" :weight bold))))
+ '(mode-line-emphasis ((t (:background "lavender" :weight bold))))
+ '(mode-line-highlight ((t (:background "red" :box (:line-width 2 :color "grey40" :style released-button)))))
+ '(mode-line-inactive ((((class color) (min-colors 89)) (:inverse-video unspecified :overline "#073642" :underline "#284b54" :foreground "#586e75" :background #1="#002b36" :box (:line-width 1 :color #1# :style unspecified)))))
+ '(org-agenda-dimmed-todo-face ((((class color) (min-colors 89)) (:foreground "#586e75"))))
+ '(org-done ((((class color) (min-colors 89)) (:weight bold :foreground "#859900"))))
+ '(org-headline-done ((((class color) (min-colors 89)) (:foreground "#859900"))))
  '(read-only-face ((t (:background "gray30"))) t)
  '(rst-level-1-face ((t (:background "grey20" :height 1.9))) t)
  '(rst-level-2-face ((t (:background "grey20" :height 1.7))) t)
@@ -87,12 +92,14 @@
  '(rst-level-5-face ((t (:background "grey20" :height 1.1 :weight bold))) t)
  '(rst-level-6-face ((t (:background "grey20" :height 1.0 :weight bold))) t)
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
- '(slime-repl-output-face ((t (:foreground "yellow green")))))
+ '(slime-repl-output-face ((t (:foreground "yellow green"))))
+ '(whitespace-space ((t (:background "grey10" :foreground "grey30")))))
 
 
 (.EMACS "custom variables")
 (custom-set-variables
  '(ad-redefinition-action 'accept)
+ '(ansi-color-names-vector ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
  '(auth-source-save-behavior t)
  '(auto-compression-mode t nil (jka-compr))
  '(auto-image-file-mode t)
@@ -113,6 +120,7 @@
  '(boxquote-top-corner "+")
  '(browse-url-browser-function 'w3m-browse-url)
  '(browse-url-new-window-flag nil)
+ '(browse-url-secondary-browser-function 'browse-url-default-macosx-browser)
  '(c-argdecl-indent 4 t)
  '(c-auto-newline nil t)
  '(c-backslash-column 'set-from-style)
@@ -162,6 +170,11 @@
  '(comment-empty-lines t)
  '(comment-force-also-empty-lines t)
  '(compilation-error-regexp-alist '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek gradle-kotlin iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gmake gnu lcc makepp mips-1 mips-2 omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line ghc))
+ '(compilation-message-face 'default)
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
  '(current-language-environment "UTF-8")
  '(default-input-method nil)
  '(default-major-mode 'text-mode t)
@@ -185,7 +198,7 @@
  '(emms-source-playlist-formats '(native pls m3u))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query 'window)
- '(erc-autojoin-channels-alist '(("freenode.org" "#lispweb" "##C" "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france" "##lisp" "##lispm" "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging" "##trains" "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsfr" "#ghc" "#ghc-mod" "#hackage" "#haskell" "#haskell-apple" "#haskell-beginners" "#haskell-blah" "#haskell-emacs" "#haskell-embedded" "#haskell-fr" "#haskell-lang" "#haskell-overflow" "#haskell-stack" "#haskell.nix" "#hn" "#iphonedev" "#iphonedev-chat" "#lisp-es" "#lispcafe" "#lispgames" "#lispm" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime" "#space" "#swift-lang" "#synthesizers" "#tesla") ("esper.net" "#SpaceX") ("irc.sbde.fr" "#laboite" "#sbde") ("irc.oftc.net" "#uml")))
+ '(erc-autojoin-channels-alist '(("irc.libera.chat" "#lisp" "##lisp" "#commonlisp" "##lispm" "#clschool" "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs" "#slime" "#lispcafe" "#lispweb" "#lispgames" "#common-lisp.net" "#emacs" "#hn" "#space" "##space") ("freenode.org" "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france" "#lisp" "##lisp" "##lispm" "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging" "##trains" "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr-off" "#haskell" "#haskell-fr" "#hn" "#iphonedev" "#iphonedev-chat" "#lisp-es" "#lispcafe" "#lispgames" "#lispweb" "#lispx" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime" "#space" "#swift-lang" "#synthesizers" "#tesla") ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX") ("irc.sbde.fr" "#laboite" "#sbde") ("irc.oftc.net" "#uml")))
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types '(current-nick keyword pal))
  '(erc-echo-notices-in-current-buffer t)
@@ -199,6 +212,7 @@
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
  '(erc-hide-list 'nil)
+ '(erc-identd-mode t)
  '(erc-ignore-list '("ad37e918" "173.55.233.24" "Abby26" "^snv1?!~Adium@" "no-defun-allowed" "theemacsshibe" "paule32" "frickfacejr" "fe\\[nl]ix"))
  '(erc-ignore-per-channel-alist '(("#lisp" . "^\\(?:A\\(?:aliyah\\|b\\(?:b\\(?:ey\\|i\\(?:e\\|gail\\)\\|y\\)\\|igail\\)\\|d\\(?:dison\\|ri\\(?:an\\(?:n?a\\)?\\|enne\\)\\)\\|gath[ae]\\|i\\(?:leen\\|mee\\|sha\\)\\|ja\\|l\\(?:a\\(?:[iny]?na\\)\\|e\\(?:ah\\|cia\\|jandra\\|na\\|s\\(?:\\(?:h\\|sandr\\)a\\)\\|x\\(?:a\\(?:ndr\\(?:[ei]?a\\)\\)?\\|i[as]\\|us\\)?\\)\\|i\\(?:c\\(?:e\\|ia\\)\\|na\\|s\\(?:a\\|ha\\|on\\|sa\\)\\|yah\\)?\\|l\\(?:i\\(?:e\\|son\\)\\|ys\\(?:on\\|sa\\)\\)\\|ma\\|ondra\\|y\\(?:cia\\|s\\(?:a\\|ha\\|ia\\|on\\|sa\\)\\)\\)\\|m\\(?:an\\(?:da\\|i\\)\\|ber\\|elia\\|y\\)\\|n\\(?:a\\(?:bel\\|is\\|stasia\\)\\|drea\\|g\\(?:el\\(?:a\\|i\\(?:ca\\|na\\|que\\)\\)?\\|ie\\)\\|i\\(?:\\(?:ss\\|[kt]\\)a\\)\\|jelica\\|n\\(?:amarie\\|ette\\|i\\(?:e\\|ka\\)\\|marie\\|[ae]\\)\\|to\\(?:inette\\|nia\\)\\|[an]\\)\\|pril\\|r\\(?:aceli\\|i\\(?:an\\(?:n?a\\)\\|el\\(?:le\\)?\\)\\|lene\\)\\|s\\(?:h\\(?:a\\(?:nti\\)?\\|ely\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|ie\\|ynn?\\|[iy]\\)\\|ton\\)\\|ia\\|pen\\|trid\\)\\|thena\\|u\\(?:bre[ey]\\|dr\\(?:a\\|ey\\)\\|rora\\|tumn\\)\\|v\\(?:a\\|ery\\)\\|y\\(?:\\(?:ann?\\|l\\)a\\)\\)\\|B\\(?:a\\(?:by\\|ile[ey]\\|rbara\\|ylee\\)\\|e\\(?:atri\\(?:ce\\|z\\)\\|linda\\|r\\(?:\\(?:enic\\|nadett\\)e\\)\\|t\\(?:h\\(?:any\\)?\\|[st]y\\)\\|verly\\)\\|i\\(?:anca\\|llie\\)\\|la\\(?:ir\\|nca\\)\\|o\\(?:bbie?\\|nnie\\)\\|r\\(?:and\\(?:ie\\|[iy]\\)\\|e\\(?:a\\(?:n\\(?:n[ae]\\|[an]\\)\\)?\\|\\(?:n[dn]\\|onn\\)a\\)\\|i\\(?:a\\(?:n\\(?:a\\|n[ae]\\)\\)?\\|dget\\(?:te\\)?\\|elle\\|t\\(?:any\\|n\\(?:ey\\|i\\)\\|t\\(?:an\\(?:ie\\|[iy]\\)\\|n\\(?:ey\\|i\\)\\)\\)\\)\\|ook\\(?:e\\|lyn\\)?\\|yan\\(?:n?a\\)\\)\\)\\|C\\(?:a\\(?:itl\\(?:[iy]n\\)\\|llie\\|m\\(?:eron\\|ille\\)\\|nd\\(?:[ai]ce\\)\\|r\\(?:a\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|men\\|ol\\(?:in[ae]\\|yn\\)?\\|rie\\|son\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:alina\\|herine\\)\\|yla\\)\\|e\\(?:c\\(?:[ei]lia\\)\\|l\\(?:este\\|i\\(?:a\\|n[ae]\\)\\)\\)\\|h\\(?:a\\(?:n\\(?:dler\\|\\(?:e\\|t[ae]\\)l\\)\\|r\\(?:ity\\|l\\(?:\\(?:en\\|ott\\)e\\)\\)\\|sity\\|ya\\)\\|e\\(?:ls\\(?:e[ay]\\|ie?\\)\\|ryl\\|y\\(?:[ae]nne\\)\\)\\|ina\\|loe\\|rist\\(?:en\\|i\\(?:ana?\\|n[ae]\\|[en]\\)\\|[ay]\\)\\)\\|i\\(?:ara\\|er\\(?:r?a\\)\\|ndy\\)\\|la\\(?:ire\\|r\\(?:issa\\|[ae]\\)\\|udia\\)\\|o\\(?:lleen\\|n\\(?:\\(?:ni\\|stanc\\)e\\)\\|r\\(?:ey\\|in\\(?:a\\|ne\\)\\|tney\\|[ai]\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|ina\\)\\|ystal\\)\\|ynthia\\)\\|D\\(?:a\\(?:isy\\|kota\\|l\\(?:ia\\|las\\)\\|maris\\|n\\(?:a\\|i\\(?:ca\\|el\\(?:a\\|l[ae]\\)\\)\\)\\|phne\\|r\\(?:a\\|by\\|cy\\|ian\\|lene\\)\\|wn\\|yna\\)\\|e\\(?:an\\(?:n?a\\)\\|b\\(?:bie\\|orah\\|ra\\)\\|ja\\|laney\\|mi\\|nise\\|s\\(?:ir\\(?:[ae]e\\)\\|tin\\(?:e[ey]\\|[iy]\\)\\)\\|v\\(?:[aioy]n\\)\\)\\|i\\(?:a\\(?:mond\\|n\\(?:na\\|[ae]\\)\\)\\|na\\)\\|o\\(?:m\\(?:\\(?:ini?\\|oni\\)que\\)\\|nna\\|r\\(?:is\\|othy\\)\\)\\|rew\\|ulce\\)\\|E\\(?:bon[iy]\\|d\\(?:en\\|ith\\)\\|ileen\\|l\\(?:ain[ae]\\|e\\(?:anor\\|na\\)\\|i\\(?:ana\\|s\\(?:abeth\\|[hs]a\\|[ae]\\)\\|za\\(?:beth\\)?\\)\\|l\\(?:a\\|en\\|ie\\)\\|sa\\|ys\\(?:e\\|sa\\)\\)\\|m\\(?:erald\\|il\\(?:ee\\|i[ae]\\|y\\)\\|ma\\)\\|ri\\(?:c\\(?:k?a\\)\\|ka\\|n\\)\\|s\\(?:meralda\\|sence\\|t\\(?:efania\\|her\\)\\)\\|unice\\|v\\(?:a\\|elyn\\)\\)\\|F\\(?:a\\(?:biola\\|ith\\|tima\\)\\|elicia\\|iona\\|ranc\\(?:es\\(?:ca\\)?\\|hes\\(?:[ck]a\\)\\)\\)\\|G\\(?:abriel\\(?:a\\|l[ae]\\)?\\|e\\(?:ne\\(?:sis\\|vieve\\)\\|orgi\\(?:n?a\\)\\)\\|i\\(?:anna\\|llian\\|na\\|ovanna\\|selle\\)\\|l\\(?:adys\\|oria\\)\\|r\\(?:ac\\(?:e\\|iela\\)\\|etchen\\|iselda\\)\\|uadalupe\\|wendolyn\\)\\|H\\(?:a\\(?:ile[ey]\\|l\\(?:e\\(?:igh\\|y\\)\\|ie?\\|l\\(?:i?e\\)\\)\\|nnah?\\|rley\\|yl\\(?:e[ey]\\|ie\\)\\|zel\\)\\|e\\(?:a\\(?:ther\\|ven\\)\\|idi\\|lena?\\)\\|il\\(?:l?ary\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|pe\\)\\|unter\\)\\|I\\(?:esha\\|liana\\|mani\\|n\\(?:dia\\|fant\\|grid\\)\\|r\\(?:ene\\|is\\|ma\\)\\|sa\\(?:bel\\(?:l[ae]\\)?\\|mar\\)\\|tzel\\|v\\(?:ette\\|y\\)\\)\\|J\\(?:a\\(?:c\\(?:k\\(?:ie\\|lyn\\)\\|lyn\\|quel\\(?:ine\\|yn\\)\\)\\|d[ae]\\|im\\(?:i?e\\)\\|lisa\\|mi\\(?:e\\|la\\)?\\|n\\(?:a[ey]\\|e\\(?:lle\\|ssa\\|t\\(?:te\\)?\\)\\|i\\(?:[cn]?e\\)\\|[ae]\\)\\|queline\\|smine?\\|y\\(?:la\\|me\\)\\|zm\\(?:ine?\\|yn\\)\\)\\|e\\(?:an\\(?:ette\\)?\\|n\\(?:a\\|ifer\\|n\\(?:i\\(?:e\\|fer\\)\\|[ay]\\)\\)\\|rrica\\|ss\\(?:enia\\|i\\(?:ca\\|e\\|ka\\)\\|[ei]\\)\\)\\|ill\\(?:ian\\)?\\|o\\(?:an\\(?:n[ae]\\|[an]\\)?\\|celyn\\|die?\\|elle\\|hanna\\|lene\\|rd\\(?:[ay]n\\)\\|s\\(?:e\\(?:lyn\\|phine\\)\\|ie\\)\\|y\\(?:ce\\)?\\)\\|u\\(?:an\\(?:\\(?:it\\)?a\\)\\|d\\(?:ith\\|y\\)\\|li\\(?:an\\(?:a\\|n[ae]\\)\\|et\\|ssa\\|[ae]\\)\\|sti\\(?:ce\\|n[ae]\\)\\)\\)\\|K\\(?:a\\(?:c\\(?:ey\\|ie?\\)\\|ela\\|i\\(?:l\\(?:a\\|e[ey]\\|yn\\)\\|tl\\(?:\\(?:yn\\|[iy]\\)n\\)\\)\\|l\\(?:e\\(?:igh\\|y\\)\\|ie\\|lie\\|yn\\|[ai]\\)\\|r\\(?:en\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|[ai]\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:arina\\|e\\(?:l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\)\\|h\\(?:arine\\|er\\(?:ine\\|yn\\)\\|leen\\|r\\(?:ine\\|yn\\)\\|y\\)\\|ie\\|l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\|[ey]\\)\\|y\\(?:cee\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|i[en]\\|ynn?\\|[ai]\\)\\)\\)\\|e\\(?:ely\\|i\\(?:\\(?:l\\|shl?\\)a\\)\\|l\\(?:cie\\|l\\(?:ey\\|ie\\|[iy]\\)\\|s\\(?:e[ay]\\|ie?\\)\\)\\|n\\(?:d\\(?:all?\\|ra\\)\\|ia\\|nedy\\|ya\\)\\|r\\(?:i\\|r[iy]\\)\\)\\|hadijah\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:a\\|ra\\|sten\\)\\|ley\\|mberl\\(?:e[ey]\\|y\\)\\|r\\(?:a\\|st\\(?:en\\|i[en]\\)\\)\\)\\|o\\(?:r\\(?:i\\|tney\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|en\\|i\\(?:an\\|n[ae]\\|[en]\\)\\|yn\\|[aiy]\\)\\|ystal?\\)\\|y\\(?:l\\(?:a\\|[ei]e\\)\\|ra\\)\\)\\|L\\(?:a\\(?:c\\(?:ey\\|ie\\|y\\)\\|keisha\\|na\\|r\\(?:\\(?:iss\\)?a\\)\\|t\\(?:\\(?:ash\\|ish\\|oy\\)a\\)\\|ur\\(?:a\\|e[ln]\\|ie\\|yn\\)\\|yla\\)\\|e\\(?:a\\(?:h\\|n\\(?:dra\\|n[ae]?\\)\\)?\\|eann\\|i\\(?:gh\\|la\\)\\|na\\|sl\\(?:ey\\|ie\\|y\\)\\|ticia\\|x\\(?:ie?\\|us\\)\\)\\|i\\(?:ana\\|dia\\|l\\(?:iana\\|lian\\|y\\)\\|nd\\(?:a\\|s\\(?:[ae]y\\)\\)\\|sa\\|z\\(?:a\\|beth\\|et\\(?:h\\|te\\)\\)\\)\\|o\\(?:gan\\|r\\(?:ena?\\|i\\|raine\\)\\|urdes\\)\\|u\\(?:c\\(?:ero\\|ia\\|y\\)\\|z\\)\\|y\\(?:dia\\|n\\(?:dsey\\|ette\\|n\\)\\)\\)\\|M\\(?:a\\(?:c\\(?:ey\\|ie\\|kenzie\\|y\\)\\|d\\(?:alyn\\|dison\\|el\\(?:eine\\|ine\\|yn\\)\\|ison\\)\\|egan\\|g\\(?:dalena\\|gie\\)\\|ira\\|k\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|l\\(?:ia\\|lory\\)\\|ndy\\|r\\(?:anda\\|cella\\|gar\\(?:et\\|ita\\)\\|i\\(?:a\\(?:na\\|[hm]\\)\\|bel\\|cela\\|ela?\\|lyn\\|na\\|s\\(?:a\\|ela\\|ol\\|sa\\)\\|tza\\|[ae]\\)\\|le\\(?:e\\|n[ae]\\)\\|t\\(?:\\(?:h\\|in\\)a\\)\\|[ay]\\)\\|ur\\(?:a\\|een\\)\\|y\\(?:r?a\\)\\)\\|ck\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|e\\(?:ag\\(?:h?an\\)\\|g\\(?:h?an\\)\\|l\\(?:anie\\|i\\(?:\\(?:nd\\|ss\\|[ns]\\)a\\)\\|ody\\)\\|r\\(?:anda\\|cedes\\|edith\\)\\)\\|i\\(?:a\\|c\\(?:a\\(?:ela\\|h\\)\\|h\\(?:aela\\|el\\(?:l?e\\)\\)\\)\\|ka\\(?:[ey]?la\\)\\|ndy\\|r\\(?:a\\(?:cle\\|nda\\)\\|eya\\|iam\\)\\|sty\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|n\\(?:i\\(?:ca\\|ka\\|que\\)\\|tana\\)\\|r\\(?:gan\\|iah\\)\\)\\|y\\(?:\\(?:r\\(?:and\\)?\\)?a\\)\\)\\|N\\(?:a\\(?:di\\(?:a\\|ne\\)\\|ncy\\|omi\\|t\\(?:a\\(?:l\\(?:i[ae]\\|y\\)\\|sha\\)\\|halie\\)\\|yeli\\)\\|i\\(?:a\\|c\\(?:\\(?:hol\\|ol\\(?:ett\\)?\\)e\\)\\|k\\(?:ita\\|ki\\|ole\\)\\|na\\)\\|o\\(?:e\\(?:l\\(?:le\\)?\\|mi\\)\\|r\\(?:m?a\\)\\)\\)\\|O\\(?:\\(?:ctavi\\|l\\(?:g\\|ivi\\)\\)a\\)\\|P\\(?:a\\(?:ige\\|loma\\|mela\\|ola\\|ris\\|tric\\(?:e\\|ia\\)\\|ul\\(?:a\\|in[ae]\\)\\|yton\\)\\|e\\(?:rla\\|yton\\)\\|hoebe\\|r\\(?:ecious\\|i\\(?:ncess\\|scilla\\)\\)\\)\\|R\\(?:a\\(?:ch\\(?:ael\\|e\\(?:al\\|l\\(?:le\\)?\\)\\)\\|ndi\\|quel\\|ven\\)\\|e\\(?:agan\\|be\\(?:c\\(?:c?a\\)\\|kah\\)\\|g\\(?:an\\|ina\\)\\|ina\\|nee\\|yna\\)\\|h\\(?:iannon\\|onda\\)\\|i\\(?:kki\\|ley\\|ta\\)\\|o\\(?:b\\(?:[iy]n\\)\\|c\\(?:helle\\|io\\)\\|s\\(?:emary\\|[ae]\\)\\|xan\\(?:a\\|ne\\)\\)\\|u\\(?:by\\|th\\)\\|y\\(?:an\\|lee\\)\\)\\|S\\(?:a\\(?:brina\\|d\\(?:i?e\\)\\|ge\\|l\\(?:ina\\|ly\\)\\|mantha\\|nd\\(?:ra\\|y\\)\\|r\\(?:a[hi]?\\|ina\\)\\|sha\\|van\\(?:ah\\|nah?\\)\\)\\|carlett\\|e\\(?:\\(?:l[ei]\\|re\\)na\\)\\|h\\(?:a\\(?:ina\\|kira\\|n\\(?:a\\|i\\(?:a\\|ce\\|qua\\)\\|n\\(?:a\\|on\\)\\|tel\\)\\|ron\\|\\(?:un\\|wn\\|y[ln]\\)a\\)\\|e\\(?:a\\|ena\\|ila\\|l\\(?:b\\(?:ie\\|[iy]\\)\\|ly\\)\\|rry\\)\\|irley\\|yanne\\)\\|i\\(?:dney\\|erra\\|lvia\\|mone\\)\\|ky\\(?:e\\|l\\(?:[ae]r\\)\\)\\|o\\(?:fia\\|n\\(?:[iy]a\\)\\|phi[ae]\\)\\|t\\(?:ac\\(?:ey\\|ie\\|[iy]\\)\\|e\\(?:fanie\\|phan\\(?:ie\\|y\\)\\|vie\\)\\|ormy\\)\\|u\\(?:mmer\\|san\\(?:n?a\\)?\\|zanne\\)\\|y\\(?:dn\\(?:e[ey]\\|ie\\)\\|lvia\\)\\)\\|T\\(?:a\\(?:b\\(?:[ai]tha\\)\\|lia\\|m\\(?:ara\\|my\\)\\|n\\(?:\\(?:ish\\|[iy]\\)a\\)\\|r\\(?:a\\|yn\\)\\|sha\\|t\\(?:iana\\|um\\|yana\\)\\|yl\\(?:[eo]r\\)\\)\\|e\\(?:r\\(?:esa\\|r[ai]\\)\\|ssa?\\)\\|h\\(?:\\(?:ali\\|eres\\)a\\)\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:r?a\\)\\|ffan\\(?:ie\\|[iy]\\)\\|na\\)\\|o\\(?:n\\(?:i\\|ya\\)\\|ri\\)\\|r\\(?:ac\\(?:ey\\|[iy]\\)\\|i\\(?:cia\\|nity\\|s\\(?:[ht]a\\)\\)\\)\\|y\\(?:esha\\|ler\\|ra\\)\\)\\|V\\(?:a\\(?:leri[ae]\\|nes\\(?:s?a\\)\\)\\|eronica\\|i\\(?:ctoria\\|rginia\\|viana?\\)\\)\\|W\\(?:\\(?:end\\|hit\\(?:[ln]e\\)\\)y\\)\\|Xiomara\\|Y\\(?:a\\(?:dira\\|jaira\\|ritza\\|sm\\(?:een\\|ine?\\)\\|zmin\\)\\|es\\(?:s?enia\\)\\|olanda\\|v\\(?:\\(?:ett\\|onn\\)e\\)\\)\\|Zoey?\\)[0-9]+$") ("#scheme" . "rudybot") ("#emacs" . "rudybot")))
  '(erc-ignore-per-channel-reply-alist '(("#scheme" . "rudybot") ("#emacs" . "rudybot")))
@@ -218,13 +232,13 @@
  '(erc-nickserv-passwords '((freenode (("ogamita" . "ogre-a-mite") ("pjb" . "let's-chat")))))
  '(erc-notice-prefix "   *** ")
  '(erc-pals '("bolet.*" "Posterdati" "martinl"))
- '(erc-port 6667)
+ '(erc-port 6697)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-nickserv-password nil)
  '(erc-prompt-for-password t)
  '(erc-quit-reason-various-alist nil)
  '(erc-scrolltobottom-mode nil)
- '(erc-server "irc.freenode.org")
+ '(erc-server "irc.libera.chat")
  '(erc-server-coding-system '(utf-8 . undecided))
  '(erc-server-reconnect-attempts 100)
  '(erc-server-reconnect-timeout 60)
@@ -238,8 +252,15 @@
  '(eval-expression-debug-on-error t)
  '(eval-expression-print-length nil)
  '(eval-expression-print-level nil)
+ '(fci-rule-color "#073642")
  '(file-precious-flag t)
+ '(flycheck-c/c++-clang-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++-disabled")
+ '(flycheck-c/c++-gcc-executable "/opt/local/bin/g++")
+ '(flycheck-cppcheck-include-path '("/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/"))
  '(flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+ '(flycheck-gcc-include-path '("/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/"))
+ '(flycheck-gcc-language-standard "c11")
+ '(flycheck-gcc-pedantic t)
  '(focus-follows-mouse nil)
  '(font-lock-extra-types '("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8" "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN") t)
  '(font-lock-maximum-decoration t)
@@ -270,6 +291,12 @@
  '(gnutls-verify-error t)
  '(grep-command "grep -niH -e ")
  '(gud-gdb-command-name "gdb --annotate=1")
+ '(highlight-changes-colors '("#d33682" "#6c71c4"))
+ '(highlight-symbol-colors '("#3b6b40f432d7" "#07b9463d4d37" "#47a3341f358a" "#1d873c4056d5" "#2d87441c3362" "#43b7362e3199" "#061e418059d7"))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors '((#1="#073642" . 0) ("#5b7300" . 20) ("#007d76" . 30) ("#0061a8" . 50) ("#866300" . 60) ("#992700" . 70) ("#a00559" . 85) (#1# . 100)))
+ '(hl-bg-colors '("#866300" "#992700" "#a7020a" "#a00559" "#243e9b" "#0061a8" "#007d76" "#5b7300"))
+ '(hl-fg-colors '(#1="#002b36" #1# #1# #1# #1# #1# #1# #1#))
  '(hl-paren-colors '("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray" "gray" "gray"))
  '(holiday-other-holidays '((holiday-fixed 10 28 "Frédérique Saubot") (holiday-fixed 10 11 "Henri Bourguignon") (holiday-fixed 6 10 "Désirée Mayer") (holiday-fixed 3 23 "Françoise Keller") (holiday-fixed 11 25 "Joëlle Bourguignon") (holiday-fixed 12 16 "Agathe De Robert") (holiday-fixed 5 12 "Guillaume De Robert") (holiday-fixed 1 4 "Isabelle Saubot") (holiday-fixed 10 23 "Marc Moini") (holiday-fixed 2 10 "Anne-Marie Castel") (holiday-fixed 6 28 "Jean-François Gaillon") (holiday-fixed 6 28 "Sylvie Gaillon") (holiday-fixed 8 27 "Jean-Philippe Capy") (holiday-fixed 1 25 "Raoul Fruhauf") (holiday-fixed 3 15 "Pascal Bourguignon") (holiday-fixed 4 12 "Jalal Adamsah") (holiday-fixed 5 3 "Samy Karsenty") (holiday-fixed 8 17 "Alain Pierre") (holiday-fixed 1 14 "Bernard Bourguignon") (holiday-fixed 3 3 "Emmanuelle Chaize") (holiday-fixed 12 12 "Nicoleta Reinald") (holiday-fixed 1 3 "Florence Petit") (holiday-fixed 11 16 "Wei Van Chi") (holiday-fixed 12 6 "Marie Lecomte") (holiday-fixed 7 3 "Alain Bourguignon") (holiday-fixed 4 15 "André Reinald") (holiday-fixed 12 13 "Michelle Keller") (holiday-fixed 5 27 "Grégoire Saubot") (holiday-fixed 3 27 "Olivia De Robert") (holiday-fixed 11 18 "Vincent De Robert") (holiday-fixed 7 23 "Gabriel De Robert") (holiday-fixed 3 18 "Claire De Robert") (holiday-fixed 10 26 "Maxime De Robert") (holiday-fixed 3 26 "Edward-Amadeus Reinald") (holiday-fixed 3 4 "Louise Akiko Poullain") (holiday-fixed 8 26 "Iris-Alea Reinald") (holiday-fixed 9 4 "Baptiste Rouit") (holiday-fixed 2 22 "Camille Saubot") (holiday-fixed 8 2 "Clémence Saubot-Fiant") (holiday-fixed 5 29 "François Saubot") (holiday-fixed 1 2 "Henry Saubot") (holiday-fixed 2 8 "Jean-Pierre Baccache") (holiday-fixed 10 28 "Lucia (fille de Camille)") (holiday-fixed 11 26 "Marine Rouit") (holiday-fixed 3 13 "Mathias Fiant") (holiday-fixed 4 8 "Mathilde Rouit") (holiday-fixed 2 2 "Olivier Scmidt Chevalier") (holiday-fixed 2 23 "PtiDoigt Deamon") (holiday-fixed 8 10 "Kiteri (fille de Camille)") (holiday-fixed 9 10 "Remy Rouit") (holiday-fixed 8 7 "Valerie Saubot-Rouit") (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes") (holiday-fixed 12 6 "Fiesta de la Consitución") (holiday-fixed 7 14 "Fête Nationale France")) t)
  '(ido-enable-flex-matching nil)
@@ -289,6 +316,7 @@
  '(large-file-warning-threshold nil)
  '(lpr-page-header-switches '("-F" "-t"))
  '(lsp-enable-snippet nil)
+ '(lsp-ui-doc-border "#93a1a1")
  '(mail-archive-file-name nil)
  '(mail-bury-selects-summary t)
  '(mail-default-headers "Organization: Informatimago
@@ -345,18 +373,21 @@ X-Accept-Language:         fr, es, en
  '(mspools-update t)
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
+ '(nrepl-message-colors '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
  '(org-adapt-indentation nil)
  '(org-agenda-files '("~/rc/notes.txt" "~/works/sbde/todo.org" "~/works/sbde/smt/sources/README.org" "~/works/sbde/laboite/specifications/components.org" "~/works/sbde/laboite/analysis/controller.org" "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt" "~/works/enolaba/macosx/src/TODO" "~/src/pjb/nasium-lse/ISSUES.txt" "~/works/patchwork/src/mclgui/TODO.org" "~/works/patchwork/src/patchwork/notes.txt" "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
  '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
  '(org-latex-remove-logfiles nil)
- '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
- '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(package-selected-packages (quote (markdown-preview-eww markdown-preview-mode markdown-toc markdownfmt ggtags smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
  '(pop-up-windows t)
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1")
  '(pr-faces-p t)
  '(print-gensym t t)
  '(printer-name "Samsung_M2020_Series__SEC30CDA7116AD9_" t)
@@ -389,7 +420,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder 'identity)
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values '((Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0)) (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep 'swift-project-settings) (and (fboundp 'tramp-tramp-file-p) (tramp-tramp-file-p this-directory))) (add-to-list 'load-path (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require 'swift-project-settings))) (set (make-local-variable 'swift-project-directory) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method 'latin-1-prefix) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method 'latin-1-prefix) (eval add-hook 'before-save-hook 'time-stamp) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent 'defmeth 3) (eval buttonize-buffer) (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1) (eval cl-indent 'cvm-define-structure 2) (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0) (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1) (eval cl-indent 'with-gc-lock 0) (eval cl-indent 'define-common-structure 1) (eval cl-indent 'defenum 1) (eval put 'let-errno 'common-lisp-indent-function 1) (eval cl-indent 'defbf 2) (eval cl-indent 'ffi:with-c-place 1) (eval cl-indent 'xlib:event-case '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1))) (eval when (fboundp 'asm7090) (asm7090)) (eval cl-indent 'defcommand 3) (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") #'backward-delete-char-untabify)) (eval cl-indent 'dolist/separator 1) (eval put 'define-structure 'common-lisp-indent-function 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t)))
+ '(safe-local-variable-values (quote ((whitespace-mode . 1) (smie-indent-basic . 8) (c-tab-always-indent . t) (tab-always-indent . complete) (whitespace-mode . t) (Package . User) (Package . GRAPH) (Package . DWIM) (pretty-greek) (package . common\.surveille-host) (view-mode . t) (Package X86 :use CL) (Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent (quote for-all-cell) 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent (quote define-function) 3) (eval cl-indent (quote define-type) 1) (eval cl-indent (quote define-module) 1) (eval cl-indent (quote in-parens) 1) (c-file-offsets (innamespace . 0)) (eval add-hook (quote prog-mode-hook) (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep (quote swift-project-settings)) (and (fboundp (quote tramp-tramp-file-p)) (tramp-tramp-file-p this-directory))) (add-to-list (quote load-path) (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require (quote swift-project-settings)))) (set (make-local-variable (quote swift-project-directory)) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method (quote latin-1-prefix)) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method (quote latin-1-prefix)) (eval add-hook (quote before-save-hook) (quote time-stamp)) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent (quote defmeth) 3) (eval buttonize-buffer) (eval cl-indent (quote cvm-do-symbols) 1) (eval cl-indent (quote cvm-dolist) 1) (eval cl-indent (quote cvm-define-structure) 2) (eval cl-indent (quote raw-memory:WITH-SIGSEG-HANDLER) 0) (eval cl-indent (quote when-debug) 1) (eval cl-indent (quote with-generation) 1) (eval cl-indent (quote with-gc-lock) 0) (eval cl-indent (quote define-common-structure) 1) (eval cl-indent (quote defenum) 1) (eval put (quote let-errno) (quote common-lisp-indent-function) 1) (eval cl-indent (quote defbf) 2) (eval cl-indent (quote ffi:with-c-place) 1) (eval cl-indent (quote xlib:event-case) (quote ((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))) (eval when (fboundp (quote asm7090)) (asm7090)) (eval cl-indent (quote defcommand) 3) (eval progn (local-set-key (kbd "<kp-divide>") (function lisp-indent-line)) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") (function backward-delete-char-untabify))) (eval cl-indent (quote dolist/separator) 1) (eval put (quote define-structure) (quote common-lisp-indent-function) 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t))))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
  '(send-mail-function 'sendmail-send-it)
@@ -405,6 +436,7 @@ X-Accept-Language:         fr, es, en
  '(slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
  '(slime-space-information-p nil)
  '(slime-startup-animation nil)
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(smtpmail-default-smtp-server "hubble.informatimago.com")
  '(smtpmail-local-domain "lan.informatimago.com")
  '(smtpmail-sendto-domain "informatimago.com")
@@ -419,7 +451,10 @@ X-Accept-Language:         fr, es, en
  '(tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80))
  '(tab-width 4)
  '(tags-table-list 'nil)
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
  '(tls-checktrust t)
+ '(tls-program '("gnutls-cli --x509cafile %t -p %p %h" "gnutls-cli --x509cafile %t -p %p %h --protocols ssl3"))
  '(tnt-use-timestamps t)
  '(tnt-username-alist '(("matimago") ("ogamita")))
  '(tool-bar-mode nil)
@@ -433,6 +468,7 @@ X-Accept-Language:         fr, es, en
  '(user-full-name "Pascal J. Bourguignon")
  '(user-mail-address "pjb@informatimago.com")
  '(vc-annotate-background "snow1")
+ '(vc-annotate-background-mode nil)
  '(vc-annotate-color-map '((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0") (20.76416 . "#0000c0") (26.037598 . "#0000b0") (31.311035 . "#0000a0") (36.584473 . "#000090") (41.85791 . "#000080") (47.131348 . "#000070") (52.404785 . "#000060") (57.678223 . "#000050") (62.95166 . "#000040") (68.225098 . "#000030") (73.498535 . "#000020") (78.771973 . "#000010")))
  '(vc-annotate-very-old-color "#000000")
  '(vc-follow-symlinks t)
@@ -492,7 +528,10 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-tab nil)
  '(w3m-use-tab-menubar nil)
  '(w3m-use-title-buffer-name t)
- '(warning-suppress-types '((undo discard-info))))
+ '(warning-suppress-types '((undo discard-info)))
+ '(weechat-color-list '(unspecified "#002b36" "#073642" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#839496" "#657b83"))
+ '(xterm-color-names ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 
 ;; To reset w3m-cookies: (setf w3m-cookies nil)
 
@@ -555,10 +594,12 @@ X-Accept-Language:         fr, es, en
 (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-paredit.el")
 (when (not *pjb-pvs-is-running*)
+  ;; (load "~/rc/emacs-theme.el")
   (load "~/rc/emacs-palette.el"))
-(load "~/rc/emacs-slime-simple.el")
-;; (load "~/rc/emacs-slime.el")
-;; (load "~/rc/emacs-cl-indent.el")
+
+(push (expand-file-name"~/emacs/slime/") load-path)
+(load "~/rc/emacs-slime.el")
+
 (load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-objective-c.el")
@@ -572,6 +613,7 @@ X-Accept-Language:         fr, es, en
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
 
+(load "~/rc/emacs-linux.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
@@ -586,9 +628,12 @@ X-Accept-Language:         fr, es, en
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
+(add-to-list 'auto-mode-alist '( ".*/\\(Readme\\|readme\\|README\\)\\.md$" . markdown-mode))
+
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
+
 (ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
 
 (when (require 'flycheck nil t)
@@ -733,7 +778,36 @@ X-Accept-Language:         fr, es, en
 (when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
   (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
 
-(defvar *pjb-trailing-whitespace-exclusions* '()
+(defparameter *pjb-trailing-whitespace-inclusions*
+  '("/pjb/src/bash/"
+    "/pjb/src/bash-tidbits/"
+    "/pjb/src/c-tidbits/"
+    "/pjb/src/cobol/"
+    "/pjb/src/coq-tidbits/"
+    "/pjb/src/emacs/"
+    "/pjb/src/emacs-patches/"
+    "/pjb/src/fortran-tidbits/"
+    "/pjb/src/haskell-tidbits/"
+    "/pjb/src/hw/"
+    "/pjb/src/hw-src/"
+    "/pjb/src/lisp/"
+    "/pjb/src/lisp-tidbits/"
+    "/pjb/src/lisp-vs-c/"
+    "/pjb/src/listeria/"
+    "/pjb/src/naiad/"
+    "/pjb/src/objc/"
+    "/pjb/src/pascal-tidbits/"
+    "/pjb/src/pjb/"
+    "/pjb/src/public/"
+    "/pjb/src/python/"
+    "/pjb/src/sql-tidbits/"
+    "/pjb/works/")
+  "A list of path regexps to include warning for trailing whitespaces.")
+
+(defparameter *pjb-trailing-whitespace-exclusions*
+  '("/pjb/works/mts/Harag/"
+    "/pjb/works/mts/cl-naive-store/"
+    "/pjb/works/qorvo/")
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
 (defun trailing-whitespace-candidate-p (file-name)
@@ -745,7 +819,13 @@ X-Accept-Language:         fr, es, en
          (vc-workfile-revision file-name)
          (notany (lambda (regexp)
                    (string-match regexp file-name))
-                 *pjb-trailing-whitespace-exclusions*))))
+                 *pjb-trailing-whitespace-exclusions*)
+         (if *pjb-trailing-whitespace-inclusions*
+             (some (lambda (regexp)
+                     (string-match regexp file-name))
+                   *pjb-trailing-whitespace-inclusions*)
+             t))))
+
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
@@ -781,8 +861,6 @@ X-Accept-Language:         fr, es, en
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 
-(push "/works/mts/Harag/"          *pjb-trailing-whitespace-exclusions*)
-(push "/works/mts/cl-naive-store/" *pjb-trailing-whitespace-exclusions*)
 (add-hook 'find-file-hook   'pjb-find-file-meat/warn-trailing-whitespace)
 (add-hook 'before-save-hook 'pjb-before-save-meat/delete-trailing-whitespace)
 
@@ -845,9 +923,35 @@ X-Accept-Language:         fr, es, en
 (setq auto-mode-alist (append auto-mode-alist
                               '(("CMakeLists.txt$" . cmake-mode))))
 
+
+(when (require 'projectile nil t)
+  (setf projectile-keymap-prefix (kbd "C-c p"))
+  (define-key projectile-mode-map  (kbd "C-c p") 'projectile-command-map)
+  (projectile-global-mode))
+
+
 (defun gnus (&rest ignored)
   (interactive)
   (error "We don't have a NNTP server anymore."))
+
+(require 'dired)
+(require 'dired-x)
+(add-hook 'dired-mode-hook 'dired-omit-mode)
+
+
+(defun show-tab-stuff ()
+  (interactive)
+  (dolist (var '(tab-width
+                 tab-stop-list
+                 c-basic-offset
+                 indent-tabs-mode
+                 tab-always-indent
+                 c-tab-always-indent
+                 show-trailing-whitespace
+                 whitespace-mode))
+    (message "%S = %S" var (symbol-value var)))
+  (switch-to-buffer "*Messages*"))
+
 
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))
