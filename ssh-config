@@ -36,6 +36,11 @@ Host gitlab.client-c.fr
     User                    git
     IdentityFile            ~/.ssh/client-c
 
+Host proteus.client-c.fr
+    HostName                proteus.client-c.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/client-c
+
 Host framagit.org
     HostName                framagit.org
     User                    git
