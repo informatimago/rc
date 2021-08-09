@@ -20,8 +20,28 @@ Host 192.168.7.5?
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
+Host 192.168.7.5?
+    User ubuntu
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.5?
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.65
+    User ubuntu
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.65
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
 Host 192.168.7.68
     User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.68
+    User root
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host dragon*
@@ -31,6 +51,8 @@ Host dragon*
 Host db845c
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
+
+
 
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
