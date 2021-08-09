@@ -32,6 +32,11 @@ Host db845c
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
+Host salsa.debian.org
+    HostName salsa.debian.org
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-salsa-debian
+
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
     User                    pbourguignon
@@ -91,7 +96,7 @@ Host git.framasoft.org
 Host common-lisp.net
     HostName                common-lisp.net
     User                    git
-    IdentityFile            ~/.ssh/common-lisp-net
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host patchy+github.com
     HostName                github.com
