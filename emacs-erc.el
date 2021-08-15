@@ -20,12 +20,16 @@
      "#lispcafe"  "#lispweb" "#lispgames"
      "#common-lisp.net" "#nyxt"
      "#cl-naive"
+
+     "#clergo"
      
      ;; "#emacs"
      "#emacs-beginners" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
-     "#emacsfr-off")
+     "#emacsfr-off" "##coding"
+
+     "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel")
 
     ("freenode.org"
 
@@ -62,7 +66,7 @@
     ("irc.sbde.fr" "#laboite" "#sbde")
     ("irc.oftc.net" "#uml")))
 
-;; (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
+(setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
 
 (defun pjb-join-channels ()
   (interactive)

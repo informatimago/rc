@@ -20,8 +20,28 @@ Host 192.168.7.5?
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
+Host 192.168.7.5?
+    User ubuntu
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.5?
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.65
+    User ubuntu
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.65
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
 Host 192.168.7.68
     User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host 192.168.7.68
+    User root
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host dragon*
@@ -31,6 +51,11 @@ Host dragon*
 Host db845c
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
+
+Host salsa.debian.org
+    HostName salsa.debian.org
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-salsa-debian
 
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
@@ -91,7 +116,7 @@ Host git.framasoft.org
 Host common-lisp.net
     HostName                common-lisp.net
     User                    git
-    IdentityFile            ~/.ssh/common-lisp-net
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host patchy+github.com
     HostName                github.com

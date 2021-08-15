@@ -38,6 +38,7 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
+	# COLOR_PROMPT may not be transmitted in chroots, etc.  We set use_color from the terminal below.
     local use_color="${COLOR_PROMPT:-false}"
     local prompt='$ '
     local prefix=''
@@ -72,14 +73,21 @@ function bashrc_set_prompt(){
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
+	local chroot=''
 
     if ((UID==0)) ; then
         prompt='# '
     fi
 
-    if [[ "$TERM" = "emacs" ]] ; then
-        prefix="\n\\w\n"
-    fi
+    case "$TERM" in
+	(emacs)
+        prefix="\n\\w\n" 
+        use_color=true
+        ;;
+    (xterm)
+        use_color=true
+        ;;
+	esac
     prefix="${prefix}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
@@ -91,10 +99,19 @@ function bashrc_set_prompt(){
         ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
 
+    if [ -n "${SCHROOT_CHROOT_NAME:=}" ] ; then
+        chroot="${SCHROOT_CHROOT_NAME:=}"
+    fi
     if $use_color ; then
-        export PS1="\[${black_back}${cyan}\]${pc}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}\[${blue}${white_back}\][\u@\h ${display} \W ${available}]\[${red}${black_back}\]${prompt}\[${normal}\]"
+		if [ -n "$chroot" ] ; then
+			chroot="${red_back}${black}(${chroot})${normal}"
+		fi
+        export PS1="${chroot}\[${black_back}${cyan}\]${pc}${normal}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}${normal}\[${cyan}${black_back}\][\u@\h ${display} \W ${available}]\[${yellow}${black_back}\]${prompt}\[${normal}\]"
     else
-        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
+		if [ -n "$chroot" ] ; then
+			chroot="(${chroot})"
+		fi
+        export PS1="${chroot}${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
     fi
 
     export SAVED_PS1="$PS1"

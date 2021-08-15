@@ -26,12 +26,18 @@
   '("/pjb/works/qorvo/")
   "A list of path regexps to include.")
 
+(defun pjb-insert-newline-command (repeat)
+  (interactive "p")
+  (loop repeat repeat do (insert "\n")))
+
 (defun pjb-find-file-meat/force-linux-tabulation ()
   "Meat for find-file-hook: force linux tabulation; no indent."
   (let ((file-name (buffer-file-name)))
-    (when (find-if (lambda (re) (string-match re file-name))
-                   *pjb-force-linux-tabulation*)
-      (local-set-key (kbd "TAB") 'self-insert-command))))
+    (when (and file-name
+               (find-if (lambda (re) (string-match re file-name))
+                        *pjb-force-linux-tabulation*))
+	  (local-set-key (kbd "TAB") 'self-insert-command)
+      (local-set-key (kbd "RET") 'pjb-insert-newline-command))))
 
 (add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
 
