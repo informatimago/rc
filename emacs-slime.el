@@ -41,16 +41,22 @@
 (require 'slime)
 (require 'slime-autoloads)
 
-(slime-setup '(slime-fancy
-               slime-asdf
-               slime-presentations
-               slime-sprof
-               slime-compiler-notes-tree
-               slime-hyperdoc
-               slime-indentation
-               slime-mrepl
-               slime-repl
-               slime-media))
+
+(push "~/emacs/lisp-system-browser" load-path)
+(push "~/emacs/emacs-window-layout" load-path)
+(setq slime-contribs '(slime-fancy
+                       system-browser
+                       slime-asdf
+                       slime-presentations
+                       slime-sprof
+                       slime-compiler-notes-tree
+                       slime-hyperdoc
+                       slime-indentation
+                       slime-mrepl
+                       slime-repl
+                       slime-media))
+
+(slime-setup slime-contribs)
 
 
 (setf slime-net-coding-system        'utf-8-unix)
