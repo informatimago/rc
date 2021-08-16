@@ -17,40 +17,53 @@
 #      ServerAliveInterval 15
 
 Host 192.168.7.5?
-    User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
-Host 192.168.7.5?
+Host 192.168.7.6?
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host rpi4
     User ubuntu
     IdentityFile ~/.ssh/qorvo-dragon
 
-Host 192.168.7.5?
+Host rpi4
     User root
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host 192.168.7.65
-    User ubuntu
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host 192.168.7.65
-    User root
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host 192.168.7.68
-    User linaro
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host 192.168.7.68
-    User root
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host dragon*
-    User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host db845c
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
+
+Host db845c
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon
+    User linaro
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+
+Host r2-d2
+    HostName uwb-bench-pi-b2-fd
+    user pascal.bourguignon@qorvo.com
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host hal-9000
+    HostName uwb-bench-pi-ab-92
+    user pascal.bourguignon@qorvo.com
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host wall-e
+    HostName uwb-bench-pi-b2-43
+    user pascal.bourguignon@qorvo.com
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host t-800
+    HostName uwb-bench-pi-b2-c4
+    user pascal.bourguignon@qorvo.com
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
 
 
 
