@@ -64,14 +64,20 @@ Host t-800
     user pascal.bourguignon@qorvo.com
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 
-
-
-
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/qorvo
     
+
+
+Host salsa.debian.org
+    HostName salsa.debian.org
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-salsa-debian
+
+
+
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
@@ -126,7 +132,7 @@ Host git.framasoft.org
 Host common-lisp.net
     HostName                common-lisp.net
     User                    git
-    IdentityFile            ~/.ssh/common-lisp-net
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host patchy+github.com
     HostName                github.com

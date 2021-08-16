@@ -1301,44 +1301,46 @@ without, lists all the commands with their docstrings."
   "/Users/pjb/src/pjb/nasium-lse/"
   ))
 
-(mapc (lambda (project)
-        (com.informatimago.pjb::register-system-location (pathname project) :force nil))
-      '(
-        ;; good projects
-        "~/src/public/bocl/"
-        "~/src/public/mc/"
-        "~/src/public/hw/"
-        "~/src/public/games/"
-        "~/src/public/fgfs/"
-        "~/src/public/domains/"
-        "~/src/public/common-lisp-exercises/"
-        "~/src/public/commands/"
-        "~/src/lisp-tidbits/count-words/"
-        "~/src/java/listeria/lisp/"
-        "~/src/cobol/lisp/"
-
-        ;; alien projects
-        "~/src/others/common-lisp/s-expressionists/"
-        "~/src/others/common-lisp/robert-strandh/"
-        "~/src/others/common-lisp/mfiano/"
-        "~/src/others/common-lisp/massung/"
-        "~/src/others/common-lisp/edicl/"
-        "~/src/others/common-lisp/snow/"
-        "~/src/others/common-lisp/pavel.gik.kit.edu/"
-        "~/src/others/common-lisp/incudine/"
-        "~/src/others/common-lisp/imap/"
-        "~/src/others/common-lisp/cpc/"
-        "~/src/others/common-lisp/cormanlisp/"
-        "~/src/others/common-lisp/clicc/"
-        "~/src/others/common-lisp/cl-crypto/"
-        "~/src/others/common-lisp/cl-cuda/"
-        "~/src/others/common-lisp/agrostis/"
-        "~/src/others/common-lisp/stuij/"
-        "~/src/others/common-lisp/admich/"
-        "~/src/others/common-lisp/Shinmera/"
-        "~/src/others/common-lisp/McCLIM/"
-        "~/src/others/common-lisp/Apress/"
-        ))
+  (mapc (lambda (project)
+          (com.informatimago.pjb::register-system-location (pathname project) :force nil))
+        (append '(
+                  ;; good projects
+                  "~/src/public/bocl/"
+                  "~/src/public/mc/"
+                  "~/src/public/hw/"
+                  "~/src/public/games/"
+                  "~/src/public/fgfs/"
+                  "~/src/public/domains/"
+                  "~/src/public/common-lisp-exercises/"
+                  "~/src/public/commands/"
+                  "~/src/lisp-tidbits/count-words/"
+                  "~/src/java/listeria/lisp/"
+                  "~/src/cobol/lisp/"
+                  )
+                (unless (uiop:getenv "REGISTER_SYSTEM_LOCATION_DISABLE_OTHERS")
+                  '(
+                    ;; alien projects
+                    "~/src/others/common-lisp/s-expressionists/"
+                    "~/src/others/common-lisp/robert-strandh/"
+                    "~/src/others/common-lisp/mfiano/"
+                    "~/src/others/common-lisp/massung/"
+                    "~/src/others/common-lisp/edicl/"
+                    "~/src/others/common-lisp/snow/"
+                    "~/src/others/common-lisp/pavel.gik.kit.edu/"
+                    "~/src/others/common-lisp/incudine/"
+                    "~/src/others/common-lisp/imap/"
+                    "~/src/others/common-lisp/cpc/"
+                    "~/src/others/common-lisp/cormanlisp/"
+                    "~/src/others/common-lisp/clicc/"
+                    "~/src/others/common-lisp/cl-crypto/"
+                    "~/src/others/common-lisp/cl-cuda/"
+                    "~/src/others/common-lisp/agrostis/"
+                    "~/src/others/common-lisp/stuij/"
+                    "~/src/others/common-lisp/admich/"
+                    "~/src/others/common-lisp/Shinmera/"
+                    "~/src/others/common-lisp/McCLIM/"
+                    "~/src/others/common-lisp/Apress/"
+                    ))))
 ;;;
 
 
