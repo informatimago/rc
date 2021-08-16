@@ -17,40 +17,53 @@
 #      ServerAliveInterval 15
 
 Host 192.168.7.5?
-    User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
-Host 192.168.7.5?
+Host 192.168.7.6?
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host rpi4
     User ubuntu
     IdentityFile ~/.ssh/employer-e-dragon
 
-Host 192.168.7.5?
+Host rpi4
     User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.65
-    User ubuntu
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.65
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.68
-    User linaro
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.68
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host dragon*
-    User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host db845c
     User linaro
     IdentityFile ~/.ssh/employer-e-dragon
+
+Host db845c
+    User root
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host dragon
+    User linaro
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host dragon
+    User root
+    IdentityFile ~/.ssh/employer-e-dragon
+
+
+Host r2-d2
+    HostName bench-host
+    user pjb@informatimago.com
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host hal-9000
+    HostName bench-host
+    user pjb@informatimago.com
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host wall-e
+    HostName bench-host
+    user pjb@informatimago.com
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host t-800
+    HostName bench-host
+    user pjb@informatimago.com
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+
 
 
 
