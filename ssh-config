@@ -46,22 +46,41 @@ Host dragon
     User root
     IdentityFile ~/.ssh/qorvo-dragon
 
+Host uwb-bench-*.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 
+Host p21
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host marvin
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 Host r2-d2
-    HostName uwb-bench-pi-b2-fd
-    user pascal.bourguignon@qorvo.com
+    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 Host hal-9000
-    HostName uwb-bench-pi-ab-92
-    user pascal.bourguignon@qorvo.com
+    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 Host wall-e
-    HostName uwb-bench-pi-b2-43
-    user pascal.bourguignon@qorvo.com
+    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 Host t-800
-    HostName uwb-bench-pi-b2-c4
-    user pascal.bourguignon@qorvo.com
+    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 
 Host gitlab.officeapps.sevenhugs.com
@@ -103,6 +122,11 @@ Host gist.github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/github
+
+Host qorvo.gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/qorvo-gitlab
 
 Host gitlab.com
     HostName                gitlab.com
