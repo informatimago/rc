@@ -46,22 +46,41 @@ Host dragon
     User root
     IdentityFile ~/.ssh/employer-e-dragon
 
+Host bench-host*.officeapps.employer-e.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
 
+Host p21
+    HostName marvin.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host marvin
+    HostName marvin.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
 Host r2-d2
-    HostName bench-host
-    user pjb@informatimago.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
     SetEnv GITLAB_API_TOKEN=***REMOVED***
 Host hal-9000
-    HostName bench-host
-    user pjb@informatimago.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
     SetEnv GITLAB_API_TOKEN=***REMOVED***
 Host wall-e
-    HostName bench-host
-    user pjb@informatimago.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
     SetEnv GITLAB_API_TOKEN=***REMOVED***
 Host t-800
-    HostName bench-host
-    user pjb@informatimago.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
     SetEnv GITLAB_API_TOKEN=***REMOVED***
 
 Host gitlab.officeapps.employer-e.com
@@ -103,6 +122,11 @@ Host gist.github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/github
+
+Host employer-e.gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/employer-e-gitlab
 
 Host gitlab.com
     HostName                gitlab.com
