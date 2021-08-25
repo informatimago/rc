@@ -225,7 +225,9 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 (setf open-paren-in-column-0-is-defun-start nil)
 (setf minibuffer-max-depth nil)
-(setf print-circle t)
+(setf print-circle t
+      print-quoted t)
+
 (setf server-socket-dir *tempdir*
       server-name       (format "server-%d" (emacs-pid)))
 
