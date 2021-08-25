@@ -3135,8 +3135,10 @@ License:
                     ".notes.utf-8" ".notes*[a-z]"))
       (let ((files (file-expand-wildcards (concat dir file) t)))
         (when files
-          (find-file (first files))
-          (return-from notes))))))
+          (let ((efiles  (find 'file-exists-p files)))
+            (when efiles
+              (find-file (first efiles))
+              (return-from notes))))))))
 
 
 (defun afaire ()

@@ -17,51 +17,86 @@
 #      ServerAliveInterval 15
 
 Host 192.168.7.5?
-    User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
-Host 192.168.7.5?
+Host 192.168.7.6?
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host rpi4
     User ubuntu
     IdentityFile ~/.ssh/employer-e-dragon
 
-Host 192.168.7.5?
+Host rpi4
     User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.65
-    User ubuntu
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.65
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.68
-    User linaro
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.68
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host dragon*
-    User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host db845c
     User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
-Host salsa.debian.org
-    HostName salsa.debian.org
-    User                    informatimago
-    IdentityFile            ~/.ssh/pjb-salsa-debian
+Host db845c
+    User root
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host dragon
+    User linaro
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host dragon
+    User root
+    IdentityFile ~/.ssh/employer-e-dragon
+
+Host bench-host*.officeapps.employer-e.com
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+
+Host p21
+    HostName marvin.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host marvin
+    HostName marvin.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host r2-d2
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host hal-9000
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host wall-e
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host t-800
+    HostName bench-host.officeapps.employer-e.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/employer-e
+    SetEnv GITLAB_API_TOKEN=***REMOVED***
 
 Host gitlab.officeapps.employer-e.com
     HostName gitlab.officeapps.employer-e.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/employer-e
     
+
+
+Host salsa.debian.org
+    HostName salsa.debian.org
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-salsa-debian
+
+
+
 Host proteus.client-c.fr
     HostName                proteus.client-c.fr
     User                    pjb
@@ -87,6 +122,11 @@ Host gist.github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/github
+
+Host employer-e.gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/employer-e-gitlab
 
 Host gitlab.com
     HostName                gitlab.com
