@@ -46,11 +46,6 @@ Host dragon
     User root
     IdentityFile ~/.ssh/qorvo-dragon
 
-Host uwb-bench-*.officeapps.sevenhugs.com
-    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 
 Host p21
     HostName marvin.officeapps.sevenhugs.com
@@ -62,22 +57,52 @@ Host marvin
     user pbourguignon
     IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host marvin.officeapps.sevenhugs.com
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
+
 Host r2-d2
     HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
     user pbourguignon
     IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
 Host hal-9000
     HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
     user pbourguignon
     IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
 Host wall-e
     HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
     user pbourguignon
     IdentityFile            ~/.ssh/qorvo
     SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
 Host t-800
+    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
     HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
     user pbourguignon
     IdentityFile            ~/.ssh/qorvo
@@ -87,8 +112,11 @@ Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/qorvo
-    
 
+Host ovh-02.officeapps.sevenhugs.com
+    HostName ovh-02.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
 
 Host salsa.debian.org
     HostName salsa.debian.org
