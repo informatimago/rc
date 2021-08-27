@@ -75,7 +75,7 @@ function bashrc_set_prompt(){
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
 	local time='$(date +%H:%M)'
-	local base="[\u@\h ${display} \W ${available}]"
+	local base='[\u@\h '"${display}"' \W '"${available}"']'
     local prompt='$ '
 
     if ((UID==0)) ; then
@@ -124,9 +124,6 @@ function bashrc_set_prompt(){
 		fi
 		if [ -n "$prefix" ] ; then
 			prefix="\[${yellow}\]${prefix}\[${normal}\]"
-		fi
-		if [ -n "$ibam" ] ; then
-			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
 		fi
 		if [ -n "$ibam" ] ; then
 			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
