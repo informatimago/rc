@@ -113,6 +113,10 @@ Host gitlab.officeapps.sevenhugs.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/qorvo
 
+Host ovh-02
+    HostName ovh-02.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
 Host ovh-02.officeapps.sevenhugs.com
     HostName ovh-02.officeapps.sevenhugs.com
     User                    pbourguignon
