@@ -40,10 +40,6 @@ function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
 	# COLOR_PROMPT may not be transmitted in chroots, etc.  We set use_color from the terminal below.
     local use_color="${COLOR_PROMPT:-false}"
-    local prompt='$ '
-    local prefix=''
-    local pc=''
-    local ibam=''
     local escape=''
     local bold="${escape}"'[1m'
     local underline="${escape}"'[4m'
@@ -70,29 +66,42 @@ function bashrc_set_prompt(){
     local cyan_back="${escape}"'[46m'
     local white_back="${escape}"'[47m'
     local normal="${escape}"'[0m'
+	# ---
+	local chroot=''
+    local prefix=''
+    local pc=''
+    local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
-	local chroot=''
+	local time='$(date +%H:%M)'
+	local base="[\u@\h ${display} \W ${available}]"
+    local prompt='$ '
 
     if ((UID==0)) ; then
         prompt='# '
     fi
 
     case "$TERM" in
+	(dumb)
+		if [ -n "$INSIDE_EMACS" ] ; then
+            prefix="\\w" 
+            use_color=true
+		fi
+		;;
 	(emacs)
-        prefix="\n\\w\n" 
+        prefix="\\w" 
         use_color=true
         ;;
     (xterm)
         use_color=true
         ;;
 	esac
-    prefix="${prefix}"
+
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
-        pc='$('"$(type -path period-cookie)"')\n'
+        pc='$('"$(type -path period-cookie);\n"')'
     fi
 
     if type -p ibam >/dev/null 2>&1 ; then
@@ -102,17 +111,40 @@ function bashrc_set_prompt(){
     if [ -n "${SCHROOT_CHROOT_NAME:=}" ] ; then
         chroot="${SCHROOT_CHROOT_NAME:=}"
     fi
+
+    if [ -n "$chroot" ] ; then
+        chroot="(${chroot})"
+    fi
     if $use_color ; then
 		if [ -n "$chroot" ] ; then
-			chroot="${red_back}${black}(${chroot})${normal}"
+			chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
 		fi
-        export PS1="${chroot}\[${black_back}${cyan}\]${pc}${normal}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}${normal}\[${cyan}${black_back}\][\u@\h ${display} \W ${available}]\[${yellow}${black_back}\]${prompt}\[${normal}\]"
-    else
-		if [ -n "$chroot" ] ; then
-			chroot="(${chroot})"
+		if [ -n "$pc" ] ; then
+			pc="\[${black_back}${cyan}\]${pc}\[${normal}\]"
 		fi
-        export PS1="${chroot}${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
+		if [ -n "$prefix" ] ; then
+			prefix="\[${yellow}\]${prefix}\[${normal}\]"
+		fi
+		if [ -n "$ibam" ] ; then
+			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
+		fi
+		if [ -n "$ibam" ] ; then
+			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
+		fi
+		if [ -n "$time" ] ; then
+			time="\[${yellow}${black_back}\]${time}\[${normal}\]"
+		fi
+		if [ -n "$base" ] ; then
+			base="\[${cyan}${black_back}\]${base}\[${normal}\]"
+		fi
+		if [ -n "$prompt" ] ; then
+			prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
+		fi
+	fi	
+    if [ -n "$prefix" ] ; then
+        prefix="\n${prefix}\n"
     fi
+    export PS1="${chroot}${pc}${prefix}${ibam}${time}${base}${prompt}"
 
     export SAVED_PS1="$PS1"
     #PS1='$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}   1.8.32.41.49-5    ${NORMAL}")'"$SAVED_PS1"
