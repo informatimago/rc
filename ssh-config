@@ -113,6 +113,10 @@ Host gitlab.officeapps.employer-e.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/employer-e
 
+Host ovh-02
+    HostName ovh-02.officeapps.employer-e.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/employer-e
 Host ovh-02.officeapps.employer-e.com
     HostName ovh-02.officeapps.employer-e.com
     User                    pbourguignon
