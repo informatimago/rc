@@ -679,7 +679,9 @@ function bashrc_load_completions(){
     if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
         local script
         for script in radio fpm new-password religion ; do
-	        eval $( "$script" --bash-completion-function )
+			if type -p "$script" 2>/dev/null ; then
+		        eval $( "$script" --bash-completion-function )
+			fi
         done
     fi
 
