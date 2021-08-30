@@ -69,7 +69,7 @@ function bashrc_set_prompt(){
 	# ---
 	local chroot=''
     local prefix=''
-    local pc=''
+    local cookie=''
     local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
@@ -97,11 +97,11 @@ function bashrc_set_prompt(){
         use_color=true
         ;;
 	esac
-
+    export COLOR_PROMPT="${use_color}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
-        pc='$('"$(type -path period-cookie);printf '\n'"')'
+        cookie='$('"$(type -path period-cookie)"')'
     fi
 
     if type -p ibam >/dev/null 2>&1 ; then
@@ -119,9 +119,9 @@ function bashrc_set_prompt(){
 		if [ -n "$chroot" ] ; then
 			chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
 		fi
-		if [ -n "$pc" ] ; then
-			pc="\[${black_back}${cyan}\]${pc}\[${normal}\]"
-		fi
+		# if [ -n "$cookie" ] ; then
+		# 	cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
+		# fi
 		if [ -n "$prefix" ] ; then
 			prefix="\[${yellow}\]${prefix}\[${normal}\]"
 		fi
@@ -141,7 +141,7 @@ function bashrc_set_prompt(){
     if [ -n "$prefix" ] ; then
         prefix="\n${prefix}\n"
     fi
-    export PS1="${chroot}${pc}${prefix}${ibam}${time}${base}${prompt}"
+    export PS1="${chroot}${cookie}${prefix}${ibam}${time}${base}${prompt}"
 
     export SAVED_PS1="$PS1"
     #PS1='$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}   1.8.32.41.49-5    ${NORMAL}")'"$SAVED_PS1"
