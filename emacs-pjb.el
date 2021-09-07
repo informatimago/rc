@@ -810,6 +810,7 @@ X-Accept-Language:         fr, es, en
     "/pjb/works/qorvo/")
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
+
 (defun trailing-whitespace-candidate-p (file-name)
   (let ((home (cond (user-init-file  (dirname user-init-file))
                     ((getenv "HOME") (concat (getenv "HOME") "/"))
@@ -826,6 +827,9 @@ X-Accept-Language:         fr, es, en
                    *pjb-trailing-whitespace-inclusions*)
              t))))
 
+(defparameter *pjb-binary-modes*
+  '(image-mode hexl-mode)
+  "A list of major-mode used to visit binary files.")
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
@@ -833,7 +837,8 @@ X-Accept-Language:         fr, es, en
                     ((getenv "HOME") (concat (getenv "HOME") "/"))
                     (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
         (file-name (buffer-file-name)))
-    (when (trailing-whitespace-candidate-p file-name)
+    (when (and (not (member major-mode *pjb-binary-modes*))
+               (trailing-whitespace-candidate-p file-name))
       (goto-char (point-min))
       (when (re-search-forward "[ \t]$" nil t)
         (case (ignore-errors
@@ -857,7 +862,8 @@ X-Accept-Language:         fr, es, en
 
 (defun pjb-before-save-meat/delete-trailing-whitespace ()
   "Meat for before-save-hook: delete trailing whitespace."
-  (when (trailing-whitespace-candidate-p (buffer-file-name))
+  (when (and (not (member major-mode *pjb-binary-modes*))
+             (trailing-whitespace-candidate-p (buffer-file-name)))
     (let ((delete-trailing-lines t))
       (delete-trailing-whitespace (point-min) (point-max)))))
 
