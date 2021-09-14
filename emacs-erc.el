@@ -23,8 +23,7 @@
 
      "#clergo"
      
-     ;; "#emacs"
-     "#emacs-beginners" "#org-mode" "#erc" "#gnus"
+     "#emacs" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
      "#emacsfr-off" "##coding"

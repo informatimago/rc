@@ -207,6 +207,17 @@ Host vmdebian
     IdentityFile            ~/.ssh/pjb-vmdebian@despina
 
 
+Host hubble
+    HostName                hubble.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/hubble
+    
+Host hubble
+    HostName                hubble.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/hubble
+
+
 # ----------------------------------------
 # Default:
 
