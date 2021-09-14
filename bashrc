@@ -38,7 +38,12 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-	# COLOR_PROMPT may not be transmitted in chroots, etc.  We set use_color from the terminal below.
+	#
+	# COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
+	# chroots, and other subprocesses where the environment is
+	# reset.  Therefore we reset use_color from the terminal below.
+	#
+
     local use_color="${COLOR_PROMPT:-false}"
     local escape=''
     local bold="${escape}"'[1m'
@@ -84,7 +89,7 @@ function bashrc_set_prompt(){
 
     case "$TERM" in
 	(dumb)
-		if [ -n "$INSIDE_EMACS" ] ; then
+		if [ -n "$INSIDE_EMACS" -o -n "$SCHROOT_CHROOT_NAME" ] ; then
             prefix="\\w" 
             use_color=true
 		fi
@@ -296,6 +301,15 @@ function prependIfDirectoryExists(){
 
 be="$HOME/.bash_env.$$"
 
+function first_locale(){
+    local locale
+	for locale in "$@" ; do
+		if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
+			break
+		fi
+	done
+	echo $locale
+}
 
 function be_comment(){
     printf "# %s\n" "$@" >> "$be"
@@ -393,6 +407,7 @@ function be_generate(){
     )
 
     editors=(
+		"$HOME/bin/ec"
         emacsclient
         ed
         vi
@@ -432,7 +447,7 @@ function be_generate(){
         # socket=(--socket-name=/tmp/emacs${UID}/server)
         # EDITOR, VISUAL, etc, take only the command, no arguments.
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-        e=ec
+        e=$HOME/bin/ec
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -556,18 +571,29 @@ function be_generate(){
 
     be_unset GNOME_KEYRING_CONTROL
 
-    # Most prioritary:
-    be_unset    LC_ALL
-    # If LC_ALL is not defined:
-    be_unset    LC_MONETARY               fr_FR.UTF-8
-    be_unset    LC_MESSAGES               en_US.UTF-8
-    be_unset    LC_NUMERIC                fr_FR.UTF-8
-    be_unset    LC_TIME                   fr_FR.UTF-8
-    be_variable LC_COLLATE                C
-    be_variable LC_CTYPE                  C
-    # If the above are not defined:
-    be_variable LANG                      en_US.UTF-8
-    be_unset    LANGUAGE
+
+	# --------------------
+	# Locale clusterfuck
+	# --------------------
+	#
+	# Unset, in reverse order of priority, to avoid warnings…
+	# Then, check the locales first: often, the wanted locales are not available!
+	#
+
+	# local fr=$(first_locale fr_FR.UTF-8 C)
+	local en=$(first_locale en_US.UTF-8 C)
+	
+    be_unset    LANGUAGE      # If the following are not defined.
+    be_unset    LANG          # If the following are not defined.
+    be_unset    LC_CTYPE      # If LC_ALL is not defined.
+    be_unset    LC_COLLATE    # If LC_ALL is not defined.
+    be_unset    LC_TIME       # If LC_ALL is not defined.
+    be_unset    LC_NUMERIC    # If LC_ALL is not defined.
+    be_unset    LC_MESSAGES   # If LC_ALL is not defined.
+    be_unset    LC_MONETARY   # If LC_ALL is not defined.
+    be_unset    LC_ALL        # Most prioritary.
+
+    be_variable LANG  "${en}"
 
     be_unset XMODIFIERS
 
@@ -679,7 +705,9 @@ function bashrc_load_completions(){
     if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
         local script
         for script in radio fpm new-password religion ; do
-	        eval $( "$script" --bash-completion-function )
+			if type -p "$script" 2>&1 >/dev/null ; then
+		        eval $( "$script" --bash-completion-function )
+			fi
         done
     fi
 
