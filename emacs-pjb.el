@@ -540,6 +540,10 @@ X-Accept-Language:         fr, es, en
 (setf ecb-source-path (expand-file-name "~/src/"))
 
 ;;;----------------------------------------------------------------------------
+(when (or (< emacs-major-version 26)
+          (and (= emacs-major-version 26)
+               (< emacs-minor-version 3)))
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 (defvar gnutls-trustfiles '())
 (unless (fboundp 'string-trim)
