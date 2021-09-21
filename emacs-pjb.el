@@ -625,15 +625,15 @@ X-Accept-Language:         fr, es, en
 (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
     (ignore-errors (set-frame-font "terminus-18")))
 
-(add-to-list 'auto-mode-alist `("\\.ergo$"  . lisp-mode))
-(add-to-list 'auto-mode-alist `("\\.asd$"   . lisp-mode))
-(add-to-list 'auto-mode-alist `("\\.swift$" . swift-mode))
+(add-to-list 'auto-mode-alist '("\\.yml$"  . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ergo$"  . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.asd$"   . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.swift$" . swift-mode))
+(add-to-list 'auto-mode-alist '( ".*/\\(Readme\\|readme\\|README\\)\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/works/abalone/.*\\.\\(h\\|m\\mm\\)$")   . objc-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
 (add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
-(add-to-list 'auto-mode-alist '( ".*/\\(Readme\\|readme\\|README\\)\\.md$" . markdown-mode))
-
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
