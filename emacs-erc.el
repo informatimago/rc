@@ -12,7 +12,7 @@
 
      "#lisp"
      "#commonlisp"
-     "##lispm"
+     "##lispm" "#interlisp"
 
      "#clschool"  "#lisp-es"
      "#abcl" "#ccl" "#ecl" "#sicl"
