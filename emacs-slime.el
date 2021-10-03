@@ -280,10 +280,11 @@
 
   (define-lisp-implementation sbcl
       (mapcar (lambda (cmd) (list cmd "--noinform"))
-              '("/data/languages/sbcl/bin/sbcl"
+              '("/opt/local/bin/sbcl"
                 "/usr/local/bin/sbcl"
-                "/opt/local/bin/sbcl"
-                "/usr/bin/sbcl"))
+                "/data/languages/sbcl/bin/sbcl"
+                "/usr/bin/sbcl"
+                ))
     "^\\[[0-9]*\\]> "
     utf-8)
 
