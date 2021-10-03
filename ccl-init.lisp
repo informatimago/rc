@@ -203,9 +203,51 @@ RETURN:     The first word of the string, or the empty string.
             (setq done t found t)))))))
 
 
-(defun edit (&optional (x nil x-p))
-  (declare (ignore x x-p))
-  (format *error-output* "~&Not implemented yet.~%"))
+(defun edit (&optional argument)
+  (labels ((edit-file (path)
+             (loop
+                (uiop:run-program (format nil "emacsclient --socket-name /tmp/emacs~D/server ~S"
+                                          (ccl::getuid)
+                                          (namestring path)))
+                (restart-case
+                    (return-from edit-file (load path :verbose t :print t))
+                  (edit-again ()  :report "Edit again")
+                  (abort      ()  :report  "Abort"
+                    (return-from edit-file)))))
+           (edit-sexp (sexp)
+             (let ((path (rename-file 
+                          (uiop/stream:with-temporary-file (:stream out
+                                                            :direction :output
+                                                            :element-type 'character
+                                                            :external-format :utf-8
+                                                            :keep t
+                                                            :pathname path)
+                            (prin1 sexp out)
+                            (finish-output)
+                            path)
+                          ".lisp")))
+               (edit-file path)))
+           (edit-function (fname)
+             (error "not implemented yet")))
+    (typecase argument
+      ((or string pathname)
+       (edit-file argument))
+      (symbol
+       (if (fboundp argument)
+           (edit-function argument)
+           (edit-sexp     argument)))
+      (cons
+       (if (and (= 2 (length argument))
+                (eq (first argument) 'sexp)
+                (symbolp (second argument))
+                (fdefinition argument))
+           (edit-function argument)
+           (edit-sexp     argument)))
+      (t
+       (edit-sexp argument)))))
+
+(setf ccl:*resident-editor-hook* (quote edit))
+
 (defun quit ()                      (ccl:quit))
 (defun really-quit () (#_kill (ccl::getpid) 9))
 
