@@ -78,7 +78,7 @@
 
 ;; (require 'ubudu) ; c-style
 
-(push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
+(add-to-load-path (concat *android-tools-directory* "/adt/sdk/tools/lib/"))
 
 (require 'android-mode nil t)
 (when (require 'android nil t)
@@ -95,7 +95,7 @@
   ;; (require 'cedet)
   ;; (let ((path (expand-file-name "~/emacs/jdee/lisp")))
   ;;   (when (file-exists-p path)
-  ;;     (pushnew path load-path)
+  ;;     (add-to-load-path path)
   ;;     (require 'jde nil t)))
 
 
