@@ -60,7 +60,8 @@
 
 
 (defvar shell-file-name          "/bin/bash")
-(defvar *tempdir*                (format "/tmp/emacs%d" (user-uid)))
+(defvar *tempdir*                (format "/tmp/emacs%d"  (user-uid)))
+(defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
@@ -228,8 +229,20 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
-(setf server-socket-dir *tempdir*
-      server-name       (format "server-%d" (emacs-pid)))
+
+;; (setf server-socket-dir *tempdir*      
+;;       server-name       (format "server-%d" (emacs-pid)))
+;; 
+;; (setf server-socket-dir (if internal--daemon-sockname
+;;                             (file-name-directory internal--daemon-sockname)
+;;                             (and (featurep 'make-network-process '(:family local))
+;; 	                             (let ((xdg_runtime_dir (getenv "XDG_RUNTIME_DIR")))
+;; 	                               (if xdg_runtime_dir
+;; 	                                   (format "%s/emacs" xdg_runtime_dir)
+;; 	                                   (format "%s/emacs%d" (or (getenv "TMPDIR") "/tmp") (user-uid))))))
+;;       server-name        (if internal--daemon-sockname
+;;                              (file-name-nondirectory internal--daemon-sockname)
+;;                              "server"))
 
 (setf tetris-score-file "~/.tetris-scores")
 
