@@ -42,8 +42,8 @@
 (require 'slime-autoloads)
 
 
-(push "~/emacs/lisp-system-browser" load-path)
-(push "~/emacs/emacs-window-layout" load-path)
+(add-to-load-path "~/emacs/lisp-system-browser")
+(add-to-load-path "~/emacs/emacs-window-layout")
 (setq slime-contribs '(slime-fancy
                        system-browser
                        slime-asdf

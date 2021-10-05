@@ -437,17 +437,24 @@ WELCOME TO EMACS!
 (defalias 'dump-load-path 'print-load-path)
 
 
-(defun clean-load-path ()
-  "Remove slashes at the end of the path in load-path."
-  (setf load-path
-        (remove-duplicates
-         (mapcar (lambda (path)
-                   (if (string-match "^\\(.*[^/]\\)/*$" path)
-                       (match-string 1 path)
-                       path))
-                 load-path)
-         :test (function string=))))
+(defun clean-path (path)
+  "Clean the paths in `load-path'.
+- Remove slashes at the end of the path in load-path.
+- Expand ~/.
+- Remove double-slashes in the paths."
+(expand-file-name (if (string-match "^\\(.*[^/]\\)/*$" path)
+                                   (match-string 1 path)
+                                   path)))
 
+(defun clean-load-path ()
+  "Clean the paths in `load-path' and remove duplicates."
+  (setf load-path (remove-duplicates
+                   (mapcar (function clean-path) load-path)
+                   :test (function string=))))
+
+(defun add-to-load-path (path)
+  (push path load-path)
+  (clean-load-path))
 
 (defun load-pathname (file &optional nosuffix must-suffix)
   "Return the pathname of the file that would be loaded by (load file)."
