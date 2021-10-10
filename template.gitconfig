@@ -1,0 +1,68 @@
+# -*- mode:conf -*-
+
+
+
+[user]
+    name = Pascal J. Bourguignon
+    email = pjb@informatimago.com
+
+[core]
+    pager = cat
+
+[push]
+    default = matching
+    followTags = true
+
+[init]
+	defaultBranch = master
+
+[color]
+    ui = auto
+
+[alias]
+    lg0    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lg1    = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    lg2    = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
+    lg     = !"git lg1"
+    ls     = !"git log --pretty=format: --name-status | cut -f2- | sort -u"
+    lgb    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+    gbra   = log --graph --pretty=format:'%Cred%h%C(yellow)%d %C(bold blue)<%an>%Creset %s%n' --abbrev-commit --date=relative --branches
+    gbranc = log --graph --pretty=format:'%h%d <%an> %s%n' --abbrev-commit --date=relative --branches
+    gbrs   = log --graph --pretty=format:'%Cred%h%C(yellow)%d%Creset%n' --abbrev-commit --date=relative --branches
+    slog   = log --pretty=format:'%Cred%h%C(yellow)%d %C(bold blue)<%an>%Creset %s%n' --abbrev-commit --date=relative
+    david  = log --oneline --decorate --graph --abbrev-commit --date=relative --branches
+    ss     = status --short
+    st     = status
+    stat   = status
+	curbra = rev-parse --abbrev-ref HEAD
+	curcom = rev-parse HEAD
+
+
+# [credential]
+# 	helper = "!credential_helper() { echo username=''; echo password=''; }; credential_helper"
+
+# [http]
+# 	cookiefile = /home/pjb/.gitcookies
+# 	postBuffer = 2G
+# 	maxRequestBuffer = 2G
+
+# [includeIf "gitdir:~/works/qorvo/"]
+#   path = ~/works/qorvo/.gitconfig
+# 
+# [includeIf "gitdir:/aosp-ci/"]
+#   path = ~/works/qorvo/.gitconfig
+#
+# [includeIf "gitdir:~/company_b/"]
+#   path = .gitconfig-company_b
+
+# [url "https://partner-android.googlesource.com/kernel/private/gs-google"]
+# 	insteadOf = https://aosp-partner-mirror.officeapps.sevenhugs.com/partner/kernel/private/gs-google
+# 
+# [url "https://partner-android.googlesource.com/platform/prebuilts/boot-artifacts"]
+# 	insteadOf = https://aosp-partner-mirror.officeapps.sevenhugs.com/partner/platform/prebuilts/boot-artifacts
+# 
+# [url "https://partner-android.googlesource.com/platform/tools/repohooks"]
+# 	insteadOf = https://aosp-partner-mirror.officeapps.sevenhugs.com/partner/platform/tools/repohooks
+#
+# [url "https://qorvopbourguignon:yMLefpnTsHRd2apNcAwV@gitlab.com/"]
+# 	insteadOf = https://gitlab.com/
