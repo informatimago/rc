@@ -105,10 +105,27 @@
 (defun rt-version<= (a b) (if (version<= a b) '(and) '(or)))
 
 
+;;----------------------------------------------------------------------
+;; Setting environment -- COMMON-LISP part --
+;; ------------------------------------------
 (in-package "COMMON-LISP-USER")
+(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
+         (optimize (speed 0) (space 0) (debug 3) (safety 3)))
+(SETF *LOAD-VERBOSE* t)
+(LOAD (MERGE-PATHNAMES
+       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
+                      :CASE :COMMON)
+       (USER-HOMEDIR-PATHNAME)
+       NIL))
+
+(defvar *LOGHOSTS-DIRECTORY* #P"LOGHOSTS:"
+  "The directory where logical host descriptions are stored.")
+
+
 ;;----------------------------------------------------------------------
 ;; Setting environment -- SBCL part --
 ;; -----------------------------------
+(in-package "COM.INFORMATIMAGO.PJB")
 
 (defun clean-version (version)
   (loop :with i := (1- (length version))
@@ -121,7 +138,9 @@
         (src-dirs '(#P"/usr/src/"
                     #P"/usr/local/src/"
                     #P"/opt/local/src/"
-                    #P"/data/src/languages/sbcl/")))
+                    #P"/opt/local/var/macports/sources/rsync.macports.org/release/tarballs/ports/lang/sbcl/work/"
+                    #P"/data/src/languages/sbcl/"
+                    )))
     (loop :for name :in '("version" "build-order")
           :for sbcl-file := (make-pathname
                              :directory (list :relative (format nil "sbcl-~A" clean-version))
@@ -202,27 +221,11 @@
 
 
 ;;----------------------------------------------------------------------
-;; Setting environment -- COMMON-LISP part --
-;; ------------------------------------------
-(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
-         (optimize (speed 0) (space 0) (debug 3) (safety 3)))
-(SETF *LOAD-VERBOSE* t)
-(LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
-                      :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
-       NIL))
-
-(defvar *LOGHOSTS-DIRECTORY* #P"LOGHOSTS:"
-  "The directory where logical host descriptions are stored.")
-
+;; Setting environment -- SBCL part --
+;; -----------------------------------
 (IN-PACKAGE "COM.INFORMATIMAGO.PJB")
 ;; additional export at the end.
 (export '(EDIT QUIT))
-
-;;----------------------------------------------------------------------
-;; Setting environment -- SBCL part --
-;; -----------------------------------
 
 
 (SETF *PRINT-READABLY* NIL
