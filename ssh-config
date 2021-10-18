@@ -31,18 +31,22 @@ Host rpi4
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host db845c
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host db845c
+    HostName 192.168.7.71
     User root
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host dragon
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/employer-e-dragon
 
 Host dragon
+    HostName 192.168.7.71
     User root
     IdentityFile ~/.ssh/employer-e-dragon
 

@@ -60,7 +60,8 @@
 
 
 (defvar shell-file-name          "/bin/bash")
-(defvar *tempdir*                (format "/tmp/emacs%d" (user-uid)))
+(defvar *tempdir*                (format "/tmp/emacs%d"  (user-uid)))
+(defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
@@ -228,8 +229,21 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
-(setf server-socket-dir *tempdir*
-      server-name       (format "server-%d" (emacs-pid)))
+server-socket-dirq
+server-name
+;; (setf server-socket-dir *tempdir*      
+;;       server-name       (format "server-%d" (emacs-pid)))
+;; 
+;; (setf server-socket-dir (if internal--daemon-sockname
+;;                             (file-name-directory internal--daemon-sockname)
+;;                             (and (featurep 'make-network-process '(:family local))
+;; 	                             (let ((xdg_runtime_dir (getenv "XDG_RUNTIME_DIR")))
+;; 	                               (if xdg_runtime_dir
+;; 	                                   (format "%s/emacs" xdg_runtime_dir)
+;; 	                                   (format "%s/emacs%d" (or (getenv "TMPDIR") "/tmp") (user-uid))))))
+;;       server-name        (if internal--daemon-sockname
+;;                              (file-name-nondirectory internal--daemon-sockname)
+;;                              "server"))
 
 (setf tetris-score-file "~/.tetris-scores")
 
@@ -424,17 +438,24 @@ WELCOME TO EMACS!
 (defalias 'dump-load-path 'print-load-path)
 
 
-(defun clean-load-path ()
-  "Remove slashes at the end of the path in load-path."
-  (setf load-path
-        (remove-duplicates
-         (mapcar (lambda (path)
-                   (if (string-match "^\\(.*[^/]\\)/*$" path)
-                       (match-string 1 path)
-                       path))
-                 load-path)
-         :test (function string=))))
+(defun clean-path (path)
+  "Clean the paths in `load-path'.
+- Remove slashes at the end of the path in load-path.
+- Expand ~/.
+- Remove double-slashes in the paths."
+(expand-file-name (if (string-match "^\\(.*[^/]\\)/*$" path)
+                                   (match-string 1 path)
+                                   path)))
 
+(defun clean-load-path ()
+  "Clean the paths in `load-path' and remove duplicates."
+  (setf load-path (remove-duplicates
+                   (mapcar (function clean-path) load-path)
+                   :test (function string=))))
+
+(defun add-to-load-path (path)
+  (push path load-path)
+  (clean-load-path))
 
 (defun load-pathname (file &optional nosuffix must-suffix)
   "Return the pathname of the file that would be loaded by (load file)."
@@ -2847,14 +2868,16 @@ License:
   '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
     ("." . "pjb")))
 
-(defvar *pjb-c-mode-meat-blacklist* '())
+(defvar *pjb-c-mode-meat-exclude* '())
+
+(defun pjb-c-mode-file-p (filename)
+  (and filename (not (find-if (lambda (re) (string-match re filename))
+                              *pjb-c-mode-meat-exclude*))))
 
 (defun c-mode-meat ()
   (interactive)
   (let ((filename (buffer-file-name)))
-    (when (and filename
-               (not (find-if (lambda (re) (string-match re filename))
-                             *pjb-c-mode-meat-blacklist*)))
+    (when (pjb-c-mode-file-p filename)
       (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
       (infer-indentation-style)
       (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) filename))

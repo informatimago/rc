@@ -356,7 +356,15 @@
 
 ;; ------------------------------------------------------------------------
 
+(when nil
 
+  (pjb-frame-font (selected-frame))
+  "-bitstream-bitstream vera sans mono-medium-r-normal--21-152-100-100-m-130-iso8859-1"
+  "-bitstream-bitstream vera sans mono-medium-r-normal--19-137-100-100-m-110-iso8859-1"
+  "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1"
+
+  (set-frame-font  )
+  )
 
 
 ;; ------------------------------------------------------------------------
