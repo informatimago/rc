@@ -31,18 +31,22 @@ Host rpi4
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host db845c
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host db845c
+    HostName 192.168.7.71
     User root
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host dragon
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host dragon
+    HostName 192.168.7.71
     User root
     IdentityFile ~/.ssh/qorvo-dragon
 

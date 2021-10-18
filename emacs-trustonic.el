@@ -186,7 +186,7 @@
 
 
 
-(push "~/emacs/org-jira" load-path)
+(add-to-load-path "~/emacs/org-jira")
 (require 'org-jira nil)
 (setf jiralib-url "http://jira.trustonic.internal")
 
@@ -233,7 +233,7 @@
   (if (string= (hostname) "macbook-trustonic.local")
       "~/Library/Android"
       "~/opt"))
-(push (expand-file-name (concat *android-tools-directory* "/sdk/tools/lib/")) load-path)
+(add-to-load-path (concat *android-tools-directory* "/sdk/tools/lib/"))
 (when (require 'android nil t)
  (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "sdk")))
  (require 'android-mode nil t)
@@ -244,7 +244,7 @@
  (add-hook 'gud-mode-hook 'gud-meat))
 
 ;; (require 'cedet)
-;; (pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+;; (add-to-load-path "~/emacs/jdee/lisp")
 ;; (require 'jde)
 
 
