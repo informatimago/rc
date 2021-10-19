@@ -226,6 +226,17 @@ Host hubble
     IdentityFile            ~/.ssh/hubble
 
 
+Host qorvo
+    HostName                qorvo.lan.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/qorvo
+    
+Host qorvo
+    HostName                qorvo.lan.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/qorvo
+
+
 # ----------------------------------------
 # Default:
 
