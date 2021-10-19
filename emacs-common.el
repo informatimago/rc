@@ -229,8 +229,11 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
-server-socket-dirq
-server-name
+;; server-socket-dir
+;; ;; --> "/var/folders/pq/82920zm125n09frk81rrtp200000gn/T/emacs501"
+;; server-name
+;; ;; --> "server"
+
 ;; (setf server-socket-dir *tempdir*      
 ;;       server-name       (format "server-%d" (emacs-pid)))
 ;; 
