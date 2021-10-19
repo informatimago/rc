@@ -5,7 +5,7 @@
 function set_terminal(){
     if [ "$TERM" != emacs ] ; then
 
-        tset -Q -w
+        tset -Q -c
         case $TERM in
         xterm*)
             stty erase  2>/dev/null
