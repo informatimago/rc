@@ -226,6 +226,17 @@ Host hubble
     IdentityFile            ~/.ssh/hubble
 
 
+Host employer-e
+    HostName                employer-e.lan.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/employer-e
+    
+Host employer-e
+    HostName                employer-e.lan.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/employer-e
+
+
 # ----------------------------------------
 # Default:
 
