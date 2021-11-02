@@ -354,6 +354,7 @@ function be_generate(){
         "$HOME/bin"
         "$HOME/opt/bin"
         "$HOME/.rvm/bin" # Add RVM to PATH for scripting
+        "$HOME/.local/bin"
 
         /usr/local/bin
         /usr/local/sbin
@@ -959,6 +960,7 @@ function bashrc_define_aliases(){
     alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
     alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
 
+    alias screen='screen -A'
 
     if [[ -x /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII ]] ; then
         function basilisk(){ /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII "$@" ; }
