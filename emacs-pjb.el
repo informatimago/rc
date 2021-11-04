@@ -630,6 +630,7 @@ X-Accept-Language:         fr, es, en
     (ignore-errors (set-frame-font "terminus-18")))
 
 (add-to-list 'auto-mode-alist '("Kbuild$"  . makefile-mode))
+(add-to-list 'auto-mode-alist '("Recipes$"  . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$"  . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ergo$"  . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.asd$"   . lisp-mode))
