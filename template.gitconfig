@@ -13,6 +13,9 @@
     default = matching
     followTags = true
 
+[pull]
+	ff = only
+
 [init]
 	defaultBranch = master
 
@@ -36,7 +39,7 @@
     stat   = status
 	curbra = rev-parse --abbrev-ref HEAD
 	curcom = rev-parse HEAD
-
+    check-email = !"git log --since='4 weeks ago' --pretty=format:'%h | %as | email=%ae | name=%an' | sort -u"
 
 # [credential]
 # 	helper = "!credential_helper() { echo username=''; echo password=''; }; credential_helper"
