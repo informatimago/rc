@@ -131,7 +131,10 @@ Host salsa.debian.org
     User                    informatimago
     IdentityFile            ~/.ssh/pjb-salsa-debian
 
-
+Host linksys
+    HostName                192.168.1.1
+    User                    root
+    IdentityFile            ~/.ssh/linksys
 
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
