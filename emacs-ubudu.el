@@ -462,7 +462,7 @@ X-Accept-Language:         fr, es, en
 (setf visible-bell nil
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
-(push "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/" load-path)
+(add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
 
 (setf auto-mode-alist
       (sort* (list* '("\\.md$" . text-mode)
@@ -516,7 +516,7 @@ X-Accept-Language:         fr, es, en
 
 (require 'ubudu) ; c-style
 (set-sources (expand-file-name *ubudu-sources*))
-(push (expand-file-name (concat *android-tools-directory* "/adt/sdk/tools/lib/")) load-path)
+(add-to-load-path (concat *android-tools-directory* "/adt/sdk/tools/lib/"))
 (when (require 'android nil t)
  (setf android-mode-sdk-dir (expand-file-name (concat *android-tools-directory* "/adt/sdk")))
  (require 'android-mode nil t)
@@ -529,7 +529,7 @@ X-Accept-Language:         fr, es, en
  (add-hook 'gud-mode-hook 'gud-meat))
 
 (require 'cedet)
-(pushnew (expand-file-name "~/emacs/jdee/lisp") load-path)
+(add-to-load-path "~/emacs/jdee/lisp")
 (require 'jde)
 
 (require 'twittering-mode)

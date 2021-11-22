@@ -12,7 +12,7 @@
 
      "#lisp"
      "#commonlisp"
-     "##lispm"
+     "##lispm" "#interlisp"
 
      "#clschool"  "#lisp-es"
      "#abcl" "#ccl" "#ecl" "#sicl"
@@ -23,8 +23,7 @@
 
      "#clergo"
      
-     ;; "#emacs"
-     "#emacs-beginners" "#org-mode" "#erc" "#gnus"
+     "#emacs" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
      "#emacsfr-off" "##coding"
@@ -109,10 +108,15 @@
   "Connect to IRC."
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "pjb" :full-name "Pascal J. Bourguignon")
-  ;; (erc     :server "irc.freenode.net" :port 6667
-  ;;          :nick "pjb" :full-name "Pascal J. Bourguignon")
-  )
+           :nick "pjb" :full-name "Pascal J. Bourguignon"))
+
+(defun start-irc-ogamita ()
+  "Connect to IRC."
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697
+           :nick "ogamita" :full-name "Pascal J. Bourguignon"))
+
+
 
 ;; Local Variables:
 ;; coding: utf-8
