@@ -41,6 +41,7 @@
                          (or (let* ((hostname-configuration-map
                                       '(("macbook[-.]employer-a.local" . "~/rc/emacs-employer-a.el")
                                         ("^vmlinux"                   . "~/rc/emacs-employer-a.el")
+                                        ("^employer-e"                     . "~/rc/emacs-employer-e.el")
                                         ("^mercure"                   . "~/rc/emacs-employer-c.el")
                                         ("^uiserver"                  . "~/rc/emacs-employer-c.el")
                                         ("^ubudair"                   . "~/rc/emacs-employer-c.el")
