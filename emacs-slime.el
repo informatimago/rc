@@ -993,6 +993,27 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 
 (add-hook 'sldb-hook 'pjb-sldb-observe-variables)
 
+
+;; M-- M-x slime RET or C-u C-- M-x slime to select the implementation by symbol:
+
+(push '(abcl ("/usr/bin/java" "-jar"
+               "/opt/local/share/java/abcl/abcl.jar"
+               "/opt/local/share/java/abcl/abcl-contrib.jar"
+               "-Xmx6g")
+         :coding-system utf-8-unix
+         :env ("JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-temurin/Contents/Home"
+               "TEST_VAR=foo-bar"
+               "USER=bozo"))
+      slime-lisp-implementations)
+
+(push '(test-ccl ("/usr/local/bin/ccl")
+         :coding-system utf-8-unix
+         :init slime-init-command
+         :env ("TEST_VAR=foo-bar"
+               "FOO_VAR=foofoofoo"))
+      slime-lisp-implementations)
+
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
