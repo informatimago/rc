@@ -136,6 +136,11 @@ Host linksys
     User                    root
     IdentityFile            ~/.ssh/linksys
 
+Host proteus
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
@@ -262,7 +267,8 @@ Host *
 #   CompressionLevel        3
     KeepAlive               yes
     GatewayPorts            no
-
+    IPQoS                   throughput
+    
 #    ServerAliveInterval     5
 
 
