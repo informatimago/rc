@@ -819,25 +819,26 @@ The HOST is added to the list of logical hosts defined.
 
 ;;;----------------------------------------------------------------------
 
-(defmacro or-error (&body expressions)
-  (if (rest expressions)
-      `(handler-case ,(first expressions)
-         (error ()
-           (or-error ,@(rest expressions))))
-      (first expressions)))
-
 (fmakunbound 'hostname)
-(defun hostname ()
-  "RETURN: The FQDN of the local host."
-  (handler-case
-      (string-trim #(#\newline)
-                   (or-error
-                     (shell-command-to-string "hostname --fqdn")
-                     (shell-command-to-string "hostname --long")
-                     (shell-command-to-string "hostname")))
-    (error (err)
-      (warn "~A" err)
-      "localhost")))
+(defun hostname (&key short long)
+  "RETURN: The FQDN of the local host.
+SHORT: get the short name
+LONG:  get the fqdn (default)"
+  (assert (not (and short long)))
+  (let ((long (or long (not short))))
+    (string-trim #(#\newline)
+                 (or
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --fqdn")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname -f")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --long")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname -s")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname")))
+                  "localhost"))))
 
 ;;;----------------------------------------------------------------------
 
