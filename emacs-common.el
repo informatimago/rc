@@ -60,7 +60,8 @@
 
 
 (defvar shell-file-name          "/bin/bash")
-(defvar *tempdir*                (format "/tmp/emacs%d" (user-uid)))
+(defvar *tempdir*                (format "/tmp/emacs%d"  (user-uid)))
+(defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
 (defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
 
 (defun .EMACS (fctl &rest args)
@@ -225,9 +226,27 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 (setf open-paren-in-column-0-is-defun-start nil)
 (setf minibuffer-max-depth nil)
-(setf print-circle t)
-(setf server-socket-dir *tempdir*
-      server-name       (format "server-%d" (emacs-pid)))
+(setf print-circle t
+      print-quoted t)
+
+;; server-socket-dir
+;; ;; --> "/var/folders/pq/82920zm125n09frk81rrtp200000gn/T/emacs501"
+;; server-name
+;; ;; --> "server"
+
+;; (setf server-socket-dir *tempdir*      
+;;       server-name       (format "server-%d" (emacs-pid)))
+;; 
+;; (setf server-socket-dir (if internal--daemon-sockname
+;;                             (file-name-directory internal--daemon-sockname)
+;;                             (and (featurep 'make-network-process '(:family local))
+;; 	                             (let ((xdg_runtime_dir (getenv "XDG_RUNTIME_DIR")))
+;; 	                               (if xdg_runtime_dir
+;; 	                                   (format "%s/emacs" xdg_runtime_dir)
+;; 	                                   (format "%s/emacs%d" (or (getenv "TMPDIR") "/tmp") (user-uid))))))
+;;       server-name        (if internal--daemon-sockname
+;;                              (file-name-nondirectory internal--daemon-sockname)
+;;                              "server"))
 
 (setf tetris-score-file "~/.tetris-scores")
 
@@ -422,17 +441,24 @@ WELCOME TO EMACS!
 (defalias 'dump-load-path 'print-load-path)
 
 
-(defun clean-load-path ()
-  "Remove slashes at the end of the path in load-path."
-  (setf load-path
-        (remove-duplicates
-         (mapcar (lambda (path)
-                   (if (string-match "^\\(.*[^/]\\)/*$" path)
-                       (match-string 1 path)
-                       path))
-                 load-path)
-         :test (function string=))))
+(defun clean-path (path)
+  "Clean the paths in `load-path'.
+- Remove slashes at the end of the path in load-path.
+- Expand ~/.
+- Remove double-slashes in the paths."
+(expand-file-name (if (string-match "^\\(.*[^/]\\)/*$" path)
+                                   (match-string 1 path)
+                                   path)))
 
+(defun clean-load-path ()
+  "Clean the paths in `load-path' and remove duplicates."
+  (setf load-path (remove-duplicates
+                   (mapcar (function clean-path) load-path)
+                   :test (function string=))))
+
+(defun add-to-load-path (path)
+  (push path load-path)
+  (clean-load-path))
 
 (defun load-pathname (file &optional nosuffix must-suffix)
   "Return the pathname of the file that would be loaded by (load file)."
@@ -734,12 +760,10 @@ SIDE must be the symbol `left' or `right'."
   (keyboard-translate ?\[ ?\[)
   (keyboard-translate ?\] ?\]))
 
-(defun translate-powerbook-keyboard ()
+(defun translate-mac-keyboard ()
   (interactive)
-  ;; (keyboard-translate ?\§ ?\`)
-  ;; (keyboard-translate ?\± ?\~)
-  )
-(defalias 'translate-macbook-keyboard  'translate-powerbook-keyboard)
+  (keyboard-translate ?\§ ?\`)
+  (keyboard-translate ?\± ?\~))
 
 (defmacro define-force-justification (direction)
   `(defun ,(intern (format "force-set-justification-%s" direction)) (start end)
@@ -883,21 +907,54 @@ SIDE must be the symbol `left' or `right'."
      (.EMACS "Setting Macintosh keyboard")
      (setq *window-manager-y-offset* (+ 24 24))
      (set-keyboard-coding-system 'mac-roman)
-     (translate-powerbook-keyboard)))
+     (translate-mac-keyboard)))
 
   (global-set-key (kbd "H-<up>")    'backward-same-indent)
   (global-set-key (kbd "H-<down>")  'forward-same-indent)
   (global-set-key (kbd "H-`")       'next-error)
 
-  (global-set-key (kbd "C-x 8 ^ -" ) (lambda () (interactive) (insert ?⁻)))
-  (global-set-key (kbd "C-x 8 ^ +" ) (lambda () (interactive) (insert ?⁺)))
-  (global-set-key (kbd "C-x 8 ^ 0" ) (lambda () (interactive) (insert ?⁰)))
-  (global-set-key (kbd "C-x 8 ^ 4" ) (lambda () (interactive) (insert ?⁴)))
-  (global-set-key (kbd "C-x 8 ^ 5" ) (lambda () (interactive) (insert ?⁵)))
-  (global-set-key (kbd "C-x 8 ^ 6" ) (lambda () (interactive) (insert ?⁶)))
-  (global-set-key (kbd "C-x 8 ^ 7" ) (lambda () (interactive) (insert ?⁷)))
-  (global-set-key (kbd "C-x 8 ^ 8" ) (lambda () (interactive) (insert ?⁸)))
-  (global-set-key (kbd "C-x 8 ^ 9" ) (lambda () (interactive) (insert ?⁹)))
+  (global-set-key (kbd "A-c")       "ç")
+  (global-set-key (kbd "S-A-c")     "Ç")
+  (global-set-key (kbd "¢")         "ç")
+  (global-set-key (kbd "©")         "Ç")
+
+  (global-set-key (kbd "C-x 8 ^ -") "⁻")
+  (global-set-key (kbd "C-x 8 ^ +") "⁺")
+  (global-set-key (kbd "C-x 8 ^ 0") "⁰")
+  (global-set-key (kbd "C-x 8 ^ 4") "⁴")
+  (global-set-key (kbd "C-x 8 ^ 5") "⁵")
+  (global-set-key (kbd "C-x 8 ^ 6") "⁶")
+  (global-set-key (kbd "C-x 8 ^ 7") "⁷")
+  (global-set-key (kbd "C-x 8 ^ 8") "⁸")
+  (global-set-key (kbd "C-x 8 ^ 9") "⁹")
+
+  (global-set-key (kbd "C-x 8 _ -") "₋")
+  (global-set-key (kbd "C-x 8 _ +") "₊")
+  (global-set-key (kbd "C-x 8 _ 0") "₀")
+  (global-set-key (kbd "C-x 8 _ 1") "₁")
+  (global-set-key (kbd "C-x 8 _ 2") "₂")
+  (global-set-key (kbd "C-x 8 _ 3") "₃")
+  (global-set-key (kbd "C-x 8 _ 4") "₄")
+  (global-set-key (kbd "C-x 8 _ 5") "₅")
+  (global-set-key (kbd "C-x 8 _ 6") "₆")
+  (global-set-key (kbd "C-x 8 _ 7") "₇")
+  (global-set-key (kbd "C-x 8 _ 8") "₈")
+  (global-set-key (kbd "C-x 8 _ 9") "₉")
+
+  (global-set-key (kbd "A-<left>")  "←")
+  (global-set-key (kbd "A-<right>") "→")
+  (global-set-key (kbd "A-<up>")    "↑")
+  (global-set-key (kbd "A-<down>")  "↓")
+
+  (global-set-key (kbd "C-A-<left>")  "⊂")
+  (global-set-key (kbd "C-A-<right>") "⊃")
+  (global-set-key (kbd "C-A-<up>")    "∩")
+  (global-set-key (kbd "C-A-<down>")  "∪")
+
+  (global-set-key (kbd "M-A-<left>")  "⊢")
+  (global-set-key (kbd "M-A-<right>") "⊣")
+  (global-set-key (kbd "M-A-<up>")    "⊤")
+  (global-set-key (kbd "M-A-<down>")  "⊥")
 
   nil)
 
@@ -1419,7 +1476,7 @@ URL in a new window."
 (defun redshank-looking-at-symbol (sym)
   (forward-sexp)
   (backward-sexp)
-  (string-equal* sym (symbol-at-point)))
+  (cl:string-equal sym (symbol-at-point)))
 
 (defun redshank-wrap-defgeneric (fname gf-lambda-list docstring)
   (paredit-wrap-sexp)
@@ -1452,16 +1509,16 @@ URL in a new window."
 
 (defun pjb-cl-equal-cl-symbol (cl-symbol item)
   (and  (char/= ?: (aref (prin1-to-string item) 0))
-   (or (string-equal* item cl-symbol)
-       (string-equal* item (format "CL:%s"           cl-symbol))
-       (string-equal* item (format "COMMON-LISP:%s"  cl-symbol))
-       (string-equal* item (format "CL::%s"          cl-symbol))
-       (string-equal* item (format "COMMON-LISP::%s" cl-symbol)))))
+   (or (cl:string-equal item cl-symbol)
+       (cl:string-equal item (format "CL:%s"           cl-symbol))
+       (cl:string-equal item (format "COMMON-LISP:%s"  cl-symbol))
+       (cl:string-equal item (format "CL::%s"          cl-symbol))
+       (cl:string-equal item (format "COMMON-LISP::%s" cl-symbol)))))
 
 
 (defun pjb-cl-equal-cl-keyword (cl-keyword item)
-  (and (string-equal* cl-keyword item)
-       (string-equal* "KEYWORD" (symbol-package item))))
+  (and (cl:string-equal cl-keyword item)
+       (cl:string-equal "KEYWORD" (symbol-package item))))
 
 
 
@@ -1607,7 +1664,7 @@ NOTE:    Excursion is saved.
        do (let ((form (progn (backward-sexp) (redshank-current-sexp))))
             (when (and (listp form)
                        (pjb-cl-equal-cl-symbol 'defpackage (car form))
-                       (string-equal* (second form) package-name))
+                       (cl:string-equal (second form) package-name))
               (return  (point)))
             (forward-sexp 2))
        while (< (point) (point-max))
@@ -1734,7 +1791,7 @@ RETURN: (path point)
               (forward-sexp)
               (loop
                  for sexp = (redshank-next-sexp)
-                 until (string-equal* (car sexp) :export))
+                 until (cl:string-equal (car sexp) :export))
               (let ((start (prog1 (point) (forward-sexp)))
                     (end   (prog1 (point) (backward-sexp))))
                 (forward-char)
@@ -1874,7 +1931,7 @@ RETURN: (path point)
                          (pjb-cl-equal-cl-symbol 'defgeneric (first form)))
                      (<= 2 (length form)))
                 (pjb-cl-export-symbols (list (pjb-cl-function-name-symbol (second form)))))
-               ((and (string-equal* "def" (first form)
+               ((and (cl:string-equal "def" (first form)
                                     :end2 (min 3 (length (prin1-to-string (first form)))))
                      (<= 2 (length form))
                      (symbolp (second form)))
@@ -2030,10 +2087,10 @@ in the current directory, or in a parent."
 (setf   *lw-clhs*          "www.lispworks.com/documentation/HyperSpec/")
 (defvar *hyperspec-path*)
 (setf   *hyperspec-path*   (first-existing-file
-			    (list
-			     (ignore-errors (get-directory :hyperspec))
-			     (concat "/usr/local/html/local/lisp/" *lw-clhs*)
-			     "/opt/local/share/doc/lisp/HyperSpec-7-0/"))
+			                (list
+			                 (ignore-errors (get-directory :hyperspec))
+			                 (concat "/usr/local/html/local/lisp/" *lw-clhs*)
+			                 "/opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"))
         common-lisp-hyperspec-root
         (dolist
             (url (list
@@ -2046,9 +2103,10 @@ in the current directory, or in a parent."
 
 (defvar common-lisp-hyperspec-browser (function ignore))
 (defvar common-lisp-hyperspec-frame   (selected-frame))
-(load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
+(or (load "extra/hyperspec" *pjb-load-noerror* *pjb-load-silent*)
+    (load "~/emacs/slime/lib/hyperspec" *pjb-load-noerror* *pjb-load-silent*))
 
-;; (setf common-lisp-hyperspec-browser 'w3m-browse-url 
+;; (setf common-lisp-hyperspec-browser 'w3m-browse-url)
 ;; (push '("."  .  w3m-browse-url) browse-url-browser-function)
 
 (defun thing-at-point-no-properties (thing)
@@ -2067,8 +2125,11 @@ a symbol as a valid THING."
 
 
 
+;; (defalias 'clhs               'slime-hyperspec-lookup)
+;; (defalias 'hyperspec-lookup   (lambda () (interactive) (beep)))
+;; (global-set-key (kbd "C-h y") 'hyperspec-lookup)
 
-(when (or t  (boundp 'common-lisp-hyperspec-symbols))
+(when  (or t  (boundp 'common-lisp-hyperspec-symbols))
 
   (defun common-lisp-hyperspec-complete (string predicate allp)
     (if allp
@@ -2077,7 +2138,7 @@ a symbol as a valid THING."
            (lambda (symbol)
              (let ((name (symbol-name symbol)))
                (when (or (and (<= (length string) (length name))
-                              (string-equal* string name :end2 (length string)))
+                              (cl:string-equal string name :end2 (length string)))
                          (search (concat "-" string) name :test (function equalp)))
                  (push name result))))
            common-lisp-hyperspec-symbols)
@@ -2170,7 +2231,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
   (defalias 'hyperspec-lookup   'common-lisp-hyperspec) ; 'gcl-hyperspec)
   (global-set-key (kbd "C-h y") 'hyperspec-lookup)
 
-  ) ;;(boundp 'common-lisp-hyperspec-symbols)
+  )
 
 
 (defun random-hyperspec ()
@@ -2841,17 +2902,19 @@ License:
   '(("/.*FreeRDP.*/.*\\.[hc]" . "freerdp")
     ("." . "pjb")))
 
-(defvar *pjb-c-mode-meat-blacklist* '())
+(defvar *pjb-c-mode-meat-exclude* '())
+
+(defun pjb-c-mode-file-p (filename)
+  (and filename (not (find-if (lambda (re) (string-match re filename))
+                              *pjb-c-mode-meat-exclude*))))
 
 (defun c-mode-meat ()
   (interactive)
   (let ((filename (buffer-file-name)))
-    (when (and filename
-               (not (find-if (lambda (re) (string-match re filename))
-                             *pjb-c-mode-meat-blacklist*)))
+    (when (pjb-c-mode-file-p filename)
       (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
       (infer-indentation-style)
-      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) path))
+      (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) filename))
                                    *auto-c-style-alist*))))
         (when c-style
           (message "Setting C style %s" c-style)
@@ -3133,8 +3196,10 @@ License:
                     ".notes.utf-8" ".notes*[a-z]"))
       (let ((files (file-expand-wildcards (concat dir file) t)))
         (when files
-          (find-file (first files))
-          (return-from notes))))))
+          (let ((efiles  (find 'file-exists-p files)))
+            (when efiles
+              (find-file (first efiles))
+              (return-from notes))))))))
 
 
 (defun afaire ()

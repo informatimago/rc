@@ -172,6 +172,59 @@
              "PCmyungjo"
              "PT Mono"))
 
+          ((kuiper-x11-despina)
+
+           '("Courier Rgular"
+             "Courier Bold Italic"
+             "Courier Italic"
+             "Courier Bold"
+             "DejaVu Sans Mono Bold Oblique"
+             "DejaVu Sans Mono Oblique"
+             "DejaVu Sans Mono Bold"
+             "DejaVu Sans Mono Book"
+             "Latin Modern Mono Bold"
+             "Latin Modern Mono Caps Bold"
+             "Latin Modern Mono Cond Bold"
+             "Latin Modern Mono Cond Italic"
+             "Latin Modern Mono Prop Bold"
+             "Latin Modern Mono Prop Bold Italic"
+             "Latin Modern Mono Light Bold"
+             "Latin Modern Mono Light Bold Italic"
+             "Latin Modern Mono Slanted Bold"
+             "Latin Modern Mono Slanted Bold Italic"
+             "Liberation Mono Regular"
+             "Liberation Mono Bold Italic"
+             "Liberation Mono Bold"
+             "Liberation Mono Italic"
+             "Monospace"
+             "Monospace Bold"
+             "Monospace Bold Italic"
+             "Nimbus Mono L Bold"
+             "Nimbus Mono L Bold Oblique"
+             "Nimbus Mono L Regular"
+             "Nimbus Mono L Regular Oblique"
+             "Noto Mono Bold"
+             "Noto Mono Bold Italic"
+             "TeX Gyre Cursor Bold"
+             "TeX Gyre Cursor Bold Italic")
+           
+           ;; $ xlsfonts|grep -e -m-|sed -e 's/-[rio]-.*//'|sort -u
+           ;; -adobe-courier-bold
+           ;; -adobe-courier-medium
+           ;; -apple-.sf ns mono-light
+           ;; -b&h-lucidatypewriter-bold
+           ;; -b&h-lucidatypewriter-medium
+           ;; -b&h-luxi mono-bold
+           ;; -b&h-luxi mono-medium
+           ;; -bitstream-bitstream vera sans mono-bold
+           ;; -bitstream-bitstream vera sans mono-medium
+           ;; -bitstream-courier 10 pitch-bold
+           ;; -bitstream-courier 10 pitch-medium
+           ;; -bitstream-menlo-medium
+           ;; -ibm-courier-bold
+           ;; -ibm-courier-medium
+           
+           )
           (otherwise
            '(
              "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"
@@ -303,7 +356,15 @@
 
 ;; ------------------------------------------------------------------------
 
+(when nil
 
+  (pjb-frame-font (selected-frame))
+  "-bitstream-bitstream vera sans mono-medium-r-normal--21-152-100-100-m-130-iso8859-1"
+  "-bitstream-bitstream vera sans mono-medium-r-normal--19-137-100-100-m-110-iso8859-1"
+  "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1"
+
+  (set-frame-font  )
+  )
 
 
 ;; ------------------------------------------------------------------------

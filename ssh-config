@@ -17,26 +17,130 @@
 #      ServerAliveInterval 15
 
 Host 192.168.7.5?
-    User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
-Host 192.168.7.68
-    User linaro
+Host 192.168.7.6?
     IdentityFile ~/.ssh/qorvo-dragon
 
-Host dragon*
+Host rpi4
+    User ubuntu
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host rpi4
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host db845c
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
 
 Host db845c
+    HostName 192.168.7.71
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon
+    HostName 192.168.7.71
     User linaro
     IdentityFile ~/.ssh/qorvo-dragon
+
+Host dragon
+    HostName 192.168.7.71
+    User root
+    IdentityFile ~/.ssh/qorvo-dragon
+
+
+Host p21
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host marvin
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host marvin.officeapps.sevenhugs.com
+    HostName marvin.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
+
+Host r2-d2
+    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
+Host hal-9000
+    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
+Host wall-e
+    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+
+Host t-800
+    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
+    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
+    user pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
 
 Host gitlab.officeapps.sevenhugs.com
     HostName gitlab.officeapps.sevenhugs.com
     User                    pbourguignon
     IdentityFile            ~/.ssh/qorvo
-    
+
+Host ovh-02
+    HostName ovh-02.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+Host ovh-02.officeapps.sevenhugs.com
+    HostName ovh-02.officeapps.sevenhugs.com
+    User                    pbourguignon
+    IdentityFile            ~/.ssh/qorvo
+
+Host salsa.debian.org
+    HostName salsa.debian.org
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-salsa-debian
+
+Host linksys
+    HostName                192.168.1.1
+    User                    root
+    IdentityFile            ~/.ssh/linksys
+
+Host proteus
+    HostName                proteus.sbde.fr
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
 Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
@@ -62,6 +166,11 @@ Host gist.github.com
     HostName                github.com
     User                    git
     IdentityFile            ~/.ssh/github
+
+Host qorvo.gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/qorvo-gitlab
 
 Host gitlab.com
     HostName                gitlab.com
@@ -91,7 +200,7 @@ Host git.framasoft.org
 Host common-lisp.net
     HostName                common-lisp.net
     User                    git
-    IdentityFile            ~/.ssh/common-lisp-net
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host patchy+github.com
     HostName                github.com
@@ -108,6 +217,32 @@ Host vmdebian
     HostName                vmdebian
     User                    pjb
     IdentityFile            ~/.ssh/pjb-vmdebian@despina
+
+Host gitlab.informatimago.com
+    HostName                192.168.7.9
+    User                    informatimago
+    IdentityFile            ~/.ssh/pjb-kuiper-gitlab
+
+Host hubble
+    HostName                hubble.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/hubble
+    
+Host hubble
+    HostName                hubble.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/hubble
+
+
+Host qorvo
+    HostName                qorvo.lan.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/qorvo
+    
+Host qorvo
+    HostName                qorvo.lan.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/qorvo
 
 
 # ----------------------------------------
@@ -132,7 +267,8 @@ Host *
 #   CompressionLevel        3
     KeepAlive               yes
     GatewayPorts            no
-
+    IPQoS                   throughput
+    
 #    ServerAliveInterval     5
 
 

@@ -41,6 +41,7 @@
                          (or (let* ((hostname-configuration-map
                                       '(("macbook[-.]trustonic.local" . "~/rc/emacs-trustonic.el")
                                         ("^vmlinux"                   . "~/rc/emacs-trustonic.el")
+                                        ("^qorvo"                     . "~/rc/emacs-qorvo.el")
                                         ("^mercure"                   . "~/rc/emacs-ubudu.el")
                                         ("^uiserver"                  . "~/rc/emacs-ubudu.el")
                                         ("^ubudair"                   . "~/rc/emacs-ubudu.el")

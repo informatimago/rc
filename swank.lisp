@@ -27,6 +27,12 @@
 (defparameter swank::*auto-abbreviate-dotted-packages* t)
 (defparameter swank:*globally-redirect-io*             nil)
 
+
+(push (merge-pathnames  #P"emacs/lisp-system-browser/"
+                        (user-homedir-pathname))
+      swank::*load-path*)
+
+
 (defvar *swank-bindings*
   `((*PRINT-PRETTY* . nil)
     (*PRINT-LEVEL* . nil)

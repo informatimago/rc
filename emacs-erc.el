@@ -12,7 +12,7 @@
 
      "#lisp"
      "#commonlisp"
-     "##lispm"
+     "##lispm" "#interlisp"
 
      "#clschool"  "#lisp-es"
      "#abcl" "#ccl" "#ecl" "#sicl"
@@ -20,12 +20,15 @@
      "#lispcafe"  "#lispweb" "#lispgames"
      "#common-lisp.net" "#nyxt"
      "#cl-naive"
+
+     "#clergo"
      
-     ;; "#emacs"
-     "#emacs-beginners" "#org-mode" "#erc" "#gnus"
+     "#emacs" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
-     "#emacsfr-off")
+     "#emacsfr-off" "##coding"
+
+     "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel")
 
     ("freenode.org"
 
@@ -62,7 +65,7 @@
     ("irc.sbde.fr" "#laboite" "#sbde")
     ("irc.oftc.net" "#uml")))
 
-;; (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
+(setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
 
 (defun pjb-join-channels ()
   (interactive)
@@ -105,10 +108,15 @@
   "Connect to IRC."
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "pjb" :full-name "Pascal J. Bourguignon")
-  ;; (erc     :server "irc.freenode.net" :port 6667
-  ;;          :nick "pjb" :full-name "Pascal J. Bourguignon")
-  )
+           :nick "pjb" :full-name "Pascal J. Bourguignon"))
+
+(defun start-irc-ogamita ()
+  "Connect to IRC."
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697
+           :nick "ogamita" :full-name "Pascal J. Bourguignon"))
+
+
 
 ;; Local Variables:
 ;; coding: utf-8
