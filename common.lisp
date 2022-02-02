@@ -819,25 +819,26 @@ The HOST is added to the list of logical hosts defined.
 
 ;;;----------------------------------------------------------------------
 
-(defmacro or-error (&body expressions)
-  (if (rest expressions)
-      `(handler-case ,(first expressions)
-         (error ()
-           (or-error ,@(rest expressions))))
-      (first expressions)))
-
 (fmakunbound 'hostname)
-(defun hostname ()
-  "RETURN: The FQDN of the local host."
-  (handler-case
-      (string-trim #(#\newline)
-                   (or-error
-                     (shell-command-to-string "hostname --fqdn")
-                     (shell-command-to-string "hostname --long")
-                     (shell-command-to-string "hostname")))
-    (error (err)
-      (warn "~A" err)
-      "localhost")))
+(defun hostname (&key short long)
+  "RETURN: The FQDN of the local host.
+SHORT: get the short name
+LONG:  get the fqdn (default)"
+  (assert (not (and short long)))
+  (let ((long (or long (not short))))
+    (string-trim #(#\newline)
+                 (or
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --fqdn")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname -f")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --long")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname -s")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname")))
+                  "localhost"))))
 
 ;;;----------------------------------------------------------------------
 
@@ -1301,44 +1302,46 @@ without, lists all the commands with their docstrings."
   "/Users/pjb/src/pjb/nasium-lse/"
   ))
 
-(mapc (lambda (project)
-        (com.informatimago.pjb::register-system-location (pathname project) :force nil))
-      '(
-        ;; good projects
-        "~/src/public/bocl/"
-        "~/src/public/mc/"
-        "~/src/public/hw/"
-        "~/src/public/games/"
-        "~/src/public/fgfs/"
-        "~/src/public/domains/"
-        "~/src/public/common-lisp-exercises/"
-        "~/src/public/commands/"
-        "~/src/lisp-tidbits/count-words/"
-        "~/src/java/listeria/lisp/"
-        "~/src/cobol/lisp/"
-
-        ;; alien projects
-        "~/src/others/common-lisp/s-expressionists/"
-        "~/src/others/common-lisp/robert-strandh/"
-        "~/src/others/common-lisp/mfiano/"
-        "~/src/others/common-lisp/massung/"
-        "~/src/others/common-lisp/edicl/"
-        "~/src/others/common-lisp/snow/"
-        "~/src/others/common-lisp/pavel.gik.kit.edu/"
-        "~/src/others/common-lisp/incudine/"
-        "~/src/others/common-lisp/imap/"
-        "~/src/others/common-lisp/cpc/"
-        "~/src/others/common-lisp/cormanlisp/"
-        "~/src/others/common-lisp/clicc/"
-        "~/src/others/common-lisp/cl-crypto/"
-        "~/src/others/common-lisp/cl-cuda/"
-        "~/src/others/common-lisp/agrostis/"
-        "~/src/others/common-lisp/stuij/"
-        "~/src/others/common-lisp/admich/"
-        "~/src/others/common-lisp/Shinmera/"
-        "~/src/others/common-lisp/McCLIM/"
-        "~/src/others/common-lisp/Apress/"
-        ))
+  (mapc (lambda (project)
+          (com.informatimago.pjb::register-system-location (pathname project) :force nil))
+        (append '(
+                  ;; good projects
+                  "~/src/public/bocl/"
+                  "~/src/public/mc/"
+                  "~/src/public/hw/"
+                  "~/src/public/games/"
+                  "~/src/public/fgfs/"
+                  "~/src/public/domains/"
+                  "~/src/public/common-lisp-exercises/"
+                  "~/src/public/commands/"
+                  "~/src/lisp-tidbits/count-words/"
+                  "~/src/java/listeria/lisp/"
+                  "~/src/cobol/lisp/"
+                  )
+                (unless (uiop:getenv "REGISTER_SYSTEM_LOCATION_DISABLE_OTHERS")
+                  '(
+                    ;; alien projects
+                    "~/src/others/common-lisp/s-expressionists/"
+                    "~/src/others/common-lisp/robert-strandh/"
+                    "~/src/others/common-lisp/mfiano/"
+                    "~/src/others/common-lisp/massung/"
+                    "~/src/others/common-lisp/edicl/"
+                    "~/src/others/common-lisp/snow/"
+                    "~/src/others/common-lisp/pavel.gik.kit.edu/"
+                    "~/src/others/common-lisp/incudine/"
+                    "~/src/others/common-lisp/imap/"
+                    "~/src/others/common-lisp/cpc/"
+                    "~/src/others/common-lisp/cormanlisp/"
+                    "~/src/others/common-lisp/clicc/"
+                    "~/src/others/common-lisp/cl-crypto/"
+                    "~/src/others/common-lisp/cl-cuda/"
+                    "~/src/others/common-lisp/agrostis/"
+                    "~/src/others/common-lisp/stuij/"
+                    "~/src/others/common-lisp/admich/"
+                    "~/src/others/common-lisp/Shinmera/"
+                    "~/src/others/common-lisp/McCLIM/"
+                    "~/src/others/common-lisp/Apress/"
+                    ))))
 ;;;
 
 

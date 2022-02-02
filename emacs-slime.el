@@ -41,16 +41,22 @@
 (require 'slime)
 (require 'slime-autoloads)
 
-(slime-setup '(slime-fancy
-               slime-asdf
-               slime-presentations
-               slime-sprof
-               slime-compiler-notes-tree
-               slime-hyperdoc
-               slime-indentation
-               slime-mrepl
-               slime-repl
-               slime-media))
+
+(add-to-load-path "~/emacs/lisp-system-browser")
+(add-to-load-path "~/emacs/emacs-window-layout")
+(setq slime-contribs '(slime-fancy
+                       system-browser
+                       slime-asdf
+                       slime-presentations
+                       slime-sprof
+                       slime-compiler-notes-tree
+                       slime-hyperdoc
+                       slime-indentation
+                       slime-mrepl
+                       slime-repl
+                       slime-media))
+
+(slime-setup slime-contribs)
 
 
 (setf slime-net-coding-system        'utf-8-unix)
@@ -274,10 +280,11 @@
 
   (define-lisp-implementation sbcl
       (mapcar (lambda (cmd) (list cmd "--noinform"))
-              '("/data/languages/sbcl/bin/sbcl"
+              '("/opt/local/bin/sbcl"
                 "/usr/local/bin/sbcl"
-                "/opt/local/bin/sbcl"
-                "/usr/bin/sbcl"))
+                "/data/languages/sbcl/bin/sbcl"
+                "/usr/bin/sbcl"
+                ))
     "^\\[[0-9]*\\]> "
     utf-8)
 
@@ -985,6 +992,27 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
                       (function pjb-sldb-insert-top-message))))
 
 (add-hook 'sldb-hook 'pjb-sldb-observe-variables)
+
+
+;; M-- M-x slime RET or C-u C-- M-x slime to select the implementation by symbol:
+
+(push '(abcl ("/usr/bin/java" "-jar"
+               "/opt/local/share/java/abcl/abcl.jar"
+               "/opt/local/share/java/abcl/abcl-contrib.jar"
+               "-Xmx6g")
+         :coding-system utf-8-unix
+         :env ("JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-temurin/Contents/Home"
+               "TEST_VAR=foo-bar"
+               "USER=bozo"))
+      slime-lisp-implementations)
+
+(push '(test-ccl ("/usr/local/bin/ccl")
+         :coding-system utf-8-unix
+         :init slime-init-command
+         :env ("TEST_VAR=foo-bar"
+               "FOO_VAR=foofoofoo"))
+      slime-lisp-implementations)
+
 
 ;; Local Variables:
 ;; coding: utf-8

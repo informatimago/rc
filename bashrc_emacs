@@ -8,8 +8,11 @@ unset LC_TIME
 export LC_CTYPE=en_US.UTF-8
 
 export PAGER=cat
-export TERM=emacs
+
+# echo INSIDE_EMACS=$INSIDE_EMACS
+
 alias less=cat
 alias more=cat
 stty rows 10000 columns 80  2>/dev/null
+
 echo '# welcome to emacs shell'

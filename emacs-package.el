@@ -9,13 +9,10 @@
 (add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem")
 
 (.EMACS "Initializing emacs packages.")
-;; Anyn add to list for package-archives (to add marmalade or melpa) goes here
 (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
-                         ("melpa"         . "https://melpa.org/packages/")
-                         ;; ("marmalade"     . "https://marmalade-repo.org/packages/")
-                         ;; ("melpa-stable"  . "https://stable.melpa.org/packages/")
-                         ;; ("org"           . "https://orgmode.org/elpa/")
-                         ))
+                         ("melpa-stable"  . "https://stable.melpa.org/packages/")
+                         ;; ("melpa"         . "http://melpa.org/packages/")
+                         ("org"           . "http://orgmode.org/elpa/")))
 
 ;; (package-initialize) in emacs.el
 (when (not package-archive-contents)

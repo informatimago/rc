@@ -38,11 +38,13 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
+	#
+	# COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
+	# chroots, and other subprocesses where the environment is
+	# reset.  Therefore we reset use_color from the terminal below.
+	#
+
     local use_color="${COLOR_PROMPT:-false}"
-    local prompt='$ '
-    local prefix=''
-    local pc=''
-    local ibam=''
     local escape=''
     local bold="${escape}"'[1m'
     local underline="${escape}"'[4m'
@@ -69,33 +71,82 @@ function bashrc_set_prompt(){
     local cyan_back="${escape}"'[46m'
     local white_back="${escape}"'[47m'
     local normal="${escape}"'[0m'
+	# ---
+	local chroot=''
+    local prefix=''
+    local cookie=''
+    local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
+	local time='$(date +%H:%M)'
+	local base='[\u@\h '"${display}"' \W '"${available}"']'
+    local prompt='$ '
 
     if ((UID==0)) ; then
         prompt='# '
     fi
 
-    if [[ "$TERM" = "emacs" ]] ; then
-        prefix="\n\\w\n"
-    fi
-    prefix="${prefix}"
+    case "$TERM" in
+	(dumb)
+		if [ -n "$INSIDE_EMACS" -o -n "$SCHROOT_CHROOT_NAME" ] ; then
+            prefix="\\w" 
+            use_color=true
+		fi
+		;;
+	(emacs)
+        prefix="\\w" 
+        use_color=true
+        ;;
+    (xterm)
+        use_color=true
+        ;;
+	esac
+    export COLOR_PROMPT="${use_color}"
 
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
-        pc='$('"$(type -path period-cookie)"')\n'
+        cookie='$('"$(type -path period-cookie)"')'
     fi
 
     if type -p ibam >/dev/null 2>&1 ; then
         ibam="\$(ibam|head -1|sed -e 's/Charge time left: */C\//' -e 's/Battery time left: */B\//' -e 's/Total battery time: */F\//')"
     fi
 
-    if $use_color ; then
-        export PS1="\[${black_back}${cyan}\]${pc}\[${yellow}\]${prefix}\[${black}${yellow_back}\]${ibam}\[${blue}${white_back}\][\u@\h ${display} \W ${available}]\[${red}${black_back}\]${prompt}\[${normal}\]"
-    else
-        export PS1="${pc}${prefix}${ibam}[\u@\h ${display} \W ${available}]${prompt}\[${normal}\]"
+    if [ -n "${SCHROOT_CHROOT_NAME:=}" ] ; then
+        chroot="${SCHROOT_CHROOT_NAME:=}"
     fi
+
+    if [ -n "$chroot" ] ; then
+        chroot="(${chroot})"
+    fi
+    if $use_color ; then
+		if [ -n "$chroot" ] ; then
+			chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
+		fi
+		# if [ -n "$cookie" ] ; then
+		# 	cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
+		# fi
+		if [ -n "$prefix" ] ; then
+			prefix="\[${yellow}\]${prefix}\[${normal}\]"
+		fi
+		if [ -n "$ibam" ] ; then
+			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
+		fi
+		if [ -n "$time" ] ; then
+			time="\[${yellow}${black_back}\]${time}\[${normal}\]"
+		fi
+		if [ -n "$base" ] ; then
+			base="\[${cyan}${black_back}\]${base}\[${normal}\]"
+		fi
+		if [ -n "$prompt" ] ; then
+			prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
+		fi
+	fi	
+    if [ -n "$prefix" ] ; then
+        prefix="\n${prefix}\n"
+    fi
+    export PS1="${chroot}${cookie}${prefix}${ibam}${time}${base}${prompt}"
 
     export SAVED_PS1="$PS1"
     #PS1='$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}   1.8.32.41.49-5    ${NORMAL}")'"$SAVED_PS1"
@@ -250,6 +301,15 @@ function prependIfDirectoryExists(){
 
 be="$HOME/.bash_env.$$"
 
+function first_locale(){
+    local locale
+	for locale in "$@" ; do
+		if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
+			break
+		fi
+	done
+	echo $locale
+}
 
 function be_comment(){
     printf "# %s\n" "$@" >> "$be"
@@ -294,6 +354,7 @@ function be_generate(){
         "$HOME/bin"
         "$HOME/opt/bin"
         "$HOME/.rvm/bin" # Add RVM to PATH for scripting
+        "$HOME/.local/bin"
 
         /usr/local/bin
         /usr/local/sbin
@@ -347,6 +408,7 @@ function be_generate(){
     )
 
     editors=(
+		"$HOME/bin/ec"
         emacsclient
         ed
         vi
@@ -386,7 +448,7 @@ function be_generate(){
         # socket=(--socket-name=/tmp/emacs${UID}/server)
         # EDITOR, VISUAL, etc, take only the command, no arguments.
         e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-        e=ec
+        e=$HOME/bin/ec
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -510,18 +572,29 @@ function be_generate(){
 
     be_unset GNOME_KEYRING_CONTROL
 
-    # Most prioritary:
-    be_unset    LC_ALL
-    # If LC_ALL is not defined:
-    be_unset    LC_MONETARY               fr_FR.UTF-8
-    be_unset    LC_MESSAGES               en_US.UTF-8
-    be_unset    LC_NUMERIC                fr_FR.UTF-8
-    be_unset    LC_TIME                   fr_FR.UTF-8
-    be_variable LC_COLLATE                C
-    be_variable LC_CTYPE                  C
-    # If the above are not defined:
-    be_variable LANG                      en_US.UTF-8
-    be_unset    LANGUAGE
+
+	# --------------------
+	# Locale clusterfuck
+	# --------------------
+	#
+	# Unset, in reverse order of priority, to avoid warnings…
+	# Then, check the locales first: often, the wanted locales are not available!
+	#
+
+	# local fr=$(first_locale fr_FR.UTF-8 C)
+	local en=$(first_locale en_US.UTF-8 C)
+	
+    be_unset    LANGUAGE      # If the following are not defined.
+    be_unset    LANG          # If the following are not defined.
+    be_unset    LC_CTYPE      # If LC_ALL is not defined.
+    be_unset    LC_COLLATE    # If LC_ALL is not defined.
+    be_unset    LC_TIME       # If LC_ALL is not defined.
+    be_unset    LC_NUMERIC    # If LC_ALL is not defined.
+    be_unset    LC_MESSAGES   # If LC_ALL is not defined.
+    be_unset    LC_MONETARY   # If LC_ALL is not defined.
+    be_unset    LC_ALL        # Most prioritary.
+
+    be_variable LANG  "${en}"
 
     be_unset XMODIFIERS
 
@@ -633,7 +706,9 @@ function bashrc_load_completions(){
     if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
         local script
         for script in radio fpm new-password religion ; do
-	        eval $( "$script" --bash-completion-function )
+			if type -p "$script" 2>&1 >/dev/null ; then
+		        eval $( "$script" --bash-completion-function )
+			fi
         done
     fi
 
@@ -885,6 +960,7 @@ function bashrc_define_aliases(){
     alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
     alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
 
+    alias screen='screen -A'
 
     if [[ -x /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII ]] ; then
         function basilisk(){ /data/src/emulators/macemu/BasiliskII/src/Unix/BasiliskII "$@" ; }
