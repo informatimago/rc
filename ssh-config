@@ -136,6 +136,12 @@ Host linksys
     User                    root
     IdentityFile            ~/.ssh/linksys
 
+Host sdf
+    HostName                sdf.org
+    User                    pjb
+    IdentityFile            ~/.ssh/sdf-rsa
+
+    
 Host proteus
     HostName                proteus.sbde.fr
     User                    pjb
