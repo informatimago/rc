@@ -8,7 +8,6 @@
   '(
 
     ("irc.libera.chat"
-     "##kernel" "#linux-kernel"
 
      "#lisp"
      "#commonlisp"
@@ -22,13 +21,16 @@
      "#cl-naive"
 
      "#clergo"
+     ;; "#els2022"
      
      "#emacs" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
-     "#emacsfr-off" "##coding"
-
-     "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel")
+     "#emacsfr-off"
+     ;; "##coding"
+     ;; "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel"
+     ;; "##kernel" "#linux-kernel"
+     )
 
     ("freenode.org"
 
