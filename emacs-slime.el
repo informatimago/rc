@@ -39,23 +39,23 @@
 (.EMACS "emacs-slime.el")
 
 (require 'slime)
-;; (require 'slime-autoloads)
+(require 'slime-autoloads)
 
 
 (add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
 (add-to-load-path "~/.emacs.d/site-lisp/emacs-window-layout")
 
-;; (setq slime-contribs '(slime-fancy
-;;                        system-browser
-;;                        slime-asdf
-;;                        slime-presentations
-;;                        slime-sprof
-;;                        slime-compiler-notes-tree
-;;                        slime-hyperdoc
-;;                        slime-indentation
-;;                        slime-mrepl
-;;                        slime-repl
-;;                        slime-media))
+(setq slime-contribs '(slime-fancy
+                       ;; system-browser
+                       slime-asdf
+                       slime-presentations
+                       slime-sprof
+                       slime-compiler-notes-tree
+                       slime-hyperdoc
+                       slime-indentation
+                       slime-mrepl
+                       slime-repl
+                       slime-media))
 
 (slime-setup slime-contribs)
 
@@ -1012,6 +1012,12 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
          :init slime-init-command
          :env ("TEST_VAR=foo-bar"
                "FOO_VAR=foofoofoo"))
+      slime-lisp-implementations)
+
+
+(push '(ccl-1252 ("/usr/local/bin/ccl" "--terminal-encoding" "windows-1252")
+         :coding-system windows-1252
+         :init slime-init-command)
       slime-lisp-implementations)
 
 

@@ -111,8 +111,10 @@
 ;; (setf COMMON-LISP-USER::*default-bundle-path* "CCL:OPENMCL.APP;")
 ;;  ccl::*module-search-path*  ;; paths used by REQUIRE.
 
-(setf ccl:*short-site-name* (com.informatimago.pjb:hostname :short t)
-      ccl:*long-site-name*  (com.informatimago.pjb:hostname :long t))
+(cond ((string= "despina" (machine-instance))
+       (setf ccl:*short-site-name* "Informatimago Workstation"
+             ccl:*long-site-name*  "Informatimago Workstation, Home office")))
+
 
 (defun locale-terminal-encoding ()
   "Returns the terminal encoding specified by the locale(7)."
