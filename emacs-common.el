@@ -918,28 +918,60 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "¢")         "ç")
   (global-set-key (kbd "©")         "Ç")
 
-  (global-set-key (kbd "C-x 8 ^ -") "⁻")
-  (global-set-key (kbd "C-x 8 ^ +") "⁺")
-  (global-set-key (kbd "C-x 8 ^ 0") "⁰")
-  (global-set-key (kbd "C-x 8 ^ 4") "⁴")
-  (global-set-key (kbd "C-x 8 ^ 5") "⁵")
-  (global-set-key (kbd "C-x 8 ^ 6") "⁶")
-  (global-set-key (kbd "C-x 8 ^ 7") "⁷")
-  (global-set-key (kbd "C-x 8 ^ 8") "⁸")
-  (global-set-key (kbd "C-x 8 ^ 9") "⁹")
+  (progn
+    (define-key iso-transl-ctl-x-8-map (kbd "8") "∞")
+    
+    (define-key iso-transl-ctl-x-8-map (kbd "<") nil)  
+    (define-key iso-transl-ctl-x-8-map (kbd "< =") "≤")
+    (define-key iso-transl-ctl-x-8-map (kbd "< <") "«")
+    (define-key iso-transl-ctl-x-8-map (kbd "< >") "≶")
+    
+    (define-key iso-transl-ctl-x-8-map (kbd ">") nil)  
+    (define-key iso-transl-ctl-x-8-map (kbd "> =") "≥")
+    (define-key iso-transl-ctl-x-8-map (kbd "> >") "»")
 
-  (global-set-key (kbd "C-x 8 _ -") "₋")
-  (global-set-key (kbd "C-x 8 _ +") "₊")
-  (global-set-key (kbd "C-x 8 _ 0") "₀")
-  (global-set-key (kbd "C-x 8 _ 1") "₁")
-  (global-set-key (kbd "C-x 8 _ 2") "₂")
-  (global-set-key (kbd "C-x 8 _ 3") "₃")
-  (global-set-key (kbd "C-x 8 _ 4") "₄")
-  (global-set-key (kbd "C-x 8 _ 5") "₅")
-  (global-set-key (kbd "C-x 8 _ 6") "₆")
-  (global-set-key (kbd "C-x 8 _ 7") "₇")
-  (global-set-key (kbd "C-x 8 _ 8") "₈")
-  (global-set-key (kbd "C-x 8 _ 9") "₉")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ -") "⁻")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ +") "⁺")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 0") "⁰")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 4") "⁴")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 5") "⁵")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 6") "⁶")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 7") "⁷")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 8") "⁸")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 9") "⁹")
+
+    (define-key iso-transl-ctl-x-8-map (kbd "_ -") "₋")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ +") "₊")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 0") "₀")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 1") "₁")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 2") "₂")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 3") "₃")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 4") "₄")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 5") "₅")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 6") "₆")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 7") "₇")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 8") "₈")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 9") "₉")
+
+    (define-key iso-transl-ctl-x-8-map (kbd "<left>")  "←")
+    (define-key iso-transl-ctl-x-8-map (kbd "<right>") "→")
+    (define-key iso-transl-ctl-x-8-map (kbd "<up>")    "↑")
+    (define-key iso-transl-ctl-x-8-map (kbd "<down>")  "↓")
+
+
+    (define-key iso-transl-ctl-x-8-map (kbd "c") nil)
+    (define-key iso-transl-ctl-x-8-map (kbd "c <left>")  "⊂")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <right>") "⊃")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <up>")    "∩")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <down>")  "∪")
+    (define-key iso-transl-ctl-x-8-map (kbd "c |")
+      (lambda (repeat) (interactive "p") (self-insert-command (or repeat 1) ?¢)))
+
+    (define-key iso-transl-ctl-x-8-map (kbd "t <left>")  "⊢")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <right>") "⊣")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <up>")    "⊤")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <down>")  "⊥"))
+  
 
   (global-set-key (kbd "A-<left>")  "←")
   (global-set-key (kbd "A-<right>") "→")
@@ -957,6 +989,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "M-A-<down>")  "⊥")
 
   nil)
+
+(pjb-global-key-bindings)
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "PJB FUNCTION KEYS")

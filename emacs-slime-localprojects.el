@@ -1,10 +1,10 @@
-;;; emacs-slime -- Pascal J. Bourguignon's emacs startup files.
+;;; emacs-slime-localprojects -- Pascal J. Bourguignon's emacs startup files.
 ;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;; Commentary:
 ;;; Code:
 
 ;;;;**************************************************************************
-;;;;FILE:               emacs-slime.el
+;;;;FILE:               emacs-slime-localprojects.el
 ;;;;LANGUAGE:           emacs lisp
 ;;;;SYSTEM:             POSIX
 ;;;;USER-INTERFACE:     NONE
@@ -36,28 +36,52 @@
 ;;;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;;;**************************************************************************
 
-(.EMACS "emacs-slime.el")
-
-(require 'slime)
-(require 'slime-autoloads)
+(.EMACS "emacs-slime-localprojects.el")
 
 
-(add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
-(add-to-load-path "~/.emacs.d/site-lisp/emacs-window-layout")
+;; This is about the easiest profiling I've seen in any language. In
+;; fact, I think it's the only time I been able to make significant
+;; improvements based on the report.
+;;
+;;
+;;     M-x slime-toggle-profile-fdefinition
+;;
+;; on all the functions you want to
+;; profile,
+;;
+;;     M-x slime-profile-reset
+;;
+;; to clear any existing data, and
+;;
+;;
+;;     M-x slime-profile-report
+;;
+;; to see the report after running.
 
-(setq slime-contribs '(slime-fancy
-                       ;; system-browser
-                       slime-asdf
-                       slime-presentations
-                       slime-sprof
-                       slime-compiler-notes-tree
-                       slime-hyperdoc
-                       slime-indentation
-                       slime-mrepl
-                       slime-repl
-                       slime-media))
 
-(slime-setup slime-contribs)
+(if (file-exists-p "~/quicklisp/slime-helper.el")
+    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+  (progn
+    (defvar slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
+    (setq   slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
+    (add-to-list 'load-path slime-directory)
+    (ignore-errors (require 'slime-autoloads))
+    (load-library "slime")
+    (defvar slime-backend)
+    (defvar slime-path)
+    (setq slime-backend (expand-file-name "swank-loader.lisp" slime-directory))
+    (setq slime-path    slime-directory)))
+
+(slime-setup '(slime-fancy
+               slime-asdf
+               slime-presentations
+               slime-sprof
+               slime-compiler-notes-tree
+               slime-hyperdoc
+               slime-mrepl
+               slime-indentation
+               slime-repl
+               slime-media))
 
 
 (setf slime-net-coding-system        'utf-8-unix)
@@ -168,7 +192,7 @@
 
   (define-lisp-implementation mit-scheme
       '("/usr/local/languages/mit-scheme/bin/scheme")
-    "^\\[[0-9]*\\]> "
+    "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation umb-scheme
@@ -185,7 +209,7 @@
 
   (define-lisp-implementation allegro
       '("/data/languages/acl82express/alisp")
-    "^\\[[0-9]*\\]> "
+    "^\[[0-9]*\]> "
     iso-8859-1)
 
   (define-lisp-implementation ccl
@@ -229,7 +253,7 @@
 
   (define-lisp-implementation openmcl
       '("/usr/local/bin/openmcl")
-    "^\\[[0-9]*\\]> "
+    "^\[[0-9]*\]> "
     iso-8859-1)
 
 
@@ -255,7 +279,7 @@
                       "-Eterminal" "UTF-8"
                       "-Emisc"     "UTF-8" ; better be same as terminal
                       "-Eforeign"  "ISO-8859-1")))) ; must be 1-1.
-    "^\\[[0-9]*\\]> "
+    "^\[[0-9]*\]> "
     utf-8
     :argument-list-command
     "(let ((fn '%s))
@@ -275,18 +299,17 @@
         "/usr/local/bin/lisp"
         "/opt/local/bin/lisp"
         "/usr/bin/lisp")
-    "^\\* "
+    "^\* "
     utf-8)
 
 
   (define-lisp-implementation sbcl
       (mapcar (lambda (cmd) (list cmd "--noinform"))
-              '("/opt/local/bin/sbcl"
+              '("/data/languages/sbcl/bin/sbcl"
                 "/usr/local/bin/sbcl"
-                "/data/languages/sbcl/bin/sbcl"
-                "/usr/bin/sbcl"
-                ))
-    "^\\[[0-9]*\\]> "
+                "/opt/local/bin/sbcl"
+                "/usr/bin/sbcl"))
+    "^\[[0-9]*\]> "
     utf-8)
 
 
@@ -967,58 +990,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 ;; ;; then returns:
 ;; ;; (42 (EMACS-UNREADABLE |buffer| |*scratch*|))
 
-
-(defparameter *pjb-sldb-observe-variables*
-  '(cl:*compile-file-pathname*
-    cl:*load-pathname*
-    (package-name cl:*package*)))
-
-(defun pjb-sldb-insert-top-message (message)
-  (goto-char (point-min))
-  (let ((inhibit-read-only t))
-    (write-string (car (read-from-string (subseq message 3)))
-                  (current-buffer))
-    (insert (format "%s\n" (make-string 72 ?-)))))
-
-(defun pjb-sldb-observe-variables ()
-  (when sldb-backtrace-start-marker
-    (sldb-beginning-of-backtrace))
-  (let ((expression (format "(cl:format nil \"~{~32S = ~S~%%~}\" (cl:list %s))"
-                            (mapconcat (lambda (var)
-                                         (format "(quote %s) %s" var var))
-                                       *pjb-sldb-observe-variables* " ")))
-        (package    (slime-current-package))
-        (frame      0))
-    (slime-eval-async `(swank:eval-string-in-frame ,expression ,frame ,package)
-                      (function pjb-sldb-insert-top-message))))
-
-(add-hook 'sldb-hook 'pjb-sldb-observe-variables)
-
-
-;; M-- M-x slime RET or C-u C-- M-x slime to select the implementation by symbol:
-
-(push '(abcl ("/usr/bin/java" "-jar"
-               "/opt/local/share/java/abcl/abcl.jar"
-               "/opt/local/share/java/abcl/abcl-contrib.jar"
-               "-Xmx6g")
-         :coding-system utf-8-unix
-         :env ("JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-temurin/Contents/Home"
-               "TEST_VAR=foo-bar"
-               "USER=bozo"))
-      slime-lisp-implementations)
-
-(push '(test-ccl ("/usr/local/bin/ccl")
-         :coding-system utf-8-unix
-         :init slime-init-command
-         :env ("TEST_VAR=foo-bar"
-               "FOO_VAR=foofoofoo"))
-      slime-lisp-implementations)
-
-
-(push '(ccl-1252 ("/usr/local/bin/ccl" "--terminal-encoding" "windows-1252")
-         :coding-system windows-1252
-         :init slime-init-command)
-      slime-lisp-implementations)
 
 
 ;; Local Variables:

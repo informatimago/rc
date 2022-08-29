@@ -44,16 +44,14 @@
 
 (SETQ *LOAD-VERBOSE* NIL)
 
+;; For now, let's keep using the lispworks packages in CL-USER
 (let ((used-packages (package-use-list "COMMON-LISP-USER")))
-  ;; For now, let's keep using the lispworks packages in CL-USER
   (unwind-protect
        (LOAD (MERGE-PATHNAMES
               (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
                              :CASE :COMMON)
               (USER-HOMEDIR-PATHNAME)
               NIL))
-
-    ;; For now, let's keep using the lispworks packages in CL-USER
     (use-package used-packages "COMMON-LISP-USER")))
 
 
