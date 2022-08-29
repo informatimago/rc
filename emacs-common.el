@@ -518,7 +518,7 @@ WELCOME TO EMACS!
                              ;; the same source directory.
                              ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
                              '("~/src/public/emacs")
-                             '("~/emacs"))
+                             '("~/.emacs.d/site-lisp"))
 			    '(("/opt/lisp/emacs")
 			      ("/opt/share/emacs/site-lisp")
 			      ("/opt/local/share/emacs/site-lisp")

@@ -57,7 +57,13 @@
                              '("informatimago.com" . "~/rc/emacs-pjb.el")))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
-        (load file)
+        (with-suppressed-warnings ((obsolete assert block case
+                                             check-type decf defstruct destructuring-bind do do* do-symbols
+                                             ecase etypecase flet incf labels loop macrolet
+                                             multiple-value-bind psetf pushnew return return-from the typecase)
+                                   ;; (callargs zot)
+                                   )
+          (load file))
         ;; setting custom-file needs to be done after we've customized our stuff
         ;; otherwise it may be overridden with an empty customization.
         (setq custom-file (or file custom-file)))

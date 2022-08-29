@@ -380,7 +380,7 @@ X-Accept-Language:         fr, es, en
  '(org-startup-with-inline-images t)
  '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
  '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(package-selected-packages '(compat with-editor transient dired-git-info docbook ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -601,7 +601,7 @@ X-Accept-Language:         fr, es, en
   ;; (load "~/rc/emacs-theme.el")
   (load "~/rc/emacs-palette.el"))
 
-(add-to-load-path "~/emacs/slime/")
+;; (add-to-load-path "~/emacs/slime/")
 (load "~/rc/emacs-slime.el")
 
 (load "~/rc/emacs-hyperspec.el")
@@ -661,7 +661,7 @@ X-Accept-Language:         fr, es, en
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
 
-(add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
+;; (add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
 
 (dolist (hook '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
                 c-mode-hook c++-mode-hook))
@@ -973,14 +973,15 @@ X-Accept-Language:         fr, es, en
     (message "%S = %S" var (symbol-value var)))
   (switch-to-buffer "*Messages*"))
 
+(add-to-load-path "~/.emacs.d/site-lisp")
 (add-to-load-path "~/.emacs.d/site-lisp/with-editor")
 (add-to-load-path "~/.emacs.d/site-lisp/magit/lisp")
 
-(require 'with-editor)
-(add-hook 'shell-mode-hook  'with-editor-export-editor)
-(add-hook 'term-exec-hook   'with-editor-export-editor)
-(add-hook 'eshell-mode-hook 'with-editor-export-editor)
-(require 'magit)
+;; (require 'with-editor)
+;; (add-hook 'shell-mode-hook  'with-editor-export-editor)
+;; (add-hook 'term-exec-hook   'with-editor-export-editor)
+;; (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+;; (require 'magit)
 
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))

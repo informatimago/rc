@@ -1406,6 +1406,17 @@ without, lists all the commands with their docstrings."
   (com.informatimago.small-cl-pgms.irclog.main:start)
   (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
 
+(defun start-swank-server (&optional (port 4005))
+  (unless (find-package "SWANK")
+   (ql:quickload :swank))
+
+ (let ((interface #+ccl (ccl::primary-ip-interface-address)
+                  #-ccl (hostname)#|"0.0.0.0"|#))
+   (funcall (or (find-symbol "CREATE-SERVER" "SWANK")
+                (error "Cannot find symbol SWANK:CREATE-SERVER"))
+            :interface interface
+            :port port)
+   (format t "~&Swank server started on port ~D~%" port)))
 
 (in-package "CL-USER")
 ;;;; THE END ;;;;

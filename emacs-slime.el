@@ -39,22 +39,23 @@
 (.EMACS "emacs-slime.el")
 
 (require 'slime)
-(require 'slime-autoloads)
+;; (require 'slime-autoloads)
 
 
-(add-to-load-path "~/emacs/lisp-system-browser")
-(add-to-load-path "~/emacs/emacs-window-layout")
-(setq slime-contribs '(slime-fancy
-                       system-browser
-                       slime-asdf
-                       slime-presentations
-                       slime-sprof
-                       slime-compiler-notes-tree
-                       slime-hyperdoc
-                       slime-indentation
-                       slime-mrepl
-                       slime-repl
-                       slime-media))
+(add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
+(add-to-load-path "~/.emacs.d/site-lisp/emacs-window-layout")
+
+;; (setq slime-contribs '(slime-fancy
+;;                        system-browser
+;;                        slime-asdf
+;;                        slime-presentations
+;;                        slime-sprof
+;;                        slime-compiler-notes-tree
+;;                        slime-hyperdoc
+;;                        slime-indentation
+;;                        slime-mrepl
+;;                        slime-repl
+;;                        slime-media))
 
 (slime-setup slime-contribs)
 
