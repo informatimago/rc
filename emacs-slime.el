@@ -64,6 +64,11 @@
 (setf slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
 (pushnew 'paredit-mode slime-repl-mode-hook)
 
+(setf lisp-lambda-list-indentation nil
+      lisp-loop-indent-subclauses nil
+      lisp-loop-indent-body-forms-relative-to-loop-start t
+      lisp-loop-indent-forms-like-keywords t)
+
 
 (when (fboundp 'slime-repl-bol)
   (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
