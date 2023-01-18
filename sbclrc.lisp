@@ -131,7 +131,9 @@
   (loop :with i := (1- (length version))
         :while (and (<= 0 i) (alpha-char-p (aref version i)))
         :do (decf i)
-        :finally (return (subseq version 0 (1+ i)))))
+        :finally (return (subseq version 0 (if (char= #\. (aref version i))
+                                               i
+                                               (1+ i))))))
 
 (defun sbcl-source-location ()
   (let ((clean-version (clean-version (lisp-implementation-version)))
