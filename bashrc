@@ -4,6 +4,8 @@
 # set -x
 set +o posix # not POSIX: allow function-names-with-dashes
 
+### TODO: /home/pjb/.bashrc: line 92: INSIDE_EMACS: unbound variable
+
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
 
