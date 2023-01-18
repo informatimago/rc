@@ -1418,7 +1418,6 @@ without, lists all the commands with their docstrings."
   (setf *swank-server* (list interface port))
   (values))
 
-
 ;; clisp -x '(load #P"~/rc/swank-server.lisp")'
 ;; (load #P"~/rc/swank-server.lisp")
 ;; (start-swank-server)
