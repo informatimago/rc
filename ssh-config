@@ -157,6 +157,17 @@ Host proteus.client-c.fr
     User                    admin
     IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
 
+Host proteus
+    HostName                proteus.client-c.fr
+    User                    debian
+    IdentityFile            ~/.ssh/ovh-proteus-rsa
+
+Host proteus.client-c.fr
+    HostName                proteus.client-c.fr
+    User                    debian
+    IdentityFile            ~/.ssh/ovh-proteus-rsa
+
+
 Host gitlab.client-c.fr
     HostName                gitlab.client-c.fr
     User                    git
