@@ -118,7 +118,12 @@
   (erc-tls :server "irc.libera.chat" :port 6697
            :nick "ogamita" :full-name "Pascal J. Bourguignon"))
 
-
+(defun br-all ()
+  (interactive)
+  (dolist (buffer (erc-buffer-list))
+    (with-current-buffer buffer
+      (erc-set-active-buffer buffer)
+      (erc-cmd-BR))))
 
 ;; Local Variables:
 ;; coding: utf-8
