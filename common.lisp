@@ -55,6 +55,20 @@
                          (find-package "COMMON-LISP")
                          (find-package "IMAGE-BASED-COMMON-LISP")))))
 
+(defun reset-cl-user ()
+  (let ((myself 'reset-cl-user))
+    (setf *package* (find-package "KEYWORD"))
+    (delete-package "COMMON-LISP-USER")
+    (setf *package* (make-package "COMMON-LISP-USER"
+                                  :nicknames '("CL-USER")
+                                  :use '("COMMON-LISP"
+                                         ;; And perhaps some other custom packages.
+                                         )))
+    ;; You may also import some specific symbols:
+    #+ccl (import 'ccl:quit)
+    (import myself))
+  *package*)
+
 
 (setf *print-circle* t
       *print-length* nil
