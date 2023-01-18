@@ -7,7 +7,7 @@
 (defparameter *pjb-autojoin-channels-alist*
   '(
 
-    ("irc.libera.chat"
+    ("libera.chat"
 
      "#lisp"
      "#commonlisp"
@@ -16,7 +16,7 @@
      "#clschool"  "#lisp-es"
      "#abcl" "#ccl" "#ecl" "#sicl"
      "#clim" "#clcs" "#slime"
-     "#lispcafe"  "#lispweb" "#lispgames"
+     "#lisppub"  "#lispweb" "#lispgames"
      "#common-lisp.net" "#nyxt"
      "#cl-naive"
 
@@ -64,8 +64,8 @@
     ("disabled.freenode.org" "#macports")
 
     ("esper.net" "#SpaceX")
-    ("irc.sbde.fr" "#laboite" "#sbde")
-    ("irc.oftc.net" "#uml")))
+    ("sbde.fr" "#laboite" "#sbde")
+    ("oftc.net" "#uml")))
 
 (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
 
@@ -79,7 +79,7 @@
    (when irc
        (with-current-buffer irc
          (mapcar 'erc-join-channel
-                 (cdr (assoc "irc.libera.chat" *pjb-autojoin-channels-alist*)))))))
+                 (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
 
 
 (defvar *erc-cmd-BR-line* (make-string 72 ?=))
