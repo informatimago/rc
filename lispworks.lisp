@@ -35,6 +35,8 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+;; (lw:set-default-character-element-type 'cl:character)
+
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
@@ -80,16 +82,16 @@ RETURN:     The first word of the string, or the empty string.
        (DONE NIL))
       (DONE (IF FOUND (SUBSEQ STRING I  J) ""))
     (IF  (<= (LENGTH STRING) I)
-      (SETQ DONE T FOUND NIL)
-      (IF (<= J I)
-        (IF (ALPHA-CHAR-P (CHAR STRING I))
-          (SETQ J (1+ I))
-          (INCF I))
-        (IF (<= (LENGTH STRING) J)
-          (SETQ DONE T FOUND T)
-          (IF (ALPHA-CHAR-P (CHAR STRING J))
-            (INCF J)
-            (SETQ DONE T FOUND T)))))))
+         (SETQ DONE T FOUND NIL)
+         (IF (<= J I)
+             (IF (ALPHA-CHAR-P (CHAR STRING I))
+                 (SETQ J (1+ I))
+                 (INCF I))
+             (IF (<= (LENGTH STRING) J)
+                 (SETQ DONE T FOUND T)
+                 (IF (ALPHA-CHAR-P (CHAR STRING J))
+                     (INCF J)
+                     (SETQ DONE T FOUND T)))))))
 
 
 (defun edit (&optional (x nil x-p))
