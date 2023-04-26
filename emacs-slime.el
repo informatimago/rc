@@ -38,6 +38,8 @@
 
 (.EMACS "emacs-slime.el")
 
+(add-to-load-path "~/emacs/slime")
+
 (require 'slime)
 (require 'slime-autoloads)
 
@@ -194,10 +196,12 @@
     iso-8859-1)
 
   (define-lisp-implementation ccl
-      '("/opt/local/bin/ccl"
-        "/usr/local/bin/ccl"
-        "/data/languages/ccl/bin/ccl"
-        "/usr/bin/ccl")
+      (append (mapcar (function expand-file-name)
+                      '("~/opt/bin/ccl"))
+              '("/opt/local/bin/ccl"
+                  "/usr/local/bin/ccl"
+                  "/data/languages/ccl/bin/ccl"
+                  "/usr/bin/ccl"))
     "^? "
     utf-8)
 
@@ -246,7 +250,7 @@
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q"               ;"-m""32M""-I""-K""full"
+             "-ansi""-q"                ;"-m""32M""-I""-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "UTF-8"
@@ -296,14 +300,15 @@
 
 
   (define-lisp-implementation ecl
-      '("/data/languages/ecl/bin/ecl"
-        "/usr/local/bin/ecl"
-        "/opt/local/bin/ecl"
-        "/usr/bin/ecl")
+      (list (expand-file-name "~/opt/bin/ecl")
+            "/data/languages/ecl/bin/ecl"
+            "/usr/local/bin/ecl"
+            "/opt/local/bin/ecl"
+            "/usr/bin/ecl")
     "^> "
     utf-8)
 
-
+  
   (define-lisp-implementation gcl
       '("/data/languages/gcl/bin/gcl"
         "/usr/local/bin/gcl"
@@ -311,7 +316,6 @@
         "/usr/bin/gcl")
     "^> "
     utf-8)
-
 
   (defun set-inferior-lisp-implementation (impl)
     "Set the default lisp implementation used by inferior-lisp and slime."
@@ -361,9 +365,9 @@
   (loop
     for impl in '(ccl clisp sbcl ecl abcl)
     when (set-default-lisp-implementation impl)
-      do (progn
-           (message "Default Lisp implementations is %s" impl)
-           (return impl)))
+    do (progn
+         (message "Default Lisp implementations is %s" impl)
+         (return impl)))
 
 
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
@@ -614,6 +618,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (setf lisp-indent-function (function common-lisp-indent-function))
+  (local-set-key (kbd "TAB") 'lisp-indent-line)
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
@@ -874,7 +879,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       comint-exec-hook           nil
       ilisp-mode-hook            nil
       scheme-mode-hook           nil)
-
 
 (add-hook 'lisp-mode-hook        'pjb-lisp-meat)
 (add-hook 'lisp-mode-hook        'pjb-lisp-set-keys)
