@@ -109,7 +109,7 @@
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 (in-package "COMMON-LISP-USER")
-(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
+(declaim ;; (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
 (SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES
