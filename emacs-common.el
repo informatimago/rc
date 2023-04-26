@@ -229,6 +229,13 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
+(require 'server)
+(with-temp-buffer
+    (insert (format "export EMACS_SERVER_FILE=%s/%s\n"
+                    server-socket-dir
+                    server-name))
+  (write-file "~/.bashenv-emacs" nil))
+
 ;; server-socket-dir
 ;; ;; --> "/var/folders/pq/82920zm125n09frk81rrtp200000gn/T/emacs501"
 ;; server-name
@@ -247,6 +254,12 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;;       server-name        (if internal--daemon-sockname
 ;;                              (file-name-nondirectory internal--daemon-sockname)
 ;;                              "server"))
+
+;; server-name "server"
+;; server-socket-dir "/run/user/87743/emacs"
+;; (getenv "XDG_RUNTIME_DIR") "/run/user/87743"
+;; export EMACS_SERVER_FILE=/run/user/87743/emacs/server
+
 
 (setf tetris-score-file "~/.tetris-scores")
 
@@ -543,10 +556,11 @@ WELCOME TO EMACS!
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
-                      (cons (expand-file-name "~/bin/")
-                            '("/sw/sbin/"       "/sw/bin/"
-                              "/usr/local/sbin" "/usr/local/bin"
-                              "/opt/local/sbin" "/opt/local/bin")))
+                      (list (expand-file-name "~/bin/")
+                            (expand-file-name "~/opt/bin/")
+                            "/sw/sbin/"       "/sw/bin/"
+                            "/usr/local/sbin" "/usr/local/bin"
+                            "/opt/local/sbin" "/opt/local/bin"))
   (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
 
 (pjb-setup-exec-path)
@@ -559,8 +573,12 @@ WELCOME TO EMACS!
         ("/pjb/works/mts/Harag/" . 8)))
 
 ;;------------------------------------------------------------------------
-(.EMACS "setting up fonts")
-(load "~/rc/emacs-font.el")
+(unless (let ((hostname (hostname)))
+          (and (< 2 (length hostname))
+               (string= "fr" (subseq hostname 0 2))))
+  ;; not "frprld7818008" "frdark", etc
+  (.EMACS "setting up fonts")
+  (load "~/rc/emacs-font.el"))
 ;;------------------------------------------------------------------------
 
 ;; (message "old load-path = %S" (with-output-to-string (dump-load-path)))
@@ -1117,16 +1135,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (require 'shell)
 (add-hook 'ielm-mode-hook (lambda () (setf standard-output (current-buffer))))
 
-;; https://github.com/szermatt/emacs-bash-completion
-(unless (file-directory-p "~/emacs/emacs-bash-completion")
-  (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git"))
-(pushnew "~/emacs/emacs-bash-completion" load-path :test 'string=)
-(when (require 'bash-completion nil t)
-  (bash-completion-setup)
-  (set-default 'shell-dirstack-query "pwd")
-  (milliways-schedule (lambda ()
-			(bash-completion-setup)
-			(set-default 'shell-dirstack-query "pwd"))))
+(when (< 25 emacs-major-version)
+  ;; https://github.com/szermatt/emacs-bash-completion
+  (unless (file-directory-p "~/emacs/emacs-bash-completion")
+    (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git"))
+  (pushnew "~/emacs/emacs-bash-completion" load-path :test 'string=)
+  (when (require 'bash-completion nil t)
+    (bash-completion-setup)
+    (set-default 'shell-dirstack-query "pwd")
+    (milliways-schedule (lambda ()
+			  (bash-completion-setup)
+			  (set-default 'shell-dirstack-query "pwd")))))
 
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
@@ -1155,15 +1174,21 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (ansi-color-apply-on-region (point-min) (point-max))
     (set-buffer-modified-p modified)))
 
+(defun comint-output-filter--remove-esc-b (string)
+  "Remove ESC(B sequences between `comint-last-output-start’ and `process-mark’."
+  (save-excursion
+   (goto-char comint-last-output-start)
+   (let ((end (process-mark (get-buffer-process (current-buffer)))))
+     (while (search-forward "\e(B" end t)
+       (delete-region (match-beginning 0) (match-end 0))))))
+
 (defun pjb-shell-mode-meat ()
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
-  (when (fboundp 'auto-complete-mode)
-    (auto-complete-mode -1))
-  (when (fboundp 'ansi-color-for-comint-mode-on)
-    (ansi-color-for-comint-mode-on))
-  (bash-completion-setup)
+  (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
+  (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
+  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
   ;;   ((let ((shell (getenv "ESHELL")))
@@ -1176,7 +1201,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   )
 (add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
 
-(bash-completion-setup)
+(when (fboundp 'bash-completion-setup)
+  (bash-completion-setup))
 (set-default 'shell-dirstack-query "pwd")
 ;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
 
