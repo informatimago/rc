@@ -233,6 +233,7 @@ RETURN:     The first word of the string, or the empty string.
                           ".lisp")))
                (edit-file path)))
            (edit-function (fname)
+             (declare (ignorable fname))
              (error "not implemented yet")))
     (typecase argument
       ((or string pathname)
