@@ -21,6 +21,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:family "fixed" :foundry "misc" :slant normal :weight normal :height 150 :width normal))))
  '(3dbutton ((t (:background "grey33" :foreground "grey11" :box (:line-width 2 :color "white" :style released-button)))))
  '(3dbutton-highlighted ((t (:inherit 3dbutton :background "grey66" :foreground "grey11" :box (:line-width 2 :color "grey75" :style pressed-button)))))
  '(android-mode-debug-face ((((class color) (min-colors 89)) (:foreground "#859900"))))
@@ -114,7 +115,7 @@
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
- '(browse-url-browser-function 'w3m-browse-url)
+ '(browse-url-browser-function 'browse-url-firefox)
  '(browse-url-new-window-flag nil)
  '(browse-url-secondary-browser-function 'browse-url-default-macosx-browser)
  '(c-argdecl-indent 4 t)
@@ -167,6 +168,7 @@
  '(comment-force-also-empty-lines t)
  '(compilation-error-regexp-alist '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek gradle-kotlin iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gmake gnu lcc makepp mips-1 mips-2 omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line ghc))
  '(compilation-message-face 'default)
+ '(copilot-log-max 9999)
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
@@ -384,7 +386,7 @@ X-Accept-Language:         fr, es, en
  '(org-startup-with-inline-images t)
  '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
  '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(compat with-editor transient dired-git-info docbook ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(package-selected-packages '(lsp-ui lsp-haskell lsp-mode cobol-mode stack flycheck textmate highlight-indentation smartparens enh-ruby-mode inf-ruby auto-complete company popup json emms paredit))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -598,8 +600,8 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))
-(load "~/rc/emacs-package.el")
-(load "~/rc/emacs-font.el")
+;; (load "~/rc/emacs-package.el")
+;; (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-paredit.el")
 (when (not *pjb-pvs-is-running*)
   ;; (load "~/rc/emacs-theme.el")
@@ -613,7 +615,7 @@ X-Accept-Language:         fr, es, en
 (load "~/rc/emacs-objective-c.el")
 (load "~/rc/emacs-android.el")
 (load "~/rc/emacs-ruby.el")
-(load "~/rc/emacs-cobol.el")
+;; (load "~/rc/emacs-cobol.el")
 (load "~/rc/emacs-erc.el")
 (cond
   ((string-match "^larissa.*" (hostname))
@@ -628,8 +630,8 @@ X-Accept-Language:         fr, es, en
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
 
-(or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
-    (ignore-errors (set-frame-font "terminus-18")))
+;; (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
+;;     (ignore-errors (set-frame-font "terminus-18")))
 
 (add-to-list 'auto-mode-alist '("Kbuild$"  . makefile-mode))
 (add-to-list 'auto-mode-alist '("Recipes$"  . makefile-mode))
@@ -892,17 +894,18 @@ X-Accept-Language:         fr, es, en
 (cd (user-homedir-pathname))
 ;; (slime)
 
-(ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
+;; (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
 
 (progn
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp   . t)
-     (lisp         . t)
-     (latex        . t)
-     (dot          . t)
-     (plantuml     . t)
-     (shell        . t)))
+   (append '((emacs-lisp   . t)
+             (lisp         . t)
+             (latex        . t)
+             (dot          . t)
+             (plantuml     . t))
+           (when (<= 27 emacs-major-version)
+             '((shell        . t)))))
 
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
 
