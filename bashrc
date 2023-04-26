@@ -335,6 +335,10 @@ function be_terminate(){
     mv "$be" "$BASH_ENV"
 }
 
+function be_append_terminate(){
+    cat "$be" >> "$BASH_ENV" && rm "$be"
+}
+
 
 function be_generate(){
     local bindirs
@@ -671,6 +675,7 @@ function be_generate(){
         be_variable CINTSYSDIR     /usr/local/cint
     fi
 
+    be_variable N_PREFIX "$HOME/.local/n"
 
     be_terminate
 }
@@ -687,6 +692,7 @@ function bashrc_generate_and_load_environment(){
     else
         be_generate
     fi
+    source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
 }
@@ -1501,7 +1507,7 @@ function bashrc(){
     bashrc_linux_functions
     bashrc_define_aliases
     bashrc_flightgear_aliases
-
+    
     if [ -x /usr/local/gcc/bin/gcc ] ; then
         source ~/bin/with-gcc-8.bash
     fi
