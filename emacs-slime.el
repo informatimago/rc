@@ -38,8 +38,38 @@
 
 (.EMACS "emacs-slime.el")
 
+(when (file-exists-p "~/quicklisp/slime-helper.el")
+  (load (expand-file-name "~/quicklisp/slime-helper.el") t))
+
 (require 'slime)
 (require 'slime-autoloads)
+
+(slime-setup '(slime-fancy
+               slime-asdf
+               slime-presentations
+               slime-sprof
+               slime-compiler-notes-tree
+               slime-hyperdoc
+               slime-mrepl
+               slime-indentation
+               slime-repl
+               slime-media))
+
+
+(setf slime-net-coding-system        'utf-8-unix)
+(setf slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+(pushnew 'paredit-mode slime-repl-mode-hook)
+
+
+(when (fboundp 'slime-repl-bol)
+  (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+  (defun slime-repl-bol ()
+    (interactive)
+    (if (eql 'home last-input-event)
+        (beginning-of-buffer)
+        (funcall *slime-repl-bol*))))
+
+
 
 
 (add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
