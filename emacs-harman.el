@@ -19,3 +19,4 @@
 
 (add-hook 'shell-mode-hook 'redbend--shell-mode-meat)
 
+(setf org-agenda-files '("~/pjb/notes.org"))
