@@ -8,9 +8,10 @@
 (unless (file-exists-p (concat source-directory "/emacs.c"))
   (warn "~/rc/emacs-epilog.el: %S is missing. Trying to fetch the sources and set source-directory."
         (concat source-directory "/emacs.c"))
-  (shell-command (format "( cd /usr/local/src && ncftpget ftp://ftp.gnu.org/pub/gnu/emacs/emacs-%s.tar.xz && tar Jxf emacs-%s.tar.xz ) &"
-                         emacs-version emacs-version))
-  (setf source-directory (format "/usr/local/src/emacs-%s" emacs-version)))
+  (let ((source-root (expand-file-name "~/emacs/src")))
+    (shell-command (format "( mkdir -p %S ; cd %S && ncftpget ftp://ftp.gnu.org/pub/gnu/emacs/emacs-%s.tar.xz && tar Jxf emacs-%s.tar.xz ) &"
+                           source-root source-root emacs-version emacs-version))
+    (setf source-directory (format "%s/emacs-%s" source-root emacs-version))))
 
 
 (when (fboundp 'milliways-activate)
