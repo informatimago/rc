@@ -608,7 +608,6 @@ X-Accept-Language:         fr, es, en
 
 ;; (add-to-load-path "~/emacs/slime/")
 (load "~/rc/emacs-slime.el")
-
 (load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-objective-c.el")
@@ -621,7 +620,7 @@ X-Accept-Language:         fr, es, en
    )
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
-
+(load "~/rc/emacs-copilot.el")
 (load "~/rc/emacs-linux.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
