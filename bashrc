@@ -91,7 +91,7 @@ function bashrc_set_prompt(){
 
     case "$TERM" in
 	(dumb)
-		if [ -n "$INSIDE_EMACS" -o -n "$SCHROOT_CHROOT_NAME" ] ; then
+		if [ -n "${INSIDE_EMACS:-}" -o -n "${SCHROOT_CHROOT_NAME:-}" ] ; then
             prefix="\\w" 
             use_color=true
 		fi
@@ -105,7 +105,8 @@ function bashrc_set_prompt(){
         ;;
 	esac
     export COLOR_PROMPT="${use_color}"
-
+    use_color=false
+    
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
         cookie='$('"$(type -path period-cookie)"')'
@@ -332,6 +333,7 @@ function be_unset(){
 
 
 function be_terminate(){
+    echo "source ~/.bashenv-emacs" >> "$be"
     mv "$be" "$BASH_ENV"
 }
 
@@ -355,6 +357,7 @@ function be_generate(){
 
         "$HOME/bin"
         "$HOME/opt/bin"
+        "$HOME/opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
         "$HOME/.rvm/bin" # Add RVM to PATH for scripting
         "$HOME/.local/bin"
 
@@ -363,7 +366,7 @@ function be_generate(){
 
         /opt/local/bin
         /opt/local/sbin
-        /opt/local/libexec/gnubin/
+        /opt/local/libexec/gnubin
         /opt/local/lib/postgresql84/bin  # on galatea
         /opt/local/lib/postgresql10/bin  # on larissa
 
@@ -374,14 +377,14 @@ function be_generate(){
         /usr/local/opt/coreutils/libexec/gnubin
         /usr/local/opt/findutils/libexec/gnubin
 
-        #/data/languages/acl82express/bin/
-        /data/languages/bigloo4.1a/bin/
-        /data/languages/ccl/bin/
-        #/data/languages/clisp/bin/
-        /data/languages/cmucl/bin/
-        /data/languages/ecl/bin/
-        #/data/languages/gcl-2.6.7/bin/
-        #/data/languages/sbcl/bin/
+        # #/data/languages/acl82express/bin
+        # /data/languages/bigloo4.1a/bin
+        # /data/languages/ccl/bin
+        # #/data/languages/clisp/bin
+        # /data/languages/cmucl/bin
+        # /data/languages/ecl/bin
+        # #/data/languages/gcl-2.6.7/bin
+        # #/data/languages/sbcl/bin
 
         /opt/*/bin
         /opt/X11/bin
@@ -429,6 +432,8 @@ function be_generate(){
     be_comment 'file will be generated from ~/.bashrc from time to time...'
     be_comment ''
 
+    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
+
     # WARNING: CDPATH is quite a strong setting!
     # PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
     be_variable INPUTRC "$HOME/.inputrc"
@@ -440,6 +445,7 @@ function be_generate(){
     be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
     be_variable COMPILATION_TARGET  "$(uname)"
+
 
     local e
     case "${uname}" in
@@ -467,9 +473,6 @@ function be_generate(){
         ;;
     esac
 
-
-    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
-
     # TODO: Check same thing is done elsewhere:
     list="$(joinWithSeparator \: $(prependIfDirectoryExists ${sharedirs[@]}))"
     if [ -s "$list" ] ; then
@@ -488,6 +491,9 @@ function be_generate(){
 
     be_variable LD_RUNPATH_SEARCH_PATHS /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
     be_variable DYLD_LIBRARY_PATH       /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
+
+	be_variable GEM_HOME "${HOME}/opt/gems"
+	be_variable PATH "${GEM_HOME}/bin:${PATH}"
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
@@ -518,6 +524,7 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
+	# be_variable GREP_OPTIONS       '--color=always' # deprecated, use function.
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
@@ -536,7 +543,7 @@ function be_generate(){
             "$JAVA_HOME"/lib/i18n.jar \
             "$JAVA_HOME"/lib/rt.jar
         be_variable classpath_kaffe "$list"
-        be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+        be_variable PATH "${JAVA_HOME}/bin:${PATH}"
     fi
 
     value=/usr/local/languages/java
@@ -552,9 +559,9 @@ function be_generate(){
         be_variable classpath_jdk "$list"
         be_variable CLASSPATH "${classpath_jdk:?}"
         if [ -d /usr/local/JavaApps/. ] ; then
-            be_variable PATH /usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
+            be_variable PATH "/usr/local/JavaApps:${JAVA_HOME}/bin:${PATH}"
         else
-            be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+            be_variable PATH "${JAVA_HOME}/bin:${PATH}"
         fi
     fi
 
@@ -978,8 +985,14 @@ function bashrc_define_aliases(){
                                 -noconsolecontrols -nomouseinput \
                                 -nolirc -noar "$@" ; }
     function mplayer(){ command mplayer -nojoystick -quiet "$@" ; }
+
+	function grep(){ command grep --color=always "$@" ; }
 }
 
+
+function all-git-status(){
+    find . -name .git | while read f ; do (echo "==== $f" ; cd "$f/.." ; git status ) ; done
+}
 
 function bashrc_flightgear_aliases(){
 
@@ -1357,7 +1370,7 @@ function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
 
-function ec              (){ ( unset TMPDIR ; emacsclient --socket-name=/tmp/emacs${UID}/server --no-wait "$@" ) ; }
+function ec              (){ ( unset TMPDIR ; emacsclient --socket-name="$EMACS_SERVER_FILE" --no-wait "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
@@ -1440,6 +1453,7 @@ function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
 function panic(){ echo "[;5;35mDon't Panic[0m" ; }
 
+
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
     (*trustonic.local)
@@ -1450,6 +1464,9 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     (vm-u1404|L0253344)
         source ~/rc/bashrc-span
+        ;;
+    (fr*)
+        source ~/rc/bashrc-harman
         ;;
     *)
         source ~/rc/bashrc-pjb
