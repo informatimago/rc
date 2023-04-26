@@ -1,0 +1,6 @@
+# -*- mode:shell-script -*-
+
+source /BlobArea/external/ceedling/setup_env
+
+# export CROSS_COMPILER=/BlobArea/external/android-prebuilts/caf-6.0.0/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+# export SYSROOT=/BlobArea/external/android-prebuilts/caf-6.0.0/ndk/current/platforms/android-21/arch-arm64/
