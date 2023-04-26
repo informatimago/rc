@@ -615,7 +615,7 @@ X-Accept-Language:         fr, es, en
 (load "~/rc/emacs-objective-c.el")
 (load "~/rc/emacs-android.el")
 (load "~/rc/emacs-ruby.el")
-;; (load "~/rc/emacs-cobol.el")
+(load "~/rc/emacs-cobol.el")
 (load "~/rc/emacs-erc.el")
 (cond
   ((string-match "^larissa.*" (hostname))
