@@ -45,8 +45,12 @@
 (setq-default lexical-binding t)
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time* (current-time) "For (emacs-uptime).")
-(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
+(setq source-directory
+      (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
+                                 (format "/opt/local/src/emacs-%s/src" emacs-version)
+                                 (expand-file-name (format "~/opt/src/emacs-%s/src" emacs-version)))))
+	
 
 
 ;;;----------------------------------------------------------------------------
