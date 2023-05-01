@@ -352,35 +352,27 @@ function be_generate(){
     local value
 
 
+    if [ -d "${HOME}/opt/gems" ] ; then
+        be_variable GEM_HOME "${HOME}/opt/gems"
+    fi
+
+    # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
     bindirs=(
 
         "$HOME/esp/xtensa-esp32-elf/bin"
-
+        "$HOME/Library/Python/3.10/bin"
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 
+        "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
+        "${GEM_HOME}/bin" # Local Ruby Gems
+
         "$HOME/bin"
-        "$HOME/opt/bin"
+        "$HOME/.local/bin" 
+
         "$HOME/opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
-        "$HOME/.rvm/bin" # Add RVM to PATH for scripting
-        "$HOME/.local/bin"
-
-        /usr/local/bin
-        /usr/local/sbin
-
-        /opt/local/bin
-        /opt/local/sbin
-        /opt/local/libexec/gnubin
-        /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/lib/postgresql10/bin  # on larissa
-
-        /opt/bin
-        /opt/sbin
-        /opt/haskell-language-server/bin
-
-        /usr/local/opt/coreutils/libexec/gnubin
-        /usr/local/opt/findutils/libexec/gnubin
-
+        "$HOME/opt/bin"
+        
         # #/data/languages/acl82express/bin
         # /data/languages/bigloo4.1a/bin
         # /data/languages/ccl/bin
@@ -390,11 +382,33 @@ function be_generate(){
         # #/data/languages/gcl-2.6.7/bin
         # #/data/languages/sbcl/bin
 
+        /opt/haskell-language-server/bin
+
+        /opt/local/lib/postgresql84/bin  # on galatea
+        /opt/local/lib/postgresql10/bin  # on larissa
+        /opt/local/libexec/gnubin
+        /opt/local/sbin
+        /opt/local/bin
+
         /opt/*/bin
         /opt/X11/bin
-        /usr/X11R6/bin  /usr/X11/bin /usr/games
-        /usr/bin        /usr/sbin
-        /bin            /sbin
+        /opt/sbin
+        /opt/bin
+
+
+
+        /usr/local/opt/coreutils/libexec/gnubin
+        /usr/local/opt/findutils/libexec/gnubin
+        /usr/local/sbin
+        /usr/local/bin
+
+        /usr/X11R6/bin
+        /usr/X11/bin
+        /usr/games
+        /usr/sbin
+        /usr/bin
+        /sbin
+        /bin    
     )
 
     sharedirs=(
@@ -402,18 +416,26 @@ function be_generate(){
     )
 
     mandirs=(
-        /opt/*/man     /opt/*/share/man
-        /opt/local/man /opt/local/share/man
-        /usr/local/bin /usr/local/share/man
-        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man
+        /opt/*/share/man
+        /opt/*/man
+        /opt/local/share/man
+        /opt/local/man
+        /usr/X11R6/man
+        /usr/X11/man
+        /usr/local/share/man
+        /usr/share/man
+        /usr/man
     )
 
     lddirs=(
         /opt/*/lib
         /opt/local/lib
-        /usr/local/lib
         /usr/local/lib64
-        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
+        /usr/local/lib
+        /usr/X11R6/lib
+        /usr/X11/lib
+        /usr/lib
+        /lib
     )
 
     editors=(
@@ -495,9 +517,6 @@ function be_generate(){
 
     be_variable LD_RUNPATH_SEARCH_PATHS /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
     be_variable DYLD_LIBRARY_PATH       /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
-
-	be_variable GEM_HOME "${HOME}/opt/gems"
-	be_variable PATH "${GEM_HOME}/bin:${PATH}"
 
     be_comment 'ANSI terminal codes:'
     be_variable CYAN_BACK          "[46m"
