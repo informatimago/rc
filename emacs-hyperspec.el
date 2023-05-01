@@ -48,6 +48,7 @@
 (defparameter *clhs-map-sym*   "Data/Map_Sym.txt")
 (defparameter common-lisp-hyperspec-root
   (dolist (url (list (concat "file://" (get-directory :hyperspec))
+                     "file:///opt/local/share/doc/lisp/lisp-hyperspec-7.0/HyperSpec/"
                      "file:///usr/share/doc/hyperspec/HyperSpec/"
                      "file:///usr/share/doc/hyperspec/"
                      "file:///usr/local/share/doc/cl/HyperSpec/"
