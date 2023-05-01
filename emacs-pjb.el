@@ -961,6 +961,31 @@ X-Accept-Language:         fr, es, en
 
 (setq org-element-use-cache nil)
 
+;; stuff in ~/emacs
+;; git://jblevins.org/git/markdown-mode.git
+;; git@github.com:VincentToups/emacs-utils.git
+;; git@github.com:death/naggum.git
+;; git@github.com:defunkt/coffee-mode.git
+;; git@github.com:editorconfig/editorconfig.git
+;; git@github.com:emacs-java/auto-java-complete.git
+;; git@github.com:hayamiz/twittering-mode.git
+;; git@github.com:jacobono/emacs-gradle-mode.git
+;; git@github.com:joshcho/ChatGPT.el
+;; git@github.com:kiwanami/emacs-window-layout.git
+;; git@github.com:larsbrinkhoff/emacs-cl.git
+;; git@github.com:magnars/dash.el.git
+;; git@github.com:magnars/s.el.git
+;; git@github.com:mmabrouk/chatgpt-wrapper.git
+;; git@github.com:mmontone/lisp-system-browser.git
+;; git@github.com:remvee/android-mode.git
+;; git@github.com:slime/slime.git
+;; git@github.com:suonlight/ob-chatgpt
+;; git@github.com:szermatt/emacs-bash-completion.git
+;; git@github.com:tlh/emms-info-id3v2.el.git
+;; git@github.com:zenspider/enhanced-ruby-mode.git
+;; git@github.com:zerolfx/copilot.el.git
+;; https://code.google.com/p/android-emacs-toolkit/
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
