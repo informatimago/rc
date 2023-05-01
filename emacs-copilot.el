@@ -4,16 +4,33 @@
 
 (require 'copilot)
 
+;; (push "~/opt/lib/nodejs/node-v16.16.0-linux-x64/bin" exec-path)
 (add-hook 'prog-mode-hook 'copilot-mode)
 
 ;; Customize variables:
 ;; copilot-enable-predicates
 ;; copilot-disable-predicates
 
-(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "<f12>") #'copilot-accept-completion)
+(define-key global-map             (kbd "<f12>") #'copilot-accept-completion)
 
-(push "~/opt/lib/nodejs/node-v16.16.0-linux-x64/bin" exec-path)
+;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+;; (define-key copilot-completion-map (kbd "<tab>") nil)
+;; (define-key copilot-completion-map (kbd "TAB") nil)
+;; (define-key copilot-mode-map (kbd "<tab>") nil)
+;; (define-key copilot-mode-map (kbd "TAB") nil)
+;; (define-key global-map (kbd "<tab>") nil)
+;; (define-key global-map (kbd "TAB") nil)
+
+;; (lookup-key copilot-completion-map (kbd "<tab>"))
+;; (lookup-key copilot-completion-map (kbd "TAB"))
+;; (lookup-key copilot-mode-map (kbd "<tab>"))
+;; (lookup-key copilot-mode-map (kbd "TAB"))
+;; (lookup-key global-map (kbd "<tab>"))
+;; (lookup-key global-map (kbd "TAB"))
+
 
 
 ;;; From
@@ -41,7 +58,7 @@
                               minibuffer-mode-hook)
   "Modes in which copilot is inconvenient.")
 
-(defun rk/copilot-disable-predicate ()
+ (defun rk/copilot-disable-predicate ()
   "When copilot should not automatically show completions."
   (or rk/copilot-manual-mode
       (member major-mode rk/no-copilot-modes)
@@ -91,20 +108,22 @@ is available. Useful if you tend to hammer your keys like I do."
 (define-key copilot-mode-map (kbd "C-M-<down>") #'copilot-accept-completion-by-line)
 (define-key global-map (kbd "C-M-<return>") #'rk/copilot-complete-or-accept)
 
-
-(defun rk/copilot-tab ()
-  "Tab command that will complet with copilot if a completion is
-available. Otherwise will try company, yasnippet or normal
-tab-indent."
-  (interactive)
-  (or (copilot-accept-completion)
-      (minibuffer-complete)
-      (when (fboundp 'company-yasnippet-or-completion)
-        (company-yasnippet-or-completion))
-      (indent-for-tab-command)))
-
-(define-key global-map (kbd "TAB") #'rk/copilot-tab)
-(define-key global-map (kbd "<tab>") #'rk/copilot-tab)
+;; (defun rk/copilot-tab ()
+;;   "Tab command that will complet with copilot if a completion is
+;; available. Otherwise will try company, yasnippet or normal
+;; tab-indent."
+;;   (interactive)
+;;   (or (copilot-accept-completion)
+;;       (minibuffer-complete)
+;;       (when (fboundp 'company-yasnippet-or-completion)
+;;         (company-yasnippet-or-completion))
+;;       (indent-for-tab-command)))
+;; 
+;; (define-key copilot-mode-map (kbd "TAB") #'rk/copilot-tab)
+;; (define-key copilot-mode-map (kbd "<tab>") #'rk/copilot-tab)
+;; (define-key global-map (kbd "TAB") #'rk/copilot-tab)
+;; (define-key global-map (kbd "<tab>") #'rk/copilot-tab)
+;; (define-key global-map (kbd "<tab>") nil)
 
 
 (defun rk/copilot-quit ()
