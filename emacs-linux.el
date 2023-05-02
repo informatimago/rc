@@ -35,16 +35,16 @@
                                  *pjb-force-linux-tabulation*))
         (includes (remove-if (lambda (re) (and (consp re) (eq 'exclude (first re))))
                              *pjb-force-linux-tabulation*)))
-    (message "excludes %S %S" excludes
-             (every (lambda (re)
-                      (not (string-match (second re) filename)))
-                    excludes))
-    (message "includes %S %S" includes
-             (some (lambda (re)
-                     (if (stringp re)
-                         (string-match re filename)
-                         (string-match (second re) filename)))
-                   includes))
+    ;; (message "excludes %S %S" excludes
+    ;;          (every (lambda (re)
+    ;;                   (not (string-match (second re) filename)))
+    ;;                 excludes))
+    ;; (message "includes %S %S" includes
+    ;;          (some (lambda (re)
+    ;;                  (if (stringp re)
+    ;;                      (string-match re filename)
+    ;;                      (string-match (second re) filename)))
+    ;;                includes))
     (and filename
          (every (lambda (re)
                   (not (string-match (second re) filename)))
