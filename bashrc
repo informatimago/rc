@@ -631,6 +631,8 @@ function be_generate(){
 
     be_variable LANG  "${en}"
 
+	be_variable RUBYOPT '-Eutf-8' 
+
     be_unset XMODIFIERS
 
     # may be overriden by host specific bashrc.
