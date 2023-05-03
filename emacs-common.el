@@ -787,14 +787,30 @@ SIDE must be the symbol `left' or `right'."
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
 
-(defmacro define-force-justification (direction)
-  `(defun ,(intern (format "force-set-justification-%s" direction)) (start end)
-     (interactive "r")
-     (let ((mode major-mode))
-       (text-mode)
-       (,(intern (format "set-justification-%s" direction))  start end)
-       (funcall mode))))
-
+(defmacro define-justification-functions (direction)
+  `(progn
+     (defun ,(intern (format "pjb-set-justification-%s" direction)) (start end)
+       (interactive "r")
+       (let ((mode major-mode))
+         (if (and start end (/= start end))
+             (save-excursion
+              (narrow-to-region start end)
+              (unwind-protect
+                   (,(intern (format "set-justification-%s" direction))  start end)
+                (widden)
+                (funcall mode)))
+             (,(intern (format "set-justification-%s" direction))  start end))))
+     
+     (defun ,(intern (format "pjb-force-set-justification-%s" direction)) (start end)
+       (interactive "r")
+       (let ((mode major-mode))
+         (save-excursion
+          (narrow-to-region start end)
+          (unwind-protect
+               (progn (text-mode)
+                      (,(intern (format "set-justification-%s" direction))  start end))
+            (widden)
+            (funcall mode)))))))
 
 
 (defun pjb-terminal-key-bindings ()
@@ -838,10 +854,10 @@ SIDE must be the symbol `left' or `right'."
 (defun pjb-global-key-bindings ()
   (interactive)
 
-  (define-force-justification left)
-  (define-force-justification center)
-  (define-force-justification right)
-  (define-force-justification full)
+  (define-justification-functions left)
+  (define-justification-functions center)
+  (define-justification-functions right)
+  (define-justification-functions full)
 
   ;; Advance key map setting: get a sane keyboard when loading this file fails.
   (global-set-key (kbd "C-x RET C-h")   'describe-prefix-bindings)
@@ -855,12 +871,12 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c C-s")       'search-forward-regexp)
   (global-set-key (kbd "C-c C-r")       'search-backward-regexp)
 
-  (global-set-key (kbd "<f5>")          'set-justification-left)
-  (global-set-key (kbd "<f6>")          'set-justification-full)
-  (global-set-key (kbd "<f7>")          'set-justification-right)
-  (global-set-key (kbd "C-c <f5>")      'force-set-justification-left)
-  (global-set-key (kbd "C-c <f6>")      'force-set-justification-full)
-  (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
+  (global-set-key (kbd "<f5>")          'pjb-set-justification-left)
+  (global-set-key (kbd "<f6>")          'pjb-set-justification-full)
+  (global-set-key (kbd "<f7>")          'pjb-set-justification-right)
+  (global-set-key (kbd "C-c <f5>")      'pjb-force-set-justification-left)
+  (global-set-key (kbd "C-c <f6>")      'pjb-force-set-justification-full)
+  (global-set-key (kbd "C-c <f7>")      'pjb-force-set-justification-right)
 
   (global-set-key (kbd "M-g g")         'goto-char)
 
