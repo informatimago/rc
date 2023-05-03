@@ -364,6 +364,9 @@ function be_generate(){
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 
+        "$HOME/.rbenv/bin"
+        "/usr/lib/rbenv/libexec"
+
         "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
         "${GEM_HOME}/bin" # Local Ruby Gems
 
@@ -721,6 +724,12 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
+	if [ -x $(which rbenv) ] ; then
+		eval "$(rbenv init -)"
+	fi	
+	if [ -x $(which pyenv) ] ; then
+		eval "$(pyenv init -)"
+	fi
 }
 
 ########################################################################
