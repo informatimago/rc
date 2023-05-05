@@ -1,8 +1,10 @@
+# -*- mode:conf;coding:utf-8 -*-
+
 $include /etc/inputrc
 
 set editing-mode emacs
 
-# Permettre de rentrer & recevoir des caractères accentués
+# Permettre de rentrer & recevoir des caractÃ¨res accentuÃ©s
 set meta-flag    on
 set convert-meta off
 set input-meta   on
