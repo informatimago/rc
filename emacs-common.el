@@ -46,6 +46,10 @@
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time* (current-time) "For (emacs-uptime).")
 
+(require 'cl)
+(defun first-existing-file (list-of-files)
+  "Find the first file in LIST-OF-FILES that exists."
+  (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
 (setq source-directory
       (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
                                  (format "/opt/local/src/emacs-%s/src" emacs-version)
