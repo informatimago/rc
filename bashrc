@@ -393,6 +393,7 @@ function be_generate(){
         /opt/local/sbin
         /opt/local/bin
 
+        /opt/local/libexec/rbenv
         /opt/*/bin
         /opt/X11/bin
         /opt/sbin
@@ -726,10 +727,10 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
-	if [ -x $(which rbenv) ] ; then
+	if type -p rbenv 2>/dev/null ; then
 		eval "$(rbenv init -)"
 	fi	
-	if [ -x $(which pyenv) ] ; then
+	if type -p pyenv 2>/dev/null ; then
 		eval "$(pyenv init -)"
 	fi
 }
