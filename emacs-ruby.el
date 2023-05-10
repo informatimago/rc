@@ -34,7 +34,13 @@
 ;; (require 'dash-at-point)
 (require 'textmate nil t)
 
+
+(setf inf-ruby-first-prompt-pattern "irb --> ")
+(setf inf-ruby-prompt-pattern (format inf-ruby-prompt-format "[?>]" "[\]>*\"'/`]"))
+
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
 ;; End:
+
