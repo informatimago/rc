@@ -791,6 +791,14 @@ SIDE must be the symbol `left' or `right'."
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
 
+(defun reset-keyboard ()
+  "Reset the X keyboard to PJB's preferences."
+  (interactive)
+  (shell-command "setxkbmap -layout us -option ctrl:nocaps -option caps:none -option shift:breaks_caps -option compose:lctrl"))
+
+(defalias 'pjb-reset-keyboard 'reset-keyboard)
+(global-set-key (kbd "<pause>") 'pjb-reset-keyboard)
+
 (defmacro define-justification-functions (direction)
   `(progn
      (defun ,(intern (format "pjb-set-justification-%s" direction)) (start end)
