@@ -12,7 +12,6 @@
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
   (add-to-list 'comint-output-filter-functions #'redbend--comint-output-filter--remove-esc-b)
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
   (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd"))
