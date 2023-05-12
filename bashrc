@@ -416,10 +416,14 @@ function be_generate(){
     )
 
     sharedirs=(
+        "$HOME/opt/*/share"
+        "$HOME/opt/share"
         /opt/*/share
     )
 
     mandirs=(
+        "$HOME/opt/*/share/man"
+        "$HOME/opt/share/man"
         /opt/*/share/man
         /opt/*/man
         /opt/local/share/man
@@ -432,6 +436,8 @@ function be_generate(){
     )
 
     lddirs=(
+        "$HOME/opt/*/lib"
+        "$HOME/opt/lib"
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib64
@@ -633,6 +639,7 @@ function be_generate(){
     be_variable LANG  "${en}"
 
 	be_variable RUBYOPT '-Eutf-8' 
+	# be_variable RUBYLIB /usr/bin/ruby2.5
 
     be_unset XMODIFIERS
 
