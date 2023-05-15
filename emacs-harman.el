@@ -36,7 +36,7 @@
                               (split-string (buffer-substring start end) "\n" :omit-nulls))
                       "," )
            ")")))
-    (with-current-buffer (get-buffer-create "*ruby-scratch*")
+    (with-current-buffer (get-buffer-create " *ruby-scratch*")
       (erase-buffer)
       (progn
         (insert stuff)
