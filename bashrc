@@ -364,6 +364,9 @@ function be_generate(){
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 
+        "$HOME/.rbenv/bin"
+        "/usr/lib/rbenv/libexec"
+
         "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
         "${GEM_HOME}/bin" # Local Ruby Gems
 
@@ -390,6 +393,7 @@ function be_generate(){
         /opt/local/sbin
         /opt/local/bin
 
+        /opt/local/libexec/rbenv
         /opt/*/bin
         /opt/X11/bin
         /opt/sbin
@@ -412,10 +416,14 @@ function be_generate(){
     )
 
     sharedirs=(
+        "$HOME/opt/*/share"
+        "$HOME/opt/share"
         /opt/*/share
     )
 
     mandirs=(
+        "$HOME/opt/*/share/man"
+        "$HOME/opt/share/man"
         /opt/*/share/man
         /opt/*/man
         /opt/local/share/man
@@ -428,6 +436,8 @@ function be_generate(){
     )
 
     lddirs=(
+        "$HOME/opt/*/lib"
+        "$HOME/opt/lib"
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib64
@@ -628,6 +638,9 @@ function be_generate(){
 
     be_variable LANG  "${en}"
 
+	be_variable RUBYOPT '-Eutf-8' 
+	# be_variable RUBYLIB /usr/bin/ruby2.5
+
     be_unset XMODIFIERS
 
     # may be overriden by host specific bashrc.
@@ -721,6 +734,12 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
+	if type -p rbenv 2>/dev/null ; then
+		eval "$(rbenv init -)"
+	fi	
+	if type -p pyenv 2>/dev/null ; then
+		eval "$(pyenv init -)"
+	fi
 }
 
 ########################################################################
