@@ -11,8 +11,13 @@
 ;; copilot-enable-predicates
 ;; copilot-disable-predicates
 
-(define-key copilot-completion-map (kbd "<f12>") #'copilot-accept-completion)
-(define-key global-map             (kbd "<f12>") #'copilot-accept-completion)
+(progn
+  (define-key copilot-completion-map (kbd "<f12>") #'copilot-accept-completion-by-paragraph)
+  (define-key global-map             (kbd "<f12>") #'copilot-accept-completion-by-paragraph)
+  (define-key copilot-completion-map (kbd "C-<f12>") #'rk/copilot-quit)
+  (define-key global-map             (kbd "C-<f12>") #'rk/copilot-quit)
+  (define-key copilot-completion-map (kbd "M-<f12>") #'copilot-accept-completion)
+  (define-key global-map             (kbd "M-<f12>") #'copilot-accept-completion))
 
 ;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
 ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)

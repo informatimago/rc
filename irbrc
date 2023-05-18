@@ -1,4 +1,4 @@
-# -*- mode:ruby -*-
+# -*- mode:ruby;coding:utf-8 -*-
 
 # require 'irb/ext/save-history'
 # IRB.conf[:SAVE_HISTORY] = 100
@@ -41,14 +41,14 @@ end
 
 
 
-# IRB.conf[:IRB_RC] = proc do |conf|
-#   leader = " " * conf.irb_name.length
-#   conf.prompt_i = "#{conf.irb_name} --> "
-#   conf.prompt_s = leader + ' |-" '
-#   conf.prompt_c = leader + ' +-> '
-#   conf.return_format = leader + " ==> %s\n\n"
-#   puts "Welcome!"
-# end
+IRB.conf[:IRB_RC] = proc do |conf|
+  leader = " " * conf.irb_name.length
+  conf.prompt_i = "#{conf.irb_name} --> "
+  conf.prompt_s = leader + ' |-" '
+  conf.prompt_c = leader + ' +-> '
+  conf.return_format = leader + " ==> %s\n\n"
+  puts "Welcome!"
+end
 
 
 
