@@ -77,19 +77,21 @@ something like \"file:/usr/local/doc/HyperSpec/\".")
 
 
 (defparameter common-lisp-hyperspec-symbols
-  (let ((symbols (make-vector 67 0)))
-    (loop
-      for (name page)
-        on (split-string (pjb-get-resource-at-url (concat common-lisp-hyperspec-root *clhs-map-sym*)) "\n")
-      by (function cddr)
-      while page
-      do (let ((symbol (intern (string-downcase name) symbols))
-               (page (if (prefixp "../" page)
-                         (subseq page 3 )
-                         page)))
-           ;; (message "%S %S" symbol page)
-           (setf (get symbol 'common-lisp-hyperspec-page) page)))
-    symbols))
+  (if common-lisp-hyperspec-root
+      (let ((symbols (make-vector 67 0)))
+        (loop
+          for (name page)
+          on (split-string (pjb-get-resource-at-url (concat common-lisp-hyperspec-root *clhs-map-sym*)) "\n")
+          by (function cddr)
+          while page
+          do (let ((symbol (intern (string-downcase name) symbols))
+                   (page (if (prefixp "../" page)
+                             (subseq page 3 )
+                             page)))
+               ;; (message "%S %S" symbol page)
+               (setf (get symbol 'common-lisp-hyperspec-page) page)))
+        symbols)
+      (make-vector 67 0)))
 
 
 (defun thing-at-point-no-properties (thing)

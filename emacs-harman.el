@@ -20,3 +20,31 @@
 (add-hook 'shell-mode-hook 'redbend--shell-mode-meat)
 
 (setf org-agenda-files '("~/pjb/notes.org"))
+
+
+(require 'subr-x)
+
+(defun compare-ruby-objects (start end)
+  (interactive "r")
+  (let ((stuff
+          (concat
+           "printf \"\\n\\n\" ; print_differences("
+           (mapconcat 'identity
+                      (mapcar (lambda (line)
+                                (if (or (prefixp "-" line) (prefixp "+" line))
+                                    (subseq line 1)
+                                    line))
+                              (split-string (buffer-substring start end) "\n" :omit-nulls))
+                      "," )
+           ")")))
+    (with-current-buffer (get-buffer-create "*ruby-scratch*")
+      (erase-buffer)
+      (progn
+        (insert stuff)
+        (goto-char (point-min))
+        (while (re-search-forward "=>" nil t)
+          (delete-region (match-beginning 0) (match-end 0))
+          (insert " => ")
+          (forward-char 4))
+        (ruby-send-region-and-go (point-min) (point-max))
+        (ruby-print-result)))))
