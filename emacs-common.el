@@ -1211,7 +1211,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (setf comint-process-echoes nil)
   (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
   (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
