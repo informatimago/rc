@@ -734,10 +734,10 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
-	if type -p rbenv 2>/dev/null ; then
+	if type -p rbenv 2>/dev/null 1>&2 ; then
 		eval "$(rbenv init -)"
 	fi	
-	if type -p pyenv 2>/dev/null ; then
+	if type -p pyenv 2>/dev/null 1>&2 ; then
 		eval "$(pyenv init -)"
 	fi
 }
