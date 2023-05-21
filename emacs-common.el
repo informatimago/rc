@@ -50,6 +50,7 @@
 (defun first-existing-file (list-of-files)
   "Find the first file in LIST-OF-FILES that exists."
   (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
+
 (setq source-directory
       (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
                                  (format "/opt/local/src/emacs-%s/src" emacs-version)
@@ -790,6 +791,14 @@ SIDE must be the symbol `left' or `right'."
   (interactive)
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
+
+(defun reset-keyboard ()
+  "Reset the X keyboard to PJB's preferences."
+  (interactive)
+  (shell-command "setxkbmap -layout us -option ctrl:nocaps -option caps:none -option shift:breaks_caps -option compose:lctrl"))
+
+(defalias 'pjb-reset-keyboard 'reset-keyboard)
+(global-set-key (kbd "<pause>") 'pjb-reset-keyboard)
 
 (defmacro define-justification-functions (direction)
   `(progn
