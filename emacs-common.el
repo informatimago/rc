@@ -50,6 +50,7 @@
 (defun first-existing-file (list-of-files)
   "Find the first file in LIST-OF-FILES that exists."
   (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
+
 (setq source-directory
       (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
                                  (format "/opt/local/src/emacs-%s/src" emacs-version)
@@ -1219,6 +1220,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (setf comint-process-echoes nil)
   (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
   (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
+  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
