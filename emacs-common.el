@@ -824,12 +824,12 @@ SIDE must be the symbol `left' or `right'."
             (widden)
             (funcall mode)))))))
 
-
 (defun pjb-terminal-key-bindings ()
   (interactive)
   ;; http://paste.lisp.org/display/131216
   (global-set-key "OF"    'end-of-buffer)
   (global-set-key "OH"    'beginning-of-buffer)
+  (global-set-key ""      'backward-delete-char-untabify)
   (global-unset-key "[")
   (global-set-key "[15~"  'set-justification-left) ; <f5>
   (global-set-key "[17~"  'set-justification-center) ; <f6>
@@ -838,7 +838,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[20~"  'disabled)  ; <f9>
   (global-set-key "[21~"  'disabled)  ; <f10>
   (global-set-key "[23~"  'disabled)  ; <f11>
-  (global-set-key "[24~"  'disabled)  ; <f12>
+  (global-set-key "[24~"  #'copilot-accept-completion-by-paragraph)  ; <f12>
 
   (define-key input-decode-map "\M-[A" [up])
   (define-key input-decode-map "\M-[B" [down])

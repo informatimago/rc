@@ -40,11 +40,11 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-	#
-	# COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
-	# chroots, and other subprocesses where the environment is
-	# reset.  Therefore we reset use_color from the terminal below.
-	#
+    #
+    # COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
+    # chroots, and other subprocesses where the environment is
+    # reset.  Therefore we reset use_color from the terminal below.
+    #
 
     local use_color="${COLOR_PROMPT:-false}"
     local escape=''
@@ -73,16 +73,16 @@ function bashrc_set_prompt(){
     local cyan_back="${escape}"'[46m'
     local white_back="${escape}"'[47m'
     local normal="${escape}"'[0m'
-	# ---
-	local chroot=''
+    # ---
+    local chroot=''
     local prefix=''
     local cookie=''
     local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
-	local time='$(date +%H:%M)'
-	local base='[\u@\h '"${display}"' \W '"${available}"']'
+    local time='$(date +%H:%M)'
+    local base='[\u@\h '"${display}"' \W '"${available}"']'
     local prompt='$ '
 
     if ((UID==0)) ; then
@@ -90,20 +90,20 @@ function bashrc_set_prompt(){
     fi
 
     case "$TERM" in
-	(dumb)
-		if [ -n "${INSIDE_EMACS:-}" -o -n "${SCHROOT_CHROOT_NAME:-}" ] ; then
+    (dumb)
+        if [ -n "${INSIDE_EMACS:-}" -o -n "${SCHROOT_CHROOT_NAME:-}" ] ; then
             prefix="\\w" 
             use_color=true
-		fi
-		;;
-	(emacs)
+        fi
+        ;;
+    (emacs)
         prefix="\\w" 
         use_color=true
         ;;
     (xterm)
         use_color=true
         ;;
-	esac
+    esac
     export COLOR_PROMPT="${use_color}"
     use_color=false
     
@@ -124,28 +124,28 @@ function bashrc_set_prompt(){
         chroot="(${chroot})"
     fi
     if $use_color ; then
-		if [ -n "$chroot" ] ; then
-			chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
-		fi
-		# if [ -n "$cookie" ] ; then
-		# 	cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
-		# fi
-		if [ -n "$prefix" ] ; then
-			prefix="\[${yellow}\]${prefix}\[${normal}\]"
-		fi
-		if [ -n "$ibam" ] ; then
-			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
-		fi
-		if [ -n "$time" ] ; then
-			time="\[${yellow}${black_back}\]${time}\[${normal}\]"
-		fi
-		if [ -n "$base" ] ; then
-			base="\[${cyan}${black_back}\]${base}\[${normal}\]"
-		fi
-		if [ -n "$prompt" ] ; then
-			prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
-		fi
-	fi	
+        if [ -n "$chroot" ] ; then
+            chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
+        fi
+        # if [ -n "$cookie" ] ; then
+        #     cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
+        # fi
+        if [ -n "$prefix" ] ; then
+            prefix="\[${yellow}\]${prefix}\[${normal}\]"
+        fi
+        if [ -n "$ibam" ] ; then
+            ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
+        fi
+        if [ -n "$time" ] ; then
+            time="\[${yellow}${black_back}\]${time}\[${normal}\]"
+        fi
+        if [ -n "$base" ] ; then
+            base="\[${cyan}${black_back}\]${base}\[${normal}\]"
+        fi
+        if [ -n "$prompt" ] ; then
+            prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
+        fi
+    fi    
     if [ -n "$prefix" ] ; then
         prefix="\n${prefix}\n"
     fi
@@ -306,12 +306,12 @@ be="$HOME/.bash_env.$$"
 
 function first_locale(){
     local locale
-	for locale in "$@" ; do
-		if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
-			break
-		fi
-	done
-	echo $locale
+    for locale in "$@" ; do
+        if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
+            break
+        fi
+    done
+    echo $locale
 }
 
 function be_comment(){
@@ -358,7 +358,8 @@ function be_generate(){
 
     # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
     bindirs=(
-
+        "$HOME/opt/app/clang/bin"
+        
         "$HOME/esp/xtensa-esp32-elf/bin"
         "$HOME/Library/Python/3.10/bin"
         # "$HOME/anaconda3/bin"
@@ -416,12 +417,14 @@ function be_generate(){
     )
 
     sharedirs=(
+        "$HOME/opt/app/clang/share"
         "$HOME/opt/*/share"
         "$HOME/opt/share"
         /opt/*/share
     )
 
     mandirs=(
+        "$HOME/opt/app/clang/share/man"
         "$HOME/opt/*/share/man"
         "$HOME/opt/share/man"
         /opt/*/share/man
@@ -436,6 +439,7 @@ function be_generate(){
     )
 
     lddirs=(
+        "$HOME/opt/app/clang/lib"
         "$HOME/opt/*/lib"
         "$HOME/opt/lib"
         /opt/*/lib
@@ -449,7 +453,7 @@ function be_generate(){
     )
 
     editors=(
-		"$HOME/bin/ec"
+        "$HOME/bin/ec"
         emacsclient
         ed
         vi
@@ -557,7 +561,7 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
-	# be_variable GREP_OPTIONS       '--color=always' # deprecated, use function.
+    # be_variable GREP_OPTIONS       '--color=always' # deprecated, use function.
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
@@ -615,17 +619,17 @@ function be_generate(){
     be_unset GNOME_KEYRING_CONTROL
 
 
-	# --------------------
-	# Locale clusterfuck
-	# --------------------
-	#
-	# Unset, in reverse order of priority, to avoid warnings…
-	# Then, check the locales first: often, the wanted locales are not available!
-	#
+    # --------------------
+    # Locale clusterfuck
+    # --------------------
+    #
+    # Unset, in reverse order of priority, to avoid warnings…
+    # Then, check the locales first: often, the wanted locales are not available!
+    #
 
-	# local fr=$(first_locale fr_FR.UTF-8 C)
-	local en=$(first_locale en_US.UTF-8 C)
-	
+    # local fr=$(first_locale fr_FR.UTF-8 C)
+    local en=$(first_locale en_US.UTF-8 C)
+    
     be_unset    LANGUAGE      # If the following are not defined.
     be_unset    LANG          # If the following are not defined.
     be_unset    LC_CTYPE      # If LC_ALL is not defined.
@@ -638,8 +642,8 @@ function be_generate(){
 
     be_variable LANG  "${en}"
 
-	be_variable RUBYOPT '-Eutf-8' 
-	# be_variable RUBYLIB /usr/bin/ruby2.5
+    be_variable RUBYOPT '-Eutf-8' 
+    # be_variable RUBYLIB /usr/bin/ruby2.5
 
     be_unset XMODIFIERS
 
@@ -734,12 +738,12 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
-	if type -p rbenv 2>/dev/null ; then
-		eval "$(rbenv init -)"
-	fi	
-	if type -p pyenv 2>/dev/null ; then
-		eval "$(pyenv init -)"
-	fi
+    if type -p rbenv 2>/dev/null ; then
+        eval "$(rbenv init -)"
+    fi    
+    if type -p pyenv 2>/dev/null ; then
+        eval "$(pyenv init -)"
+    fi
 }
 
 ########################################################################
@@ -759,9 +763,9 @@ function bashrc_load_completions(){
     if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
         local script
         for script in radio fpm new-password religion ; do
-			if type -p "$script" 2>&1 >/dev/null ; then
-		        eval $( "$script" --bash-completion-function )
-			fi
+            if type -p "$script" 2>&1 >/dev/null ; then
+                eval $( "$script" --bash-completion-function )
+            fi
         done
     fi
 
@@ -978,11 +982,11 @@ function bashrc_define_aliases(){
         umask "$ou"
 
         if [ -x /opt/local/bin/gls ] ; then
-	        alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
-	        alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
+            alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
+            alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
         else
-	        alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
-	        alias lsv='LC_COLLATE="C" /bin/ls -CF'
+            alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
+            alias lsv='LC_COLLATE="C" /bin/ls -CF'
         fi
         alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
         alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
@@ -1030,7 +1034,7 @@ function bashrc_define_aliases(){
                                 -nolirc -noar "$@" ; }
     function mplayer(){ command mplayer -nojoystick -quiet "$@" ; }
 
-	function grep(){ command grep --color=always "$@" ; }
+    function grep(){ command grep --color=always "$@" ; }
 }
 
 
@@ -1392,7 +1396,7 @@ function msum            (){ md5sum "$1" ; sumseg 9728000 "$1" ; }
 function rm-symlinks     (){ find . -maxdepth 1 -type l -exec rm {} + ; }
 
 function all-disk-stat   (){ dstat -d -D total,$(cd /dev ; echo hd? sd? |tr ' ' ',') "$@" ; }
-function sysexits        (){ sed -n -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/p' /usr/include/sysexits.h ; }
+function sysexits        (){ sed -n -e 's/#define[     ][     ]*\([^     ][^     ]*\)[     ][     ]*\([0-9][0-9]*\).*/export \1=\2/p' /usr/include/sysexits.h ; }
 
 function screen-size     (){
     if [[ -n "$DISPLAY" ]] ; then
