@@ -724,6 +724,30 @@ function be_generate(){
 }
 
 
+function readlink_f(){
+    local path="$1"
+    local result
+    result=$(readlink -f "$path" 2>/dev/null)
+    if [ $? -eq 0 ] ; then
+        echo "$result"
+    else
+        # If readlink -f is not available, we try to emulate it:
+        if [ -L "$path" ] ; then
+            local dir=$(dirname "$path")
+            local link=$(basename "$path")
+            cd "$dir"
+            local target=$(readlink "$link")
+            if [ $? -eq 0 ] ; then
+                readlink_f "$target"
+            else
+                echo "$path"
+            fi
+        else
+            echo "$path"
+        fi
+    fi
+}
+
 function bashrc_generate_and_load_environment(){
     # User specific environment and startup programs
     export BASH_ENV="$HOME/.bash_env"
@@ -735,15 +759,15 @@ function bashrc_generate_and_load_environment(){
     else
         be_generate
     fi
-    source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/bashrc-keys"
+    source "$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
-    if type -p rbenv 2>/dev/null ; then
-        eval "$(rbenv init -)"
-    fi    
-    if type -p pyenv 2>/dev/null ; then
-        eval "$(pyenv init -)"
-    fi
+	if type -p rbenv 2>/dev/null 1>&2 ; then
+		eval "$(rbenv init -)"
+	fi	
+	if type -p pyenv 2>/dev/null 1>&2 ; then
+		eval "$(pyenv init -)"
+	fi
 }
 
 ########################################################################
