@@ -1,3 +1,8 @@
+(load "~/rc/emacs-linux.el")
+(defvar *pjb-force-linux-tabulation* nil)
+(pushnew '(include "^/build/") *pjb-force-linux-tabulation* :test (function equal))
+
+
 (require 'shell)
 
 (defun redbend--comint-output-filter--remove-esc-b (string)
