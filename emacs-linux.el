@@ -53,7 +53,8 @@
                  (if (stringp re)
                      (string-match re filename)
                      (string-match (second re) filename)))
-               includes))))
+               includes)
+         t)))
 
 (defun pjb-insert-newline-command (repeat)
   (interactive "p")
@@ -68,7 +69,8 @@
 (add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
 
 (defun linux-c-mode-meat ()
-  (message "linux-c-mode-meat %S" (buffer-file-name))
+  (message "linux-c-mode-meat %S %s" (buffer-file-name)
+           (if (pjb-force-linux-tabulation-file-p (buffer-file-name)) "yes" "nope"))
   ;; Enable kernel mode for the appropriate files
   (when (pjb-force-linux-tabulation-file-p (buffer-file-name))
     (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
