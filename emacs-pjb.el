@@ -621,6 +621,7 @@ X-Accept-Language:         fr, es, en
    (load "~/rc/emacs-haskell.el")))
 (load "~/rc/emacs-copilot.el")
 (load "~/rc/emacs-linux.el")
+(load "~/rc/emacs-sensors.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
