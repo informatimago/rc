@@ -53,3 +53,6 @@
           (forward-char 4))
         (ruby-send-region-and-go (point-min) (point-max))
         (ruby-print-result)))))
+
+
+(global-set-key (kbd"M-TAB") 'suspend-frame)
