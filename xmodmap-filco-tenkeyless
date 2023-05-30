@@ -28,9 +28,9 @@ keycode  76 = F10             XF86_Switch_VT_10 F23
 keycode  95 = F11             XF86_Switch_VT_11 F24
 keycode  96 = F12             XF86_Switch_VT_12 F25
 
-keycode 111 = Pause           Break
+keycode 107 = Pause           Break
 keycode  78 = Caps_Lock
-keycode 110 = Print           Sys_Req
+keycode 127 = Print           Sys_Req
 
 
 !------------------------------------------------------------
