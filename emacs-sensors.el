@@ -31,9 +31,21 @@
     (car *temperature-cache*)))
 
 (defun install-current-temperature-to-mode-line ()
-  (setf mode-line-format
-        (append mode-line-format
-                '((:eval (format " %s°C" (current-cpu-temperature)))))))
+  (interactive)
+  (setq-default mode-line-format
+                (append mode-line-format
+                        '((:eval (let ((temperature  (current-cpu-temperature)))
+                                   (cond
+                                     ((< temperature 60.0)
+                                      (format " %s°C"))
+                                     ((< temperature 70.0)
+                                      ;; display it in yellow
+                                      (propertize (format " %s°C" temperature)
+                                                  'face '(:foreground "yellow")))
+                                     (t
+                                      ;; display it in red
+                                      (propertize (format " %s°C" temperature)
+                                                  'face '(:foreground "red"))))))))))
+
 
 (install-current-temperature-to-mode-line)
-
