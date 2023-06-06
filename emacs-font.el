@@ -160,6 +160,13 @@
 (defparameter *pjb-font-list*
   (cond
     ((string= (hostname) "L0253344") '("terminus-12" "terminus-14"  "terminus-18" "terminus-24") )
+    ((string= (hostname)"frprld7818008")
+                  '("fixed"
+                   "terminus-12"
+                   "terminus-14"
+                   "terminus-18"
+                   "terminus-32"
+                   ))
     (t (remove-unknown-fonts
         (case window-system
           ((ns)
