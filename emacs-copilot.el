@@ -1,6 +1,6 @@
 (add-to-list 'load-path "~/emacs/copilot")
 (add-to-list 'load-path "~/emacs/s")
-(add-to-list 'load-path "~/emacs/editorconfig")
+(add-to-list 'load-path "~/emacs/editorconfig-emacs")
 
 (require 'copilot)
 
