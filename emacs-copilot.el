@@ -1,6 +1,7 @@
-(add-to-list 'load-path "~/emacs/copilot")       ;; git@github.com:zerolfx/copilot.el.git       
-(add-to-list 'load-path "~/emacs/s")             ;; git@github.com:magnars/s.el.git         
-(add-to-list 'load-path "~/emacs/editorconfig")  ;; git@github.com:editorconfig/editorconfig.git
+(add-to-list 'load-path "~/emacs/copilot")            ;; git@github.com:zerolfx/copilot.el.git       
+(add-to-list 'load-path "~/emacs/s")                  ;; git@github.com:magnars/s.el.git         
+(add-to-list 'load-path "~/emacs/editorconfig-emacs") ;; git@github.com:editorconfig/editorconfig-emacs.git
+;; (add-to-list 'load-path "~/emacs/editorconfig")       ;; git@github.com:editorconfig/editorconfig.git
 
 (require 'copilot)
 
