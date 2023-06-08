@@ -37,7 +37,7 @@
                         '((:eval (let ((temperature  (current-cpu-temperature)))
                                    (cond
                                      ((< temperature 60.0)
-                                      (format " %s°C"))
+                                      (format " %s°C" temperature))
                                      ((< temperature 70.0)
                                       ;; display it in yellow
                                       (propertize (format " %s°C" temperature)
