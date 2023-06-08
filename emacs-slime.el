@@ -577,6 +577,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       (t
        (inferior-lisp-repl)))))
 
+(defun pjb-show-lisp-repl-jump-in ()
+  (interactive)
+  (pjb-show-lisp-repl t))
+
 (defun indent-defun ()
   (interactive)
   (save-excursion
