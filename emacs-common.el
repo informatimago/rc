@@ -864,6 +864,16 @@ SIDE must be the symbol `left' or `right'."
   nil)
 
 
+(defun russian (&optional alternate)
+  (interactive "P")
+  (set-input-method (if alternate
+                        'russian-typewriter
+                        'russian-computer)))
+
+(defun chinese () (interactive) (set-input-method 'chinese-py-b5))
+(defun greek   () (interactive) (set-input-method 'greek))
+(defun hebrew  () (interactive) (set-input-method 'hebrew))
+
 (defun pjb-global-key-bindings ()
   (interactive)
 
@@ -880,6 +890,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "<end>")         'end-of-buffer)
   (global-set-key (kbd "<prior>")       'scroll-down)
   (global-set-key (kbd "<next>")        'scroll-up)
+  (global-set-key (kbd "A-<prior>")     'beginning-of-buffer)
+  (global-set-key (kbd "A-<next>")      'end-of-buffer)
 
   (global-set-key (kbd "C-c C-s")       'search-forward-regexp)
   (global-set-key (kbd "C-c C-r")       'search-backward-regexp)
@@ -894,7 +906,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "M-g g")         'goto-char)
 
   (global-set-key (kbd "<f8>")          'pjb-show-lisp-repl)
-  (global-set-key (kbd "C-<f8>")         (lambda () (interactive) (pjb-show-lisp-repl t)))
+  (global-set-key (kbd "C-<f8>")        'pjb-show-lisp-repl-jump-in)
 
   (global-set-key (kbd "C-c .")         'forward-sexp)
   (global-set-key (kbd "C-c ,")         'backward-sexp)
@@ -907,15 +919,11 @@ SIDE must be the symbol `left' or `right'."
   ;; (global-set-key "\M-["                'insert-parentheses)
   ;; (global-set-key "\M-]"                'move-past-close-and-reindent)
 
-  (global-set-key (kbd "C-<f9>")  (lambda()(interactive)(set-input-method 'chinese-py-b5)))
-  (global-set-key (kbd "C-<f10>") (lambda()(interactive)(set-input-method 'cyrillic-jis-russian))) ;'cyrillic-yawerty
-  (global-set-key (kbd "C-<f10>") (lambda(&optional alternate)
-                                    (interactive "P")
-                                    (set-input-method (if alternate
-                                                          'russian-typewriter
-                                                          'russian-computer))))
-  (global-set-key (kbd "C-<f11>") (lambda()(interactive)(set-input-method 'greek)))
-  (global-set-key (kbd "C-<f12>") (lambda()(interactive)(set-input-method 'hebrew)))
+ 
+  (global-set-key (kbd "C-<f9>")  'chinese)
+  (global-set-key (kbd "C-<f10>") 'russian)
+  (global-set-key (kbd "C-<f11>") 'greek)
+  (global-set-key (kbd "C-<f12>") 'hebrew)
   ;; (autoload 'hebr-switch  "hebwork"  "Toggle Hebrew mode.")
   ;; (global-set-key (kbd "C-<f12>") 'hebr-switch)
 
