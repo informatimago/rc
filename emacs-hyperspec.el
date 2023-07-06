@@ -10,6 +10,18 @@
 (require 'clhs      nil t)
 (require 'hyperspec nil t)
 
+(defun pjb-sync-get-resource-at-url (url)
+  (let ((done nil))
+    (url-http (url-generic-parse-url url)
+              (lambda (&rest args)
+                (message "args = %S" args)
+                (message "current buffer = %S" (current-buffer))
+                (setf done (buffer-substring (point-min) (point-max))))
+              nil)
+    (while (not done)
+           (sleep-for 0.1))
+    done))
+
 (defun probe-url (url)
   (cond
     ((string= "file://" (subseq url 0 (min (length url) 7)))
@@ -17,10 +29,9 @@
     ((file-readable-p "/tmp/no-internet")
      nil)
     (t
-     (zerop (first (cl:parse-integer
-                    (shell-command-to-string
-                     (format "wget -O /dev/null %S >/dev/null 2>&1 ; echo -n $?"
-                             url))))))))
+     (handler-case (progn (pjb-sync-get-resource-at-url url)
+                          t)
+       (error () nil)))))
 
 
 (defun pjb-get-resource-at-url (url)
@@ -30,19 +41,14 @@
      (with-file ((subseq url 7) :save nil :kill t :literal t)
        (buffer-substring-no-properties (point-min) (point-max))))
     (t
-     (let ((result (shell-command-to-string
-                    (format "PATH='%s' wget --no-convert-links -q -nv -o /dev/null -t 3  -O -  %s"
-                            (mapconcat (function identity) exec-path ":")
-                            (shell-quote-argument url)))))
-       (if (string= result "/bin/bash: wget: command not found\n")
-           (error result)
-           result)))))
+     (pjb-sync-get-resource-at-url url))))
 
 
 (defparameter *clhs-lispworks* "www.lispworks.com/documentation/HyperSpec/")
 (defparameter *clhs-map-sym*   "Data/Map_Sym.txt")
 (defparameter common-lisp-hyperspec-root
   (dolist (url (list (concat "file://" (get-directory :hyperspec))
+                     "file:///opt/local/share/doc/lisp/lisp-hyperspec-7.0/HyperSpec/"
                      "file:///usr/share/doc/hyperspec/HyperSpec/"
                      "file:///usr/share/doc/hyperspec/"
                      "file:///usr/local/share/doc/cl/HyperSpec/"
@@ -71,19 +77,21 @@ something like \"file:/usr/local/doc/HyperSpec/\".")
 
 
 (defparameter common-lisp-hyperspec-symbols
-  (let ((symbols (make-vector 67 0)))
-    (loop
-      for (name page)
-        on (split-string (pjb-get-resource-at-url (concat common-lisp-hyperspec-root *clhs-map-sym*)) "\n")
-      by (function cddr)
-      while page
-      do (let ((symbol (intern (string-downcase name) symbols))
-               (page (if (prefixp "../" page)
-                         (subseq page 3 )
-                         page)))
-           ;; (message "%S %S" symbol page)
-           (setf (get symbol 'common-lisp-hyperspec-page) page)))
-    symbols))
+  (if common-lisp-hyperspec-root
+      (let ((symbols (make-vector 67 0)))
+        (loop
+          for (name page)
+          on (split-string (pjb-get-resource-at-url (concat common-lisp-hyperspec-root *clhs-map-sym*)) "\n")
+          by (function cddr)
+          while page
+          do (let ((symbol (intern (string-downcase name) symbols))
+                   (page (if (prefixp "../" page)
+                             (subseq page 3 )
+                             page)))
+               ;; (message "%S %S" symbol page)
+               (setf (get symbol 'common-lisp-hyperspec-page) page)))
+        symbols)
+      (make-vector 67 0)))
 
 
 (defun thing-at-point-no-properties (thing)

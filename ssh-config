@@ -136,6 +136,12 @@ Host linksys
     User                    root
     IdentityFile            ~/.ssh/linksys
 
+Host sdf
+    HostName                sdf.org
+    User                    pjb
+    IdentityFile            ~/.ssh/sdf-rsa
+
+    
 Host proteus
     HostName                proteus.sbde.fr
     User                    pjb
@@ -150,6 +156,17 @@ Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    admin
     IdentityFile            ~/.ssh/pjb-proteus-sbde@despina
+
+Host proteus
+    HostName                proteus.sbde.fr
+    User                    debian
+    IdentityFile            ~/.ssh/ovh-proteus-rsa
+
+Host proteus.sbde.fr
+    HostName                proteus.sbde.fr
+    User                    debian
+    IdentityFile            ~/.ssh/ovh-proteus-rsa
+
 
 Host gitlab.sbde.fr
     HostName                gitlab.sbde.fr

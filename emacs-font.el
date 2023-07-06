@@ -160,6 +160,13 @@
 (defparameter *pjb-font-list*
   (cond
     ((string= (hostname) "L0253344") '("terminus-12" "terminus-14"  "terminus-18" "terminus-24") )
+    ((string= (hostname)"frprld7818008")
+                  '("fixed"
+                   "terminus-12"
+                   "terminus-14"
+                   "terminus-18"
+                   "terminus-32"
+                   ))
     (t (remove-unknown-fonts
         (case window-system
           ((ns)
@@ -227,6 +234,11 @@
            )
           (otherwise
            '(
+             "fixed"
+             "terminus-14"
+             "terminus-18"
+             "terminus-32"
+
              "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"
              "-unknown-DejaVu Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1"
              "-unknown-DejaVu Sans Mono-normal-normal-normal-*-19-*-*-*-m-0-iso10646-1"
@@ -334,9 +346,6 @@
              "-KC-Fixed-normal-normal-normal-*-15-*-*-*-c-80-fontset-auto1"
 
              "-lispm-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*"
-             "fixed"
-             "terminus-18"
-             "terminus-32"
              ))
 
           ;; (otherwise

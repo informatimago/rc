@@ -114,7 +114,7 @@
  '(boxquote-bottom-corner "+")
  '(boxquote-top-and-tail "----------------------------------------------------------------------------")
  '(boxquote-top-corner "+")
- '(browse-url-browser-function 'w3m-browse-url)
+ '(browse-url-browser-function 'browse-url-default-browser)
  '(browse-url-new-window-flag nil)
  '(browse-url-secondary-browser-function 'browse-url-default-macosx-browser)
  '(c-argdecl-indent 4 t)
@@ -194,7 +194,8 @@
  '(emms-source-playlist-formats '(native pls m3u))
  '(enable-recursive-minibuffers t)
  '(erc-auto-query 'window)
- '(erc-autojoin-channels-alist '(("irc.libera.chat" "#lisp" "##lisp" "#commonlisp" "##lispm" "#clschool" "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs" "#slime" "#lispcafe" "#lispweb" "#lispgames" "#common-lisp.net" "#emacs" "#hn" "#space" "##space") ("freenode.org" "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france" "#lisp" "##lisp" "##lispm" "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging" "##trains" "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr-off" "#haskell" "#haskell-fr" "#hn" "#iphonedev" "#iphonedev-chat" "#lisp-es" "#lispcafe" "#lispgames" "#lispweb" "#lispx" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime" "#space" "#swift-lang" "#synthesizers" "#tesla") ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX") ("irc.sbde.fr" "#laboite" "#sbde") ("irc.oftc.net" "#uml")))
+ '(erc-autojoin-channels-alist '(("libera.chat" "#lisp" "#commonlisp" "##lispm" "#interlisp" "#clschool" "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs" "#slime" "#lisppub" "#lispweb" "#lispgames" "#common-lisp.net" "#nyxt" "#cl-naive" "#clergo" "#emacs" "#org-mode" "#erc" "#gnus" "#hn" "#space" "#emacsfr-off") ("freenode.org" "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france" "#lisp" "##lisp" "##lispm" "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging" "##trains" "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr-off" "#haskell" "#haskell-fr" "#hn" "#iphonedev" "#iphonedev-chat" "#lisp-es" "#lispcafe" "#lispgames" "#lispweb" "#lispx" "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime" "#space" "#swift-lang" "#synthesizers" "#tesla") ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX") ("sbde.fr" "#laboite" "#sbde") ("oftc.net" "#uml")))
+ '(erc-autojoin-delay 60)
  '(erc-autojoin-mode t)
  '(erc-autojoin-timing 'ident)
  '(erc-away-timestamp-format "<%H:%M:%S>")
@@ -209,7 +210,7 @@
  '(erc-fill-prefix "\"\"")
  '(erc-fill-static-center 0)
  '(erc-fill-variable-maximum-indentation 0)
- '(erc-hide-list 'nil)
+ '(erc-hide-list nil)
  '(erc-identd-mode t)
  '(erc-ignore-list '("ad37e918" "173.55.233.24" "Abby26" "^snv1?!~Adium@" "no-defun-allowed" "theemacsshibe" "paule32" "frickfacejr" "fe\\[nl]ix"))
  '(erc-ignore-per-channel-alist '(("#lisp" . "^\\(?:A\\(?:aliyah\\|b\\(?:b\\(?:ey\\|i\\(?:e\\|gail\\)\\|y\\)\\|igail\\)\\|d\\(?:dison\\|ri\\(?:an\\(?:n?a\\)?\\|enne\\)\\)\\|gath[ae]\\|i\\(?:leen\\|mee\\|sha\\)\\|ja\\|l\\(?:a\\(?:[iny]?na\\)\\|e\\(?:ah\\|cia\\|jandra\\|na\\|s\\(?:\\(?:h\\|sandr\\)a\\)\\|x\\(?:a\\(?:ndr\\(?:[ei]?a\\)\\)?\\|i[as]\\|us\\)?\\)\\|i\\(?:c\\(?:e\\|ia\\)\\|na\\|s\\(?:a\\|ha\\|on\\|sa\\)\\|yah\\)?\\|l\\(?:i\\(?:e\\|son\\)\\|ys\\(?:on\\|sa\\)\\)\\|ma\\|ondra\\|y\\(?:cia\\|s\\(?:a\\|ha\\|ia\\|on\\|sa\\)\\)\\)\\|m\\(?:an\\(?:da\\|i\\)\\|ber\\|elia\\|y\\)\\|n\\(?:a\\(?:bel\\|is\\|stasia\\)\\|drea\\|g\\(?:el\\(?:a\\|i\\(?:ca\\|na\\|que\\)\\)?\\|ie\\)\\|i\\(?:\\(?:ss\\|[kt]\\)a\\)\\|jelica\\|n\\(?:amarie\\|ette\\|i\\(?:e\\|ka\\)\\|marie\\|[ae]\\)\\|to\\(?:inette\\|nia\\)\\|[an]\\)\\|pril\\|r\\(?:aceli\\|i\\(?:an\\(?:n?a\\)\\|el\\(?:le\\)?\\)\\|lene\\)\\|s\\(?:h\\(?:a\\(?:nti\\)?\\|ely\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|ie\\|ynn?\\|[iy]\\)\\|ton\\)\\|ia\\|pen\\|trid\\)\\|thena\\|u\\(?:bre[ey]\\|dr\\(?:a\\|ey\\)\\|rora\\|tumn\\)\\|v\\(?:a\\|ery\\)\\|y\\(?:\\(?:ann?\\|l\\)a\\)\\)\\|B\\(?:a\\(?:by\\|ile[ey]\\|rbara\\|ylee\\)\\|e\\(?:atri\\(?:ce\\|z\\)\\|linda\\|r\\(?:\\(?:enic\\|nadett\\)e\\)\\|t\\(?:h\\(?:any\\)?\\|[st]y\\)\\|verly\\)\\|i\\(?:anca\\|llie\\)\\|la\\(?:ir\\|nca\\)\\|o\\(?:bbie?\\|nnie\\)\\|r\\(?:and\\(?:ie\\|[iy]\\)\\|e\\(?:a\\(?:n\\(?:n[ae]\\|[an]\\)\\)?\\|\\(?:n[dn]\\|onn\\)a\\)\\|i\\(?:a\\(?:n\\(?:a\\|n[ae]\\)\\)?\\|dget\\(?:te\\)?\\|elle\\|t\\(?:any\\|n\\(?:ey\\|i\\)\\|t\\(?:an\\(?:ie\\|[iy]\\)\\|n\\(?:ey\\|i\\)\\)\\)\\)\\|ook\\(?:e\\|lyn\\)?\\|yan\\(?:n?a\\)\\)\\)\\|C\\(?:a\\(?:itl\\(?:[iy]n\\)\\|llie\\|m\\(?:eron\\|ille\\)\\|nd\\(?:[ai]ce\\)\\|r\\(?:a\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|men\\|ol\\(?:in[ae]\\|yn\\)?\\|rie\\|son\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:alina\\|herine\\)\\|yla\\)\\|e\\(?:c\\(?:[ei]lia\\)\\|l\\(?:este\\|i\\(?:a\\|n[ae]\\)\\)\\)\\|h\\(?:a\\(?:n\\(?:dler\\|\\(?:e\\|t[ae]\\)l\\)\\|r\\(?:ity\\|l\\(?:\\(?:en\\|ott\\)e\\)\\)\\|sity\\|ya\\)\\|e\\(?:ls\\(?:e[ay]\\|ie?\\)\\|ryl\\|y\\(?:[ae]nne\\)\\)\\|ina\\|loe\\|rist\\(?:en\\|i\\(?:ana?\\|n[ae]\\|[en]\\)\\|[ay]\\)\\)\\|i\\(?:ara\\|er\\(?:r?a\\)\\|ndy\\)\\|la\\(?:ire\\|r\\(?:issa\\|[ae]\\)\\|udia\\)\\|o\\(?:lleen\\|n\\(?:\\(?:ni\\|stanc\\)e\\)\\|r\\(?:ey\\|in\\(?:a\\|ne\\)\\|tney\\|[ai]\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|ina\\)\\|ystal\\)\\|ynthia\\)\\|D\\(?:a\\(?:isy\\|kota\\|l\\(?:ia\\|las\\)\\|maris\\|n\\(?:a\\|i\\(?:ca\\|el\\(?:a\\|l[ae]\\)\\)\\)\\|phne\\|r\\(?:a\\|by\\|cy\\|ian\\|lene\\)\\|wn\\|yna\\)\\|e\\(?:an\\(?:n?a\\)\\|b\\(?:bie\\|orah\\|ra\\)\\|ja\\|laney\\|mi\\|nise\\|s\\(?:ir\\(?:[ae]e\\)\\|tin\\(?:e[ey]\\|[iy]\\)\\)\\|v\\(?:[aioy]n\\)\\)\\|i\\(?:a\\(?:mond\\|n\\(?:na\\|[ae]\\)\\)\\|na\\)\\|o\\(?:m\\(?:\\(?:ini?\\|oni\\)que\\)\\|nna\\|r\\(?:is\\|othy\\)\\)\\|rew\\|ulce\\)\\|E\\(?:bon[iy]\\|d\\(?:en\\|ith\\)\\|ileen\\|l\\(?:ain[ae]\\|e\\(?:anor\\|na\\)\\|i\\(?:ana\\|s\\(?:abeth\\|[hs]a\\|[ae]\\)\\|za\\(?:beth\\)?\\)\\|l\\(?:a\\|en\\|ie\\)\\|sa\\|ys\\(?:e\\|sa\\)\\)\\|m\\(?:erald\\|il\\(?:ee\\|i[ae]\\|y\\)\\|ma\\)\\|ri\\(?:c\\(?:k?a\\)\\|ka\\|n\\)\\|s\\(?:meralda\\|sence\\|t\\(?:efania\\|her\\)\\)\\|unice\\|v\\(?:a\\|elyn\\)\\)\\|F\\(?:a\\(?:biola\\|ith\\|tima\\)\\|elicia\\|iona\\|ranc\\(?:es\\(?:ca\\)?\\|hes\\(?:[ck]a\\)\\)\\)\\|G\\(?:abriel\\(?:a\\|l[ae]\\)?\\|e\\(?:ne\\(?:sis\\|vieve\\)\\|orgi\\(?:n?a\\)\\)\\|i\\(?:anna\\|llian\\|na\\|ovanna\\|selle\\)\\|l\\(?:adys\\|oria\\)\\|r\\(?:ac\\(?:e\\|iela\\)\\|etchen\\|iselda\\)\\|uadalupe\\|wendolyn\\)\\|H\\(?:a\\(?:ile[ey]\\|l\\(?:e\\(?:igh\\|y\\)\\|ie?\\|l\\(?:i?e\\)\\)\\|nnah?\\|rley\\|yl\\(?:e[ey]\\|ie\\)\\|zel\\)\\|e\\(?:a\\(?:ther\\|ven\\)\\|idi\\|lena?\\)\\|il\\(?:l?ary\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|pe\\)\\|unter\\)\\|I\\(?:esha\\|liana\\|mani\\|n\\(?:dia\\|fant\\|grid\\)\\|r\\(?:ene\\|is\\|ma\\)\\|sa\\(?:bel\\(?:l[ae]\\)?\\|mar\\)\\|tzel\\|v\\(?:ette\\|y\\)\\)\\|J\\(?:a\\(?:c\\(?:k\\(?:ie\\|lyn\\)\\|lyn\\|quel\\(?:ine\\|yn\\)\\)\\|d[ae]\\|im\\(?:i?e\\)\\|lisa\\|mi\\(?:e\\|la\\)?\\|n\\(?:a[ey]\\|e\\(?:lle\\|ssa\\|t\\(?:te\\)?\\)\\|i\\(?:[cn]?e\\)\\|[ae]\\)\\|queline\\|smine?\\|y\\(?:la\\|me\\)\\|zm\\(?:ine?\\|yn\\)\\)\\|e\\(?:an\\(?:ette\\)?\\|n\\(?:a\\|ifer\\|n\\(?:i\\(?:e\\|fer\\)\\|[ay]\\)\\)\\|rrica\\|ss\\(?:enia\\|i\\(?:ca\\|e\\|ka\\)\\|[ei]\\)\\)\\|ill\\(?:ian\\)?\\|o\\(?:an\\(?:n[ae]\\|[an]\\)?\\|celyn\\|die?\\|elle\\|hanna\\|lene\\|rd\\(?:[ay]n\\)\\|s\\(?:e\\(?:lyn\\|phine\\)\\|ie\\)\\|y\\(?:ce\\)?\\)\\|u\\(?:an\\(?:\\(?:it\\)?a\\)\\|d\\(?:ith\\|y\\)\\|li\\(?:an\\(?:a\\|n[ae]\\)\\|et\\|ssa\\|[ae]\\)\\|sti\\(?:ce\\|n[ae]\\)\\)\\)\\|K\\(?:a\\(?:c\\(?:ey\\|ie?\\)\\|ela\\|i\\(?:l\\(?:a\\|e[ey]\\|yn\\)\\|tl\\(?:\\(?:yn\\|[iy]\\)n\\)\\)\\|l\\(?:e\\(?:igh\\|y\\)\\|ie\\|lie\\|yn\\|[ai]\\)\\|r\\(?:en\\|i\\(?:\\(?:n\\|ss\\)a\\)\\|l\\(?:e[ey]\\|ie\\|[aiy]\\)\\|[ai]\\)\\|s\\(?:andra\\|ey\\|s\\(?:andra\\|i\\(?:dy\\|e\\)\\)\\)\\|t\\(?:arina\\|e\\(?:l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\)\\|h\\(?:arine\\|er\\(?:ine\\|yn\\)\\|leen\\|r\\(?:ine\\|yn\\)\\|y\\)\\|ie\\|l\\(?:\\(?:yn\\|[iy]\\)n\\)\\|rina\\|[ey]\\)\\|y\\(?:cee\\|l\\(?:e\\(?:igh\\|[ey]\\)\\|i[en]\\|ynn?\\|[ai]\\)\\)\\)\\|e\\(?:ely\\|i\\(?:\\(?:l\\|shl?\\)a\\)\\|l\\(?:cie\\|l\\(?:ey\\|ie\\|[iy]\\)\\|s\\(?:e[ay]\\|ie?\\)\\)\\|n\\(?:d\\(?:all?\\|ra\\)\\|ia\\|nedy\\|ya\\)\\|r\\(?:i\\|r[iy]\\)\\)\\|hadijah\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:a\\|ra\\|sten\\)\\|ley\\|mberl\\(?:e[ey]\\|y\\)\\|r\\(?:a\\|st\\(?:en\\|i[en]\\)\\)\\)\\|o\\(?:r\\(?:i\\|tney\\)\\|urtney\\)\\|r\\(?:ist\\(?:al\\|en\\|i\\(?:an\\|n[ae]\\|[en]\\)\\|yn\\|[aiy]\\)\\|ystal?\\)\\|y\\(?:l\\(?:a\\|[ei]e\\)\\|ra\\)\\)\\|L\\(?:a\\(?:c\\(?:ey\\|ie\\|y\\)\\|keisha\\|na\\|r\\(?:\\(?:iss\\)?a\\)\\|t\\(?:\\(?:ash\\|ish\\|oy\\)a\\)\\|ur\\(?:a\\|e[ln]\\|ie\\|yn\\)\\|yla\\)\\|e\\(?:a\\(?:h\\|n\\(?:dra\\|n[ae]?\\)\\)?\\|eann\\|i\\(?:gh\\|la\\)\\|na\\|sl\\(?:ey\\|ie\\|y\\)\\|ticia\\|x\\(?:ie?\\|us\\)\\)\\|i\\(?:ana\\|dia\\|l\\(?:iana\\|lian\\|y\\)\\|nd\\(?:a\\|s\\(?:[ae]y\\)\\)\\|sa\\|z\\(?:a\\|beth\\|et\\(?:h\\|te\\)\\)\\)\\|o\\(?:gan\\|r\\(?:ena?\\|i\\|raine\\)\\|urdes\\)\\|u\\(?:c\\(?:ero\\|ia\\|y\\)\\|z\\)\\|y\\(?:dia\\|n\\(?:dsey\\|ette\\|n\\)\\)\\)\\|M\\(?:a\\(?:c\\(?:ey\\|ie\\|kenzie\\|y\\)\\|d\\(?:alyn\\|dison\\|el\\(?:eine\\|ine\\|yn\\)\\|ison\\)\\|egan\\|g\\(?:dalena\\|gie\\)\\|ira\\|k\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|l\\(?:ia\\|lory\\)\\|ndy\\|r\\(?:anda\\|cella\\|gar\\(?:et\\|ita\\)\\|i\\(?:a\\(?:na\\|[hm]\\)\\|bel\\|cela\\|ela?\\|lyn\\|na\\|s\\(?:a\\|ela\\|ol\\|sa\\)\\|tza\\|[ae]\\)\\|le\\(?:e\\|n[ae]\\)\\|t\\(?:\\(?:h\\|in\\)a\\)\\|[ay]\\)\\|ur\\(?:a\\|een\\)\\|y\\(?:r?a\\)\\)\\|ck\\(?:ayla\\|en\\(?:na\\|zie\\)\\)\\|e\\(?:ag\\(?:h?an\\)\\|g\\(?:h?an\\)\\|l\\(?:anie\\|i\\(?:\\(?:nd\\|ss\\|[ns]\\)a\\)\\|ody\\)\\|r\\(?:anda\\|cedes\\|edith\\)\\)\\|i\\(?:a\\|c\\(?:a\\(?:ela\\|h\\)\\|h\\(?:aela\\|el\\(?:l?e\\)\\)\\)\\|ka\\(?:[ey]?la\\)\\|ndy\\|r\\(?:a\\(?:cle\\|nda\\)\\|eya\\|iam\\)\\|sty\\)\\|o\\(?:ll\\(?:ie\\|y\\)\\|n\\(?:i\\(?:ca\\|ka\\|que\\)\\|tana\\)\\|r\\(?:gan\\|iah\\)\\)\\|y\\(?:\\(?:r\\(?:and\\)?\\)?a\\)\\)\\|N\\(?:a\\(?:di\\(?:a\\|ne\\)\\|ncy\\|omi\\|t\\(?:a\\(?:l\\(?:i[ae]\\|y\\)\\|sha\\)\\|halie\\)\\|yeli\\)\\|i\\(?:a\\|c\\(?:\\(?:hol\\|ol\\(?:ett\\)?\\)e\\)\\|k\\(?:ita\\|ki\\|ole\\)\\|na\\)\\|o\\(?:e\\(?:l\\(?:le\\)?\\|mi\\)\\|r\\(?:m?a\\)\\)\\)\\|O\\(?:\\(?:ctavi\\|l\\(?:g\\|ivi\\)\\)a\\)\\|P\\(?:a\\(?:ige\\|loma\\|mela\\|ola\\|ris\\|tric\\(?:e\\|ia\\)\\|ul\\(?:a\\|in[ae]\\)\\|yton\\)\\|e\\(?:rla\\|yton\\)\\|hoebe\\|r\\(?:ecious\\|i\\(?:ncess\\|scilla\\)\\)\\)\\|R\\(?:a\\(?:ch\\(?:ael\\|e\\(?:al\\|l\\(?:le\\)?\\)\\)\\|ndi\\|quel\\|ven\\)\\|e\\(?:agan\\|be\\(?:c\\(?:c?a\\)\\|kah\\)\\|g\\(?:an\\|ina\\)\\|ina\\|nee\\|yna\\)\\|h\\(?:iannon\\|onda\\)\\|i\\(?:kki\\|ley\\|ta\\)\\|o\\(?:b\\(?:[iy]n\\)\\|c\\(?:helle\\|io\\)\\|s\\(?:emary\\|[ae]\\)\\|xan\\(?:a\\|ne\\)\\)\\|u\\(?:by\\|th\\)\\|y\\(?:an\\|lee\\)\\)\\|S\\(?:a\\(?:brina\\|d\\(?:i?e\\)\\|ge\\|l\\(?:ina\\|ly\\)\\|mantha\\|nd\\(?:ra\\|y\\)\\|r\\(?:a[hi]?\\|ina\\)\\|sha\\|van\\(?:ah\\|nah?\\)\\)\\|carlett\\|e\\(?:\\(?:l[ei]\\|re\\)na\\)\\|h\\(?:a\\(?:ina\\|kira\\|n\\(?:a\\|i\\(?:a\\|ce\\|qua\\)\\|n\\(?:a\\|on\\)\\|tel\\)\\|ron\\|\\(?:un\\|wn\\|y[ln]\\)a\\)\\|e\\(?:a\\|ena\\|ila\\|l\\(?:b\\(?:ie\\|[iy]\\)\\|ly\\)\\|rry\\)\\|irley\\|yanne\\)\\|i\\(?:dney\\|erra\\|lvia\\|mone\\)\\|ky\\(?:e\\|l\\(?:[ae]r\\)\\)\\|o\\(?:fia\\|n\\(?:[iy]a\\)\\|phi[ae]\\)\\|t\\(?:ac\\(?:ey\\|ie\\|[iy]\\)\\|e\\(?:fanie\\|phan\\(?:ie\\|y\\)\\|vie\\)\\|ormy\\)\\|u\\(?:mmer\\|san\\(?:n?a\\)?\\|zanne\\)\\|y\\(?:dn\\(?:e[ey]\\|ie\\)\\|lvia\\)\\)\\|T\\(?:a\\(?:b\\(?:[ai]tha\\)\\|lia\\|m\\(?:ara\\|my\\)\\|n\\(?:\\(?:ish\\|[iy]\\)a\\)\\|r\\(?:a\\|yn\\)\\|sha\\|t\\(?:iana\\|um\\|yana\\)\\|yl\\(?:[eo]r\\)\\)\\|e\\(?:r\\(?:esa\\|r[ai]\\)\\|ssa?\\)\\|h\\(?:\\(?:ali\\|eres\\)a\\)\\|i\\(?:a\\(?:\\(?:nn\\|[nr]\\)a\\)?\\|er\\(?:r?a\\)\\|ffan\\(?:ie\\|[iy]\\)\\|na\\)\\|o\\(?:n\\(?:i\\|ya\\)\\|ri\\)\\|r\\(?:ac\\(?:ey\\|[iy]\\)\\|i\\(?:cia\\|nity\\|s\\(?:[ht]a\\)\\)\\)\\|y\\(?:esha\\|ler\\|ra\\)\\)\\|V\\(?:a\\(?:leri[ae]\\|nes\\(?:s?a\\)\\)\\|eronica\\|i\\(?:ctoria\\|rginia\\|viana?\\)\\)\\|W\\(?:\\(?:end\\|hit\\(?:[ln]e\\)\\)y\\)\\|Xiomara\\|Y\\(?:a\\(?:dira\\|jaira\\|ritza\\|sm\\(?:een\\|ine?\\)\\|zmin\\)\\|es\\(?:s?enia\\)\\|olanda\\|v\\(?:\\(?:ett\\|onn\\)e\\)\\)\\|Zoey?\\)[0-9]+$") ("#scheme" . "rudybot") ("#emacs" . "rudybot")))
@@ -226,10 +227,11 @@
  '(erc-minibuffer-ignored t)
  '(erc-minibuffer-notice t)
  '(erc-modules '(autoaway button completion irccontrols log match netsplit networks readonly replace ring services stamp track truncate))
+ '(erc-networks-alist '((libera "libera.chat") (4-irc "4-irc.com") (A5KNet "a5knet.com") (AbleNet "ablenet.org") (Accessirc "accessirc.net") (Acestar "acestar.org") (Action-IRC "action-irc.net") (AfterNET "afternet.org") (Alternativenet "altnet.org") (AmigaNet "amiganet.org") (AngelEyez "angeleyez.net") (Anothernet "another.net") (ArabChat "arabchat.org") (Ars "arstechnica.com") (AsiaTalk "asiatalk.org") (AstroLink "astrolink.org") (Asylumnet "asylumnet.org") (Austnet "austnet.org") (AwesomeChat "awesomechat.net") (Awesomechristians "awesomechristians.com") (Axenet "axenet.org") (Beyondirc "beyondirc.net") (BGIRC "bulgaria.org") (Blabbernet "blabber.net") (Blitzed "blitzed.org") (BrasIRC "brasirc.net") (BRASnet "brasnet.org") (BubbleNet "bubblenet.org") (CCnet "christian-chat.net") (Chat-Net "chat-net.org") (Chat-Solutions "chat-solutions.org") (Chatcafe "chatcafe.net") (Chatchannel "chatchannel.org") (ChatCircuit "chatcircuit.com") (Chatlink "chatlink.org") (Chatnet "chatnet.org") (ChatNut "chatnut.net") (Chatpinoy "chatpinoy.com") (ChatPR "chatpr.org") (Chatroom "chatroom.org") (Chatster "chatster.org") (ChatX "chatx.net") (China263 "263.net") (Cineplex1 "cineplex1.com") (CNN "cnn.com") (CobraNet "cobra.net") (Coolchat "coolchat.net") (Criten "criten.net") (Cyberchat "cyberchat.org") (CyGanet "cyga.net") (DALnet "dal.net") (Dark-Tou-Net "d-t-net.de") (Darkfire "darkfire.net") (DarkMyst "darkmyst.org") (Darkserv "darkserv.net") (Darksystem "darksystem.com") (Darktree "darktree.net") (DayNet "daynet.org") (Deepspace "deepspace.org") (Different "different.net") (Digarix "digarix.net") (Digatech "digatech.net") (Digital-Base "digital-base.net") (Digitalirc "digitalirc.net") (Discussioni "discussioni.org") (DorukNet "doruk.net.tr") (DWChat "dwchat.net") (Dynastynet "dynastynet.net") (EFnet nil) (EgyptianIRC "egyptianirc.net") (Eircnet "eircnet.org") (Eleethal "eleethal.com") (EntertheGame "enterthegame.com") (EpiKnet "epiknet.org") (EsperNet "esper.net") (Esprit "esprit.net") (euIRC "euirc.net") (Evilzinc "evilzinc.net") (ExodusIRC "exodusirc.net") (FDFnet "fdfnet.net") (FEFnet "fef.net") (Financialchat "financialchat.com") (Forestnet "forestnet.org") (ForeverChat "foreverchat.net") (Fraggers "fraggers.co.uk") (FreedomChat "freedomchat.net") (FreedomIRC "freedomirc.net") (freenode "freenode.net") (FunNet "funnet.org") (GalaxyNet "galaxynet.org") (Gamesnet "gamesnet.net") (GammaForce "gammaforce.org") (GIKInet "giki.edu.pk") (GizNet "giznet.org") (Globalchat "globalchat.org") (GlobIRC "globirc.net") (Goldchat "goldchat.nl") (Goodchatting "goodchatting.com") (GravityLords "gravitylords.net") (GRnet "irc.gr") (GulfChat "gulfchat.net") (HabberNet "habber.net") (HanIRC "hanirc.org") (Hellenicnet "mirc.gr") (IceNet "icenet.org.za") (ICQnet "icq.com") (iip "anon.iip") (Infatech "infatech.net") (Infinity "infinity-irc.org") (Infomatrix "infomatrix.net") (Inside3D "inside3d.net") (InterlinkChat "interlinkchat.net") (IRC-Chile "irc.cl") (IRC-Hispano "irc-hispano.org") (IRCchat "ircchat.tk") (IRCGate "ircgate.net") (IRCGeeks "ircgeeks.org") (IRChat "irchat.net") (IrcLordz "irclordz.com") (IrcMalta "ircmalta.org") (IRCnet nil) (IRCSoulZ "ircsoulz.net") (IRCSul "wnet.com.br") (IrcTalk "irctalk.net") (Irctoo "irctoo.net") (IRCtown "irc.irctown.net") (IRCworld "ircworld.org") (ircXtreme "ircXtreme.net") (Israelnet "israel.net") (K0wNet "k0w.net") (KDFSnet "kdfs.net") (Kemik "kemik.net") (Kewl\.Org "kewl.org") (Kickchat "kickchat.com") (KidsWorld "kidsworld.org") (Knightnet "knightnet.net") (Konfido\.Net "konfido.net") (Kreynet "krey.net") (Krono "krono.net") (Krushnet "krushnet.org") (LagNet "lagnet.org.za") (Librenet "librenet.net") (LinkNet "link-net.org") (LinuxChix "cats\\.meow\\.at\\|linuxchix\\.org") (Liquidized "liquidized.net") (M-IRC "m-sys.org") (MagicStar "magicstar.net") (Mavra "mavra.net") (MediaDriven "mediadriven.com") (mIRC-X "mircx.com") (Morat "morat.net") (MusicCity "musiccity.com") (Mysteria "mysteria.net") (Mysterychat "mysterychat.net") (Mystical "mystical.net") (Narancs "narancs.com") (Net-France "net-france.com") (Nevernet "nevernet.net") (Newnet "newnet.net") (Nexusirc "nexusirc.org") (NightStar "nightstar.net") (NitrousNet "nitrousnet.net") (Novernet "novernet.com") (Nullrouted "nullrouted.org") (NullusNet "nullus.net") (OFTC "oftc.net") (OpChat "opchat.org") (Openprojects "openprojects.net") (Othernet "othernet.org") (OtherSide "othersideirc.net") (Outsiderz "outsiderz.com") (OzOrg "oz.org") (Peacefulhaven "peacefulhaven.net") (PhazedIRC "phazedirc.net") (Philchat "philchat.net") (phrozN "phrozn.net") (PiNet "praetorians.org") (Pinoycentral "abs-cbn.com") (Planetarion "planetarion.com") (POLNet "ircnet.pl") (Psionics "psionics.net") (PTirc "ptirc.com.pt") (PTlink "ptlink.net") (PTnet "ptnet.org") (QChat "qchat.net") (QuakeNet "quakenet.org") (Realirc "realirc.org") (RealmNET "realmnet.com") (Rebelchat "rebelchat.org") (Red-Latina "red-latina.org") (RedLatona "redlatona.net") (Relicnet "relic.net") (Rezosup "rezosup.org") (Risanet "risanet.com") (Rubiks "rubiks.net") (Rusnet "nil") (Sandnet "sandnet.net") (Scunc "scunc.net") (SerbianCafe "serbiancafe.ws") (SexNet "sexnet.org") (ShadowFire "shadowfire.org") (ShadowWorld "shadowworld.net") (SkyNet "bronowski.pl") (SlashNET "slashnet.org") (SolarStone "solarstone.net") (Sorcery "sorcery.net") (SourceIRC "sourceirc.net") (SpaceTronix "spacetronix.net") (Spirit-Harmony "spirit-harmony.com") (StarChat "starchat.net") (StarEquinox "starequinox.net") (Starlink "starlink.net") (starlink-irc "starlink-irc.org") (StarWars-IRC "starwars-irc.net") (Stormdancing "stormdancing.net") (Superchat "superchat.org") (Sysopnet "sysopnet.org") (Telstra "telstra.com") (TR-net "dominet.com.tr") (Tri-net "tri-net.org") (TriLink "ft4u.net") (TurkishChat "turkishchat.org") (UberNinja "uberninja.net") (UICN "uicn.net") (UltraIRC "ultrairc.net") (UnderChat "underchat.it") (Undernet "undernet.org") (UnderZ "underz.org") (UniChat "irc.uni-chat.net") (UnionLatina "unionlatina.org") (Univers "univers.org") (UnixR "unixr.net") (Vidgamechat "vidgamechat.com") (VirtuaNet "virtuanet.org") (Vitamina "vitamina.ca") (Voila "voila.fr") (Wahou "wf-net.org") (Warpednet "warped.net") (Weaklinks "weaklinks.net") (Webnet "webchat.org") (WinChat "winchat.net") (WinIRC "winirc.org") (WorldIRC "worldirc.org") (WyldRyde "wyldryde.net") (XentoniX "xentonix.net") (Xevion "xevion.net") (XNet "xnet.org") (XWorld "xworld.org") (ZAnetNet "zanet.net") (ZAnetOrg "zanet.org.za") (ZiRC "zirc.org") (ZUHnet "zuh.net") (Zurna "zurna.net")))
  '(erc-nick '("pjb"))
- '(erc-nickserv-passwords '((freenode (("ogamita" . "ogre-a-mite") ("pjb" . "let's-chat")))))
+ '(erc-nickserv-passwords '((libera (("ogamita" . nil) ("pjb" . nil)))))
  '(erc-notice-prefix "   *** ")
- '(erc-pals '("bolet.*" "Posterdati" "martinl"))
+ '(erc-pals '("bolet.*" "Posterdati" "martinl" "Akasha" "Harag"))
  '(erc-port 6697)
  '(erc-prompt (lambda nil (buffer-name (current-buffer))))
  '(erc-prompt-for-nickserv-password nil)
@@ -240,6 +242,8 @@
  '(erc-server-coding-system '(utf-8 . undecided))
  '(erc-server-reconnect-attempts 100)
  '(erc-server-reconnect-timeout 60)
+ '(erc-server-send-ping-interval 60)
+ '(erc-server-send-ping-timeout 300)
  '(erc-system-name "informatimago.com")
  '(erc-text-matched-hook '(erc-log-matches erc-beep-on-match))
  '(erc-timestamp-format nil)
@@ -373,14 +377,14 @@ X-Accept-Language:         fr, es, en
  '(nntp-authinfo-file "~/.authinfo")
  '(nrepl-message-colors '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
  '(org-adapt-indentation nil)
- '(org-agenda-files '("~/works/qorvo/notes.org" "~/works/sbde/todo.org" "~/works/sbde/smt/sources/README.org" "~/works/sbde/laboite/specifications/components.org" "~/works/sbde/laboite/analysis/controller.org" "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt" "~/works/enolaba/macosx/src/TODO" "~/src/pjb/nasium-lse/ISSUES.txt" "~/works/patchwork/src/mclgui/TODO.org" "~/works/patchwork/src/patchwork/notes.txt" "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
+ '(org-agenda-files '("~/rc/notes.txt" "~/works/sbde/todo.org" "~/works/sbde/smt/sources/README.org" "~/works/sbde/laboite/specifications/components.org" "~/works/sbde/laboite/analysis/controller.org" "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt" "~/works/enolaba/macosx/src/TODO" "~/src/pjb/nasium-lse/ISSUES.txt" "~/works/patchwork/src/mclgui/TODO.org" "~/works/patchwork/src/patchwork/notes.txt" "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
  '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
  '(org-latex-remove-logfiles nil)
  '(org-startup-with-inline-images t)
  '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
  '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(package-selected-packages '(use-package editorconfig compat with-editor transient dired-git-info docbook ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -419,7 +423,7 @@ X-Accept-Language:         fr, es, en
  '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder 'identity)
  '(rmail-summary-window-size 12)
- '(safe-local-variable-values '((whitespace-mode . 1) (c-tab-always-indent . t) (smie-indent-basic . 8) (Package . USOCKET-TEST) (eval put 'report-error 'fi:common-lisp-indent-hook 1) (package . net\.aserve\.test) (package . net\.aserve\.client) (package . net\.aserve) (Package . User) (Package . GRAPH) (Package . DWIM) (pretty-greek) (package . common\.surveille-host) (view-mode . t) (Package X86 :use CL) (Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0)) (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep 'swift-project-settings) (and (fboundp 'tramp-tramp-file-p) (tramp-tramp-file-p this-directory))) (add-to-list 'load-path (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require 'swift-project-settings))) (set (make-local-variable 'swift-project-directory) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method 'latin-1-prefix) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method 'latin-1-prefix) (eval add-hook 'before-save-hook 'time-stamp) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent 'defmeth 3) (eval buttonize-buffer) (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1) (eval cl-indent 'cvm-define-structure 2) (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0) (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1) (eval cl-indent 'with-gc-lock 0) (eval cl-indent 'define-common-structure 1) (eval cl-indent 'defenum 1) (eval put 'let-errno 'common-lisp-indent-function 1) (eval cl-indent 'defbf 2) (eval cl-indent 'ffi:with-c-place 1) (eval cl-indent 'xlib:event-case '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1))) (eval when (fboundp 'asm7090) (asm7090)) (eval cl-indent 'defcommand 3) (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") #'backward-delete-char-untabify)) (eval cl-indent 'dolist/separator 1) (eval put 'define-structure 'common-lisp-indent-function 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t) (Package . "CCL") (syntax . COMMON-LISP) (Package . April) (Package . USOCKET-TEST) (eval put 'report-error 'fi:common-lisp-indent-hook 1) (package . net\.aserve\.test) (package . net\.aserve\.client) (package . net\.aserve) (Package . User) (Package . GRAPH) (Package . DWIM) (pretty-greek) (package . common\.surveille-host) (view-mode . t) (Package X86 :use CL) (Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0)) (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep 'swift-project-settings) (and (fboundp 'tramp-tramp-file-p) (tramp-tramp-file-p this-directory))) (add-to-list 'load-path (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require 'swift-project-settings))) (set (make-local-variable 'swift-project-directory) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method 'latin-1-prefix) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method 'latin-1-prefix) (eval add-hook 'before-save-hook 'time-stamp) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent 'defmeth 3) (eval buttonize-buffer) (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1) (eval cl-indent 'cvm-define-structure 2) (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0) (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1) (eval cl-indent 'with-gc-lock 0) (eval cl-indent 'define-common-structure 1) (eval cl-indent 'defenum 1) (eval put 'let-errno 'common-lisp-indent-function 1) (eval cl-indent 'defbf 2) (eval cl-indent 'ffi:with-c-place 1) (eval cl-indent 'xlib:event-case '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1))) (eval when (fboundp 'asm7090) (asm7090)) (eval cl-indent 'defcommand 3) (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") #'backward-delete-char-untabify)) (eval cl-indent 'dolist/separator 1) (eval put 'define-structure 'common-lisp-indent-function 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t)))
+ '(safe-local-variable-values '((lsp-file-watch-ignored-directories "[/\\\\]\\.git$" "[/\\\\]\\..*cache$" "[/\\\\]\\.deps$" "[/\\\\]autom4te\\.cache$" "[/\\\\]build-aux$" "[/\\\\]doc[/\\\\]manual$" "[/\\\\]tests[/\\\\]work$" "[/\\\\]make-[0-9]") (ccls-initialization-options :index (:threads 6 :initialBlacklist ["/make-[0-9]" "tests/work/" "/\\.deps" "/\\..*cache" "/\\.git"])) (Package PPC32 :use CL) (Package PPC64 :use CL) (auto-fill-mode . 1) (eval setq org-latex-default-packages-alist (cons '("mathletters" "ucs" nil) org-latex-default-packages-alist)) (org-latex-inputenc-alist ("utf8" . "utf8x")) (Package . FIVEAM) (Syntax . Ansi-Common-Lisp) (eval cl-flet ((enhance-imenu-lisp (&rest keywords) (dolist (keyword keywords) (let ((prefix (when (listp keyword) (cl-second keyword))) (keyword (if (listp keyword) (cl-first keyword) keyword))) (add-to-list 'lisp-imenu-generic-expression (list (purecopy (concat (capitalize keyword) (if (string= (substring-no-properties keyword -1) "s") "es" "s"))) (purecopy (concat "^\\s-*(" (regexp-opt (list (if prefix (concat prefix "-" keyword) keyword) (concat prefix "-" keyword)) t) "\\s-+\\(" lisp-mode-symbol-regexp "\\)")) 2)))))) (enhance-imenu-lisp '("bookmarklet-command" "define") '("class" "define") '("command" "define") '("ffi-method" "define") '("ffi-generic" "define") '("function" "define") '("internal-page-command" "define") '("internal-page-command-global" "define") '("mode" "define") '("parenscript" "define") "defpsmacro")) (whitespace-mode . 1) (c-tab-always-indent . t) (smie-indent-basic . 8) (Package . USOCKET-TEST) (eval put 'report-error 'fi:common-lisp-indent-hook 1) (package . net\.aserve\.test) (package . net\.aserve\.client) (package . net\.aserve) (Package . User) (Package . GRAPH) (Package . DWIM) (pretty-greek) (package . common\.surveille-host) (view-mode . t) (Package X86 :use CL) (Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0)) (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep 'swift-project-settings) (and (fboundp 'tramp-tramp-file-p) (tramp-tramp-file-p this-directory))) (add-to-list 'load-path (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require 'swift-project-settings))) (set (make-local-variable 'swift-project-directory) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method 'latin-1-prefix) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method 'latin-1-prefix) (eval add-hook 'before-save-hook 'time-stamp) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent 'defmeth 3) (eval buttonize-buffer) (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1) (eval cl-indent 'cvm-define-structure 2) (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0) (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1) (eval cl-indent 'with-gc-lock 0) (eval cl-indent 'define-common-structure 1) (eval cl-indent 'defenum 1) (eval put 'let-errno 'common-lisp-indent-function 1) (eval cl-indent 'defbf 2) (eval cl-indent 'ffi:with-c-place 1) (eval cl-indent 'xlib:event-case '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1))) (eval when (fboundp 'asm7090) (asm7090)) (eval cl-indent 'defcommand 3) (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") #'backward-delete-char-untabify)) (eval cl-indent 'dolist/separator 1) (eval put 'define-structure 'common-lisp-indent-function 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t) (Package . "CCL") (syntax . COMMON-LISP) (Package . April) (Package . USOCKET-TEST) (eval put 'report-error 'fi:common-lisp-indent-hook 1) (package . net\.aserve\.test) (package . net\.aserve\.client) (package . net\.aserve) (Package . User) (Package . GRAPH) (Package . DWIM) (pretty-greek) (package . common\.surveille-host) (view-mode . t) (Package X86 :use CL) (Package . TRIVIAL-GRAY-STREAMS) (Log . clx\.log) (Package . Xlib) (Package . SYSTEM) (Package . CLIM-POSTSCRIPT) (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk) (Package bandits :use (common-lisp ccl ut)) (Package cl-user) (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut)) (mode:scheme:mode . paredit) (Package . USOCKET) (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp) (flycheck . -1) (flycheck-mode . -1) (package . user) (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp)) (org-plantuml-jar-path . "../tools/plantuml.jar") (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar") (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . com\.informatimago\.languages\.linc\.c) (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0)) (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1)) (not :APPEND) :BUFFER-LOCAL) (swift-basic-offset . 2) (whitespace-style face lines indentation:space) (eval let* ((x (dir-locals-find-file default-directory)) (this-directory (if (listp x) (car x) (file-name-directory x)))) (unless (or (featurep 'swift-project-settings) (and (fboundp 'tramp-tramp-file-p) (tramp-tramp-file-p this-directory))) (add-to-list 'load-path (concat this-directory "utils") :append) (let ((swift-project-directory this-directory)) (require 'swift-project-settings))) (set (make-local-variable 'swift-project-directory) this-directory)) (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE) (eval set-input-method 'latin-1-prefix) (org-confirm-babel-evaluate lambda (lang body) (not (string= lang "dot"))) (Base . 10) (Log . hemlock\.log) (Lowercase . T) (Lowercase . Yes) (Package . CLIM-INTERNALS) (Package . LET-OVER-LAMBDA) (Package . CL-FAD) (Package . FUTURE-COMMON-LISP-USER) (Package . WORDNET-INTERFACE) (Package . WORDNET) (Package . Lisp-Binary) (Package . hemlock-internals) (Package . INSPECTOR) (Package . SURF) (Package . bind) (Package ARM :use CL) (Package ANSI-LOOP "COMMON-LISP") (Package . BORDEAUX-FFT) (Package . XLIB) (Package . gambol) (Package . C) (Package . Hemlock) (Package . GUI) (Package . cl-user) (Package . Portable-Threads-System) (Package . LEXER) (Package . F2CL) (Package . DRAKMA) (Package . CL-WHO) (Package . LISP-UNIT) (Package . Hemlock-Internals) (Package . FLEXI-STREAMS) (Package . COMMON-LISP-USER) (Package . PS) (Package . SCHEME-TRANSLATOR) (Package DATABASE :USE LISP) (Package . HUNCHENTOOT) (Package . CLEVER-LOAD) (Package . REVISED^4-SCHEME) (Package . CL-USER) (Package X8664 :use CL) (Package . SERROR) (Package . CL-PPCRE) (Package . CCL) (Syntax . common-lisp) (Syntax . Common-Lisp) (Syntax . Common-lisp) (Syntax . COMMON-LISP) (Syntax . ANSI-Common-Lisp) (bug-reference-url-format . clisp-bug-reference-url-format) (c-file-style . ruby) (c-indent-level . 4) (compile-cmd . "gcc -DMODULE -Wall -Wstrict-prototypes -O6 -c natsemi.c") (default-input-method . latin-1-prefix) (electric-indent-mode) (eval activate-input-method 'latin-1-prefix) (eval add-hook 'before-save-hook 'time-stamp) (eval let ((inhibit-read-only t) (compilation-filter-start (point-min))) (save-excursion (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil))) (eval cl-indent 'defmeth 3) (eval buttonize-buffer) (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1) (eval cl-indent 'cvm-define-structure 2) (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0) (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1) (eval cl-indent 'with-gc-lock 0) (eval cl-indent 'define-common-structure 1) (eval cl-indent 'defenum 1) (eval put 'let-errno 'common-lisp-indent-function 1) (eval cl-indent 'defbf 2) (eval cl-indent 'ffi:with-c-place 1) (eval cl-indent 'xlib:event-case '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1))) (eval when (fboundp 'asm7090) (asm7090)) (eval cl-indent 'defcommand 3) (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line) (local-set-key (kbd "<kp-multiply>") (lambda nil (interactive) (insert (kbd "SPC")))) (local-set-key (kbd "<XF86_Ungrab>") #'backward-delete-char-untabify)) (eval cl-indent 'dolist/separator 1) (eval put 'define-structure 'common-lisp-indent-function 1) (flycheck-mode) (lexical-binding . t) (more . org) (org-fontify-done-headline . t) (org-todo-keywords (sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)")) (package . net\.mail) (package . net\.post-office) (package . rune-dom) (package . WILBUR) (sentence-end-double-space . t) (tab-always-indent . t) (tab-always-indent) (view-mode t)))
  '(select-enable-clipboard t)
  '(select-enable-primary t)
  '(send-mail-function 'sendmail-send-it)
@@ -538,6 +542,23 @@ X-Accept-Language:         fr, es, en
 ;; '(gnus-secondary-select-methods (quote ((nntp "news.gmane.org") (nnimap "hubble.informatimago.com"))))
 ;;;----------------------------------------------------------------------------
 
+(require 'auth-source)
+(dolist (server erc-nickserv-passwords erc-nickserv-passwords)
+  (message "server: %S" server)
+  (let ((server-fqdn (second (assoc (first server) erc-networks-alist))))
+    (message "server-fqdn: %S" server-fqdn)
+    (dolist (entry (second server))
+      (message "entry: %S" entry)
+      (unless (cdr entry)
+        (message "%S" `(auth-source-pick-first-password :host ,server-fqdn
+                                                           :user ,(car entry)
+                                                           :port ,6667))
+        (setf (cdr entry) (auth-source-pick-first-password :host server-fqdn
+                                                           :user (car entry)
+                                                           :port 6667))
+        (message "(cdr entry) = %S" (cdr entry))))))
+
+;;;----------------------------------------------------------------------------
 (defvar ecb-source-path)
 (setf ecb-source-path (expand-file-name "~/src/"))
 
@@ -594,16 +615,15 @@ X-Accept-Language:         fr, es, en
 ;;;----------------------------------------------------------------------------
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))
-(load "~/rc/emacs-package.el")
-(load "~/rc/emacs-font.el")
+;; (load "~/rc/emacs-package.el")
+;; (load "~/rc/emacs-font.el")
 (load "~/rc/emacs-paredit.el")
 (when (not *pjb-pvs-is-running*)
   ;; (load "~/rc/emacs-theme.el")
   (load "~/rc/emacs-palette.el"))
 
-(add-to-load-path "~/emacs/slime/")
+;; (add-to-load-path "~/emacs/slime/")
 (load "~/rc/emacs-slime.el")
-
 (load "~/rc/emacs-hyperspec.el")
 (load "~/rc/emacs-redshank.el")
 (load "~/rc/emacs-objective-c.el")
@@ -616,16 +636,17 @@ X-Accept-Language:         fr, es, en
    )
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
-
+(load "~/rc/emacs-copilot.el")
 (load "~/rc/emacs-linux.el")
+(load "~/rc/emacs-sensors.el")
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
       ring-bell-function nil)
 ;;;----------------------------------------------------------------------------
 
-(or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
-    (ignore-errors (set-frame-font "terminus-18")))
+;; (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
+;;     (ignore-errors (set-frame-font "terminus-18")))
 
 (add-to-list 'auto-mode-alist '("Kbuild$"  . makefile-mode))
 (add-to-list 'auto-mode-alist '("Recipes$"  . makefile-mode))
@@ -661,7 +682,7 @@ X-Accept-Language:         fr, es, en
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
 
-(add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
+;; (add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
 
 (dolist (hook '(lisp-mode-hook emacs-lisp-mode-hook common-lisp-mode-hook
                 c-mode-hook c++-mode-hook))
@@ -738,53 +759,19 @@ X-Accept-Language:         fr, es, en
 (global-set-key (kbd "C-c C-m") 'set-mark-command)
 (global-set-key (kbd "C-x 8 i") 'insert-char)
 
-(when nil
- (dolist (multi '(("`" (("a" "à") ("e" "è") ("i" "ì") ("o" "ò") ("u" "ù")
-                        ("A" "À") ("E" "È") ("I" "Ì") ("O" "Ò") ("U" "Ù")))
-                  ("'" (("a" "á") ("e" "é") ("i" "í") ("o" "ó") ("u" "ú") ("y" "ý")
-                        ("A" "Á") ("E" "É") ("I" "Í") ("O" "Ó") ("U" "Ú") ("Y" "Ý")))
-                  ("^" (("a" "â") ("e" "ê") ("i" "î") ("o" "ô") ("u" "û")
-                        ("A" "Â") ("E" "Ê") ("I" "Î") ("O" "Ô") ("U" "Û")))
-                  ("~" (("A" "Ã") ("N" "Ñ") ("O" "Õ")
-                        ("a" "ã") ("n" "ñ") ("o" "õ")))
-                  ("\"" (("a" "ä") ("e" "ë") ("i" "ï") ("o" "ö") ("u" "ü") ("y" "ÿ")
-                         ("A" "Ä") ("E" "Ë") ("I" "Ï") ("O" "Ö") ("U" "Ü")))
-                  ("s" (("s" "ß")))
-                  ("t" (("h" "þ") ("H" "þ")))
-                  ("T" (("h" "Þ") ("H" "Þ")))
-                  ("d" (("h" "ð") ("H" "ð")))
-                  ("D" (("h" "Ð") ("H" "Ð")))
-                  ("A" (("E" "Æ") ("e" "Æ") ("o" "Å")("O" "Å")))
-                  ("a" (("E" "æ") ("e" "æ") ("o" "å")("O" "å")))
-                  ("/" ((":" "÷") ("o" "ø") ("O" "Ø")))
-                  ("," (("C" "Ç") ("c" "ç")))))
-   (let* ((first (first multi))
-          (name  (intern (format "hyper-%s-map"
-                                 (cond
-                                   ((string= "`" first) "grave")
-                                   ((string= "'" first) "acute")
-                                   ((string= "^" first) "circumflex")
-                                   ((string= "~" first) "tilde")
-                                   ((string= "\"" first) "umlaut")
-                                   ((string= "/" first) "slash")
-                                   ((string= "," first) "comma")
-                                   (t first)))))
-          (table (define-prefix-command name)))
-     (message "%S" `(global-set-key (kbd ,(format "H-%s" first)) ,name))
-     (global-set-key (kbd (format "H-%s" first)) name)
-     (dolist (entry (second multi))
-       (let ((second (first entry))
-             (result (second entry)))
-         (message "%S" `(define-key ,name (kbd ,(format "%s" first second))
-                          (lambda (n)
-                            (interactive "p")
-                            (dotimes (i n)
-                              (insert ,result)))))
-         (define-key name (kbd (format "%s" first second))
-           (lambda (n)
-             (interactive "p")
-             (dotimes (i n)
-               (insert result)))))))))
+(local-unset-key (kbd "C-x 8 -"))
+(global-unset-key (kbd "C-x 8 -"))
+(global-set-key (kbd "C-x 8 -") (make-sparse-keymap))
+(global-set-key (kbd "C-x 8 - a") "ā")
+(global-set-key (kbd "C-x 8 - e") "ē")
+(global-set-key (kbd "C-x 8 - i") "ī")
+(global-set-key (kbd "C-x 8 - o") "ō")
+(global-set-key (kbd "C-x 8 - u") "ū")
+(global-set-key (kbd "C-x 8 - y") "ȳ")
+
+
+
+
 
 (when (and (< 23 emacs-major-version) (fboundp 'vc-workfile-version))
   (defun vc-workfile-revision (file-name) (vc-workfile-version file-name)))
@@ -922,17 +909,18 @@ X-Accept-Language:         fr, es, en
 (cd (user-homedir-pathname))
 ;; (slime)
 
-(ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
+;; (ignore-errors (progn (setf *pjb-current-font-index* 4) (set-current-font)))
 
 (progn
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp   . t)
-     (lisp         . t)
-     (latex        . t)
-     (dot          . t)
-     (plantuml     . t)
-     (shell        . t)))
+   (append '((emacs-lisp   . t)
+             (lisp         . t)
+             (latex        . t)
+             (dot          . t)
+             (plantuml     . t))
+           (when (<= 27 emacs-major-version)
+             '((shell        . t)))))
 
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
 
@@ -973,14 +961,15 @@ X-Accept-Language:         fr, es, en
     (message "%S = %S" var (symbol-value var)))
   (switch-to-buffer "*Messages*"))
 
+(add-to-load-path "~/.emacs.d/site-lisp")
 (add-to-load-path "~/.emacs.d/site-lisp/with-editor")
 (add-to-load-path "~/.emacs.d/site-lisp/magit/lisp")
 
-(require 'with-editor)
-(add-hook 'shell-mode-hook  'with-editor-export-editor)
-(add-hook 'term-exec-hook   'with-editor-export-editor)
-(add-hook 'eshell-mode-hook 'with-editor-export-editor)
-(require 'magit)
+;; (require 'with-editor)
+;; (add-hook 'shell-mode-hook  'with-editor-export-editor)
+;; (add-hook 'term-exec-hook   'with-editor-export-editor)
+;; (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+;; (require 'magit)
 
 (when (file-exists-p "~/rc/emacs-patches.el")
   (load "~/rc/emacs-patches.el"))
@@ -989,6 +978,64 @@ X-Accept-Language:         fr, es, en
 ;; (customize-save-variable 'erc-autojoin-channels-alist erc-autojoin-channels-alist)
 
 (setq org-element-use-cache nil)
+
+
+;; <f1>-           (help)
+;; <f1> <f1>       help-for-help
+;; 
+;; <f2> 2          2C-two-columns
+;; <f2> b          2C-associate-buffer
+;; <f2> s          2C-split
+;; <f2> <f2>       2C-two-columns
+;; 
+;; <f3>            kmacro-start-macro-or-insert-counter
+;; <f4>            kmacro-end-or-call-macro
+;; 
+;; <f5>            set-justification-left
+;; <f6>            set-justification-full
+;; <f7>            set-justification-right
+;; <f8>            pjb-show-lisp-repl
+;; C-<f8>          pjb-show-lisp-repl t
+;; 
+;; <f9>            pjb-search-backward-region
+;; <f10>           pjb-search-forward-region
+;; <f11>           toggle-frame-fullscreen
+;; <f12>           copilot-accept-completion
+;; 
+;; C-<f9>          (set-input-method 'chinese-py-b5)
+;; C-<f10>         (set-input-method 'russian-typewriter or 'russian-computer)
+;; C-<f11>         (set-input-method 'greek)
+;; C-<f12>         (set-input-method 'hebrew)
+;; 
+;; 
+;; <scroll_lock>   scroll-lock-mode
+;; <pause>
+
+
+;; stuff in ~/emacs
+;; git://jblevins.org/git/markdown-mode.git
+;; git@github.com:VincentToups/emacs-utils.git
+;; git@github.com:death/naggum.git
+;; git@github.com:defunkt/coffee-mode.git
+;; git@github.com:editorconfig/editorconfig.git
+;; git@github.com:emacs-java/auto-java-complete.git
+;; git@github.com:hayamiz/twittering-mode.git
+;; git@github.com:jacobono/emacs-gradle-mode.git
+;; git@github.com:joshcho/ChatGPT.el
+;; git@github.com:kiwanami/emacs-window-layout.git
+;; git@github.com:larsbrinkhoff/emacs-cl.git
+;; git@github.com:magnars/dash.el.git
+;; git@github.com:magnars/s.el.git
+;; git@github.com:mmabrouk/chatgpt-wrapper.git
+;; git@github.com:mmontone/lisp-system-browser.git
+;; git@github.com:remvee/android-mode.git
+;; git@github.com:slime/slime.git
+;; git@github.com:suonlight/ob-chatgpt
+;; git@github.com:szermatt/emacs-bash-completion.git
+;; git@github.com:tlh/emms-info-id3v2.el.git
+;; git@github.com:zenspider/enhanced-ruby-mode.git
+;; git@github.com:zerolfx/copilot.el.git
+;; https://code.google.com/p/android-emacs-toolkit/
 
 ;; Local Variables:
 ;; coding: utf-8

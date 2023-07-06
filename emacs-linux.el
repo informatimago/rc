@@ -23,12 +23,38 @@
 (add-hook 'c-mode-common-hook 'linux-c-mode-common-meat)
 
 
-(defvar *pjb-force-linux-tabulation* '() "A list of path regexps to include.")
-(pushnew "/pjb/works/qorvo/" *pjb-force-linux-tabulation* :test (function equal))
+(defvar *pjb-force-linux-tabulation* '()
+  "A list of path regexps to include, or (include \"regexp\") or (exclulde \"regexp\")")
+(pushnew '(exclude "/src/public/")    *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(exclude "/src/c-tidbits/") *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(include "/src/")           *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(include "^/build/")        *pjb-force-linux-tabulation* :test (function equal))
 
 (defun pjb-force-linux-tabulation-file-p (filename)
-  (and filename (find-if (lambda (re) (string-match re filename))
-                         *pjb-force-linux-tabulation*)))
+  (let ((excludes (remove-if-not (lambda (re) (and (consp re) (eq 'exclude (first re))))
+                                 *pjb-force-linux-tabulation*))
+        (includes (remove-if (lambda (re) (and (consp re) (eq 'exclude (first re))))
+                             *pjb-force-linux-tabulation*)))
+    ;; (message "excludes %S %S" excludes
+    ;;          (every (lambda (re)
+    ;;                   (not (string-match (second re) filename)))
+    ;;                 excludes))
+    ;; (message "includes %S %S" includes
+    ;;          (some (lambda (re)
+    ;;                  (if (stringp re)
+    ;;                      (string-match re filename)
+    ;;                      (string-match (second re) filename)))
+    ;;                includes))
+    (and filename
+         (every (lambda (re)
+                  (not (string-match (second re) filename)))
+                excludes)
+         (some (lambda (re)
+                 (if (stringp re)
+                     (string-match re filename)
+                     (string-match (second re) filename)))
+               includes)
+         t)))
 
 (defun pjb-insert-newline-command (repeat)
   (interactive "p")
@@ -43,6 +69,8 @@
 (add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
 
 (defun linux-c-mode-meat ()
+  (message "linux-c-mode-meat %S %s" (buffer-file-name)
+           (if (pjb-force-linux-tabulation-file-p (buffer-file-name)) "yes" "nope"))
   ;; Enable kernel mode for the appropriate files
   (when (pjb-force-linux-tabulation-file-p (buffer-file-name))
     (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))

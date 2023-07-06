@@ -4,6 +4,8 @@
 # set -x
 set +o posix # not POSIX: allow function-names-with-dashes
 
+### TODO: /home/pjb/.bashrc: line 92: INSIDE_EMACS: unbound variable
+
 # Source global definitions
 #[ -f /etc/bashrc ] && . /etc/bashrc
 
@@ -38,11 +40,11 @@ function bashrc_clean_XDG_DATA_DIRS(){
 
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
-	#
-	# COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
-	# chroots, and other subprocesses where the environment is
-	# reset.  Therefore we reset use_color from the terminal below.
-	#
+    #
+    # COLOR_PROMPT, INSIDE_EMACS, etc,  are not transmitted in
+    # chroots, and other subprocesses where the environment is
+    # reset.  Therefore we reset use_color from the terminal below.
+    #
 
     local use_color="${COLOR_PROMPT:-false}"
     local escape=''
@@ -71,16 +73,16 @@ function bashrc_set_prompt(){
     local cyan_back="${escape}"'[46m'
     local white_back="${escape}"'[47m'
     local normal="${escape}"'[0m'
-	# ---
-	local chroot=''
+    # ---
+    local chroot=''
     local prefix=''
     local cookie=''
     local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
-	local time='$(date +%H:%M)'
-	local base='[\u@\h '"${display}"' \W '"${available}"']'
+    local time='$(date +%H:%M)'
+    local base='[\u@\h '"${display}"' \W '"${available}"']'
     local prompt='$ '
 
     if ((UID==0)) ; then
@@ -88,22 +90,23 @@ function bashrc_set_prompt(){
     fi
 
     case "$TERM" in
-	(dumb)
-		if [ -n "$INSIDE_EMACS" -o -n "$SCHROOT_CHROOT_NAME" ] ; then
+    (dumb)
+        if [ -n "${INSIDE_EMACS:-}" -o -n "${SCHROOT_CHROOT_NAME:-}" ] ; then
             prefix="\\w" 
             use_color=true
-		fi
-		;;
-	(emacs)
+        fi
+        ;;
+    (emacs)
         prefix="\\w" 
         use_color=true
         ;;
     (xterm)
         use_color=true
         ;;
-	esac
+    esac
     export COLOR_PROMPT="${use_color}"
-
+    use_color=false
+    
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
         cookie='$('"$(type -path period-cookie)"')'
@@ -121,28 +124,28 @@ function bashrc_set_prompt(){
         chroot="(${chroot})"
     fi
     if $use_color ; then
-		if [ -n "$chroot" ] ; then
-			chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
-		fi
-		# if [ -n "$cookie" ] ; then
-		# 	cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
-		# fi
-		if [ -n "$prefix" ] ; then
-			prefix="\[${yellow}\]${prefix}\[${normal}\]"
-		fi
-		if [ -n "$ibam" ] ; then
-			ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
-		fi
-		if [ -n "$time" ] ; then
-			time="\[${yellow}${black_back}\]${time}\[${normal}\]"
-		fi
-		if [ -n "$base" ] ; then
-			base="\[${cyan}${black_back}\]${base}\[${normal}\]"
-		fi
-		if [ -n "$prompt" ] ; then
-			prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
-		fi
-	fi	
+        if [ -n "$chroot" ] ; then
+            chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
+        fi
+        # if [ -n "$cookie" ] ; then
+        #     cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
+        # fi
+        if [ -n "$prefix" ] ; then
+            prefix="\[${yellow}\]${prefix}\[${normal}\]"
+        fi
+        if [ -n "$ibam" ] ; then
+            ibam="\[${black}${yellow_back}\]${ibam}\[${normal}\]"
+        fi
+        if [ -n "$time" ] ; then
+            time="\[${yellow}${black_back}\]${time}\[${normal}\]"
+        fi
+        if [ -n "$base" ] ; then
+            base="\[${cyan}${black_back}\]${base}\[${normal}\]"
+        fi
+        if [ -n "$prompt" ] ; then
+            prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
+        fi
+    fi    
     if [ -n "$prefix" ] ; then
         prefix="\n${prefix}\n"
     fi
@@ -303,12 +306,12 @@ be="$HOME/.bash_env.$$"
 
 function first_locale(){
     local locale
-	for locale in "$@" ; do
-		if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
-			break
-		fi
-	done
-	echo $locale
+    for locale in "$@" ; do
+        if locale -a 2>/dev/null | grep -q -s "^${locale}\$" ; then
+            break
+        fi
+    done
+    echo $locale
 }
 
 function be_comment(){
@@ -330,7 +333,12 @@ function be_unset(){
 
 
 function be_terminate(){
+    echo "source ~/.bashenv-emacs" >> "$be"
     mv "$be" "$BASH_ENV"
+}
+
+function be_append_terminate(){
+    cat "$be" >> "$BASH_ENV" && rm "$be"
 }
 
 
@@ -344,71 +352,108 @@ function be_generate(){
     local value
 
 
+    if [ -d "${HOME}/opt/gems" ] ; then
+        be_variable GEM_HOME "${HOME}/opt/gems"
+    fi
+
+    # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
     bindirs=(
-
+        "$HOME/opt/app/clang/bin"
+        
         "$HOME/esp/xtensa-esp32-elf/bin"
-
+        "$HOME/Library/Python/3.10/bin"
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 
+        "$HOME/.rbenv/bin"
+        "/usr/lib/rbenv/libexec"
+
+        "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
+        "${GEM_HOME}/bin" # Local Ruby Gems
+
         "$HOME/bin"
+        "$HOME/.local/bin" 
+
+        "$HOME/opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
         "$HOME/opt/bin"
-        "$HOME/.rvm/bin" # Add RVM to PATH for scripting
-        "$HOME/.local/bin"
+        
+        # #/data/languages/acl82express/bin
+        # /data/languages/bigloo4.1a/bin
+        # /data/languages/ccl/bin
+        # #/data/languages/clisp/bin
+        # /data/languages/cmucl/bin
+        # /data/languages/ecl/bin
+        # #/data/languages/gcl-2.6.7/bin
+        # #/data/languages/sbcl/bin
 
-        /usr/local/bin
-        /usr/local/sbin
+        /opt/haskell-language-server/bin
 
-        /opt/local/bin
-        /opt/local/sbin
-        /opt/local/libexec/gnubin/
         /opt/local/lib/postgresql84/bin  # on galatea
         /opt/local/lib/postgresql10/bin  # on larissa
+        /opt/local/libexec/gnubin
+        /opt/local/sbin
+        /opt/local/bin
 
-        /opt/bin
+        /opt/local/libexec/rbenv
+        /opt/*/bin
+        /opt/X11/bin
         /opt/sbin
-        /opt/haskell-language-server/bin
+        /opt/bin
+
+
 
         /usr/local/opt/coreutils/libexec/gnubin
         /usr/local/opt/findutils/libexec/gnubin
+        /usr/local/sbin
+        /usr/local/bin
 
-        #/data/languages/acl82express/bin/
-        /data/languages/bigloo4.1a/bin/
-        /data/languages/ccl/bin/
-        #/data/languages/clisp/bin/
-        /data/languages/cmucl/bin/
-        /data/languages/ecl/bin/
-        #/data/languages/gcl-2.6.7/bin/
-        #/data/languages/sbcl/bin/
-
-        /opt/*/bin
-        /opt/X11/bin
-        /usr/X11R6/bin  /usr/X11/bin /usr/games
-        /usr/bin        /usr/sbin
-        /bin            /sbin
+        /usr/X11R6/bin
+        /usr/X11/bin
+        /usr/games
+        /usr/sbin
+        /usr/bin
+        /sbin
+        /bin    
     )
 
     sharedirs=(
+        "$HOME/opt/app/clang/share"
+        "$HOME/opt/*/share"
+        "$HOME/opt/share"
         /opt/*/share
     )
 
     mandirs=(
-        /opt/*/man     /opt/*/share/man
-        /opt/local/man /opt/local/share/man
-        /usr/local/bin /usr/local/share/man
-        /usr/man /usr/share/man /usr/X11R6/man /usr/X11/man
+        "$HOME/opt/app/clang/share/man"
+        "$HOME/opt/*/share/man"
+        "$HOME/opt/share/man"
+        /opt/*/share/man
+        /opt/*/man
+        /opt/local/share/man
+        /opt/local/man
+        /usr/X11R6/man
+        /usr/X11/man
+        /usr/local/share/man
+        /usr/share/man
+        /usr/man
     )
 
     lddirs=(
+        "$HOME/opt/app/clang/lib"
+        "$HOME/opt/*/lib"
+        "$HOME/opt/lib"
         /opt/*/lib
         /opt/local/lib
-        /usr/local/lib
         /usr/local/lib64
-        /lib /usr/lib /usr/X11R6/lib /usr/X11/lib
+        /usr/local/lib
+        /usr/X11R6/lib
+        /usr/X11/lib
+        /usr/lib
+        /lib
     )
 
     editors=(
-		"$HOME/bin/ec"
+        "$HOME/bin/ec"
         emacsclient
         ed
         vi
@@ -427,6 +472,8 @@ function be_generate(){
     be_comment 'file will be generated from ~/.bashrc from time to time...'
     be_comment ''
 
+    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
+
     # WARNING: CDPATH is quite a strong setting!
     # PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
     be_variable INPUTRC "$HOME/.inputrc"
@@ -438,6 +485,7 @@ function be_generate(){
     be_variable COMMON  "$HOME/src/public/common"
     be_variable MAKEDIR "$COMMON/makedir"
     be_variable COMPILATION_TARGET  "$(uname)"
+
 
     local e
     case "${uname}" in
@@ -464,9 +512,6 @@ function be_generate(){
         done
         ;;
     esac
-
-
-    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
 
     # TODO: Check same thing is done elsewhere:
     list="$(joinWithSeparator \: $(prependIfDirectoryExists ${sharedirs[@]}))"
@@ -516,6 +561,7 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
+    # be_variable GREP_OPTIONS       '--color=always' # deprecated, use function.
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
@@ -534,7 +580,7 @@ function be_generate(){
             "$JAVA_HOME"/lib/i18n.jar \
             "$JAVA_HOME"/lib/rt.jar
         be_variable classpath_kaffe "$list"
-        be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+        be_variable PATH "${JAVA_HOME}/bin:${PATH}"
     fi
 
     value=/usr/local/languages/java
@@ -550,9 +596,9 @@ function be_generate(){
         be_variable classpath_jdk "$list"
         be_variable CLASSPATH "${classpath_jdk:?}"
         if [ -d /usr/local/JavaApps/. ] ; then
-            be_variable PATH /usr/local/JavaApps:"$JAVA_HOME"/bin:"$PATH"
+            be_variable PATH "/usr/local/JavaApps:${JAVA_HOME}/bin:${PATH}"
         else
-            be_variable PATH "$JAVA_HOME"/bin:"$PATH"
+            be_variable PATH "${JAVA_HOME}/bin:${PATH}"
         fi
     fi
 
@@ -573,17 +619,17 @@ function be_generate(){
     be_unset GNOME_KEYRING_CONTROL
 
 
-	# --------------------
-	# Locale clusterfuck
-	# --------------------
-	#
-	# Unset, in reverse order of priority, to avoid warnings…
-	# Then, check the locales first: often, the wanted locales are not available!
-	#
+    # --------------------
+    # Locale clusterfuck
+    # --------------------
+    #
+    # Unset, in reverse order of priority, to avoid warnings…
+    # Then, check the locales first: often, the wanted locales are not available!
+    #
 
-	# local fr=$(first_locale fr_FR.UTF-8 C)
-	local en=$(first_locale en_US.UTF-8 C)
-	
+    # local fr=$(first_locale fr_FR.UTF-8 C)
+    local en=$(first_locale en_US.UTF-8 C)
+    
     be_unset    LANGUAGE      # If the following are not defined.
     be_unset    LANG          # If the following are not defined.
     be_unset    LC_CTYPE      # If LC_ALL is not defined.
@@ -595,6 +641,9 @@ function be_generate(){
     be_unset    LC_ALL        # Most prioritary.
 
     be_variable LANG  "${en}"
+
+    be_variable RUBYOPT '-Eutf-8' 
+    # be_variable RUBYLIB /usr/bin/ruby2.5
 
     be_unset XMODIFIERS
 
@@ -669,10 +718,35 @@ function be_generate(){
         be_variable CINTSYSDIR     /usr/local/cint
     fi
 
+    be_variable N_PREFIX "$HOME/.local/n"
 
     be_terminate
 }
 
+
+function readlink_f(){
+    local path="$1"
+    local result
+    result=$(readlink -f "$path" 2>/dev/null)
+    if [ $? -eq 0 ] ; then
+        echo "$result"
+    else
+        # If readlink -f is not available, we try to emulate it:
+        if [ -L "$path" ] ; then
+            local dir=$(dirname "$path")
+            local link=$(basename "$path")
+            cd "$dir"
+            local target=$(readlink "$link")
+            if [ $? -eq 0 ] ; then
+                readlink_f "$target"
+            else
+                echo "$path"
+            fi
+        else
+            echo "$path"
+        fi
+    fi
+}
 
 function bashrc_generate_and_load_environment(){
     # User specific environment and startup programs
@@ -685,8 +759,15 @@ function bashrc_generate_and_load_environment(){
     else
         be_generate
     fi
+    source "$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
+	if type -p rbenv 2>/dev/null 1>&2 ; then
+		eval "$(rbenv init -)"
+	fi	
+	if type -p pyenv 2>/dev/null 1>&2 ; then
+		eval "$(pyenv init -)"
+	fi
 }
 
 ########################################################################
@@ -706,9 +787,9 @@ function bashrc_load_completions(){
     if [ "$(uname)" != 'CYGWIN_NT-6.1-WOW64' ] ; then
         local script
         for script in radio fpm new-password religion ; do
-			if type -p "$script" 2>&1 >/dev/null ; then
-		        eval $( "$script" --bash-completion-function )
-			fi
+            if type -p "$script" 2>&1 >/dev/null ; then
+                eval $( "$script" --bash-completion-function )
+            fi
         done
     fi
 
@@ -925,11 +1006,11 @@ function bashrc_define_aliases(){
         umask "$ou"
 
         if [ -x /opt/local/bin/gls ] ; then
-	        alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
-	        alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
+            alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
+            alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
         else
-	        alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
-	        alias lsv='LC_COLLATE="C" /bin/ls -CF'
+            alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
+            alias lsv='LC_COLLATE="C" /bin/ls -CF'
         fi
         alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
         alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
@@ -976,8 +1057,14 @@ function bashrc_define_aliases(){
                                 -noconsolecontrols -nomouseinput \
                                 -nolirc -noar "$@" ; }
     function mplayer(){ command mplayer -nojoystick -quiet "$@" ; }
+
+    function grep(){ command grep --color=always "$@" ; }
 }
 
+
+function all-git-status(){
+    find . -name .git | while read f ; do (echo "==== $f" ; cd "$f/.." ; git status ) ; done
+}
 
 function bashrc_flightgear_aliases(){
 
@@ -1333,7 +1420,7 @@ function msum            (){ md5sum "$1" ; sumseg 9728000 "$1" ; }
 function rm-symlinks     (){ find . -maxdepth 1 -type l -exec rm {} + ; }
 
 function all-disk-stat   (){ dstat -d -D total,$(cd /dev ; echo hd? sd? |tr ' ' ',') "$@" ; }
-function sysexits        (){ sed -n -e 's/#define[ 	][ 	]*\([^ 	][^ 	]*\)[ 	][ 	]*\([0-9][0-9]*\).*/export \1=\2/p' /usr/include/sysexits.h ; }
+function sysexits        (){ sed -n -e 's/#define[     ][     ]*\([^     ][^     ]*\)[     ][     ]*\([0-9][0-9]*\).*/export \1=\2/p' /usr/include/sysexits.h ; }
 
 function screen-size     (){
     if [[ -n "$DISPLAY" ]] ; then
@@ -1355,7 +1442,7 @@ function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
 
-function ec              (){ ( unset TMPDIR ; emacsclient --socket-name=/tmp/emacs${UID}/server --no-wait "$@" ) ; }
+function ec              (){ ( unset TMPDIR ; emacsclient --socket-name="$EMACS_SERVER_FILE" --no-wait "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
@@ -1438,6 +1525,7 @@ function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
 function panic(){ echo "[;5;35mDon't Panic[0m" ; }
 
+
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
     (*trustonic.local)
@@ -1448,6 +1536,9 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     (vm-u1404|L0253344)
         source ~/rc/bashrc-span
+        ;;
+    (fr*)
+        source ~/rc/bashrc-harman
         ;;
     *)
         source ~/rc/bashrc-pjb
@@ -1499,7 +1590,7 @@ function bashrc(){
     bashrc_linux_functions
     bashrc_define_aliases
     bashrc_flightgear_aliases
-
+    
     if [ -x /usr/local/gcc/bin/gcc ] ; then
         source ~/bin/with-gcc-8.bash
     fi

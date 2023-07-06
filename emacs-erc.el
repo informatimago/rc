@@ -7,8 +7,7 @@
 (defparameter *pjb-autojoin-channels-alist*
   '(
 
-    ("irc.libera.chat"
-     "##kernel" "#linux-kernel"
+    ("libera.chat"
 
      "#lisp"
      "#commonlisp"
@@ -17,18 +16,21 @@
      "#clschool"  "#lisp-es"
      "#abcl" "#ccl" "#ecl" "#sicl"
      "#clim" "#clcs" "#slime"
-     "#lispcafe"  "#lispweb" "#lispgames"
+     "#lisppub"  "#lispweb" "#lispgames"
      "#common-lisp.net" "#nyxt"
      "#cl-naive"
 
      "#clergo"
+     ;; "#els2022"
      
      "#emacs" "#org-mode" "#erc" "#gnus"
 
      "#hn" "#space"
-     "#emacsfr-off" "##coding"
-
-     "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel")
+     "#emacsfr-off"
+     ;; "##coding"
+     ;; "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel"
+     ;; "##kernel" "#linux-kernel"
+     )
 
     ("freenode.org"
 
@@ -62,8 +64,8 @@
     ("disabled.freenode.org" "#macports")
 
     ("esper.net" "#SpaceX")
-    ("irc.sbde.fr" "#laboite" "#sbde")
-    ("irc.oftc.net" "#uml")))
+    ("sbde.fr" "#laboite" "#sbde")
+    ("oftc.net" "#uml")))
 
 (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
 
@@ -77,7 +79,7 @@
    (when irc
        (with-current-buffer irc
          (mapcar 'erc-join-channel
-                 (cdr (assoc "irc.libera.chat" *pjb-autojoin-channels-alist*)))))))
+                 (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
 
 
 (defvar *erc-cmd-BR-line* (make-string 72 ?=))
@@ -116,7 +118,12 @@
   (erc-tls :server "irc.libera.chat" :port 6697
            :nick "ogamita" :full-name "Pascal J. Bourguignon"))
 
-
+(defun br-all ()
+  (interactive)
+  (dolist (buffer (erc-buffer-list))
+    (with-current-buffer buffer
+      (erc-set-active-buffer buffer)
+      (erc-cmd-BR))))
 
 ;; Local Variables:
 ;; coding: utf-8
