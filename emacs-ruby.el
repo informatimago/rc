@@ -5,6 +5,13 @@
 
 (.EMACS "~/rc/emacs-ruby.el %s" "Pascal J. Bourguignon's emacs ruby stuff.")
 
+(require 'ruby-mode)
+(require 'inf-ruby)
+
+(setf inf-ruby-first-prompt-pattern "irb --> ")
+(setf inf-ruby-prompt-pattern (format inf-ruby-prompt-format "[?>]" "[\]>*\"'/`]"))
+
+
 (require 'enh-ruby-mode nil t)
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
@@ -34,7 +41,11 @@
 ;; (require 'dash-at-point)
 (require 'textmate nil t)
 
+
+
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
 ;; End:
+

@@ -55,6 +55,20 @@
                          (find-package "COMMON-LISP")
                          (find-package "IMAGE-BASED-COMMON-LISP")))))
 
+(defun reset-cl-user ()
+  (let ((myself 'reset-cl-user))
+    (setf *package* (find-package "KEYWORD"))
+    (delete-package "COMMON-LISP-USER")
+    (setf *package* (make-package "COMMON-LISP-USER"
+                                  :nicknames '("CL-USER")
+                                  :use '("COMMON-LISP"
+                                         ;; And perhaps some other custom packages.
+                                         )))
+    ;; You may also import some specific symbols:
+    #+ccl (import 'ccl:quit)
+    (import myself))
+  *package*)
+
 
 (setf *print-circle* t
       *print-length* nil
@@ -819,25 +833,26 @@ The HOST is added to the list of logical hosts defined.
 
 ;;;----------------------------------------------------------------------
 
-(defmacro or-error (&body expressions)
-  (if (rest expressions)
-      `(handler-case ,(first expressions)
-         (error ()
-           (or-error ,@(rest expressions))))
-      (first expressions)))
-
 (fmakunbound 'hostname)
-(defun hostname ()
-  "RETURN: The FQDN of the local host."
-  (handler-case
-      (string-trim #(#\newline)
-                   (or-error
-                     (shell-command-to-string "hostname --fqdn")
-                     (shell-command-to-string "hostname --long")
-                     (shell-command-to-string "hostname")))
-    (error (err)
-      (warn "~A" err)
-      "localhost")))
+(defun hostname (&key short long)
+  "RETURN: The FQDN of the local host.
+SHORT: get the short name
+LONG:  get the fqdn (default)"
+  (assert (not (and short long)))
+  (let ((long (or long (not short))))
+    (string-trim #(#\newline)
+                 (or
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --fqdn")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname -f")))
+                  (unless short
+                    (ignore-errors (shell-command-to-string "hostname --long")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname -s")))
+                  (unless long
+                    (ignore-errors (shell-command-to-string "hostname")))
+                  "localhost"))))
 
 ;;;----------------------------------------------------------------------
 
@@ -1405,6 +1420,20 @@ without, lists all the commands with their docstrings."
   (com.informatimago.small-cl-pgms.irclog.main:start)
   (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
 
+(defvar *swank-server* nil)
+(defun start-swank-server (&key (interface
+                                 #+ccl (ccl::primary-ip-interface-address)
+                                 #-ccl "0.0.0.0")
+                             (port (+ 4006 (random 94))))
+  (ql:quickload "swank")
+  (uiop:symbol-call "SWANK" "CREATE-SERVER"
+                    :interface interface :port port)
+  (format t "~&Swank server started on interface ~S port ~D~%" interface port)
+  (setf *swank-server* (list interface port))
+  (values))
 
+;; clisp -x '(load #P"~/rc/swank-server.lisp")'
+;; (load #P"~/rc/swank-server.lisp")
+;; (start-swank-server)
 (in-package "CL-USER")
 ;;;; THE END ;;;;

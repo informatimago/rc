@@ -35,24 +35,26 @@
 ;;;;    Boston, MA 02111-1307 USA
 ;;;;****************************************************************************
 
+;; (lw:set-default-character-element-type 'cl:character)
+
 ;;----------------------------------------------------------------------
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 
 
 (in-package "COMMON-LISP-USER")
-;; For now, let's keep using the lispworks packages in CL-USER
-(defvar *used-packages* (package-use-list "COMMON-LISP-USER"))
 
 (SETQ *LOAD-VERBOSE* NIL)
-(LOAD (MERGE-PATHNAMES
-       (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
-                      :CASE :COMMON)
-       (USER-HOMEDIR-PATHNAME)
-       NIL))
 
 ;; For now, let's keep using the lispworks packages in CL-USER
-(use-package *used-packages* "COMMON-LISP-USER")
+(let ((used-packages (package-use-list "COMMON-LISP-USER")))
+  (unwind-protect
+       (LOAD (MERGE-PATHNAMES
+              (MAKE-PATHNAME :DIRECTORY '(:RELATIVE "RC") :NAME "COMMON" :TYPE "LISP"
+                             :CASE :COMMON)
+              (USER-HOMEDIR-PATHNAME)
+              NIL))
+    (use-package used-packages "COMMON-LISP-USER")))
 
 
 (in-package "COM.INFORMATIMAGO.PJB")
@@ -80,16 +82,16 @@ RETURN:     The first word of the string, or the empty string.
        (DONE NIL))
       (DONE (IF FOUND (SUBSEQ STRING I  J) ""))
     (IF  (<= (LENGTH STRING) I)
-      (SETQ DONE T FOUND NIL)
-      (IF (<= J I)
-        (IF (ALPHA-CHAR-P (CHAR STRING I))
-          (SETQ J (1+ I))
-          (INCF I))
-        (IF (<= (LENGTH STRING) J)
-          (SETQ DONE T FOUND T)
-          (IF (ALPHA-CHAR-P (CHAR STRING J))
-            (INCF J)
-            (SETQ DONE T FOUND T)))))))
+         (SETQ DONE T FOUND NIL)
+         (IF (<= J I)
+             (IF (ALPHA-CHAR-P (CHAR STRING I))
+                 (SETQ J (1+ I))
+                 (INCF I))
+             (IF (<= (LENGTH STRING) J)
+                 (SETQ DONE T FOUND T)
+                 (IF (ALPHA-CHAR-P (CHAR STRING J))
+                     (INCF J)
+                     (SETQ DONE T FOUND T)))))))
 
 
 (defun edit (&optional (x nil x-p))

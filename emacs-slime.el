@@ -38,14 +38,46 @@
 
 (.EMACS "emacs-slime.el")
 
+(if (file-exists-p "~/quicklisp/slime-helper.el")
+    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+    (add-to-load-path "~/emacs/slime"))
+
 (require 'slime)
 (require 'slime-autoloads)
 
+(slime-setup '(slime-fancy
+               slime-asdf
+               slime-presentations
+               slime-sprof
+               slime-compiler-notes-tree
+               slime-hyperdoc
+               slime-mrepl
+               slime-indentation
+               slime-repl
+               slime-media))
 
-(add-to-load-path "~/emacs/lisp-system-browser")
-(add-to-load-path "~/emacs/emacs-window-layout")
+
+(setf slime-net-coding-system        'utf-8-unix)
+(setf slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+(pushnew 'paredit-mode slime-repl-mode-hook)
+
+
+(when (fboundp 'slime-repl-bol)
+  (defvar *slime-repl-bol* (symbol-function 'slime-repl-bol))
+  (defun slime-repl-bol ()
+    (interactive)
+    (if (eql 'home last-input-event)
+        (beginning-of-buffer)
+        (funcall *slime-repl-bol*))))
+
+
+
+
+(add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
+(add-to-load-path "~/.emacs.d/site-lisp/emacs-window-layout")
+
 (setq slime-contribs '(slime-fancy
-                       system-browser
+                       ;; system-browser
                        slime-asdf
                        slime-presentations
                        slime-sprof
@@ -62,6 +94,11 @@
 (setf slime-net-coding-system        'utf-8-unix)
 (setf slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
 (pushnew 'paredit-mode slime-repl-mode-hook)
+
+(setf lisp-lambda-list-indentation nil
+      lisp-loop-indent-subclauses nil
+      lisp-loop-indent-body-forms-relative-to-loop-start t
+      lisp-loop-indent-forms-like-keywords t)
 
 
 (when (fboundp 'slime-repl-bol)
@@ -188,10 +225,12 @@
     iso-8859-1)
 
   (define-lisp-implementation ccl
-      '("/opt/local/bin/ccl"
-        "/usr/local/bin/ccl"
-        "/data/languages/ccl/bin/ccl"
-        "/usr/bin/ccl")
+      (append (mapcar (function expand-file-name)
+                      '("~/opt/bin/ccl"))
+              '("/opt/local/bin/ccl"
+                  "/usr/local/bin/ccl"
+                  "/data/languages/ccl/bin/ccl"
+                  "/usr/bin/ccl"))
     "^? "
     utf-8)
 
@@ -240,7 +279,7 @@
                                           "/usr/local/bin/clisp"
                                           "/opt/clisp-2.41-pjb1-regexp/bin/clisp"
                                           "/usr/bin/clisp"))))
-             "-ansi""-q"               ;"-m""32M""-I""-K""full"
+             "-ansi""-q"                ;"-m""32M""-I""-K""full"
              (cond
                ((eq system-type 'darwin)
                 (list "-Efile"     "UTF-8"
@@ -290,14 +329,15 @@
 
 
   (define-lisp-implementation ecl
-      '("/data/languages/ecl/bin/ecl"
-        "/usr/local/bin/ecl"
-        "/opt/local/bin/ecl"
-        "/usr/bin/ecl")
+      (list (expand-file-name "~/opt/bin/ecl")
+            "/data/languages/ecl/bin/ecl"
+            "/usr/local/bin/ecl"
+            "/opt/local/bin/ecl"
+            "/usr/bin/ecl")
     "^> "
     utf-8)
 
-
+  
   (define-lisp-implementation gcl
       '("/data/languages/gcl/bin/gcl"
         "/usr/local/bin/gcl"
@@ -305,7 +345,6 @@
         "/usr/bin/gcl")
     "^> "
     utf-8)
-
 
   (defun set-inferior-lisp-implementation (impl)
     "Set the default lisp implementation used by inferior-lisp and slime."
@@ -355,9 +394,9 @@
   (loop
     for impl in '(ccl clisp sbcl ecl abcl)
     when (set-default-lisp-implementation impl)
-      do (progn
-           (message "Default Lisp implementations is %s" impl)
-           (return impl)))
+    do (progn
+         (message "Default Lisp implementations is %s" impl)
+         (return impl)))
 
 
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
@@ -608,6 +647,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (setf lisp-indent-function (function common-lisp-indent-function))
+  (local-set-key (kbd "TAB") 'lisp-indent-line)
   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
@@ -869,7 +909,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       ilisp-mode-hook            nil
       scheme-mode-hook           nil)
 
-
 (add-hook 'lisp-mode-hook        'pjb-lisp-meat)
 (add-hook 'lisp-mode-hook        'pjb-lisp-set-keys)
 (add-hook 'lisp-mode-hook        'slime-mode)
@@ -1011,6 +1050,12 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
          :init slime-init-command
          :env ("TEST_VAR=foo-bar"
                "FOO_VAR=foofoofoo"))
+      slime-lisp-implementations)
+
+
+(push '(ccl-1252 ("/usr/local/bin/ccl" "--terminal-encoding" "windows-1252")
+         :coding-system windows-1252
+         :init slime-init-command)
       slime-lisp-implementations)
 
 

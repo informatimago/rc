@@ -109,7 +109,7 @@
 ;; Setting environment -- COMMON-LISP part --
 ;; ------------------------------------------
 (in-package "COMMON-LISP-USER")
-(declaim (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
+(declaim ;; (sb-ext:muffle-conditions (or style-warning SB-EXT:COMPILER-NOTE))
          (optimize (speed 0) (space 0) (debug 3) (safety 3)))
 (SETF *LOAD-VERBOSE* t)
 (LOAD (MERGE-PATHNAMES
@@ -131,7 +131,9 @@
   (loop :with i := (1- (length version))
         :while (and (<= 0 i) (alpha-char-p (aref version i)))
         :do (decf i)
-        :finally (return (subseq version 0 (1+ i)))))
+        :finally (return (subseq version 0 (if (char= #\. (aref version i))
+                                               i
+                                               (1+ i))))))
 
 (defun sbcl-source-location ()
   (let ((clean-version (clean-version (lisp-implementation-version)))

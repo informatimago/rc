@@ -9,14 +9,29 @@
 (add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem")
 
 (.EMACS "Initializing emacs packages.")
-(setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable"  . "https://stable.melpa.org/packages/")
-                         ;; ("melpa"         . "http://melpa.org/packages/")
-                         ("org"           . "http://orgmode.org/elpa/")))
 
-;; (package-initialize) in emacs.el
-(when (not package-archive-contents)
+(require 'package)
+(add-to-list 'package-archives '("gnu"           . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable"  . "https://stable.melpa.org/packages/"))
+;; (add-to-list 'package-archives '("melpa"         . "https://melpa.org/packages/"))
+(package-initialize)
+
+;; (progn (setf package-archive-contents nil)
+;;        (package-refresh-contents))
+
+(unless package-archive-contents
+  (setf package-archive-contents nil)
   (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-and-compile
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
+
+
 
 
 ;; (defun package-update-load-path ()
@@ -47,6 +62,7 @@
 
                    paredit
 
+                   compat
                    emms json popup
 
                    company auto-complete inf-ruby enh-ruby-mode
@@ -91,6 +107,7 @@
         *packages*))
 
 (pjb-install-packages)
+
 
 ;; Local Variables:
 ;; coding: utf-8

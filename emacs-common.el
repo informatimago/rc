@@ -45,8 +45,17 @@
 (setq-default lexical-binding t)
 (setq byte-compile-warnings '(not obsolete))
 (defvar *emacs-start-time* (current-time) "For (emacs-uptime).")
-(setq source-directory (format "/usr/local/src/emacs-%s/src" emacs-version))
 
+(require 'cl)
+(defun first-existing-file (list-of-files)
+  "Find the first file in LIST-OF-FILES that exists."
+  (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
+
+(setq source-directory
+      (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
+                                 (format "/opt/local/src/emacs-%s/src" emacs-version)
+                                 (expand-file-name (format "~/opt/src/emacs-%s/src" emacs-version)))))
+	
 
 
 ;;;----------------------------------------------------------------------------
@@ -229,6 +238,13 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
+(require 'server)
+(with-temp-buffer
+    (insert (format "export EMACS_SERVER_FILE=%s/%s\n"
+                    server-socket-dir
+                    server-name))
+  (write-file "~/.bashenv-emacs" nil))
+
 ;; server-socket-dir
 ;; ;; --> "/var/folders/pq/82920zm125n09frk81rrtp200000gn/T/emacs501"
 ;; server-name
@@ -247,6 +263,12 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;;       server-name        (if internal--daemon-sockname
 ;;                              (file-name-nondirectory internal--daemon-sockname)
 ;;                              "server"))
+
+;; server-name "server"
+;; server-socket-dir "/run/user/87743/emacs"
+;; (getenv "XDG_RUNTIME_DIR") "/run/user/87743"
+;; export EMACS_SERVER_FILE=/run/user/87743/emacs/server
+
 
 (setf tetris-score-file "~/.tetris-scores")
 
@@ -518,7 +540,7 @@ WELCOME TO EMACS!
                              ;; the same source directory.
                              ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
                              '("~/src/public/emacs")
-                             '("~/emacs"))
+                             '("~/.emacs.d/site-lisp"))
 			    '(("/opt/lisp/emacs")
 			      ("/opt/share/emacs/site-lisp")
 			      ("/opt/local/share/emacs/site-lisp")
@@ -543,10 +565,11 @@ WELCOME TO EMACS!
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
-                      (cons (expand-file-name "~/bin/")
-                            '("/sw/sbin/"       "/sw/bin/"
-                              "/usr/local/sbin" "/usr/local/bin"
-                              "/opt/local/sbin" "/opt/local/bin")))
+                      (list (expand-file-name "~/bin/")
+                            (expand-file-name "~/opt/bin/")
+                            "/sw/sbin/"       "/sw/bin/"
+                            "/usr/local/sbin" "/usr/local/bin"
+                            "/opt/local/sbin" "/opt/local/bin"))
   (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
 
 (pjb-setup-exec-path)
@@ -559,8 +582,12 @@ WELCOME TO EMACS!
         ("/pjb/works/mts/Harag/" . 8)))
 
 ;;------------------------------------------------------------------------
-(.EMACS "setting up fonts")
-(load "~/rc/emacs-font.el")
+(unless (let ((hostname (hostname)))
+          (and (< 2 (length hostname))
+               (string= "fr" (subseq hostname 0 2))))
+  ;; not "frprld7818008" "frdark", etc
+  (.EMACS "setting up fonts")
+  (load "~/rc/emacs-font.el"))
 ;;------------------------------------------------------------------------
 
 ;; (message "old load-path = %S" (with-output-to-string (dump-load-path)))
@@ -765,21 +792,45 @@ SIDE must be the symbol `left' or `right'."
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
 
-(defmacro define-force-justification (direction)
-  `(defun ,(intern (format "force-set-justification-%s" direction)) (start end)
-     (interactive "r")
-     (let ((mode major-mode))
-       (text-mode)
-       (,(intern (format "set-justification-%s" direction))  start end)
-       (funcall mode))))
+(defun reset-keyboard ()
+  "Reset the X keyboard to PJB's preferences."
+  (interactive)
+  (shell-command "setxkbmap -layout us -option ctrl:nocaps -option caps:none -option shift:breaks_caps -option compose:lctrl"))
 
+(defalias 'pjb-reset-keyboard 'reset-keyboard)
+(global-set-key (kbd "<pause>") 'pjb-reset-keyboard)
 
+(defmacro define-justification-functions (direction)
+  `(progn
+     (defun ,(intern (format "pjb-set-justification-%s" direction)) (start end)
+       (interactive "r")
+       (let ((mode major-mode))
+         (if (and start end (/= start end))
+             (save-excursion
+              (narrow-to-region start end)
+              (unwind-protect
+                   (,(intern (format "set-justification-%s" direction))  start end)
+                (widden)
+                (funcall mode)))
+             (,(intern (format "set-justification-%s" direction))  start end))))
+     
+     (defun ,(intern (format "pjb-force-set-justification-%s" direction)) (start end)
+       (interactive "r")
+       (let ((mode major-mode))
+         (save-excursion
+          (narrow-to-region start end)
+          (unwind-protect
+               (progn (text-mode)
+                      (,(intern (format "set-justification-%s" direction))  start end))
+            (widden)
+            (funcall mode)))))))
 
 (defun pjb-terminal-key-bindings ()
   (interactive)
   ;; http://paste.lisp.org/display/131216
   (global-set-key "OF"    'end-of-buffer)
   (global-set-key "OH"    'beginning-of-buffer)
+  (global-set-key ""      'backward-delete-char-untabify)
   (global-unset-key "[")
   (global-set-key "[15~"  'set-justification-left) ; <f5>
   (global-set-key "[17~"  'set-justification-center) ; <f6>
@@ -788,7 +839,7 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key "[20~"  'disabled)  ; <f9>
   (global-set-key "[21~"  'disabled)  ; <f10>
   (global-set-key "[23~"  'disabled)  ; <f11>
-  (global-set-key "[24~"  'disabled)  ; <f12>
+  (global-set-key "[24~"  #'copilot-accept-completion-by-paragraph)  ; <f12>
 
   (define-key input-decode-map "\M-[A" [up])
   (define-key input-decode-map "\M-[B" [down])
@@ -816,10 +867,10 @@ SIDE must be the symbol `left' or `right'."
 (defun pjb-global-key-bindings ()
   (interactive)
 
-  (define-force-justification left)
-  (define-force-justification center)
-  (define-force-justification right)
-  (define-force-justification full)
+  (define-justification-functions left)
+  (define-justification-functions center)
+  (define-justification-functions right)
+  (define-justification-functions full)
 
   ;; Advance key map setting: get a sane keyboard when loading this file fails.
   (global-set-key (kbd "C-x RET C-h")   'describe-prefix-bindings)
@@ -833,12 +884,12 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "C-c C-s")       'search-forward-regexp)
   (global-set-key (kbd "C-c C-r")       'search-backward-regexp)
 
-  (global-set-key (kbd "<f5>")          'set-justification-left)
-  (global-set-key (kbd "<f6>")          'set-justification-full)
-  (global-set-key (kbd "<f7>")          'set-justification-right)
-  (global-set-key (kbd "C-c <f5>")      'force-set-justification-left)
-  (global-set-key (kbd "C-c <f6>")      'force-set-justification-full)
-  (global-set-key (kbd "C-c <f7>")      'force-set-justification-right)
+  (global-set-key (kbd "<f5>")          'pjb-set-justification-left)
+  (global-set-key (kbd "<f6>")          'pjb-set-justification-full)
+  (global-set-key (kbd "<f7>")          'pjb-set-justification-right)
+  (global-set-key (kbd "C-c <f5>")      'pjb-force-set-justification-left)
+  (global-set-key (kbd "C-c <f6>")      'pjb-force-set-justification-full)
+  (global-set-key (kbd "C-c <f7>")      'pjb-force-set-justification-right)
 
   (global-set-key (kbd "M-g g")         'goto-char)
 
@@ -918,28 +969,60 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "¢")         "ç")
   (global-set-key (kbd "©")         "Ç")
 
-  (global-set-key (kbd "C-x 8 ^ -") "⁻")
-  (global-set-key (kbd "C-x 8 ^ +") "⁺")
-  (global-set-key (kbd "C-x 8 ^ 0") "⁰")
-  (global-set-key (kbd "C-x 8 ^ 4") "⁴")
-  (global-set-key (kbd "C-x 8 ^ 5") "⁵")
-  (global-set-key (kbd "C-x 8 ^ 6") "⁶")
-  (global-set-key (kbd "C-x 8 ^ 7") "⁷")
-  (global-set-key (kbd "C-x 8 ^ 8") "⁸")
-  (global-set-key (kbd "C-x 8 ^ 9") "⁹")
+  (progn
+    (define-key iso-transl-ctl-x-8-map (kbd "8") "∞")
+    
+    (define-key iso-transl-ctl-x-8-map (kbd "<") nil)  
+    (define-key iso-transl-ctl-x-8-map (kbd "< =") "≤")
+    (define-key iso-transl-ctl-x-8-map (kbd "< <") "«")
+    (define-key iso-transl-ctl-x-8-map (kbd "< >") "≶")
+    
+    (define-key iso-transl-ctl-x-8-map (kbd ">") nil)  
+    (define-key iso-transl-ctl-x-8-map (kbd "> =") "≥")
+    (define-key iso-transl-ctl-x-8-map (kbd "> >") "»")
 
-  (global-set-key (kbd "C-x 8 _ -") "₋")
-  (global-set-key (kbd "C-x 8 _ +") "₊")
-  (global-set-key (kbd "C-x 8 _ 0") "₀")
-  (global-set-key (kbd "C-x 8 _ 1") "₁")
-  (global-set-key (kbd "C-x 8 _ 2") "₂")
-  (global-set-key (kbd "C-x 8 _ 3") "₃")
-  (global-set-key (kbd "C-x 8 _ 4") "₄")
-  (global-set-key (kbd "C-x 8 _ 5") "₅")
-  (global-set-key (kbd "C-x 8 _ 6") "₆")
-  (global-set-key (kbd "C-x 8 _ 7") "₇")
-  (global-set-key (kbd "C-x 8 _ 8") "₈")
-  (global-set-key (kbd "C-x 8 _ 9") "₉")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ -") "⁻")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ +") "⁺")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 0") "⁰")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 4") "⁴")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 5") "⁵")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 6") "⁶")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 7") "⁷")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 8") "⁸")
+    (define-key iso-transl-ctl-x-8-map (kbd "^ 9") "⁹")
+
+    (define-key iso-transl-ctl-x-8-map (kbd "_ -") "₋")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ +") "₊")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 0") "₀")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 1") "₁")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 2") "₂")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 3") "₃")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 4") "₄")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 5") "₅")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 6") "₆")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 7") "₇")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 8") "₈")
+    (define-key iso-transl-ctl-x-8-map (kbd "_ 9") "₉")
+
+    (define-key iso-transl-ctl-x-8-map (kbd "<left>")  "←")
+    (define-key iso-transl-ctl-x-8-map (kbd "<right>") "→")
+    (define-key iso-transl-ctl-x-8-map (kbd "<up>")    "↑")
+    (define-key iso-transl-ctl-x-8-map (kbd "<down>")  "↓")
+
+
+    (define-key iso-transl-ctl-x-8-map (kbd "c") nil)
+    (define-key iso-transl-ctl-x-8-map (kbd "c <left>")  "⊂")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <right>") "⊃")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <up>")    "∩")
+    (define-key iso-transl-ctl-x-8-map (kbd "c <down>")  "∪")
+    (define-key iso-transl-ctl-x-8-map (kbd "c |")
+      (lambda (repeat) (interactive "p") (self-insert-command (or repeat 1) ?¢)))
+
+    (define-key iso-transl-ctl-x-8-map (kbd "t <left>")  "⊢")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <right>") "⊣")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <up>")    "⊤")
+    (define-key iso-transl-ctl-x-8-map (kbd "t <down>")  "⊥"))
+  
 
   (global-set-key (kbd "A-<left>")  "←")
   (global-set-key (kbd "A-<right>") "→")
@@ -957,6 +1040,8 @@ SIDE must be the symbol `left' or `right'."
   (global-set-key (kbd "M-A-<down>")  "⊥")
 
   nil)
+
+(pjb-global-key-bindings)
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "PJB FUNCTION KEYS")
@@ -1083,16 +1168,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (require 'shell)
 (add-hook 'ielm-mode-hook (lambda () (setf standard-output (current-buffer))))
 
-;; https://github.com/szermatt/emacs-bash-completion
-(unless (file-directory-p "~/emacs/emacs-bash-completion")
-  (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git"))
-(pushnew "~/emacs/emacs-bash-completion" load-path :test 'string=)
-(when (require 'bash-completion nil t)
-  (bash-completion-setup)
-  (set-default 'shell-dirstack-query "pwd")
-  (milliways-schedule (lambda ()
-			(bash-completion-setup)
-			(set-default 'shell-dirstack-query "pwd"))))
+(when (< 25 emacs-major-version)
+  ;; https://github.com/szermatt/emacs-bash-completion
+  (unless (file-directory-p "~/emacs/emacs-bash-completion")
+    (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git"))
+  (pushnew "~/emacs/emacs-bash-completion" load-path :test 'string=)
+  (when (require 'bash-completion nil t)
+    (bash-completion-setup)
+    (set-default 'shell-dirstack-query "pwd")
+    (milliways-schedule (lambda ()
+			  (bash-completion-setup)
+			  (set-default 'shell-dirstack-query "pwd")))))
 
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
@@ -1121,15 +1207,21 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
     (ansi-color-apply-on-region (point-min) (point-max))
     (set-buffer-modified-p modified)))
 
+(defun comint-output-filter--remove-esc-b (string)
+  "Remove ESC(B sequences between `comint-last-output-start’ and `process-mark’."
+  (save-excursion
+   (goto-char comint-last-output-start)
+   (let ((end (process-mark (get-buffer-process (current-buffer)))))
+     (while (search-forward "\e(B" end t)
+       (delete-region (match-beginning 0) (match-end 0))))))
+
 (defun pjb-shell-mode-meat ()
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
   (set-variable 'tab-width 8)
   (setf comint-process-echoes nil)
-  (when (fboundp 'auto-complete-mode)
-    (auto-complete-mode -1))
-  (when (fboundp 'ansi-color-for-comint-mode-on)
-    (ansi-color-for-comint-mode-on))
-  (bash-completion-setup)
+  (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
+  (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
+  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
   ;;   ((let ((shell (getenv "ESHELL")))
@@ -1142,7 +1234,8 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   )
 (add-hook 'shell-mode-hook 'pjb-shell-mode-meat)
 
-(bash-completion-setup)
+(when (fboundp 'bash-completion-setup)
+  (bash-completion-setup))
 (set-default 'shell-dirstack-query "pwd")
 ;; (setf dirtrack-list '("^\\(~?/.*\\)\n\\[[_a-z0-9A-Z]+@[-_.a-z0-9A-Z]+ [^]]*\\]$ " 1))
 
@@ -2908,10 +3001,13 @@ License:
   (and filename (not (find-if (lambda (re) (string-match re filename))
                               *pjb-c-mode-meat-exclude*))))
 
+(load "~/rc/emacs-linux.el")
+
 (defun c-mode-meat ()
   (interactive)
   (let ((filename (buffer-file-name)))
-    (when (pjb-c-mode-file-p filename)
+    (when (and (pjb-c-mode-file-p filename)
+               (not (pjb-force-linux-tabulation-file-p filename)))
       (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
       (infer-indentation-style)
       (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) filename))
