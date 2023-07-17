@@ -5,67 +5,19 @@
 (require 'tls)
 
 (defparameter *pjb-autojoin-channels-alist*
-  '(
-
-    ("libera.chat"
+  '(("libera.chat"
 
      "#lisp"
-     "#commonlisp"
-     "##lispm" "#interlisp"
-
-     "#clschool"  "#lisp-es"
+     "#clschool"
      "#abcl" "#ccl" "#ecl" "#sicl"
-     "#clim" "#clcs" "#slime"
-     "#lisppub"  "#lispweb" "#lispgames"
-     "#common-lisp.net" "#nyxt"
+     "#clim" "#slime"  "#nyxt"
      "#cl-naive"
-
      "#clergo"
-     ;; "#els2022"
      
-     "#emacs" "#org-mode" "#erc" "#gnus"
+     "#emacs" "#org-mode" "#erc"
 
-     "#hn" "#space"
-     "#emacsfr-off"
-     ;; "##coding"
-     ;; "#linaro" "#linaro-tcwg" "#linaro-qa" "#linaro-watercooler" "#linaro-kernel"
-     ;; "##kernel" "#linux-kernel"
-     )
-
-    ("freenode.org"
-
-     "##Freelancers" "##binutils" "##cinema" "##coders" "##coding" "##france"
-     "#lisp" "##lisp" "##lispm"
-     "##sci-fi" "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging"
-     "##trains" "##ufo" "##workingset"
-
-     "#abcl" "#bourguinux" "#ccl" "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool"
-     "#clus" "#cobol" "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf"
-     "#emacsfr-off"
-     ;; "#emacsfr"
-     ;; "#ghc" "#ghc-mod" "#hackage"
-     "#haskell"
-     ;; "#haskell-apple" "#haskell-beginners"
-     ;; "#haskell-blah" "#haskell-emacs" "#haskell-embedded"
-     "#haskell-fr"
-     ;; "#haskell-lang" "#haskell-overflow" "#haskell-stack" "#haskell.nix"
-
-     "#hn"
-     "#iphonedev" "#iphonedev-chat"
-
-     "#lisp-es" "#lispcafe" "#lispgames"  "#lispweb" "#lispx"
-     ;; "#lispm"
-     "#macintosh" "#macos9lives"
-     "#qlisp" "#sicl" "#sicp" "#slime" "#space"
-     "#swift-lang" "#synthesizers" "#tesla")
-
-
-
-    ("disabled.freenode.org" "#macports")
-
-    ("esper.net" "#SpaceX")
-    ("sbde.fr" "#laboite" "#sbde")
-    ("oftc.net" "#uml")))
+     "#hn" "#space" "#tesla" "#teslamotors" 
+     )))
 
 (setf erc-autojoin-channels-alist *pjb-autojoin-channels-alist*)
 
