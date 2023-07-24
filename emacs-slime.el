@@ -226,11 +226,13 @@
 
   (define-lisp-implementation ccl
       (append (mapcar (function expand-file-name)
-                      '("~/opt/bin/ccl"))
+                      '("~/opt/bin/ccl"
+                        "~/opt/ubuntu-22.04/bin/ccl"
+                        "~/opt/ubuntu-18.04/bin/ccl"))
               '("/opt/local/bin/ccl"
-                  "/usr/local/bin/ccl"
-                  "/data/languages/ccl/bin/ccl"
-                  "/usr/bin/ccl"))
+                "/usr/local/bin/ccl"
+                "/data/languages/ccl/bin/ccl"
+                "/usr/bin/ccl"))
     "^? "
     utf-8)
 
