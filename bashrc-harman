@@ -1,12 +1,26 @@
 # -*- mode:shell-script -*-
 
-source /BlobArea/external/ceedling/setup_env
+# eval "$(~/.rbenv/bin/rbenv init - bash)"
+
+# source /BlobArea/external/ceedling/setup_env
+# source /build/pbourguignon/BlobArea-Shadow/external/ceedling/setup_env
 
 # export CROSS_COMPILER=/BlobArea/external/android-prebuilts/caf-6.0.0/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 # export SYSROOT=/BlobArea/external/android-prebuilts/caf-6.0.0/ndk/current/platforms/android-21/arch-arm64/
 
-PATH="/home/pbourguignon/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/pbourguignon/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/pbourguignon/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/pbourguignon/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/pbourguignon/perl5"; export PERL_MM_OPT;
+# PATH="/home/pbourguignon/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="/home/pbourguignon/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/home/pbourguignon/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/home/pbourguignon/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/home/pbourguignon/perl5"; export PERL_MM_OPT;
+
+# unset PERL5LIB
+# unset PERL_MB_OPT
+# unset PERL_MM_OPT
+# unset PERL_LOCAL_LIB_ROOT
+
+function kill_two_qemu(){ kill $(ps ax|awk '/qemu-[a]arch64/{print $1}') ; sleep 8  ; kill $(ps ax|awk '/qemu-[a]arch64/{print $1}') ; }
+function kill_two_old_qemu(){ kill $(ps ax|awk '/qemu-binfmt\/[a]arch64-binfmt/{print $1}') ; sleep 8  ; kill $(ps ax|awk '/qemu-binfmt\/[a]arch64-binfmt/{print $1}') ; }
+
+export PATH="/home/pbourguignon/works/harman/Ceedling/bin/:$PATH"
+

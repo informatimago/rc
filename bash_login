@@ -6,27 +6,15 @@
 # This file is not read by bash when .bash_profile exists!
 #
 
+# export BASH_ENV=""
+# 
+# set-xterm-title "$(hostname) xterm"
+# printf "\n"
+# cookie
+# printf "\n"
+# insulte
+# printf "\n"
 
-# Get the aliases and functions
 
-# SuSE 7.x /etc/profile does this for us.
-#if [ -f ~/.bashrc ]; then
-#    echo from bash_login
-#	. ~/.bashrc
-#fi
-
-# I don't want the non-interactive shells to run .bashrc,
-# which is for interactive shell initialization.
-#
-# For now, let them inherit the environment of the invoking shell.
-#
-export BASH_ENV=""
-
-set-xterm-title "$(hostname) xterm"
-printf "\n"
-cookie
-printf "\n"
-insulte
-printf "\n"
 
 #END#
