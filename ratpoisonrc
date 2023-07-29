@@ -25,7 +25,7 @@ msgwait 60
 
 alias emacs        exec emacs
 alias erc          exec erc
-alias web          exec firefox
+alias web          exec google-chrome
 alias xterm        exec xrdb -merge ~/.Xresources ; /home/pjb/bin/pjb-xterm green
 alias objing       exec source /opt/objecteering530/user/env.sh ; /opt/objecteering530/bin/objing
 alias galatea      exec /usr/bin/vncviewer -passwd=/home/pjb/.vnc/passwd galatea

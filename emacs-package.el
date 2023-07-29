@@ -14,7 +14,7 @@
 (add-to-list 'package-archives '("gnu"           . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable"  . "https://stable.melpa.org/packages/"))
 ;; (add-to-list 'package-archives '("melpa"         . "https://melpa.org/packages/"))
-(package-initialize)
+(ignore-errors (package-initialize))
 
 ;; (progn (setf package-archive-contents nil)
 ;;        (package-refresh-contents))
@@ -58,47 +58,56 @@
 
 
 (defvar *packages* '())
-(setq *packages* '(
+(setq *packages* (append '(
 
-                   paredit
+			   paredit
 
-                   compat
-                   emms json popup
+			   compat
+			   json popup
 
-                   company auto-complete inf-ruby enh-ruby-mode
-                   smartparens highlight-indentation textmate
-                   flycheck
+			   company auto-complete inf-ruby enh-ruby-mode
+			   smartparens highlight-indentation textmate
+			   flycheck
 
-                   ;; intero
-                   stack
-                   ;; ormolu
-                   ;; retrie
-                   ;; shm
-                   ;; ghc
-                   ;; ghc-imported-from
-                   ;; ghci-completion
-                   ;; ac-haskell-process
-                   ;; dante
-                   ;; flycheck-ghcmod
-                   ;; flycheck-haskell
-                   ;; flycheck-hdevtools
-                   ;; flycheck-liquidhs
-                   ;; haskell-emacs
-                   ;; haskell-emacs-base
-                   ;; haskell-emacs-text
-                   ;; haskell-mode
-                   ;; haskell-snippets
-                   ;; haskell-tab-indent
-                   ;; hi2
-                   ;; hindent
-                   ;; hyai
+			   stack
+			   cobol-mode
+
+			   )
+
+			 (when (< 26 emacs-major-version)
+			   '( ;; emms
+
+			     lsp-mode
+			     lsp-haskell
+			     lsp-ui
+			     ))
+
+			 (when nil
+			   '(
+			     ;; intero
+			     ;; ormolu
+			     ;; retrie
+			     ;; shm
+			     ;; ghc
+			     ;; ghc-imported-from
+			     ;; ghci-completion
+			     ;; ac-haskell-process
+			     ;; dante
+			     ;; flycheck-ghcmod
+			     ;; flycheck-haskell
+			     ;; flycheck-hdevtools
+			     ;; flycheck-liquidhs
+			     ;; haskell-emacs
+			     ;; haskell-emacs-base
+			     ;; haskell-emacs-text
+			     ;; haskell-mode
+			     ;; haskell-snippets
+			     ;; haskell-tab-indent
+			     ;; hi2
+			     ;; hindent
+			     ;; hyai
                                         ; robe not on emacs-24.4 ?
-                   cobol-mode
-
-                   lsp-mode
-                   lsp-haskell
-                   lsp-ui
-                   ))
+			     ))))
 
 (defun pjb-install-packages ()
   (interactive)
