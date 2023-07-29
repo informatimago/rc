@@ -25,10 +25,12 @@
 
 (defvar *pjb-force-linux-tabulation* '()
   "A list of path regexps to include, or (include \"regexp\") or (exclulde \"regexp\")")
-(pushnew '(exclude "/src/public/")    *pjb-force-linux-tabulation* :test (function equal))
-(pushnew '(exclude "/src/c-tidbits/") *pjb-force-linux-tabulation* :test (function equal))
-(pushnew '(include "/src/")           *pjb-force-linux-tabulation* :test (function equal))
-(pushnew '(include "^/build/")        *pjb-force-linux-tabulation* :test (function equal))
+;; (setf *pjb-force-linux-tabulation* '())
+(pushnew '(exclude "/src/")            *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(exclude "/src/.*/linux")    *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(exclude "^/build/")         *pjb-force-linux-tabulation* :test (function equal))
+(pushnew '(include "^/build/.*/linux") *pjb-force-linux-tabulation* :test (function equal))
+
 
 (defun pjb-force-linux-tabulation-file-p (filename)
   (let ((excludes (remove-if-not (lambda (re) (and (consp re) (eq 'exclude (first re))))
@@ -72,9 +74,10 @@
   (message "linux-c-mode-meat %S %s" (buffer-file-name)
            (if (pjb-force-linux-tabulation-file-p (buffer-file-name)) "yes" "nope"))
   ;; Enable kernel mode for the appropriate files
-  (when (pjb-force-linux-tabulation-file-p (buffer-file-name))
+  (when (and (not (pjb-c-mode-file-p filename))
+             (pjb-force-linux-tabulation-file-p filename)
+             (not (string-match "/hypervisor/" (buffer-file-name))))
     (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-    (c-set-style "linux-tabs-only")
     (setq tab-width 8)
     (setq indent-tabs-mode t)
     (setq show-trailing-whitespace t)
@@ -92,3 +95,4 @@
 
 (add-hook 'asm-mode-hook   'linux-asm-mode-meat)
 
+(provide 'emacs-linux)
