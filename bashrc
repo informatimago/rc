@@ -350,22 +350,29 @@ function be_generate(){
     local editors
     local list
     local value
+    local distrib="$("$HOME/bin/distribution" -i)"
+    local opt="$HOME/opt/${distrib}"
 
-
-    if [ -d "${HOME}/opt/gems" ] ; then
-        be_variable GEM_HOME "${HOME}/opt/gems"
+    if [ -d "${opt}/gems" ] ; then
+        be_variable GEM_HOME "${opt}/gems"
     fi
 
     # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
     bindirs=(
-        "$HOME/opt/app/clang/bin"
-        
-        "$HOME/esp/xtensa-esp32-elf/bin"
-        "$HOME/Library/Python/3.10/bin"
+        # "$HOME/esp/xtensa-esp32-elf/bin"
+        # "$HOME/Library/Python/3.10/bin"
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 
+		# # Fucking idiotic pyenv, it can't find it's own stuff!!!
+        # "$HOME/.pyenv/bin"
+        # "$HOME/.pyenv/libexec"
+		# "$HOME/.pyenv/plugins/python-build/bin"
+
+		# Same for the idiot fucker rbenv, it can't find it's own stuff either!!!
         "$HOME/.rbenv/bin"
+        "$HOME/.rbenv/libexec"
+        "/usr/lib/rbenv/bin"
         "/usr/lib/rbenv/libexec"
 
         "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
@@ -374,8 +381,8 @@ function be_generate(){
         "$HOME/bin"
         "$HOME/.local/bin" 
 
-        "$HOME/opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
-        "$HOME/opt/bin"
+        "$opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
+        "$opt/bin"
         
         # #/data/languages/acl82express/bin
         # /data/languages/bigloo4.1a/bin
@@ -417,16 +424,14 @@ function be_generate(){
     )
 
     sharedirs=(
-        "$HOME/opt/app/clang/share"
-        "$HOME/opt/*/share"
-        "$HOME/opt/share"
+        "$opt/*/share"
+        "$opt/share"
         /opt/*/share
     )
 
     mandirs=(
-        "$HOME/opt/app/clang/share/man"
-        "$HOME/opt/*/share/man"
-        "$HOME/opt/share/man"
+        "$opt/*/share/man"
+        "$opt/share/man"
         /opt/*/share/man
         /opt/*/man
         /opt/local/share/man
@@ -439,9 +444,8 @@ function be_generate(){
     )
 
     lddirs=(
-        "$HOME/opt/app/clang/lib"
-        "$HOME/opt/*/lib"
-        "$HOME/opt/lib"
+        "$opt/*/lib"
+        "$opt/lib"
         /opt/*/lib
         /opt/local/lib
         /usr/local/lib64
@@ -642,6 +646,9 @@ function be_generate(){
 
     be_variable LANG  "${en}"
 
+	# if [ -d "$HOME/.pyenv" ] ; then
+	#     be_variable PYENV_ROOT "$HOME/.pyenv"
+    # fi
     be_variable RUBYOPT '-Eutf-8' 
     # be_variable RUBYLIB /usr/bin/ruby2.5
 
@@ -669,7 +676,7 @@ function be_generate(){
     be_variable NNTPSERVER              news.individual.net
     be_variable IRCNICK                 pjb
     be_variable IRCNAME                 'Pascal J. Bourguignon'
-    be_variable IRCSERVER               irc.freenode.org
+    be_variable IRCSERVER               irc.libera.chat
     be_variable BROWSER                 /usr/bin/lynx
     be_variable LYNX_CFG                "$HOME/.lynx.cfg"
 
@@ -750,7 +757,8 @@ function readlink_f(){
 
 function bashrc_generate_and_load_environment(){
     # User specific environment and startup programs
-    export BASH_ENV="$HOME/.bash_env"
+    local distrib="$("$HOME/bin/distribution" -i)"
+    export BASH_ENV="$HOME/.bash_env-${distrib}"
     export ENV="$BASH_ENV"
     if [ -f "$BASH_ENV" ] ; then
         if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
@@ -762,12 +770,13 @@ function bashrc_generate_and_load_environment(){
     source "$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
     unset be
-	if type -p rbenv 2>/dev/null 1>&2 ; then
-		eval "$(rbenv init -)"
-	fi	
-	if type -p pyenv 2>/dev/null 1>&2 ; then
-		eval "$(pyenv init -)"
-	fi
+    if type -p rbenv 2>/dev/null 1>&2 ; then
+	eval "$(rbenv init -)"
+    fi	
+    # # /home/pbourguignon/.local/lib/python2.7/site-packages
+    # if type -p pyenv 2>/dev/null 1>&2 ; then
+    #     eval "$(pyenv init -)"
+    # fi
 }
 
 ########################################################################
@@ -892,9 +901,61 @@ function bashrc_load_optionals(){
 
 ## bash specific aliases:
 
+function variable-list(){
+    # vnamelist str            get var that starts with str
+    # vnamelist (no args)      get all variables
+    local var_name
+    local char
+    if [[ -n "${1-}" ]] ; then
+        for var_name in $(eval "echo \${!${1}*}"); do
+            echo "$var_name"
+        done
+    else
+        for char in _ {a..z} {A..Z} ; do
+            variable-list "$char"
+        done
+    fi
+}
+
+function function-list(){
+	 typeset -f|sed -n -e 's/^\([a-zA-Z_].*\) () *$/\1/p'
+}
+
+function function-source(){
+    for fun ; do
+        declare -f  "$fun"
+    done
+}
+
+# function function-docstring(){
+#     : "Returns the docstring 
+# of the function 
+# given as argument"
+#     local func="$1"
+#     local docstring
+#     docstring="$(declare -f "$func" | grep -A1 '^: ' | tail -n1)"
+#     docstring="${docstring#*: }"
+#     echo "$docstring"
+# }
+
+function find-in-directories(){
+    : "Searches the file passed as the first argument, 
+in each of the following directories,
+and print the first match found."
+    local file="$1"
+    shift
+    local dir
+    for dir in "$@" ; do
+        if [[ -f "$dir/$file" ]] ; then
+            echo "$dir/$file"
+            return 0
+        fi
+    done
+	return 1
+}
+
 function rehash(){ hash -r ; }
 alias which='type -path'
-
 
 function ds() {
     # Lists Directory Stack
@@ -936,29 +997,6 @@ function pushdd(){
     pushd "$diri"
 }
 
-
-function variable-list(){
-    # vnamelist str            get var that starts with str
-    # vnamelist (no args)      get all variables
-    local var_name
-    local char
-    if [[ -n "${1-}" ]] ; then
-        for var_name in $(eval "echo \${!${1}*}"); do
-            echo "$var_name"
-        done
-    else
-        for char in _ {a..z} {A..Z} ; do
-            variable-list "$char"
-        done
-    fi
-}
-
-
-function function-source(){
-    for fun ; do
-        declare -f  "$fun"
-    done
-}
 
 
 function bashrc_define_aliases(){
@@ -1366,6 +1404,7 @@ function bashrc_linux_functions(){
 # ----------------------------------------
 # one liners with a certain utility
 # ----------------------------------------
+
 function get-directory   (){ awk '{if($1=="'"$1"'"){print $2}}' ~/directories.txt ; }
 
 function timestamp       (){ date +%Y%m%dT%H%M%S ; }
@@ -1442,7 +1481,7 @@ function files           (){ if [ $# -eq 0 ] ; then find . -type f -print ; else
 function c-to-digraph    (){ sed -e 's,#,%:,g' -e 's,\[,<:,g' -e 's,],:>,g' -e 's,{,<%,g' -e 's,},%>,g' ; }
 function c-to-trigraph   (){ sed -e 's,#,??=,g' -e 's,\\,??/,g' -e 's,\\^,??'\'',g' -e 's,\[,??(,g' -e 's,],??),g' -e 's,|,??!,g' -e 's,{,??<,g' -e 's,},??>,g' -e 's,~,??-,g' ; }
 
-function ec              (){ ( unset TMPDIR ; emacsclient --socket-name="$EMACS_SERVER_FILE" --no-wait "$@" ) ; }
+function ec              (){ ( unset TMPDIR ; emacsclient --socket-name="$EMACS_SERVER_FILE" "$@" ) ; }
 function erc             (){ ( export EMACS_BG=\#fcccfefeebb7 ; emacs --eval "(irc)" ) ; }
 function gnus            (){ ( export EMACS_BG=\#ccccfefeebb7 ; emacs --eval "(gnus)" ) ; }
 function browse-file     (){ local file="$1" ; case "$file" in /*)  emacsclient -e "(browse-url \"file://${file}\")" ;; *)  emacsclient -e "(browse-url \"file://$(pwd)/${file}\")" ;; esac ; }
