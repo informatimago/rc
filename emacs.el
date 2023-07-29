@@ -1,16 +1,11 @@
-;;; emacs -- Pascal J. Bourguignon's emacs startup files.
+;;; emacs gg-- Pascal J. Bourguignon's emacs startup files.
 ;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;; Commentary:
 ;;; Code:
 
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
+
+;; (package-initialize)
 
 ;; (setf debug-on-quit t
 ;;       debug-on-error t)
@@ -36,44 +31,46 @@
          "echo -n $( (hostname -f 2>/dev/null) || (hostname 2>/dev/null) )"))
       "localhost"))
 
-(let ((configuration (if (boundp 'aquamacs-version)
-                         '(aquamacs . "~/rc/emacs-aquamacs.el")
-                         (or (let* ((hostname-configuration-map
-                                      '(("macbook[-.]employer-a.local" . "~/rc/emacs-employer-a.el")
-                                        ("^vmlinux"                   . "~/rc/emacs-employer-a.el")
-                                        ("^employer-e"                     . "~/rc/emacs-employer-e.el")
-                                        ("^mercure"                   . "~/rc/emacs-employer-c.el")
-                                        ("^uiserver"                  . "~/rc/emacs-employer-c.el")
-                                        ("^ubudair"                   . "~/rc/emacs-employer-c.el")
-                                        ("^employer-c-vm-mac-[0-9]"        . "~/rc/emacs-employer-c.el")
-                                        ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\|vm-u[0-9]*$\\)"
-                                         . "~/rc/emacs-employer-f.el")))
-                                    (hostname  (hostname))
-                                    (conf  hostname-configuration-map))
-                               (while (and conf (not (let ((case-fold-search t))
-                                                       (string-match (caar conf) hostname))))
-                                 (setq conf (cdr conf)))
-                               (car conf))
-                             '("informatimago.com" . "~/rc/emacs-pjb.el")))))
+(let ((configuration
+        (if (boundp 'aquamacs-version)
+            '(aquamacs . "~/rc/emacs-aquamacs.el")
+            (or (let* ((hostname-configuration-map
+                         '(("^fr\\(dark\\|prld\\|prwn\\)"  . "~/rc/emacs-employer-b.el")
+                           ("^employer-e"                       . "~/rc/emacs-employer-e.el")
+                           ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\|vm-u[0-9]*$\\)"
+                            . "~/rc/emacs-employer-f.el")
+                           ("macbook[-.]employer-a.local"   . "~/rc/emacs-employer-a.el")
+                           ("^vmlinux"                     . "~/rc/emacs-employer-a.el")
+                           ("^mercure"                     . "~/rc/emacs-employer-c.el")
+                           ("^uiserver"                    . "~/rc/emacs-employer-c.el")
+                           ("^ubudair"                     . "~/rc/emacs-employer-c.el")
+                           ("^employer-c-vm-mac-[0-9]"          . "~/rc/emacs-employer-c.el")))
+                       (hostname (hostname))
+                       (conf  hostname-configuration-map))
+                  (while (and conf (not (let ((case-fold-search t))
+                                          (string-match (caar conf) hostname))))
+                         (setq conf (cdr conf)))
+                  (car conf))
+                '("informatimago.com" . "~/rc/emacs-pjb.el")))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
-	(if (<= 27 emacs-major-version)
-	    (with-suppressed-warnings ((obsolete assert block case
-						 check-type decf
-						 defstruct
-						 destructuring-bind
-						 do do* do-symbols
-						 ecase etypecase flet
-						 incf labels loop
-						 macrolet
-						 multiple-value-bind
-						 psetf pushnew return
-						 return-from the
-						 typecase)
-				       ;; (callargs zot)
-				       )
-				      (load file))
-	  (load file))
+	    (if (<= 27 emacs-major-version)
+	        (with-suppressed-warnings ((obsolete assert block case
+						                         check-type decf
+						                         defstruct
+						                         destructuring-bind
+						                         do do* do-symbols
+						                         ecase etypecase flet
+						                         incf labels loop
+						                         macrolet
+						                         multiple-value-bind
+						                         psetf pushnew return
+						                         return-from the
+						                         typecase)
+				                       ;; (callargs zot)
+				                       )
+			  (load file))
+	        (load file))
         ;; setting custom-file needs to be done after we've customized our stuff
         ;; otherwise it may be overridden with an empty customization.
         (setq custom-file (or file custom-file)))

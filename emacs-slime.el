@@ -226,11 +226,13 @@
 
   (define-lisp-implementation ccl
       (append (mapcar (function expand-file-name)
-                      '("~/opt/bin/ccl"))
+                      '("~/opt/bin/ccl"
+                        "~/opt/ubuntu-22.04/bin/ccl"
+                        "~/opt/ubuntu-18.04/bin/ccl"))
               '("/opt/local/bin/ccl"
-                  "/usr/local/bin/ccl"
-                  "/data/languages/ccl/bin/ccl"
-                  "/usr/bin/ccl"))
+                "/usr/local/bin/ccl"
+                "/data/languages/ccl/bin/ccl"
+                "/usr/bin/ccl"))
     "^? "
     utf-8)
 
@@ -576,6 +578,10 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
        (message "Already there."))
       (t
        (inferior-lisp-repl)))))
+
+(defun pjb-show-lisp-repl-jump-in ()
+  (interactive)
+  (pjb-show-lisp-repl t))
 
 (defun indent-defun ()
   (interactive)
