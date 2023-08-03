@@ -143,16 +143,18 @@
                     #P"/opt/local/var/macports/sources/rsync.macports.org/release/tarballs/ports/lang/sbcl/work/"
                     #P"/data/src/languages/sbcl/"
                     )))
-    (loop :for name :in '("version" "build-order")
-          :for sbcl-file := (make-pathname
-                             :directory (list :relative (format nil "sbcl-~A" clean-version))
-                             :name name
-                             :type "lisp-expr")
-          :do (dolist (src-dir src-dirs nil)
-                (let ((path (merge-pathnames sbcl-file src-dir nil)))
-                  (when (probe-file path)
-                    (return-from sbcl-source-location
-                      (make-pathname :name nil :type nil :version nil :defaults path))))))))
+    (loop :for directory :in (list (list :relative (format nil "sbcl-~A" clean-version))
+                                   (list :relative "sbcl"))
+          :do (loop :for name :in '("version" "build-order")
+                    :for sbcl-file := (make-pathname
+                                       :directory directory
+                                       :name name
+                                       :type "lisp-expr")
+                    :do (dolist (src-dir src-dirs nil)
+                          (let ((path (merge-pathnames sbcl-file src-dir nil)))
+                            (when (probe-file path)
+                              (return-from sbcl-source-location
+                                (make-pathname :name nil :type nil :version nil :defaults path)))))))))
 
 (let ((sources  (sbcl-source-location)))
   (if sources
@@ -230,6 +232,7 @@
 (export '(EDIT QUIT))
 
 
+
 (SETF *PRINT-READABLY* NIL
       *PRINT-LEVEL*    NIL
       *PRINT-LINES*    NIL
@@ -271,6 +274,7 @@
   (com.informatimago.common-lisp.cesarum.PACKAGE:ADD-NICKNAME  "COMMON-LISP-USER" "USER")
   (com.informatimago.common-lisp.cesarum.PACKAGE:ADD-NICKNAME  "SB-PCL"           "CLOS"))
 
+(declaim (ftype function ed))
 
 (defun edit/emacsclient (arg)
   (handler-case
@@ -280,6 +284,7 @@
                                                      arg)))
                           :search t :wait t :pty nil :input t :output t)
     (:no-error (&rest values)
+      (declare (ignore values))
       t)
     (error (err)
       (format t "~&~A~%" err)
@@ -296,13 +301,13 @@
                                                       arg))))
                           :search t :wait t :pty nil :input t :output t)
     (:no-error (&rest values)
+      (declare (ignore values))
       t)
     (error (err)
       (format t "~&~A~%" err)
       nil)))
 
 (push 'edit/editor sb-ext:*ed-functions*)
-
 
 (setf *editor* (lambda (arg) (if (or (functionp arg) (symbolp arg))
                                  (ed arg)
