@@ -2,6 +2,7 @@
 ;; git@github.com:xenodium/chatgpt-shell.git
 (pushnew (expand-file-name "~/emacs/chatgpt-shell") load-path)
 
+(require 'shell-maker)
 (require 'chatgpt-shell) 
 (require 'ob-chatgpt-shell)
 (require 'dall-e-shell)

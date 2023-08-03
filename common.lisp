@@ -1201,6 +1201,8 @@ without, lists all the commands with their docstrings."
   "Quickload systems"
   (apply (function com.informatimago.pjb::load-one-way-or-another) systems))
 
+(declaim (ftype function quit))
+
 (define-command qu   ()
   "Quit!"
   (prin1 "Good Bye!")
