@@ -1025,16 +1025,17 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
     (insert (format "%s\n" (make-string 72 ?-)))))
 
 (defun pjb-sldb-observe-variables ()
-  (when sldb-backtrace-start-marker
-    (sldb-beginning-of-backtrace))
-  (let ((expression (format "(cl:format nil \"~{~32S = ~S~%%~}\" (cl:list %s))"
-                            (mapconcat (lambda (var)
-                                         (format "(quote %s) %s" var var))
-                                       *pjb-sldb-observe-variables* " ")))
-        (package    (slime-current-package))
-        (frame      0))
-    (slime-eval-async `(swank:eval-string-in-frame ,expression ,frame ,package)
-                      (function pjb-sldb-insert-top-message))))
+  (unless (string= "SBCL" (slime-lisp-implementation-type))
+    (when sldb-backtrace-start-marker
+      (sldb-beginning-of-backtrace))
+    (let ((expression (format "(cl:format nil \"~{~32S = ~S~%%~}\" (cl:list %s))"
+                              (mapconcat (lambda (var)
+                                           (format "(quote %s) %s" var var))
+                                         *pjb-sldb-observe-variables* " ")))
+          (package    (slime-current-package))
+          (frame      0))
+      (slime-eval-async `(swank:eval-string-in-frame ,expression ,frame ,package)
+                        (function pjb-sldb-insert-top-message)))))
 
 (add-hook 'sldb-hook 'pjb-sldb-observe-variables)
 
