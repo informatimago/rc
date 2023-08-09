@@ -81,6 +81,7 @@
  '(comment-force-also-empty-lines t)
  '(compilation-error-regexp-alist '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek gradle-kotlin iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gmake gnu lcc makepp mips-1 mips-2 omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line ghc))
  '(compilation-message-face 'default)
+ '(copilot-node-executable "/home/pbourguignon/opt/ubuntu-22.04/bin/node")
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
@@ -446,7 +447,8 @@ X-Accept-Language:         fr, es, en
  '(w3m-use-tab nil)
  '(w3m-use-tab-menubar nil)
  '(w3m-use-title-buffer-name t)
- '(warning-suppress-types '((undo discard-info)))
+ '(warning-suppress-log-types '((#1=(flycheck syntax-checker)) (#1#) (undo discard-info)))
+ '(warning-suppress-types '((#1=(flycheck syntax-checker)) (#1#) (undo discard-info)))
  '(weechat-color-list '(unspecified "#002b36" "#073642" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#839496" "#657b83"))
  '(xterm-color-names ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
@@ -1200,7 +1202,7 @@ into a list, in the result.
   (interactive)
   (let ((fendm  (make-marker))
         (startm (make-marker))
-        (endm  (make-marker)))
+        (endm   (make-marker)))
     (unwind-protect
          (let ((flet (harman-search-flet)))
            (when flet
@@ -1211,49 +1213,52 @@ into a list, in the result.
                       (set-marker endm end)
                       (set-marker fendm (progn (c-end-of-defun) (point)))
                       (let* ((lname   (string-trim lname))
-                             (fstart  (progn (c-beginning-of-defun) (point)))
+                             (fstart  (harman-marker (progn (c-beginning-of-defun) (point))))
                              (fname   (c-defun-name))
                              (gname   (concat fname "_" lname))
                              (newvars (harman-collect-vars fstart startm (concat fname "_"))))
+                        (unwind-protect
+                             (progn
+                               (loop for (new-name old-name var-start decl-start decl-end) in newvars
+                                     do (message "%s -> %s : %s" old-name new-name (buffer-substring-no-properties decl-start decl-end)))
+                               
+                               (harman-rename-identifier gname lname fstart fendm)
 
-                        (loop for (new-name old-name var-start decl-start decl-end) in newvars
-                              do (message "%s -> %s : %s" old-name new-name (buffer-substring-no-properties decl-start decl-end)))
-                        
-                        (harman-rename-identifier gname lname fstart fendm)
+                               (loop for (new-name old-name var-start decl-start decl-end) in newvars
+                                     do (harman-rename-identifier new-name old-name fstart fendm))
+                               
+                               (setf newvars (mapcar (lambda (var)
+                                                       (destructuring-bind (new-name old-name var-start decl-start decl-end) var
+                                                         (prog1 (buffer-substring-no-properties decl-start decl-end)
+                                                           (delete-region var-start decl-end)
+                                                           (set-marker var-start nil)
+                                                           (set-marker decl-start nil)
+                                                           (set-marker decl-end nil))))
+                                                     newvars))
 
-                        (loop for (new-name old-name var-start decl-start decl-end) in newvars
-                              do (harman-rename-identifier new-name old-name fstart fendm))
-                        
-                        (setf newvars (mapcar (lambda (var)
-                                                (destructuring-bind (new-name old-name var-start decl-start decl-end) var
-                                                  (prog1 (buffer-substring-no-properties decl-start decl-end)
-                                                    (delete-region var-start decl-end)
-                                                    (set-marker var-start nil)
-                                                    (set-marker decl-start nil)
-                                                    (set-marker decl-end nil))))
-                                              newvars))
+                               (message "markers=%S" (list fstart startm endm bstart bend fendm))
+                               (let ((body (buffer-substring-no-properties bstart bend)))
+                                 (message "body=%S" body)
 
-                        (message "markers=%S" (list fstart startm endm bstart bend fendm))
-                        (let ((body (buffer-substring-no-properties bstart bend)))
-                          (message "body=%S" body)
+                                 ;; delete the local function (FLET), AFTER.
+                                 (delete-region startm endm)
 
-                          ;; delete the local function (FLET), AFTER.
-                          (delete-region startm endm)
+                                 ;; move before docstring doc.
+                                 (goto-char fstart)
 
-                          ;; move before docstring doc.
-                          (goto-char fstart)
-
-                          (harman-move-before-doxygen-docstring)
-                          (open-line 2)
-                          (let ((start (point)))
-                            ;; insert vars
-                            (loop for var in newvars
-                                  do (insert "static " var "\n"))
-                            ;; insert the new global function
-                            (insert (format "     static %s\n%s%s\n%s\n"
-                                            retype gname signature body))
-                            (indent-region start (point))
-                            (goto-char fstart))))))
+                                 (harman-move-before-doxygen-docstring)
+                                 (open-line 2)
+                                 (let ((start (point)))
+                                   ;; insert vars
+                                   (loop for var in newvars
+                                         do (insert "static " var "\n"))
+                                   ;; insert the new global function
+                                   (insert (format "     static %s\n%s%s\n%s\n"
+                                                   retype gname signature body))
+                                   (indent-region start (point))
+                                   (goto-char fstart))))
+                          ;; cleanup
+                          (set-marker fstart nil)))))
                ;; cleanup
                (set-marker bstart nil)
                (set-marker bend nil)))))
@@ -1283,10 +1288,37 @@ into a list, in the result.
         (goto-char start)
         (forward-line 1)))))
 
-;; (progn
-;;   (set-sources "/build/pbourguignon/clang/src.devel/hypervisor/" 'c)
-;;   (add-sources "/build/pbourguignon/clang/work/build.devel/utest-nkernel/" 'c))
+(progn
+  (set-sources "/build/pbourguignon/clang/src.devel/hypervisor/" 'c)
+  (add-sources "/build/pbourguignon/clang/work/build.devel/utest-nkernel/" 'c))
 
-(set-frame-font "DejaVu Sans Mono-14")
-(set-face-background 'fringe "lightpink4")
+
+'("/mnt/BlobArea/external/ceedling/pyenv/bin"
+  "/mnt/BlobArea/external/ceedling/lcov/lcov-1.14/bin"
+  "/mnt/BlobArea/external/ceedling/rbenv/shims"
+  )
+(setf exec-path '("/home/pbourguignon/works/harman/Ceedling/bin"
+                  "/home/pbourguignon/bin"
+                  "/home/pbourguignon/.rbenv/shims"
+                  "/home/pbourguignon/.local/bin"
+                  "/usr/local/sbin"
+                  "/usr/local/bin"
+                  "/usr/sbin"
+                  "/usr/bin"
+                  "/usr/lib/rbenv/libexec"
+                  "/sbin"
+                  "/bin" ))
+
+(setf inf-ruby-first-prompt-pattern "irb[^>]*> ")
+
+(progn
+  (set-face-background 'fringe "lightpink4")
+  ;; (set-frame-font "DejaVu Sans Mono-10")
+  (set-frame-font "DejaVu Sans Mono-14")
+  ;; (set-frame-font "DejaVu Sans Mono-18")
+  ;; (set-foreground-color "turquoise1")
+  (set-foreground-color "pale turquoise"))
+
+;; (ff 1213)
+
 (provide 'emacs-harman)
