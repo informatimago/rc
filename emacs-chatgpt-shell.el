@@ -13,10 +13,11 @@
 ;; machine api.openai.com login your@email password sk-....................
 
 (setf chatgpt-shell-api-url-base "https://localhost:9443")
-(setf chatgpt-shell-api-url-base "https://api.opeanai.com")
+(setf chatgpt-shell-api-url-base "https://api.openai.com")
 
 (setq chatgpt-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com"))
+
 (setq dall-e-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com"))
 
