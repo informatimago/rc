@@ -1,1 +1,4 @@
-. ~/.bashrc_emacs
+# -*- mode:shell-script; coding:utf-8 -*-
+if [ -z "$EMACS_BASH_COMPLETE" ] ; then
+    . ~/.bashrc_emacs
+fi

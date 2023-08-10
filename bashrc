@@ -2,6 +2,11 @@
 # .bashrc
 # Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
 # set -x
+
+if [ -n "${EMACS_BASH_COMPLETE:-}" ] ; then
+    return
+fi
+
 set +o posix # not POSIX: allow function-names-with-dashes
 
 ### TODO: /home/pjb/.bashrc: line 92: INSIDE_EMACS: unbound variable
@@ -576,13 +581,13 @@ function be_generate(){
         be_variable KAFFEHOME "$value"
         list=''
         appendNewToStringVariableDirectoryIfExists list \
-            "$JAVA_HOME"/lib/java.io.zip \
-            "$KAFFEHOME"/Klasses.jar \
-            /usr/local/share/kaffe/pizza.jar \
-            "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip \
-            "$JAVA_HOME"/lib/classes.zip \
-            "$JAVA_HOME"/lib/i18n.jar \
-            "$JAVA_HOME"/lib/rt.jar
+                                                   "$JAVA_HOME"/lib/java.io.zip \
+                                                   "$KAFFEHOME"/Klasses.jar \
+                                                   /usr/local/share/kaffe/pizza.jar \
+                                                   "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip \
+                                                   "$JAVA_HOME"/lib/classes.zip \
+                                                   "$JAVA_HOME"/lib/i18n.jar \
+                                                   "$JAVA_HOME"/lib/rt.jar
         be_variable classpath_kaffe "$list"
         be_variable PATH "${JAVA_HOME}/bin:${PATH}"
     fi
@@ -593,10 +598,10 @@ function be_generate(){
         be_variable JAVA_HOME "$JAVA_BASE"/jdk1.1.6/
         list=''
         appendNewToStringVariableDirectoryIfExists list \
-            "$JAVA_HOME"/lib/classes.zip \
-            "$JAVA_BASE"/swing-1.0.3/swingall.jar \
-            "$JAVA_BASE"/jaccess-1.0/jaccess.jar \
-            "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
+                                                   "$JAVA_HOME"/lib/classes.zip \
+                                                   "$JAVA_BASE"/swing-1.0.3/swingall.jar \
+                                                   "$JAVA_BASE"/jaccess-1.0/jaccess.jar \
+                                                   "$JAVA_BASE"/mSQL-JDBC_1.0b3/imaginary.zip
         be_variable classpath_jdk "$list"
         be_variable CLASSPATH "${classpath_jdk:?}"
         if [ -d /usr/local/JavaApps/. ] ; then
@@ -771,7 +776,7 @@ function bashrc_generate_and_load_environment(){
     source "$BASH_ENV"
     unset be
     if type -p rbenv 2>/dev/null 1>&2 ; then
-	eval "$(rbenv init -)"
+	    eval "$(rbenv init -)"
     fi	
     # # /home/pbourguignon/.local/lib/python2.7/site-packages
     # if type -p pyenv 2>/dev/null 1>&2 ; then
@@ -781,7 +786,7 @@ function bashrc_generate_and_load_environment(){
 
 ########################################################################
 
-function bashrc_load_completions(){
+function  bashrc_load_completions(){
     # ----------------------------------------
     # Some commands in $HOME/bin/* have a bash auto-completion feature.
     # ----------------------------------------
@@ -918,7 +923,7 @@ function variable-list(){
 }
 
 function function-list(){
-	 typeset -f|sed -n -e 's/^\([a-zA-Z_].*\) () *$/\1/p'
+	typeset -f|sed -n -e 's/^\([a-zA-Z_].*\) () *$/\1/p'
 }
 
 function function-source(){
@@ -1429,8 +1434,8 @@ function get_ip_address_from_MAC(){
 }
 
 function sort-host       (){ tr '.' '@' | sort -t@ -n +0 -1 +1 -2 +2 -3 +3 -4 | tr '@' '.' ; }
-    # We have to replace dots by something else since they are taken for
-    # decimal points by sort -n.
+# We have to replace dots by something else since they are taken for
+# decimal points by sort -n.
 
 function usb-devices     (){
     case "${uname}" in
@@ -1643,6 +1648,7 @@ function bashrc(){
 }
 
 bashrc
+
 
 ################################################################################
 ################################################################################
