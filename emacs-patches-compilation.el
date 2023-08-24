@@ -56,8 +56,7 @@ to `compilation-error-regexp-alist' if RULES is nil."
         (while (and pat (re-search-forward pat end t))
                (when (setq props (compilation-error-properties
                                   file line end-line col end-col
-                                  (or type 2) fmt ;; rule
-                                  ))
+                                  (or type 2) fmt rule))
 
                  (when file
                    (let ((this-type (if (consp type)
@@ -115,6 +114,5 @@ to `compilation-error-regexp-alist' if RULES is nil."
                    (font-lock-append-text-property
                     (match-beginning mn) (match-end mn)
                     'font-lock-face (cadr props)))))))))
-
 
 
