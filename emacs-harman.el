@@ -8,6 +8,11 @@
 (require 'simple)
 (require 'inf-ruby)
 
+(unless (fboundp 'bash-completion-dynamic-complete)
+  (defun bash-completion-dynamic-complete (&rest args)
+    (declare (ignore args))
+    (values)))
+
 (custom-set-variables
  '(ad-redefinition-action 'accept)
  '(ansi-color-names-vector ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
@@ -80,7 +85,7 @@
  '(comint-process-echoes nil)
  '(comment-empty-lines t)
  '(comment-force-also-empty-lines t)
- '(compilation-error-regexp-alist '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek gradle-kotlin iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gmake gnu lcc makepp mips-1 mips-2 omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line ghc))
+ '(compilation-error-regexp-alist '(absoft ada aix ant bash borland python-tracebacks-and-caml cmake cmake-info comma cucumber msft edg-1 edg-2 epc ftnchek gradle-kotlin iar ibm irix java jikes-file maven jikes-line clang-include gcc-include ruby-Test::Unit gmake gnu lcc makepp mips-1 mips-2 omake oracle perl php rxp sparc-pascal-file sparc-pascal-line sparc-pascal-example sun sun-ada watcom 4bsd gcov-file gcov-header gcov-nomark gcov-called-line gcov-never-called perl--Pod::Checker perl--Test perl--Test2 perl--Test::Harness weblint guile-file guile-line))
  '(compilation-message-face 'default)
  '(copilot-idle-delay 3)
  '(copilot-node-executable "/home/pbourguignon/opt/ubuntu-22.04/bin/node")
@@ -301,7 +306,7 @@ X-Accept-Language:         fr, es, en
  '(org-startup-with-inline-images t)
  '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
  '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))
- '(package-selected-packages '(dts-mode use-package editorconfig compat with-editor transient dired-git-info docbook ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools flycheck-haskell flycheck-ghcmod dante ac-haskell-process ghci-completion ghc-imported-from ghc shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
+ '(package-selected-packages '(dts-mode use-package editorconfig compat with-editor transient dired-git-info docbook ox-gfm smalltalk-mode twittering-mode company-coq coq-commenter flycheck-swift flycheck-swift3 flycheck-swiftlint flycheck-swiftx ob-swift swift-helpful swift-playground-mode swift3-mode web-server pg polymode lsp-mode dash lsp-ui stack lsp-haskell stack-mode hyai hindent hi2 haskell-tab-indent haskell-snippets haskell-emacs-text haskell-emacs-base haskell-emacs flycheck-liquidhs flycheck-hdevtools dante ac-haskell-process shm retrie ormolu intero htmlize cobol-mode swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)
@@ -529,69 +534,6 @@ X-Accept-Language:         fr, es, en
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:foreground "yellow green"))))
  '(window-divider ((t (:background "yellow" :foreground "yellow" :underline nil)))))
-
-
-
-(defvar *pjb-force-linux-tabulation* nil)
-(pushnew '(include "^/build/") *pjb-force-linux-tabulation* :test (function equal))
-
-
-
-(defun redbend--comint-output-filter--remove-esc-b (string)
-  "Remove ESC(B sequences between `comint-last-output-start’ and `process-mark’."
-  (save-excursion
-   (goto-char comint-last-output-start)
-   (let ((end (process-mark (get-buffer-process (current-buffer)))))
-     (while (search-forward "\e(B" end t)
-       (delete-region (match-beginning 0) (match-end 0))))))
-
-(defun redbend--shell-mode-meat ()
-  (set-variable 'tab-width 8)
-  (setf comint-process-echoes nil)
-  (add-to-list 'comint-output-filter-functions #'redbend--comint-output-filter--remove-esc-b)
-  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-  (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
-  (when (fboundp 'bash-completion-setup) (bash-completion-setup))
-  (set-default 'shell-dirstack-query "pwd"))
-
-(add-hook 'shell-mode-hook 'redbend--shell-mode-meat)
-
-(setf org-agenda-files '("~/pjb/notes.org"))
-
-
-(require 'subr-x)
-
-(defun compare-ruby-objects (start end)
-  (interactive "r")
-  (let ((stuff
-          (concat
-           "printf \"\\n\\n\" ; print_differences("
-           (mapconcat 'identity
-                      (mapcar (lambda (line)
-                                (if (or (prefixp "-" line) (prefixp "+" line))
-                                    (subseq line 1)
-                                    line))
-                              (split-string (buffer-substring start end) "\n" :omit-nulls))
-                      "," )
-           ")")))
-    (with-current-buffer (get-buffer-create " *ruby-scratch*")
-      (erase-buffer)
-      (progn
-        (insert stuff)
-        (goto-char (point-min))
-        (while (re-search-forward "=>" nil t)
-          (delete-region (match-beginning 0) (match-end 0))
-          (insert " => ")
-          (forward-char 4))
-        (ruby-send-region-and-go (point-min) (point-max))
-        (ruby-print-result)))))
-
-
-(global-set-key (kbd"M-TAB") 'suspend-frame)
-
-;; set binding in sh-mode-map:
-;; (define-key sh-mode-map (kbd "TAB") 'sh-indent-line)
-(define-key sh-mode-map (kbd "TAB") 'indent-for-tab-command)
 
 
 
@@ -949,32 +891,90 @@ X-Accept-Language:         fr, es, en
                                         ; is when the TAB command is used.
    ))
 
+(defvar *pjb-force-linux-tabulation* nil)
+(pushnew '(include "^/build/") *pjb-force-linux-tabulation* :test (function equal))
 
-(defun harman-c-mode-meat ()
+(defun harman-file-p (filename)
+  (let ((harman-file-p
+          (not (not (or (string-match "/hypervisor/" filename)
+                        (string-match "^/build/" filename))))))
+    (message "%s %S --> %S" major-mode filename harman-file-p)
+    harman-file-p))
+
+;;; C mode hook
+
+(defun harman--c-mode-meat ()
   (interactive)
   (let ((filename (buffer-file-name)))
-    (message "harman-c-mode-meat %S --> %S" filename
-             (not (not (string-match "/hypervisor/" filename))))
     ;; Enable hypervisor mode for the appropriate files:
-    (when (string-match "/hypervisor/" filename)
+    (when (harman-file-p filename)
       (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
       (c-set-style "harman.hypervisor")
       (setq indent-tabs-mode t)
       (setq show-trailing-whitespace t)
       (local-set-key (kbd "TAB") (quote c-indent-or-tab)))))
 
-(add-hook 'c-mode-hook 'harman-c-mode-meat)
+(add-hook 'c-mode-hook 'harman--c-mode-meat 'append)
 
-(defvar *harman-wrap-signature*)
+;;; sh mode hook
 
-(defun harman-compilation-file-line-col ()
+(defun harman--sh-mode-meat ()
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (message "harman--shell-script-mode-meat %S --> %S" filename
+             (not (not (string-match "/hypervisor/" filename))))
+    ;; Enable hypervisor mode for the appropriate files:
+    (when (harman-file-p filename)
+      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (setq indent-line-function 'smie-indent-line
+            indent-tabs-mode nil
+            sh-basic-offset 2
+            sh-indentation 2
+            show-trailing-whitespace t
+            smie-indent-basic 2
+            tab-always-indent t
+            tab-width 2)
+      ;; (local-set-key (kbd "TAB") (quote indent-for-tab-command))
+      )))
+
+(add-hook 'sh-mode-hook 'harman--sh-mode-meat 'append)
+
+;;; shell mode hook
+
+(defun harman--comint-output-filter--remove-esc-b (string)
+  "Remove ESC(B sequences between `comint-last-output-start’ and `process-mark’."
+  (save-excursion
+   (goto-char comint-last-output-start)
+   (let ((end (process-mark (get-buffer-process (current-buffer)))))
+     (while (search-forward "\e(B" end t)
+       (delete-region (match-beginning 0) (match-end 0))))))
+
+(defun harman--shell-mode-meat ()
+  (set-variable 'tab-width 8)
+  (setf comint-process-echoes nil)
+  (add-to-list 'comint-output-filter-functions #'harman--comint-output-filter--remove-esc-b)
+  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
+  (when (fboundp 'bash-completion-setup) (bash-completion-setup))
+  ;; (setq smie-indent-basic 2)
+  ;; (setq indent-tabs-mode nil)
+  ;; (setq show-trailing-whitespace t)
+  (set-default 'shell-dirstack-query "pwd"))
+
+(add-hook 'shell-mode-hook 'harman--shell-mode-meat 'append)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar *harman--wrap-signature*)
+
+(defun harman--compilation-file-line-col ()
   (beginning-of-line)
   (when (re-search-forward "^\\([^:]*\\):\\([^:]*\\):\\([^:]*\\):" nil t)
     (list (match-string 1)
           (car (read-from-string (match-string 2)))
           (car (read-from-string (match-string 3))))))
 
-(defun harman-wrap ()
+(defun harman--wrap ()
   (interactive)
   (switch-to-buffer "*compilation*")
   (beginning-of-line)
@@ -982,7 +982,7 @@ X-Accept-Language:         fr, es, en
   (when (re-search-forward "'\\([^']*\\)\\(([^']*)\\)'" nil t)
     (let ((retype    (string-trim (match-string 1)))
           (signature (string-trim (match-string 2))))
-      (setf *harman-wrap-signature* (cons retype signature))
+      (setf *harman--wrap-signature* (cons retype signature))
       (compile-goto-error)
       (if (string= "void" retype)
           (insert "PWRAP(")
@@ -991,11 +991,11 @@ X-Accept-Language:         fr, es, en
       (insert (format ", %s)" signature))
       (delete-other-windows (selected-window) t)
       (compilation-next-error)
-      (message "%S" *harman-wrap-signature*))))
+      (message "%S" *harman--wrap-signature*))))
 
-(defun harman-update-wrap ()
+(defun harman--update-wrap ()
   (interactive)
-  (message "harman-update-wrap start")
+  (message "harman--update-wrap start")
   (when (re-search-forward "\\(\\(FWRAP *( *\\([^,]*[^, ]\\) *,\\)\\|\\(PWRAP *(\\)\\) *\\([_a-zA-Z0-9]*\\) *, *\\(([][*&_a-zA-Z0-9, ]*)\\) *, *\\(([][*&_a-zA-Z0-9, ]*)\\)) *" nil t)
     (let ((sig-start  (match-beginning 6))
           (sig-end    (match-end 6))
@@ -1018,9 +1018,9 @@ X-Accept-Language:         fr, es, en
         (delete-region sig-start sig-end)
         (goto-char sig-start)
         (insert replacement))))
-    (message "harman-update-wrap end"))
+    (message "harman--update-wrap end"))
 
-(defun harman-flet ()
+(defun harman--flet ()
   (interactive)
   (backward-sexp 2)
   (let ((namepos (make-marker)))
@@ -1043,7 +1043,7 @@ X-Accept-Language:         fr, es, en
     (insert ";")))
 
 
-(cl-defun harman-split-parameters (paramlist)
+(cl-defun harman--split-parameters (paramlist)
   "
 The function takes a string with the following syntax:
 
@@ -1111,11 +1111,11 @@ into a list, in the result.
       list)))
 
 (assert (equal (list
-                (harman-split-parameters "()")
-                (harman-split-parameters "(int a)")
-                (harman-split-parameters "(int a, char* b)")
-                (harman-split-parameters "(int a, char* b, int (*foo)(int, int))")
-                (harman-split-parameters "(int, foo, (int a, char* b, int (*foo)(int, int)))"))
+                (harman--split-parameters "()")
+                (harman--split-parameters "(int a)")
+                (harman--split-parameters "(int a, char* b)")
+                (harman--split-parameters "(int a, char* b, int (*foo)(int, int))")
+                (harman--split-parameters "(int, foo, (int a, char* b, int (*foo)(int, int)))"))
                '(("") 
                  ("int a")
                  ("int a" " char* b")
@@ -1123,12 +1123,12 @@ into a list, in the result.
                  ("int" " foo" " (int a, char* b, int (*foo)(int, int))"))))
 
 
-(defun harman-marker (point)
+(defun harman--marker (point)
   (let ((marker (make-marker)))
     (set-marker marker point)
     marker))
 
-(defun harman-search-flet ()
+(defun harman--search-flet ()
   (when (re-search-forward "\\<FLET\\>" nil t)
     (let ((flet-start (match-beginning 0)))
       (forward-sexp)
@@ -1144,11 +1144,11 @@ into a list, in the result.
           (list flet-start
                 (point)
                 (buffer-substring-no-properties signature-start signature-end)
-                (harman-marker body-start)
-                (harman-marker body-end)))))))
+                (harman--marker body-start)
+                (harman--marker body-end)))))))
 
 
-(defun harman-collect-vars (start endm &optional new-prefix)
+(defun harman--collect-vars (start endm &optional new-prefix)
   (interactive "r")
   (goto-char start)
   (let ((new-prefix (or new-prefix "g_"))
@@ -1162,13 +1162,13 @@ into a list, in the result.
             (var-name (match-string 4)))
         (push (list (concat new-prefix var-name)
                     var-name
-                    (harman-marker var-start)
-                    (harman-marker decl-start)
-                    (harman-marker decl-end))
+                    (harman--marker var-start)
+                    (harman--marker decl-start)
+                    (harman--marker decl-end))
               vars)))
     (nreverse vars)))
 
-(defun harman-rename-identifier (new-name old-name start endm)
+(defun harman--rename-identifier (new-name old-name start endm)
   (let ((re       (concat "\\_<" old-name "\\_>"))
         (sizediff (- (length new-name) (length old-name))))
     (goto-char start)
@@ -1179,7 +1179,7 @@ into a list, in the result.
         (insert new-name)
         (goto-char next)))))
 
-(defun harman-move-before-doxygen-docstring ()
+(defun harman--move-before-doxygen-docstring ()
   (interactive)
   (let ((start (point)))
     (previous-line)
@@ -1201,34 +1201,34 @@ into a list, in the result.
             (goto-char doxygen-comment-start)
           (goto-char start))))))
 
-(defun harman-make-flet-global ()
+(defun harman--make-flet-global ()
   (interactive)
   (let ((fendm  (make-marker))
         (startm (make-marker))
         (endm   (make-marker)))
     (unwind-protect
-         (let ((flet (harman-search-flet)))
+         (let ((flet (harman--search-flet)))
            (when flet
              (destructuring-bind (start end flet-parameters bstart bend) flet
                (unwind-protect
-                    (destructuring-bind (retype lname signature) (harman-split-parameters flet-parameters)
+                    (destructuring-bind (retype lname signature) (harman--split-parameters flet-parameters)
                       (set-marker startm start)
                       (set-marker endm end)
                       (set-marker fendm (progn (c-end-of-defun) (point)))
                       (let* ((lname   (string-trim lname))
-                             (fstart  (harman-marker (progn (c-beginning-of-defun) (point))))
+                             (fstart  (harman--marker (progn (c-beginning-of-defun) (point))))
                              (fname   (c-defun-name))
                              (gname   (concat fname "_" lname))
-                             (newvars (harman-collect-vars fstart startm (concat fname "_"))))
+                             (newvars (harman--collect-vars fstart startm (concat fname "_"))))
                         (unwind-protect
                              (progn
                                (loop for (new-name old-name var-start decl-start decl-end) in newvars
                                      do (message "%s -> %s : %s" old-name new-name (buffer-substring-no-properties decl-start decl-end)))
                                
-                               (harman-rename-identifier gname lname fstart fendm)
+                               (harman--rename-identifier gname lname fstart fendm)
 
                                (loop for (new-name old-name var-start decl-start decl-end) in newvars
-                                     do (harman-rename-identifier new-name old-name fstart fendm))
+                                     do (harman--rename-identifier new-name old-name fstart fendm))
                                
                                (setf newvars (mapcar (lambda (var)
                                                        (destructuring-bind (new-name old-name var-start decl-start decl-end) var
@@ -1249,7 +1249,7 @@ into a list, in the result.
                                  ;; move before docstring doc.
                                  (goto-char fstart)
 
-                                 (harman-move-before-doxygen-docstring)
+                                 (harman--move-before-doxygen-docstring)
                                  (open-line 2)
                                  (let ((start (point)))
                                    ;; insert vars
@@ -1272,7 +1272,7 @@ into a list, in the result.
 
 
 
-(defun harman-delete-diff-chunk ()
+(defun harman--delete-diff-chunk ()
   "Delete the @@.*@@.*\n… block containing the point from the current diff."
   (interactive)
   (when (re-search-backward "^@@.*@@.*\n" nil t)
@@ -1313,7 +1313,48 @@ into a list, in the result.
                   "/bin" ))
 
 
+
+
+
+
+
+(require 'subr-x)
+
 (setf inf-ruby-first-prompt-pattern "irb[^>]*> ")
+
+(defun compare-ruby-objects (start end)
+  (interactive "r")
+  (let ((stuff
+          (concat
+           "printf \"\\n\\n\" ; print_differences("
+           (mapconcat 'identity
+                      (mapcar (lambda (line)
+                                (if (or (prefixp "-" line) (prefixp "+" line))
+                                    (subseq line 1)
+                                    line))
+                              (split-string (buffer-substring start end) "\n" :omit-nulls))
+                      "," )
+           ")")))
+    (with-current-buffer (get-buffer-create " *ruby-scratch*")
+      (erase-buffer)
+      (progn
+        (insert stuff)
+        (goto-char (point-min))
+        (while (re-search-forward "=>" nil t)
+          (delete-region (match-beginning 0) (match-end 0))
+          (insert " => ")
+          (forward-char 4))
+        (ruby-send-region-and-go (point-min) (point-max))
+        (ruby-print-result)))))
+
+
+(setf org-agenda-files '("~/pjb/notes.org"))
+
+(global-set-key (kbd"M-TAB") 'suspend-frame)
+
+;; set binding in sh-mode-map:
+;; (define-key sh-mode-map (kbd "TAB") 'sh-indent-line)
+;; (define-key sh-mode-map (kbd "TAB") 'indent-for-tab-command)
 
 (progn
   (cond

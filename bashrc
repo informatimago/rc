@@ -765,7 +765,7 @@ function readlink_f(){
 }
 
 function bashrc_generate_bash_env(){
-    cat <<EOF
+    cat <<'EOF'
 # -*- mode:shell-script;coding:iso-8859-1 -*-
 # .bash_env
 # Non interactive shells
