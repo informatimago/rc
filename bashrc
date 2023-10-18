@@ -1567,11 +1567,12 @@ function panic(){ echo "[;5;35mDon't Panic[0m" ; }
 
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
-    (*trustonic.local)
-        source ~/rc/bashrc-trustonic
-        ;;
     (larissa*)
         source ~/rc/bashrc-nvidia
+        source ~/rc/bashrc-mts
+        ;;
+    (*trustonic.local)
+        source ~/rc/bashrc-trustonic
         ;;
     (vm-u1404|L0253344)
         source ~/rc/bashrc-span
@@ -1581,6 +1582,7 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     *)
         source ~/rc/bashrc-pjb
+        source ~/rc/bashrc-mts
         ;;
     esac
 }
