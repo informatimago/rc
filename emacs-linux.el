@@ -71,18 +71,19 @@
 (add-hook 'find-file-hook 'pjb-find-file-meat/force-linux-tabulation)
 
 (defun linux-c-mode-meat ()
-  (message "linux-c-mode-meat %S %s" (buffer-file-name)
-           (if (pjb-force-linux-tabulation-file-p (buffer-file-name)) "yes" "nope"))
-  ;; Enable kernel mode for the appropriate files
-  (when (and (not (pjb-c-mode-file-p filename))
-             (pjb-force-linux-tabulation-file-p filename)
-             (not (string-match "/hypervisor/" (buffer-file-name))))
-    (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
-    (setq tab-width 8)
-    (setq indent-tabs-mode t)
-    (setq show-trailing-whitespace t)
-    ;; (ggtags-mode 1)
-    (c-set-style "linux-tabs-only")))
+  (let ((filename (buffer-file-name)))
+    (message "linux-c-mode-meat %S %s" filename
+             (if (pjb-force-linux-tabulation-file-p filename) "yes" "nope"))
+    ;; Enable kernel mode for the appropriate files
+    (when (and (not (pjb-c-mode-file-p filename))
+               (pjb-force-linux-tabulation-file-p filename)
+               (not (string-match "/hypervisor/" filename)))
+      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (setq tab-width 8)
+      (setq indent-tabs-mode t)
+      (setq show-trailing-whitespace t)
+      ;; (ggtags-mode 1)
+      (c-set-style "linux-tabs-only"))))
 
 (add-hook 'c-mode-hook   'linux-c-mode-meat)
 

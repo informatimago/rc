@@ -17,6 +17,7 @@
 
 (setq chatgpt-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com"))
+
 (setq dall-e-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com"))
 

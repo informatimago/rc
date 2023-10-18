@@ -24,3 +24,21 @@ function kill_two_old_qemu(){ kill $(ps ax|awk '/qemu-binfmt\/[a]arch64-binfmt/{
 
 export PATH="/home/pbourguignon/works/harman/Ceedling/bin/:$PATH"
 
+work_root=/build/pbourguignon/clang4
+function cdwork(){
+    cd ${work_root}/work/
+    pushd ${work_root}/src.devel/hypervisor/tests/unit/ceedling/nkernel
+    git status
+    pushd
+}
+
+function cpceedling(){
+    rm -rf ${work_root}/src.devel/hypervisor/tests/unit/ceedling/nkernel/vendor/ceedling/*
+    d=(bin/ lib/ plugins/ vendor/c_exception/lib/ vendor/cmock/config/ vendor/cmock/lib/ vendor/cmock/src/ vendor/diy/lib/ vendor/unity/auto/ vendor/unity/src/)
+    tar -C ~/works/harman/Ceedling/ --exclude \*~ -cf - ${d[@]} \
+        | tar -C ${work_root}/src.devel/hypervisor/tests/unit/ceedling/nkernel/vendor/ceedling  -xvf -
+}
+
+function compile(){
+    ( cd ${work_root}/work/ ; ./mkvlm build utest-nkernel )
+}
