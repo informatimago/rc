@@ -238,12 +238,13 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (setf print-circle t
       print-quoted t)
 
+
 (require 'server)
 (with-temp-buffer
     (insert (format "export EMACS_SERVER_FILE=%s/%s\n"
                     server-socket-dir
                     server-name))
-  (write-file "~/.bashenv-emacs" nil))
+  (write-file (format "~/.bash_env-emacs-%s" (hostname)) nil))
 (server-start)
 
 ;; server-socket-dir

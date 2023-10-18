@@ -17,8 +17,10 @@
 ;; (add-hook 'haskell-mode-hook 'flycheck-haskell-setup)
 ;; (add-hook 'haskell-mode-hook 'lsp)
 
-(push '(ghc "^\\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\): error:"  1 2 3 nil nil)
-      compilation-error-regexp-alist-alist)
+
+;; (push '(ghc "^\\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\): error:"  1 2 3 nil nil)
+;;       compilation-error-regexp-alist-alist)
+(setf compilation-error-regexp-alist (remove 'ghc compilation-error-regexp-alist))
 
 ;; Local Variables:
 ;; eval: (flycheck-mode -1)
