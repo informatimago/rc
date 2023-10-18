@@ -1,0 +1,23 @@
+
+esg=(
+
+ acquire-si--si-dev-team--esg-product--functional-services--bbbee
+ acquire-si--si-dev-team--esg-product--functional-services--employment-equity
+ acquire-si--si-dev-team--esg-product--functional-services--mining-charter
+ acquire-si--si-dev-team--esg-product--functional-services--slp
+ acquire-si--si-dev-team--esg-product--functional-services--supplier-self-service
+ acquire-si--si-dev-team--esg-product--microservice-docker
+ acquire-si--si-dev-team--esg-product--shared-data-services--people
+ acquire-si--si-dev-team--esg-product--shared-data-services--people-development
+ acquire-si--si-dev-team--esg-product--shared-data-services--supply-chain
+ acquire-si--si-dev-team--esg-product--shared-libraries--grid-plugins--editable-cl-naive-grid
+ acquire-si--si-dev-team--esg-product--system-services--client
+ acquire-si--si-dev-team--esg-product--system-services--clients
+ acquire-si--si-dev-team--esg-product--system-services--importer
+ acquire-si--si-dev-team--esg-product--system-services--messaging
+ acquire-si--si-dev-team--esg-product--system-services--projects
+ acquire-si--si-dev-team--esg-product--system-services--reporting
+ acquire-si--si-dev-team--esg-product--system-services--users
+ acquire-si--si-dev-team--esg-product--uu-spa
+
+ )
