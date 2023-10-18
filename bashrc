@@ -407,7 +407,7 @@ function be_generate(){
         /opt/local/bin
 
         /opt/local/libexec/rbenv
-        /opt/*/bin
+        # /opt/*/bin
         /opt/X11/bin
         /opt/sbin
         /opt/bin
