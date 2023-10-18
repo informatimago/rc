@@ -94,8 +94,12 @@ function bashrc_set_prompt(){
         prompt='# '
     fi
 
+    if [ -n "${INSIDE_EMACS:-}" ] ; then
+        TERM=emacs
+    fi
     case "$TERM" in
     (dumb)
+        # -n = non-zero string
         if [ -n "${INSIDE_EMACS:-}" -o -n "${SCHROOT_CHROOT_NAME:-}" ] ; then
             prefix="\\w" 
             use_color=true
@@ -307,7 +311,9 @@ function prependIfDirectoryExists(){
 ### Generation of bash_env
 ###
 
-be="$HOME/.bash_env.$$"
+de="$HOME/.bash_env-default"          # default .bash_env, when the hostname is not found.
+he="$HOME/.bash_env-host-$(hostname)" # where the environment variables are actually stored.
+be="$HOME/.bash_env-$$"               # temporary file for new environment variables
 
 function first_locale(){
     local locale
@@ -323,27 +329,25 @@ function be_comment(){
     printf "# %s\n" "$@" >> "$be"
 }
 
-
 function be_variable(){
     local name="$1"
     local value="$2"
     printf "%s=%s\nexport %s\n" "$name" "$(quote "$value")" "$name" >> "$be"
 }
 
-
 function be_unset(){
     local name="$1"
     printf "unset %s\n" "$name" >> "$be"
 }
 
-
 function be_terminate(){
-    echo "source ~/.bashenv-emacs" >> "$be"
-    mv "$be" "$BASH_ENV"
+    mv "$be" "$he"
+    cp "$he" "$de"
 }
 
 function be_append_terminate(){
-    cat "$be" >> "$BASH_ENV" && rm "$be"
+    # append the added environment to the host environment.
+    cat "$be" >> "$he" && rm "$be"
 }
 
 
@@ -760,21 +764,53 @@ function readlink_f(){
     fi
 }
 
+function bashrc_generate_bash_env(){
+    cat <<'EOF'
+# -*- mode:shell-script;coding:iso-8859-1 -*-
+# .bash_env
+# Non interactive shells
+# ########################################################################
+# 
+# Unfortunately, we must be careful not launching subshells  from
+# .bash_env,  since it is loaded by subshells; that gives infinite
+# recursions).  
+# 
+# So we will have only constant variable definitions here.
+# ~/.bashrc generates a ~/.bash_env-host-$(hostname) from time to time...
+
+hostname="$(hostname)"
+he="$HOME/.bash_env-host-${hostname}"
+if [ -r "$he"  ] ; then
+    source "$he"
+else
+    source "$HOME/.bash_env-default"
+fi
+ee="$HOME/.bash_env-emacs-${hostname}"
+[ -r "$ee" ] && source "$ee"
+unset ee he hostname
+EOF
+}
+
 function bashrc_generate_and_load_environment(){
     # User specific environment and startup programs
     local distrib="$("$HOME/bin/distribution" -i)"
-    export BASH_ENV="$HOME/.bash_env-${distrib}"
+    # export BASH_ENV="$HOME/.bash_env-${distrib}"
+    export BASH_ENV="$HOME/.bash_env"
     export ENV="$BASH_ENV"
-    if [ -f "$BASH_ENV" ] ; then
+    if [ -f "$BASH_ENV" -a -f "$he" ] ; then
         if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
+            bashrc_generate_bash_env > "$BASH_ENV"
+            be_generate
+        elif [ "$HOME/rc/bashrc" -nt "$he" ] ; then
             be_generate
         fi
     else
+        bashrc_generate_bash_env > "$BASH_ENV"
         be_generate
     fi
     source "$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")/bashrc-keys"
     source "$BASH_ENV"
-    unset be
+    unset be he de
     if type -p rbenv 2>/dev/null 1>&2 ; then
 	    eval "$(rbenv init -)"
     fi	
@@ -1567,16 +1603,17 @@ function cdschmidtlib(){ cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesize
 
 function cdmanif(){      cd "$HOME/works/manif"                         ; }
 
-function panic(){ echo "[;5;35mDon't Panic[0m" ; }
+function panic(){ echo -e "\n\n\n\n\n                                    \033[;5;35m Don't Panic \033[0m\n\n\n\n\n" ; }
 
 
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
-    (*trustonic.local)
-        source ~/rc/bashrc-trustonic
-        ;;
     (larissa*)
         source ~/rc/bashrc-nvidia
+        source ~/rc/bashrc-mts
+        ;;
+    (*trustonic.local)
+        source ~/rc/bashrc-trustonic
         ;;
     (vm-u1404|L0253344)
         source ~/rc/bashrc-span
@@ -1586,6 +1623,7 @@ function bashrc_load_host_specific_bashrc(){
         ;;
     *)
         source ~/rc/bashrc-pjb
+        source ~/rc/bashrc-mts
         ;;
     esac
 }
