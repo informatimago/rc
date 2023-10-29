@@ -1277,6 +1277,8 @@ without, lists all the commands with their docstrings."
           (setf ql-http:*proxy-url* (format nil "http://~A:~A@~A:~A/" proxy-user proxy-password proxy-host proxy-port))
           (cerror "Don't set the proxy." "Cannot find the proxy password.")))
 
+    ;; TODO: avoid calling quicklisp when there's no internet connection.
+    #-(and) 
     (when (ql-dist:available-update (ql-dist:find-dist "quicklisp"))
       (format t ";; There's a quicklisp update available.~%")))
 
