@@ -90,11 +90,6 @@
     (*SLDB-STRING-LENGTH* . 64)))
 
 
-(defun set-swank-binding (variable value)
-  (let ((bindings (copy-tree *swank-bindings*)))
-    (setf (cdr (assoc variable bindings)) value)
-    (set-swank-bindings bindings)))
-
 (defun set-swank-bindings (&optional (*swank-bindings* *swank-bindings*))
   (let ((variables '(swank:*default-worker-thread-bindings*
                      SWANK:*MACROEXPAND-PRINTER-BINDINGS*
@@ -106,6 +101,11 @@
                      swank:*sldb-printer-bindings*)))
     (dolist (var variables)
       (set var *swank-bindings*))))
+
+(defun set-swank-binding (variable value)
+  (let ((bindings (copy-tree *swank-bindings*)))
+    (setf (cdr (assoc variable bindings)) value)
+    (set-swank-bindings bindings)))
 
 (defun set-swank-bindings-code () (set-swank-bindings *swank-bindings-code*))
 (defun set-swank-bindings-data () (set-swank-bindings *swank-bindings-data*))
