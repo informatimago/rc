@@ -918,7 +918,7 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
 (add-hook 'lisp-mode-hook        'pjb-lisp-meat)
 (add-hook 'lisp-mode-hook        'pjb-lisp-set-keys)
 (add-hook 'lisp-mode-hook        'slime-mode)
-(add-hook 'lisp-mode-hook        'slime-autodoc-mode)
+;; (add-hook 'lisp-mode-hook        'slime-autodoc-mode)
 
 (add-hook 'common-lisp-mode-hook 'pjb-lisp-meat)
 (add-hook 'common-lisp-mode-hook 'pjb-lisp-set-keys)
