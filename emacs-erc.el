@@ -27,7 +27,8 @@
   ;;   (with-current-buffer "irc.freenode.org:6667"
   ;;     (mapcar 'erc-join-channel
   ;;             (cdr (assoc "freenode.org" *pjb-autojoin-channels-alist*)))))
-  (let ((irc (buffer-named "irc.libera.chat:6697")))
+  (let ((irc (or (buffer-named "irc.libera.chat:6697")
+                 (buffer-named "libera"))))
    (when irc
        (with-current-buffer irc
          (mapcar 'erc-join-channel
