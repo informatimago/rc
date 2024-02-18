@@ -1066,6 +1066,8 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       slime-lisp-implementations)
 
 
+(setf slime-log-events nil)
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
