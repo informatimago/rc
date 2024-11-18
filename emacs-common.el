@@ -562,7 +562,7 @@ WELCOME TO EMACS!
 (.EMACS "Loading my personal files -- My own stuff.")
 (pjb-setup-load-path)
 (load "~/rc/emacs-directories")
-(unless (load "pjb-loader.el" )
+(unless (load "pjb-loader.el")
   (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 
 (defun pjb-setup-exec-path ()
