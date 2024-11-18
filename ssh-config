@@ -16,120 +16,65 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
-Host 192.168.7.5?
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host 192.168.7.6?
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host rpi4
-    User ubuntu
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host rpi4
-    User root
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host db845c
-    HostName 192.168.7.71
-    User linaro
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host db845c
-    HostName 192.168.7.71
-    User root
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host dragon
-    HostName 192.168.7.71
-    User linaro
-    IdentityFile ~/.ssh/qorvo-dragon
-
-Host dragon
-    HostName 192.168.7.71
-    User root
-    IdentityFile ~/.ssh/qorvo-dragon
 
 
-Host p21
-    HostName marvin.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host marvin
-    HostName marvin.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host marvin.officeapps.sevenhugs.com
-    HostName marvin.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+# GITHUB
+    
+Host github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/github
 
+Host gist.github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/github
 
-Host r2-d2
-    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
-    HostName uwb-bench-pi-b2-fd.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host patchy+github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
 
-Host hal-9000
-    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host uwb-bench-pi-ab-92.officeapps.sevenhugs.com
-    HostName uwb-bench-pi-ab-92.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host ubudu+github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/ubudu+id_rsa
 
-Host wall-e
-    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host uwb-bench-pi-b2-43.officeapps.sevenhugs.com
-    HostName uwb-bench-pi-b2-43.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+# GITLAB
 
-Host t-800
-    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
-Host uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
-    HostName uwb-bench-pi-b2-c4.officeapps.sevenhugs.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-    SetEnv GITLAB_API_TOKEN=PLLNc9PM89QGPKARXxre
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab
 
-Host gitlab.officeapps.sevenhugs.com
-    HostName gitlab.officeapps.sevenhugs.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/qorvo
+Host acquire+gitlab.com
+    Hostname                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/pjb-thalassa--gitlab-acquire
+    
+# Other git collections:
+    
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
 
-Host ovh-02
-    HostName ovh-02.officeapps.sevenhugs.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/qorvo
-Host ovh-02.officeapps.sevenhugs.com
-    HostName ovh-02.officeapps.sevenhugs.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/qorvo
+Host git.framasoft.org
+    HostName                git.framasoft.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
+
+Host common-lisp.net
+    HostName                common-lisp.net
+    User                    git
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host salsa.debian.org
     HostName salsa.debian.org
     User                    informatimago
     IdentityFile            ~/.ssh/pjb-salsa-debian
+
+# OTHER HOSTS
 
 Host linksys
     HostName                192.168.1.1
@@ -141,7 +86,6 @@ Host sdf
     User                    pjb
     IdentityFile            ~/.ssh/sdf-rsa
 
-    
 Host proteus
     HostName                proteus.sbde.fr
     User                    pjb
@@ -167,33 +111,6 @@ Host proteus.sbde.fr
     User                    debian
     IdentityFile            ~/.ssh/ovh-proteus-rsa
 
-
-Host gitlab.sbde.fr
-    HostName                gitlab.sbde.fr
-    User                    git
-    IdentityFile            ~/.ssh/sbde
-
-
-Host github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/github
-
-Host gist.github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/github
-
-Host qorvo.gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/qorvo-gitlab
-
-Host gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/gitlab
-
 Host gitlab.sbde.fr
     HostName                gitlab.sbde.fr
     User                    git
@@ -203,31 +120,6 @@ Host proteus.sbde.fr
     HostName                proteus.sbde.fr
     User                    pjb
     IdentityFile            ~/.ssh/proteus-sbde
-
-Host framagit.org
-    HostName                framagit.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit
-
-Host git.framasoft.org
-    HostName                git.framasoft.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit
-
-Host common-lisp.net
-    HostName                common-lisp.net
-    User                    git
-    IdentityFile            ~/.ssh/gitlab.common-lisp.net
-
-Host patchy+github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
-
-Host ubudu+github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/ubudu+id_rsa
 
 
 Host vmdebian
@@ -249,17 +141,6 @@ Host hubble
     HostName                hubble.informatimago.com
     User                    root
     IdentityFile            ~/.ssh/hubble
-
-
-Host qorvo
-    HostName                qorvo.lan.informatimago.com
-    User                    pjb
-    IdentityFile            ~/.ssh/qorvo
-    
-Host qorvo
-    HostName                qorvo.lan.informatimago.com
-    User                    root
-    IdentityFile            ~/.ssh/qorvo
 
 
 # ----------------------------------------
