@@ -9,7 +9,7 @@
 
      "#lisp"
      "#clschool"
-     "#abcl" "#ccl" "#ecl" "#sicl"
+     "#abcl" "#ccl" "#ecl" "#sicl" "#sbcl"
      "#clim" "#slime"  "#nyxt"
      "#cl-naive"
      "#clergo"
@@ -27,11 +27,11 @@
   ;;   (with-current-buffer "irc.freenode.org:6667"
   ;;     (mapcar 'erc-join-channel
   ;;             (cdr (assoc "freenode.org" *pjb-autojoin-channels-alist*)))))
-  (let ((irc (buffer-named "irc.libera.chat:6697")))
-   (when irc
-       (with-current-buffer irc
-         (mapcar 'erc-join-channel
-                 (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
+  (let ((irc (or (buffer-named "irc.libera.chat:6697") (buffer-named "libera"))))
+    (when irc
+      (with-current-buffer irc
+        (mapcar 'erc-join-channel
+                (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
 
 
 (defvar *erc-cmd-BR-line* (make-string 72 ?=))
@@ -62,7 +62,7 @@
   "Connect to IRC."
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "pjb" :full-name "Pascal J. Bourguignon"))
+           :nick "tuck" :full-name "T.A.L."))
 
 (defun start-irc-ogamita ()
   "Connect to IRC."
