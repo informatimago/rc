@@ -61,7 +61,7 @@
 (setf ccl::*pathname-translations-pathname* #P"LOGHOSTS:")
 
 (in-package "COM.INFORMATIMAGO.PJB")
-
+(defparameter *ccl-readtable* (copy-readtable *readtable*))
 
 (setf CCL:*PRINT-ABBREVIATE-QUOTE* nil)
 ;; (setf ccl:*save-definitions*  t) ; for function-lambda-expression
