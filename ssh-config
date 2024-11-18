@@ -16,120 +16,65 @@
 #      PKCS11Provider /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so
 #      ServerAliveInterval 15
 
-Host 192.168.7.5?
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host 192.168.7.6?
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host rpi4
-    User ubuntu
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host rpi4
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host db845c
-    HostName 192.168.7.71
-    User linaro
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host db845c
-    HostName 192.168.7.71
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host dragon
-    HostName 192.168.7.71
-    User linaro
-    IdentityFile ~/.ssh/employer-e-dragon
-
-Host dragon
-    HostName 192.168.7.71
-    User root
-    IdentityFile ~/.ssh/employer-e-dragon
 
 
-Host p21
-    HostName marvin.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host marvin
-    HostName marvin.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host marvin.officeapps.employer-e.com
-    HostName marvin.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
+# GITHUB
+    
+Host github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/github
 
+Host gist.github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/github
 
-Host r2-d2
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host bench-host.officeapps.employer-e.com
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host patchy+github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
 
-Host hal-9000
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host bench-host.officeapps.employer-e.com
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host employer-c+github.com
+    HostName                github.com
+    User                    git
+    IdentityFile            ~/.ssh/employer-c+id_rsa
 
-Host wall-e
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host bench-host.officeapps.employer-e.com
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
+# GITLAB
 
-Host t-800
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
-Host bench-host.officeapps.employer-e.com
-    HostName bench-host.officeapps.employer-e.com
-    user pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-    SetEnv GITLAB_API_TOKEN=***REMOVED***
+Host gitlab.com
+    HostName                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/gitlab
 
-Host gitlab.officeapps.employer-e.com
-    HostName gitlab.officeapps.employer-e.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/employer-e
+Host client-e+gitlab.com
+    Hostname                gitlab.com
+    User                    git
+    IdentityFile            ~/.ssh/pjb-thalassa--gitlab-client-e
+    
+# Other git collections:
+    
+Host framagit.org
+    HostName                framagit.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
 
-Host ovh-02
-    HostName ovh-02.officeapps.employer-e.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/employer-e
-Host ovh-02.officeapps.employer-e.com
-    HostName ovh-02.officeapps.employer-e.com
-    User                    pbourguignon
-    IdentityFile            ~/.ssh/employer-e
+Host git.framasoft.org
+    HostName                git.framasoft.org
+    User                    git
+    IdentityFile            ~/.ssh/framagit
+
+Host common-lisp.net
+    HostName                common-lisp.net
+    User                    git
+    IdentityFile            ~/.ssh/gitlab.common-lisp.net
 
 Host salsa.debian.org
     HostName salsa.debian.org
     User                    informatimago
     IdentityFile            ~/.ssh/pjb-salsa-debian
+
+# OTHER HOSTS
 
 Host linksys
     HostName                192.168.1.1
@@ -141,7 +86,6 @@ Host sdf
     User                    pjb
     IdentityFile            ~/.ssh/sdf-rsa
 
-    
 Host proteus
     HostName                proteus.client-c.fr
     User                    pjb
@@ -167,33 +111,6 @@ Host proteus.client-c.fr
     User                    debian
     IdentityFile            ~/.ssh/ovh-proteus-rsa
 
-
-Host gitlab.client-c.fr
-    HostName                gitlab.client-c.fr
-    User                    git
-    IdentityFile            ~/.ssh/client-c
-
-
-Host github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/github
-
-Host gist.github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/github
-
-Host employer-e.gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/employer-e-gitlab
-
-Host gitlab.com
-    HostName                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/gitlab
-
 Host gitlab.client-c.fr
     HostName                gitlab.client-c.fr
     User                    git
@@ -203,31 +120,6 @@ Host proteus.client-c.fr
     HostName                proteus.client-c.fr
     User                    pjb
     IdentityFile            ~/.ssh/proteus-client-c
-
-Host framagit.org
-    HostName                framagit.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit
-
-Host git.framasoft.org
-    HostName                git.framasoft.org
-    User                    git
-    IdentityFile            ~/.ssh/framagit
-
-Host common-lisp.net
-    HostName                common-lisp.net
-    User                    git
-    IdentityFile            ~/.ssh/gitlab.common-lisp.net
-
-Host patchy+github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
-
-Host employer-c+github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/employer-c+id_rsa
 
 
 Host vmdebian
@@ -249,17 +141,6 @@ Host hubble
     HostName                hubble.informatimago.com
     User                    root
     IdentityFile            ~/.ssh/hubble
-
-
-Host employer-e
-    HostName                employer-e.lan.informatimago.com
-    User                    pjb
-    IdentityFile            ~/.ssh/employer-e
-    
-Host employer-e
-    HostName                employer-e.lan.informatimago.com
-    User                    root
-    IdentityFile            ~/.ssh/employer-e
 
 
 # ----------------------------------------
