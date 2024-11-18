@@ -78,7 +78,7 @@
 			   '( ;; emms
 
 			     lsp-mode
-			     lsp-haskell
+			     ;; lsp-haskell
 			     lsp-ui
 			     ))
 

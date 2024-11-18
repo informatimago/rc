@@ -27,11 +27,12 @@
   ;;   (with-current-buffer "irc.freenode.org:6667"
   ;;     (mapcar 'erc-join-channel
   ;;             (cdr (assoc "freenode.org" *pjb-autojoin-channels-alist*)))))
-  (let ((irc (or (buffer-named "irc.libera.chat:6697") (buffer-named "libera"))))
-    (when irc
-      (with-current-buffer irc
-        (mapcar 'erc-join-channel
-                (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
+  (let ((irc (or (buffer-named "irc.libera.chat:6697")
+                 (buffer-named "libera"))))
+   (when irc
+       (with-current-buffer irc
+         (mapcar 'erc-join-channel
+                 (cdr (assoc "libera.chat" *pjb-autojoin-channels-alist*)))))))
 
 
 (defvar *erc-cmd-BR-line* (make-string 72 ?=))
