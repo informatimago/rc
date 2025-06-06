@@ -74,7 +74,9 @@
       *print-length* nil
       *print-level*  nil
       *print-lines*  nil
-      *print-right-margin* 110)
+      *print-right-margin* 110
+      common-lisp:*compile-print* t
+      common-lisp:*load-print*    t)
 
 
 #+swank
