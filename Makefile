@@ -103,6 +103,6 @@ clean::
 encrypt:notes.txt.gpg
 decrypt:notes.txt
 notes.txt:notes.txt.gpg
-	gpg -d notes.txt.gpg
+	gpg -d notes.txt.gpg > notes.txt
 notes.txt.gpg: notes.txt
 	gpg -c notes.txt

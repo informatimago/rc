@@ -7,7 +7,7 @@
 (defparameter *pjb-autojoin-channels-alist*
   '(("libera.chat"
 
-     "#lisp"
+     "#lisp" "#commonlisp"
      "#clschool"
      "#abcl" "#ccl" "#ecl" "#sicl" "#sbcl"
      "#clim" "#slime"  "#nyxt"
