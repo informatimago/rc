@@ -16,10 +16,10 @@
 (setf chatgpt-shell-api-url-base "https://api.openai.com")
 
 (setq chatgpt-shell-openai-key
-      (auth-source-pick-first-password :host "api.openai.com"))
+      (auth-source-pick-first-password :host "api.openai.com" :port "emacs"))
 
 (setq dall-e-shell-openai-key
-      (auth-source-pick-first-password :host "api.openai.com"))
+      (auth-source-pick-first-password :host "api.openai.com" :port "emacs"))
 
 (ob-chatgpt-shell-setup)
 (ob-dall-e-shell-setup)

@@ -11,7 +11,7 @@
      "#clschool"
      "#abcl" "#ccl" "#ecl" "#sicl" "#sbcl"
      "#clim" "#slime"  "#nyxt"
-     "#cl-naive"
+
      "#clergo"
      
      "#emacs" "#org-mode" "#erc"
@@ -63,13 +63,7 @@
   "Connect to IRC."
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "tuck" :full-name "T.A.L."))
-
-(defun start-irc-ogamita ()
-  "Connect to IRC."
-  (interactive)
-  (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "ogamita" :full-name "Pascal J. Bourguignon"))
+           :nick "pab" :full-name "P.A.B."))
 
 (defun br-all ()
   (interactive)
