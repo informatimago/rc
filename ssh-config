@@ -74,6 +74,13 @@ Host salsa.debian.org
     User                    informatimago
     IdentityFile            ~/.ssh/pjb-salsa-debian
 
+Host hiroux.fr
+    HostName                hiroux.fr
+    User                    git
+    IdentityFile            ~/.ssh/informatimago-hiroux
+
+
+
 # OTHER HOSTS
 
 Host linksys
@@ -81,10 +88,11 @@ Host linksys
     User                    root
     IdentityFile            ~/.ssh/linksys
 
-Host sdf
+Host sdf sdf.org
     HostName                sdf.org
     User                    pjb
     IdentityFile            ~/.ssh/sdf-rsa
+#    IdentityFile            ~/.ssh/pjb-sdf-ed25519
 
 Host proteus
     HostName                proteus.sbde.fr

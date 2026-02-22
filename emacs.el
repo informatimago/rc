@@ -5,19 +5,31 @@
 
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
 
-;; (package-initialize)
-
 ;; (setf debug-on-quit t
 ;;       debug-on-error t)
+(setq force-load-messages t
+      message-log-max 20000)
 
-(setq message-log-max 5000)
+;; (require 'package)
+;; 
+;; (advice-add 'package-desc-from-define
+;;             :around
+;;             (lambda(old &rest args)
+;;               (message "(package-desc-from-define %S" args)
+;;               (let ((result (apply old args)))
+;;                 (message "--> %S)" result)
+;;                 result)))
+;;
+;; (package-initialize)
+
+
 (when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
 (setf default-directory
       (file-name-directory (cond (user-init-file  user-init-file)
                                  ((getenv "HOME") (concat (getenv "HOME") "/"))
-                                 (t                (first (file-expand-wildcards "~/.emacs"))))))
+                                 (t                (car (file-expand-wildcards "~/.emacs"))))))
 
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.

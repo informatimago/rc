@@ -117,7 +117,6 @@
  '(jde-java-font-lock-javadoc-face ((t (:inherit font-lock-doc-face :foreground "pink"))) t)
  '(jde-java-font-lock-link-face ((t (:foreground "cyan" :underline t))) t)
  '(mail-host-address nil)
- '(message-log-max 5000)
  '(org-agenda-files (quote ("~/src/trustonic/notes.txt")))
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "REVIEW" "|" "DONE(d)") (sequence "|" "CANCELED(c)"))))
