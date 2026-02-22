@@ -12,9 +12,10 @@
      "#abcl" "#ccl" "#ecl" "#sicl" "#sbcl"
      "#clim" "#slime"  "#nyxt"
 
+     "#lispcafe" "#lispgames"
      "#clergo"
      
-     "#emacs" "#org-mode" "#erc"
+     "#emacs" "#org-mode" "#erc" "#emacs-lisp"
 
      "#hn" "#space" "#tesla" "#teslamotors" 
      )))

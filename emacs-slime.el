@@ -1037,7 +1037,15 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
       (slime-eval-async `(swank:eval-string-in-frame ,expression ,frame ,package)
                         (function pjb-sldb-insert-top-message)))))
 
-(add-hook 'sldb-hook 'pjb-sldb-observe-variables)
+;; We cannot use eval-string-in-frame as this, since it has new parameters:
+;;
+;; (add-hook 'sldb-hook 'pjb-sldb-observe-variables)
+;;
+;; cf.:
+;;
+;; (defslimefun eval-string-in-frame (string frame package lines width)
+;;   (eval-in-frame-aux frame string package
+;;                      (lambda (values) (format-values-for-echo-area values lines width))))
 
 
 ;; M-- M-x slime RET or C-u C-- M-x slime to select the implementation by symbol:

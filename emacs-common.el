@@ -54,6 +54,7 @@
 (setq source-directory
       (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
                                  (format "/opt/local/src/emacs-%s/src" emacs-version)
+                                 (expand-file-name (format "~/emacs/src/emacs-%s/src" emacs-version))
                                  (expand-file-name (format "~/opt/src/emacs-%s/src" emacs-version)))))
 	
 
@@ -244,7 +245,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
     (insert (format "export EMACS_SERVER_FILE=%s/%s\n"
                     server-socket-dir
                     server-name))
-  (write-file (format "~/.bash_env-emacs-%s" (hostname)) nil))
+  (let ((delete-old-versions t))
+    (write-file (format "~/.bash_env-emacs-%s" (hostname)) nil)))
 (server-start)
 
 ;; server-socket-dir

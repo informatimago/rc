@@ -18,8 +18,9 @@
 
 (defparameter swank::*asdf-path* (merge-pathnames #p"quicklisp/asdf.lisp" (user-homedir-pathname)))
 
-#+clisp (defparameter swank:*use-dedicated-output-stream*  nil)
-#-clisp (defvar       swank:*use-dedicated-output-stream*  nil)
+(when (find-symbol "*USE-DEDICATED-OUTPUT-STREAM*" "SWANK")
+  #+clisp (defparameter swank::*use-dedicated-output-stream*  nil)
+  #-clisp (defvar       swank::*use-dedicated-output-stream*  nil))
 
 (defvar swank:*communication-style* nil)
 

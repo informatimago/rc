@@ -367,9 +367,11 @@ function be_generate(){
     fi
 
     # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
+    python_major_minor=$(python --version|sed -e 's/Python \([^.]*\).\([^.]*\).\([^.]*\).*/\1.\2/')
     bindirs=(
         # "$HOME/esp/xtensa-esp32-elf/bin"
         # "$HOME/Library/Python/3.10/bin"
+        "/Users/pjb/Library/Python/$python_major_minor/bin"
         # "$HOME/anaconda3/bin"
         # "/opt/anaconda3/bin"
 

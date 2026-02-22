@@ -75,8 +75,8 @@
       *print-level*  nil
       *print-lines*  nil
       *print-right-margin* 110
-      common-lisp:*compile-print* t
-      common-lisp:*load-print*    t)
+      common-lisp:*compile-print* nil
+      common-lisp:*load-print*    nil)
 
 
 #+swank
@@ -1426,18 +1426,31 @@ without, lists all the commands with their docstrings."
   (com.informatimago.small-cl-pgms.irclog.main:start)
   (com.informatimago.small-cl-pgms.prompter:add-prompt-function 'date))
 
-(defvar *swank-server* nil)
-(defun start-swank-server (&key (interface
-                                 #+ccl (ccl::primary-ip-interface-address)
-                                 #-ccl "0.0.0.0")
-                             (port (+ 4006 (random 94))))
-  (ql:quickload "swank")
-  (uiop:symbol-call "SWANK" "CREATE-SERVER"
-                    :interface interface :port port)
-  (format t "~&Swank server started on interface ~S port ~D~%" interface port)
-  (setf *swank-server* (list interface port))
-  (values))
 
+#+ecl (require 'sb-bsd-sockets)
+;; #+ecl (defun list-interfaces ()
+;;         (let ((interfaces (sb-bsd-sockets:get-interface-list)))
+;;           (dolist (interface interfaces)
+;;             (format t "Interface: ~a, Address: ~a~%" 
+;;                     (sb-bsd-sockets:interface-name interface)
+;;                     (sb-bsd-sockets:interface-address interface)))))
+;; #+ecl (asdf:oos 'asdf:load-op :swank)
+
+;; (defvar *swank-server* nil)
+;; (eval-when (:compile-toplevel :load-toplevel :execute) (ql:quickload "swank"))
+;; (defun start-swank-server (&key (interface
+;;                                  #+ccl (ccl::primary-ip-interface-address)
+;;                                  #-ccl "0.0.0.0")
+;;                            (port (+ 4006 (random 94))))
+;;   (uiop:symbol-call "SWANK" "CREATE-SERVER"
+;;                     :interface interface :port port)
+;;   #+ecl (setf interface (let ((interface (caar swank::*servers*)))
+;;                           (sb-bsd-sockets:socket-name interface)))
+;;   (format t "~&Swank server started on interface ~S port ~D~%" interface port)
+;;   (setf *swank-server* (list interface port))
+;;   (values))
+
+;; swank::*servers*
 ;; clisp -x '(load #P"~/rc/swank-server.lisp")'
 ;; (load #P"~/rc/swank-server.lisp")
 ;; (start-swank-server)
