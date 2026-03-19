@@ -24,3 +24,5 @@
 (ob-chatgpt-shell-setup)
 (ob-dall-e-shell-setup)
 
+
+(auth-source-pick-first-password :host "fabrik.sncf.fr" :port "gitlab")

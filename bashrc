@@ -576,7 +576,14 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
-    # be_variable GREP_OPTIONS       '--color=always' # deprecated, use function.
+    case $- in
+    *i*) be_variable GREP_OPTIONS '--color=always'
+         # function grep(){ command grep --color=always "$@" ; }
+         ;;
+    *)   be_variable GREP_OPTIONS '--color=never'
+         ;;
+    esac    
+
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
@@ -644,17 +651,24 @@ function be_generate(){
 
     # local fr=$(first_locale fr_FR.UTF-8 C)
     local en=$(first_locale en_US.UTF-8 C)
-    
-    be_unset    LANGUAGE      # If the following are not defined.
-    be_unset    LANG          # If the following are not defined.
-    be_unset    LC_CTYPE      # If LC_ALL is not defined.
-    be_unset    LC_COLLATE    # If LC_ALL is not defined.
-    be_unset    LC_TIME       # If LC_ALL is not defined.
-    be_unset    LC_NUMERIC    # If LC_ALL is not defined.
-    be_unset    LC_MESSAGES   # If LC_ALL is not defined.
-    be_unset    LC_MONETARY   # If LC_ALL is not defined.
-    be_unset    LC_ALL        # Most prioritary.
 
+    case "${uname}" in
+    (Darwin)
+        true
+        ;;
+    (*)
+        be_unset    LANGUAGE      # If the following are not defined.
+        be_unset    LANG          # If the following are not defined.
+        be_unset    LC_CTYPE      # If LC_ALL is not defined.
+        be_unset    LC_COLLATE    # If LC_ALL is not defined.
+        be_unset    LC_TIME       # If LC_ALL is not defined.
+        be_unset    LC_NUMERIC    # If LC_ALL is not defined.
+        be_unset    LC_MESSAGES   # If LC_ALL is not defined.
+        be_unset    LC_MONETARY   # If LC_ALL is not defined.
+        be_unset    LC_ALL        # Most prioritary.
+        ;;
+    esac
+    
     be_variable LANG  "${en}"
 
 	# if [ -d "$HOME/.pyenv" ] ; then
@@ -1041,6 +1055,31 @@ function pushdd(){
 }
 
 
+authinfo_password() {
+  local host="$1"
+  local port="$2"
+  local login="$3"
+
+  awk -v host="$host" -v port="$port" -v login="$login" '
+  $1=="machine" {
+      h=""; p=""; l=""; pw=""
+      for(i=1;i<=NF;i++){
+          if($i=="machine") h=$(i+1)
+          if($i=="login")   l=$(i+1)
+          if($i=="password") pw=$(i+1)
+          if($i=="port")    p=$(i+1)
+      }
+
+      if(h==host &&
+         (port=="" || p==port) &&
+         (login=="" || l==login)) {
+           print pw
+           exit
+      }
+  }
+  ' ~/.authinfo
+}
+
 
 function bashrc_define_aliases(){
 
@@ -1086,13 +1125,52 @@ function bashrc_define_aliases(){
         rm /tmp/env.$$
         umask "$ou"
 
-        if [ -x /opt/local/bin/gls ] ; then
-            alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
-            alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
-        else
-            alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
-            alias lsv='LC_COLLATE="C" /bin/ls -CF'
-        fi
+        # if [ -x /opt/local/bin/gls ] ; then
+        #     alias  ls='LC_COLLATE="C" /opt/local/bin/gls -aBCFN'
+        #     alias lsv='LC_COLLATE="C" /opt/local/bin/gls  -BCFN'
+        # else
+        #     alias  ls='LC_COLLATE="C" /bin/ls -aBCF'
+        #     alias lsv='LC_COLLATE="C" /bin/ls -CF'
+        # fi
+
+        function ls() {
+           # call the real ls (bypass function recursion)
+           if [ -t 1 ] ; then
+               if [ -x /opt/local/bin/gls ] ; then
+                   LC_COLLATE="C" command /opt/local/bin/gls -aBCFN "$@"
+               else
+                   LC_COLLATE="C" command /bin/ls            -aBCF  "$@"
+               fi
+           else
+               # non-TTY (Claude snapshot / pipes): convert tabs to spaces
+               # macOS/BSD expand: -t sets tab stops; 8 matches your working case
+               if [ -x /opt/local/bin/gls ] ; then
+                   LC_COLLATE="C" command /opt/local/bin/gls -aBCFN "$@" | expand -t 8
+               else
+                   LC_COLLATE="C" command /bin/ls            -aBCF  "$@" | expand -t 8
+               fi
+           fi
+       }
+
+       function lsv() {
+           # call the real ls (bypass function recursion)
+           if [ -t 1 ] ; then
+               if [ -x /opt/local/bin/gls ] ; then
+                   LC_COLLATE="C" command /opt/local/bin/gls -BCFN "$@"
+               else
+                   LC_COLLATE="C" command /bin/ls            -BCF  "$@"
+               fi
+           else
+               # non-TTY (Claude snapshot / pipes): convert tabs to spaces
+               # macOS/BSD expand: -t sets tab stops; 8 matches your working case
+               if [ -x /opt/local/bin/gls ] ; then
+                   LC_COLLATE="C" command /opt/local/bin/gls -BCFN "$@" | expand -t 8
+               else
+                   LC_COLLATE="C" command /bin/ls            -BCF  "$@" | expand -t 8
+               fi
+           fi
+       }
+
         alias mysqlstart='sudo /opt/local/bin/mysqld_safe5 &'
         alias mysqlstop='/opt/local/bin/mysqladmin5 -u root -p shutdown'
         alias mysqlping='/opt/local/bin/mysqladmin5 -u root -p ping'
@@ -1139,7 +1217,7 @@ function bashrc_define_aliases(){
                                 -nolirc -noar "$@" ; }
     function mplayer(){ command mplayer -nojoystick -quiet "$@" ; }
 
-    function grep(){ command grep --color=always "$@" ; }
+    
 }
 
 

@@ -4,17 +4,17 @@
 
 function set_terminal(){
     if [ "$TERM" != emacs ] ; then
-
-        tset -Q -c
-        case $TERM in
-        xterm*)
-            stty erase  2>/dev/null
-            ;;
-        linux)
-            [ $UID -eq 0 ] && loadkeys /root/pjb.kmap
-            ;;
-        esac
-
+        if [ -t 1 ]; then
+            tset -Q -c
+            case $TERM in
+            xterm*)
+                stty erase  2>/dev/null
+                ;;
+            linux)
+                [ $UID -eq 0 ] && loadkeys /root/pjb.kmap
+                ;;
+            esac
+        fi
     fi
 }
 
@@ -39,3 +39,5 @@ test -r /Users/pjb/.opam/opam-init/init.sh && . /Users/pjb/.opam/opam-init/init.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
+
+eval "$(/opt/homebrew/bin/brew shellenv bash)"

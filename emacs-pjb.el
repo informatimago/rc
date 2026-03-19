@@ -10,6 +10,10 @@
 (require 'cc-mode)
 (require 'vc)
 (require 'vc-hooks)
+(require 'files)
+
+(setq lock-file-name-transforms
+      '((".*" "~/.emacs.d/lockfiles/" t)))
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -369,7 +373,7 @@
  '(org-fontify-done-headline t)
  '(org-latex-remove-logfiles nil)
  '(org-startup-with-inline-images t)
- '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DONE(d@)" "CANCELED(c@)")))
+ '(org-todo-keywords '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DEFER(x@)" "DONE(d@)" "CANCELED(c@)")))
  '(package-selected-packages nil)
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
@@ -448,7 +452,7 @@
  '(tnt-use-timestamps t)
  '(tnt-username-alist '(("matimago") ("ogamita")))
  '(tool-bar-mode nil)
- '(tooltip-frame-parameters '((nil . "tooltip") (right-fringe . 6) (left-fringe . 6) (nil . "lightyellow") (nil . 0) (nil . 1)))
+ '(tooltip-frame-parameters '((nil . "tooltip") (right-fringe . 12) (left-fringe . 12) (nil . "lightyellow") (nil . 0) (nil . 1)))
  '(tramp-default-method "ssh" nil (tramp))
  '(truncate-partial-width-windows nil)
  '(twittering-password "rixhox-Ruvfyd-qemqi6")
@@ -645,6 +649,11 @@
 ;; (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 ;;     (ignore-errors (set-frame-font "terminus-18")))
 
+;; Autocad:
+(add-to-list 'auto-mode-alist '("\\.lsp$"  . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.dcl$"  . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.dwg$"  . lisp-mode))
+
 (add-to-list 'auto-mode-alist '("Kbuild$"  . makefile-mode))
 (add-to-list 'auto-mode-alist '("Recipes$"  . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$"  . ruby-mode))
@@ -814,7 +823,8 @@
 (defparameter *pjb-trailing-whitespace-exclusions*
   '("/pjb/works/mts/Harag/"
     "/pjb/works/mts/cl-naive-store/"
-    "/pjb/works/qorvo/")
+    "/pjb/works/qorvo/"
+    "/pjb/works/sncf-reseau/")
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
 

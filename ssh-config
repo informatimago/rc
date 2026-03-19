@@ -1,3 +1,4 @@
+Include "/Users/pjb/Library/Application Support/NVIDIA/Sync/config/ssh_config"
 # This is ssh client systemwide configuration file.  This file provides
 # defaults for users, and the values can be changed in per-user configuration
 # files or on the command line.
@@ -90,6 +91,12 @@ Host linksys
 
 Host sdf sdf.org
     HostName                sdf.org
+    User                    pjb
+    IdentityFile            ~/.ssh/sdf-rsa
+#    IdentityFile            ~/.ssh/pjb-sdf-ed25519
+
+Host freeshell freeshell.org
+    HostName                freeshell.org
     User                    pjb
     IdentityFile            ~/.ssh/sdf-rsa
 #    IdentityFile            ~/.ssh/pjb-sdf-ed25519
