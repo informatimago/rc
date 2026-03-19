@@ -12,10 +12,20 @@
 
 # test -z "$PROFILEREAD" && [ -r /etc/profile ] && . /etc/profile
 
-if test -f "$HOME/.bashrc" ; then
-    echo "Sourcing $HOME/.bashrc from $HOME/.profile"
-	source "$HOME/.bashrc"
-fi
+case $BASH_VERSION in
+    ?*)
+        . "$HOME/rc/bash/lib/context.bash"
+        . "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
+        pjb_bash_load_profiles
+        case $- in
+            *i*)
+                if test -r "$HOME/.bashrc" ; then
+                    . "$HOME/.bashrc"
+                fi
+                ;;
+        esac
+        ;;
+esac
 
 
 # if [ -n "$DISPLAY" ] ; then
@@ -45,4 +55,3 @@ fi
 #fi
 
 #### THE END ####
-

@@ -1,35 +1,28 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
+# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
+# set -x
 
 if [ -n "${EMACS_BASH_COMPLETE:-}" ] ; then
     return
 fi
 
-pjb_bash_source="${BASH_SOURCE[0]}"
-while [ -L "$pjb_bash_source" ] ; do
-    pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
-    pjb_bash_source="$(readlink "$pjb_bash_source")"
-    case "$pjb_bash_source" in
-        /*) ;;
-        *) pjb_bash_source="$pjb_bash_dir/$pjb_bash_source" ;;
-    esac
-done
+set +o posix # not POSIX: allow function-names-with-dashes
 
-source "$(cd "$(dirname "$pjb_bash_source")" && pwd -P)/bash/lib/context.bash"
-source "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
-source "$PJB_BASH_RC_ROOT/bash/lib/env-cache.bash"
+function bashrc_is_interactive(){
+    [[ $- == *i* ]]
+}
 
-pjb_bash_load_profiles
-pjb_bash_build_env_cache
-pjb_bash_load_env_cache
+function bashrc_has_tty(){
+    [ -t 0 ] || [ -t 1 ] || [ -t 2 ]
+}
 
-if pjb_bash_interactive_p ; then
-    source "$PJB_BASH_RC_ROOT/bash/interactive/legacy-loader.bash"
-fi
+function bashrc_source_if_readable(){
+    local path="$1"
+    [ -r "$path" ] && source "$path"
+}
 
-unset pjb_bash_dir pjb_bash_source
-
-return
+bashrc_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 ### TODO: /home/pjb/.bashrc: line 92: INSIDE_EMACS: unbound variable
 
@@ -1874,14 +1867,22 @@ function bash_patch_622655(){
 }
 
 function bashrc(){
-    bashrc_set_host_uname
-    bashrc_set_mask
-    bashrc_set_ulimit
-    bashrc_clean_XDG_DATA_DIRS
-    bashrc_load_host_specific_bashrc
-    bashrc_generate_and_load_environment
+    if [ -z "${PJB_BASH_SKIP_LEGACY_CORE:-}" ] ; then
+        bashrc_set_host_uname
+        bashrc_set_mask
+        bashrc_set_ulimit
+        bashrc_clean_XDG_DATA_DIRS
+    fi
 
-    if bashrc_is_interactive ; then
+    if [ -z "${PJB_BASH_SKIP_LEGACY_HOST:-}" ] ; then
+        bashrc_load_host_specific_bashrc
+    fi
+
+    if [ -z "${PJB_BASH_SKIP_LEGACY_ENV:-}" ] ; then
+        bashrc_generate_and_load_environment
+    fi
+
+    if [ -z "${PJB_BASH_SKIP_LEGACY_INTERACTIVE:-}" ] && bashrc_is_interactive ; then
         bashrc_set_prompt
         bashrc_set_DISPLAY
         bashrc_load_completions
@@ -1903,7 +1904,9 @@ function bashrc(){
     shopt -u failglob
 }
 
-bashrc
+if [ -z "${PJB_BASH_LEGACY_NO_AUTORUN:-}" ] ; then
+    bashrc
+fi
 
 
 ################################################################################
