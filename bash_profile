@@ -18,26 +18,26 @@ function set_terminal(){
     fi
 }
 
-set_terminal
+pjb_bash_source="${BASH_SOURCE[0]}"
+while [ -L "$pjb_bash_source" ] ; do
+    pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
+    pjb_bash_source="$(readlink "$pjb_bash_source")"
+    case "$pjb_bash_source" in
+        /*) ;;
+        *) pjb_bash_source="$pjb_bash_dir/$pjb_bash_source" ;;
+    esac
+done
 
-# Get the aliases and functions
-[ -f ~/.bashrc ] && . ~/.bashrc
+source "$(cd "$(dirname "$pjb_bash_source")" && pwd -P)/bash/lib/context.bash"
+source "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
 
-# added by Anaconda3 5.2.0 installer
-export PATH="/opt/anaconda3/bin:$PATH"
+pjb_bash_load_profiles
 
-# opam configuration
-test -r /Users/pjb/.opam/opam-init/init.sh && . /Users/pjb/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+case $- in
+    *i*)
+        set_terminal
+        [ -f ~/.bashrc ] && . ~/.bashrc
+        ;;
+esac
 
-#### THE END ####
-
-##
-# Your previous /Users/pjb/.bash_profile file was backed up as /Users/pjb/.bash_profile.macports-saved_2025-11-14_at_20:58:16
-##
-
-# MacPorts Installer addition on 2025-11-14_at_20:58:16: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
-
-eval "$(/opt/homebrew/bin/brew shellenv bash)"
+unset pjb_bash_dir pjb_bash_source

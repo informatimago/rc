@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export PJB_BASH_SKIP_LEGACY_CORE=1
+export PJB_BASH_SKIP_LEGACY_HOST=1
+export PJB_BASH_SKIP_LEGACY_ENV=1
+unset PJB_BASH_SKIP_LEGACY_INTERACTIVE
+
+source "$PJB_BASH_RC_ROOT/bash/legacy/monolith.bash"

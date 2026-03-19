@@ -1,13 +1,35 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
-# Note:  no interactive stuff here, ~/.bashrc is loaded by all scripts thru ~/.profile!
-# set -x
 
 if [ -n "${EMACS_BASH_COMPLETE:-}" ] ; then
     return
 fi
 
-set +o posix # not POSIX: allow function-names-with-dashes
+pjb_bash_source="${BASH_SOURCE[0]}"
+while [ -L "$pjb_bash_source" ] ; do
+    pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
+    pjb_bash_source="$(readlink "$pjb_bash_source")"
+    case "$pjb_bash_source" in
+        /*) ;;
+        *) pjb_bash_source="$pjb_bash_dir/$pjb_bash_source" ;;
+    esac
+done
+
+source "$(cd "$(dirname "$pjb_bash_source")" && pwd -P)/bash/lib/context.bash"
+source "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
+source "$PJB_BASH_RC_ROOT/bash/lib/env-cache.bash"
+
+pjb_bash_load_profiles
+pjb_bash_build_env_cache
+pjb_bash_load_env_cache
+
+if pjb_bash_interactive_p ; then
+    source "$PJB_BASH_RC_ROOT/bash/interactive/legacy-loader.bash"
+fi
+
+unset pjb_bash_dir pjb_bash_source
+
+return
 
 ### TODO: /home/pjb/.bashrc: line 92: INSIDE_EMACS: unbound variable
 
@@ -170,8 +192,12 @@ function bashrc_set_ulimit(){
     case "${uname}" in
     Darwin)
         ulimit -s 32768
-        stty erase  >/dev/null 2>&1
-        defaults write org.macosxforge.xquartz.X11 enable_test_extensions -boolean true
+        if bashrc_is_interactive && bashrc_has_tty ; then
+            stty erase  >/dev/null 2>&1
+            if command -v defaults >/dev/null 2>&1 ; then
+                defaults write org.macosxforge.xquartz.X11 enable_test_extensions -boolean true >/dev/null 2>&1
+            fi
+        fi
         ;;
     *)
         case $(uname -o) in
@@ -809,23 +835,31 @@ EOF
 
 function bashrc_generate_and_load_environment(){
     # User specific environment and startup programs
-    local distrib="$("$HOME/bin/distribution" -i)"
+    local distrib=''
+    if [ -x "$HOME/bin/distribution" ] ; then
+        distrib="$("$HOME/bin/distribution" -i 2>/dev/null)"
+    fi
+    if [ -z "$distrib" ] ; then
+        distrib="$(uname -s | tr '[:upper:]' '[:lower:]')"
+    fi
     # export BASH_ENV="$HOME/.bash_env-${distrib}"
     export BASH_ENV="$HOME/.bash_env"
     export ENV="$BASH_ENV"
-    if [ -f "$BASH_ENV" -a -f "$he" ] ; then
-        if [ "$HOME/rc/bashrc" -nt "$BASH_ENV" ] ; then
+    if { [ -e "$BASH_ENV" ] || [ -w "${BASH_ENV%/*}" ]; } && { [ -e "$he" ] || [ -w "${he%/*}" ]; } ; then
+        if [ -f "$BASH_ENV" ] && [ -f "$he" ] ; then
+            if [ "$bashrc_dir/bashrc" -nt "$BASH_ENV" ] ; then
+                bashrc_generate_bash_env > "$BASH_ENV"
+                be_generate
+            elif [ "$bashrc_dir/bashrc" -nt "$he" ] ; then
+                be_generate
+            fi
+        else
             bashrc_generate_bash_env > "$BASH_ENV"
             be_generate
-        elif [ "$HOME/rc/bashrc" -nt "$he" ] ; then
-            be_generate
         fi
-    else
-        bashrc_generate_bash_env > "$BASH_ENV"
-        be_generate
     fi
-    source "$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")/bashrc-keys"
-    source "$BASH_ENV"
+    bashrc_source_if_readable "${bashrc_dir}/bashrc-keys"
+    bashrc_source_if_readable "$BASH_ENV"
     unset be he de
     if type -p rbenv 2>/dev/null 1>&2 ; then
 	    eval "$(rbenv init -)"
@@ -1790,21 +1824,21 @@ function panic(){ echo -e "\n\n\n\n\n                                    \033[;5
 function bashrc_load_host_specific_bashrc(){
     case "${hostname}" in
     (larissa*)
-        source ~/rc/bashrc-nvidia
-        source ~/rc/bashrc-mts
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-nvidia"
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-mts"
         ;;
     (*employer-a.local)
-        source ~/rc/bashrc-employer-a
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-a"
         ;;
     (vm-u1404|employer-f-host)
-        source ~/rc/bashrc-employer-f
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-f"
         ;;
     (fr*)
-        source ~/rc/bashrc-employer-b
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-b"
         ;;
     *)
-        source ~/rc/bashrc-pjb
-        source ~/rc/bashrc-mts
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-pjb"
+        bashrc_source_if_readable "${bashrc_dir}/bashrc-mts"
         ;;
     esac
 }
@@ -1843,24 +1877,27 @@ function bashrc(){
     bashrc_set_host_uname
     bashrc_set_mask
     bashrc_set_ulimit
-    bashrc_set_prompt
-    bashrc_set_DISPLAY
     bashrc_clean_XDG_DATA_DIRS
     bashrc_load_host_specific_bashrc
     bashrc_generate_and_load_environment
-    bashrc_load_completions
-    bashrc_load_optionals
-    bashrc_linux_functions
-    bashrc_define_aliases
-    bashrc_flightgear_aliases
-    
-    if [ -x /usr/local/gcc/bin/gcc ] ; then
-        source ~/bin/with-gcc-8.bash
-    fi
 
-    # display function and alias duplicates:
-    compgen -A alias -A function | awk 'seen[$1]++ == 1'
-    shopt -u failglob
+    if bashrc_is_interactive ; then
+        bashrc_set_prompt
+        bashrc_set_DISPLAY
+        bashrc_load_completions
+        bashrc_load_optionals
+        bashrc_linux_functions
+        bashrc_define_aliases
+        bashrc_flightgear_aliases
+
+        if [ -r "$HOME/bin/with-gcc-8.bash" ] && [ -x /usr/local/gcc/bin/gcc ] ; then
+            source "$HOME/bin/with-gcc-8.bash"
+        fi
+
+        # display function and alias duplicates:
+        compgen -A alias -A function | awk 'seen[$1]++ == 1'
+        shopt -u failglob
+    fi
 
     bashrc_delete_bashrc_functions
     shopt -u failglob
