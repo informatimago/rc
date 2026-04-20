@@ -54,3 +54,10 @@ Recommended follow-up:
 - make `BASH_ENV` point to a stable generated file that never emits output and never spawns expensive subprocesses.
 - move legacy topic blocks into opt-in files, for example `bash/optional/flightgear.bash`, `bash/optional/gnustep.bash`, `bash/optional/ruby.bash`.
 - add a small verification script that runs interactive and non-interactive startup probes under a clean environment.
+
+Implemented:
+
+- generated non-interactive env is now cached under `${XDG_CACHE_HOME:-$HOME/.cache}/bash/`.
+- `BASH_ENV` now points to a stable loader at `bash/env/noninteractive.bash`.
+- the first optional interactive blocks were extracted to `bash/interactive/optionals.bash` and `bash/interactive/flightgear.bash`.
+- startup verification is available via `scripts/verify-bash-startup.sh`.
