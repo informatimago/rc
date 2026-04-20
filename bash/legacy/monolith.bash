@@ -58,6 +58,17 @@ function bashrc_clean_XDG_DATA_DIRS(){
     XDG_DATA_DIRS="$(echo "$XDG_DATA_DIRS"|sed -e 's/^:\+//' -e 's/:\+$//' -e 's/:\+/:/g')"
 }
 
+function short_pwd() {
+    local dir="${PWD##*/}"
+    local max=13
+
+    if (( ${#dir} > max )); then
+        printf "…%s" "${dir: -max}"
+    else
+        printf "%s" "$dir"
+    fi
+}
+
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
     #
@@ -102,7 +113,7 @@ function bashrc_set_prompt(){
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
     local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
     local time='$(date +%H:%M)'
-    local base='[\u@\h '"${display}"' \W '"${available}"']'
+    local base='[\u@\h '"${display}"' $(short_pwd) '"${available}"']'
     local prompt='$ '
 
     if ((UID==0)) ; then
@@ -524,13 +535,12 @@ function be_generate(){
     local e
     case "${uname}" in
     Darwin)
-        if [ 1 = "$(mfod -l|wc -l)" ] ; then
-            mfod -s 1
+        # Environment generation must not depend on a live Emacs server.
+        if [ -x "$HOME/bin/ec" ] ; then
+            e="$HOME/bin/ec"
+        else
+            e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
         fi
-        # socket=(--socket-name=/tmp/emacs${UID}/server)
-        # EDITOR, VISUAL, etc, take only the command, no arguments.
-        e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-        e=$HOME/bin/ec
         be_variable EDITOR    "$e"
         be_variable VISUAL    "$e"
         be_variable CVSEDITOR "$e"
@@ -1349,8 +1359,10 @@ EOF
   '
 }
 
-LLM_API_KEY=$(auth_pick_first_password --host api.openai.com --port script)
-export LLM_API_KEY
+if [ -z "${PJB_BASH_SKIP_LEGACY_AUTH:-}" ] ; then
+    LLM_API_KEY=$(auth_pick_first_password --host api.openai.com --port script)
+    export LLM_API_KEY
+fi
 
 
 function bashrc_flightgear_aliases(){
@@ -1886,10 +1898,18 @@ function bashrc(){
         bashrc_set_prompt
         bashrc_set_DISPLAY
         bashrc_load_completions
-        bashrc_load_optionals
-        bashrc_linux_functions
-        bashrc_define_aliases
-        bashrc_flightgear_aliases
+        if [ -z "${PJB_BASH_SKIP_LEGACY_OPTIONALS:-}" ] ; then
+            bashrc_load_optionals
+        fi
+        if [ -z "${PJB_BASH_SKIP_LEGACY_LINUX:-}" ] ; then
+            bashrc_linux_functions
+        fi
+        if [ -z "${PJB_BASH_SKIP_LEGACY_ALIASES:-}" ] ; then
+            bashrc_define_aliases
+        fi
+        if [ -z "${PJB_BASH_SKIP_LEGACY_FLIGHTGEAR:-}" ] ; then
+            bashrc_flightgear_aliases
+        fi
 
         if [ -r "$HOME/bin/with-gcc-8.bash" ] && [ -x /usr/local/gcc/bin/gcc ] ; then
             source "$HOME/bin/with-gcc-8.bash"
