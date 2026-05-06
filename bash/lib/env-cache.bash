@@ -3,6 +3,7 @@
 function pjb_bash_env_cache_inputs(){
     printf '%s\n' \
         "$PJB_BASH_RC_ROOT/bash/legacy/monolith.bash" \
+        "$PJB_BASH_RC_ROOT/bashrc-engine" \
         "$PJB_BASH_RC_ROOT/bash/lib/context.bash" \
         "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash" \
         "$PJB_BASH_RC_ROOT/bash/lib/env-cache.bash" \
