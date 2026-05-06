@@ -1,3 +1,4 @@
+
 # -*- mode:makefile; coding:utf-8; tab-width:4 -*-
 all:help
 
@@ -75,7 +76,6 @@ symlinks: save
 	ln -sf    $(SRCDIR)/ircrc                            $$HOME/.ircrc
 	ln -sf    $(SRCDIR)/kermrc                           $$HOME/.kermrc
 	ln -sf    $(SRCDIR)/lispworks.lisp                   $$HOME/.lispworks
-	ln -sf    $(SRCDIR)/notes.txt                        $$HOME/notes.txt
 	ln -sf    $(SRCDIR)/plan                             $$HOME/.plan
 	ln -sf    $(SRCDIR)/profile                          $$HOME/.profile
 	ln -sf    $(SRCDIR)/sbclrc.lisp                      $$HOME/.sbclrc
@@ -88,6 +88,8 @@ symlinks: save
 	ln -sf    $(SRCDIR)/openmcl-init.lisp                $$HOME/openmcl-init.lisp
 	ln -sf    $(SRCDIR)/ratpoisonrc                      $$HOME/.ratpoisonrc
 	ln -sf ../$(SRCDIR)/ssh-config                       $$HOME/.ssh/config
+
+#	ln -sf    $(SRCDIR)/notes.txt                        $$HOME/notes.txt
 
 symlink.xmodmap:
 	ln -sf $(SRCDIR)/xmodmap-daskeyboard-3-evdev      $$HOME/.xmodmap
