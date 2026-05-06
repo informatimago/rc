@@ -111,7 +111,7 @@ function bashrc_set_prompt(){
     local ibam=''
     # shellcheck disable=SC2016
     local display='$(case "$DISPLAY" in (*/*) basename "$DISPLAY" ;; (*) echo "$DISPLAY" ;; esac)'
-    local available='$(/bin/df -h .|awk '\''/dev/{print $4}'\'')'
+    local available='$(/bin/df -h .|(read line ; awk '\''{print $4}'\''))'
     local time='$(date +%H:%M)'
     local base='[\u@\h '"${display}"' $(short_pwd) '"${available}"']'
     local prompt='$ '
