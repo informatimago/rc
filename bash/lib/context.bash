@@ -50,9 +50,10 @@ fi
 function pjb_bash_profile_name(){
     case "$PJB_BASH_HOSTNAME" in
         larissa*)          printf '%s\n' host-larissa ;;
-        *employer-a.local)  printf '%s\n' host-employer-a ;;
-        vm-u1404|employer-f-host) printf '%s\n' host-employer-f ;;
+        winhost)          printf '%s\n' host-client ;;
         fr*)               printf '%s\n' host-employer-b ;;
+        vm-u1404|employer-f-host) printf '%s\n' host-employer-f ;;
+        *employer-a.local)  printf '%s\n' host-employer-a ;;
         *)                 printf '%s\n' host-default ;;
     esac
 }
