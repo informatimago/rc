@@ -36,7 +36,17 @@ EOF
 chmod +x "$test_home/bin/distribution"
 
 run_clean_bash() {
-    env -u BASH_ENV -u ENV HOME="$test_home" bash --noprofile --norc -c "$1"
+    env \
+        -u BASH_ENV \
+        -u ENV \
+        -u PJB_BASH_RC_ROOT \
+        -u PJB_BASH_OS \
+        -u PJB_BASH_HOSTNAME \
+        -u PJB_BASH_CACHE_DIR \
+        -u PJB_BASH_ENV_FILE \
+        -u PJB_BASH_ENV_CACHE_FILE \
+        HOME="$test_home" \
+        bash --noprofile --norc -c "$1"
 }
 
 printf 'syntax: '
@@ -72,7 +82,22 @@ run_clean_bash 'bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-
 cat /tmp/verify-bash-interactive-copied.$$
 rm -f /tmp/verify-bash-interactive-copied.$$
 
+printf 'interactive copied engine: '
+rm -f "$test_home/.bashrc"
+cp "$repo_root/bashrc-engine" "$test_home/.bashrc"
+run_clean_bash 'bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-bash-interactive-copied-engine.$$
+cat /tmp/verify-bash-interactive-copied-engine.$$
+rm -f /tmp/verify-bash-interactive-copied-engine.$$
+
 printf 'login: '
 run_clean_bash 'bash --login -c "printf ok\n"' >/tmp/verify-bash-login.$$
 cat /tmp/verify-bash-login.$$
 rm -f /tmp/verify-bash-login.$$
+
+printf 'login copied profile and engine: '
+rm -f "$test_home/.bash_profile" "$test_home/.bashrc"
+cp "$repo_root/bash_profile" "$test_home/.bash_profile"
+cp "$repo_root/bashrc-engine" "$test_home/.bashrc"
+run_clean_bash 'bash --login -c "printf ok\n"' >/tmp/verify-bash-login-copied-profile.$$
+cat /tmp/verify-bash-login-copied-profile.$$
+rm -f /tmp/verify-bash-login-copied-profile.$$
