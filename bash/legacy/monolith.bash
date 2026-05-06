@@ -136,11 +136,12 @@ function bashrc_set_prompt(){
         use_color=true
         ;;
     (xterm)
+        use_color=false
+    (xterm-256color)
         use_color=true
         ;;
     esac
     export COLOR_PROMPT="${use_color}"
-    use_color=false
     
     if type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
