@@ -18,7 +18,11 @@ function set_terminal(){
     fi
 }
 
-pjb_bash_source="${BASH_SOURCE[0]}"
+pjb_bash_source="${BASH_SOURCE[0]:-}"
+if [ -z "$pjb_bash_source" ] ; then
+    pjb_bash_source="$HOME/.bash_profile"
+fi
+
 while [ -L "$pjb_bash_source" ] ; do
     pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
     pjb_bash_source="$(readlink "$pjb_bash_source")"
@@ -28,7 +32,12 @@ while [ -L "$pjb_bash_source" ] ; do
     esac
 done
 
-source "$(cd "$(dirname "$pjb_bash_source")" && pwd -P)/bash/lib/context.bash"
+pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
+if [ ! -r "$pjb_bash_dir/bash/lib/context.bash" ] && [ -r "$HOME/rc/bash/lib/context.bash" ] ; then
+    pjb_bash_dir="$(cd "$HOME/rc" && pwd -P)"
+fi
+
+source "$pjb_bash_dir/bash/lib/context.bash"
 source "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
 
 pjb_bash_load_profiles
