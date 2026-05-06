@@ -11,9 +11,11 @@ trap cleanup EXIT
 
 mkdir -p "$test_home/rc" "$test_home/bin"
 
-ln -s "$repo_root/bashrc" "$test_home/.bashrc"
+cp "$repo_root/bashrc" "$test_home/rc/bashrc"
+ln -s "rc/bashrc" "$test_home/.bashrc"
 ln -s "$repo_root/bash_profile" "$test_home/.bash_profile"
 ln -s "$repo_root/profile" "$test_home/.profile"
+ln -s "$repo_root/bashrc-engine" "$test_home/rc/bashrc-engine"
 
 cp -R "$repo_root/bash" "$test_home/rc/bash"
 
@@ -40,6 +42,7 @@ run_clean_bash() {
 printf 'syntax: '
 for file in \
     "$repo_root/bashrc" \
+    "$repo_root/bashrc-engine" \
     "$repo_root/bash_profile" \
     "$repo_root/profile" \
     "$repo_root"/bash/lib/*.bash \
@@ -61,6 +64,13 @@ printf 'interactive: '
 run_clean_bash 'bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-bash-interactive.$$
 cat /tmp/verify-bash-interactive.$$
 rm -f /tmp/verify-bash-interactive.$$
+
+printf 'interactive copied bashrc: '
+rm -f "$test_home/.bashrc"
+cp "$repo_root/bashrc" "$test_home/.bashrc"
+run_clean_bash 'bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-bash-interactive-copied.$$
+cat /tmp/verify-bash-interactive-copied.$$
+rm -f /tmp/verify-bash-interactive-copied.$$
 
 printf 'login: '
 run_clean_bash 'bash --login -c "printf ok\n"' >/tmp/verify-bash-login.$$
