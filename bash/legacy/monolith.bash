@@ -605,14 +605,6 @@ function be_generate(){
     be_variable GOTO_HOME          ""
     be_variable CLEAR_HOME         ""
 
-    case $- in
-    *i*) be_variable GREP_OPTIONS '--color=always'
-         # function grep(){ command grep --color=always "$@" ; }
-         ;;
-    *)   be_variable GREP_OPTIONS '--color=never'
-         ;;
-    esac    
-
     be_variable CVSROOT            ''
     be_variable CVS_RSH            ssh
 
