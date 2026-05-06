@@ -89,6 +89,13 @@ run_clean_bash 'bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-
 cat /tmp/verify-bash-interactive-copied-engine.$$
 rm -f /tmp/verify-bash-interactive-copied-engine.$$
 
+printf 'interactive empty readlink: '
+rm -f "$test_home/.bashrc"
+ln -s "rc/bashrc" "$test_home/.bashrc"
+run_clean_bash 'function readlink(){ : ; } ; bash --rcfile "$HOME/.bashrc" -i -c "printf ok\n"' >/tmp/verify-bash-interactive-empty-readlink.$$
+cat /tmp/verify-bash-interactive-empty-readlink.$$
+rm -f /tmp/verify-bash-interactive-empty-readlink.$$
+
 printf 'login: '
 run_clean_bash 'bash --login -c "printf ok\n"' >/tmp/verify-bash-login.$$
 cat /tmp/verify-bash-login.$$
