@@ -1,36 +1,21 @@
 # -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 
-if [ -n "${EMACS_BASH_COMPLETE:-}" ] ; then
-    return
-fi
-
-pjb_bash_source="${BASH_SOURCE[0]}"
-while [ -L "$pjb_bash_source" ] ; do
-    pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
-    pjb_bash_source="$(readlink "$pjb_bash_source")"
-    case "$pjb_bash_source" in
+pjb_bashrc_source="${BASH_SOURCE[0]}"
+while [ -L "$pjb_bashrc_source" ] ; do
+    pjb_bashrc_dir="$(cd "$(dirname "$pjb_bashrc_source")" && pwd -P)"
+    pjb_bashrc_source="$(readlink "$pjb_bashrc_source")"
+    case "$pjb_bashrc_source" in
         /*) ;;
-        *) pjb_bash_source="$pjb_bash_dir/$pjb_bash_source" ;;
+        *) pjb_bashrc_source="$pjb_bashrc_dir/$pjb_bashrc_source" ;;
     esac
 done
 
-source "$(cd "$(dirname "$pjb_bash_source")" && pwd -P)/bash/lib/context.bash"
-source "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash"
-source "$PJB_BASH_RC_ROOT/bash/lib/env-cache.bash"
-
-pjb_bash_load_profiles
-pjb_bash_build_env_cache
-pjb_bash_load_env_cache
-
-if pjb_bash_interactive_p ; then
-    source "$PJB_BASH_RC_ROOT/bash/interactive/legacy-loader.bash"
+pjb_bashrc_dir="$(cd "$(dirname "$pjb_bashrc_source")" && pwd -P)"
+if [ -r "$pjb_bashrc_dir/bashrc-engine" ] ; then
+    source "$pjb_bashrc_dir/bashrc-engine"
+else
+    source "$HOME/rc/bashrc-engine"
 fi
 
-unset pjb_bash_dir pjb_bash_source
-
-return
-
-# Legacy monolith code lives in bash/legacy/monolith.bash.
-# Keep this file as a small loader for profiles, cached environment,
-# and interactive modules only.
+unset pjb_bashrc_dir pjb_bashrc_source
