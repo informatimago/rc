@@ -42,7 +42,7 @@ function bashrc_set_host_uname(){
     if [ -r ~/.config/host ] ; then
         hostname=$(cat ~/.config/host)
     else
-        hostname=$(hostname -f)
+        hostname=$(hostname -f 2>/dev/null || hostname)
     fi
 }
 
