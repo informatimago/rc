@@ -25,7 +25,11 @@ fi
 
 while [ -L "$pjb_bash_source" ] ; do
     pjb_bash_dir="$(cd "$(dirname "$pjb_bash_source")" && pwd -P)"
-    pjb_bash_source="$(readlink "$pjb_bash_source")"
+    pjb_bash_target="$(readlink "$pjb_bash_source")"
+    if [ -z "$pjb_bash_target" ] ; then
+        break
+    fi
+    pjb_bash_source="$pjb_bash_target"
     case "$pjb_bash_source" in
         /*) ;;
         *) pjb_bash_source="$pjb_bash_dir/$pjb_bash_source" ;;
@@ -49,4 +53,4 @@ case $- in
         ;;
 esac
 
-unset pjb_bash_dir pjb_bash_source
+unset pjb_bash_dir pjb_bash_source pjb_bash_target

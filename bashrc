@@ -8,7 +8,11 @@ fi
 
 while [ -L "$pjb_bashrc_source" ] ; do
     pjb_bashrc_dir="$(cd "$(dirname "$pjb_bashrc_source")" && pwd -P)"
-    pjb_bashrc_source="$(readlink "$pjb_bashrc_source")"
+    pjb_bashrc_target="$(readlink "$pjb_bashrc_source")"
+    if [ -z "$pjb_bashrc_target" ] ; then
+        break
+    fi
+    pjb_bashrc_source="$pjb_bashrc_target"
     case "$pjb_bashrc_source" in
         /*) ;;
         *) pjb_bashrc_source="$pjb_bashrc_dir/$pjb_bashrc_source" ;;
@@ -22,4 +26,4 @@ else
     source "$HOME/rc/bashrc-engine"
 fi
 
-unset pjb_bashrc_dir pjb_bashrc_source
+unset pjb_bashrc_dir pjb_bashrc_source pjb_bashrc_target
