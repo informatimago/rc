@@ -18,6 +18,19 @@ function bashrc_pjb_set_environment(){
     fi
 
     # [ -x /usr/bin/gnome-keyring-daemon ] && /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+
+    case "$(uname)" in
+    MINGW*)
+        export WOME="/c/users/PPBN02261"
+        export SR="$WOME/works/sncf-reseau"
+        export ROME="/c/users/PPBN02261/AppData/Roaming"
+        ;;
+    *)
+        export WOME="$HOME"
+        export SR="$WOME/works/sncf-reseau"
+        export ROME="$HOME"
+        ;;
+    esac
 }
 
 bashrc_pjb_set_environment
