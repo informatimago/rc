@@ -6,6 +6,9 @@ SRCDIR=rc
 
 SAVEDIR=old-rc-files
 
+INFO_FILES=$(wildcard *.info)
+INFO_DIR_FILE=dir
+
 FILES= \
 	.Xresources \
 	.bash_login \
@@ -47,6 +50,7 @@ FILES= \
 
 help:
 	@echo 'make symlinks # makes the symbolic links between ~/$(SRCDIR) and ~/.'
+	@echo 'make info-dir # updates the local Emacs Info directory from *.info files'
 
 save:
 	-@ mkdir -p $$HOME/$(SAVEDIR)
@@ -101,6 +105,12 @@ showlinks:
 
 clean::
 	-rm -rf *.elc *.o *.a
+
+info-dir: $(INFO_DIR_FILE)
+
+$(INFO_DIR_FILE): $(INFO_FILES)
+	@rm -f $@
+	@for f in $(INFO_FILES) ; do install-info $$f $@ ; done
 
 encrypt:notes.txt.gpg
 decrypt:notes.txt

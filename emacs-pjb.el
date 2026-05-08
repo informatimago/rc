@@ -103,6 +103,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Info-additional-directory-list '("~/rc/"))
+ '(Info-default-directory-list
+   '("/usr/local/share/emacs/site-lisp/fountain-mode"
+     "/usr/local/share/info/" "/opt/local/share/info/"))
  '(ad-redefinition-action 'accept)
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"

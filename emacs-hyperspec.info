@@ -1,0 +1,171 @@
+This is emacs-hyperspec.info, produced manually for the local rc tree.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* emacs-hyperspec: (emacs-hyperspec).  Local Common Lisp HyperSpec lookup.
+END-INFO-DIR-ENTRY
+
+
+File: emacs-hyperspec.info,  Node: Top,  Next: Usage,  Up: (dir)
+
+emacs-hyperspec
+****************
+
+`emacs-hyperspec.el' provides local Common Lisp HyperSpec lookup commands
+for Emacs.
+
+The module is designed to be quiet at Emacs startup.  Loading it does not
+probe HTTP URLs, run `wget', read the HyperSpec symbol map, or install
+anything.  CLHS discovery and `Data/Map_Sym.txt' parsing are delayed until
+the first lookup command needs them.
+
+* Menu:
+
+* Usage::
+* Discovery::
+* Installation::
+* Variables::
+* Troubleshooting::
+
+
+File: emacs-hyperspec.info,  Node: Usage,  Next: Discovery,  Prev: Top,  Up: Top
+
+Usage
+*****
+
+The main commands are:
+
+`M-x clhs'
+`M-x common-lisp-hyperspec'
+`M-x hyperspec-lookup'
+     Prompt for a Common Lisp symbol and browse its CLHS page.
+
+`C-h y'
+     Global key binding for `common-lisp-hyperspec'.
+
+`M-x random-hyperspec'
+     Open a random CLHS symbol page.
+
+The first lookup resolves the local HyperSpec root, parses
+`Data/Map_Sym.txt', and caches the resulting table in
+`common-lisp-hyperspec-symbols'.  Later lookups reuse the cached root and
+symbol table.
+
+Lookup is local-only.  If no readable local HyperSpec is found, lookup
+signals an error telling you to install CLHS or configure the HyperSpec
+directory.
+
+
+File: emacs-hyperspec.info,  Node: Discovery,  Next: Installation,  Prev: Usage,  Up: Top
+
+Discovery
+*********
+
+The local root is accepted only when `Data/Map_Sym.txt' is readable below
+that root.  No network locations are probed.
+
+Candidates are checked in this order:
+
+1. `common-lisp-hyperspec-root', if it is already a `file://' URL.
+
+2. The `:hyperspec' entry from `get-directory', typically configured in
+   `~/directories.txt'.
+
+3. The Quicklisp installed-system record:
+   `~/quicklisp/dists/quicklisp/installed/systems/clhs.txt'.
+
+4. The Quicklisp convenience symlink:
+   `~/quicklisp/HyperSpec/'.
+
+5. Common packaged locations:
+   `/opt/local/share/doc/lisp/lisp-hyperspec-7.0/HyperSpec/'
+   `/usr/share/doc/hyperspec/HyperSpec/'
+   `/usr/share/doc/hyperspec/'
+   `/usr/local/share/doc/cl/HyperSpec/'
+   `/usr/local/html/local/lisp/www.lispworks.com/documentation/HyperSpec/'
+   `/data/lisp/hyperspec-7.0/HyperSpec/'
+   `/opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/'
+
+6. Quicklisp CLHS wrapper versions matching:
+   `~/quicklisp/dists/quicklisp/software/clhs-*/HyperSpec-7-0/HyperSpec/'.
+
+When a root is found, `common-lisp-hyperspec-root' is set to its `file://'
+URL and `*hyperspec-path*' is set to the filesystem directory.
+
+
+File: emacs-hyperspec.info,  Node: Installation,  Next: Variables,  Prev: Discovery,  Up: Top
+
+Installation
+************
+
+Installation is explicit because it can perform network access.
+
+`M-x pjb-clhs-install-quicklisp'
+     Start an asynchronous Quicklisp install of the `clhs' system.  The
+     command runs the program named by `pjb-clhs-lisp-command' and opens
+     output in the `*clhs-install*' buffer.
+
+After installation finishes, run `M-x clhs' again.  The next lookup will
+discover the installed CLHS from Quicklisp.
+
+Automatic prompting can be enabled by setting `pjb-clhs-auto-install' to
+non-nil, but the default is nil so that lookup never starts network work
+unless explicitly requested.
+
+
+File: emacs-hyperspec.info,  Node: Variables,  Next: Troubleshooting,  Prev: Installation,  Up: Top
+
+Variables
+*********
+
+`common-lisp-hyperspec-root'
+     The CLHS root URL.  It starts as nil.  After successful discovery it is
+     set to a `file://' URL ending at the HyperSpec directory.
+
+`common-lisp-hyperspec-symbols'
+     The cached symbol table built from `Data/Map_Sym.txt'.  It starts as
+     nil and is populated lazily.
+
+`common-lisp-hyperspec-browser'
+     Browser used for CLHS pages.  The default is `eww'.  Bind or set this
+     to another `browse-url' browser function if desired.
+
+`pjb-clhs-quicklisp-directory'
+     Quicklisp root directory used for CLHS discovery.  The default is
+     `~/quicklisp/'.
+
+`pjb-clhs-lisp-command'
+     Common Lisp command used by `pjb-clhs-install-quicklisp'.  The default
+     is `sbcl'.
+
+`pjb-clhs-auto-install'
+     When non-nil, a failed lookup offers to start the Quicklisp install.
+     The default nil keeps lookup non-networking unless the install command
+     is run explicitly.
+
+`*clhs-map-sym*'
+     Relative path to the CLHS symbol map, normally `Data/Map_Sym.txt'.
+
+
+File: emacs-hyperspec.info,  Node: Troubleshooting,  Prev: Variables,  Up: Top
+
+Troubleshooting
+***************
+
+Error: "Local CLHS not found"
+     Install a local copy with `M-x pjb-clhs-install-quicklisp', install an
+     OS package such as MacPorts `lisp-hyperspec', or configure the
+     `:hyperspec' directory entry so that it points to a HyperSpec directory
+     containing `Data/Map_Sym.txt'.
+
+Error: "The symbol ... is not defined in Common Lisp"
+     The local CLHS was found, but the requested name is not present in
+     `Data/Map_Sym.txt'.  Check spelling or use completion from `M-x clhs'.
+
+Lookup opens the wrong browser
+     Set `common-lisp-hyperspec-browser' to the desired `browse-url'
+     function before running lookup.
+
+Changing CLHS installations during an Emacs session
+     Reset `common-lisp-hyperspec-root', `*hyperspec-path*', and
+     `common-lisp-hyperspec-symbols' to nil, then run `M-x clhs' again.
