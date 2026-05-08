@@ -10,88 +10,130 @@
 (require 'clhs      nil t)
 (require 'hyperspec nil t)
 
-(defun pjb-sync-get-resource-at-url (url)
-  (let ((done nil))
-    (url-http (url-generic-parse-url url)
-              (lambda (&rest args)
-                (message "args = %S" args)
-                (message "current buffer = %S" (current-buffer))
-                (setf done (buffer-substring (point-min) (point-max))))
-              nil)
-    (while (not done)
-           (sleep-for 0.1))
-    done))
-
-(defun probe-url (url)
-  (cond
-    ((string= "file://" (subseq url 0 (min (length url) 7)))
-     (file-readable-p (subseq url 7)))
-    ((file-readable-p "/tmp/no-internet")
-     nil)
-    (t
-     (handler-case (progn (pjb-sync-get-resource-at-url url)
-                          t)
-       (error () nil)))))
-
-
-(defun pjb-get-resource-at-url (url)
-  "Fetches a resource at URL, and returns it."
-  (cond
-    ((string= "file://" (subseq url 0 (min (length url) 7)))
-     (with-file ((subseq url 7) :save nil :kill t :literal t)
-       (buffer-substring-no-properties (point-min) (point-max))))
-    (t
-     (pjb-sync-get-resource-at-url url))))
-
-
-(defparameter *clhs-lispworks* "www.lispworks.com/documentation/HyperSpec/")
-(defparameter *clhs-map-sym*   "Data/Map_Sym.txt")
-(defparameter common-lisp-hyperspec-root
-  (dolist (url (list (concat "file://" (get-directory :hyperspec))
-                     "file:///opt/local/share/doc/lisp/lisp-hyperspec-7.0/HyperSpec/"
-                     "file:///usr/share/doc/hyperspec/HyperSpec/"
-                     "file:///usr/share/doc/hyperspec/"
-                     "file:///usr/local/share/doc/cl/HyperSpec/"
-                     (concat "file:///usr/local/html/local/lisp/" *clhs-lispworks*)
-                     "file:///data/lisp/hyperspec-7.0/HyperSpec/"
-                     "file:///opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/"
-                     (concat "file://" (expand-file-name "~/quicklisp/dists/quicklisp/software/clhs-0.6.1/HyperSpec-7-0/HyperSpec/"))
-                     ;; (unless (member* (hostname) '("hubble.informatimago.com" "proteus")
-                     ;;                  :test (function string=))
-                     ;;   "http://kuiper.lan.informatimago.com/local/lisp/www.lispworks.com/documentation/HyperSpec/")
-                     (concat "http://" *clhs-lispworks*)
-                     "http://www.harlequin.com/education/books/HyperSpec/")
-               nil)
-    (message "url = %S" url)
-    (when (and url (probe-url (concat url *clhs-map-sym*)))
-      (return url)))
+(defvar *clhs-lispworks* "www.lispworks.com/documentation/HyperSpec/")
+(defvar *clhs-map-sym*   "Data/Map_Sym.txt")
+(defvar common-lisp-hyperspec-root nil
   "The root of the Common Lisp HyperSpec URL.
-If you copy the HyperSpec to your local system, set this variable to
-something like \"file:/usr/local/doc/HyperSpec/\".")
+This file resolves the local CLHS lazily, when `clhs' is first used, so
+Emacs startup never probes the network.")
+(defvar *hyperspec-path* nil)
+(defvar common-lisp-hyperspec-symbols nil)
+(defvar pjb-clhs-auto-install nil
+  "When non-nil, offer to install CLHS through Quicklisp on first lookup.")
+(defvar pjb-clhs-lisp-command "sbcl"
+  "Common Lisp command used by `pjb-clhs-install-quicklisp'.")
+(defvar pjb-clhs-quicklisp-directory (expand-file-name "~/quicklisp/")
+  "Quicklisp directory used to discover the local CLHS installation.")
 
-(defparameter *hyperspec-path*
-  (cond ((prefixp "file://" common-lisp-hyperspec-root)
-         (subseq common-lisp-hyperspec-root (length "file://")))
-        ((boundp '*hyperspec-path*)
-         *hyperspec-path*)))
+(defun pjb-clhs-user-error (format-string &rest args)
+  (if (fboundp 'user-error)
+      (apply 'user-error format-string args)
+      (apply 'error format-string args)))
 
+(defun pjb-clhs-file-url-p (url)
+  (and (stringp url)
+       (string= "file://" (subseq url 0 (min (length url) 7)))))
 
-(defparameter common-lisp-hyperspec-symbols
-  (if common-lisp-hyperspec-root
-      (let ((symbols (make-vector 67 0)))
-        (loop
-          for (name page)
-          on (split-string (pjb-get-resource-at-url (concat common-lisp-hyperspec-root *clhs-map-sym*)) "\n")
-          by (function cddr)
-          while page
-          do (let ((symbol (intern (string-downcase name) symbols))
-                   (page (if (prefixp "../" page)
-                             (subseq page 3 )
-                             page)))
-               ;; (message "%S %S" symbol page)
-               (setf (get symbol 'common-lisp-hyperspec-page) page)))
-        symbols)
-      (make-vector 67 0)))
+(defun pjb-clhs-file-url-path (url)
+  (when (pjb-clhs-file-url-p url)
+    (subseq url (length "file://"))))
+
+(defun pjb-clhs-prefix-p (prefix string)
+  (and (<= (length prefix) (length string))
+       (string= prefix (subseq string 0 (length prefix)))))
+
+(defun pjb-clhs-installed-system-directory ()
+  (let ((location-file (expand-file-name "dists/quicklisp/installed/systems/clhs.txt"
+                                         pjb-clhs-quicklisp-directory)))
+    (when (file-readable-p location-file)
+      (with-temp-buffer
+        (insert-file-contents location-file)
+        (let ((relative (buffer-substring-no-properties (point-min) (point-max))))
+          (setf relative (replace-regexp-in-string "[ \t\n\r]+\\'" "" relative))
+          (file-name-directory
+           (expand-file-name relative pjb-clhs-quicklisp-directory)))))))
+
+(defun pjb-clhs-local-candidates ()
+  (let ((configured (pjb-clhs-file-url-path common-lisp-hyperspec-root))
+        (quicklisp-glob
+         (reverse
+          (sort
+           (file-expand-wildcards
+            (expand-file-name "dists/quicklisp/software/clhs-*/HyperSpec-7-0/HyperSpec/"
+                              pjb-clhs-quicklisp-directory))
+           'string<))))
+    (append
+     (list configured
+           (ignore-errors (get-directory :hyperspec))
+           (let ((system-directory (pjb-clhs-installed-system-directory)))
+             (when system-directory
+               (expand-file-name "HyperSpec-7-0/HyperSpec/" system-directory)))
+           (expand-file-name "HyperSpec/" pjb-clhs-quicklisp-directory)
+           "/opt/local/share/doc/lisp/lisp-hyperspec-7.0/HyperSpec/"
+           "/usr/share/doc/hyperspec/HyperSpec/"
+           "/usr/share/doc/hyperspec/"
+           "/usr/local/share/doc/cl/HyperSpec/"
+           (concat "/usr/local/html/local/lisp/" *clhs-lispworks*)
+           "/data/lisp/hyperspec-7.0/HyperSpec/"
+           "/opt/local/share/doc/lisp/HyperSpec-7-0/HyperSpec/")
+     quicklisp-glob)))
+
+(defun pjb-clhs-valid-root-p (directory)
+  (and directory
+       (let ((directory (file-name-as-directory (expand-file-name directory))))
+         (file-readable-p (expand-file-name *clhs-map-sym* directory)))))
+
+(defun pjb-clhs-find-root ()
+  (loop
+    for directory in (pjb-clhs-local-candidates)
+    for expanded = (and directory
+                        (file-name-as-directory (expand-file-name directory)))
+    when (pjb-clhs-valid-root-p expanded)
+    return expanded))
+
+(defun pjb-clhs-read-map-sym (map-file)
+  (let ((symbols (make-vector 67 0)))
+    (with-temp-buffer
+      (insert-file-contents map-file)
+      (loop
+        for (name page)
+        on (split-string (buffer-substring-no-properties (point-min) (point-max)) "\n")
+        by (function cddr)
+        while page
+        do (let ((symbol (intern (downcase name) symbols))
+                 (page (if (pjb-clhs-prefix-p "../" page)
+                           (subseq page 3)
+                           page)))
+             (setf (get symbol 'common-lisp-hyperspec-page) page))))
+    symbols))
+
+(defun pjb-clhs-install-quicklisp ()
+  "Install the Quicklisp CLHS wrapper asynchronously.
+This is explicit because it may perform network access."
+  (interactive)
+  (let ((command
+         (format "%s --eval %S --eval %S --eval %S"
+                 pjb-clhs-lisp-command
+                 "(load (merge-pathnames \"quicklisp/setup.lisp\" (user-homedir-pathname)))"
+                 "(ql:quickload :clhs)"
+                 "(quit)")))
+    (message "Installing CLHS with: %s" command)
+    (async-shell-command command "*clhs-install*")))
+
+(defun pjb-clhs-ensure-loaded ()
+  (unless common-lisp-hyperspec-symbols
+    (let ((root (pjb-clhs-find-root)))
+      (unless root
+        (when (and pjb-clhs-auto-install
+                   (y-or-n-p "Local CLHS not found. Install it with Quicklisp now? "))
+          (pjb-clhs-install-quicklisp)
+          (pjb-clhs-user-error "CLHS installation started; retry lookup when it finishes"))
+        (pjb-clhs-user-error
+         "Local CLHS not found; run M-x pjb-clhs-install-quicklisp or configure :hyperspec"))
+      (setf *hyperspec-path* root
+            common-lisp-hyperspec-root (concat "file://" root)
+            common-lisp-hyperspec-symbols
+            (pjb-clhs-read-map-sym (expand-file-name *clhs-map-sym* root))))))
 
 
 (defun thing-at-point-no-properties (thing)
@@ -112,6 +154,7 @@ a symbol as a valid THING."
 
 
 (defun common-lisp-hyperspec-complete (string predicate allp)
+  (pjb-clhs-ensure-loaded)
   (if allp
       (let ((result '()))
         (mapatoms (lambda (symbol)
@@ -126,6 +169,7 @@ a symbol as a valid THING."
 
 
 (defun clhs-page (symbol-designator)
+  (pjb-clhs-ensure-loaded)
   (let ((symbol (intern-soft (downcase (etypecase symbol-designator
                                          (symbol (symbol-name symbol-designator))
                                          (string  symbol-designator)))
@@ -133,7 +177,7 @@ a symbol as a valid THING."
     (and symbol (get symbol 'common-lisp-hyperspec-page))))
 
 
-(defparameter common-lisp-hyperspec-browser 'eww)
+(defvar common-lisp-hyperspec-browser 'eww)
 (defvar common-lisp-hyperspec-history nil
   "History of symbols looked up in the Common Lisp HyperSpec.")
 
@@ -156,13 +200,17 @@ variable `common-lisp-hyperspec-root' to point to that location."
            (completing-read "Look up symbol in Common Lisp HyperSpec: "
                             (function common-lisp-hyperspec-complete)
                             (lambda (symbol)
+                              (pjb-clhs-ensure-loaded)
                               (get symbol 'common-lisp-hyperspec-page))
                             t symbol-at-point
                             'common-lisp-hyperspec-history))))
-  (let ((url  (concat common-lisp-hyperspec-root (clhs-page symbol-name)))
-        (browse-url-browser-function common-lisp-hyperspec-browser))
-    (message "%s" url)
-    (browse-url url)))
+  (let ((page (clhs-page symbol-name)))
+    (unless page
+      (pjb-clhs-user-error "The symbol `%s' is not defined in Common Lisp" symbol-name))
+    (let ((url  (concat common-lisp-hyperspec-root page))
+          (browse-url-browser-function common-lisp-hyperspec-browser))
+      (message "%s" url)
+      (browse-url url))))
 
 
 (defalias 'clhs               'common-lisp-hyperspec)
@@ -172,6 +220,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
 
 (defun random-hyperspec ()
   (interactive)
+  (pjb-clhs-ensure-loaded)
   (common-lisp-hyperspec (let ((syms '()))
                            (do-symbols (sym common-lisp-hyperspec-symbols) (push sym syms))
                            (nth (random (length syms)) syms))))

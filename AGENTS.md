@@ -5,3 +5,4 @@
 - Keep `bash_profile` login-focused and interactive-gated.
 - Keep `bashrc` as a dispatcher; prefer moving environment, interactive features, host-specific logic, and secrets into separate files.
 - Any file intended for `BASH_ENV` must be safe for non-interactive shells: no prompts, no `echo`, no terminal control, no unconditional subprocess-heavy logic, no required writes on startup.
+- Write user-facing documentation in Emacs Info format.
