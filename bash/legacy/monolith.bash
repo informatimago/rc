@@ -69,6 +69,24 @@ function short_pwd() {
     fi
 }
 
+function git_prompt_branch_update() {
+    local branch
+
+    if branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null)" && [ -n "$branch" ] ; then
+        PJB_GIT_PROMPT_BRANCH="$branch"
+    else
+        unset PJB_GIT_PROMPT_BRANCH
+    fi
+}
+
+function git_prompt_command() {
+    git_prompt_branch_update
+
+    if [ -n "${PJB_PROMPT_COMMAND:-}" ] ; then
+        eval "$PJB_PROMPT_COMMAND"
+    fi
+}
+
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
     #
@@ -114,6 +132,9 @@ function bashrc_set_prompt(){
     local available='$(/bin/df -h .|(read line ; awk '\''{print $4}'\''))'
     local time='$(date +%H:%M)'
     local base='[\u@\h '"${display}"' $(short_pwd) '"${available}"']'
+    local git_branch='${PJB_GIT_PROMPT_BRANCH}'
+    local newline='
+'
     local prompt='$ '
 
     if ((UID==0)) ; then
@@ -178,6 +199,9 @@ function bashrc_set_prompt(){
         if [ -n "$base" ] ; then
             base="\[${cyan}${black_back}\]${base}\[${normal}\]"
         fi
+        if [ -n "$git_branch" ] ; then
+            git_branch="\[${green}${black_back}\]${git_branch}\[${normal}\]"
+        fi
         if [ -n "$prompt" ] ; then
             prompt="\[${red}${black_back}\]${prompt}\[${normal}\]"
         fi
@@ -185,7 +209,12 @@ function bashrc_set_prompt(){
     if [ -n "$prefix" ] ; then
         prefix="\n${prefix}\n"
     fi
-    export PS1="${chroot}${cookie}${prefix}${ibam}${time}${base}${prompt}"
+    git_branch="${git_branch}"'${PJB_GIT_PROMPT_BRANCH:+'"$newline"'}'
+    export PS1="${chroot}${cookie}${prefix}${git_branch}${ibam}${time}${base}${prompt}"
+    if [ -n "${PROMPT_COMMAND:-}" ] && [ "$PROMPT_COMMAND" != git_prompt_command ] ; then
+        PJB_PROMPT_COMMAND="$PROMPT_COMMAND"
+    fi
+    PROMPT_COMMAND=git_prompt_command
 
     export SAVED_PS1="$PS1"
     #PS1='$(echo "${BLUE}    3.8.15.16.32-2.8    ${CYAN}   1.8.32.41.49-5    ${NORMAL}")'"$SAVED_PS1"
