@@ -72,22 +72,6 @@
 (defvar shell-file-name          "/bin/bash")
 (defvar *tempdir*                (format "/tmp/emacs%d"  (user-uid)))
 (defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
-(defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
-
-(defun .EMACS (fctl &rest args)
-  (when (file-exists-p "--version.lock")
-    (message "Deleting version lock!")
-    (delete-file  "--version.lock"))
-  ;; (if (file-exists-p "--version.lock")
-  ;;   (error "version lock"))
-  (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
-    (when *pjb-save-log-file-p*
-      (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
-        (erase-buffer)
-        (insert text "\n")
-        (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
-    (message text)))
-
 
 
 (.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
