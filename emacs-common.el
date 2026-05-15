@@ -241,6 +241,12 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 
 (require 'server)
+(setf server-socket-dir (expand-file-name "~/.emacs.d/server")
+      server-name       (format "server-%d" (emacs-pid)))
+(when (string= (hostname) "PF5S26BT")
+  ;; we need to override server-ensure-safe-dir because here we don't have access rights.
+  (defun server-ensure-safe-dir (dir)
+    t))
 (with-temp-buffer
     (insert (format "export EMACS_SERVER_FILE=%s/%s\n"
                     server-socket-dir
@@ -248,6 +254,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
   (let ((delete-old-versions t))
     (write-file (format "~/.bash_env-emacs-%s" (hostname)) nil)))
 (server-start)
+
 
 ;; server-socket-dir
 ;; ;; --> "/var/folders/pq/82920zm125n09frk81rrtp200000gn/T/emacs501"
