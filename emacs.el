@@ -73,7 +73,8 @@
                            ("^mercure"                     . "~/rc/emacs-ubudu.el")
                            ("^uiserver"                    . "~/rc/emacs-ubudu.el")
                            ("^ubudair"                     . "~/rc/emacs-ubudu.el")
-                           ("^ubudu-vm-mac-[0-9]"          . "~/rc/emacs-ubudu.el")))
+                           ("^ubudu-vm-mac-[0-9]"          . "~/rc/emacs-ubudu.el")
+                           ("^PF5S26BT"                    . "~/rc/emacs-sncf-reseau.el")))
                        (hostname (hostname))
                        (conf  hostname-configuration-map))
                   (while (and conf (not (let ((case-fold-search t))
@@ -104,6 +105,10 @@
         ;; otherwise it may be overridden with an empty customization.
         (setq custom-file (or file custom-file)))
       (message "Found no configuration to load for %s" (hostname))))
+
+(when (file-exists-p "~/rc/emacs-patches.el")
+  (load "~/rc/emacs-patches.el"))
+(load "~/rc/emacs-epilog.el")
 
 ;; Local Variables:
 ;; coding: utf-8
