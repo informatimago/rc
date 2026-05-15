@@ -37,7 +37,7 @@
 
 (when (fboundp 'milliways-activate)
   (milliways-activate)
-  (.EMACS "milliways activated!"))]]
+  (.EMACS "milliways activated!"))
 (.EMACS "DONE")
 
 ;; Local Variables:
