@@ -160,7 +160,6 @@
     (describe-symbol-command "(describe '%s)\n")
     (init 'slime-init-command))
 
-
   (defmacro define-lisp-implementation (name commands-expression prompt coding &rest rest)
     `(let ((command (first-existing-file (mapcar (lambda (cmd)
                                                    (if (listp cmd)
@@ -176,7 +175,7 @@
                        :coding  ',coding
                        ,@rest))
                   (sli (assoc ',name slime-lisp-implementations)))
-             (setf (get ',name :lisp-implementation) li)
+             (setf (lisp-implementation-named ',name) li)
              (pushnew ',name *lisp-implementations*)
              (if (null sli)
                  (push (list ',name command
@@ -190,7 +189,15 @@
              ',name)
            (warn "No executable for lisp implementation: %s" ',name))))
 
+  (defun lisp-implementation-named (name)
+    (get name :lisp-implementation))
 
+  (defun set-lisp-implementation-named (name implementation)
+    (setf (get name :lisp-implementation) implementation))
+  
+  (defsetf lisp-implementation-named set-lisp-implementation-named (name))
+  
+  
   (define-lisp-implementation scheme
       '("mzscheme")
     "^> "
@@ -306,7 +313,7 @@
        (t  (format t \"Arglist for ~a: ~a\" fn (ext:arglist fn))))
      (values))\n")
 
-  ;; (lisp-implementation-coding(get 'clisp :lisp-implementation))
+  ;; (lisp-implementation-coding (lisp-implementation-named 'clisp))
   ;; utf-8
   ;; slime-net-coding-system
 
@@ -325,11 +332,36 @@
                 "/usr/local/bin/sbcl"
                 "/data/languages/sbcl/bin/sbcl"
                 "/usr/bin/sbcl"
-                ))
+                ;; On MS-Windows with MSYS2:
+                "/c/Program Files/Steel Bank Common Lisp/sbcl.exe"
+                ;; On MS-Windows with Tortoise Git bash:
+                "c:/Program Files/Steel Bank Common Lisp/sbcl.exe"))
     "^\\[[0-9]*\\]> "
     utf-8)
 
+  (let ((command (lisp-implementation-command (lisp-implementation-named 'sbcl))))
+    (when  (or (prefixp "/c/" command)
+               (prefixp "c:/" command))
+      (defun pjb-emacs-slime-convert-filename (path)
+        (if (prefixp "/c/" path)
+            (concat "c:/" (subseq path 3))
+            path))
 
+      
+      (setf slime-to-lisp-filename-function 'pjb-emacs-slime-convert-filename)
+      ;; slime-backend = "swank-loader.lisp"
+      (setf slime-path "/c/msys64/home/PPBN02261/.emacs.d/site-lisp/slime/")))
+
+
+  ;; (slime-init-command "/tmp/slime-port" "utf-8")
+  ;; (let ((loader (if (file-name-absolute-p slime-backend)
+  ;;                   slime-backend
+  ;;                   (concat slime-path slime-backend))))
+  ;;   (list loader
+  ;;         (expand-file-name loader)
+  ;;         (slime-to-lisp-filename (expand-file-name loader))))
+
+  
   (define-lisp-implementation ecl
       (list (expand-file-name "~/opt/bin/ecl")
             "/data/languages/ecl/bin/ecl"
@@ -352,7 +384,7 @@
     "Set the default lisp implementation used by inferior-lisp and slime."
     (interactive "SImplementation: ")
     (when (member impl *lisp-implementations*)
-      (let ((limpl (get impl :lisp-implementation)))
+      (let ((limpl (lisp-implementation-named impl)))
         (if limpl
             (progn
               (message ".EMACS: inferior-lisp implementation: %s"
@@ -385,7 +417,7 @@
           lisp-implementation  (or (buffer-local-value 'lisp-implementation
                                                        (get-buffer inferior-lisp-buffer))
                                    (lisp-implementation-name *default-lisp-implementation*)))
-    (let ((limpl (get lisp-implementation :lisp-implementation)))
+    (let ((limpl (lisp-implementation-named lisp-implementation)))
       (when limpl
         (setf lisp-function-doc-command (lisp-implementation-function-documentation-command limpl)
               lisp-var-doc-command      (lisp-implementation-variable-documentation-command limpl)
@@ -460,7 +492,7 @@ of `inferior-lisp-program').  Runs the hooks from
            (impl  (unless (position (character " ") impl-or-cmd
                                     :test (function char=))
                     (intern-soft impl-or-cmd)))
-           (limpl (and impl (get impl :lisp-implementation)))
+           (limpl (and impl (lisp-implementation-named impl)))
            (cmd   (if limpl (lisp-implementation-command limpl) impl-or-cmd)))
       (inferior-lisp-other-window cmd)
       (make-local-variable 'lisp-implementation)
