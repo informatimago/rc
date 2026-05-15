@@ -947,6 +947,49 @@ does two useful things at once:
         (define-key input-decode-map
                     (format "\M-[%d;%d~" (car k) (car m))
                     (vector sym)))))
+
+  ;; --- Number row with Control (and Control+Shift). ---
+  ;; A terminal cannot natively encode C-1, C-!, C-`, C-_, etc., because
+  ;; there is no ASCII control code for these.  Modern xterm-compatible
+  ;; terminals (xterm with modifyOtherKeys=2, mintty, foot, kitty,
+  ;; alacritty...) emit one of two protocol sequences instead:
+  ;;   xterm modifyOtherKeys:  ESC [ 27 ; <mod> ; <ascii> ~
+  ;;   kitty / CSI-u:          ESC [ <ascii> ; <mod> u
+  ;; with <mod> = 5 for Control, 6 for Control+Shift; <ascii> is the
+  ;; character the key would have produced without the Control modifier
+  ;; (already shifted for the shifted variants).
+  ;;
+  ;; Note for mintty: modifyOtherKeys=2 must be active.  mintty sets it
+  ;; on automatically when TERM advertises xterm-256color; if not,
+  ;; either fix TERM, or enable it from elisp with
+  ;;   (send-string-to-terminal "\e[>4;2m")
+  ;; in a terminal-init hook.
+  (let ((number-row
+         ;; (unshifted-ascii  unshifted-key  shifted-ascii  shifted-key)
+         '((96  "`"  126 "~")
+           (49  "1"  33  "!")
+           (50  "2"  64  "@")
+           (51  "3"  35  "#")
+           (52  "4"  36  "$")
+           (53  "5"  37  "%")
+           (54  "6"  94  "^")
+           (55  "7"  38  "&")
+           (56  "8"  42  "*")
+           (57  "9"  40  "(")
+           (48  "0"  41  ")")
+           (45  "-"  95  "_")
+           (61  "="  43  "+"))))
+    (dolist (row number-row)
+      (let* ((u-code (nth 0 row))
+             (u-key  (kbd (format "C-%s" (nth 1 row))))
+             (s-code (nth 2 row))
+             (s-key  (kbd (format "C-%s" (nth 3 row)))))
+        ;; xterm modifyOtherKeys format: ESC [ 27 ; <mod> ; <ascii> ~
+        (define-key input-decode-map (format "\M-[27;5;%d~" u-code) u-key)
+        (define-key input-decode-map (format "\M-[27;6;%d~" s-code) s-key)
+        ;; kitty / CSI-u format: ESC [ <ascii> ; <mod> u
+        (define-key input-decode-map (format "\M-[%d;5u" u-code) u-key)
+        (define-key input-decode-map (format "\M-[%d;6u" s-code) s-key))))
   nil)
 
 
