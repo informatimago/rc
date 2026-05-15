@@ -1,4 +1,4 @@
-;;; emacs gg-- Pascal J. Bourguignon's emacs startup files.
+;;; emacs.el -- Pascal J. Bourguignon's emacs startup files.
 ;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;; Commentary:
 ;;; Code:
@@ -9,6 +9,23 @@
 ;;       debug-on-error t)
 (setq force-load-messages t
       message-log-max 20000)
+
+(defvar *pjb-save-log-file-p*    nil "Whether .EMACS must save logs to /tmp/messages.txt")
+
+(defun .EMACS (fctl &rest args)
+  (when (file-exists-p "--version.lock")
+    (message "Deleting version lock!")
+    (delete-file  "--version.lock"))
+  ;; (if (file-exists-p "--version.lock")
+  ;;   (error "version lock"))
+  (let ((text (apply (function format) (concat ".EMACS: " fctl) args)))
+    (when *pjb-save-log-file-p*
+      (with-current-buffer (get-buffer-create " .EMACS temporary buffer")
+        (erase-buffer)
+        (insert text "\n")
+        (append-to-file (point-min) (point-max) (format "%s/messages.txt" *tempdir*))))
+    (message text)))
+
 
 ;; (require 'package)
 ;; 
