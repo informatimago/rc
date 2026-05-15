@@ -8,9 +8,15 @@
 (require 'ruby-mode)
 (require 'inf-ruby)
 
-(setf inf-ruby-first-prompt-pattern "irb --> ")
-(setf inf-ruby-prompt-pattern (format inf-ruby-prompt-format "[?>]" "[\]>*\"'/`]"))
+(defvar inf-ruby-version (package-version-join
+                           (package-desc-version (cadr (assq 'inf-ruby package-alist)))))
 
+(setf inf-ruby-first-prompt-pattern "irb --> ")
+(setf inf-ruby-prompt-pattern
+      (let ((delims "[\]>*\"'/`]"))
+        (if (version< inf-ruby-version "2.9.0")
+            (format inf-ruby-prompt-format "[?>]" delims)
+            (format inf-ruby-prompt-format "[?>]" delims delims))))
 
 (require 'enh-ruby-mode nil t)
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
