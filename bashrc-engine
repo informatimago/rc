@@ -5,6 +5,15 @@ if [ -n "${EMACS_BASH_COMPLETE:-}" ] ; then
     return
 fi
 
+# On MSYS2, /etc/profile is what populates MSYSTEM-aware bits like
+# MINGW_PREFIX, ACLOCAL_PATH, MANPATH and the MSYSTEM-correct PATH
+# prefix.  If we get here without it (e.g. a non-login context that
+# still triggers .bashrc) the cache would capture a half-set env.
+# On Linux MINGW_PREFIX is unset and /etc/profile is well-behaved.
+if [ -z "${MINGW_PREFIX:-}" ] && [ -r /etc/profile ] ; then
+    . /etc/profile
+fi
+
 pjb_bash_source="${BASH_SOURCE[0]:-}"
 if [ -z "$pjb_bash_source" ] ; then
     pjb_bash_source="$HOME/.bashrc"

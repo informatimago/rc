@@ -1,26 +1,14 @@
 #!/bin/bash
 
-function pjb_bash_env_cache_inputs(){
-    printf '%s\n' \
-        "$PJB_BASH_RC_ROOT/bash/legacy/monolith.bash" \
+function pjb_bash_env_cache_sources(){
+    # Roots scanned for staleness: the bash/ subtree plus the bashrc-*
+    # personality files at $PJB_BASH_RC_ROOT.  Anything older than the
+    # newest of these is considered stale.  Missing paths are silently
+    # skipped by find via -prune-on-error semantics (we filter them).
+    local p
+    for p in \
+        "$PJB_BASH_RC_ROOT/bash" \
         "$PJB_BASH_RC_ROOT/bashrc-engine" \
-        "$PJB_BASH_RC_ROOT/bash/lib/context.bash" \
-        "$PJB_BASH_RC_ROOT/bash/lib/profile-loader.bash" \
-        "$PJB_BASH_RC_ROOT/bash/lib/env-cache.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/base.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/os-darwin.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/os-linux.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/os-windows.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/site-user.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/site-mts.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/site-span.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/site-trustonic.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/site-harman.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/host-default.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/host-larissa.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/host-span.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/host-trustonic.bash" \
-        "$PJB_BASH_RC_ROOT/bash/profiles/host-harman.bash" \
         "$PJB_BASH_RC_ROOT/bashrc-pjb" \
         "$PJB_BASH_RC_ROOT/bashrc-mts" \
         "$PJB_BASH_RC_ROOT/bashrc-span" \
@@ -29,25 +17,46 @@ function pjb_bash_env_cache_inputs(){
         "$PJB_BASH_RC_ROOT/bashrc-nvidia" \
         "$PJB_BASH_RC_ROOT/bashrc-google-cloud" \
         "$PJB_BASH_RC_ROOT/bashrc-keys"
+    do
+        [ -e "$p" ] && printf '%s\n' "$p"
+    done
 }
 
 function pjb_bash_env_cache_stale_p(){
-    local input
+    local sources newer
 
     [ ! -f "$PJB_BASH_ENV_CACHE_FILE" ] && return 0
 
-    while IFS= read -r input ; do
-        if [ -r "$input" ] && [ "$input" -nt "$PJB_BASH_ENV_CACHE_FILE" ] ; then
-            return 0
-        fi
-    done < <(pjb_bash_env_cache_inputs)
+    mapfile -t sources < <(pjb_bash_env_cache_sources)
+    [ "${#sources[@]}" -eq 0 ] && return 1
 
+    newer="$(find "${sources[@]}" -newer "$PJB_BASH_ENV_CACHE_FILE" -print -quit 2>/dev/null)"
+    [ -n "$newer" ] && return 0
     return 1
 }
 
 function pjb_bash_prepare_env_cache_dir(){
     if [ ! -d "$PJB_BASH_CACHE_DIR" ] ; then
         mkdir -p "$PJB_BASH_CACHE_DIR" 2>/dev/null || return 1
+    fi
+}
+
+function pjb_bash_capture_msys_vars(){
+    # Emit `declare -x` for the MSYSTEM-specific variables that are
+    # set by /etc/profile/profile.d on MSYS2 and that the legacy
+    # be_generate() either ignores or rewrites in a Linux-centric way.
+    # Appended to the cache after be_generate so these win on source.
+    local v vars=()
+    for v in \
+        PATH MANPATH INFOPATH \
+        MSYSTEM MINGW_PREFIX MINGW_CHOST MINGW_PACKAGE_PREFIX \
+        PKG_CONFIG_PATH PKG_CONFIG_SYSTEM_INCLUDE_PATH PKG_CONFIG_SYSTEM_LIBRARY_PATH \
+        ACLOCAL_PATH CMAKE_PREFIX_PATH
+    do
+        [ -n "${!v:-}" ] && vars+=("$v")
+    done
+    if [ "${#vars[@]}" -gt 0 ] ; then
+        declare -px -- "${vars[@]}"
     fi
 }
 
@@ -72,6 +81,13 @@ function pjb_bash_build_env_cache(){
     if pjb_bash_env_cache_stale_p ; then
         rm -f "$tmp_file"
         be_generate
+        if [ -n "${MSYSTEM:-}" ] && [ -r "$final_file" ] ; then
+            {
+                printf '\n# MSYSTEM=%s overrides (appended after be_generate)\n' \
+                       "$MSYSTEM"
+                pjb_bash_capture_msys_vars
+            } >> "$final_file"
+        fi
         if [ -r "$PJB_BASH_RC_ROOT/bashrc-keys" ] ; then
             source "$PJB_BASH_RC_ROOT/bashrc-keys"
         fi
@@ -95,7 +111,7 @@ function pjb_bash_build_env_cache(){
     unset -f appendNewToStringVariableDirectoryIfExists 2>/dev/null
     unset -f prependNewToStringVariableDirectoryIfExists 2>/dev/null
     unset -f prependIfDirectoryExists 2>/dev/null
-    unset -f pjb_bash_env_cache_inputs 2>/dev/null
+    unset -f pjb_bash_env_cache_sources 2>/dev/null
     unset -f pjb_bash_env_cache_stale_p 2>/dev/null
 }
 

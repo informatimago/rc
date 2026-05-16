@@ -392,12 +392,17 @@ function be_comment(){
 function be_variable(){
     local name="$1"
     local value="$2"
-    printf "%s=%s\nexport %s\n" "$name" "$(quote "$value")" "$name" >> "$be"
+    # Use printf '%q' for shell-safe quoting (the same mechanism
+    # `declare -p` uses internally).  Produces:
+    #     declare -x NAME=quoted-value
+    # which round-trips spaces, quotes, and shell metacharacters
+    # without modifying the current shell's environment.
+    printf 'declare -x %s=%q\n' "$name" "$value" >> "$be"
 }
 
 function be_unset(){
     local name="$1"
-    printf "unset %s\n" "$name" >> "$be"
+    printf "unset -v -- %s\n" "$name" >> "$be"
 }
 
 function be_terminate(){
@@ -600,7 +605,7 @@ function be_generate(){
     be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
     be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
     if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
-        be_variable PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+        be_variable PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig
     fi
 
     be_variable LD_RUNPATH_SEARCH_PATHS /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/lib/darwin
