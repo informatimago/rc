@@ -32,3 +32,6 @@ path_add "/c/Program Files/Steel Bank Common Lisp"
 _pjb_winget="/c/Users/${USER:-$USERNAME}/AppData/Local/Microsoft/WinGet/Packages"
 path_add "$_pjb_winget/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
 unset _pjb_winget
+
+path_add "/c/Program Files/dotnet"
+

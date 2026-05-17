@@ -38,3 +38,12 @@ if [ -z "${PJB_BASH_ENV_CACHE_FILE:-}" ] ; then
 fi
 
 [ -r "$PJB_BASH_ENV_CACHE_FILE" ] && source "$PJB_BASH_ENV_CACHE_FILE"
+
+# Recompose PATH/MANPATH/INFOPATH from the path.d/ layers so a
+# non-interactive shell launched inside a project dir (`bash -c ...`,
+# makepkg, etc.) picks up the project's .bash-path overlay instead of
+# being stuck with whatever cwd built the cache.
+if [ -r "$PJB_BASH_RC_ROOT/bash/lib/path-compose.bash" ] ; then
+    source "$PJB_BASH_RC_ROOT/bash/lib/path-compose.bash"
+    path_compose
+fi

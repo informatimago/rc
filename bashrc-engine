@@ -45,6 +45,15 @@ pjb_bash_load_profiles
 pjb_bash_build_env_cache
 pjb_bash_load_env_cache
 
+# Recompose PATH/MANPATH/INFOPATH from bash/path.d/* so the current
+# $PWD's project layer (.bash-path walk) is honored.  The cache holds
+# whatever cwd the cache writer had; this picks up project-local
+# augmentations every time a shell starts.  Cheap -- a few existence
+# checks per layer, no forks for the common case.
+if declare -F path_compose >/dev/null 2>&1 ; then
+    path_compose
+fi
+
 if pjb_bash_interactive_p ; then
     source "$PJB_BASH_RC_ROOT/bash/interactive/legacy-loader.bash"
 fi
