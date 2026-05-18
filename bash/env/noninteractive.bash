@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Re-entrance guard.  This file is BASH_ENV for every non-interactive
+# bash, including those spawned *by us* while composing PATH (path.d/
+# layers call helpers like $HOME/bin/distribution, which is itself a
+# #!/bin/bash script).  Without this guard, each child bash re-sources
+# noninteractive.bash, which re-runs path_compose, which forks another
+# bash, ad infinitum -- a fork bomb.  Export the sentinel so child
+# bashes inherit it and return immediately on entry.
+if [ -n "${PJB_BASH_NONINTERACTIVE_LOADED:-}" ] ; then
+    return
+fi
+export PJB_BASH_NONINTERACTIVE_LOADED=1
+
 if [ -z "${PJB_BASH_RC_ROOT:-}" ] ; then
     export PJB_BASH_RC_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 fi
