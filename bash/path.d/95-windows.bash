@@ -31,13 +31,16 @@ path_add "/c/Program Files/findutils-4.2.30-5-w64/bin"
 # Steel Bank Common Lisp (Windows installer drops sbcl.exe here)
 path_add "/c/Program Files/Steel Bank Common Lisp"
 
+path_add "/c/Program Files/dotnet"
+
 # Astral uv, installed via WinGet.  The trailing package-id segment
 # is Microsoft.Winget.Source_8wekyb3d8bbwe, which is a stable
 # WinGet-source hash, not a version, so this path is stable across
 # uv updates.
-_pjb_winget="/c/Users/${USER:-$USERNAME}/AppData/Local/Microsoft/WinGet/Packages"
+_pjb_winget="/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages"
 path_add "$_pjb_winget/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
 unset _pjb_winget
 
-path_add "/c/Program Files/dotnet"
+
+path_add "/c/Users/${USERNAME:-$USER}/.local/bin"
 
