@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# path-compose is the authoritative composer for PATH/MANPATH/INFOPATH.
+# It is sourced here so its functions are available to the cache writer
+# (pjb_bash_build_env_cache) and to any caller that wants to recompose
+# at shell-startup time after the cache has been loaded.
+if [ -r "$PJB_BASH_RC_ROOT/bash/lib/path-compose.bash" ] ; then
+    source "$PJB_BASH_RC_ROOT/bash/lib/path-compose.bash"
+fi
+
 function pjb_bash_env_cache_sources(){
     # Roots scanned for staleness: the bash/ subtree plus the bashrc-*
     # personality files at $PJB_BASH_RC_ROOT.  Anything older than the
@@ -41,11 +49,12 @@ function pjb_bash_prepare_env_cache_dir(){
     fi
 }
 
-function pjb_bash_capture_msys_vars(){
-    # Emit `declare -x` for the MSYSTEM-specific variables that are
-    # set by /etc/profile/profile.d on MSYS2 and that the legacy
-    # be_generate() either ignores or rewrites in a Linux-centric way.
-    # Appended to the cache after be_generate so these win on source.
+function pjb_bash_capture_path_vars(){
+    # Emit `declare -x` for the path-shaped variables that path_compose
+    # composes (PATH, MANPATH, INFOPATH) plus the MSYSTEM-specific
+    # companions set by /etc/profile/profile.d on MSYS2.  Variables that
+    # are unset in the current shell are simply skipped, so this runs
+    # cleanly on Linux too (just emits PATH/MANPATH).
     local v vars=()
     for v in \
         PATH MANPATH INFOPATH \
@@ -71,7 +80,13 @@ function pjb_bash_build_env_cache(){
 
     [ -r "$legacy_root" ] || return 0
 
-    PJB_BASH_LEGACY_NO_AUTORUN=1 source "$legacy_root"
+    # NB: keep this as `local` + plain source.  The temp-env-prefixed
+    # form (`VAR=1 source file`) interacts badly with bash's scope
+    # stack inside a function: it shows up as "pop_scope: head of
+    # shell_variables not a temporary environment scope" when the
+    # sourced file is large and itself defines/calls functions.
+    local PJB_BASH_LEGACY_NO_AUTORUN=1
+    source "$legacy_root"
     bashrc_set_host_uname
 
     de="$PJB_BASH_CACHE_DIR/default-env.bash"
@@ -81,11 +96,24 @@ function pjb_bash_build_env_cache(){
     if pjb_bash_env_cache_stale_p ; then
         rm -f "$tmp_file"
         be_generate
-        if [ -n "${MSYSTEM:-}" ] && [ -r "$final_file" ] ; then
+        # path_compose is now the authoritative source for PATH /
+        # MANPATH / INFOPATH on every platform.  It rebuilds PATH from
+        # scratch via the bash/path.d/* layers, then we append the
+        # result to the cache tail so it overrides whatever
+        # be_generate's Linux-flavoured PATH munging wrote earlier in
+        # the file.  Fallback: if path-compose.bash was not sourced
+        # for some reason, leave be_generate's PATH in place.
+        if [ -r "$final_file" ] && declare -F path_compose >/dev/null 2>&1 ; then
+            path_compose
+            {
+                printf '\n# path_compose snapshot (overrides be_generate above)\n'
+                pjb_bash_capture_path_vars
+            } >> "$final_file"
+        elif [ -n "${MSYSTEM:-}" ] && [ -r "$final_file" ] ; then
             {
                 printf '\n# MSYSTEM=%s overrides (appended after be_generate)\n' \
                        "$MSYSTEM"
-                pjb_bash_capture_msys_vars
+                pjb_bash_capture_path_vars
             } >> "$final_file"
         fi
         if [ -r "$PJB_BASH_RC_ROOT/bashrc-keys" ] ; then

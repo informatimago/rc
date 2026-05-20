@@ -417,10 +417,12 @@ function be_append_terminate(){
 
 
 function be_generate(){
-    local bindirs
-    local mandirs
+    # PATH / MANPATH / LD_LIBRARY_PATH composition lives in
+    # bash/path.d/* and bash/lib/path-compose.bash now.  This function
+    # only emits non-path scalar variables (INPUTRC, EDITOR, locale,
+    # ANSI colour codes, ...).  pjb_bash_build_env_cache appends a
+    # path_compose snapshot at the tail of the cache afterwards.
     local sharedirs
-    local lddirs
     local editors
     local list
     local value
@@ -431,105 +433,10 @@ function be_generate(){
         be_variable GEM_HOME "${opt}/gems"
     fi
 
-    # (prependIfDirectoryExist (reverse (bindings))) ==> searched in order.
-    python_major_minor=$(python --version|sed -e 's/Python \([^.]*\).\([^.]*\).\([^.]*\).*/\1.\2/')
-    bindirs=(
-        # "$HOME/esp/xtensa-esp32-elf/bin"
-        # "$HOME/Library/Python/3.10/bin"
-        "/Users/pjb/Library/Python/$python_major_minor/bin"
-        # "$HOME/anaconda3/bin"
-        # "/opt/anaconda3/bin"
-
-		# # Fucking idiotic pyenv, it can't find it's own stuff!!!
-        # "$HOME/.pyenv/bin"
-        # "$HOME/.pyenv/libexec"
-		# "$HOME/.pyenv/plugins/python-build/bin"
-
-		# Same for the idiot fucker rbenv, it can't find it's own stuff either!!!
-        "$HOME/.rbenv/bin"
-        "$HOME/.rbenv/libexec"
-        "/usr/lib/rbenv/bin"
-        "/usr/lib/rbenv/libexec"
-
-        "$HOME/.rvm/bin"  # Add RVM to PATH for scripting
-        "${GEM_HOME}/bin" # Local Ruby Gems
-
-        "$HOME/bin"
-        "$HOME/.local/bin" 
-
-        "$opt/lib/nodejs/node-v16.16.0-linux-x64/bin"
-        "$opt/bin"
-        
-        # #/data/languages/acl82express/bin
-        # /data/languages/bigloo4.1a/bin
-        # /data/languages/ccl/bin
-        # #/data/languages/clisp/bin
-        # /data/languages/cmucl/bin
-        # /data/languages/ecl/bin
-        # #/data/languages/gcl-2.6.7/bin
-        # #/data/languages/sbcl/bin
-
-        /opt/haskell-language-server/bin
-
-        /opt/local/lib/postgresql84/bin  # on galatea
-        /opt/local/lib/postgresql10/bin  # on larissa
-        /opt/local/libexec/gnubin
-        /opt/local/sbin
-        /opt/local/bin
-
-        /opt/local/libexec/rbenv
-        # /opt/*/bin
-        /opt/X11/bin
-        /opt/sbin
-        /opt/bin
-
-
-
-        /usr/local/opt/coreutils/libexec/gnubin
-        /usr/local/opt/findutils/libexec/gnubin
-        /usr/local/sbin
-        /usr/local/bin
-
-        /usr/X11R6/bin
-        /usr/X11/bin
-        /usr/games
-        /usr/sbin
-        /usr/bin
-        /sbin
-        /bin    
-    )
-
     sharedirs=(
         "$opt/*/share"
         "$opt/share"
         /opt/*/share
-    )
-
-    mandirs=(
-        "$opt/*/share/man"
-        "$opt/share/man"
-        /opt/*/share/man
-        /opt/*/man
-        /opt/local/share/man
-        /opt/local/man
-        /usr/X11R6/man
-        /usr/X11/man
-        /usr/local/share/man
-        /usr/share/man
-        /usr/man
-    )
-
-    lddirs=(
-        "$opt/*/lib"
-        "$opt/lib"
-        /opt/*/lib
-        /opt/local/lib
-        /usr/local/lib64
-        /usr/local/lib
-        /usr/X11R6/lib
-        /usr/X11/lib
-        /usr/lib
-        /lib
     )
 
     editors=(
@@ -551,8 +458,6 @@ function be_generate(){
     be_comment 'So we will have only constant variable definitions here, and this'
     be_comment 'file will be generated from ~/.bashrc from time to time...'
     be_comment ''
-
-    be_variable PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${bindirs[@]} ${PATH//:/ }))"
 
     # WARNING: CDPATH is quite a strong setting!
     # PROMPT_COMMAND='export CDPATH="$(pwd -L)"'
@@ -602,8 +507,6 @@ function be_generate(){
         fi
     fi
 
-    be_variable MANPATH         "$(joinWithSeparator \: $(prependIfDirectoryExists ${mandirs[@]} ${MANPATH//:/ }))"
-    be_variable LD_LIBRARY_PATH "$(joinWithSeparator \: $(prependIfDirectoryExists ${lddirs[@]}  ${LD_LIBRARY_PATH//: / }))"
     if [ -d /usr/lib/x86_64-linux-gnu/pkgconfig/ ] ; then
         be_variable PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig
     fi
