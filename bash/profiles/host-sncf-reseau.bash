@@ -21,6 +21,6 @@ export JIRA_USER_NAME=PPBN02261
 #export EPURE_INSTALL_DIR="c:\\EPURE2022-pjb"
 export EPURE_INSTALL_DIR="c:\\EPURE2022"
 export MSBUILD_PATH="C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
-echo '!!! We need to re-source .bashrc-schms-functions after modifying !!!'
-echo '!!! these environment variables                                  !!!'
-source "$HOME/.bashrc-schms-functions"
+# echo '!!! We need to re-source .bashrc-schms-functions after modifying !!!'
+# echo '!!! these environment variables                                  !!!'
+[ -r "$HOME/.bashrc-schms-functions" ] && source "$HOME/.bashrc-schms-functions"
