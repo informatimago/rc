@@ -30,6 +30,14 @@ function pjb_bash_env_cache_sources(){
     done
 }
 
+case "$BASH_VERSION" in
+([123].*)
+    if [ -r "$PJB_BASH_RC_ROOT/bash/lib/bash-3.bash" ] ; then
+        source "$PJB_BASH_RC_ROOT/bash/lib/bash-3.bash"
+    fi
+    ;;
+esac
+
 function pjb_bash_env_cache_stale_p(){
     local sources newer
 

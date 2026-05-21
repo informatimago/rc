@@ -45,9 +45,18 @@
 
 # -- state ---------------------------------------------------------------
 
-declare -ga PJB_PATH_BUF
-declare -ga PJB_MANPATH_BUF
-declare -ga PJB_INFOPATH_BUF
+case "$BASH_VERSION" in
+([123].*)
+    declare -a PJB_PATH_BUF
+    declare -a PJB_MANPATH_BUF
+    declare -a PJB_INFOPATH_BUF
+    ;;
+(*)    
+    declare -ga PJB_PATH_BUF
+    declare -ga PJB_MANPATH_BUF
+    declare -ga PJB_INFOPATH_BUF
+    ;;
+esac
 
 # -- layer-facing API ----------------------------------------------------
 
