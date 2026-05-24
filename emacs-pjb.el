@@ -179,7 +179,8 @@
  '(calendar-hebrew-all-holidays-flag nil)
  '(calendar-mark-holidays-flag t)
  '(calendar-time-display-form
-   '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")) t)
+   '(24-hours ":" minutes (if time-zone " (") time-zone
+     (if time-zone ")")) t)
  '(calendar-view-holidays-initially-flag t)
  '(calendar-week-start-day 1)
  '(canlock-password "87f2de14edf31a9ebb2c5b5619c818a49937a47b")
@@ -232,25 +233,25 @@
  '(enable-recursive-minibuffers t)
  '(erc-autojoin-channels-alist
    '(("libera.chat" "#lisp" "#commonlisp" "#interlisp" "#clschool"
-      "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs" "#slime"
-      "#lisppub" "#lispweb" "#lispgames" "#common-lisp.net" "#nyxt"
-      "#cl-naive" "#clergo" "#emacs" "#org-mode" "#erc" "#gnus" "#hn"
-      "#space" "#emacsfr-off")
-     ("libera" "#lisp" "#commonlisp" "#interlisp" "#clschool" "#lisp-es"
-      "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs" "#slime" "#lisppub"
-      "#lispweb" "#lispgames" "#common-lisp.net" "#nyxt" "#cl-naive"
-      "#clergo" "#emacs" "#org-mode" "#erc" "#gnus" "#hn" "#space"
-      "#emacsfr-off")
-     ("freenode.org" "##Freelancers" "##binutils" "##cinema" "##coders"
-      "##coding" "##france" "#lisp" "##lisp" "##sci-fi" "##smalltalk"
-      "##tesla" "##teslamotors" "##teslamotors-staging" "##trains"
-      "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl" "#cl"
-      "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol" "#cpp"
-      "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr-off" "#haskell"
-      "#haskell-fr" "#hn" "#iphonedev" "#iphonedev-chat" "#lisp-es"
-      "#lispcafe" "#lispgames" "#lispweb" "#lispx" "#macintosh"
-      "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime" "#space"
-      "#swift-lang" "#synthesizers" "#tesla")
+      "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs"
+      "#slime" "#lisppub" "#lispweb" "#lispgames" "#common-lisp.net"
+      "#nyxt" "#cl-naive" "#clergo" "#emacs" "#org-mode" "#erc"
+      "#gnus" "#hn" "#space" "#emacsfr-off")
+     ("libera" "#lisp" "#commonlisp" "#interlisp" "#clschool"
+      "#lisp-es" "#abcl" "#ccl" "#ecl" "#sicl" "#clim" "#clcs"
+      "#slime" "#lisppub" "#lispweb" "#lispgames" "#common-lisp.net"
+      "#nyxt" "#cl-naive" "#clergo" "#emacs" "#org-mode" "#erc"
+      "#gnus" "#hn" "#space" "#emacsfr-off")
+     ("freenode.org" "##Freelancers" "##binutils" "##cinema"
+      "##coders" "##coding" "##france" "#lisp" "##lisp" "##sci-fi"
+      "##smalltalk" "##tesla" "##teslamotors" "##teslamotors-staging"
+      "##trains" "##ufo" "##workingset" "#abcl" "#bourguinux" "#ccl"
+      "#cl" "#cl-bodge" "#clcs" "#clim" "#clschool" "#clus" "#cobol"
+      "#cpp" "#cuda" "#ecl" "#emacs" "#emacsconf" "#emacsfr-off"
+      "#haskell" "#haskell-fr" "#hn" "#iphonedev" "#iphonedev-chat"
+      "#lisp-es" "#lispcafe" "#lispgames" "#lispweb" "#lispx"
+      "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime"
+      "#space" "#swift-lang" "#synthesizers" "#tesla")
      ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX")
      ("sbde.fr" "#laboite" "#sbde") ("oftc.net" "#uml")))
  '(erc-autojoin-delay 60)
@@ -315,9 +316,10 @@
      (Chatpinoy "chatpinoy.com") (ChatPR "chatpr.org")
      (Chatroom "chatroom.org") (Chatster "chatster.org")
      (ChatX "chatx.net") (China263 "263.net")
-     (Cineplex1 "cineplex1.com") (CNN "cnn.com") (CobraNet "cobra.net")
-     (Coolchat "coolchat.net") (Criten "criten.net")
-     (Cyberchat "cyberchat.org") (CyGanet "cyga.net") (DALnet "dal.net")
+     (Cineplex1 "cineplex1.com") (CNN "cnn.com")
+     (CobraNet "cobra.net") (Coolchat "coolchat.net")
+     (Criten "criten.net") (Cyberchat "cyberchat.org")
+     (CyGanet "cyga.net") (DALnet "dal.net")
      (Dark-Tou-Net "d-t-net.de") (Darkfire "darkfire.net")
      (DarkMyst "darkmyst.org") (Darkserv "darkserv.net")
      (Darksystem "darksystem.com") (Darktree "darktree.net")
@@ -330,17 +332,18 @@
      (EgyptianIRC "egyptianirc.net") (Eircnet "eircnet.org")
      (Eleethal "eleethal.com") (EntertheGame "enterthegame.com")
      (EpiKnet "epiknet.org") (EsperNet "esper.net")
-     (Esprit "esprit.net") (euIRC "euirc.net") (Evilzinc "evilzinc.net")
-     (ExodusIRC "exodusirc.net") (FDFnet "fdfnet.net")
-     (FEFnet "fef.net") (Financialchat "financialchat.com")
-     (Forestnet "forestnet.org") (ForeverChat "foreverchat.net")
-     (Fraggers "fraggers.co.uk") (FreedomChat "freedomchat.net")
-     (FreedomIRC "freedomirc.net") (freenode "freenode.net")
-     (FunNet "funnet.org") (GalaxyNet "galaxynet.org")
-     (Gamesnet "gamesnet.net") (GammaForce "gammaforce.org")
-     (GIKInet "giki.edu.pk") (GizNet "giznet.org")
-     (Globalchat "globalchat.org") (GlobIRC "globirc.net")
-     (Goldchat "goldchat.nl") (Goodchatting "goodchatting.com")
+     (Esprit "esprit.net") (euIRC "euirc.net")
+     (Evilzinc "evilzinc.net") (ExodusIRC "exodusirc.net")
+     (FDFnet "fdfnet.net") (FEFnet "fef.net")
+     (Financialchat "financialchat.com") (Forestnet "forestnet.org")
+     (ForeverChat "foreverchat.net") (Fraggers "fraggers.co.uk")
+     (FreedomChat "freedomchat.net") (FreedomIRC "freedomirc.net")
+     (freenode "freenode.net") (FunNet "funnet.org")
+     (GalaxyNet "galaxynet.org") (Gamesnet "gamesnet.net")
+     (GammaForce "gammaforce.org") (GIKInet "giki.edu.pk")
+     (GizNet "giznet.org") (Globalchat "globalchat.org")
+     (GlobIRC "globirc.net") (Goldchat "goldchat.nl")
+     (Goodchatting "goodchatting.com")
      (GravityLords "gravitylords.net") (GRnet "irc.gr")
      (GulfChat "gulfchat.net") (HabberNet "habber.net")
      (HanIRC "hanirc.org") (Hellenicnet "mirc.gr")
@@ -356,12 +359,12 @@
      (Irctoo "irctoo.net") (IRCtown "irc.irctown.net")
      (IRCworld "ircworld.org") (ircXtreme "ircXtreme.net")
      (Israelnet "israel.net") (K0wNet "k0w.net") (KDFSnet "kdfs.net")
-     (Kemik "kemik.net") (Kewl.Org "kewl.org") (Kickchat "kickchat.com")
-     (KidsWorld "kidsworld.org") (Knightnet "knightnet.net")
-     (Konfido.Net "konfido.net") (Kreynet "krey.net")
-     (Krono "krono.net") (Krushnet "krushnet.org")
-     (LagNet "lagnet.org.za") (Librenet "librenet.net")
-     (LinkNet "link-net.org")
+     (Kemik "kemik.net") (Kewl.Org "kewl.org")
+     (Kickchat "kickchat.com") (KidsWorld "kidsworld.org")
+     (Knightnet "knightnet.net") (Konfido.Net "konfido.net")
+     (Kreynet "krey.net") (Krono "krono.net")
+     (Krushnet "krushnet.org") (LagNet "lagnet.org.za")
+     (Librenet "librenet.net") (LinkNet "link-net.org")
      (LinuxChix "cats\\.meow\\.at\\|linuxchix\\.org")
      (Liquidized "liquidized.net") (M-IRC "m-sys.org")
      (MagicStar "magicstar.net") (Mavra "mavra.net")
@@ -396,7 +399,8 @@
      (SpaceTronix "spacetronix.net")
      (Spirit-Harmony "spirit-harmony.com") (StarChat "starchat.net")
      (StarEquinox "starequinox.net") (Starlink "starlink.net")
-     (starlink-irc "starlink-irc.org") (StarWars-IRC "starwars-irc.net")
+     (starlink-irc "starlink-irc.org")
+     (StarWars-IRC "starwars-irc.net")
      (Stormdancing "stormdancing.net") (Superchat "superchat.org")
      (Sysopnet "sysopnet.org") (Telstra "telstra.com")
      (TR-net "dominet.com.tr") (Tri-net "tri-net.org")
@@ -413,8 +417,8 @@
      (WinIRC "winirc.org") (WorldIRC "worldirc.org")
      (WyldRyde "wyldryde.net") (XentoniX "xentonix.net")
      (Xevion "xevion.net") (XNet "xnet.org") (XWorld "xworld.org")
-     (ZAnetNet "zanet.net") (ZAnetOrg "zanet.org.za") (ZiRC "zirc.org")
-     (ZUHnet "zuh.net") (Zurna "zurna.net")))
+     (ZAnetNet "zanet.net") (ZAnetOrg "zanet.org.za")
+     (ZiRC "zirc.org") (ZUHnet "zuh.net") (Zurna "zurna.net")))
  '(erc-nick '("pab"))
  '(erc-notice-prefix "   *** ")
  '(erc-pals '("bolet.*" "Posterdati" "martinl"))
@@ -457,9 +461,9 @@
  '(focus-follows-mouse nil)
  '(font-lock-extra-types
    '("FILE" "\\sw+_t" "[A-Z][A-Za-z]+[A-Z][A-Za-z0-9]+" "bool" "INT8"
-     "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32" "CARD64"
-     "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS" "CSTRING255"
-     "CSTRING63" "CSTRING31" "BOOLEAN") t)
+     "INT16" "INT32" "INT64" "INTPTR" "CARD8" "CARD16" "CARD32"
+     "CARD64" "CARDPTR" "SignT" "CHAR" "UNICODE" "DECIMAL" "ADDRESS"
+     "CSTRING255" "CSTRING63" "CSTRING31" "BOOLEAN") t)
  '(font-lock-maximum-decoration t)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-article-loose-mime t)
@@ -490,33 +494,34 @@
      "^X-Mail2News-Path:" "^X-Server-Date:" "^X-Cache:" "^Originator:"
      "^X-Problems-To:" "^X-Auth-User:" "^X-Post-Time:" "^X-Admin:"
      "^X-UID:" "^Resent-[-A-Za-z]+:" "^X-Mailing-List:" "^Precedence:"
-     "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:" "^Old-Received:"
-     "^X-Pgp:" "^X-Auth:" "^X-From-Line:" "^X-Gnus-Article-Number:"
-     "^X-Majordomo:" "^X-Url:" "^X-Sender:" "^MBOX-Line:" "^Priority:"
-     "^X400-[-A-Za-z]+:" "^Status:" "^X-Gnus-Mail-Source:"
-     "^Cancel-Lock:" "^X-FTN:" "^X-EXP32-SerialNo:" "^Encoding:"
-     "^Importance:" "^Autoforwarded:"
-     "^Original-Encoded-Information-Types:" "^X-Ya-Pop3:"
-     "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:" "^X-ML-COUNT:"
-     "^Mailing-List:" "^X-finfo:" "^X-md5sum:" "^X-md5sum-Origin:"
-     "^X-Sun-Charset:" "^X-Accept-Language:" "^X-Envelope-Sender:"
-     "^List-[A-Za-z]+:" "^X-Listprocessor-Version:" "^X-Received:"
-     "^X-Distribute:" "^X-Sequence:" "^X-Juno-Line-Breaks:"
-     "^X-Notes-Item:" "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:"
-     "^X-Received:" "^Content-length:" "^X-precedence:"
-     "^X-Authenticated-User:" "^X-Comment:" "^X-Report:"
-     "^X-Abuse-Info:" "^X-HTTP-Proxy:" "^X-Mydeja-Info:" "^X-Copyright:"
-     "^X-No-Markup:" "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:"
-     "^Errors-To:" "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:"
-     "^List-Post:" "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:"
+     "^Original-[-A-Za-z]+:" "^X-filename:" "^X-Orcpt:"
+     "^Old-Received:" "^X-Pgp:" "^X-Auth:" "^X-From-Line:"
+     "^X-Gnus-Article-Number:" "^X-Majordomo:" "^X-Url:" "^X-Sender:"
+     "^MBOX-Line:" "^Priority:" "^X400-[-A-Za-z]+:" "^Status:"
+     "^X-Gnus-Mail-Source:" "^Cancel-Lock:" "^X-FTN:"
+     "^X-EXP32-SerialNo:" "^Encoding:" "^Importance:"
+     "^Autoforwarded:" "^Original-Encoded-Information-Types:"
+     "^X-Ya-Pop3:" "^X-Face-Version:" "^X-Vms-To:" "^X-ML-NAME:"
+     "^X-ML-COUNT:" "^Mailing-List:" "^X-finfo:" "^X-md5sum:"
+     "^X-md5sum-Origin:" "^X-Sun-Charset:" "^X-Accept-Language:"
+     "^X-Envelope-Sender:" "^List-[A-Za-z]+:"
+     "^X-Listprocessor-Version:" "^X-Received:" "^X-Distribute:"
+     "^X-Sequence:" "^X-Juno-Line-Breaks:" "^X-Notes-Item:"
+     "^X-MS-TNEF-Correlator:" "^x-uunet-gateway:" "^X-Received:"
+     "^Content-length:" "^X-precedence:" "^X-Authenticated-User:"
+     "^X-Comment:" "^X-Report:" "^X-Abuse-Info:" "^X-HTTP-Proxy:"
+     "^X-Mydeja-Info:" "^X-Copyright:" "^X-No-Markup:"
+     "^X-Abuse-Info:" "^X-From_:" "^X-Accept-Language:" "^Errors-To:"
+     "^X-BeenThere:" "^X-Mailman-Version:" "^List-Help:" "^List-Post:"
+     "^List-Subscribe:" "^List-Id:" "^List-Unsubscribe:"
      "^List-Archive:" "^X-Content-length:" "^X-Posting-Agent:"
      "^Original-Received:" "^X-Request-PGP:" "^X-Fingerprint:"
      "^X-WRIEnvto:" "^X-WRIEnvfrom:" "^X-Virus-Scanned:"
      "^X-Delivery-Agent:" "^Posted-Date:" "^X-Gateway:"
      "^X-Local-Origin:" "^X-Local-Destination:" "^X-UserInfo1:"
      "^X-Received-Date:" "^X-Hashcash:" "^Face:"
-     "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:" "^X-Postfilter:"
-     "^X-Gpg-.*:" "^X-Disclaimer:"))
+     "^X-DMCA-Notifications:" "^X-Abuse-and-DMCA-Info:"
+     "^X-Postfilter:" "^X-Gpg-.*:" "^X-Disclaimer:"))
  '(gnus-message-setup-hook '(pjb-gnus-message-setup-meat))
  '(gnus-nntp-server nil)
  '(gnus-play-startup-jingle nil)
@@ -531,9 +536,9 @@
  '(gnus-visible-headers
    '("^From:" "^Newsgroups:" "^Subject:" "^Date:" "^Followup-To:"
      "^Reply-To:" "^Organization:" "^Summary:" "^Keywords:" "^To:"
-     "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:" "^Mail-Followup-To:"
-     "^Apparently-To:" "^Gnus-Warning:" "^Resent-From:" "^Message-ID:"
-     "^X-Sent:"))
+     "^[BGF]?Cc:" "^Posted-To:" "^Mail-Copies-To:"
+     "^Mail-Followup-To:" "^Apparently-To:" "^Gnus-Warning:"
+     "^Resent-From:" "^Message-ID:" "^X-Sent:"))
  '(gnutls-verify-error t)
  '(grep-command "grep -niH -e ")
  '(gud-gdb-command-name "gdb --annotate=1")
@@ -543,11 +548,12 @@
      "#2d87441c3362" "#43b7362e3199" "#061e418059d7"))
  '(highlight-symbol-foreground-color "#93a1a1")
  '(highlight-tail-colors
-   '((#1="#073642" . 0) ("#5b7300" . 20) ("#007d76" . 30) ("#0061a8" . 50)
-     ("#866300" . 60) ("#992700" . 70) ("#a00559" . 85) (#1# . 100)))
+   '((#1="#073642" . 0) ("#5b7300" . 20) ("#007d76" . 30)
+     ("#0061a8" . 50) ("#866300" . 60) ("#992700" . 70)
+     ("#a00559" . 85) (#1# . 100)))
  '(hl-bg-colors
-   '("#866300" "#992700" "#a7020a" "#a00559" "#243e9b" "#0061a8" "#007d76"
-     "#5b7300"))
+   '("#866300" "#992700" "#a7020a" "#a00559" "#243e9b" "#0061a8"
+     "#007d76" "#5b7300"))
  '(hl-fg-colors '(#1="#002b36" #1# #1# #1# #1# #1# #1# #1#))
  '(hl-paren-colors
    '("red" "orange" "yellow" "green" "blue" "violet" "gray" "gray" "gray"
@@ -604,8 +610,9 @@
      (holiday-fixed 8 10 "Kiteri (fille de Camille)")
      (holiday-fixed 9 10 "Remy Rouit")
      (holiday-fixed 8 7 "Valerie Saubot-Rouit")
-     (holiday-fixed 1 6 "Los Reyes") (holiday-fixed 6 9 "Santa Murcia")
-     (holiday-fixed 7 25 "Fiesta?") (holiday-fixed 10 12 "Los Reyes")
+     (holiday-fixed 1 6 "Los Reyes")
+     (holiday-fixed 6 9 "Santa Murcia") (holiday-fixed 7 25 "Fiesta?")
+     (holiday-fixed 10 12 "Los Reyes")
      (holiday-fixed 12 6 "Fiesta de la Consitución")
      (holiday-fixed 7 14 "Fête Nationale France")))
  '(ido-enable-flex-matching nil)
@@ -694,8 +701,8 @@
  '(next-screen-context-lines 0)
  '(nntp-authinfo-file "~/.authinfo")
  '(nrepl-message-colors
-   '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198"
-     "#d33682" "#6c71c4"))
+   '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8"
+     "#2aa198" "#d33682" "#6c71c4"))
  '(org-adapt-indentation nil)
  '(org-agenda-files
    '("~/rc/notes.txt" "~/works/sbde/todo.org"
@@ -703,7 +710,8 @@
      "~/works/sbde/laboite/specifications/components.org"
      "~/works/sbde/laboite/analysis/controller.org"
      "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt"
-     "~/works/enolaba/macosx/src/TODO" "~/src/pjb/nasium-lse/ISSUES.txt"
+     "~/works/enolaba/macosx/src/TODO"
+     "~/src/pjb/nasium-lse/ISSUES.txt"
      "~/works/patchwork/src/mclgui/TODO.org"
      "~/works/patchwork/src/patchwork/notes.txt"
      "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
@@ -713,8 +721,8 @@
  '(org-latex-remove-logfiles nil)
  '(org-startup-with-inline-images t)
  '(org-todo-keywords
-   '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|" "DEFER(x@)"
-      "DONE(d@)" "CANCELED(c@)")))
+   '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|"
+      "DEFER(x@)" "DONE(d@)" "CANCELED(c@)")))
  '(package-selected-packages nil)
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
@@ -765,18 +773,21 @@
      (eval put 'test-js-eval 'common-lisp-indent-function 1)
      (eval put 'test-ps-js 'common-lisp-indent-function 1)
      (Package . JSON) (Syntax . ANSI-COMMON-LISP) (package . puri)
-     (org-edit-src-content-indentation 0) (whitespace-line-column . 80)
+     (org-edit-src-content-indentation 0)
+     (whitespace-line-column . 80)
      (lsp-file-watch-ignored-directories "[/\\\\]\\.git$"
-      "[/\\\\]\\..*cache$" "[/\\\\]\\.deps$" "[/\\\\]autom4te\\.cache$"
-      "[/\\\\]build-aux$" "[/\\\\]doc[/\\\\]manual$"
-      "[/\\\\]tests[/\\\\]work$" "[/\\\\]make-[0-9]")
+      "[/\\\\]\\..*cache$" "[/\\\\]\\.deps$"
+      "[/\\\\]autom4te\\.cache$" "[/\\\\]build-aux$"
+      "[/\\\\]doc[/\\\\]manual$" "[/\\\\]tests[/\\\\]work$"
+      "[/\\\\]make-[0-9]")
      (ccls-initialization-options :index
       (:threads 6 :initialBlacklist
        ["/make-[0-9]" "tests/work/" "/\\.deps" "/\\..*cache" "/\\.git"]))
      (Package PPC32 :use CL) (Package PPC64 :use CL)
      (auto-fill-mode . 1)
      (eval setq org-latex-default-packages-alist
-      (cons '("mathletters" "ucs" nil) org-latex-default-packages-alist))
+      (cons '("mathletters" "ucs" nil)
+       org-latex-default-packages-alist))
      (org-latex-inputenc-alist ("utf8" . "utf8x")) (Package . FIVEAM)
      (Syntax . Ansi-Common-Lisp)
      (eval cl-flet
@@ -811,7 +822,8 @@
                                             (concat prefix "-" keyword))
                                            t)
                                           "\\s-+\\("
-                                          lisp-mode-symbol-regexp "\\)"))
+                                          lisp-mode-symbol-regexp
+                                          "\\)"))
                                  2))))))
       (enhance-imenu-lisp '("bookmarklet-command" "define")
        '("class" "define") '("command" "define")
@@ -828,22 +840,24 @@
      (view-mode . t) (Package X86 :use CL)
      (Package . TRIVIAL-GRAY-STREAMS) (Log . clx.log) (Package . Xlib)
      (Package . SYSTEM) (Package . CLIM-POSTSCRIPT)
-     (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk)
+     (Package . MCCLIM-TRUETYPE) (Package nstep)
+     (Package discrete-walk)
      (Package bandits :use (common-lisp ccl ut)) (Package cl-user)
      (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut))
      (mode:scheme:mode . paredit) (Package . USOCKET)
      (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp)
      (flycheck . -1) (flycheck-mode . -1) (package . user)
-     (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp))
+     (eval cl-indent 'for-all-cell 1)
+     (Package JPEG :use (common-lisp))
      (org-plantuml-jar-path . "../tools/plantuml.jar")
      (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar")
      (org-todo-keywords
       (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|"
        "DONE(d@)" "CANCELED(c@)"))
      (package . com.informatimago.languages.linc.c)
-     (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1)
-     (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1)
-     (c-file-offsets (innamespace . 0))
+     (eval cl-indent 'define-function 3)
+     (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1)
+     (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0))
      (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1))
       (not :APPEND) :BUFFER-LOCAL)
      (swift-basic-offset . 2)
@@ -855,10 +869,12 @@
           (or (featurep 'swift-project-settings)
               (and (fboundp 'tramp-tramp-file-p)
                    (tramp-tramp-file-p this-directory)))
-        (add-to-list 'load-path (concat this-directory "utils") :append)
+        (add-to-list 'load-path (concat this-directory "utils")
+                     :append)
         (let ((swift-project-directory this-directory))
           (require 'swift-project-settings)))
-      (set (make-local-variable 'swift-project-directory) this-directory))
+      (set (make-local-variable 'swift-project-directory)
+       this-directory))
      (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE)
      (eval set-input-method 'latin-1-prefix)
      (org-confirm-babel-evaluate lambda (lang body)
@@ -894,12 +910,14 @@
      (eval let
       ((inhibit-read-only t) (compilation-filter-start (point-min)))
       (save-excursion
-       (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil)))
+       (goto-char (point-max)) (grep-filter)
+       (set-buffer-modified-p nil)))
      (eval cl-indent 'defmeth 3) (eval buttonize-buffer)
      (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1)
      (eval cl-indent 'cvm-define-structure 2)
      (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0)
-     (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1)
+     (eval cl-indent 'when-debug 1)
+     (eval cl-indent 'with-generation 1)
      (eval cl-indent 'with-gc-lock 0)
      (eval cl-indent 'define-common-structure 1)
      (eval cl-indent 'defenum 1)
@@ -909,7 +927,8 @@
       '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))
      (eval when (fboundp 'asm7090) (asm7090))
      (eval cl-indent 'defcommand 3)
-     (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line)
+     (eval progn
+      (local-set-key (kbd "<kp-divide>") #'lisp-indent-line)
       (local-set-key (kbd "<kp-multiply>")
        (lambda nil (interactive) (insert (kbd "SPC"))))
       (local-set-key (kbd "<XF86_Ungrab>")
@@ -933,22 +952,24 @@
      (view-mode . t) (Package X86 :use CL)
      (Package . TRIVIAL-GRAY-STREAMS) (Log . clx.log) (Package . Xlib)
      (Package . SYSTEM) (Package . CLIM-POSTSCRIPT)
-     (Package . MCCLIM-TRUETYPE) (Package nstep) (Package discrete-walk)
+     (Package . MCCLIM-TRUETYPE) (Package nstep)
+     (Package discrete-walk)
      (Package bandits :use (common-lisp ccl ut)) (Package cl-user)
      (Package rss-utilities :use (common-lisp ccl) :nicknames (:ut))
      (mode:scheme:mode . paredit) (Package . USOCKET)
      (Package . BORDEAUX-THREADS) (Syntax . ANSI-Common-lisp)
      (flycheck . -1) (flycheck-mode . -1) (package . user)
-     (eval cl-indent 'for-all-cell 1) (Package JPEG :use (common-lisp))
+     (eval cl-indent 'for-all-cell 1)
+     (Package JPEG :use (common-lisp))
      (org-plantuml-jar-path . "../tools/plantuml.jar")
      (org-plantuml-jar-path expand-file-name "../tools/plantuml.jar")
      (org-todo-keywords
       (sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|"
        "DONE(d@)" "CANCELED(c@)"))
      (package . com.informatimago.languages.linc.c)
-     (eval cl-indent 'define-function 3) (eval cl-indent 'define-type 1)
-     (eval cl-indent 'define-module 1) (eval cl-indent 'in-parens 1)
-     (c-file-offsets (innamespace . 0))
+     (eval cl-indent 'define-function 3)
+     (eval cl-indent 'define-type 1) (eval cl-indent 'define-module 1)
+     (eval cl-indent 'in-parens 1) (c-file-offsets (innamespace . 0))
      (eval add-hook 'prog-mode-hook (lambda nil (whitespace-mode 1))
       (not :APPEND) :BUFFER-LOCAL)
      (swift-basic-offset . 2)
@@ -960,10 +981,12 @@
           (or (featurep 'swift-project-settings)
               (and (fboundp 'tramp-tramp-file-p)
                    (tramp-tramp-file-p this-directory)))
-        (add-to-list 'load-path (concat this-directory "utils") :append)
+        (add-to-list 'load-path (concat this-directory "utils")
+                     :append)
         (let ((swift-project-directory this-directory))
           (require 'swift-project-settings)))
-      (set (make-local-variable 'swift-project-directory) this-directory))
+      (set (make-local-variable 'swift-project-directory)
+       this-directory))
      (Package . CHUNGA) (Package ARCH :use CL) (Package . CL-UNICODE)
      (eval set-input-method 'latin-1-prefix)
      (org-confirm-babel-evaluate lambda (lang body)
@@ -999,12 +1022,14 @@
      (eval let
       ((inhibit-read-only t) (compilation-filter-start (point-min)))
       (save-excursion
-       (goto-char (point-max)) (grep-filter) (set-buffer-modified-p nil)))
+       (goto-char (point-max)) (grep-filter)
+       (set-buffer-modified-p nil)))
      (eval cl-indent 'defmeth 3) (eval buttonize-buffer)
      (eval cl-indent 'cvm-do-symbols 1) (eval cl-indent 'cvm-dolist 1)
      (eval cl-indent 'cvm-define-structure 2)
      (eval cl-indent 'raw-memory:WITH-SIGSEG-HANDLER 0)
-     (eval cl-indent 'when-debug 1) (eval cl-indent 'with-generation 1)
+     (eval cl-indent 'when-debug 1)
+     (eval cl-indent 'with-generation 1)
      (eval cl-indent 'with-gc-lock 0)
      (eval cl-indent 'define-common-structure 1)
      (eval cl-indent 'defenum 1)
@@ -1014,7 +1039,8 @@
       '((&whole 6 1 1 1 1 1 1) &rest (&whole 2 1 1 1 1 1 1 1 1 1 1 1)))
      (eval when (fboundp 'asm7090) (asm7090))
      (eval cl-indent 'defcommand 3)
-     (eval progn (local-set-key (kbd "<kp-divide>") #'lisp-indent-line)
+     (eval progn
+      (local-set-key (kbd "<kp-divide>") #'lisp-indent-line)
       (local-set-key (kbd "<kp-multiply>")
        (lambda nil (interactive) (insert (kbd "SPC"))))
       (local-set-key (kbd "<XF86_Ungrab>")
@@ -1091,13 +1117,14 @@
  '(vc-annotate-background "snow1")
  '(vc-annotate-background-mode nil)
  '(vc-annotate-color-map
-   '((4.943848 . "#0000f0") (10.217285 . "#0000e0") (15.490723 . "#0000d0")
-     (20.76416 . "#0000c0") (26.037598 . "#0000b0")
-     (31.311035 . "#0000a0") (36.584473 . "#000090")
-     (41.85791 . "#000080") (47.131348 . "#000070")
-     (52.404785 . "#000060") (57.678223 . "#000050")
-     (62.95166 . "#000040") (68.225098 . "#000030")
-     (73.498535 . "#000020") (78.771973 . "#000010")))
+   '((4.943848 . "#0000f0") (10.217285 . "#0000e0")
+     (15.490723 . "#0000d0") (20.76416 . "#0000c0")
+     (26.037598 . "#0000b0") (31.311035 . "#0000a0")
+     (36.584473 . "#000090") (41.85791 . "#000080")
+     (47.131348 . "#000070") (52.404785 . "#000060")
+     (57.678223 . "#000050") (62.95166 . "#000040")
+     (68.225098 . "#000030") (73.498535 . "#000020")
+     (78.771973 . "#000010")))
  '(vc-annotate-very-old-color "#000000")
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
@@ -1135,18 +1162,20 @@
  '(vm-mime-8bit-text-transfer-encoding '8bit)
  '(vm-mime-alternative-select-method '(favorite-internal "text/enriched" "text/plain"))
  '(vm-mime-attachment-auto-suffix-alist
-   '(("image/tiff" . ".tif") ("image/jpeg" . ".jpg") ("image/gif" . ".gif")
-     ("image/png" . ".png") ("text/html" . ".html")
-     ("audio/basic" . ".au") ("video/mpeg" . ".mpg")
-     ("video/quicktime" . ".mov") ("application/postscript" . ".ps")
-     ("application/pdf" . ".pdf") ("application/vnd.ms-excel" . ".xls")
-     ("application/mac-binhex40" . ".hqx") ("application/pdf" . ".pdf")
-     ("application/zip" . ".zip")))
+   '(("image/tiff" . ".tif") ("image/jpeg" . ".jpg")
+     ("image/gif" . ".gif") ("image/png" . ".png")
+     ("text/html" . ".html") ("audio/basic" . ".au")
+     ("video/mpeg" . ".mpg") ("video/quicktime" . ".mov")
+     ("application/postscript" . ".ps") ("application/pdf" . ".pdf")
+     ("application/vnd.ms-excel" . ".xls")
+     ("application/mac-binhex40" . ".hqx")
+     ("application/pdf" . ".pdf") ("application/zip" . ".zip")))
  '(vm-mime-default-face-charsets
    '("us-ascii" "iso-8859-1" "iso-8859-15" "win-1250" "ANSI_X3.4-1968"))
  '(vm-mime-external-content-types-alist
    '(("application/pdf" "acroread") ("image/gif" "xview")
-     ("image/jpg" "xview") ("image/tiff" "xview") ("image/jpeg" "xview")))
+     ("image/jpg" "xview") ("image/tiff" "xview")
+     ("image/jpeg" "xview")))
  '(vm-mime-use-w3-for-text/html t)
  '(vm-mutable-frames nil)
  '(vm-preview-lines nil)
