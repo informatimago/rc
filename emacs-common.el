@@ -1322,7 +1322,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 ;; (unless (featurep 'eshell-auto)
 ;;   (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
 ;; (defun pjb-eshell-load-meat ()
-;;   (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+;;   (when (fboundp 'company-mode) (company-mode 1))
 ;;   ;; (defun string (&rest chars)
 ;;   ;;   (do ((s (make-string (length chars) 0))
 ;;   ;;        (ch chars (cdr ch))
@@ -1357,7 +1357,7 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (setf comint-process-echoes nil)
   (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
   (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
-  ;; (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  ;; (when (fboundp 'company-mode) (company-mode 1))
   (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
@@ -1396,11 +1396,17 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
   (elscreen-toggle-display-tab))
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "AUTO-COMPLETE-MODE")
-(require 'auto-complete nil t)
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
-  (ac-config-default))
+(.EMACS "COMPANY-MODE")
+;; Replaced auto-complete-mode (broken under Emacs 30: its obarray-
+;; backed sources hit (wrong-type-argument sequencep #<obarray>)
+;; because obarrays are no longer sequencep). company-mode handles
+;; the new opaque-obarray API correctly and is the modern Emacs
+;; default. global-company-mode mirrors the previous ac-config-default
+;; / global-auto-complete-mode scope so completion fires in the same
+;; set of modes without per-mode hook plumbing.
+(require 'company nil t)
+(when (fboundp 'global-company-mode)
+  (global-company-mode 1))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "ORG-MODE")
@@ -2579,11 +2585,11 @@ in the current directory, or in a parent."
 ;;;----------------------------------------------------------------------------
 (defun pjb-mail-mode-meat ()
   (message "mail-mode-meat")
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+  ;; (when (fboundp 'company-mode) (company-mode 1))
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
-  (when (fboundp 'auto-complete-mode) (auto-complete-mode -1))
+  ;; (when (fboundp 'company-mode) (company-mode -1))
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 
@@ -2961,7 +2967,7 @@ License:
     (when (and (pjb-c-mode-file-p filename)
                (not (pjb-force-linux-tabulation-file-p filename))
                (not (string-match "/hypervisor/" filename)))
-      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (when (fboundp 'company-mode) (company-mode 1))
       (infer-indentation-style)
       (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) filename))
                                    *auto-c-style-alist*))))
