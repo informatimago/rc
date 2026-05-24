@@ -20,3 +20,5 @@ fi
 path_add /opt/local/sbin
 path_add /opt/local/bin
 path_add /opt/X11/bin
+
+path_add /usr/local/share/dotnet
