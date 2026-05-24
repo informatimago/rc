@@ -78,7 +78,7 @@
     (when (and (not (pjb-c-mode-file-p filename))
                (pjb-force-linux-tabulation-file-p filename)
                (not (string-match "/hypervisor/" filename)))
-      (when (fboundp 'auto-complete-mode) (auto-complete-mode 1))
+      (when (fboundp 'company-mode) (company-mode 1))
       (setq tab-width 8)
       (setq indent-tabs-mode t)
       (setq show-trailing-whitespace t)

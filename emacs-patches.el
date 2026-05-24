@@ -20,7 +20,22 @@ If FRAME is nil, that stands for the selected frame."
                (mapcar 'car (tty-color-alist frame)))
            :key (function color-values)))
 
+;; auto-complete pre-30 obarray compatibility shim — convert obarrays
+;; to their symbol list before AC tries to sequence-iterate them.
+(with-eval-after-load 'auto-complete
+  (defun my/ac-symbols-source (&rest _)
+    (let ((acc '()))
+      (mapatoms (lambda (s) (push (symbol-name s) acc)) obarray)
+      acc))
+  (when (boundp 'ac-source-symbols)
+    (setq ac-source-symbols
+          '((candidates . my/ac-symbols-source)
+            (cache)))))
+
+
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)
 ;; End:
+
