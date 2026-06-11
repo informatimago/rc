@@ -1335,6 +1335,7 @@
    )
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
+(load "~/rc/emacs-authinfo.el") ; get-apikey / get-authinfo-password
 (load "~/rc/emacs-copilot.el")
 (load "~/rc/emacs-chatgpt-shell.el")
 (load "~/rc/emacs-linux.el")
