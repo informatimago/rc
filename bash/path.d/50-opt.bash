@@ -22,3 +22,6 @@ path_add /opt/local/bin
 path_add /opt/X11/bin
 
 path_add /usr/local/share/dotnet
+
+# If you want to use the GNU tools by default, add this directory to the front of your PATH environment variable:
+path_add /opt/local/libexec/gnubin/
