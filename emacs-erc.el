@@ -1,8 +1,21 @@
 (require 'erc)
+(require 'erc-sasl)
 (require 'erc-join)
+(require 'tls)
 (require 'cl)
 (require 'pjb-cl)
-(require 'tls)
+
+
+(setq erc-sasl-mechanism 'plain
+      erc-sasl-user "pab"
+      erc-sasl-password (get-authinfo-password :machine "libera.chat" :login "pab"))
+
+;; Enable SASL globally for ERC
+(add-to-list 'erc-modules 'sasl)
+(erc-update-modules)
+
+
+
 
 (defparameter *pjb-autojoin-channels-alist*
   '(("libera.chat"
@@ -63,8 +76,14 @@
 (defun start-irc ()
   "Connect to IRC."
   (interactive)
-  (erc-tls :server "irc.libera.chat" :port 6697
-           :nick "pab" :full-name "P.A.B."))
+  ;; (erc-tls :server "irc.libera.chat" :port 6697
+  ;;          :nick "pab" :full-name "P.A.B.")
+  (erc-tls :server "irc.libera.chat"
+           :port 6697
+           :nick "pab"
+           :user "pab"
+           :full-name "P.A.B."
+           :password (get-authinfo-password :machine "libera.chat" :login "pab")))
 
 (defun br-all ()
   (interactive)
@@ -72,6 +91,8 @@
     (with-current-buffer buffer
       (erc-set-active-buffer buffer)
       (erc-cmd-BR))))
+
+
 
 ;; Local Variables:
 ;; coding: utf-8
