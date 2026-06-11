@@ -3200,7 +3200,11 @@ License:
                        (t (nconc (flatten (car tree))
                                  (and (cdr tree) (flatten (cdr tree))))))))
          (flatten (mapcar (function find-subdirs-with-dir)
-                          '("/usr/local/share/emacs/"
+                          '("/opt/local/share/emacs/"
+                            "/opt/local/share/info/"
+                            "/opt/local/info/"
+                            "/opt/share/info/"
+                            "/usr/local/share/emacs/"
                             "/usr/local/share/info/"
                             "/usr/local/info/"
                             "/usr/share/info/"
