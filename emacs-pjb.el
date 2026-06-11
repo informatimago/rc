@@ -112,6 +112,7 @@
    '("/usr/local/share/emacs/site-lisp/fountain-mode"
      "/usr/local/share/info/" "/opt/local/share/info/"))
  '(ad-redefinition-action 'accept)
+ '(alref-spec-directory "/opt/local/share/autolisp-spec/")
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
     "#657b83"])
@@ -1349,6 +1350,7 @@
 ;; (or (ignore-errors (set-frame-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-14-*-*-*-m-0-*-*"))
 ;;     (ignore-errors (set-frame-font "terminus-18")))
 
+(require 'autocad)
 ;; Autocad:
 (add-to-list 'auto-mode-alist '("\\.lsp$"  . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.dcl$"  . lisp-mode))
