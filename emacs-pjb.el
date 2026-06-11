@@ -1330,13 +1330,13 @@
 (load "~/rc/emacs-android.el")
 (load "~/rc/emacs-ruby.el")
 (load "~/rc/emacs-cobol.el")
+(load "~/rc/emacs-authinfo.el") ; get-apikey / get-authinfo-password (needed by emacs-erc)
 (load "~/rc/emacs-erc.el")
 (cond
   ((string-match "^larissa.*" (hostname))
    )
   ((string-match "^despina.*" (hostname))
    (load "~/rc/emacs-haskell.el")))
-(load "~/rc/emacs-authinfo.el") ; get-apikey / get-authinfo-password
 (load "~/rc/emacs-copilot.el")
 (load "~/rc/emacs-chatgpt-shell.el")
 (load "~/rc/emacs-linux.el")
