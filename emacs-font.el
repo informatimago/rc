@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(.EMACS "~/rc/emacs-font.el %s" "Pascal Bourguignon's emacs font stuff.")
+(.EMACS "%s %s" (rc "emacs-font.el") "Pascal Bourguignon's emacs font stuff.")
 
 ;;;----------------------------------------------------------------------------
 ;; See also:

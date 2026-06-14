@@ -3,10 +3,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(.EMACS "~/rc/emacs-package.el")
+(.EMACS "%s"(rc "emacs-package.el")) 
 
 (require 'gnutls)
-(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem")
+(add-to-list 'gnutls-trustfiles (root "/etc/ssl/cert.pem"))
 
 (.EMACS "Initializing emacs packages.")
 (require 'package)

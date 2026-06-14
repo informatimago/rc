@@ -38,4 +38,4 @@
 
 (.EMACS "emacs-slime-simple.el")
 
-(load "~/rc/emacs-slime.el")
+(load (rc "emacs-slime.el"))

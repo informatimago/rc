@@ -2,7 +2,7 @@
 ;;; -*- mode:emacs-lisp;lexical-binding:t;coding:utf-8 -*-
 ;;; Commentary:
 ;;; Code:
-(.EMACS "~/rc/emacs-aquamacs.el PJB's Aquamacs rc file.")
+(.EMACS "%s %s" (rc "emacs-aquamacs.el") "PJB's Aquamacs rc file.")
 
 (defun mac-vanilla-keys ()
   (interactive)
@@ -34,7 +34,7 @@
 (add-hook 'lua-mode-hook 'lua-meat)
 
 
-(find-file "~/rc/emacs-aquamacs.el")
+(find-file (rc "emacs-aquamacs.el"))
 
 ;; Local Variables:
 ;; coding: utf-8

@@ -27,11 +27,11 @@
          flycheck-c/c++-clang-executable (concat *xcode-developer-path*
                                                  "Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++"))
    (setq company-clang-executable "armv7-apple-darwin11-clang"
-         company-clang-arguments '("-std=c++11"
-                                   "-isysroot"
-                                   "~/.nix-profile/iPhoneOS9.2.sdk"
-                                   ;; "-I/usr/local/lib/ocaml/"
-                                   )))
+         company-clang-arguments (list "-std=c++11"
+                                       "-isysroot"
+                                       (home ".nix-profile/iPhoneOS9.2.sdk")
+                                       ;; "-I/usr/local/lib/ocaml/"
+                                       )))
   (linux
 
    ))

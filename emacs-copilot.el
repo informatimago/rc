@@ -1,12 +1,12 @@
-(add-to-list 'load-path "~/emacs/copilot")            ;; git@github.com:zerolfx/copilot.el.git       
-(add-to-list 'load-path "~/emacs/s")                  ;; git@github.com:magnars/s.el.git         
-(add-to-list 'load-path "~/emacs/editorconfig-emacs") ;; git@github.com:editorconfig/editorconfig-emacs.git
-;; (add-to-list 'load-path "~/emacs/editorconfig")       ;; git@github.com:editorconfig/editorconfig.git
+(add-to-list 'load-path (home "emacs/copilot"))            ;; git@github.com:zerolfx/copilot.el.git       
+(add-to-list 'load-path (home "emacs/s"))                  ;; git@github.com:magnars/s.el.git         
+(add-to-list 'load-path (home "emacs/editorconfig-emacs")) ;; git@github.com:editorconfig/editorconfig-emacs.git
+;; (add-to-list 'load-path (home "emacs/editorconfig"))       ;; git@github.com:editorconfig/editorconfig.git
 
 (when (require 'copilot nil t)
 
   ;; sudo port install nodejs16
-  ;; (push "~/opt/lib/nodejs/node-v16.16.0-linux-x64/bin" exec-path)
+  ;; (push (home "opt/lib/nodejs/node-v16.16.0-linux-x64/bin") exec-path)
   (add-hook 'prog-mode-hook 'copilot-mode)
 
   ;; Customize variables:
