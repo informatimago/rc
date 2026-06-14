@@ -4,3 +4,5 @@
 *.elc
 bashrc-keys
 notes.txt
+.\#*
+\#*\#
