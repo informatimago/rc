@@ -52,10 +52,10 @@
   (find-if (lambda (file) (and file (file-exists-p file))) list-of-files))
 
 (setq source-directory
-      (first-existing-file (list (format "/usr/local/src/emacs-%s/src" emacs-version)
-                                 (format "/opt/local/src/emacs-%s/src" emacs-version)
-                                 (expand-file-name (format "~/emacs/src/emacs-%s/src" emacs-version))
-                                 (expand-file-name (format "~/opt/src/emacs-%s/src" emacs-version)))))
+      (first-existing-file (list (root (format "/usr/local/src/emacs-%s/src" emacs-version))
+                                 (root (format "/opt/local/src/emacs-%s/src" emacs-version))
+                                 (home (format "emacs/src/emacs-%s/src" emacs-version))
+                                 (home (format "opt/src/emacs-%s/src" emacs-version)))))
 	
 
 
@@ -74,8 +74,8 @@
 (defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
 
 
-(.EMACS "~/rc/emacs-common.el %s" "Pascal J. Bourguignon's emacs startup file.")
-(load "~/rc/emacs-package.el")
+(.EMACS "%s %s" (rc "emacs-common.el") "Pascal J. Bourguignon's emacs startup file.")
+(load (rc "emacs-package.el"))
 
 
 ;;;----------------------------------------------------------------------------
@@ -225,7 +225,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 
 (require 'server)
-(setf server-socket-dir (expand-file-name "~/.emacs.d/server")
+(setf server-socket-dir (home ".emacs.d/server")
       server-name       (format "server-%d" (emacs-pid)))
 (when (string= (hostname) "PF5S26BT")
   ;; we need to override server-ensure-safe-dir because here we don't have access rights.
@@ -236,7 +236,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
                     server-socket-dir
                     server-name))
   (let ((delete-old-versions t))
-    (write-file (format "~/.bash_env-emacs-%s" (hostname)) nil)))
+    (write-file (home (format ".bash_env-emacs-%s" (hostname))) nil)))
 (server-start)
 
 
@@ -265,7 +265,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 ;; export EMACS_SERVER_FILE=/run/user/87743/emacs/server
 
 
-(setf tetris-score-file "~/.tetris-scores")
+(setf tetris-score-file (home ".tetris-scores"))
 
 (setf fancy-splash-text  '(
                            (:face (variable-pitch :weight bold) "
@@ -463,9 +463,9 @@ WELCOME TO EMACS!
 - Remove slashes at the end of the path in load-path.
 - Expand ~/.
 - Remove double-slashes in the paths."
-(expand-file-name (if (string-match "^\\(.*[^/]\\)/*$" path)
-                                   (match-string 1 path)
-                                   path)))
+  (expand-file-name (if (string-match "^\\(.*[^/]\\)/*$" path)
+                        (match-string 1 path)
+                      path)))
 
 (defun clean-load-path ()
   "Clean the paths in `load-path' and remove duplicates."
@@ -514,36 +514,35 @@ WELCOME TO EMACS!
                (when (file-exists-p site-lisp)
                  (pushnew site-lisp new-paths)
                  (mapc (lambda (file)
-                         (let ((file (concat site-lisp "/" file)))
+                         (let ((file (pjb-join-pathname site-lisp file)))
                            (when (file-exists-p file)
                              (let ((default-directory site-lisp))
                                (.EMACS "%s FOUND" file)
                                (load file)))))
                        '("site-start.el" "site-gentoo.el" "subdirs.el"))
                  t))))
-      (dolist (directories (append
-			    (list
-                             ;; -----------------
-                             ;; PJB emacs sources
-                             ;; -----------------
-                             ;; Since we may have several emacs version running
-                             ;; on the same system, for now we will avoid
-                             ;; compiling pjb sources, and we will load them
-                             ;; directly from ~/src/public/emacs/.  Later we
-                             ;; will see how we can install elc in version
-                             ;; specific directories, but keeping references to
-                             ;; the same source directory.
-                             ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
-                             '("~/src/public/emacs")
-                             '("~/.emacs.d/site-lisp"))
-			    '(("/opt/lisp/emacs")
-			      ("/opt/share/emacs/site-lisp")
-			      ("/opt/local/share/emacs/site-lisp")
-			      ("/usr/local/share/emacs/site-lisp")
-			      ("/usr/share/emacs/site-lisp"))))
+      (dolist (directories (list
+                            ;; -----------------
+                            ;; PJB emacs sources
+                            ;; -----------------
+                            ;; Since we may have several emacs version running
+                            ;; on the same system, for now we will avoid
+                            ;; compiling pjb sources, and we will load them
+                            ;; directly from ~/src/public/emacs/.  Later we
+                            ;; will see how we can install elc in version
+                            ;; specific directories, but keeping references to
+                            ;; the same source directory.
+                            ;; (get-directory :share-lisp "packages/com/informatimago/emacs")
+                            (list (pjb-emacs-source ""))
+                            (list (home ".emacs.d/site-lisp"))
+                            (list (root "/opt/lisp/emacs"))
+			                (list (root "/opt/share/emacs/site-lisp"))
+			                (list (root "/opt/local/share/emacs/site-lisp"))
+			                (list (root "/usr/local/share/emacs/site-lisp"))
+			                (list (root "/usr/share/emacs/site-lisp"))))
         (if (listp directories)
             (find-if (function add-if-good) directories)
-            (add-if-good directories)))
+          (add-if-good directories)))
 
       (setf load-path (append new-paths
                               (set-difference load-path base-load-path :test (function equal))
@@ -554,27 +553,27 @@ WELCOME TO EMACS!
 
 (.EMACS "Loading my personal files -- My own stuff.")
 (pjb-setup-load-path)
-(load "~/rc/emacs-directories")
-(unless (load "pjb-loader.el")
+(load (rc "emacs-directories"))
+(unless (load (pjb-emacs-source "pjb-loader.el"))
   (.EMACS "ERROR: Could not find and load 'My own stuff'!"))
 
 (defun pjb-setup-exec-path ()
   (map-existing-files (lambda (dir) (pushnew dir exec-path))
-                      (list (expand-file-name "~/bin/")
-                            (expand-file-name "~/opt/bin/")
-                            "/sw/sbin/"       "/sw/bin/"
-                            "/usr/local/sbin" "/usr/local/bin"
-                            "/opt/local/sbin" "/opt/local/bin"))
+                      (list (home "bin/")
+                            (home "opt/bin/")
+                            (root "/sw/sbin/")       (root "/sw/bin/")
+                            (root "/usr/local/sbin") (root "/usr/local/bin")
+                            (root "/opt/local/sbin") (root "/opt/local/bin")))
   (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
 
 (pjb-setup-exec-path)
 
 
 (setf *pjb-tab-width-alist*
-      '(("^/Applications/Emacs.app/Contents/Resources/" . 8)
-        ("^/usr/local/src/ccl-.*/" . 8)
-        ("^/usr/local/src/emacs-.*/" . 8)
-        ("/pjb/works/mts/Harag/" . 8)))
+      (list (cons (format "^%s" (root "/Applications/Emacs.app/Contents/Resources/"))  8)
+            (cons (format "^%s" (root "/usr/local/src/ccl-.*/"))                       8)
+            (cons (format "^%s" (root "/usr/local/src/emacs-.*/"))                     8)
+            (cons (format "^%s" (home "pjb/works/mts/Harag/"))                         8)))
 
 ;;------------------------------------------------------------------------
 (unless (let ((hostname (hostname)))
@@ -582,7 +581,7 @@ WELCOME TO EMACS!
                (string= "fr" (subseq hostname 0 2))))
   ;; not "frprld7818008" "frdark", etc
   (.EMACS "setting up fonts")
-  (load "~/rc/emacs-font.el"))
+  (load (rc "emacs-font.el")))
 ;;------------------------------------------------------------------------
 
 ;; (message "old load-path = %S" (with-output-to-string (dump-load-path)))
@@ -1307,15 +1306,18 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 
 (when (< 25 emacs-major-version)
   ;; https://github.com/szermatt/emacs-bash-completion
-  (unless (file-directory-p "~/emacs/emacs-bash-completion")
-    (shell-command "mkdir -p ~/emacs ; cd ~/emacs/ ; git clone https://github.com/szermatt/emacs-bash-completion.git"))
-  (pushnew "~/emacs/emacs-bash-completion" load-path :test 'string=)
-  (when (require 'bash-completion nil t)
-    (bash-completion-setup)
-    (set-default 'shell-dirstack-query "pwd")
-    (milliways-schedule (lambda ()
-			  (bash-completion-setup)
-			  (set-default 'shell-dirstack-query "pwd")))))
+  (let* ((ebc-dir  (home "emacs"))
+         (ebc-file (format "%s/emacs-bash-completion" ebc-dir)))
+    (unless (file-directory-p ebc-file)
+      (shell-command (format "mkdir -p %S ; cd %S ; git clone https://github.com/szermatt/emacs-bash-completion.git"
+                             ebc-dir ebc-dir)))
+    (pushnew ebc-file load-path :test 'string=)
+    (when (require 'bash-completion nil t)
+      (bash-completion-setup)
+      (set-default 'shell-dirstack-query "pwd")
+      (milliways-schedule (lambda ()
+			                (bash-completion-setup)
+			                (set-default 'shell-dirstack-query "pwd"))))))
 
 ;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
@@ -1413,21 +1415,21 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (setf org-agenda-files '(;; ;; (file-expand-wildcards "~/firms/*/notes.txt")
-                         ;; "~/firms/wizards/notes.txt"
-                         ;; "~/firms/willcom/notes.txt"
-                         ;; "~/firms/secur.net/notes.txt"
-                         ;; "~/firms/ravenpack/notes.txt"
-                         ;; "~/firms/osii/notes.txt"
-                         ;; "~/firms/medicalis/notes.txt"
-                         ;; "~/firms/mappy/notes.txt"
-                         ;; "~/firms/joellegymtonic/notes.txt"
-                         ;; "~/firms/jem/notes.txt"
-                         ;; "~/firms/intergruas/notes.txt"
-                         ;; "~/firms/hf/notes.txt"
-                         ;; "~/firms/hbedv/notes.txt"
-                         ;; "~/firms/hamster-s-fabric-inc/notes.txt"
-                         ;; "~/firms/camille/notes.txt"
-                         ;; "~/firms/afaa/notes.txt"
+                         ;; (home "firms/wizards/notes.txt")
+                         ;; (home "firms/willcom/notes.txt")
+                         ;; (home "firms/secur.net/notes.txt")
+                         ;; (home "firms/ravenpack/notes.txt")
+                         ;; (home "firms/osii/notes.txt")
+                         ;; (home "firms/medicalis/notes.txt")
+                         ;; (home "firms/mappy/notes.txt")
+                         ;; (home "firms/joellegymtonic/notes.txt")
+                         ;; (home "firms/jem/notes.txt")
+                         ;; (home "firms/intergruas/notes.txt")
+                         ;; (home "firms/hf/notes.txt")
+                         ;; (home "firms/hbedv/notes.txt")
+                         ;; (home "firms/hamster-s-fabric-inc/notes.txt")
+                         ;; (home "firms/camille/notes.txt")
+                         ;; (home "firms/afaa/notes.txt")
                          )
       org-enforce-todo-dependencies t
       org-log-done 'note)
@@ -2346,9 +2348,9 @@ in the current directory, or in a parent."
 (appendf auto-mode-alist '(("\\.pl1$"    . pl1-mode)))
 
 ;;;----------------------------------------------------------------------------
-(when (file-exists-p "/usr/local/share/emacs/bigloo/")
+(when (file-exists-p (root "/usr/local/share/emacs/bigloo/"))
   (.EMACS "bee for bigloo")
-  (setf load-path (cons (expand-file-name "/usr/local/share/emacs/bigloo/") load-path))
+  (setf load-path (cons (root "/usr/local/share/emacs/bigloo/") load-path))
   (when (require 'bmacs nil t)
     (push '("\\.scm\\'" . bee-mode) auto-mode-alist)
     (push '("\\.sch\\'" . bee-mode) auto-mode-alist)))
@@ -2464,7 +2466,7 @@ in the current directory, or in a parent."
 
 
 ;; Need modifications to use french mediapedias:
-(when (load "~/src/wikipedia-el/wikipedia.el" t)
+(when (load (home "src/wikipedia-el/wikipedia.el") t)
   (.EMACS "wikipedia")
   ;; (.EMACS "wikipedia-mode")
   ;; (autoload 'wikipedia-mode "wikipedia-mode.el"
@@ -2959,7 +2961,7 @@ License:
   (and filename (not (find-if (lambda (re) (string-match re filename))
                               *pjb-c-mode-meat-exclude*))))
 
-(load "~/rc/emacs-linux.el")
+(load (rc "emacs-linux.el"))
 
 (defun c-mode-meat ()
   (interactive)
@@ -3271,7 +3273,7 @@ License:
     (search-forward "AFAIRE:" nil t 2)
     (recenter 1)
     (when (string-match "^thalassa" system-name)
-      (vm-visit-folder "~/mail/todo.mbox"))))
+      (vm-visit-folder (home "mail/todo.mbox")))))
 
 
 (defun acheter ()
@@ -3285,7 +3287,7 @@ License:
 
 (defun doing (what)
   (interactive "sWhat are you doing? ")
-  (find-file "~/doing.txt")
+  (find-file (home "doing.txt"))
   (goto-char (point-max))
   (insert (shell-command-to-string "date")  what "\n#\n")
   (save-buffer)
@@ -3505,7 +3507,10 @@ p")
                     (forward-sexp) (backward-sexp)
                     (thing-at-point-no-properties 'symbol)))))
    (find-grep
-    (format "find ~/works/patchwork/src/patchwork/ ~/works/patchwork/src/mcl-unix -name \\*.lisp -print0 | xargs -0  grep -niH -e %S" what))))
+    (format "find %S %S -name \\*.lisp -print0 | xargs -0  grep -niH -e %S"
+            (home "works/patchwork/src/patchwork/")
+            (home "works/patchwork/src/mcl-unix")
+            what))))
 (global-set-key (kbd "H-/") 'pwfind)
 
 (setf calendar-time-display-form '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")")))
@@ -3643,14 +3648,15 @@ or as \"emacs at <hostname>\"."
 (defun screen-dump (&optional screen-dump-file)
   (interactive)
   (cond
-    (screen-dump-file
-     (shell-command (format "xwd | xwdtopnm | pnmtopng > %S"
-                            (expand-file-name screen-dump-file))))
-    (current-prefix-arg
-     (screen-dump (read-from-minibuffer "Screen dump file: "
-                                        (format "~/screen-dump-%d.png" (incf *screen-dump-number*)))))
-    (t
-     (screen-dump (format "~/screen-dump-%d.png" (incf *screen-dump-number*))))))
+    (if screen-dump-file
+        (shell-command (format "xwd | xwdtopnm | pnmtopng > %S"
+                               (expand-file-name screen-dump-file)))
+      (let ((default-screen-dump-file (home (format "screen-dump-%d.png"
+                                                    (incf *screen-dump-number*)))))
+        (screen-dump
+         (if current-prefix-arg
+             (read-from-minibuffer "Screen dump file: " default-screen-dump-file)
+           default-screen-dump-file))))))
 
 (global-set-key (kbd "<print>") 'screen-dump)
 

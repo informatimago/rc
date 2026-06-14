@@ -59,11 +59,11 @@
 ;; to see the report after running.
 
 
-(if (file-exists-p "~/quicklisp/slime-helper.el")
-    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
+(if (file-exists-p (home "quicklisp/slime-helper.el"))
+    (load (home "quicklisp/slime-helper.el") t)
   (progn
-    (defvar slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
-    (setq   slime-directory (expand-file-name "~/quicklisp/local-projects/slime/"))
+    (defvar slime-directory (home "quicklisp/local-projects/slime/"))
+    (setq   slime-directory (home "quicklisp/local-projects/slime/"))
     (add-to-list 'load-path slime-directory)
     (ignore-errors (require 'slime-autoloads))
     (load-library "slime")
@@ -224,12 +224,16 @@
 
   (defun windoize-pathname (path)
     ;; "/home/pjb/quicklisp/dists/quicklisp/software/slime-20120208-cvs/swank-loader.lisp"
-    (let ((home (expand-file-name "~/")))
+    (let ((home (user-homedir-pathname)))
       (if (prefixp home path)
           (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
-          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
+          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path))
+          ;; also:
+          ;; (format "C:\\msys64%s" (substitute (character "\\") (character "/") path))
+          )))
 
   (defun slime-init-ccl-win-cygwin (port-filename coding-system)
+    
     "Return a string to initialize Lisp."
     (let ((loader (if (file-name-absolute-p slime-backend)
                       slime-backend

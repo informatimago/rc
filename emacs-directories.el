@@ -48,7 +48,7 @@
   "Loads ~/directories.txt (or the given DIRECTORIES-FILE),
 and stores it in `*directories*'.
 "
-  (let ((directories-file (or directories-file "~/directories.txt")))
+  (let ((directories-file (or directories-file (home "directories.txt"))))
     (setf *directories*
           (progn
             (find-file directories-file)
@@ -74,12 +74,7 @@ NOTE:   ~/directories.txt is cached in *directories*.
     (let ((dir (getf *directories* key)))
       (if (or (null subpath) (string= "" subpath))
           dir
-          (flet ((lastchar (str) (and (< 0 (length str)) (aref str (1- (length str)))))
-                 (firstchar (str) (and (< 0 (length str)) (aref str 0)))
-                 (xor (a b) (or (and a (not b)) (and (not a) b))))
-            (if (xor (eql ?/ (lastchar dir)) (eql ?/ (firstchar subpath)))
-                (concat dir subpath)
-                (concat dir "/" subpath)))))))
+          (pjb-collapse-slashes (concat dir "/" subpath))))))
 
 
 ;; Local Variables:

@@ -9,12 +9,12 @@
 
 (defparameter *pjb-esp-includes*
   (mapcar (function expand-file-name)
-   (cons "~/esp/xtensa-esp32-elf/xtensa-esp32-elf/sysroot/usr/include"
+   (cons (home "esp/xtensa-esp32-elf/xtensa-esp32-elf/sysroot/usr/include")
          (let ((includes '()))
            (mapdirectories (lambda (path)
                              (if (string= (file-name-nondirectory path) "include")
                                  (push path includes)))
-                           "~/esp/esp-idf/components")
+                           (home "esp/esp-idf/components"))
            includes))))
 
 (defun pjb-esp-project-file-p (path)
@@ -51,7 +51,7 @@
           (setq-local flycheck-clang-include-path includes)
           (setq-local flycheck-gcc-include-path   includes)
           (setq-local flycheck-checker 'c/c++-gcc)
-          (setq-local flycheck-c/c++-gcc-executable (expand-file-name "~/esp/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc")))))))
+          (setq-local flycheck-c/c++-gcc-executable (home "esp/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc")))))))
 
 (add-hook 'c-mode-common-hook 'pjb-esp-include-meat)
 

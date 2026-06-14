@@ -22,7 +22,7 @@ Emacs startup never probes the network.")
   "When non-nil, offer to install CLHS through Quicklisp on first lookup.")
 (defvar pjb-clhs-lisp-command "sbcl"
   "Common Lisp command used by `pjb-clhs-install-quicklisp'.")
-(defvar pjb-clhs-quicklisp-directory (expand-file-name "~/quicklisp/")
+(defvar pjb-clhs-quicklisp-directory (home "quicklisp/")
   "Quicklisp directory used to discover the local CLHS installation.")
 
 (defun pjb-clhs-user-error (format-string &rest args)

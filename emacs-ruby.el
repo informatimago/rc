@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(.EMACS "~/rc/emacs-ruby.el %s" "Pascal J. Bourguignon's emacs ruby stuff.")
+(.EMACS "%s %s" (rc "emacs-ruby.el") "Pascal J. Bourguignon's emacs ruby stuff.")
 
 (require 'ruby-mode)
 (require 'inf-ruby)

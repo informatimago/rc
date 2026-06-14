@@ -32,3 +32,14 @@ export EPURE_INSTALL_DIR="c:/EPURE2022"
 export MSBUILD_PATH="C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe"
 
 
+alias standards='/Applications/BricsCAD\ V26.app/Contents/MacOS/standards_app.sh'
+alias pstyle='/Applications/BricsCAD\ V26.app/Contents/MacOS/pstyle_app.sh'
+alias profilemanager='/Applications/BricsCAD\ V26.app/Contents/MacOS/profilemanager_app.sh'
+alias bcadtestapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/bcadtestapp'
+alias bimproj='/Applications/BricsCAD\ V26.app/Contents/MacOS/bimproj'
+alias bricscad='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
+alias hlrapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/hlrapp'
+alias pc3='/Applications/BricsCAD\ V26.app/Contents/MacOS/pc3_app'
+alias preprocessor='/Applications/BricsCAD\ V26.app/Contents/MacOS/preprocessor'
+
+alias bricscad_executables="find  '/Applications/BricsCAD V26.app/Contents/' -type f -perm -0100|grep -v '\(\.\(tx\|dylib\|so\|slb\|lsp\|dcl\|9\)$\)\|\(/Qt\)'|sort"

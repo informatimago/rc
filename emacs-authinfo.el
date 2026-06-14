@@ -133,7 +133,7 @@ non-secret selection keys, e.g. :name and :label.
       (when (member (car kv) authinfo--apikeys-secrets)
         (error "get-apikey: %s is a secret field and cannot be a selection key"
                (car kv))))
-    (authinfo--select (authinfo--records "~/.apikeys" '("name") nil)
+    (authinfo--select (authinfo--records (home ".apikeys") '("name") nil)
                       selalist result)))
 
 ;;;###autoload
@@ -147,7 +147,7 @@ PLIST gives non-secret selection keys, e.g. :machine, :port, :login.
     (dolist (kv selalist)
       (when (string= (car kv) "password")
         (error "get-authinfo-password: password is a secret field and cannot be a selection key")))
-    (authinfo--select (authinfo--records "~/.authinfo" '("machine") '("default"))
+    (authinfo--select (authinfo--records (home ".authinfo") '("machine") '("default"))
                       selalist "password")))
 
 (provide 'emacs-authinfo)

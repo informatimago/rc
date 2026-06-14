@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(.EMACS "~/rc/emacs-palette.el %s" "Pascal Bourguignon's palette stuff.")
+(.EMACS "%s %s" (rc "emacs-palette.el") "Pascal Bourguignon's palette stuff.")
 
 (defvar *palettes* '())
 (defvar *current-palette* nil)

@@ -4,9 +4,8 @@
 ;;; Code:
 
 
-(load "~/rc/emacs-common.el") ; defines .EMACS
-
-(.EMACS "~/rc/emacs-pjb.el %s" "Pascal J. Bourguignon's emacs startup file.")
+(load (rc "emacs-common.el")) ; defines .EMACS
+(.EMACS "%s %s" (rc "emacs-pjb.el") "Pascal J. Bourguignon's emacs startup file.")
 (require 'cc-mode)
 (require 'vc)
 (require 'vc-hooks)
@@ -17,7 +16,7 @@
         pp-use-max-width t))
 
 (setq lock-file-name-transforms
-      '((".*" "~/.emacs.d/lockfiles/" t)))
+      (list (list ".*" (home ".emacs.d/lockfiles/") t)))
 
 ;;;----------------------------------------------------------------------------
 ;;; Customization
@@ -102,17 +101,13 @@
 
 
 (.EMACS "custom variables")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-additional-directory-list '("~/rc/"))
- '(Info-default-directory-list
-   '("/usr/local/share/emacs/site-lisp/fountain-mode"
-     "/usr/local/share/info/" "/opt/local/share/info/"))
  '(ad-redefinition-action 'accept)
- '(alref-spec-directory "/opt/local/share/autolisp-spec/")
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
     "#657b83"])
@@ -674,25 +669,11 @@
  '(message-default-charset 'iso-8859-15)
  '(message-default-headers
    "Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAAD///+l2Z/dAAAA\12      oElEQVR4nK3OsRHCMAwF0O8YQufUNIQRGIAja9CxSA55AxZgFO4coMgYrEDDQZWPIlNAjwq9\12      033pbOBPtbXuB6PKNBn5gZkhGa86Z4x2wE67O+06WxGD/HCOGR0deY3f9Ijwwt7rNGNf6Oac\12      l/GuZTF1wFGKiYYHKSFAkjIo1b6sCYS1sVmFhhhahKQssRjRT90ITWUk6vvK3RsPGs+M1RuR\12      mV+hO/VvFAAAAABJRU5ErkJggg==\12X-Accept-Language:         fr, es, en\12")
- '(message-directory "~/mail/")
  '(message-from-style 'angles)
  '(message-required-news-headers
    '(From Newsgroups Subject Date Message-ID (optional . Organization)
-     (optional . User-Agent)
-     (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm"))))
+     (optional . User-Agent)))
  '(message-user-organization "Informatimago")
- '(mew-conf-path "~/.new")
- '(mew-mail-path "~/mail")
- '(mew-pop-auth 'pass)
- '(mew-pop-header-only nil)
- '(mew-pop-server "pop.informatimago.com")
- '(mew-pop-size 0)
- '(mew-smtp-server "smtp.informatimago.com")
- '(mew-use-biff t)
- '(mew-use-biff-bell t)
- '(mew-use-full-window t)
- '(mew-use-other-frame-for-draft nil)
- '(mew-use-text/html t)
  '(minibuffer-prompt-properties
    '(read-only t point-entered minibuffer-avoid-prompt face
      minibuffer-prompt))
@@ -700,22 +681,10 @@
  '(mouse-wheel-progressive-speed nil)
  '(mspools-update t)
  '(next-screen-context-lines 0)
- '(nntp-authinfo-file "~/.authinfo")
  '(nrepl-message-colors
    '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8"
      "#2aa198" "#d33682" "#6c71c4"))
  '(org-adapt-indentation nil)
- '(org-agenda-files
-   '("~/rc/notes.txt" "~/works/sbde/todo.org"
-     "~/works/sbde/smt/sources/README.org"
-     "~/works/sbde/laboite/specifications/components.org"
-     "~/works/sbde/laboite/analysis/controller.org"
-     "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt"
-     "~/works/enolaba/macosx/src/TODO"
-     "~/src/pjb/nasium-lse/ISSUES.txt"
-     "~/works/patchwork/src/mclgui/TODO.org"
-     "~/works/patchwork/src/patchwork/notes.txt"
-     "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
  '(org-confirm-babel-evaluate nil)
  '(org-export-with-broken-links nil)
  '(org-fontify-done-headline t)
@@ -763,7 +732,6 @@
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
  '(rmail-remote-password-required nil)
- '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder 'identity)
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values
@@ -1130,61 +1098,6 @@
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
- '(vm-auto-displayed-mime-content-types
-   '("text/enriched" "text/plain" "message" "message/rfc822"
-     "message/disposition-notification" "multipart"))
- '(vm-auto-folder-alist
-   '(("^\\(From:\\|To:\\|Cc:\\)"
-      ("svn-.*anevia.com" . "~/mail/anevia-svn.mbox")
-      ("staff@anevia.com" . "~/mail/anevia-staff.mbox")
-      ("cpptest@anevia.com" . "~/mail/cpptest.mbox")
-      ("\\(bese.*common-lisp\\)" . "~/mail/ucw.mbox")
-      ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)"
-       . "~/mail/lisp.mbox")
-      ("cert-advisory@cert.org" . "~/mail/cert.mbox")
-      ("gentoo" . "~/mail/gentoo.mbox"))
-     ("^Subject:"
-      ("\\[libanevia\\|manager2\\|aipc\\]"
-       . "~/mail/anevia-manager2.mbox")
-      ("cs daily" . "~/mail/cs-papers.mbox")
-      ("CRYPTO.*GRAM" . "~/mail/crypto-gram.mbox")
-      ("ipnsig" . "~/mail/ipnsig.mbox")
-      ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)"
-       . "~/mail/lisp.mbox"))))
- '(vm-auto-folder-case-fold-search t)
- '(vm-display-xfaces t)
- '(vm-folder-directory "~/mail/")
- '(vm-highlighted-header-face 'font-lock-comment-face)
- '(vm-honor-mime-content-disposition nil)
- '(vm-included-text-prefix "> ")
- '(vm-infer-mime-types t)
- '(vm-mail-mode-hook nil)
- '(vm-mime-8bit-composition-charset "utf-8")
- '(vm-mime-8bit-text-transfer-encoding '8bit)
- '(vm-mime-alternative-select-method '(favorite-internal "text/enriched" "text/plain"))
- '(vm-mime-attachment-auto-suffix-alist
-   '(("image/tiff" . ".tif") ("image/jpeg" . ".jpg")
-     ("image/gif" . ".gif") ("image/png" . ".png")
-     ("text/html" . ".html") ("audio/basic" . ".au")
-     ("video/mpeg" . ".mpg") ("video/quicktime" . ".mov")
-     ("application/postscript" . ".ps") ("application/pdf" . ".pdf")
-     ("application/vnd.ms-excel" . ".xls")
-     ("application/mac-binhex40" . ".hqx")
-     ("application/pdf" . ".pdf") ("application/zip" . ".zip")))
- '(vm-mime-default-face-charsets
-   '("us-ascii" "iso-8859-1" "iso-8859-15" "win-1250" "ANSI_X3.4-1968"))
- '(vm-mime-external-content-types-alist
-   '(("application/pdf" "acroread") ("image/gif" "xview")
-     ("image/jpg" "xview") ("image/tiff" "xview")
-     ("image/jpeg" "xview")))
- '(vm-mime-use-w3-for-text/html t)
- '(vm-mutable-frames nil)
- '(vm-preview-lines nil)
- '(vm-reply-subject-prefix "Re: ")
- '(vm-spool-files '(("~/INBOX" "/var/spool/mail/pjb" "~/INBOX-local.crash")))
- '(vm-summary-highlight-face 'font-lock-comment-face)
- '(vm-url-browser 'pjb-browse-url)
- '(vm-use-lucid-highlighting t)
  '(w3-default-homepage "http://www.google.com")
  '(w3-delay-image-loads t)
  '(w3-display-frames nil)
@@ -1196,20 +1109,15 @@
  '(w3-use-terminal-characters-on-tty nil)
  '(w3-user-colors-take-precedence t)
  '(w3-user-fonts-take-precedence t)
- '(w3m-arrived-file "~/.w3m/arrived")
- '(w3m-bookmark-file "~/.w3m/bookmark.html")
  '(w3m-bookmark-file-coding-system 'utf-8)
  '(w3m-coding-system 'utf-8)
- '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
  '(w3m-fb-mode nil)
  '(w3m-file-coding-system 'utf-8)
  '(w3m-file-name-coding-system 'iso-8859-1)
- '(w3m-form-textarea-directory "~/.w3m/textarea")
  '(w3m-home-page "http://localhost/")
  '(w3m-pop-up-frames nil)
  '(w3m-pop-up-windows nil)
- '(w3m-session-file "~/.w3m/sessions")
  '(w3m-terminal-coding-system 'utf-8)
  '(w3m-use-cookies t)
  '(w3m-use-tab nil)
@@ -1226,6 +1134,37 @@
  '(xterm-color-names-bright
    ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1"
     "#fdf6e3"]))
+
+(setq Info-additional-directory-list (list (rc ""))
+      Info-default-directory-list    (list (root "/usr/local/share/emacs/site-lisp/fountain-mode")
+                                           (root "/usr/local/share/info/") "/opt/local/share/info/")
+      alref-spec-directory           (root "/opt/local/share/doc/autolisp-spec/")
+      message-directory              (home "mail/")
+      rmail-secondary-file-directory (home "mail/")
+      nntp-authinfo-file             (home ".authinfo")
+
+      org-agenda-files       (mapcar (function home)
+                                     '("rc/notes.txt"
+                                       "works/sbde/todo.org"
+                                       "works/sbde/smt/sources/README.org"
+                                       "works/sbde/laboite/specifications/components.org"
+                                       "works/sbde/laboite/analysis/controller.org"
+                                       "works/manif/TODO.org"
+                                       "works/synth/schmidt/todo.txt"
+                                       "works/enolaba/macosx/src/TODO"
+                                       "src/pjb/nasium-lse/ISSUES.txt"
+                                       "works/patchwork/src/mclgui/TODO.org"
+                                       "works/patchwork/src/patchwork/notes.txt"
+                                       "works/abnotation/abnotation/todo.txt"
+                                       "works/ops/TODO.org"))
+      
+      w3m-arrived-file               (home ".w3m/arrived")
+      w3m-bookmark-file              (home ".w3m/bookmark.html")
+      w3m-cookie-file                (home ".w3m/cookie")
+      w3m-form-textarea-directory    (home ".w3m/textarea")
+      w3m-session-file               (home ".w3m/sessions")
+      )
+
 
 ;; erc-nickserv-passwords are stored in ~/.authinfo
 ;; -----BEGIN PGP MESSAGE-----
@@ -1260,7 +1199,7 @@
 
 ;;;----------------------------------------------------------------------------
 (defvar ecb-source-path)
-(setf ecb-source-path (expand-file-name "~/src/"))
+(setf ecb-source-path (home "src/"))
 
 ;;;----------------------------------------------------------------------------
 (when (or (< emacs-major-version 26)
@@ -1313,34 +1252,34 @@
                       (lambda (retrieved) t)))))
 
 ;;;----------------------------------------------------------------------------
-(when (file-exists-p "~/rc/emacs-patches.el")
-  (load "~/rc/emacs-patches.el"))
-;; (load "~/rc/emacs-package.el")
-;; (load "~/rc/emacs-font.el")
-(load "~/rc/emacs-paredit.el")
+(when (file-exists-p (rc "emacs-patches.el"))
+  (load (rc "emacs-patches.el")))
+;; (load (rc "emacs-package.el"))
+;; (load (rc "emacs-font.el"))
+(load (rc "emacs-paredit.el"))
 (when (not *pjb-pvs-is-running*)
-  ;; (load "~/rc/emacs-theme.el")
-  (load "~/rc/emacs-palette.el"))
+  ;; (load (rc "emacs-theme.el"))
+  (load (rc "emacs-palette.el")))
 
-;; (add-to-load-path "~/emacs/slime/")
-(load "~/rc/emacs-slime.el")
-(load "~/rc/emacs-hyperspec.el")
-(load "~/rc/emacs-redshank.el")
-(load "~/rc/emacs-objective-c.el")
-(load "~/rc/emacs-android.el")
-(load "~/rc/emacs-ruby.el")
-(load "~/rc/emacs-cobol.el")
-(load "~/rc/emacs-authinfo.el") ; get-apikey / get-authinfo-password (needed by emacs-erc)
-(load "~/rc/emacs-erc.el")
+;; (add-to-load-path (home "emacs/slime/"))
+(load (rc "emacs-slime.el"))
+(load (rc "emacs-hyperspec.el"))
+(load (rc "emacs-redshank.el"))
+(load (rc "emacs-objective-c.el"))
+(load (rc "emacs-android.el"))
+(load (rc "emacs-ruby.el"))
+(load (rc "emacs-cobol.el"))
+(load (rc "emacs-authinfo.el")) ; get-apikey / get-authinfo-password (needed by emacs-erc)
+(load (rc "emacs-erc.el"))
 (cond
   ((string-match "^larissa.*" (hostname))
    )
   ((string-match "^despina.*" (hostname))
-   (load "~/rc/emacs-haskell.el")))
-(load "~/rc/emacs-copilot.el")
-(load "~/rc/emacs-chatgpt-shell.el")
-(load "~/rc/emacs-linux.el")
-(load "~/rc/emacs-sensors.el")
+   (load (rc "emacs-haskell.el"))))
+(load (rc "emacs-copilot.el"))
+(load (rc "emacs-chatgpt-shell.el"))
+(load (rc "emacs-linux.el"))
+(load (rc "emacs-sensors.el"))
 ;;;----------------------------------------------------------------------------
 (display-time-mode 1)
 (setf visible-bell nil
@@ -1363,15 +1302,15 @@
 (add-to-list 'auto-mode-alist '("\\.asd$"   . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.swift$" . swift-mode))
 (add-to-list 'auto-mode-alist '( ".*/\\(Readme\\|readme\\|README\\)\\.md$" . markdown-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/works/abalone/.*\\.\\(h\\|m\\mm\\)$")   . objc-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/src/ios/.*\\.\\(h\\|m\\mm\\)$")         . objc-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/private/etudes/stanford/.*\\.\\(m\\)$") . octave-mode))
-(add-to-list 'auto-mode-alist `(,(expand-file-name "~/.*/coursera-robotics/.*\\.m$")          . matlab-mode))
+(add-to-list 'auto-mode-alist (cons (home "/works/abalone/.*\\.\\(h\\|m\\mm\\)$")  'objc-mode))
+(add-to-list 'auto-mode-alist (cons (home "src/ios/.*\\.\\(h\\|m\\mm\\)$")         'objc-mode))
+(add-to-list 'auto-mode-alist (cons (home "private/etudes/stanford/.*\\.\\(m\\)$") 'octave-mode))
+(add-to-list 'auto-mode-alist (cons (home ".*/coursera-robotics/.*\\.m$")          'matlab-mode))
 (setf auto-mode-alist  (sort* auto-mode-alist
                               (function string<)
                               :key (function car)))
 
-(ignore-errors (set-sources (expand-file-name "~/works/patchwork/src/patchwork/")))
+(ignore-errors (set-sources (home "works/patchwork/src/patchwork/")))
 
 (when (require 'flycheck nil t)
   (global-flycheck-mode))
@@ -1390,7 +1329,7 @@
 ;;                               "mplayer /data/sound/beeps/Macintosh_Question.wav"))))
 
 
-;; (add-to-load-path "~/emacs/emacs-w3m/share/emacs/site-lisp/w3m/")
+;; (add-to-load-path (home "emacs/emacs-w3m/share/emacs/site-lisp/w3m/"))
 
 (defun eval-last-expression-meat ()
   (interactive)
@@ -1531,9 +1470,7 @@
 
 
 (defun trailing-whitespace-candidate-p (file-name)
-  (let ((home (cond (user-init-file  (dirname user-init-file))
-                    ((getenv "HOME") (concat (getenv "HOME") "/"))
-                    (t               (dirname (first (file-expand-wildcards "~/.emacs")))))))
+  (let ((home (user-homedir-pathname)))
     (and file-name
          (string-match (format "^%s" home) file-name)
          (vc-workfile-revision file-name)
@@ -1552,9 +1489,7 @@
 
 (defun pjb-find-file-meat/warn-trailing-whitespace ()
   "Meat for find-file-hook: warn about trailing whitespace."
-  (let ((home (cond (user-init-file  (dirname user-init-file))
-                    ((getenv "HOME") (concat (getenv "HOME") "/"))
-                    (t               (dirname (first (file-expand-wildcards "~/.emacs"))))))
+  (let ((home (user-homedir-pathname))
         (file-name (buffer-file-name)))
     (when (and (not (member major-mode *pjb-binary-modes*))
                (trailing-whitespace-candidate-p file-name))
@@ -1646,7 +1581,7 @@
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
 
   (setq org-plantuml-jar-path
-        (expand-file-name "/opt/local/share/java/plantuml.jar")))
+        (root "/opt/local/share/java/plantuml.jar")))
 
 
 (require 'cmake-mode nil t)
@@ -1682,9 +1617,9 @@
     (message "%S = %S" var (symbol-value var)))
   (switch-to-buffer "*Messages*"))
 
-(add-to-load-path "~/.emacs.d/site-lisp")
-(add-to-load-path "~/.emacs.d/site-lisp/with-editor")
-(add-to-load-path "~/.emacs.d/site-lisp/magit/lisp")
+(add-to-load-path (home ".emacs.d/site-lisp"))
+(add-to-load-path (home ".emacs.d/site-lisp/with-editor"))
+(add-to-load-path (home ".emacs.d/site-lisp/magit/lisp"))
 
 ;; (require 'with-editor)
 ;; (add-hook 'shell-mode-hook  'with-editor-export-editor)
@@ -1692,9 +1627,9 @@
 ;; (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 ;; (require 'magit)
 
-(when (file-exists-p "~/rc/emacs-patches.el")
-  (load "~/rc/emacs-patches.el"))
-(load "~/rc/emacs-epilog.el")
+(when (file-exists-p (rc "emacs-patches.el"))
+  (load (rc "emacs-patches.el")))
+(load (rc "emacs-epilog.el"))
 
 ;; (customize-save-variable 'erc-autojoin-channels-alist erc-autojoin-channels-alist)
 

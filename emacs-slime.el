@@ -38,9 +38,9 @@
 
 (.EMACS "emacs-slime.el")
 
-(if (file-exists-p "~/quicklisp/slime-helper.el")
-    (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-    (add-to-load-path "~/emacs/slime"))
+(if (file-exists-p (home "quicklisp/slime-helper.el"))
+    (load (home "quicklisp/slime-helper.el") t)
+    (add-to-load-path (home "emacs/slime")))
 
 (require 'slime)
 (require 'slime-autoloads)
@@ -73,8 +73,8 @@
 
 
 
-(add-to-load-path "~/.emacs.d/site-lisp/lisp-system-browser")
-(add-to-load-path "~/.emacs.d/site-lisp/emacs-window-layout")
+(add-to-load-path (home ".emacs.d/site-lisp/lisp-system-browser"))
+(add-to-load-path (home ".emacs.d/site-lisp/emacs-window-layout"))
 
 (setq slime-contribs '(slime-fancy
                        ;; system-browser
@@ -164,7 +164,7 @@
     `(let ((command (first-existing-file (mapcar (lambda (cmd)
                                                    (if (listp cmd)
                                                        (first cmd)
-                                                       cmd))
+                                                     cmd))
                                                  ,commands-expression))))
        (if command
            (let* ((command (ensure-list command))
@@ -182,12 +182,12 @@
                              :coding-system  (intern (format "%s-unix" ',coding))
                              :init (lisp-implementation-init li))
                        slime-lisp-implementations)
-                 (setf (cdr sli)
-                       (list command
-                             :coding-system (intern (format "%s-unix" ',coding))
-                             :init (lisp-implementation-init li))))
+               (setf (cdr sli)
+                     (list command
+                           :coding-system (intern (format "%s-unix" ',coding))
+                           :init (lisp-implementation-init li))))
              ',name)
-           (warn "No executable for lisp implementation: %s" ',name))))
+         (warn "No executable for lisp implementation: %s" ',name))))
 
   (defun lisp-implementation-named (name)
     (get name :lisp-implementation))
@@ -233,13 +233,13 @@
 
   (define-lisp-implementation ccl
       (append (mapcar (function expand-file-name)
-                      '("~/opt/bin/ccl"
-                        "~/opt/ubuntu-22.04/bin/ccl"
-                        "~/opt/ubuntu-18.04/bin/ccl"))
-              '("/opt/local/bin/ccl"
-                "/usr/local/bin/ccl"
-                "/data/languages/ccl/bin/ccl"
-                "/usr/bin/ccl"))
+                      (list (home "opt/bin/ccl")
+                            (home "opt/ubuntu-22.04/bin/ccl")
+                            (home "opt/ubuntu-18.04/bin/ccl")))
+              (list (root "/opt/local/bin/ccl")
+                    (root "/usr/local/bin/ccl")
+                    (root "/data/languages/ccl/bin/ccl")
+                    (root "/usr/bin/ccl")))
     "^? "
     utf-8)
 
@@ -247,16 +247,19 @@
 
   (defun windoize-pathname (path)
     ;; "/home/pjb/quicklisp/dists/quicklisp/software/slime-20120208-cvs/swank-loader.lisp"
-    (let ((home (expand-file-name "~/")))
+    (let ((home (user-homedir-pathname)))
       (if (prefixp home path)
           (format "HOME:%s"      (substitute (character ";") (character "/") (subseq path (length home))))
-          (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path)))))
+        (format "C:\\cygwin%s" (substitute (character "\\") (character "/") path))
+        ;; also:
+        ;; (format "C:\\msys64%s" (substitute (character "\\") (character "/") path))
+        )))
 
   (defun slime-init-ccl-win-cygwin (port-filename coding-system)
     "Return a string to initialize Lisp."
     (let ((loader (if (file-name-absolute-p slime-backend)
                       slime-backend
-                      (concat slime-path slime-backend))))
+                    (concat slime-path slime-backend))))
       ;; Return a single form to avoid problems with buffered input.
       (format "%S\n\n"
               `(progn
@@ -345,7 +348,7 @@
       (defun pjb-emacs-slime-convert-filename (path)
         (if (prefixp "/c/" path)
             (concat "c:/" (subseq path 3))
-            path))
+          path))
 
       
       (setf slime-to-lisp-filename-function 'pjb-emacs-slime-convert-filename)
@@ -363,11 +366,11 @@
 
   
   (define-lisp-implementation ecl
-      (list (expand-file-name "~/opt/bin/ecl")
-            "/data/languages/ecl/bin/ecl"
-            "/usr/local/bin/ecl"
-            "/opt/local/bin/ecl"
-            "/usr/bin/ecl")
+      (list (home "opt/bin/ecl")
+            (root "/data/languages/ecl/bin/ecl")
+            (root "/usr/local/bin/ecl")
+            (root "/opt/local/bin/ecl")
+            (root "/usr/bin/ecl"))
     "^> "
     utf-8)
 
@@ -400,7 +403,7 @@
                       default-process-coding-system (cons coding coding)
                       slime-net-coding-system       (intern (format "%s-unix" coding))
                       slime-default-lisp            impl)))
-            (error "%S not a lisp implementation." impl))
+          (error "%S not a lisp implementation." impl))
         impl)))
 
   (defalias 'set-default-lisp-implementation 'set-inferior-lisp-implementation)
@@ -426,11 +429,11 @@
 
 
   (loop
-    for impl in '(ccl clisp sbcl ecl abcl)
-    when (set-default-lisp-implementation impl)
-    do (progn
-         (message "Default Lisp implementations is %s" impl)
-         (return impl)))
+        for impl in '(ccl clisp sbcl ecl abcl)
+        when (set-default-lisp-implementation impl)
+        do (progn
+             (message "Default Lisp implementations is %s" impl)
+             (return impl)))
 
 
   (defun %lisp-buffer-name (n impl) (format "%dlisp-%s" n impl))
@@ -445,15 +448,15 @@
                (mapcar (function buffer-name) (buffer-list))))
   (defun %lisp-buffer-next-number ()
     (loop
-      with i = 0
-      with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
-                                   (inferior-lisp-buffers-list))
-                           (function <=))
-      while numbers
-      do (if (= i (car numbers))
-             (progn (incf i) (pop numbers))
-             (return i))
-      finally (return i)))
+          with i = 0
+          with numbers = (sort (mapcar (function  %lisp-buffer-name-number)
+                                       (inferior-lisp-buffers-list))
+                               (function <=))
+          while numbers
+          do (if (= i (car numbers))
+                 (progn (incf i) (pop numbers))
+               (return i))
+          finally (return i)))
 
   (defvar *lisp-command-history* '())
 
@@ -467,7 +470,7 @@ of `inferior-lisp-program').  Runs the hooks from
 \(Type \\[describe-mode] in the process buffer for a list of commands.)"
     (interactive (list (if current-prefix-arg
                            (read-string "Run lisp: " inferior-lisp-program)
-                           inferior-lisp-program)))
+                         inferior-lisp-program)))
     (if (not (comint-check-proc "*inferior-lisp*"))
         (let ((cmdlist (split-string cmd)))
           (set-buffer (apply (function make-comint)
@@ -481,14 +484,14 @@ of `inferior-lisp-program').  Runs the hooks from
     "Create a new inferior-lisp buffer."
     (interactive "P")
     (let* ((impl-or-cmd
-             (if ask-command
-                 (read-from-minibuffer
-                  "Lisp implementation or command: "
-                  (format "%s" (lisp-implementation-name
-                                *default-lisp-implementation*))
-                  nil nil '*lisp-command-history*)
+            (if ask-command
+                (read-from-minibuffer
+                 "Lisp implementation or command: "
                  (format "%s" (lisp-implementation-name
-                               *default-lisp-implementation*))))
+                               *default-lisp-implementation*))
+                 nil nil '*lisp-command-history*)
+              (format "%s" (lisp-implementation-name
+                            *default-lisp-implementation*))))
            (impl  (unless (position (character " ") impl-or-cmd
                                     :test (function char=))
                     (intern-soft impl-or-cmd)))
@@ -517,11 +520,11 @@ of `inferior-lisp-program').  Runs the hooks from
     (if (and (boundp 'inferior-lisp-buffer) inferior-lisp-buffer
              (get-buffer inferior-lisp-buffer))
         (switch-to-buffer inferior-lisp-buffer)
-        (let ((lisp-buffers (inferior-lisp-buffers-list)))
-          (if lisp-buffers
-              (switch-to-buffer
-               (setf inferior-lisp-buffer (first lisp-buffers)))
-              (nlisp ask-command))))))
+      (let ((lisp-buffers (inferior-lisp-buffers-list)))
+        (if lisp-buffers
+            (switch-to-buffer
+             (setf inferior-lisp-buffer (first lisp-buffers)))
+          (nlisp ask-command))))))
 
 
 

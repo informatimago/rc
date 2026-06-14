@@ -4,7 +4,9 @@
 ;;; Code:
 
 
-(.EMACS "~/rc/emacs-android.el %s" "Android Development Pascal Bourguignon's emacs startup file.")
+(.EMACS "%s %s"
+        (rc "emacs-android.el") 
+        "Android Development Pascal Bourguignon's emacs startup file.")
 (require 'cc-mode)
 
 
@@ -71,9 +73,9 @@
 
 (defparameter *android-tools-directory*
   (if (string= (hostname) "kuiper")
-      "~/firms/ubudu/tools"
-      "~/opt"))
-(setf *android-tools-directory* "~/opt")
+      (home "firms/ubudu/tools")
+    (home "opt")))
+(setf *android-tools-directory* (home "opt"))
 
 
 ;; (require 'ubudu) ; c-style
@@ -93,14 +95,14 @@
   (add-hook 'gud-mode-hook 'gud-meat)
 
   ;; (require 'cedet)
-  ;; (let ((path (expand-file-name "~/emacs/jdee/lisp")))
+  ;; (let ((path (home "emacs/jdee/lisp")))
   ;;   (when (file-exists-p path)
   ;;     (add-to-load-path path)
   ;;     (require 'jde nil t)))
 
 
   ;; eclipse has a hard time dealing with backup files.
-  (let ((temporary-file-directory "~/.backups"))
+  (let ((temporary-file-directory (home ".backups")))
     (setq backup-directory-alist         `((".*" . ,temporary-file-directory)))
     (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 

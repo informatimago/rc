@@ -34,7 +34,7 @@
 (add-hook 'delete-frame-functions 'turn-on-trackpad)
 
 
-(load "~/rc/emacs-pjb.el")
+(load (rc "emacs-pjb.el"))
 
 (set-frame-font "terminus-13")
 (ignore-errors (progn (setf *pjb-current-font-index* 1) (set-current-font)))

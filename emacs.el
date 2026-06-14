@@ -43,10 +43,58 @@
 (when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
-(setf default-directory
-      (file-name-directory (cond (user-init-file  user-init-file)
-                                 ((getenv "HOME") (concat (getenv "HOME") "/"))
-                                 (t                (car (file-expand-wildcards "~/.emacs"))))))
+(defvar *root-pathname*         (expand-file-name "/"))
+(defvar *user-homedir-pathname* (expand-file-name "~/"))
+(defvar *rc-pathname*           (expand-file-name "~/rc/"))
+
+(defun pjb-collapse-slashes (path)
+  "Replace every run of two or more slashes in PATH by a single slash."
+  (replace-regexp-in-string "/\\{2,\\}" "/" path))
+
+(defun pjb-join-pathname (directory path)
+  "Join DIRECTORY and PATH robustly, then `expand-file-name' the result.
+Either argument may independently have — or lack — a leading or trailing
+slash (informally, a `…-directory-pathname' ends in / like in Common Lisp,
+a `…-directory' does not, like in Unix and Emacs; but this is not
+enforced).  Exactly one slash is kept at the junction and everywhere else,
+so no spurious // appears, and ~ and .. in the result are resolved."
+  (expand-file-name (pjb-collapse-slashes (concat directory "/" path))))
+
+(defun root (path) (pjb-join-pathname *root-pathname*         path))
+(defun home (path) (pjb-join-pathname *user-homedir-pathname* path))
+(defun rc   (path) (pjb-join-pathname *rc-pathname*           path))
+(defun pjb-emacs-source (path)
+  (pjb-join-pathname (concat *rc-pathname* "../src/public/emacs/") path))
+
+(cl-case system-type
+  ((darwin linux)
+   (setq *user-homedir-pathname* (file-name-directory
+                                  (cond (user-init-file  user-init-file)
+                                        ((getenv "HOME") (concat (getenv "HOME") "/"))
+                                        (t                (car (file-expand-wildcards "~/.emacs")))))
+         *rc-pathname*           (expand-file-name (concat *user-homedir-pathname* "rc/"))
+         default-directory *user-homedir-pathname*))
+  ((cygwin) ; msys2 etc
+   ;; We have different HOME directories
+   ;; but we store a single RC directory and a single PJB-EMACS-SOURCES directory.
+   (cl-case (and (boundp 'FROM) FROM)
+     ((WOME)
+      (setq *root-pathname* "C:/msys64/"
+            *user-homedir-pathname* WOME
+            *rc-pathname* RC))
+     ((ROME)
+      (setq *root-pathname* "C:/msys64/"
+            *user-homedir-pathname* ROME
+            *rc-pathname* RC))
+     ((MOME)
+      (setq *root-pathname* "/"
+            *user-homedir-pathname* MOME
+            *rc-pathname* RC))
+     (otherwise
+      (message "!!!! unexpected FROM value %S" (and (boundp 'FROM) FROM)))))
+  (otherwise
+   (message "!!!! system-type = %S not processed yet" system-type)))
+
 
 ;; Depending on the host computer, we may load one or another of the
 ;; actual emacs configuration files we have in ~/rc/.
@@ -61,27 +109,17 @@
       "localhost"))
 
 (let ((configuration
-        (if (boundp 'aquamacs-version)
-            '(aquamacs . "~/rc/emacs-aquamacs.el")
-            (or (let* ((hostname-configuration-map
-                         '(;; ("^fr\\(dark\\|prld\\|prwn\\)"  . "~/rc/emacs-harman.el")
-                           ;; ("^qorvo"                       . "~/rc/emacs-qorvo.el")
-                           ;; ("^\\(.*span\\|[WwLl][0-9]\\{7\\}$\\|vm-u[0-9]*$\\)"
-                           ;;  . "~/rc/emacs-span.el")
-                           ;; ("macbook[-.]trustonic.local"   . "~/rc/emacs-trustonic.el")
-                           ;; ("^vmlinux"                     . "~/rc/emacs-trustonic.el")
-                           ;; ("^mercure"                     . "~/rc/emacs-ubudu.el")
-                           ;; ("^uiserver"                    . "~/rc/emacs-ubudu.el")
-                           ;; ("^ubudair"                     . "~/rc/emacs-ubudu.el")
-                           ;; ("^ubudu-vm-mac-[0-9]"          . "~/rc/emacs-ubudu.el")
-                           ("^PF5S26BT"                    . "~/rc/emacs-sncf-reseau.el")))
-                       (hostname (hostname))
-                       (conf  hostname-configuration-map))
-                  (while (and conf (not (let ((case-fold-search t))
-                                          (string-match (caar conf) hostname))))
-                         (setq conf (cdr conf)))
-                  (car conf))
-                '("informatimago.com" . "~/rc/emacs-pjb.el")))))
+       (if (boundp 'aquamacs-version)
+           (cons 'aquamacs  (rc "emacs-aquamacs.el"))
+         (or (let* ((hostname-configuration-map
+                     (list (cons "^PF5S26BT"  (rc "emacs-sncf-reseau.el"))))
+                    (hostname (hostname))
+                    (conf  hostname-configuration-map))
+               (while (and conf (not (let ((case-fold-search t))
+                                       (string-match (caar conf) hostname))))
+                 (setq conf (cdr conf)))
+               (car conf))
+             (cons "informatimago.com" (rc "emacs-pjb.el"))))))
   (if configuration
       (let ((file (file-truename (cdr configuration))))
 	    (if (<= 27 emacs-major-version)
@@ -100,15 +138,15 @@
 				                       ;; (callargs zot)
 				                       )
 			  (load file))
-	        (load file))
+	      (load file))
         ;; setting custom-file needs to be done after we've customized our stuff
         ;; otherwise it may be overridden with an empty customization.
         (setq custom-file (or file custom-file)))
-      (message "Found no configuration to load for %s" (hostname))))
+    (message "Found no configuration to load for %s" (hostname))))
 
-(when (file-exists-p "~/rc/emacs-patches.el")
-  (load "~/rc/emacs-patches.el"))
-(load "~/rc/emacs-epilog.el")
+(when (file-exists-p (rc "emacs-patches.el"))
+  (load (rc "emacs-patches.el")))
+(load (rc "emacs-epilog.el"))
 
 ;; Local Variables:
 ;; coding: utf-8

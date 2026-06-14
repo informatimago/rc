@@ -14,9 +14,10 @@
 (if (file-exists-p (concat source-directory "/emacs.c"))
     (message "emacs sources are installed in %s"source-directory)
     (progn
-      (warn "~/rc/emacs-epilog.el: %S is missing. Trying to fetch the sources and set source-directory."
+      (warn "%s: %S is missing. Trying to fetch the sources and set source-directory."
+            (rc "emacs-epilog.el")
             (concat source-directory "/emacs.c"))
-      (let ((source-root (expand-file-name "~/emacs/src"))
+      (let ((source-root (home "emacs/src"))
             (fetcher
               (cond
                 ((pjb-epilog-shell-bool "which ncftpget") "ncftpget %S")

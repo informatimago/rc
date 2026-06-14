@@ -4,10 +4,9 @@
 ;;; Code:
 
 
-(.EMACS "~/rc/emacs-sncf-reseau.el %s" "Pascal J. Bourguignon's emacs startup file.")
-(load "~/rc/emacs-pjb.el")
-
-(.EMACS "~/rc/emacs-sncf-reseau.el %s" "resumes.")
+(.EMACS "%s %s" (rc "emacs-sncf-reseau.el") "Pascal J. Bourguignon's emacs startup file.")
+(load (rc "emacs-pjb.el"))
+(.EMACS "%s %s" (rc "emacs-sncf-reseau.el") "resumes.")
 
 (setf visible-bell t
       ring-bell-function nil)
@@ -17,10 +16,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-additional-directory-list '("~/rc/"))
- '(Info-default-directory-list
-   '("/usr/local/share/emacs/site-lisp/fountain-mode"
-     "/usr/local/share/info/" "/opt/local/share/info/"))
  '(ad-redefinition-action 'accept)
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
@@ -583,15 +578,8 @@
  '(message-default-charset 'iso-8859-15)
  '(message-default-headers
    "Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAAD///+l2Z/dAAAA\12      oElEQVR4nK3OsRHCMAwF0O8YQufUNIQRGIAja9CxSA55AxZgFO4coMgYrEDDQZWPIlNAjwq9\12      033pbOBPtbXuB6PKNBn5gZkhGa86Z4x2wE67O+06WxGD/HCOGR0deY3f9Ijwwt7rNGNf6Oac\12      l/GuZTF1wFGKiYYHKSFAkjIo1b6sCYS1sVmFhhhahKQssRjRT90ITWUk6vvK3RsPGs+M1RuR\12      mV+hO/VvFAAAAABJRU5ErkJggg==\12X-Accept-Language:         fr, es, en\12")
- '(message-directory "~/mail/")
  '(message-from-style 'angles)
- '(message-required-news-headers
-   '(From Newsgroups Subject Date Message-ID (optional . Organization)
-     (optional . User-Agent)
-     (X-Face lambda nil (gnus-x-face-from-file "~/my-face.xbm"))))
  '(message-user-organization "Informatimago")
- '(mew-conf-path "~/.new")
- '(mew-mail-path "~/mail")
  '(mew-pop-auth 'pass)
  '(mew-pop-header-only nil)
  '(mew-pop-server "pop.informatimago.com")
@@ -608,22 +596,10 @@
  '(mm-coding-system-priorities '(ascii iso-latin-1 iso-latin-9 utf-8))
  '(mspools-update t)
  '(next-screen-context-lines 0)
- '(nntp-authinfo-file "~/.authinfo")
  '(nrepl-message-colors
    '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8"
      "#2aa198" "#d33682" "#6c71c4"))
  '(org-adapt-indentation nil)
- '(org-agenda-files
-   '("~/rc/notes.txt" "~/works/sbde/todo.org"
-     "~/works/sbde/smt/sources/README.org"
-     "~/works/sbde/laboite/specifications/components.org"
-     "~/works/sbde/laboite/analysis/controller.org"
-     "~/works/manif/TODO.org" "~/works/synth/schmidt/todo.txt"
-     "~/works/enolaba/macosx/src/TODO"
-     "~/src/pjb/nasium-lse/ISSUES.txt"
-     "~/works/patchwork/src/mclgui/TODO.org"
-     "~/works/patchwork/src/patchwork/notes.txt"
-     "~/works/abnotation/abnotation/todo.txt" "~/works/ops/TODO.org"))
  '(org-confirm-babel-evaluate nil)
  '(org-export-with-broken-links nil)
  '(org-fontify-done-headline t)
@@ -671,7 +647,6 @@
  '(rmail-redisplay-summary t)
  '(rmail-remote-password nil)
  '(rmail-remote-password-required nil)
- '(rmail-secondary-file-directory "~/mail")
  '(rmail-summary-line-decoder 'identity)
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values
@@ -1041,27 +1016,8 @@
  '(vm-auto-displayed-mime-content-types
    '("text/enriched" "text/plain" "message" "message/rfc822"
      "message/disposition-notification" "multipart"))
- '(vm-auto-folder-alist
-   '(("^\\(From:\\|To:\\|Cc:\\)"
-      ("svn-.*anevia.com" . "~/mail/anevia-svn.mbox")
-      ("staff@anevia.com" . "~/mail/anevia-staff.mbox")
-      ("cpptest@anevia.com" . "~/mail/cpptest.mbox")
-      ("\\(bese.*common-lisp\\)" . "~/mail/ucw.mbox")
-      ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)"
-       . "~/mail/lisp.mbox")
-      ("cert-advisory@cert.org" . "~/mail/cert.mbox")
-      ("gentoo" . "~/mail/gentoo.mbox"))
-     ("^Subject:"
-      ("\\[libanevia\\|manager2\\|aipc\\]"
-       . "~/mail/anevia-manager2.mbox")
-      ("cs daily" . "~/mail/cs-papers.mbox")
-      ("CRYPTO.*GRAM" . "~/mail/crypto-gram.mbox")
-      ("ipnsig" . "~/mail/ipnsig.mbox")
-      ("\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)"
-       . "~/mail/lisp.mbox"))))
  '(vm-auto-folder-case-fold-search t)
  '(vm-display-xfaces t)
- '(vm-folder-directory "~/mail/")
  '(vm-highlighted-header-face 'font-lock-comment-face)
  '(vm-honor-mime-content-disposition nil)
  '(vm-included-text-prefix "> ")
@@ -1089,7 +1045,6 @@
  '(vm-mutable-frames nil)
  '(vm-preview-lines nil)
  '(vm-reply-subject-prefix "Re: ")
- '(vm-spool-files '(("~/INBOX" "/var/spool/mail/pjb" "~/INBOX-local.crash")))
  '(vm-summary-highlight-face 'font-lock-comment-face)
  '(vm-url-browser 'pjb-browse-url)
  '(vm-use-lucid-highlighting t)
@@ -1104,20 +1059,15 @@
  '(w3-use-terminal-characters-on-tty nil)
  '(w3-user-colors-take-precedence t)
  '(w3-user-fonts-take-precedence t)
- '(w3m-arrived-file "~/.w3m/arrived")
- '(w3m-bookmark-file "~/.w3m/bookmark.html")
  '(w3m-bookmark-file-coding-system 'utf-8)
  '(w3m-coding-system 'utf-8)
- '(w3m-cookie-file "~/.w3m/cookie")
  '(w3m-default-display-inline-images t)
  '(w3m-fb-mode nil)
  '(w3m-file-coding-system 'utf-8)
  '(w3m-file-name-coding-system 'iso-8859-1)
- '(w3m-form-textarea-directory "~/.w3m/textarea")
  '(w3m-home-page "http://localhost/")
  '(w3m-pop-up-frames nil)
  '(w3m-pop-up-windows nil)
- '(w3m-session-file "~/.w3m/sessions")
  '(w3m-terminal-coding-system 'utf-8)
  '(w3m-use-cookies t)
  '(w3m-use-tab nil)
@@ -1209,6 +1159,64 @@
  '(semantic-unmatched-syntax-face ((((class color) (background dark)) nil)))
  '(slime-repl-output-face ((t (:foreground "yellow green")))))
 
-(.EMACS "~/rc/emacs-sncf-reseau.el %s" "complete.")
+
+;;; Path settings extracted from the customize block above so they adapt to
+;;; the host environment (notably the various MS-Windows/msys2 HOME, RC and
+;;; ROOT locations).  See `home', `rc' and `root' in emacs.el.
+(let ((lisp-folders-regexp
+       "\\(lispme\\|clisp\\|sbcl\\|cmucl\\|openmcl\\|ilisp\\|clocc\\|clump\\|cclan\\|ecls\\|nocrew.org\\|biolisp\\|lispweb\\|climacs\\|gardeners\\|acl2\\|Planet Lisp\\|lisa-users\\|opencyc\\|small-cl-src\\|cl-faq\\|cl-pdf\\|cl-typesetting\\|movitz\\|quiz@common-lisp\\|slime\\)"))
+  (setq Info-additional-directory-list (list (rc ""))
+        Info-default-directory-list    (list (root "/usr/local/share/emacs/site-lisp/fountain-mode")
+                                              (root "/usr/local/share/info/")
+                                              "/opt/local/share/info/")
+        message-directory              (home "mail/")
+        message-required-news-headers
+        `(From Newsgroups Subject Date Message-ID (optional . Organization)
+          (optional . User-Agent)
+          (X-Face lambda nil (gnus-x-face-from-file ,(home "my-face.xbm"))))
+        mew-conf-path                  (home ".new")
+        mew-mail-path                  (home "mail")
+        nntp-authinfo-file             (home ".authinfo")
+        org-agenda-files               (mapcar (function home)
+                                               '("rc/notes.txt"
+                                                 "works/sbde/todo.org"
+                                                 "works/sbde/smt/sources/README.org"
+                                                 "works/sbde/laboite/specifications/components.org"
+                                                 "works/sbde/laboite/analysis/controller.org"
+                                                 "works/manif/TODO.org"
+                                                 "works/synth/schmidt/todo.txt"
+                                                 "works/enolaba/macosx/src/TODO"
+                                                 "src/pjb/nasium-lse/ISSUES.txt"
+                                                 "works/patchwork/src/mclgui/TODO.org"
+                                                 "works/patchwork/src/patchwork/notes.txt"
+                                                 "works/abnotation/abnotation/todo.txt"
+                                                 "works/ops/TODO.org"))
+        rmail-secondary-file-directory (home "mail")
+        vm-folder-directory            (home "mail/")
+        vm-spool-files                 (list (list (home "INBOX")
+                                                   (root "/var/spool/mail/pjb")
+                                                   (home "INBOX-local.crash")))
+        vm-auto-folder-alist
+        `(("^\\(From:\\|To:\\|Cc:\\)"
+           ("svn-.*anevia.com"        . ,(home "mail/anevia-svn.mbox"))
+           ("staff@anevia.com"        . ,(home "mail/anevia-staff.mbox"))
+           ("cpptest@anevia.com"      . ,(home "mail/cpptest.mbox"))
+           ("\\(bese.*common-lisp\\)" . ,(home "mail/ucw.mbox"))
+           (,lisp-folders-regexp      . ,(home "mail/lisp.mbox"))
+           ("cert-advisory@cert.org"  . ,(home "mail/cert.mbox"))
+           ("gentoo"                  . ,(home "mail/gentoo.mbox")))
+          ("^Subject:"
+           ("\\[libanevia\\|manager2\\|aipc\\]" . ,(home "mail/anevia-manager2.mbox"))
+           ("cs daily"                . ,(home "mail/cs-papers.mbox"))
+           ("CRYPTO.*GRAM"            . ,(home "mail/crypto-gram.mbox"))
+           ("ipnsig"                  . ,(home "mail/ipnsig.mbox"))
+           (,lisp-folders-regexp      . ,(home "mail/lisp.mbox"))))
+        w3m-arrived-file               (home ".w3m/arrived")
+        w3m-bookmark-file              (home ".w3m/bookmark.html")
+        w3m-cookie-file                (home ".w3m/cookie")
+        w3m-form-textarea-directory    (home ".w3m/textarea")
+        w3m-session-file               (home ".w3m/sessions")))
+
+(.EMACS "%s %s" (rc "emacs-sncf-reseau.el") "complete.")
 
 ;;;; THE END ;;;;
