@@ -2,7 +2,7 @@ source "$PJB_BASH_RC_ROOT/bash/profiles/site-user.bash"
 source "$PJB_BASH_RC_ROOT/bash/profiles/site-sncf-reseau.bash"
 
 export TERM=dumb
-pwsh -commandwithargs chcp 850
+pwsh -commandwithargs chcp 850 2>/dev/null || powershell -commandwithargs chcp 850 2>/dev/null
 
 # export PATH="${PATH}:/c/Program Files/Git/bin/"
 # export PATH="${PATH}:/c/Program Files/Git/usr/bin/"
