@@ -80,6 +80,25 @@ Host hiroux.fr
     User                    git
     IdentityFile            ~/.ssh/informatimago-hiroux
 
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/pjb-poseidon-hetzner
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-poseidon
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    claude
+    IdentityFile            ~/.ssh/claude-poseidon
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    runners
+    IdentityFile            ~/.ssh/runners-poseidon
 
 
 # OTHER HOSTS
