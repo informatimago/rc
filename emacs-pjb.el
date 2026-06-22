@@ -251,7 +251,7 @@
      ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX")
      ("sbde.fr" "#laboite" "#sbde") ("oftc.net" "#uml")))
  '(erc-autojoin-delay 60)
- '(erc-autojoin-mode t)
+ '(erc-autojoin-mode t nil (erc-join))
  '(erc-autojoin-timing 'ident)
  '(erc-away-timestamp-format "<%H:%M:%S>")
  '(erc-beep-match-types '(current-nick keyword pal))
