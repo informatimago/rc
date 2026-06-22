@@ -52,7 +52,7 @@ function bashrc_set_prompt(){
     #
 
     local use_color="${COLOR_PROMPT:-false}"
-    local escape=''
+    local escape=$'\033'
     local bold="${escape}"'[1m'
     local underline="${escape}"'[4m'
     local blink="${escape}"'[5m'
