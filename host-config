@@ -1,0 +1,23 @@
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/pjb-poseidon-hetzner
+    IdentitiesOnly          yes
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    pjb
+    IdentityFile            ~/.ssh/pjb-poseidon
+    IdentitiesOnly          yes
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    claude
+    IdentityFile            ~/.ssh/claude-poseidon
+    IdentitiesOnly          yes
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    runners
+    IdentityFile            ~/.ssh/runners-poseidon
+    IdentitiesOnly          yes
