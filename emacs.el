@@ -64,8 +64,9 @@ so no spurious // appears, and ~ and .. in the result are resolved."
 (defun home (path) (pjb-join-pathname *user-homedir-pathname* path))
 (defun rc   (path) (pjb-join-pathname *rc-pathname*           path))
 (defun pjb-emacs-source (path)
-  (pjb-join-pathname (concat *rc-pathname* "../src/public/emacs/") path))
+  (pjb-join-pathname (concat *rc-pathname* "/../src/public/emacs/") path))
 
+(require 'cl-lib)
 (cl-case system-type
   ((darwin linux)
    (setq *user-homedir-pathname* (file-name-directory

@@ -1,0 +1,9 @@
+alias psql="rlwrap -i -f ~/.psql_history -H ~/.psql_history -s 30000 psql --"
+touch ~/.psql_history
+
+
+alias lisp="rlwrap -i -f ~/.lisp_history -H ~/.lisp_history -s 30000 sbcl --"
+touch ~/.lisp_history
+
+
+

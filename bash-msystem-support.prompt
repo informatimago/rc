@@ -1,0 +1,147 @@
+# Add MSYSTEM awareness to my bash environment cache
+
+## Context
+
+I maintain a personal bash configuration under `~/rc/bash/`. Its guiding
+principle is that **non-interactive bash shells should see the same
+environment as interactive ones**. This avoids the classic "but it works
+in my shell!" trap where build scripts, editors, and tools invoked via
+`bash -c …` end up with a different PATH or missing variables than the
+shell I tested in.
+
+The mechanism:
+
+1. `~/.bashrc` is sourced by interactive shells. As part of its work it
+   computes the environment (PATH and friends) and writes a snapshot to a
+   cache file.
+2. `$BASH_ENV` points to `~/rc/bash/env/noninteractive.bash`, which is
+   sourced by non-interactive bash (scripts, `bash -c`, `makepkg`, etc.).
+   That file sources the cache, so non-interactive shells inherit
+   exactly what interactive shells have.
+3. The cache lives at
+   `~/.cache/bash/env-${HOSTNAME}-$(uname -s).bash`.
+
+This works fine on Linux. It is **broken on MSYS2** and the fix is the
+subject of this prompt.
+
+## The problem
+
+MSYS2 ships several environments selected by the `$MSYSTEM` variable:
+`MSYS`, `MINGW64`, `UCRT64`, `CLANG64`, `CLANGARM64`. Each has its own
+correct PATH prefix (`/usr/bin`, `/mingw64/bin`, `/ucrt64/bin`,
+`/clang64/bin`, …), its own `MINGW_PREFIX`, its own `PKG_CONFIG_PATH`,
+its own toolchain. They are genuinely distinct environments that happen
+to share a filesystem.
+
+`uname -s` returns the same string (`MINGW64_NT-10.0-…`) in **all** of
+them. So my current cache key collapses five distinct environments into
+one slot. Whichever shell writes the cache last poisons the other four.
+
+This surfaces most painfully under `makepkg-mingw`, which deliberately
+iterates over the MSYSTEMs listed in a PKGBUILD's `mingw_arch` array,
+launching a non-interactive build for each. Each of those builds reads
+my `$BASH_ENV`, reads the cache, and gets whichever environment was
+written last — typically the wrong one, with `/usr/bin` masking
+`/ucrt64/bin` and the build failing at "C compiler cannot create
+executables" because `cc1` for the wrong toolchain isn't reachable.
+
+A secondary problem: non-interactive bash invoked via `$BASH_ENV` does
+**not** source `/etc/profile`. On MSYS2, `/etc/profile` is where the
+MSYSTEM-aware PATH prefix, `ACLOCAL_PATH`, `MANPATH`, `MINGW_PREFIX`
+etc. are established. If `~/.bashrc` is ever sourced in a context that
+hasn't been through `/etc/profile`, the cache silently captures a
+half-set environment.
+
+## The fix
+
+Please modify the bash files in `~/rc/bash/` so they implement the
+following. Preserve existing structure and naming conventions; this is
+a refactor, not a rewrite.
+
+### 1. Key the cache by `$MSYSTEM` when set
+
+Replace the current cache path:
+
+    ~/.cache/bash/env-${HOSTNAME}-$(uname -s).bash
+
+with:
+
+    ~/.cache/bash/env-${HOSTNAME}-${MSYSTEM:-$(uname -s)}.bash
+
+On Linux `$MSYSTEM` is unset, so the fallback to `uname -s` preserves
+current behaviour. On MSYS2 each environment gets its own cache file.
+
+This change must be applied in **both** the writer (`~/.bashrc` or
+whatever in `~/rc/bash/` writes the cache) **and** the reader
+(`~/rc/bash/env/noninteractive.bash` — the file pointed to by
+`$BASH_ENV`). They must agree on the path, otherwise the reader
+misses the cache the writer just produced.
+
+### 2. Regenerate the cache when source rc files change
+
+The cache currently survives until manually deleted, so edits to
+`~/rc/bash/` don't take effect for non-interactive shells until the
+cache is invalidated by hand. Add a staleness check in the writer:
+
+    if [[ ! -r $cache ]] || [[ -n $(find ~/rc/bash -newer "$cache" -print -quit 2>/dev/null) ]]; then
+        # … recompute and write the cache …
+    fi
+
+`find … -newer … -print -quit` returns the first newer file and stops,
+which is cheap. Use whatever directory actually contains my rc sources
+if `~/rc/bash` is wrong.
+
+### 3. Write the cache with `declare -px`
+
+If the current writer builds the cache by hand (echoing `export FOO=…`
+lines), switch to `declare -px VAR1 VAR2 …`. This emits properly
+quoted, `export`-prefixed declarations for exactly the listed
+variables, so values containing spaces, quotes, or shell metacharacters
+survive round-tripping. The cache file should remain a passive
+env-snapshot — no logic, no command substitutions at read time.
+
+Variables to include at minimum (extend as needed to match what
+`.bashrc` already exports):
+
+    PATH MANPATH INFOPATH
+    MSYSTEM MINGW_PREFIX MINGW_CHOST MINGW_PACKAGE_PREFIX
+    PKG_CONFIG_PATH PKG_CONFIG_SYSTEM_INCLUDE_PATH PKG_CONFIG_SYSTEM_LIBRARY_PATH
+    ACLOCAL_PATH CMAKE_PREFIX_PATH
+    LANG LC_ALL TZ
+    EDITOR PAGER
+
+### 4. Guard `.bashrc` against running before `/etc/profile`
+
+At the top of `~/.bashrc`, before any environment work:
+
+    [[ -n $MINGW_PREFIX ]] || . /etc/profile
+
+This is a no-op on Linux (`$MINGW_PREFIX` is empty and `/etc/profile`
+is well-behaved) and protects MSYS2 against the case where a non-login
+context tries to populate the cache without the MSYSTEM-aware setup
+having run.
+
+If a similar guard makes sense in `noninteractive.bash`, add it there
+too — though typically the cache will already exist by then and the
+file just sources it.
+
+## What I'd like back
+
+1. A short summary of which files in `~/rc/bash/` you read and which
+   ones you intend to change.
+2. A diff (or before/after of each modified block) **before** writing.
+3. After I approve: apply the edits.
+4. A one-line manual sanity check I can run afterwards, e.g.
+   `bash -c 'echo $PATH'` from a UCRT64 shell vs. an MSYS shell,
+   confirming the two produce different `$PATH` values with the right
+   prefix in each.
+
+## Out of scope
+
+- Do not touch `/etc/profile`, `/etc/makepkg.conf`, or anything outside
+  `~/rc/` and `~/.bashrc`.
+- Do not add new dependencies (no Python, no external tools). Pure
+  bash, using what MSYS2 already ships.
+- Do not change the cache *format* beyond switching to `declare -px`;
+  in particular, keep the file under `~/.cache/bash/` and keep
+  `$BASH_ENV` pointing where it currently points.
