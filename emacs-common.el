@@ -1320,6 +1320,86 @@ typing C-f13 to C-f35 and C-M-f13 to C-M-f35.
 			                (set-default 'shell-dirstack-query "pwd"))))))
 
 ;;;----------------------------------------------------------------------------
+(.EMACS "bash-completion prompt gating")
+;;
+;; `bash-completion' works by injecting a `complete -p ...' command line into
+;; the live bash process and parsing the reply.  That is correct only while
+;; bash itself is the foreground program.  A `shell-mode' buffer however
+;; routinely runs *other* programs that bash exec/forks -- a Lisp REPL,
+;; clautolisp driving BricsCAD (prompt "alfe> "), python, gdb, ... -- and
+;; comint cannot tell that the foreground process changed: same buffer, same
+;; major mode, same pipe.  Left ungated, bash-completion injects its
+;; `__ebc...' bootstrap into whatever is running, corrupting that program's
+;; stdin (the `==emacs==' / `__ebcpre' garbage one sees in the REPL).
+;;
+;; There is no portable way -- especially on MS-Windows/MSYS2 -- to ask the OS
+;; which process owns the pty's foreground process group.  The one signal
+;; comint maintains reliably on every platform is the text of the current
+;; prompt (`comint-last-prompt': the trailing line the inferior last emitted,
+;; with no newline).  So we gate on that: delegate to bash-completion only
+;; when the current prompt looks like an interactive *bash* prompt and not
+;; like a known REPL prompt.
+
+(defcustom pjb-shell-bash-prompt-regexp "[$#%][[:space:]]*\\'"
+  "Regexp matching the tail of an interactive bash prompt.
+Matched against the text of `comint-last-prompt'.  The default accepts the
+canonical bash PS1 terminators -- `$' (user), `#' (root), `%' -- as used on
+macOS, Linux and MSYS2/MinGW alike, optionally followed by whitespace.  It
+deliberately does NOT accept a trailing `>' (bash's PS2 continuation, and the
+tail of many REPL prompts such as python's `>>> ' or clautolisp's `alfe> ').
+Customise this if your PS1 ends differently.  Note that prompts listed in
+`pjb-shell-non-bash-prompt-regexps' are rejected even when they match here."
+  :type 'regexp
+  :group 'shell)
+
+(defcustom pjb-shell-non-bash-prompt-regexps
+  '("\\`alfe> \\'"          ; clautolisp  *interactive-prompt-primary*
+    "\\` *> \\'")           ; clautolisp  *interactive-prompt-continuation*
+  "Regexps for prompts that must NEVER trigger bash completion.
+Each is matched against the text of `comint-last-prompt'.  A match here
+suppresses bash-completion even when `pjb-shell-bash-prompt-regexp' also
+matched -- use it for REPLs launched from the shell whose prompt happens to
+end like a bash prompt.  Add the prompts of other programs you run inside
+`shell-mode' here as you meet them."
+  :type '(repeat regexp)
+  :group 'shell)
+
+(defun pjb-shell--current-prompt ()
+  "Return the text of the current comint prompt, or nil.
+This is the trailing, newline-less line the inferior process last emitted --
+the prompt the user is typing against, whatever program produced it."
+  (when (and (derived-mode-p 'comint-mode)
+             (boundp 'comint-last-prompt)
+             (consp comint-last-prompt))
+    (ignore-errors
+      (buffer-substring-no-properties (car comint-last-prompt)
+                                      (cdr comint-last-prompt)))))
+
+(defun pjb-shell-at-bash-prompt-p ()
+  "Non-nil when the current shell prompt is an interactive bash prompt.
+See `pjb-shell-bash-prompt-regexp' and `pjb-shell-non-bash-prompt-regexps'."
+  (let ((prompt (pjb-shell--current-prompt)))
+    (and prompt
+         (string-match-p pjb-shell-bash-prompt-regexp prompt)
+         (not (cl-some (lambda (re) (string-match-p re prompt))
+                       pjb-shell-non-bash-prompt-regexps)))))
+
+(defun pjb-shell--bash-completion-gate (&rest _)
+  "`:before-while' gate for `bash-completion-dynamic-complete'.
+In a comint buffer, returns non-nil only at an interactive bash prompt, so
+bash-completion never probes (`complete -p') a non-bash program that bash
+launched in the same buffer.  When it returns nil, the wrapped completion is
+skipped and the remaining `shell-dynamic-complete-functions' -- pcomplete,
+filename completion, ... , none of which write to the inferior process --
+take over.  Outside comint it stays out of the way (returns non-nil)."
+  (or (not (derived-mode-p 'comint-mode))
+      (pjb-shell-at-bash-prompt-p)))
+
+(with-eval-after-load 'bash-completion
+  (advice-add 'bash-completion-dynamic-complete :before-while
+              #'pjb-shell--bash-completion-gate))
+
+;;;----------------------------------------------------------------------------
 ;; (.EMACS "eshell")
 ;; (unless (featurep 'eshell-auto)
 ;;   (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
