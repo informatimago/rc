@@ -1,8 +1,5 @@
-Host poseidon
-    HostName                poseidon.informatimago.com
-    User                    root
-    IdentityFile            ~/.ssh/pjb-poseidon-hetzner
-    IdentitiesOnly          yes
+
+# First entry is used by default for: ssh poseidon
 
 Host poseidon
     HostName                poseidon.informatimago.com
@@ -21,3 +18,10 @@ Host poseidon
     User                    runners
     IdentityFile            ~/.ssh/runners-poseidon
     IdentitiesOnly          yes
+
+Host poseidon
+    HostName                poseidon.informatimago.com
+    User                    root
+    IdentityFile            ~/.ssh/pjb-poseidon-hetzner
+    IdentitiesOnly          yes
+
