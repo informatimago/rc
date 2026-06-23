@@ -227,7 +227,8 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 (require 'server)
 (setf server-socket-dir (home ".emacs.d/server")
       server-name       (format "server-%d" (emacs-pid)))
-(when (string= (hostname) "PF5S26BT")
+(when (and (string= (hostname) "PF5S26BT")
+	   (not (eq system-type 'gnu/linux)))
   ;; we need to override server-ensure-safe-dir because here we don't have access rights.
   (defun server-ensure-safe-dir (dir)
     t))

@@ -8,7 +8,6 @@
 (require 'dall-e-shell nil t)
 (require 'ob-dall-e-shell nil t)
 
-
 ;; in ~/.authinfo:
 ;; machine api.openai.com login your@email password sk-....................
 
@@ -17,7 +16,6 @@
 
 (setq chatgpt-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com" :port "emacs"))
-
 (setq dall-e-shell-openai-key
       (auth-source-pick-first-password :host "api.openai.com" :port "emacs"))
 
@@ -25,6 +23,5 @@
    (ob-chatgpt-shell-setup))
 (when (fboundp 'ob-dall-e-shell-setup)
   (ob-dall-e-shell-setup))
-
 
 (auth-source-pick-first-password :host "fabrik.sncf.fr" :port "gitlab")

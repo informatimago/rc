@@ -23,4 +23,11 @@ export EPURE_INSTALL_DIR="c:\\EPURE2022"
 export MSBUILD_PATH="C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
 # echo '!!! We need to re-source .bashrc-schms-functions after modifying !!!'
 # echo '!!! these environment variables                                  !!!'
-[ -r "$HOME/.bashrc-schms-functions" ] && source "$HOME/.bashrc-schms-functions"
+# The SNCF SCHMS helper runs interactive prompts (`read -p ...`) and
+# `uv tool install` / curl downloads at *source* time -- which hangs the
+# shell when a tool is missing or the corporate proxy is slow.  Load it
+# only in interactive shells, and with stdin redirected from /dev/null so
+# any top-level `read` returns immediately instead of blocking.
+if [[ $- == *i* ]] && [ -r "$HOME/.bashrc-schms-functions" ] ; then
+    source "$HOME/.bashrc-schms-functions" </dev/null
+fi

@@ -579,6 +579,9 @@
  '(message-default-headers
    "Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAAD///+l2Z/dAAAA\12      oElEQVR4nK3OsRHCMAwF0O8YQufUNIQRGIAja9CxSA55AxZgFO4coMgYrEDDQZWPIlNAjwq9\12      033pbOBPtbXuB6PKNBn5gZkhGa86Z4x2wE67O+06WxGD/HCOGR0deY3f9Ijwwt7rNGNf6Oac\12      l/GuZTF1wFGKiYYHKSFAkjIo1b6sCYS1sVmFhhhahKQssRjRT90ITWUk6vvK3RsPGs+M1RuR\12      mV+hO/VvFAAAAABJRU5ErkJggg==\12X-Accept-Language:         fr, es, en\12")
  '(message-from-style 'angles)
+ '(message-required-news-headers
+   '(From Newsgroups Subject Date Message-ID (optional . Organization)
+     (optional . User-Agent)))
  '(message-user-organization "Informatimago")
  '(mew-pop-auth 'pass)
  '(mew-pop-header-only nil)
@@ -594,6 +597,7 @@
    '(read-only t point-entered minibuffer-avoid-prompt face
      minibuffer-prompt))
  '(mm-coding-system-priorities '(ascii iso-latin-1 iso-latin-9 utf-8))
+ '(mouse-wheel-progressive-speed nil)
  '(mspools-update t)
  '(next-screen-context-lines 0)
  '(nrepl-message-colors
