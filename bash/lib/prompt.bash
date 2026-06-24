@@ -114,6 +114,7 @@ function bashrc_set_prompt(){
         ;;
     (xterm)
         use_color=false
+        ;;
     (xterm-256color)
         use_color=true
         ;;
