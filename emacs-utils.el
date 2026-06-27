@@ -20,38 +20,56 @@
 
 (require 'cl-lib)
 
-;;;============================================================================
-;;; Trackpad / pointing devices (Linux, xinput)         [from emacs-span]
-;;;============================================================================
-;;; Suggested hooks (left to the host config):
-;;;   (add-hook 'focus-in-hook  'turn-off-trackpad)
-;;;   (add-hook 'focus-out-hook 'turn-on-trackpad)
+(define-minor-mode pjb-no-mouse-mode
+  "Ignore disruptive mouse events (trackpad brushes) globally."
+  :global t :init-value t
+  :keymap
+  (let ((map (make-sparse-keymap)))
+    (dolist (base '("mouse-1" "down-mouse-1" "drag-mouse-1"
+                    "double-mouse-1" "triple-mouse-1"
+                    "mouse-2" "down-mouse-2" "drag-mouse-2"
+                    "mouse-3" "down-mouse-3" "drag-mouse-3"
+                    ;; two-finger trackpad brushing:
+                    ;; "wheel-up" "wheel-down" "mouse-4" "mouse-5"
+                    ))
+      (dolist (mod '("" "S-" "C-" "M-" "C-S-" "M-S-" "C-M-"))
+        (define-key map (kbd (concat "<" mod base ">")) #'ignore)))
+    map))
 
-(defun mice ()
-  "Return the list of xinput pointing devices that look like mice."
-  (split-string
-   (string-trim
-    (shell-command-to-string "xinput list --name-only|grep -i mouse"))
-   "\n"))
-
-(defun touchpads ()
-  "Return the list of xinput pointing devices that look like touchpads."
-  (split-string
-   (string-trim
-    (shell-command-to-string "xinput list --name-only|grep -i -e 'touchpad\\|DLL07A0:01\\|VirtualBox USB Tablet'"))
-   "\n"))
-
-(defun turn-off-trackpad (&optional _frame)
-  "Disable every xinput touchpad (see `touchpads')."
-  (interactive)
-  (dolist (pad (touchpads))
-    (shell-command (format "xinput disable %S" pad))))
-
-(defun turn-on-trackpad (&optional _frame)
-  "Enable every xinput touchpad (see `touchpads')."
-  (interactive)
-  (dolist (pad (touchpads))
-    (shell-command (format "xinput enable %S" pad))))
+;; Obsolete:
+;;
+;; ;;;============================================================================
+;; ;;; Trackpad / pointing devices (Linux, xinput)         [from emacs-span]
+;; ;;;============================================================================
+;; ;;; Suggested hooks (left to the host config):
+;; ;;;   (add-hook 'focus-in-hook  'turn-off-trackpad)
+;; ;;;   (add-hook 'focus-out-hook 'turn-on-trackpad)
+;; 
+;; (defun mice ()
+;;   "Return the list of xinput pointing devices that look like mice."
+;;   (split-string
+;;    (string-trim
+;;     (shell-command-to-string "xinput list --name-only|grep -i mouse"))
+;;    "\n"))
+;; 
+;; (defun touchpads ()
+;;   "Return the list of xinput pointing devices that look like touchpads."
+;;   (split-string
+;;    (string-trim
+;;     (shell-command-to-string "xinput list --name-only|grep -i -e 'touchpad\\|DLL07A0:01\\|VirtualBox USB Tablet'"))
+;;    "\n"))
+;; 
+;; (defun turn-off-trackpad (&optional _frame)
+;;   "Disable every xinput touchpad (see `touchpads')."
+;;   (interactive)
+;;   (dolist (pad (touchpads))
+;;     (shell-command (format "xinput disable %S" pad))))
+;; 
+;; (defun turn-on-trackpad (&optional _frame)
+;;   "Enable every xinput touchpad (see `touchpads')."
+;;   (interactive)
+;;   (dolist (pad (touchpads))
+;;     (shell-command (format "xinput enable %S" pad))))
 
 ;;;============================================================================
 ;;; ASN.1 OCTET STRING <-> Emacs string                 [from emacs-span]
