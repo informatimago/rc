@@ -54,3 +54,4 @@ case $- in
 esac
 
 unset pjb_bash_dir pjb_bash_source pjb_bash_target
+eval "$(/opt/homebrew/bin/brew shellenv bash)"
