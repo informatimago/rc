@@ -1636,6 +1636,18 @@
 (setq org-element-use-cache nil)
 
 
+
+(add-to-list 'auto-mode-alist
+             '("/Users/pjb/works/sncf-reseau/.*\\.lsp\\'" . autocad-lisp-mode))
+
+(modify-coding-system-alist
+ 'file
+ "/Users/pjb/works/sncf-reseau/.*\\.lsp\\'"
+ 'windows-1252-dos)
+
+
+
+
 ;; <f1>-           (help)
 ;; <f1> <f1>       help-for-help
 ;; 
