@@ -1221,6 +1221,10 @@
         w3m-form-textarea-directory    (home ".w3m/textarea")
         w3m-session-file               (home ".w3m/sessions")))
 
+
+
+;; (pjb-frame-font)
+(set-frame-font "-outline-Lucida Console-regular-normal-normal-mono-29-*-*-*-c-*-iso10646-1")
 (.EMACS "%s %s" (rc "emacs-sncf-reseau.el") "complete.")
 
 ;;;; THE END ;;;;
