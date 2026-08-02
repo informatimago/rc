@@ -2,8 +2,6 @@
 # bashrc-sncf-reseau
 
 # no echo from rc files.
-# echo "here ~/rc/bashrc-sncf-reseau"
-# echo HOME=$HOME
 
 if [ "$TERM" = "emacs" ] ; then
     export TERM=dumb
@@ -26,20 +24,47 @@ export PATH="${PATH}:/C/Users/PPBN02261/AppData/Local/Microsoft/WinGet/Packages/
 export JIRA_USER_EMAIL='ext.pascal.bourguignon@reseau.sncf.fr'
 export JIRA_USER_NAME=PPBN02261
 
-
 #export EPURE_INSTALL_DIR="c:/EPURE2022-pjb"
 export EPURE_INSTALL_DIR="c:/EPURE2022"
 export MSBUILD_PATH="C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe"
 
+case $(uname) in
+MINGW64_NT*|Windows_NT*|win*)
+    export BRICSCAD_EXE='/c/program files/Bricsys/BricsCAD V25 fr_FR/bricscad.exe'
+    export AUTOCAD_EXE='/c/Program Files/Autodesk/AutoCAD 2022/acad.exe'
 
-alias standards='/Applications/BricsCAD\ V26.app/Contents/MacOS/standards_app.sh'
-alias pstyle='/Applications/BricsCAD\ V26.app/Contents/MacOS/pstyle_app.sh'
-alias profilemanager='/Applications/BricsCAD\ V26.app/Contents/MacOS/profilemanager_app.sh'
-alias bcadtestapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/bcadtestapp'
-alias bimproj='/Applications/BricsCAD\ V26.app/Contents/MacOS/bimproj'
-alias bricscad='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
-alias hlrapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/hlrapp'
-alias pc3='/Applications/BricsCAD\ V26.app/Contents/MacOS/pc3_app'
-alias preprocessor='/Applications/BricsCAD\ V26.app/Contents/MacOS/preprocessor'
+    alias descoder='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/DESCoder.exe'
+    alias qtwebengineprocess='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/QtWebEngineProcess.exe'
+    alias bricscad='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/bricscad.exe'
+    alias deactivator='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/deactivator.exe'
+    alias ffmpeg='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/ffmpeg.exe'
+    alias hlrapp='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/hlrapp.exe'
+    alias lictool='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/lictool.exe'
+    alias pc3='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/pc3_app.exe'
+    alias preprocessor='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/preprocessor.exe'
+    alias profilemanager='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/profilemanager_app.exe'
+    alias pstyle='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/pstyle_app.exe'
+    alias qtdiag='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/qtdiag.exe'
+    alias standard='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/standards_app.exe'
 
-alias bricscad_executables="find  '/Applications/BricsCAD V26.app/Contents/' -type f -perm -0100|grep -v '\(\.\(tx\|dylib\|so\|slb\|lsp\|dcl\|9\)$\)\|\(/Qt\)'|sort"
+    ;;
+darwin)
+    export BRICSCAD_EXE='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
+    
+    alias standards='/Applications/BricsCAD\ V26.app/Contents/MacOS/standards_app.sh'
+    alias pstyle='/Applications/BricsCAD\ V26.app/Contents/MacOS/pstyle_app.sh'
+    alias profilemanager='/Applications/BricsCAD\ V26.app/Contents/MacOS/profilemanager_app.sh'
+    alias bcadtestapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/bcadtestapp'
+    alias bimproj='/Applications/BricsCAD\ V26.app/Contents/MacOS/bimproj'
+    alias bricscad='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
+    alias hlrapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/hlrapp'
+    alias pc3='/Applications/BricsCAD\ V26.app/Contents/MacOS/pc3_app'
+    alias preprocessor='/Applications/BricsCAD\ V26.app/Contents/MacOS/preprocessor'
+
+    alias bricscad_executables="find  '/Applications/BricsCAD V26.app/Contents/' -type f -perm -0100|grep -v '\(\.\(tx\|dylib\|so\|slb\|lsp\|dcl\|9\)$\)\|\(/Qt\)'|sort"
+    ;;
+linux)
+    true
+    ;;
+*)
+esac

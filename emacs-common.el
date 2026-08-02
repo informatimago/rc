@@ -69,7 +69,6 @@
                                       (string-equal x-resource-name "pvs")))
 
 
-(defvar shell-file-name          "/bin/bash")
 (defvar *tempdir*                (format "/tmp/emacs%d"  (user-uid)))
 (defvar *rundir*                 (format "/run/emacs/%d" (user-uid)))
 
@@ -226,7 +225,7 @@ please, use `add-lac' and `remove-lac' instead of accessing this list directly."
 
 (require 'server)
 (setf server-socket-dir (home ".emacs.d/server")
-      server-name       (format "server-%d" (emacs-pid)))
+      server-name       (format "%s/server-%d" server-socket-dir (emacs-pid)))
 (when (and (string= (hostname) "PF5S26BT")
 	   (not (eq system-type 'gnu/linux)))
   ;; we need to override server-ensure-safe-dir because here we don't have access rights.
@@ -569,6 +568,21 @@ WELCOME TO EMACS!
 
 (pjb-setup-exec-path)
 
+;; "C:/Program Files/Git/git-bash.exe" is not a shell, but a terminal
+
+;; (setq shell-file-name "c:/msys64/usr/bin/bash.exe")
+
+(cl-case system-type
+         ((windows-nt)
+          (let ((bashes '("C:/msys64/usr/bin/bash.exe")))
+            (while bashes
+                   (let ((bash (pop bashes)))
+                     (when (file-exists-p bash)
+                       (setf shell-file-name bash
+                             bashes nil))))))
+         (otherwise
+          (setq shell-file-name "/usr/bin/bash")))
+(message "shell-file-name = %S"  shell-file-name)
 
 (setf *pjb-tab-width-alist*
       (list (cons (format "^%s" (root "/Applications/Emacs.app/Contents/Resources/"))  8)
@@ -1487,9 +1501,10 @@ take over.  Outside comint it stays out of the way (returns non-nil)."
 ;; default. global-company-mode mirrors the previous ac-config-default
 ;; / global-auto-complete-mode scope so completion fires in the same
 ;; set of modes without per-mode hook plumbing.
-(require 'company nil t)
-(when (fboundp 'global-company-mode)
-  (global-company-mode 1))
+(unless (member system-type '(cygwin windows-nt)) 
+  (require 'company nil t)
+  (when (fboundp 'global-company-mode)
+    (global-company-mode 1)))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "ORG-MODE")

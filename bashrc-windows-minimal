@@ -1,0 +1,419 @@
+# -*- mode: shell-script; coding: utf-8 -*-
+# Minimal interactive Bash startup for MSYS2 / Windows.
+#
+# This file is intended as a self-contained replacement for the current
+# modular rc/ startup on Windows.  It preserves the effective interactive
+# settings that matter day-to-day on the PF5S26BT / SNCF setup, while
+# avoiding startup-time cache generation and subprocess-heavy helpers.
+#
+# Deliberate omissions:
+# - no env-cache generation or BASH_ENV management
+# - no prompt-time git/date/df subprocesses
+# - no PowerShell / pwsh chcp invocation
+# - no bash-completion bootstrap or script-generated completions
+# - no GNUstep / shelly / rbenv / pyenv / flightgear optional loaders
+# - no sourcing of secret-bearing files beyond authinfo
+
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
+
+# If bash was launched outside the normal MSYS2 login path, recover the
+# toolchain environment once.  When started from native Windows paths,
+# MSYS2 root may still be reachable as C:/msys64 even before /etc/profile
+# has run.
+if [ -z "${MINGW_PREFIX:-}" ] ; then
+    if [ -r /etc/profile ] ; then
+        . /etc/profile
+    elif [ -r /c/msys64/etc/profile ] ; then
+        . /c/msys64/etc/profile
+    elif [ -r 'c:/msys64/etc/profile' ] ; then
+        . 'c:/msys64/etc/profile'
+    fi
+fi
+
+umask 022
+
+# Basic editor/readline defaults.
+export INPUTRC="$HOME/.inputrc"
+if [ -x "$HOME/bin/ec" ] ; then
+    export EDITOR="$HOME/bin/ec"
+    export VISUAL="$HOME/bin/ec"
+    export CVSEDITOR="$HOME/bin/ec"
+elif command -v emacsclient >/dev/null 2>&1 ; then
+    export EDITOR=emacsclient
+    export VISUAL=emacsclient
+    export CVSEDITOR=emacsclient
+elif command -v ed >/dev/null 2>&1 ; then
+    export EDITOR=ed
+    export VISUAL=ed
+    export CVSEDITOR=ed
+else
+    export EDITOR=vi
+    export VISUAL=vi
+    export CVSEDITOR=vi
+fi
+
+export RC=/home/PPBN02261/rc
+export SR=/c/Users/PPBN02261/works/sncf-reseau
+
+# Host-specific environment preserved from bashrc-pjb and SNCF profile.
+export USE_CCACHE=1
+export CCACHE_DIR=/src/android/ccache
+export OUT_DIR_COMMON_BASE=/src/android/out
+export JIRA_USER_EMAIL='ext.pascal.bourguignon@reseau.sncf.fr'
+export JIRA_USER_NAME=PPBN02261
+export EPURE_INSTALL_DIR='c:/EPURE2022'
+export MSBUILD_PATH='C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe'
+
+export CLAUTOLISP_DWG_LIBDIR=/opt/local/lib/clautolisp/windows/x86-64/
+
+# Keep the old TERM=dumb behavior only for Emacs-driven sessions.
+if [ "${TERM:-}" = emacs ] || [ -n "${INSIDE_EMACS:-}" ] ; then
+    export TERM=dumb
+fi
+
+# Auth helpers are used by interactive commands and scripts.
+if [ -r "${RC:-$HOME/rc}/bash/lib/authinfo.bash" ] ; then
+    . "${RC:-$HOME/rc}/bash/lib/authinfo.bash"
+fi
+
+# PATH / MANPATH / INFOPATH are rebuilt deterministically with shell-only
+# existence tests.  This avoids repeated prepending and avoids forks.
+__pjb_path_seen=
+__pjb_manpath_seen=
+__pjb_infopath_seen=
+__pjb_path_parts=()
+__pjb_manpath_parts=()
+__pjb_infopath_parts=()
+
+pjb_path_add() {
+    local d
+    for d in "$@" ; do
+        [ -d "$d" ] || continue
+        case ":$__pjb_path_seen:" in
+            *":$d:"*) ;;
+            *)
+                __pjb_path_seen="${__pjb_path_seen}:$d"
+                __pjb_path_parts+=("$d")
+                ;;
+        esac
+    done
+}
+
+pjb_manpath_add() {
+    local d
+    for d in "$@" ; do
+        [ -d "$d" ] || continue
+        case ":$__pjb_manpath_seen:" in
+            *":$d:"*) ;;
+            *)
+                __pjb_manpath_seen="${__pjb_manpath_seen}:$d"
+                __pjb_manpath_parts+=("$d")
+                ;;
+        esac
+    done
+}
+
+pjb_infopath_add() {
+    local d
+    for d in "$@" ; do
+        [ -d "$d" ] || continue
+        case ":$__pjb_infopath_seen:" in
+            *":$d:"*) ;;
+            *)
+                __pjb_infopath_seen="${__pjb_infopath_seen}:$d"
+                __pjb_infopath_parts+=("$d")
+                ;;
+        esac
+    done
+}
+
+pjb_join_colon() {
+    local IFS=:
+    printf '%s' "$*"
+}
+
+# User layer.
+pjb_path_add \
+    "$HOME/bin" \
+    "$HOME/.local/bin" \
+    "$HOME/.rbenv/bin" \
+    "$HOME/.rbenv/libexec" \
+    "$HOME/.rvm/bin" \
+    "${GEM_HOME:-$HOME/.gem}/bin"
+
+# MSYS2 toolchain layer.
+case "${MSYSTEM:-}" in
+    MSYS)
+        pjb_path_add /usr/bin
+        pjb_manpath_add /usr/share/man
+        pjb_infopath_add /usr/share/info
+        ;;
+    MINGW32)
+        export MINGW_PREFIX=/mingw32
+        pjb_path_add /mingw32/bin
+        pjb_manpath_add /mingw32/share/man /mingw32/local/man
+        pjb_infopath_add /mingw32/share/info /mingw32/local/info
+        ;;
+    MINGW64)
+        export MINGW_PREFIX=/mingw64
+        pjb_path_add /mingw64/bin
+        pjb_manpath_add /mingw64/share/man /mingw64/local/man
+        pjb_infopath_add /mingw64/share/info /mingw64/local/info
+        ;;
+    UCRT64)
+        export MINGW_PREFIX=/ucrt64
+        pjb_path_add /ucrt64/bin
+        pjb_manpath_add /ucrt64/share/man /ucrt64/local/man
+        pjb_infopath_add /ucrt64/share/info /ucrt64/local/info
+        ;;
+    CLANG64)
+        export MINGW_PREFIX=/clang64
+        pjb_path_add /clang64/bin
+        pjb_manpath_add /clang64/share/man /clang64/local/man
+        pjb_infopath_add /clang64/share/info /clang64/local/info
+        ;;
+    CLANGARM64)
+        export MINGW_PREFIX=/clangarm64
+        pjb_path_add /clangarm64/bin
+        pjb_manpath_add /clangarm64/share/man /clangarm64/local/man
+        pjb_infopath_add /clangarm64/share/info /clangarm64/local/info
+        ;;
+esac
+
+# Optional local trees.
+pjb_path_add \
+    /usr/local/sbin \
+    /usr/local/bin \
+    /opt/local/sbin \
+    /opt/local/bin \
+    /opt/X11/bin \
+    /usr/local/share/dotnet \
+    /opt/local/libexec/gnubin
+
+# Base MSYS2 system layer.
+pjb_path_add /usr/bin /bin /usr/sbin /sbin
+pjb_manpath_add /usr/share/man /usr/man
+pjb_infopath_add /usr/share/info
+
+# Native Windows tools.
+pjb_path_add \
+    /c/Windows/System32 \
+    /c/Windows/System32/WindowsPowerShell/v1.0 \
+    '/c/Program Files/Git/bin' \
+    '/c/Program Files/Git/usr/bin' \
+    '/c/Program Files/make-4.4.1-with-guile-w32/bin' \
+    '/c/Program Files/binutils-2.46-w32/bin' \
+    '/c/Program Files/findutils-4.2.30-5-w64/bin' \
+    '/c/Program Files/Steel Bank Common Lisp' \
+    '/c/Program Files/dotnet' \
+    "/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe" \
+    "/c/Users/${USERNAME:-$USER}/.local/bin" \
+    "/c/msys64/home/${USERNAME:-$USER}/bin/"
+
+PATH="$(pjb_join_colon "${__pjb_path_parts[@]}")"
+export PATH
+
+if [ "${#__pjb_manpath_parts[@]}" -gt 0 ] ; then
+    MANPATH="$(pjb_join_colon "${__pjb_manpath_parts[@]}")"
+    export MANPATH
+fi
+
+if [ "${#__pjb_infopath_parts[@]}" -gt 0 ] ; then
+    INFOPATH="$(pjb_join_colon "${__pjb_infopath_parts[@]}")"
+    export INFOPATH
+fi
+
+unset __pjb_path_seen __pjb_manpath_seen __pjb_infopath_seen
+unset __pjb_path_parts __pjb_manpath_parts __pjb_infopath_parts
+unset -f pjb_path_add pjb_manpath_add pjb_infopath_add pjb_join_colon
+
+# Prompt: static, cheap, and readable.
+if [ "${TERM:-}" = dumb ] ; then
+    PS1='[\u@\h '"${MSYSTEM:-msys}"' \w]\$ '
+else
+    PS1='\[\033[36m\][\u@\h '"${MSYSTEM:-msys}"' \w]\[\033[0m\]\$ '
+fi
+export PS1
+
+# Core aliases preserved from the current interactive setup.
+alias more=less
+alias vi='emacs -nw -q'
+alias nano='emacs -nw -q'
+alias ls='LC_COLLATE="C" /bin/ls -aBCFN'
+alias lsv='LC_COLLATE="C" /bin/ls -BCFN'
+alias df='df -ah'
+alias duh='du -h'
+alias lstree='ls -R'
+alias sdiff='diff --exclude \#\* --exclude \*~ --exclude \*TAGS --exclude .git --exclude .hg --exclude .svn --exclude CVS --exclude _darcs --exclude \*.x86f --exclude \*.fasl --exclude \*.fas --exclude \*.lib --exclude \*.[oa] --exclude \*.so --exclude \*.orig --exclude \*.rej --exclude \*.apk --exclude \*.ap_ --exclude \*.class --exclude \*.dex --exclude \*.jar --exclude \*.zip --exclude \*.png --exclude \*.jpg --exclude \*.jpeg --exclude \*.gif --exclude \*.pdf --exclude \*.zargo --exclude \*.svg --exclude \*.xlsx --exclude \*.graffle --exclude .gradle --exclude .idea --exclude .DS_Store --exclude \*.iml --exclude build'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias sl=ls
+alias gss='git status --short'
+alias gdiff='git diff'
+alias which='type -path'
+
+# Lightweight helpers that do not need startup-time subprocesses.
+rehash() { hash -r; }
+
+ds() {
+    local i=1
+    local dir
+    for dir in "${DIRSTACK[@]}" ; do
+        printf '%2d) %s\n' "$i" "$dir"
+        i=$((i + 1))
+    done
+}
+
+cdd() {
+    local diri
+    local i=1
+    local dir
+    ds
+    read -r -p 'Change to what directory? ' diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" = "$i" ] ; then
+            cd "$dir" || return
+            return
+        fi
+        i=$((i + 1))
+    done
+    cd "$diri" || return
+}
+
+pushdd() {
+    local diri
+    local i=1
+    local dir
+    ds
+    read -r -p 'Change to what directory? ' diri
+    for dir in "${DIRSTACK[@]}" ; do
+        if [ "$diri" = "$i" ] ; then
+            pushd "$dir" >/dev/null || return
+            return
+        fi
+        i=$((i + 1))
+    done
+    pushd "$diri" >/dev/null || return
+}
+
+# Directory shortcuts preserved from the current setup.
+
+cdsr()         { cd "$WOME/works/sncf-reseau" || return; }
+cdsrs()        { cd "$WOME/works/sncf-reseau/src" || return; }
+cdschms()      { cd "$WOME/works/sncf-reseau/src/schms" || return; }
+
+cdmts()        { cd "$HOME/works/mts/" || return; }
+cdpa()         { cd "$HOME/works/patchwork/src/patchwork" || return; }
+cdui()         { cd "$HOME/works/patchwork/src/mclgui" || return; }
+cdsb()         { cd "$HOME/works/sbde" || return; }
+cdsmt()        { cd "$HOME/works/sbde/smt" || return; }
+cdball()       { cd "$HOME/works/sbde/ball" || return; }
+cdbox()        { cd "$HOME/works/sbde/laboite" || return; }
+cdmini()       { cd "$HOME/works/sbde/stockme-minidemo-ios" || return; }
+cdmicro()      { cd "$HOME/works/sbde/stockme-microdemo-ios" || return; }
+cdschmidt()    { cd "$HOME/works/synth/schmidt" || return; }
+cdschmidtlib() { cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesizerLibrarian/SchmidtSynthesizerLibrarian" || return; }
+cdmanif()      { cd "$HOME/works/manif" || return; }
+panic()        { printf '\n\n\n\n\n                                    \033[;5;35m Don'\''t Panic \033[0m\n\n\n\n\n'; }
+
+
+
+export PATH="${PATH}:/c/Program Files/dotnet/"
+export PATH="${PATH}:/c/Program Files/Steel Bank Common Lisp/"
+
+export PATH="${PATH}:/C/Users/PPBN02261/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
+
+# export PS1='\n$TITLEPREFIX:$PWD\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM\n\[\033[33m\]\w\[\033[36m\]\n`__git_ps1`\[\033[0m\]\n$ '
+
+
+alias rmerge='echo "rmerge src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x"'
+alias rsynch='echo "rsynch src/ dst" ; rsync -HSWacvxz --progress -e "ssh -x" --force --delete --delete-after'
+alias rcopy='echo  "rcopy  src/ dst" ; rsync -HSWavx   --progress -e "ssh -x"'
+alias screen='screen -A'
+
+case $(uname) in
+MSYS_NT*|MINGW64_NT*|Windows_NT*|win*)
+    export BRICSCAD_EXE='/c/program files/Bricsys/BricsCAD V25 fr_FR/bricscad.exe'
+    export AUTOCAD_EXE='/c/Program Files/Autodesk/AutoCAD 2022/acad.exe'
+
+    alias descoder='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/DESCoder.exe'
+    alias qtwebengineprocess='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/QtWebEngineProcess.exe'
+    alias bricscad='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/bricscad.exe'
+    alias deactivator='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/deactivator.exe'
+    alias ffmpeg='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/ffmpeg.exe'
+    alias hlrapp='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/hlrapp.exe'
+    alias lictool='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/lictool.exe'
+    alias pc3='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/pc3_app.exe'
+    alias preprocessor='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/preprocessor.exe'
+    alias profilemanager='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/profilemanager_app.exe'
+    alias pstyle='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/pstyle_app.exe'
+    alias qtdiag='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/qtdiag.exe'
+    alias standard='/c/program\ files/Bricsys/BricsCAD\ V25\ fr_FR/standards_app.exe'
+
+
+
+    alias ADPClientService='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/ADPClientService.exe'
+    alias AcSignApply='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AcSignApply.exe'
+    alias AcTranslators='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AcTranslators.exe'
+    alias AdMigrator='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AdMigrator.exe'
+    alias AdPreviewGenerator='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AdPreviewGenerator.exe'
+    alias AdRefMan='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AdRefMan.exe'
+    alias AdSubAware='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AdSubAware.exe'
+    alias AutoLispDebugAdapter='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/AutoLispDebugAdapter.exe'
+    alias CPCompare='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/CPCompare.exe'
+    alias Dwg2Spd='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/Dwg2Spd.exe'
+    alias DwgCheckStandards='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/DwgCheckStandards.exe'
+    alias QtWebEngineProcess='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/QtWebEngineProcess.exe'
+    alias acad='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/acad.exe'
+    alias accoreconsole='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/accoreconsole.exe'
+    alias adcadmn='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/adcadmn.exe'
+    alias addplwiz='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/addplwiz.exe'
+    alias patchTracker='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/patchTracker.exe'
+    alias pc3exe='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/pc3exe.exe'
+    alias senddmp='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/senddmp.exe'
+    alias slidelib='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/slidelib.exe'
+    alias styexe='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/styexe.exe'
+    alias styshwiz='/c/Program\ Files/AutoDesk/AutoCAD\ 2022/styshwiz.exe'
+
+
+
+    ;;
+darwin)
+    export BRICSCAD_EXE='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
+    
+    alias standards='/Applications/BricsCAD\ V26.app/Contents/MacOS/standards_app.sh'
+    alias pstyle='/Applications/BricsCAD\ V26.app/Contents/MacOS/pstyle_app.sh'
+    alias profilemanager='/Applications/BricsCAD\ V26.app/Contents/MacOS/profilemanager_app.sh'
+    alias bcadtestapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/bcadtestapp'
+    alias bimproj='/Applications/BricsCAD\ V26.app/Contents/MacOS/bimproj'
+    alias bricscad='/Applications/BricsCAD\ V26.app/Contents/MacOS/bricscad'
+    alias hlrapp='/Applications/BricsCAD\ V26.app/Contents/MacOS/hlrapp'
+    alias pc3='/Applications/BricsCAD\ V26.app/Contents/MacOS/pc3_app'
+    alias preprocessor='/Applications/BricsCAD\ V26.app/Contents/MacOS/preprocessor'
+
+    alias bricscad_executables="find  '/Applications/BricsCAD V26.app/Contents/' -type f -perm -0100|grep -v '\(\.\(tx\|dylib\|so\|slb\|lsp\|dcl\|9\)$\)\|\(/Qt\)'|sort"
+    ;;
+linux)
+    true
+    ;;
+*)
+esac
+
+if [ -r "$RC/bash/lib/prompt.bash" ] ; then
+    source "$RC/bash/lib/prompt.bash"
+    bashrc_set_prompt
+fi
+if [ -r "$RC/bashrc-sncf-reseau" ] ; then
+    source "$RC/bashrc-sncf-reseau"
+fi
+if [ -r "$RC/bashrc-sncf-ouranos" ] ; then
+    source "$RC/bashrc-sncf-ouranos"
+fi
+
+# The SNCF SCHMS helper is expected by the Windows shell setup.
+if [ -r "$HOME/.bashrc-schms-functions" ] ; then
+    . "$HOME/.bashrc-schms-functions"
+fi
