@@ -735,7 +735,8 @@
  '(rmail-summary-line-decoder 'identity)
  '(rmail-summary-window-size 12)
  '(safe-local-variable-values
-   '((whitespace-style quote (face trailing empty tabs))
+   '((Info-documentlanguage . fr)
+     (whitespace-style quote (face trailing empty tabs))
      (whitespace-action) (Package . CL-POSTGRES)
      (eval unless dvc-doing-ediff-p (load-file "prj-wisi.el"))
      (Package . cl-svg) (Package . ccl)
