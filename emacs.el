@@ -43,6 +43,21 @@
 (when (< emacs-major-version 24)
   (setq safe-local-variable-values (cons '(lexical-binding . t) safe-local-variable-values)))
 
+(defvar WOME nil)
+(defvar ROME nil)
+(defvar MOME nil)
+(defvar HOME (getenv "HOME"))
+(defvar FROM nil)
+(defvar RC   nil)
+
+(progn
+  (message "WOME = %s" WOME)
+  (message "ROME = %s" ROME)
+  (message "MOME = %s" MOME)
+  (message "HOME = %s" HOME)
+  (message "FROM = %s" FROM)
+  (message "RC   = %s" RC))
+
 (defvar *root-pathname*         (expand-file-name "/"))
 (defvar *user-homedir-pathname* (expand-file-name "~/"))
 (defvar *rc-pathname*           (expand-file-name "~/rc/"))
@@ -75,7 +90,7 @@ so no spurious // appears, and ~ and .. in the result are resolved."
                                         (t                (car (file-expand-wildcards "~/.emacs")))))
          *rc-pathname*           (expand-file-name (concat *user-homedir-pathname* "rc/"))
          default-directory *user-homedir-pathname*))
-  ((cygwin) ; msys2 etc
+  ((cygwin windows-nt msys2)
    ;; We have different HOME directories
    ;; but we store a single RC directory and a single PJB-EMACS-SOURCES directory.
    (cl-case (and (boundp 'FROM) FROM)
