@@ -43,6 +43,11 @@ function git_prompt_command() {
     fi
 }
 
+function nt_fmt_box(){
+    next-tweet | fmt | box
+    printf ' \n' # on screen/Terminal the last newline is eaten and the prompt is on the same line.
+}
+
 function bashrc_set_prompt(){
     # Thanks Twitter @climagic for the # prefix advice.
     #
@@ -121,7 +126,11 @@ function bashrc_set_prompt(){
     esac
     export COLOR_PROMPT="${use_color}"
 
-    if type -path period-cookie >/dev/null 2>&1 ; then
+    if type -path next-tweet >/dev/null 2>&1 ; then
+        # shellcheck disable=SC2016
+        # cookie='$('"$(type -path next-tweet)"')'
+        cookie='$(nt_fmt_box)'
+    elif type -path period-cookie >/dev/null 2>&1 ; then
         # shellcheck disable=SC2016
         cookie='$('"$(type -path period-cookie)"')'
     fi
@@ -141,9 +150,9 @@ function bashrc_set_prompt(){
         if [ -n "$chroot" ] ; then
             chroot="\[${red_back}${black}\]${chroot}\[${normal}\]"
         fi
-        # if [ -n "$cookie" ] ; then
-        #     cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
-        # fi
+        if [ -n "$cookie" ] ; then
+            cookie="\[${black_back}${cyan}\]${cookie}\[${normal}\]"
+        fi
         if [ -n "$prefix" ] ; then
             prefix="\[${yellow}\]${prefix}\[${normal}\]"
         fi
