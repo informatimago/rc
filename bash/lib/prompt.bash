@@ -43,9 +43,12 @@ function git_prompt_command() {
     fi
 }
 
+no_next_tweet=0
 function nt_fmt_box(){
-    next-tweet | fmt | box
-    printf ' \n' # on screen/Terminal the last newline is eaten and the prompt is on the same line.
+    if [ $no_next_tweet -eq 0 ] ; then
+        next-tweet | fmt | box
+        printf ' \n' # on screen/Terminal the last newline is eaten and the prompt is on the same line.
+    fi
 }
 
 function bashrc_set_prompt(){
