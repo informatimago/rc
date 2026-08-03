@@ -417,3 +417,13 @@ fi
 if [ -r "$HOME/.bashrc-schms-functions" ] ; then
     . "$HOME/.bashrc-schms-functions"
 fi
+
+# This is for windows programs such as sbcl
+# to be able to run in msys2/msys64
+
+export USERPROFILE='C:/Users/PPBN02261'
+export LOCALAPPDATA="$USERPROFILE/AppData/Local"
+export APPDATA="$USERPROFILE/AppData/Roaming"
+export TEMP='C:/msys64/tmp'
+export TMP="$TEMP"
+export PATH="/msys64/bin:/usr/bin:$HOME/bin:$PATH"
