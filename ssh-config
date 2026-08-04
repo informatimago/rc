@@ -536,3 +536,10 @@ Host *
 # End:
 
 #### config                           -- 2004-03-14 00:38:09 -- pascal   ####
+
+
+Host cecil
+	Hostname 172.20.10.10
+	Port 22
+	User pjb
+	IdentityFile "/Users/pjb/.ssh/cecil"
