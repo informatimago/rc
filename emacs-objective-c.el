@@ -11,9 +11,9 @@
    ;; Forgot what this was for..think some os x issues.
    (setenv "LC_CTYPE" "UTF-8")
    (setq flycheck-make-executable "/usr/local/bin/make"
-         company-clang-executable (concat *xcode-developer-path*
+         pjb-clang-executable (concat *xcode-developer-path*
                                           "Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++")
-         company-clang-arguments `("-std=c++11"
+         pjb-clang-arguments `("-std=c++11"
                                    "-isysroot"
                                    ;; If coding for iOS
                                    ,(concat *osx-base-path*
@@ -26,8 +26,8 @@
                                    )
          flycheck-c/c++-clang-executable (concat *xcode-developer-path*
                                                  "Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++"))
-   (setq company-clang-executable "armv7-apple-darwin11-clang"
-         company-clang-arguments (list "-std=c++11"
+   (setq pjb-clang-executable "armv7-apple-darwin11-clang"
+         pjb-clang-arguments (list "-std=c++11"
                                        "-isysroot"
                                        (home ".nix-profile/iPhoneOS9.2.sdk")
                                        ;; "-I/usr/local/lib/ocaml/"
@@ -36,13 +36,7 @@
 
    ))
 
-(setq company-backends '(company-clang
-                         company-capf
-                         company-c-headers
-                         company-jedi))
-
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-(global-set-key (kbd "M-/") 'company-complete)
 
 ;; Local Variables:
 ;; coding: utf-8

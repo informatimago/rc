@@ -10,12 +10,19 @@
       erc-sasl-user "pab"
       erc-sasl-password (get-authinfo-password :machine "libera.chat" :login "pab"))
 
+
 ;; Enable SASL globally for ERC
 (add-to-list 'erc-modules 'sasl)
 (erc-update-modules)
+   
+(with-eval-after-load 'erc
+  ;; Active le module d’horodatage.
+  (add-to-list 'erc-modules 'stamp)
 
-
-
+  ;; Affiche la date et l’heure devant chaque message.
+  (setq erc-timestamp-format "[%Y-%m-%d %H:%M:%S] "
+        erc-insert-timestamp-function #'erc-insert-timestamp-left
+        erc-timestamp-only-if-changed-flag nil))
 
 (defparameter *pjb-autojoin-channels-alist*
   '(("libera.chat"
@@ -84,6 +91,19 @@
            :user "pab"
            :full-name "P.A.B."
            :password (get-authinfo-password :machine "libera.chat" :login "pab")))
+
+
+(defun erc-soju ()
+  (interactive)
+  (let ((erc-sasl-mechanism 'plain)
+        (erc-sasl-user     "pjb/libera")
+        ;; sudo cat /etc/soju/pjb-password.txt
+        (erc-sasl-password (get-authinfo-password :machine "libera.chat" :login "pjb/libera")))
+    (erc-tls :server "soju.informatimago.com"
+             :port     6697               ; 443 marche aussi chez toi
+             :nick     "ppab"
+             :user     "pjb/libera"
+             :password erc-sasl-password)))
 
 (defun br-all ()
   (interactive)

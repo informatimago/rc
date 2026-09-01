@@ -301,7 +301,7 @@ X-Accept-Language:         fr, es, en
  '(org-confirm-babel-evaluate nil)
  '(org-fontify-done-headline t)
  '(org-todo-keywords (quote ((sequence "TODO(t@)" "IN-PROGRESS(p@)" "|" "DONE(d@)" "CANCELED(c@)"))))
- '(package-selected-packages (quote (swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point company column-marker auto-complete)))
+ '(package-selected-packages (quote (swift-mode haskell-mode helm markdown-mode inf-ruby w3m popup json emms paredit textmate smartparens robe jdee highlight-indentation flycheck enh-ruby-mode dash-at-point column-marker auto-complete)))
  '(ph-server "localhost" t)
  '(pjb-test-var 2 t)
  '(pop-up-frames nil)

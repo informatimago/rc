@@ -24,12 +24,8 @@
 ;; (when (require 'yasnippet nil t)
 ;;   (yas-global-mode 1))
 
-(require 'company nil t)
-
 (defun java-meat ()
   (interactive)
-  (when (fboundp 'company-mode)
-    (company-mode 1))
   (setf tab-width 2
         c-indent-level 2
         c-basic-offset 2
