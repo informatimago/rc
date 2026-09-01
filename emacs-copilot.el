@@ -68,8 +68,7 @@
   (defun rk/copilot-disable-predicate ()
     "When copilot should not automatically show completions."
     (or rk/copilot-manual-mode
-        (member major-mode rk/no-copilot-modes)
-        (when (fboundp 'company--active-p) (company--active-p))))
+        (member major-mode rk/no-copilot-modes)))
 
   (add-to-list 'copilot-disable-predicates #'rk/copilot-disable-predicate)
 
@@ -116,14 +115,12 @@ is available. Useful if you tend to hammer your keys like I do."
   (define-key global-map (kbd "C-M-<return>") #'rk/copilot-complete-or-accept)
 
   ;; (defun rk/copilot-tab ()
-  ;;   "Tab command that will complet with copilot if a completion is
+  ;;   "Tab command that will complete with copilot if a completion is
   ;; available. Otherwise will try company, yasnippet or normal
   ;; tab-indent."
   ;;   (interactive)
   ;;   (or (copilot-accept-completion)
   ;;       (minibuffer-complete)
-  ;;       (when (fboundp 'company-yasnippet-or-completion)
-  ;;         (company-yasnippet-or-completion))
   ;;       (indent-for-tab-command)))
   ;; 
   ;; (define-key copilot-mode-map (kbd "TAB") #'rk/copilot-tab)

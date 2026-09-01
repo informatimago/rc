@@ -1431,7 +1431,6 @@ take over.  Outside comint it stays out of the way (returns non-nil)."
 ;; (unless (featurep 'eshell-auto)
 ;;   (load "eshell-auto" *pjb-load-noerror* *pjb-load-silent*))
 ;; (defun pjb-eshell-load-meat ()
-;;   (when (fboundp 'company-mode) (company-mode 1))
 ;;   ;; (defun string (&rest chars)
 ;;   ;;   (do ((s (make-string (length chars) 0))
 ;;   ;;        (ch chars (cdr ch))
@@ -1466,7 +1465,6 @@ take over.  Outside comint it stays out of the way (returns non-nil)."
   (setf comint-process-echoes nil)
   (add-to-list 'comint-output-filter-functions #'comint-output-filter--remove-esc-b)
   (when (fboundp 'ansi-color-for-comint-mode-on) (ansi-color-for-comint-mode-on))
-  ;; (when (fboundp 'company-mode) (company-mode 1))
   (when (fboundp 'bash-completion-setup) (bash-completion-setup))
   (set-default 'shell-dirstack-query "pwd")
   ;; (cond
@@ -1505,18 +1503,6 @@ take over.  Outside comint it stays out of the way (returns non-nil)."
   (elscreen-toggle-display-tab))
 
 ;;;----------------------------------------------------------------------------
-(.EMACS "COMPANY-MODE")
-;; Replaced auto-complete-mode (broken under Emacs 30: its obarray-
-;; backed sources hit (wrong-type-argument sequencep #<obarray>)
-;; because obarrays are no longer sequencep). company-mode handles
-;; the new opaque-obarray API correctly and is the modern Emacs
-;; default. global-company-mode mirrors the previous ac-config-default
-;; / global-auto-complete-mode scope so completion fires in the same
-;; set of modes without per-mode hook plumbing.
-(unless (member system-type '(cygwin windows-nt)) 
-  (require 'company nil t)
-  (when (fboundp 'global-company-mode)
-    (global-company-mode 1)))
 
 ;;;----------------------------------------------------------------------------
 (.EMACS "ORG-MODE")
@@ -2695,11 +2681,9 @@ in the current directory, or in a parent."
 ;;;----------------------------------------------------------------------------
 (defun pjb-mail-mode-meat ()
   (message "mail-mode-meat")
-  ;; (when (fboundp 'company-mode) (company-mode 1))
   (set-buffer-file-coding-system   'utf-8)
   ;; (setf buffer-file-coding-system  'utf-8)
   ;; (inactivate-input-method)
-  ;; (when (fboundp 'company-mode) (company-mode -1))
   (local-set-key (kbd "TAB") (quote expand-mail-aliases)))
 
 
@@ -3077,7 +3061,6 @@ License:
     (when (and (pjb-c-mode-file-p filename)
                (not (pjb-force-linux-tabulation-file-p filename))
                (not (string-match "/hypervisor/" filename)))
-      (when (fboundp 'company-mode) (company-mode 1))
       (infer-indentation-style)
       (let ((c-style (cdr (find-if (lambda (entry) (string-match (car entry) filename))
                                    *auto-c-style-alist*))))

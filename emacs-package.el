@@ -95,7 +95,7 @@
 			               compat
 			               json popup
 
-			               company auto-complete inf-ruby enh-ruby-mode
+			               auto-complete inf-ruby enh-ruby-mode
 			               smartparens highlight-indentation textmate
 			               flycheck
 
