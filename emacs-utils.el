@@ -337,8 +337,8 @@ START and END are the region bounds."
 (defun reindent-all-java (dirpath)
   "Untabify and reindent every .java file under DIRPATH (recursively)."
   (interactive "DDirectory: ")
-  (with-files (file dirpath 'recursive)
-              (when (string-match "\.java$" file)
+  (with-files (file dirpath :recursive t)
+              (when (string-match "\\.java$" file)
                 (with-file (file :save t :kill t :literal nil)
                            (untabify (point-min) (point-max))
                            (indent-region (point-min) (point-max))))))

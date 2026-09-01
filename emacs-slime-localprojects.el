@@ -636,7 +636,6 @@ If `jump-in' is true (ie. a prefix is given), we switch to the repl too."
   (interactive)
   (.EMACS "pjb-lisp-meat on %S starts" (buffer-name))
   (setf lisp-indent-function (function common-lisp-indent-function))
-  (when (fboundp 'company-mode) (company-mode 1))
   (local-set-key (kbd "RET")  'newline-and-indent)
   ;; (local-set-key (kbd "RET") 'indent-defun)
   ;; (setq blink-matching-paren t)
