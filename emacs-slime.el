@@ -353,7 +353,7 @@
       
       (setf slime-to-lisp-filename-function 'pjb-emacs-slime-convert-filename)
       ;; slime-backend = "swank-loader.lisp"
-      (setf slime-path "/c/msys64/home/PPBN02261/.emacs.d/site-lisp/slime/")))
+      (setf slime-path (home ".emacs.d/site-lisp/slime/"))))
 
 
   ;; (slime-init-command "/tmp/slime-port" "utf-8")
