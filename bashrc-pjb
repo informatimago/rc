@@ -1,6 +1,10 @@
 # -*- mode:shell-script -*-
 
 function bashrc_pjb_set_environment(){
+
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+    export LANG=en_US.UTF-8
+    
     # compilation cache
     export USE_CCACHE=1
     export CCACHE_DIR="$HOME/.cache/ccache"
