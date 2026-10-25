@@ -34,6 +34,60 @@ If FRAME is nil, that stands for the selected frame."
 
 
 
+(require 'shell)
+(load (rc "emacs-windows-paths.el")) ; posix-to-windows-path
+
+(defun shell-resync-dirs ()
+  "Resync the buffer's idea of the current directory stack.
+This command queries the shell with the command bound to
+`shell-dirstack-query' (default \"dirs\"), reads the next
+line output and parses it to form the new directory stack."
+  (interactive)
+  (let* ((dls (car
+               (string-lines
+                (string-chop-newline
+                 (shell-eval-command (concat shell-dirstack-query "\n"))))))
+         (dlsl nil)
+         (pos 0)
+         (ds nil))
+    (setq dls (string-trim-right dls "[ ]+"))
+    ;; Split the dirlist into whitespace and non-whitespace chunks.
+    ;; dlsl will be a reversed list of tokens.
+    (while (string-match "\\(\\S-+\\|\\s-+\\)" dls pos)
+           (push (match-string 1 dls) dlsl)
+           (setq pos (match-end 1)))
+
+    (message "dlsl=%S"dlsl) 
+    ;; ;; Prepend trailing entries until they form an existing directory,
+    ;; ;; whitespace and all.  Discard the next whitespace and repeat.
+    ;; (while dlsl
+    ;;        (let ((newelt "")
+    ;;              tem1 tem2)
+    ;;          (while (and dlsl newelt)
+    ;;                 ;; We need tem1 because we don't want to prepend
+    ;;                 ;; `comint-file-name-prefix' repeatedly into newelt via tem2.
+    ;;                 (setq tem1 (pop dlsl)
+    ;;                       tem2 (concat comint-file-name-prefix tem1 newelt))
+    ;;                 (cond ((file-directory-p tem2)
+    ;;                        (push tem2 ds)
+    ;;                        (when (string= " " (car dlsl))
+    ;;                          (pop dlsl))
+    ;;                        (setq newelt nil))
+    ;;                       (t
+    ;;                        (setq newelt (concat tem1 newelt)))))))
+    (setf ds dlsl)
+    (message "ds=%S" ds)
+    (with-demoted-errors "Couldn't cd: %s"
+      (shell-cd (ensure-directory-path (case window-system
+                                         ((w32)     (posix-to-windows-path (car ds)))
+                                         (otherwise (car ds)))))
+      (setq shell-dirstack (cdr ds)
+            shell-last-dir (car shell-dirstack))
+      (shell-dirstack-message))))
+
+;; For your typing convenience:
+(defalias 'dirs 'shell-resync-dirs)
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)

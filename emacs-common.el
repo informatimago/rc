@@ -384,6 +384,11 @@ WELCOME TO EMACS!
   (dolist (cs coding-system-list nil)
     (modify-coding-system-alist 'file (format "\\.%s\\'" cs) cs)))
 
+(add-to-list
+ 'process-coding-system-alist
+ '("\\(?:pwsh\\|powershell\\)\\(?:\\.exe\\)?\\'"
+   . (utf-8-dos . utf-8-dos)))
+
 ;; and/or set locales like LC_ALL, LC_CTYPE, LANG to contain UTF-8 as for
 ;; example: LANG=de_DE.UTF-8. Modern Emacsen, I think 21.3 at least,
 ;; derive their mode of operation from this.
@@ -562,11 +567,18 @@ WELCOME TO EMACS!
                       (list (home "bin/")
                             (home "opt/bin/")
                             (root "/sw/sbin/")       (root "/sw/bin/")
+                            (root "/sbin")           (root "/bin")
+                            (root "/usr/sbin")       (root "/usr/bin")
                             (root "/usr/local/sbin") (root "/usr/local/bin")
-                            (root "/opt/local/sbin") (root "/opt/local/bin")))
-  (setf (getenv "PATH") (mapconcat (function identity) exec-path ":")))
+                            (root "/opt/local/sbin") (root "/opt/local/bin")
+                            "C:/msys64/usr/bin" "C:/msys64/bin"))
+  (setf (getenv "PATH")
+        (mapconcat (function identity) exec-path (path-separator))))
+
 
 (pjb-setup-exec-path)
+
+
 
 ;; "C:/Program Files/Git/git-bash.exe" is not a shell, but a terminal
 
