@@ -78,9 +78,9 @@ line output and parses it to form the new directory stack."
     (setf ds dlsl)
     (message "ds=%S" ds)
     (with-demoted-errors "Couldn't cd: %s"
-      (shell-cd (ensure-directory-path (case window-system
-                                         ((w32)     (posix-to-windows-path (car ds)))
-                                         (otherwise (car ds)))))
+      (shell-cd (file-name-as-directory (case window-system
+                                          ((w32)     (posix-to-windows-path (car ds)))
+                                          (otherwise (car ds)))))
       (setq shell-dirstack (cdr ds)
             shell-last-dir (car shell-dirstack))
       (shell-dirstack-message))))
