@@ -7,7 +7,9 @@
 # /etc/profile is idempotent enough; load-bearing on MSYS2.
 [[ -n ${MINGW_PREFIX:-} ]] || [[ ! -r /etc/profile ]] || . /etc/profile
 
-{
+# Show the Windows/MSYS2 home variables, only in interactive MSYS2 shells
+# (elsewhere they are unset, and the output would pollute every shell).
+if [[ -n ${MSYSTEM:-} && $- == *i* ]] ; then
     printf "\n"
     printf "WOME = %s\n" $WOME
     printf "ROME = %s\n" $ROME
@@ -16,7 +18,7 @@
     printf "FROM = %s\n" $FROM
     printf "RC   = %s\n" $RC
     printf "\n"
-}
+fi
 
 
 
