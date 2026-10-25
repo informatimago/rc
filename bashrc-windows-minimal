@@ -135,6 +135,25 @@ pjb_join_colon() {
     printf '%s' "$*"
 }
 
+# Native Windows tools.
+pjb_path_add \
+    '/c/Windows/System32' \
+    '/c/Windows/System32/WindowsPowerShell/v1.0' \
+    '/c/Program Files/Git/bin' \
+    '/c/Program Files/Git/usr/bin' \
+    '/c/Program Files/Git/cmd' \
+    '/c/Program Files/make-4.4.1-with-guile-w32/bin' \
+    '/c/Program Files/binutils-2.46-w32/bin' \
+    '/c/Program Files/findutils-4.2.30-5-w64/bin' \
+    '/c/Program Files/Steel Bank Common Lisp' \
+    '/c/Program Files/dotnet' \
+    "/c/Users/${USERNAME:-$USER}/AppData/Local/Programs/AutoHotkey/v2" \
+    "/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe" \
+    "/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WindowsApps" \
+    "/c/Users/${USERNAME:-$USER}/.local/bin" \
+    "/c/msys64/home/${USERNAME:-$USER}/bin" \
+    "/C/RunForestRun/outils/texlive/bin/windows"
+
 # User layer.
 pjb_path_add \
     "$HOME/bin" \
@@ -147,7 +166,11 @@ pjb_path_add \
 # MSYS2 toolchain layer.
 case "${MSYSTEM:-}" in
     MSYS)
-        pjb_path_add /usr/bin
+        # Conserver le Git POSIX de MSYS2 en premier, tout en exposant les
+        # extensions installees par les paquets mingw-w64 (notamment
+        # /mingw64/bin/git-lfs.exe). L'ordre est volontaire : `git` reste
+        # /usr/bin/git, tandis que `git lfs` peut trouver son sous-programme.
+        pjb_path_add /usr/bin /mingw64/bin
         pjb_manpath_add /usr/share/man
         pjb_infopath_add /usr/share/info
         ;;
@@ -191,27 +214,13 @@ pjb_path_add \
     /opt/local/bin \
     /opt/X11/bin \
     /usr/local/share/dotnet \
-    /opt/local/libexec/gnubin
+    /opt/local/libexec/gnubin 
 
 # Base MSYS2 system layer.
 pjb_path_add /usr/bin /bin /usr/sbin /sbin
 pjb_manpath_add /usr/share/man /usr/man
 pjb_infopath_add /usr/share/info
 
-# Native Windows tools.
-pjb_path_add \
-    /c/Windows/System32 \
-    /c/Windows/System32/WindowsPowerShell/v1.0 \
-    '/c/Program Files/Git/bin' \
-    '/c/Program Files/Git/usr/bin' \
-    '/c/Program Files/make-4.4.1-with-guile-w32/bin' \
-    '/c/Program Files/binutils-2.46-w32/bin' \
-    '/c/Program Files/findutils-4.2.30-5-w64/bin' \
-    '/c/Program Files/Steel Bank Common Lisp' \
-    '/c/Program Files/dotnet' \
-    "/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe" \
-    "/c/Users/${USERNAME:-$USER}/.local/bin" \
-    "/c/msys64/home/${USERNAME:-$USER}/bin/"
 
 PATH="$(pjb_join_colon "${__pjb_path_parts[@]}")"
 export PATH
@@ -427,3 +436,6 @@ export APPDATA="$USERPROFILE/AppData/Roaming"
 export TEMP='C:/msys64/tmp'
 export TMP="$TEMP"
 export PATH="/msys64/bin:/usr/bin:$HOME/bin:$PATH"
+
+
+# printf '%s\n' "USERPROFILE=$USERPROFILE" "LOCALAPPDATA=$LOCALAPPDATA" "APPDATA=$APPDATA" "TEMP=$TEMP" "TMP=$TMP" "PATH=$PATH"

@@ -609,6 +609,7 @@
  '(org-fontify-done-headline t)
  '(org-latex-remove-logfiles nil)
  '(org-startup-with-inline-images t)
+ '(org-startup-with-link-previews t)
  '(org-todo-keywords
    '((sequence "TODO(t@)" "IN-PROGRESS(p@)" "SUSPENDED(s@)" "|"
       "DEFER(x@)" "DONE(d@)" "CANCELED(c@)")))

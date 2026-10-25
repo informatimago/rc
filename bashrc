@@ -1,4 +1,4 @@
-wwwwwww# -*- mode: shell-script;coding:utf-8 -*-
+# -*- mode: shell-script;coding:utf-8 -*-
 # .bashrc
 
 # Ensure MSYSTEM-aware setup (MINGW_PREFIX, ACLOCAL_PATH, MANPATH,

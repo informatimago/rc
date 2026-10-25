@@ -43,7 +43,7 @@ function git_prompt_command() {
     fi
 }
 
-no_next_tweet=0
+no_next_tweet=1
 function nt_fmt_box(){
     if [ $no_next_tweet -eq 0 ] ; then
         next-tweet | fmt | box

@@ -372,7 +372,20 @@
   "-bitstream-bitstream vera sans mono-medium-r-normal--19-137-100-100-m-110-iso8859-1"
   "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1"
 
-  (set-frame-font  )
+
+  "-raster-Courier-regular-normal-normal-mono-20-*-*-*-c-*-fontset-auto1"
+  "-outline-Courier New-regular-normal-normal-mono-20-*-*-*-c-*-fontset-auto2"
+  "-raster-Courier-regular-normal-normal-mono-20-*-*-*-c-*-fontset-auto3"
+  "-outline-Courier New-regular-normal-normal-mono-20-*-*-*-c-*-fontset-auto4"
+  "-outline-Lucida Console-regular-normal-normal-mono-29-*-*-*-c-*-fontset-auto5"
+  "-outline-Lucida Console-regular-normal-normal-mono-25-*-*-*-c-*-fontset-auto6"
+  "-outline-Lucida Console-regular-normal-normal-mono-27-*-*-*-c-*-fontset-auto7"
+  "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
+  "-*-courier new-normal-r-*-*-13-*-*-*-c-*-fontset-standard"
+  (set-frame-font "-outline-Courier New-regular-normal-normal-mono-29-*-*-*-c-*-fontset-startup")
+
+  (set-frame-font "-outline-Lucida Console-regular-normal-normal-mono-29-*-*-*-c-*-iso10646-1")
+
   )
 
 
