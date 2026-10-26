@@ -57,6 +57,7 @@ fi
 function pjb_bash_profile_name(){
     case "$PJB_BASH_HOSTNAME" in
         larissa*)          printf '%s\n' host-larissa ;;
+        thalassa*)         printf '%s\n' host-thalassa ;;
         PF5S26BT)          printf '%s\n' host-sncf-reseau ;;
         fr*)               printf '%s\n' host-harman ;;
         vm-u1404|L0253344) printf '%s\n' host-span ;;

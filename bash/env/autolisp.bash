@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# AutoLISP environment for thalassa.
+# Sourced by bash/profiles/host-thalassa.bash.
+# Safe for non-interactive shells: exports only.
+
+# TRUSTEDPATHS: the directories (';'-separated, a trailing /... includes
+# their subdirectories) from which AutoCAD/BricsCAD/clautolisp load
+# AutoLISP code without a security prompt.
+pjb_autolisp_prefix=/opt/local
+pjb_autolisp_epuree="$pjb_autolisp_prefix/share/autolisp/epuree"
+pjb_autolisp_trustedpaths=(
+    "$HOME/src/public/autocad-gui-prototype/..."
+    "$HOME/works/sncf-reseau/..."
+    "$HOME/src/ogamita/outils-autolisp/..."
+    "$HOME/src/public/autolisp/..."
+    "$pjb_autolisp_prefix/share/autolisp/..."
+    "$pjb_autolisp_epuree"
+    "$pjb_autolisp_epuree/COM"
+    "$pjb_autolisp_epuree/COM/dcl"
+    "$pjb_autolisp_epuree/COM/gestsauv"
+    "$pjb_autolisp_epuree/COM/lisp"
+    "$pjb_autolisp_epuree/COM/lisp/div"
+    "$pjb_autolisp_epuree/COM/lsp"
+    "$pjb_autolisp_epuree/COM/source"
+    "$pjb_autolisp_epuree/COM/source/ACAD"
+    "$pjb_autolisp_epuree/COM/source/BRICS"
+    "$pjb_autolisp_epuree/COM/source/COMMUN"
+    "$pjb_autolisp_epuree/COM_U"
+    "$pjb_autolisp_epuree/COM_U/TRALONGPDF"
+    "$pjb_autolisp_epuree/COM_U/aide"
+    "$pjb_autolisp_epuree/COM_U/aide/Img"
+    "$pjb_autolisp_epuree/COM_U/div"
+    "$pjb_autolisp_epuree/COM_U/edition"
+    "$pjb_autolisp_epuree/COM_U/pdfsam"
+    "$pjb_autolisp_epuree/COM_U/pdfsam/doc"
+    "$pjb_autolisp_epuree/Daolibre"
+    "$pjb_autolisp_epuree/Daolibre/eg"
+    "$pjb_autolisp_epuree/Daolibre/eg/reglageinit"
+    "$pjb_autolisp_epuree/ES"
+    "$pjb_autolisp_epuree/ES/outils"
+    "$pjb_autolisp_epuree/ES/outils/compare"
+    "$pjb_autolisp_epuree/ES/outils/compare/aide"
+    "$pjb_autolisp_epuree/Local"
+    "$pjb_autolisp_epuree/Local/com"
+    "$pjb_autolisp_epuree/SCHME"
+    "$pjb_autolisp_epuree/SCHME/LSP"
+    "$pjb_autolisp_epuree/SCHME/SLD"
+    "$pjb_autolisp_epuree/bibli"
+    "$pjb_autolisp_epuree/bibli/DIV"
+    "$pjb_autolisp_epuree/bibli/Person"
+    "$pjb_autolisp_epuree/bibli/VEHIROUT"
+    "$pjb_autolisp_epuree/bibli/arbres"
+    "$pjb_autolisp_epuree/bibli/mat_roul"
+    "$pjb_autolisp_epuree/doc"
+    "$pjb_autolisp_epuree/eg"
+    "$pjb_autolisp_epuree/eg/EV"
+    "$pjb_autolisp_epuree/eg/EV/ReglageInit"
+    "$pjb_autolisp_epuree/eg/diver"
+    "$pjb_autolisp_epuree/eg/diver/rails"
+    "$pjb_autolisp_epuree/eg/diver/traverses"
+    "$pjb_autolisp_epuree/lisp"
+    "$pjb_autolisp_epuree/outils"
+    "$pjb_autolisp_epuree/support"
+    "$pjb_autolisp_epuree/tests"
+    "$pjb_autolisp_epuree/tests/unit"
+    "$pjb_autolisp_epuree/vlisp"
+    "$pjb_autolisp_prefix/share/autolisp/site-lisp"
+    "$pjb_autolisp_prefix/share/autolisp/site-lisp/autolisp-spec"
+)
+export TRUSTEDPATHS="$(IFS=';' ; printf '%s' "${pjb_autolisp_trustedpaths[*]}")"
+unset pjb_autolisp_prefix pjb_autolisp_epuree pjb_autolisp_trustedpaths
