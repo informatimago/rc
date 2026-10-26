@@ -584,16 +584,14 @@ WELCOME TO EMACS!
 
 ;; (setq shell-file-name "c:/msys64/usr/bin/bash.exe")
 
-(cl-case system-type
-         ((windows-nt)
-          (let ((bashes '("C:/msys64/usr/bin/bash.exe")))
-            (while bashes
-                   (let ((bash (pop bashes)))
-                     (when (file-exists-p bash)
-                       (setf shell-file-name bash
-                             bashes nil))))))
-         (otherwise
-          (setq shell-file-name "/usr/bin/bash")))
+(let ((bashes (cl-case system-type
+                ((windows-nt) '("C:/msys64/usr/bin/bash.exe"))
+                (otherwise    '("/bin/bash" "/usr/bin/bash")))))
+  (while bashes
+         (let ((bash (pop bashes)))
+           (when (file-executable-p bash)
+             (setf shell-file-name bash
+                   bashes nil)))))
 (message "shell-file-name = %S"  shell-file-name)
 
 (setf *pjb-tab-width-alist*
