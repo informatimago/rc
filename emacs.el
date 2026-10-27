@@ -91,6 +91,15 @@ so no spurious // appears, and ~ and .. in the result are resolved."
          *rc-pathname*           (expand-file-name (concat *user-homedir-pathname* "rc/"))
          default-directory *user-homedir-pathname*))
   ((cygwin windows-nt msys2)
+   ;; The Windows shell setup exports TEMP/TMP as Windows paths
+   ;; (C:/msys64/tmp) for native Windows programs; a cygwin/msys2 emacs
+   ;; takes them as relative file names, so convert them back to POSIX.
+   (when (and (eq system-type 'cygwin)
+              (fboundp #'cygwin-convert-file-name-from-windows)
+              (string-match "\\`[A-Za-z]:[/\\\\]" temporary-file-directory))
+     (setq temporary-file-directory
+           (file-name-as-directory
+            (cygwin-convert-file-name-from-windows temporary-file-directory))))
    ;; We have different HOME directories
    ;; but we store a single RC directory and a single PJB-EMACS-SOURCES directory.
    (cl-case (and (boundp 'FROM) FROM)
