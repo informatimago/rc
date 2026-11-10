@@ -4,6 +4,7 @@
 ;;; Code:
 
 (message "~/rc/emacs.el %s" "Pascal J. Bourguignon's emacs startup file.")
+(require 'cl-lib)
 
 ;; (setf debug-on-quit t
 ;;       debug-on-error t)

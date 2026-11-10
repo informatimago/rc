@@ -49,3 +49,21 @@ else
 fi
 
 unset pjb_bashrc_dir pjb_bashrc_source pjb_bashrc_target
+
+if [ $DISPLAY = ":0.0" ] ; then
+    setxkbmap -option "ctrl:nocaps"
+fi
+
+
+# >>> nvwb
+# Sourcing the nvwb wrapper function was added during the NVIDIA AI Workbench installation and
+# is required for NVIDIA AI Workbench to function properly. When uninstalling
+# NVIDIA AI Workbench, it will be removed. 
+
+source $HOME/.local/share/nvwb/nvwb-wrapper.sh
+# >>> nvwb
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
