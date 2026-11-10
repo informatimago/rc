@@ -50,8 +50,8 @@ fi
 
 unset pjb_bashrc_dir pjb_bashrc_source pjb_bashrc_target
 
-if [ $DISPLAY = ":0.0" ] ; then
-    setxkbmap -option "ctrl:nocaps"
+if [ "${DISPLAY:-}" = ":0.0" ] && command -v setxkbmap >/dev/null ; then
+    setxkbmap -option "ctrl:nocaps" 2>/dev/null
 fi
 
 
@@ -60,7 +60,7 @@ fi
 # is required for NVIDIA AI Workbench to function properly. When uninstalling
 # NVIDIA AI Workbench, it will be removed. 
 
-source $HOME/.local/share/nvwb/nvwb-wrapper.sh
+[ -r "$HOME/.local/share/nvwb/nvwb-wrapper.sh" ] && source "$HOME/.local/share/nvwb/nvwb-wrapper.sh"
 # >>> nvwb
 
 
