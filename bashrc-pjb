@@ -15,6 +15,10 @@ function bashrc_pjb_set_environment(){
     #  prebuilts/misc/linux-x86/ccache/ccache -M 100G
     export OUT_DIR_COMMON_BASE=/src/android/out
 
+    if [ $(uname) = Darwin ] ; then
+        export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21-macports.jdk/Contents/Home
+    fi
+
     # source "$HOME/src/android/android.sh"
 
     if [ -d $HOME/opt/jdk/bin ] ; then
