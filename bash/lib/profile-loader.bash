@@ -3,7 +3,11 @@
 function pjb_bash_load_profiles(){
     local os_profile profile
 
-    if [ "${PJB_BASH_PROFILES_LOADED:-0}" -eq 1 ] ; then
+    # Load once per shell (bash_profile then bashrc), but again in each
+    # child shell: aliases, functions and arrays are not inherited.  The
+    # flag is not exported; unset the old exported one from older sessions.
+    unset PJB_BASH_PROFILES_LOADED
+    if [ "${pjb_bash_profiles_loaded:-0}" -eq 1 ] ; then
         return
     fi
 
@@ -19,5 +23,5 @@ function pjb_bash_load_profiles(){
 
     profile="$(pjb_bash_profile_name)"
     pjb_bash_source_if_readable "$PJB_BASH_RC_ROOT/bash/profiles/${profile}.bash"
-    export PJB_BASH_PROFILES_LOADED=1
+    pjb_bash_profiles_loaded=1
 }
