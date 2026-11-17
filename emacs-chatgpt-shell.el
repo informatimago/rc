@@ -24,4 +24,3 @@
 (when (fboundp 'ob-dall-e-shell-setup)
   (ob-dall-e-shell-setup))
 
-(auth-source-pick-first-password :host "gitlab.example.com" :port "gitlab")

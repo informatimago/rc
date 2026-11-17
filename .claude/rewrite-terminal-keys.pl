@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-my $path = '/c/msys64/home/user/rc/emacs-common.el';
+my $path = "$ENV{HOME}/rc/emacs-common.el";
 open my $fh, '<:raw', $path or die "open $path: $!";
 local $/;  # slurp
 my $data = <$fh>;

@@ -6,7 +6,5 @@
     path = ~/rc/git/macos.conf
     path = ~/rc/git/aliases.conf
     path = ~/rc/git/user-pjb.conf
-
-[includeIf "gitdir:~/works/client/"]
-    path = ~/works/client/.gitconfig
+    path = ~/rc/private/git/gitconfig
 

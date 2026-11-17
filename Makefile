@@ -112,9 +112,9 @@ $(INFO_DIR_FILE): $(INFO_FILES)
 	@rm -f $@
 	@for f in $(INFO_FILES) ; do install-info $$f $@ ; done
 
-encrypt:notes.txt.gpg
+encrypt:private/notes.txt.gpg
 decrypt:notes.txt
-notes.txt:notes.txt.gpg
-	gpg -d notes.txt.gpg > notes.txt
-notes.txt.gpg: notes.txt
-	gpg -c notes.txt
+notes.txt:private/notes.txt.gpg
+	gpg -d private/notes.txt.gpg > notes.txt
+private/notes.txt.gpg: notes.txt
+	gpg -c -o private/notes.txt.gpg notes.txt

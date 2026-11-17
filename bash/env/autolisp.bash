@@ -11,7 +11,6 @@ pjb_autolisp_prefix=/opt/local
 pjb_autolisp_epuree="$pjb_autolisp_prefix/share/autolisp/epuree"
 pjb_autolisp_trustedpaths=(
     "$HOME/src/public/autocad-gui-prototype/..."
-    "$HOME/works/client/..."
     "$HOME/src/ogamita/outils-autolisp/..."
     "$HOME/src/public/autolisp/..."
     "$pjb_autolisp_prefix/share/autolisp/..."
@@ -68,5 +67,10 @@ pjb_autolisp_trustedpaths=(
     "$pjb_autolisp_prefix/share/autolisp/site-lisp"
     "$pjb_autolisp_prefix/share/autolisp/site-lisp/autolisp-spec"
 )
+# Trusted paths for client work trees: private companion repository.
+if [ -r "$PJB_BASH_RC_ROOT/private/bash/env/autolisp.bash" ] ; then
+    source "$PJB_BASH_RC_ROOT/private/bash/env/autolisp.bash"
+    pjb_autolisp_trustedpaths+=( "${pjb_autolisp_trustedpaths_private[@]}" )
+fi
 export TRUSTEDPATHS="$(IFS=';' ; printf '%s' "${pjb_autolisp_trustedpaths[*]}")"
 unset pjb_autolisp_prefix pjb_autolisp_epuree pjb_autolisp_trustedpaths

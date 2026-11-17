@@ -22,6 +22,12 @@ function pjb_bash_load_profiles(){
     [ -n "$os_profile" ] && pjb_bash_source_if_readable "$PJB_BASH_RC_ROOT/bash/profiles/${os_profile}.bash"
 
     profile="$(pjb_bash_profile_name)"
-    pjb_bash_source_if_readable "$PJB_BASH_RC_ROOT/bash/profiles/${profile}.bash"
+    # Host profiles that are not public live in the private companion
+    # repository (rc-private, cloned in ./private).
+    if [ -r "$PJB_BASH_RC_ROOT/bash/profiles/${profile}.bash" ] ; then
+        source "$PJB_BASH_RC_ROOT/bash/profiles/${profile}.bash"
+    else
+        pjb_bash_source_if_readable "$PJB_BASH_RC_ROOT/private/bash/profiles/${profile}.bash"
+    fi
     pjb_bash_profiles_loaded=1
 }

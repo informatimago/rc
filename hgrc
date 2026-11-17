@@ -2,7 +2,7 @@
 
 
 [ui]
-username="Pascal Bourguignon <pjb@informatimago.com>"
+username="Pascal J. Bourguignon <pjb@informatimago.com>"
 verbose=True
 merge=internal:merge
 

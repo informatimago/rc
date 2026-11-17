@@ -17,7 +17,7 @@
 
 path_add "/c/windows/System32"
 path_add "/c/Windows/System32/WindowsPowerShell/v1.0"
-path_add "/C/Users/user/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
+path_add "/C/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
 
 # Git for Windows
 path_add "/c/Program Files/Git/bin"

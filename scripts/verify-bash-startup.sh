@@ -19,7 +19,7 @@ ln -s "$repo_root/bashrc-engine" "$test_home/rc/bashrc-engine"
 
 cp -R "$repo_root/bash" "$test_home/rc/bash"
 
-for file in bashrc-pjb bashrc-mts bashrc-employer-f bashrc-employer-b bashrc-employer-a bashrc-nvidia bashrc-google-cloud; do
+for file in bashrc-pjb bashrc-nvidia bashrc-google-cloud; do
     if [ -r "$repo_root/$file" ] ; then
         cp "$repo_root/$file" "$test_home/rc/$file"
     fi

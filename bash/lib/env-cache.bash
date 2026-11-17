@@ -18,10 +18,7 @@ function pjb_bash_env_cache_sources(){
         "$PJB_BASH_RC_ROOT/bash" \
         "$PJB_BASH_RC_ROOT/bashrc-engine" \
         "$PJB_BASH_RC_ROOT/bashrc-pjb" \
-        "$PJB_BASH_RC_ROOT/bashrc-mts" \
-        "$PJB_BASH_RC_ROOT/bashrc-employer-f" \
-        "$PJB_BASH_RC_ROOT/bashrc-employer-a" \
-        "$PJB_BASH_RC_ROOT/bashrc-employer-b" \
+        "$PJB_BASH_RC_ROOT/private" \
         "$PJB_BASH_RC_ROOT/bashrc-nvidia" \
         "$PJB_BASH_RC_ROOT/bashrc-google-cloud" \
         "$PJB_BASH_RC_ROOT/bashrc-keys"

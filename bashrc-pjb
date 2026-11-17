@@ -29,16 +29,18 @@ function bashrc_pjb_set_environment(){
 
     case "$(uname)" in
     MINGW*)
-        export WOME="/c/users/user"
-        export SR="$WOME/works/client"
-        export ROME="/c/users/user/AppData/Roaming"
+        export WOME="/c/users/${USERNAME:-$USER}"
+        export ROME="/c/users/${USERNAME:-$USER}/AppData/Roaming"
         ;;
     *)
         export WOME="$HOME"
-        export SR="$WOME/works/client"
         export ROME="$HOME"
         ;;
     esac
+    # Work-tree variables for client projects: private companion repository.
+    if [ -r "${PJB_BASH_RC_ROOT:-$HOME/rc}/private/bashrc-pjb-env" ] ; then
+        . "${PJB_BASH_RC_ROOT:-$HOME/rc}/private/bashrc-pjb-env"
+    fi
 }
 
 bashrc_pjb_set_environment

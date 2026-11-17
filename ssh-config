@@ -19,7 +19,7 @@
 
 
 Include "~/.ssh/host-config"
-Include "~/.ssh/host-client"
+Include "~/rc/private/ssh-config"
 
 # GITHUB
     
@@ -38,11 +38,6 @@ Host patchy+github.com
     User                    git
     IdentityFile            ~/.ssh/patchymcpatchface-id_rsa
 
-Host employer-c+github.com
-    HostName                github.com
-    User                    git
-    IdentityFile            ~/.ssh/employer-c+id_rsa
-
 # GITLAB
 
 Host gitlab.com
@@ -50,10 +45,6 @@ Host gitlab.com
     User                    git
     IdentityFile            ~/.ssh/gitlab
 
-Host client-e+gitlab.com
-    Hostname                gitlab.com
-    User                    git
-    IdentityFile            ~/.ssh/pjb-thalassa--gitlab-client-e
     
 # Other git collections:
     
@@ -101,41 +92,6 @@ Host freeshell freeshell.org
     User                    pjb
     IdentityFile            ~/.ssh/sdf-rsa
 #    IdentityFile            ~/.ssh/pjb-sdf-ed25519
-
-Host proteus
-    HostName                proteus.client-c.fr
-    User                    pjb
-    IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
-
-Host proteus.client-c.fr
-    HostName                proteus.client-c.fr
-    User                    pjb
-    IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
-
-Host proteus.client-c.fr
-    HostName                proteus.client-c.fr
-    User                    admin
-    IdentityFile            ~/.ssh/pjb-proteus-client-c@despina
-
-Host proteus
-    HostName                proteus.client-c.fr
-    User                    debian
-    IdentityFile            ~/.ssh/ovh-proteus-rsa
-
-Host proteus.client-c.fr
-    HostName                proteus.client-c.fr
-    User                    debian
-    IdentityFile            ~/.ssh/ovh-proteus-rsa
-
-Host gitlab.client-c.fr
-    HostName                gitlab.client-c.fr
-    User                    git
-    IdentityFile            ~/.ssh/client-c
-
-Host proteus.client-c.fr
-    HostName                proteus.client-c.fr
-    User                    pjb
-    IdentityFile            ~/.ssh/proteus-client-c
 
 
 Host vmdebian

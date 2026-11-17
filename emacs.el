@@ -138,7 +138,13 @@ so no spurious // appears, and ~ and .. in the result are resolved."
        (if (boundp 'aquamacs-version)
            (cons 'aquamacs  (rc "emacs-aquamacs.el"))
          (or (let* ((hostname-configuration-map
-                     (list (cons "^winhost"  (rc "emacs-client.el"))))
+                     ;; Hosts that are not public are mapped by the private
+                     ;; companion repository (rc-private, cloned in ./private).
+                     (let ((private (rc "private/emacs-hosts.el")))
+                       (when (file-readable-p private)
+                         (load private nil t))
+                       (and (boundp '*pjb-private-hostname-configuration-map*)
+                            (symbol-value '*pjb-private-hostname-configuration-map*))))
                     (hostname (hostname))
                     (conf  hostname-configuration-map))
                (while (and conf (not (let ((case-fold-search t))

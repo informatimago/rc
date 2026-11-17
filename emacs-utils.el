@@ -2,10 +2,9 @@
 ;;;
 ;;; Commentary:
 ;;;
-;;; These functions and commands were gathered from the now-obsolete
-;;; per-host configuration files (emacs-employer-b, emacs-employer-a,
-;;; emacs-employer-c, emacs-employer-d, emacs-employer-f), which were retired in commit
-;;; 6eea2db and removed in e56350a.  Only the generic, reusable bits
+;;; These functions and commands were gathered from now-obsolete
+;;; per-host configuration files, which were retired and removed.
+;;; Only the generic, reusable bits
 ;;; were kept here; host-specific paths, hooks and keybindings were
 ;;; left behind (they remain in git history if ever needed).
 ;;;
@@ -39,7 +38,7 @@
 ;; Obsolete:
 ;;
 ;; ;;;============================================================================
-;; ;;; Trackpad / pointing devices (Linux, xinput)         [from emacs-employer-f]
+;; ;;; Trackpad / pointing devices (Linux, xinput)         [from an old per-host file]
 ;; ;;;============================================================================
 ;; ;;; Suggested hooks (left to the host config):
 ;; ;;;   (add-hook 'focus-in-hook  'turn-off-trackpad)
@@ -72,7 +71,7 @@
 ;;     (shell-command (format "xinput enable %S" pad))))
 
 ;;;============================================================================
-;;; ASN.1 OCTET STRING <-> Emacs string                 [from emacs-employer-f]
+;;; ASN.1 OCTET STRING <-> Emacs string                 [from an old per-host file]
 ;;;============================================================================
 
 (defun string-to-asn1-octet-string (string)
@@ -119,7 +118,7 @@
       (insert (format "%S" (string-from-asn1-octet-string os))))))
 
 ;;;============================================================================
-;;; comint / shell output cleanup                       [from emacs-employer-b]
+;;; comint / shell output cleanup                       [from an old per-host file]
 ;;;============================================================================
 
 (defun comint-remove-esc-b-filter (_string)
@@ -132,7 +131,7 @@ Suitable for `comint-output-filter-functions'."
        (delete-region (match-beginning 0) (match-end 0))))))
 
 ;;;============================================================================
-;;; Log-file viewing modes                       [from emacs-employer-a/employer-d]
+;;; Log-file viewing modes                       [from an old per-host file]
 ;;;============================================================================
 
 (defface gherkin-error   '((default (:foreground "red")))    "Error in Gherkin logs.")
@@ -182,7 +181,7 @@ Suitable for `comint-output-filter-functions'."
       (5 font-lock-comment-face)))))
 
 ;;;============================================================================
-;;; Region / line editing                        [from emacs-employer-a/employer-d]
+;;; Region / line editing                        [from an old per-host file]
 ;;;============================================================================
 
 (defun re-delete-lines-between (start end start-re end-re)
@@ -206,7 +205,7 @@ through the line of the next match of END-RE."
     (widen)))
 
 ;;;============================================================================
-;;; hideshow for lua-mode and nxml-mode          [from emacs-employer-a/employer-d]
+;;; hideshow for lua-mode and nxml-mode          [from an old per-host file]
 ;;;============================================================================
 
 (defun my-nxml-forward-element ()
@@ -236,7 +235,7 @@ through the line of the next match of END-RE."
                            hs-special-modes-alist :key 'car))))
 
 ;;;============================================================================
-;;; Outline minor-mode easy bindings                    [from emacs-employer-d]
+;;; Outline minor-mode easy bindings                    [from an old per-host file]
 ;;;============================================================================
 
 (defun outline-easy-bindings-meat ()
@@ -245,7 +244,7 @@ through the line of the next match of END-RE."
   (require 'outline-mode-easy-bindings))
 
 ;;;============================================================================
-;;; Dated TODO comment inserter                   [from emacs-employer-a]
+;;; Dated TODO comment inserter                   [from an old per-host file]
 ;;;============================================================================
 ;;; Suggested bindings (left to the host config), e.g.:
 ;;;   (global-set-key (kbd "C-c t ;") 'insert-dated-todo-comment)
@@ -283,7 +282,7 @@ START and END are the region bounds."
       (set-marker endm nil))))
 
 ;;;============================================================================
-;;; Trailing whitespace checks                    [from emacs-employer-a]
+;;; Trailing whitespace checks                    [from an old per-host file]
 ;;;============================================================================
 ;;; Suggested hooks (left to the host config):
 ;;;   (add-hook 'find-file-hook   'pjb-check-trailing-whitespace-meat)
@@ -314,7 +313,7 @@ START and END are the region bounds."
                     (buffer-name))))))
 
 ;;;============================================================================
-;;; C comment helpers                             [from emacs-employer-a]
+;;; C comment helpers                             [from an old per-host file]
 ;;;============================================================================
 
 (defun looking-at-c-comment ()
@@ -331,7 +330,7 @@ START and END are the region bounds."
       comment))
 
 ;;;============================================================================
-;;; Bulk reindent of source trees                       [from emacs-employer-c]
+;;; Bulk reindent of source trees                       [from an old per-host file]
 ;;;============================================================================
 
 (defun reindent-all-java (dirpath)

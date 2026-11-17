@@ -54,7 +54,6 @@ function pjb_bash_maybe_load_gnustep(){
 function pjb_bash_load_optionals(){
     pjb_bash_maybe_load_rvm
     case "${PJB_BASH_HOSTNAME}" in
-        *employer-a.local) ;;
         *)
             pjb_bash_maybe_load_shelly
             pjb_bash_maybe_load_gnustep

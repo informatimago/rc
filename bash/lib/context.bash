@@ -54,15 +54,25 @@ if [ -z "${PJB_BASH_ENV_CACHE_FILE:-}" ] ; then
     export PJB_BASH_ENV_CACHE_FILE="$PJB_BASH_CACHE_DIR/env-${PJB_BASH_HOSTNAME}-${PJB_BASH_ENV_CACHE_KEY}.bash"
 fi
 
+# Hosts that are not public (client and employer machines) are mapped
+# by the private companion repository (rc-private, cloned in ./private).
+if [ -r "$PJB_BASH_RC_ROOT/private/bash/context.bash" ] ; then
+    source "$PJB_BASH_RC_ROOT/private/bash/context.bash"
+fi
+
 function pjb_bash_profile_name(){
+    local private_profile=''
+    if declare -F pjb_bash_private_profile_name >/dev/null ; then
+        private_profile="$(pjb_bash_private_profile_name)"
+    fi
+    if [ -n "$private_profile" ] ; then
+        printf '%s\n' "$private_profile"
+        return
+    fi
     case "$PJB_BASH_HOSTNAME" in
         larissa*)          printf '%s\n' host-larissa ;;
         thalassa*)         printf '%s\n' host-thalassa ;;
         cecil*)            printf '%s\n' host-cecil ;;
-        winhost)          printf '%s\n' host-client ;;
-        fr*)               printf '%s\n' host-employer-b ;;
-        vm-u1404|employer-f-host) printf '%s\n' host-employer-f ;;
-        *employer-a.local)  printf '%s\n' host-employer-a ;;
         *)                 printf '%s\n' host-default ;;
     esac
 }

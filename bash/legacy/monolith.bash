@@ -744,8 +744,6 @@ function bashrc_load_optionals(){
 
     # Load if available, unless on some specific hosts:
     case "${hostname}" in
-    *employer-a.local)
-        true ;;
     *)
         # wget_cookies=( --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020513'
         #                --cookies=on --load-cookies /home/pascal/.mozilla/pascal/iolj6mzg.slt/cookies.txt )
@@ -1582,13 +1580,6 @@ function cdmts(){        cd "$HOME/works/mts/"                          ; }
 function cdpa(){         cd "$HOME/works/patchwork/src/patchwork"       ; }
 function cdui(){         cd "$HOME/works/patchwork/src/mclgui"          ; }
 
-function cdsb(){         cd "$HOME/works/client-c"                          ; }
-function cdsmt(){        cd "$HOME/works/client-c/smt"                      ; }
-function cdball(){       cd "$HOME/works/client-c/ball"                     ; }
-function cdbox(){        cd "$HOME/works/client-c/laboite"                  ; }
-function cdmini(){       cd "$HOME/works/client-c/stockme-minidemo-ios"     ; }
-function cdmicro(){      cd "$HOME/works/client-c/stockme-microdemo-ios"    ; }
-
 function cdschmidt(){    cd "$HOME/works/synth/schmidt"                 ; }
 function cdschmidtlib(){ cd "$HOME/works/synth/schmidt/sources/SchmidtSynthesizerLibrarian/SchmidtSynthesizerLibrarian"  ; }
 
@@ -1598,23 +1589,19 @@ function panic(){ echo -e "\n\n\n\n\n                                    \033[;5
 
 
 function bashrc_load_host_specific_bashrc(){
+    # Hosts and work trees that are not public are handled by the
+    # private companion repository (rc-private, cloned in ./private).
+    bashrc_source_if_readable "${bashrc_dir}/private/bashrc-private"
+    if declare -F bashrc_private_host_specific_bashrc >/dev/null ; then
+        bashrc_private_host_specific_bashrc
+        return
+    fi
     case "${hostname}" in
     (larissa*)
         bashrc_source_if_readable "${bashrc_dir}/bashrc-nvidia"
-        bashrc_source_if_readable "${bashrc_dir}/bashrc-mts"
-        ;;
-    (*employer-a.local)
-        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-a"
-        ;;
-    (vm-u1404|employer-f-host)
-        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-f"
-        ;;
-    (fr*)
-        bashrc_source_if_readable "${bashrc_dir}/bashrc-employer-b"
         ;;
     *)
         bashrc_source_if_readable "${bashrc_dir}/bashrc-pjb"
-        bashrc_source_if_readable "${bashrc_dir}/bashrc-mts"
         ;;
     esac
 }

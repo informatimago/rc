@@ -249,7 +249,7 @@
       "#macintosh" "#macos9lives" "#qlisp" "#sicl" "#sicp" "#slime"
       "#space" "#swift-lang" "#synthesizers" "#tesla")
      ("disabled.freenode.org" "#macports") ("esper.net" "#SpaceX")
-     ("client-c.fr" "#laboite" "#client-c") ("oftc.net" "#uml")))
+     ("oftc.net" "#uml")))
  '(erc-autojoin-delay 60)
  '(erc-autojoin-mode t nil (erc-join))
  '(erc-autojoin-timing 'ident)
@@ -1146,10 +1146,6 @@
 
       org-agenda-files       (mapcar (function home)
                                      '("rc/notes.txt"
-                                       "works/client-c/todo.org"
-                                       "works/client-c/smt/sources/README.org"
-                                       "works/client-c/laboite/specifications/components.org"
-                                       "works/client-c/laboite/analysis/controller.org"
                                        "works/manif/TODO.org"
                                        "works/synth/schmidt/todo.txt"
                                        "works/enolaba/macosx/src/TODO"
@@ -1261,7 +1257,6 @@
 (load (rc "emacs-hyperspec.el"))
 (load (rc "emacs-redshank.el"))
 (load (rc "emacs-objective-c.el"))
-(load (rc "emacs-android.el"))
 (load (rc "emacs-ruby.el"))
 (load (rc "emacs-cobol.el"))
 (load (rc "emacs-authinfo.el")) ; get-apikey / get-authinfo-password (needed by emacs-erc)
@@ -1458,9 +1453,7 @@
 
 (defparameter *pjb-trailing-whitespace-exclusions*
   '("/pjb/works/mts/Harag/"
-    "/pjb/works/mts/cl-naive-store/"
-    "/pjb/works/employer-e/"
-    "/pjb/works/client/")
+    "/pjb/works/mts/cl-naive-store/")
   "A list of path regexps to exclude warning for trailing whitespaces.")
 
 
@@ -1632,13 +1625,6 @@
 
 
 
-(add-to-list 'auto-mode-alist
-             '("/Users/pjb/works/client/.*\\.lsp\\'" . autocad-lisp-mode))
-
-(modify-coding-system-alist
- 'file
- "/Users/pjb/works/client/.*\\.lsp\\'"
- 'windows-1252-dos)
 
 
 
@@ -1701,6 +1687,12 @@
 ;; https://code.google.com/p/android-emacs-toolkit/
 
 (provide 'emacs-pjb)
+;; Private additions (client work trees and hosts), from the rc-private
+;; companion repository cloned in ~/rc/private, when present.
+(let ((private (rc "private/emacs-private.el")))
+  (when (file-readable-p private)
+    (load private)))
+
 ;; Local Variables:
 ;; coding: utf-8
 ;; eval: (flycheck-mode -1)

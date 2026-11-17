@@ -74,8 +74,3 @@ ENV['VLM_TOOLCHAIN'] = '/usr/bin/'
 ####         ####
 printf "Pascal, Welcome to the IRB!\n\n"
 #### THE END ####
-
-Dir.chdir "/build/pbourguignon/clang/work/build.devel/utest-nkernel"
-Dir.pwd
-load '/home/pbourguignon/works/employer-b/Ceedling/bin/ceedling.irb'
-ceedling 'gcov:all'

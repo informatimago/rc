@@ -25,7 +25,8 @@ Second-pass refactor applied on 2026-03-19:
 
 - `bashrc-keys` is a plain sourced file and should be treated as local secret material, not as a normal tracked config fragment.
 - `.bash_env` generation still happens during shell startup and still mixes cache generation with config loading.
-- host-specific files such as `bashrc-pjb`, `bashrc-mts`, `bashrc-employer-a`, `bashrc-employer-b` combine unrelated concerns and should be split further.
+- host-specific files such as `bashrc-pjb` combine unrelated concerns and should be split further.
+- configuration for client and employer machines lives in a private companion repository, cloned in `private/` (ignored here); the public files load it only when it is present.
 - `bashrc-engine` still contains a large amount of legacy aliases/functions that are useful interactively but make the file hard to audit.
 
 ## Proposed reorganization

@@ -14,7 +14,7 @@ if [ -r "$HOME/.config/host-path" ] ; then
 fi
 
 # pjb_bash_profile_name is defined in bash/lib/context.bash and
-# returns something like "host-client"; reuse it here.
+# returns something like "host-thalassa"; reuse it here.
 if declare -F pjb_bash_profile_name >/dev/null ; then
     _pjb_host="$(pjb_bash_profile_name)"
     if [ -r "$PJB_BASH_RC_ROOT/bash/path.d/host/${_pjb_host}.bash" ] ; then
