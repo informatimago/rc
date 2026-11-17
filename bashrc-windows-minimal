@@ -1,0 +1,8 @@
+# -*- mode:shell -*-
+# Minimal MS-Windows (MSYS2) shell setup.  Its contents are host-specific
+# and live in the private companion repository (rc-private), cloned in
+# ./private.  This stub keeps ~/.bashrc files that source
+# "$RC/bashrc-windows-minimal" working.
+if [ -r "${RC:-$HOME/rc}/private/bashrc-windows-minimal" ] ; then
+    source "${RC:-$HOME/rc}/private/bashrc-windows-minimal"
+fi
