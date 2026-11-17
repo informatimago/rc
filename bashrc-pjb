@@ -29,8 +29,8 @@ function bashrc_pjb_set_environment(){
 
     case "$(uname)" in
     MINGW*)
-        export WOME="/c/users/${USERNAME:-$USER}"
-        export ROME="/c/users/${USERNAME:-$USER}/AppData/Roaming"
+        export WOME="/c/users/${USERNAME:-${HOME##*/}}"
+        export ROME="/c/users/${USERNAME:-${HOME##*/}}/AppData/Roaming"
         ;;
     *)
         export WOME="$HOME"

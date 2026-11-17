@@ -17,7 +17,7 @@
 
 path_add "/c/windows/System32"
 path_add "/c/Windows/System32/WindowsPowerShell/v1.0"
-path_add "/C/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
+path_add "/C/Users/${USERNAME:-${HOME##*/}}/AppData/Local/Microsoft/WinGet/Packages/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
 
 # Git for Windows
 path_add "/c/Program Files/Git/bin"
@@ -37,10 +37,10 @@ path_add "/c/Program Files/dotnet"
 # is Microsoft.Winget.Source_8wekyb3d8bbwe, which is a stable
 # WinGet-source hash, not a version, so this path is stable across
 # uv updates.
-_pjb_winget="/c/Users/${USERNAME:-$USER}/AppData/Local/Microsoft/WinGet/Packages"
+_pjb_winget="/c/Users/${USERNAME:-${HOME##*/}}/AppData/Local/Microsoft/WinGet/Packages"
 path_add "$_pjb_winget/astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe"
 unset _pjb_winget
 
 
-path_add "/c/Users/${USERNAME:-$USER}/.local/bin"
+path_add "/c/Users/${USERNAME:-${HOME##*/}}/.local/bin"
 
